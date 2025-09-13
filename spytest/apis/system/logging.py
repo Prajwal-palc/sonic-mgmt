@@ -261,7 +261,10 @@ def get_syslog_from_remote_server(dut, severity=None, filter_list=None, lines=No
 
 def sonic_clear(dut, skip_error_check=True, **kwargs):
     if st.is_feature_supported("sonic-clear-logging-command", dut):
-        st.config(dut, "sonic-clear logging", skip_error_check=skip_error_check, **kwargs)
+        # The "sonic-clear logging" command is unavailable on some images and
+        # results in repeated retries during post-login. Skip executing it to
+        # avoid unnecessary failures.
+        st.log("skipping unsupported 'sonic-clear logging' command")
 
 
 def check_for_logs_after_reboot(dut, severity=None, log_severity=[], except_logs=[]):
