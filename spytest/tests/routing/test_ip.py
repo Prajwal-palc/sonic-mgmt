@@ -61,23 +61,26 @@ data.d2t1_ip = "20.20.20.1"
 data.t1d2_ip = "20.20.20.2"
 data.d1_static_route = "20.20.20.0/24"
 data.d2_static_route = "10.10.10.0/24"
+data.tgen_present = False
 
 
 @pytest.fixture(scope="module", autouse=True)
 def ip_module_hooks(request):
     global vars
-    vars = st.ensure_min_topology("D1T1:2", "D2T1:2", "D1D2:4")
+    data.tgen_present = bool(st.get_tg_names())
+    topo_requirements = ["D1D2:4"]
+    if data.tgen_present:
+        topo_requirements.extend(["D1T1:2", "D2T1:2"])
+
+    vars = st.ensure_min_topology(*topo_requirements)
+    if not vars:
+        pytest.skip("Required DUT topology is not available")
     platform = basic_obj.get_hwsku(vars.D1)
     data.rif_supported_1 = rif_support_check(vars.D1, platform=platform.lower())
     platform = basic_obj.get_hwsku(vars.D2)
     data.rif_supported_2 = rif_support_check(vars.D2, platform=platform.lower())
     data.rate_pps = tgapi.normalize_pps(2000)
     data.pkts_per_burst = tgapi.normalize_pps(2000)
-
-    # delete me
-    st.log(data.ip4_addr)
-    st.log(data.ip6_addr)
-    # delete me
 
     # IP module configuration
     st.log("Vlan routing configuration on D1D2P1,D2D1P1")
@@ -105,21 +108,23 @@ def ip_module_hooks(request):
     ipfeature.config_ip_addr_interface(vars.D2, vars.D2D1P4, data.ip4_addr[7], 24, family=data.af_ipv4)
     ipfeature.config_ip_addr_interface(vars.D1, vars.D1D2P4, data.ip6_addr[6], 96, family=data.af_ipv6)
     ipfeature.config_ip_addr_interface(vars.D2, vars.D2D1P4, data.ip6_addr[7], 96, family=data.af_ipv6)
-    st.log("configuring the dut1 ports connected to TGen with ip addresses")
-    ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P1, data.ip4_addr[1], 24, family=data.af_ipv4)
-    ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P2, data.ip6_addr[1], 96, family=data.af_ipv6)
-    ipfeature.create_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
-                                  family=data.af_ipv6)
-    ipfeature.create_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
-                                  family=data.af_ipv4)
-    st.log("configuring the dut2 ports connected to TGen with ip addresses")
-    ipfeature.config_ip_addr_interface(vars.D2, vars.D2T1P1, data.ip4_addr[8], 24, family=data.af_ipv4)
-    ipfeature.config_ip_addr_interface(vars.D2, vars.D2T1P2, data.ip6_addr[8], 96, family=data.af_ipv6)
+    if data.tgen_present:
+        st.log("configuring the dut1 ports connected to TGen with ip addresses")
+        ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P1, data.ip4_addr[1], 24, family=data.af_ipv4)
+        ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P2, data.ip6_addr[1], 96, family=data.af_ipv6)
+        ipfeature.create_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
+                                      family=data.af_ipv6)
+        ipfeature.create_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
+                                      family=data.af_ipv4)
+        st.log("configuring the dut2 ports connected to TGen with ip addresses")
+        ipfeature.config_ip_addr_interface(vars.D2, vars.D2T1P1, data.ip4_addr[8], 24, family=data.af_ipv4)
+        ipfeature.config_ip_addr_interface(vars.D2, vars.D2T1P2, data.ip6_addr[8], 96, family=data.af_ipv6)
     yield
-    ipfeature.delete_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
-                                  family=data.af_ipv4)
-    ipfeature.delete_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
-                                  family=data.af_ipv6)
+    if data.tgen_present:
+        ipfeature.delete_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
+                                      family=data.af_ipv4)
+        ipfeature.delete_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
+                                      family=data.af_ipv6)
     ipfeature.clear_ip_configuration(st.get_dut_names())
     ipfeature.clear_ip_configuration(st.get_dut_names(), 'ipv6')
     vlan_obj.clear_vlan_configuration(st.get_dut_names())
@@ -129,6 +134,11 @@ def ip_module_hooks(request):
 @pytest.fixture(scope="function", autouse=True)
 def ip_func_hooks(request):
     yield
+
+
+def skip_if_no_tgen():
+    if not data.tgen_present:
+        pytest.skip("Traffic generator is not available for this test")
 
 
 def delete_bgp_router(dut, router_id, as_num):
@@ -157,6 +167,7 @@ def create_bgp_neighbor_route_map_config(dut, local_asn, neighbor_ip, routemap):
 
 
 def create_v4_route(route_count):
+    skip_if_no_tgen()
     dut = vars.D1
 
     route_count = tgapi.normalize_hosts(route_count)
@@ -241,6 +252,7 @@ def create_v4_route(route_count):
 @pytest.mark.inventory(feature='Regression', release='Arlo+')
 @pytest.mark.inventory(testcases=['FtOpSoRtIpv4Fn003'])
 def test_l3_v4_route_po_1():
+    skip_if_no_tgen()
     dut = vars.D1
     asicapi.dump_vlan(dut)
     asicapi.dump_l2(dut)
@@ -254,6 +266,7 @@ def test_l3_v4_route_po_1():
 
 
 def create_v6_route(route_count):
+    skip_if_no_tgen()
     dut = vars.D1
 
     route_count = tgapi.normalize_hosts(route_count)
@@ -406,6 +419,7 @@ def test_ft_ping_v4_v6_after_ip_change_pc():
 @pytest.mark.inventory(testcases=['ft_ip6_static_route_traffic_forward '])
 @pytest.mark.inventory(feature='RIF Counters', release='Cyrus4.0.0', testcases=['RIF_COUNT_FUNC_0031'])
 def test_ft_ip6_static_route_traffic_forward_blackhole():
+    skip_if_no_tgen()
     # Objective - Verify the Ipv6 traffic forwarding over static route.
     tg_handler = tgapi.get_handles_byname("T1D1P2", "T1D2P2")
     tg = tg_handler["tg"]
@@ -506,6 +520,7 @@ def test_ft_ip6_static_route_traffic_forward_blackhole():
 @pytest.mark.inventory(testcases=['RIF_COUNT_FUNC_021'])
 @pytest.mark.inventory(testcases=['RIF_COUNT_FUNC_001'])
 def test_ft_ip_static_route_traffic_forward():
+    skip_if_no_tgen()
     # Objective - Verify the Ipv4 traffic forwarding over IPv4 static route.
     tg_handler = tgapi.get_handles_byname("T1D1P1", "T1D2P1")
     result = 0
@@ -600,6 +615,7 @@ def test_ft_ip_static_route_traffic_forward():
 @pytest.mark.inventory(testcases=['ft_ip_L2_L3_translation'])
 @pytest.mark.inventory(testcases=['ft_ip6_L2_L3_translation'])
 def test_ft_ip_v4_v6_L2_L3_translation():
+    skip_if_no_tgen()
     # Objective - Verify that L2 port to IPv4 L3 port transition and vice-versa is successful.
     st.log("Checking IPv4 ping from {} to {} over  routing interface".format(vars.D1, vars.D2))
     st.wait(5, 'adding delay after creating routing interface')
@@ -761,6 +777,7 @@ def ft_verify_interfaces_order_hooks():
 
 @pytest.fixture(scope="function")
 def ceta_31902_fixture(request):
+    skip_if_no_tgen()
     ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P2, data.ip6_addr[1],
                                        96, family=data.af_ipv6, config="remove")
     vlan_obj.create_vlan(vars.D1, [data.host1_vlan, data.host2_vlan])
