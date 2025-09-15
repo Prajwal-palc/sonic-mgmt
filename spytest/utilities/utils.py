@@ -1347,18 +1347,33 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
                     alt_intf += '.' + m.group(2)
             if alt_intf:
                 intf = alt_intf
+
                 local_ifname_type = 'native'
             else:
                 st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
                 ret_intf_list.append(intf)
                 continue
         if local_ifname_type in ['native', 'none']:
+
+                local_ifname_type = 'native'
+            else:
+                ret_intf_list.append(intf)
+                continue
+        if local_ifname_type in ['native', 'none']:
+             pass
+            else:
+                st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
+                ret_intf_list.append(intf)
+                continue
+        if ifname_type in ['native', 'none']:
             # No error check, as in native mode intf names are same
             if '.' in intf:
                 ret_intf_list.append(intf.replace('Ethernet', 'Eth').replace('PortChannel', 'Po'))
             else:
                 ret_intf_list.append(intf)
+
         elif local_ifname_type == 'alias':
+        if local_ifname_type == 'alias':
             if 'Eth' in intf and '/' not in intf:
                 st.log('Intf: {} is not a valid alias/standard name'.format(intf), dut=dut)
                 ret_intf_list.append(intf)
@@ -1379,6 +1394,7 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
             else:
                 ret_intf_list.append(intf)
         elif local_ifname_type == 'std-ext':
+        if local_ifname_type == 'std-ext':
             if 'Eth' in intf and '/' not in intf:
                 st.log('Intf: {} is not a valid std-ext name'.format(intf), dut=dut)
                 ret_intf_list.append(intf)
