@@ -1350,10 +1350,17 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
 
                 local_ifname_type = 'native'
             else:
+                st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
                 ret_intf_list.append(intf)
                 continue
         if local_ifname_type in ['native', 'none']:
 
+                local_ifname_type = 'native'
+            else:
+                ret_intf_list.append(intf)
+                continue
+        if local_ifname_type in ['native', 'none']:
+             pass
             else:
                 st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
                 ret_intf_list.append(intf)
@@ -1364,6 +1371,8 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
                 ret_intf_list.append(intf.replace('Ethernet', 'Eth').replace('PortChannel', 'Po'))
             else:
                 ret_intf_list.append(intf)
+
+        elif local_ifname_type == 'alias':
         if local_ifname_type == 'alias':
             if 'Eth' in intf and '/' not in intf:
                 st.log('Intf: {} is not a valid alias/standard name'.format(intf), dut=dut)
@@ -1384,6 +1393,7 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
                     ret_intf_list.append(other_name)
             else:
                 ret_intf_list.append(intf)
+        elif local_ifname_type == 'std-ext':
         if local_ifname_type == 'std-ext':
             if 'Eth' in intf and '/' not in intf:
                 st.log('Intf: {} is not a valid std-ext name'.format(intf), dut=dut)
@@ -1406,6 +1416,10 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
                     ret_intf_list.append(intf)
             else:
                 ret_intf_list.append(intf)
+        else:
+            st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
+            ret_intf_list.append(intf)
+            continue
     st.log('Intf-naming: {}, Input Intf: {}, Output Intf: {}'.format(ifname_type, intf_list, ret_intf_list), dut=dut)
     if len(ret_intf_list) == 1:
         return ret_intf_list[0]
