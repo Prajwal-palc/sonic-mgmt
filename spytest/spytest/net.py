@@ -1344,11 +1344,12 @@ class Net(object):
             max_ready_wait = 0
         if not recon:
             if not self.cfg.ut_mode:
-                if not self._is_console_connection(devname, connection_param):
-                    if not self.wa.session_init_completed:
+                if self.wa.is_feature_supported("sonic-clear-logging-command", devname):
+                    if not self._is_console_connection(devname, connection_param):
+                        if not self.wa.session_init_completed:
+                            self.wa.hooks.clear_logging(devname)
+                    else:
                         self.wa.hooks.clear_logging(devname)
-                else:
-                    self.wa.hooks.clear_logging(devname)
             self.do_common_init(devname, phase=0, max_ready_wait=max_ready_wait)
             show_ver_output = self._show_version(devname, "reading initial version")
             self._fetch_mgmt_ip(devname, 5, 2)
