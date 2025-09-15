@@ -18,7 +18,19 @@ pkts_per_burst = rate_pps * 2
 
 def _to_native_intf(dut, intf):
     """Return the kernel interface name for an alias"""
+    if '/' in str(intf):
+        names = st.get_other_names(dut, [intf])
+        if names and names[0] != intf:
+            return names[0]
+        # Fallback: strip alias prefix (e.g. fortyGigE0/4 -> Ethernet4)
+        try:
+            return f"Ethernet{str(intf).split('/')[-1]}"
+        except Exception:
+            pass
+    return intf
+
     return st.get_other_names(dut, [intf])[0] if '/' in str(intf) else intf
+
 
 
 @pytest.fixture(scope="module", autouse=True)
