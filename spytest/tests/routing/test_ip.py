@@ -87,6 +87,11 @@ def ip_module_hooks(request):
     missing = [attr for attr in required_attrs if not hasattr(vars, attr)]
     if missing:
         pytest.skip("Missing required DUT links: {}".format(", ".join(missing)))
+
+    vars = st.ensure_min_topology(*topo_requirements)
+    if not vars:
+        pytest.skip("Required DUT topology is not available")
+
     platform = basic_obj.get_hwsku(vars.D1)
     data.rif_supported_1 = rif_support_check(vars.D1, platform=platform.lower())
     platform = basic_obj.get_hwsku(vars.D2)
