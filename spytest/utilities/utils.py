@@ -1338,9 +1338,18 @@ def convert_intf_name_to_component(dut, intf_list, **kwargs):
     ret_intf_list = list()
     for intf in intf_list:
         if not ('Eth' in intf or 'PortChannel' in intf):
-            st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
-            ret_intf_list.append(intf)
-            continue
+            alt_intf = None
+            m = re.match(r'.*/(\d+)(?:\.(\d+))?$', intf)
+            if m:
+                alt_intf = 'Ethernet{}'.format(m.group(1))
+                if m.group(2):
+                    alt_intf += '.' + m.group(2)
+            if alt_intf:
+                intf = alt_intf
+            else:
+                st.log('Interface naming is applicable to Ethernet or PortChannel only', dut=dut)
+                ret_intf_list.append(intf)
+                continue
         if ifname_type in ['native', 'none']:
             # No error check, as in native mode intf names are same
             if '.' in intf:
