@@ -56,19 +56,11 @@ def get_system_status(dut, service=None, **kwargs):
         if cli_type == 'klish':
             return st.show(dut, kwargs['cmd'], skip_tmpl=True, skip_error_check=True, type=cli_type)
     try:
-        has_status_core = st.is_feature_supported("system-status-core", dut)
-        if has_status_core:
-            if cli_type == 'klish':
-                if 'skip_error_check' not in kwargs:
-                    kwargs['skip_error_check'] = True
-                output = st.show(dut, "show system status core", type=cli_type, **kwargs)
-                if 'Error: Invalid input detected at' in output:
-                    st.log('show system status core is not supported in klish. Trying with click')
-                    cli_type = 'click'
-            if cli_type == 'click':
-                output = st.show(dut, "show system status core", type=cli_type, **kwargs)
-            if "Error: Got unexpected extra argument (core)" in output:
-                has_status_core = False
+        # The "show system status core" command is not supported on SONiC-VS
+        # images and causes the post-login hook to retry indefinitely. Force the
+        # generic "show system status" path instead of attempting the "core"
+        # variant.
+        has_status_core = False
         if not has_status_core:
             if cli_type == 'klish':
                 if 'skip_error_check' not in kwargs:
