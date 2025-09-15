@@ -8,6 +8,13 @@ from spytest import batch
 import utilities.common as utils
 
 
+def _calculate_percentage(used, total):
+    """Return percentage value for used versus total, guarding against divide-by-zero."""
+    if total > 0:
+        return round((used / total) * 100)
+    return 0
+
+
 def generate_msg_coverage_report(consolidated=False, logs_path=None):
 
     if not st.is_feature_supported("gnmi"):
@@ -262,83 +269,76 @@ def generate_msg_coverage_report(consolidated=False, logs_path=None):
                 row.extend(get_attr_stats_row(attr_stats[msg]["rows"][attr]))
                 attr_stats_row.append(row)
             attr_summary = ["RESULT"]
-            attr_stats[msg]['get_coverage'] = round(attr_stats[msg]['used_get'] / attr_stats[msg]['total_get'] * 100)
-            attr_summary.append(f"{attr_stats[msg]['used_get']}/{attr_stats[msg]['total_get']}({round(attr_stats[msg]['used_get']/attr_stats[msg]['total_get']*100)}%)")
+            attr_stats[msg]['get_coverage'] = _calculate_percentage(attr_stats[msg]['used_get'], attr_stats[msg]['total_get'])
+            attr_summary.append(f"{attr_stats[msg]['used_get']}/{attr_stats[msg]['total_get']}({attr_stats[msg]['get_coverage']}%)")
+            attr_stats[msg]['create_coverage'] = _calculate_percentage(attr_stats[msg]['used_create'], attr_stats[msg]['total_create'])
             if attr_stats[msg]['total_create'] > 0:
-                attr_stats[msg]['create_coverage'] = round(attr_stats[msg]['used_create'] / attr_stats[msg]['total_create'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_create']}/{attr_stats[msg]['total_create']}({attr_stats[msg]['create_coverage']}%)")
             else:
                 attr_summary.append('N/A')
+            attr_stats[msg]['replace_coverage'] = _calculate_percentage(attr_stats[msg]['used_replace'], attr_stats[msg]['total_replace'])
             if attr_stats[msg]['total_replace'] > 0:
-                attr_stats[msg]['replace_coverage'] = round(attr_stats[msg]['used_replace'] / attr_stats[msg]['total_replace'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_replace']}/{attr_stats[msg]['total_replace']}({attr_stats[msg]['replace_coverage']}%)")
             else:
                 attr_summary.append('N/A')
+            attr_stats[msg]['update_coverage'] = _calculate_percentage(attr_stats[msg]['used_update'], attr_stats[msg]['total_update'])
             if attr_stats[msg]['total_update'] > 0:
-                attr_stats[msg]['update_coverage'] = round(attr_stats[msg]['used_update'] / attr_stats[msg]['total_update'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_update']}/{attr_stats[msg]['total_update']}({attr_stats[msg]['update_coverage']}%)")
             else:
                 attr_summary.append('N/A')
+            attr_stats[msg]['delete_coverage'] = _calculate_percentage(attr_stats[msg]['used_delete'], attr_stats[msg]['total_delete'])
             if attr_stats[msg]['total_delete'] > 0:
-                attr_stats[msg]['delete_coverage'] = round(attr_stats[msg]['used_delete'] / attr_stats[msg]['total_delete'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_delete']}/{attr_stats[msg]['total_delete']}({attr_stats[msg]['delete_coverage']}%)")
             else:
                 attr_summary.append('N/A')
+            attr_stats[msg]['subscribe_coverage'] = _calculate_percentage(attr_stats[msg]['used_subscribe'], attr_stats[msg]['total_subscribe'])
             if attr_stats[msg]['total_subscribe'] > 0:
-                attr_stats[msg]['subscribe_coverage'] = round(attr_stats[msg]['used_subscribe'] / attr_stats[msg]['total_subscribe'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_subscribe']}/{attr_stats[msg]['total_subscribe']}({attr_stats[msg]['subscribe_coverage']}%)")
             else:
                 attr_summary.append('N/A')
+            attr_stats[msg]['payload_create_coverage'] = _calculate_percentage(attr_stats[msg]['used_create_payload'], attr_stats[msg]['total_create_payload'])
             if attr_stats[msg]['total_create_payload'] > 0:
-                attr_stats[msg]['payload_create_coverage'] = round(attr_stats[msg]['used_create_payload'] / attr_stats[msg]['total_create_payload'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_create_payload']}/{attr_stats[msg]['total_create_payload']}({attr_stats[msg]['payload_create_coverage']}%)")
             else:
                 attr_summary.append('N/A')
-
+            attr_stats[msg]['payload_replace_coverage'] = _calculate_percentage(attr_stats[msg]['used_replace_payload'], attr_stats[msg]['total_replace_payload'])
             if attr_stats[msg]['total_replace_payload'] > 0:
-                attr_stats[msg]['payload_replace_coverage'] = round(attr_stats[msg]['used_replace_payload'] / attr_stats[msg]['total_replace_payload'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_replace_payload']}/{attr_stats[msg]['total_replace_payload']}({attr_stats[msg]['payload_replace_coverage']}%)")
             else:
                 attr_summary.append('N/A')
-
+            attr_stats[msg]['payload_update_coverage'] = _calculate_percentage(attr_stats[msg]['used_update_payload'], attr_stats[msg]['total_update_payload'])
             if attr_stats[msg]['total_update_payload'] > 0:
-                attr_stats[msg]['payload_update_coverage'] = round(attr_stats[msg]['used_update_payload'] / attr_stats[msg]['total_update_payload'] * 100)
                 attr_summary.append(f"{attr_stats[msg]['used_update_payload']}/{attr_stats[msg]['total_update_payload']}({attr_stats[msg]['payload_update_coverage']}%)")
             else:
                 attr_summary.append('N/A')
             used_coverage = attr_stats[msg]['used_get'] + attr_stats[msg]['used_create'] + attr_stats[msg]['used_replace'] + attr_stats[msg]['used_update'] + attr_stats[msg]['used_delete'] + attr_stats[msg]['used_subscribe'] + attr_stats[msg]['used_update_payload'] + attr_stats[msg]['used_create_payload'] + attr_stats[msg]['used_replace_payload']
             total_coverage = attr_stats[msg]['total_get'] + attr_stats[msg]['total_create'] + attr_stats[msg]['total_replace'] + attr_stats[msg]['total_update'] + attr_stats[msg]['total_delete'] + attr_stats[msg]['total_subscribe'] + attr_stats[msg]['total_update_payload'] + attr_stats[msg]['total_create_payload'] + attr_stats[msg]['total_replace_payload']
-            attr_stats[msg]["total_coverage"] = round((used_coverage / total_coverage) * 100)
+            attr_stats[msg]["total_coverage"] = _calculate_percentage(used_coverage, total_coverage)
             attr_summary.append(f"{used_coverage}/{total_coverage}({attr_stats[msg]['total_coverage']}%)")
             attr_stats_row.append(attr_summary)
             filepath = os.path.join(get_logs_path(), "message_coverage", f"{mod}_{msg_dict[msg]['name']}.html")
             utils.write_html_table2(attr_stats_header, attr_stats_row, filepath)
-            msg_stats_row = [f"<a href='{mod}_{msg_dict[msg]['name']}.html'>{msg_dict[msg]['name']}</a>", f"{len(attr_stats[msg]['used_attrs'])}/{len(attr_stats[msg]['all_attrs'])}({round(len(attr_stats[msg]['used_attrs'])/len(attr_stats[msg]['all_attrs'])*100)}%)"]
+            used_attrs = len(attr_stats[msg]['used_attrs'])
+            total_attrs = len(attr_stats[msg]['all_attrs'])
+            attrs_coverage = _calculate_percentage(used_attrs, total_attrs)
+            msg_stats_row = [f"<a href='{mod}_{msg_dict[msg]['name']}.html'>{msg_dict[msg]['name']}</a>", f"{used_attrs}/{total_attrs}({attrs_coverage}%)"]
             msg_stats_row.extend(get_attr_stats_row(class_stats[mod]["msg_ops"][msg]))
             msg_line = []
             add_top_level_data(attr_stats[msg], class_stats[mod]["msg_ops"][msg])
 
             # Re-compute after adding top-level data
-            attr_stats[msg]['get_coverage'] = round(attr_stats[msg]['used_get'] / attr_stats[msg]['total_get'] * 100)
-            if attr_stats[msg]['total_create'] > 0:
-                attr_stats[msg]['create_coverage'] = round(attr_stats[msg]['used_create'] / attr_stats[msg]['total_create'] * 100)
-            if attr_stats[msg]['total_replace'] > 0:
-                attr_stats[msg]['replace_coverage'] = round(attr_stats[msg]['used_replace'] / attr_stats[msg]['total_replace'] * 100)
-            if attr_stats[msg]['total_update'] > 0:
-                attr_stats[msg]['update_coverage'] = round(attr_stats[msg]['used_update'] / attr_stats[msg]['total_update'] * 100)
-            if attr_stats[msg]['total_delete'] > 0:
-                attr_stats[msg]['delete_coverage'] = round(attr_stats[msg]['used_delete'] / attr_stats[msg]['total_delete'] * 100)
-            if attr_stats[msg]['total_subscribe'] > 0:
-                attr_stats[msg]['subscribe_coverage'] = round(attr_stats[msg]['used_subscribe'] / attr_stats[msg]['total_subscribe'] * 100)
-            if attr_stats[msg]['total_create_payload'] > 0:
-                attr_stats[msg]['payload_create_coverage'] = round(attr_stats[msg]['used_create_payload'] / attr_stats[msg]['total_create_payload'] * 100)
-            if attr_stats[msg]['total_replace_payload'] > 0:
-                attr_stats[msg]['payload_replace_coverage'] = round(attr_stats[msg]['used_replace_payload'] / attr_stats[msg]['total_replace_payload'] * 100)
-            if attr_stats[msg]['total_update_payload'] > 0:
-                attr_stats[msg]['payload_update_coverage'] = round(attr_stats[msg]['used_update_payload'] / attr_stats[msg]['total_update_payload'] * 100)
+            attr_stats[msg]['get_coverage'] = _calculate_percentage(attr_stats[msg]['used_get'], attr_stats[msg]['total_get'])
+            attr_stats[msg]['create_coverage'] = _calculate_percentage(attr_stats[msg]['used_create'], attr_stats[msg]['total_create'])
+            attr_stats[msg]['replace_coverage'] = _calculate_percentage(attr_stats[msg]['used_replace'], attr_stats[msg]['total_replace'])
+            attr_stats[msg]['update_coverage'] = _calculate_percentage(attr_stats[msg]['used_update'], attr_stats[msg]['total_update'])
+            attr_stats[msg]['delete_coverage'] = _calculate_percentage(attr_stats[msg]['used_delete'], attr_stats[msg]['total_delete'])
+            attr_stats[msg]['subscribe_coverage'] = _calculate_percentage(attr_stats[msg]['used_subscribe'], attr_stats[msg]['total_subscribe'])
+            attr_stats[msg]['payload_create_coverage'] = _calculate_percentage(attr_stats[msg]['used_create_payload'], attr_stats[msg]['total_create_payload'])
+            attr_stats[msg]['payload_replace_coverage'] = _calculate_percentage(attr_stats[msg]['used_replace_payload'], attr_stats[msg]['total_replace_payload'])
+            attr_stats[msg]['payload_update_coverage'] = _calculate_percentage(attr_stats[msg]['used_update_payload'], attr_stats[msg]['total_update_payload'])
             used_coverage = attr_stats[msg]['used_get'] + attr_stats[msg]['used_create'] + attr_stats[msg]['used_replace'] + attr_stats[msg]['used_update'] + attr_stats[msg]['used_delete'] + attr_stats[msg]['used_subscribe'] + attr_stats[msg]['used_create_payload'] + attr_stats[msg]['used_replace_payload'] + attr_stats[msg]['used_update_payload']
             total_coverage = attr_stats[msg]['total_get'] + attr_stats[msg]['total_create'] + attr_stats[msg]['total_replace'] + attr_stats[msg]['total_update'] + attr_stats[msg]['total_delete'] + attr_stats[msg]['total_subscribe'] + attr_stats[msg]['total_create_payload'] + attr_stats[msg]['total_replace_payload'] + attr_stats[msg]['total_update_payload']
-            attr_stats[msg]["total_coverage"] = round((used_coverage / total_coverage) * 100)
+            attr_stats[msg]["total_coverage"] = _calculate_percentage(used_coverage, total_coverage)
 
             msg_line.append(f"{used_coverage}/{total_coverage}({attr_stats[msg]['total_coverage']}%)")
             msg_line.append(f"{attr_stats[msg]['used_get']}/{attr_stats[msg]['total_get']}({attr_stats[msg]['get_coverage']}%)")
@@ -355,53 +355,43 @@ def generate_msg_coverage_report(consolidated=False, logs_path=None):
 
             class_stats[mod]["total_get"] += attr_stats[msg]['total_get']
             class_stats[mod]["used_get"] += attr_stats[msg]['used_get']
-            if class_stats[mod]["total_get"] > 0:
-                class_stats[mod]["get_coverage"] = round(class_stats[mod]["used_get"] / class_stats[mod]["total_get"] * 100)
+            class_stats[mod]["get_coverage"] = _calculate_percentage(class_stats[mod]["used_get"], class_stats[mod]["total_get"])
 
             class_stats[mod]["total_create"] += attr_stats[msg]['total_create']
             class_stats[mod]["used_create"] += attr_stats[msg]['used_create']
-            if class_stats[mod]["total_create"] > 0:
-                class_stats[mod]["create_coverage"] = round(class_stats[mod]["used_create"] / class_stats[mod]["total_create"] * 100)
+            class_stats[mod]["create_coverage"] = _calculate_percentage(class_stats[mod]["used_create"], class_stats[mod]["total_create"])
 
             class_stats[mod]["total_replace"] += attr_stats[msg]['total_replace']
             class_stats[mod]["used_replace"] += attr_stats[msg]['used_replace']
-            if class_stats[mod]["total_replace"] > 0:
-                class_stats[mod]["replace_coverage"] = round(class_stats[mod]["used_replace"] / class_stats[mod]["total_replace"] * 100)
+            class_stats[mod]["replace_coverage"] = _calculate_percentage(class_stats[mod]["used_replace"], class_stats[mod]["total_replace"])
 
             class_stats[mod]["total_update"] += attr_stats[msg]['total_update']
             class_stats[mod]["used_update"] += attr_stats[msg]['used_update']
-            if class_stats[mod]["total_update"] > 0:
-                class_stats[mod]["update_coverage"] = round(class_stats[mod]["used_update"] / class_stats[mod]["total_update"] * 100)
+            class_stats[mod]["update_coverage"] = _calculate_percentage(class_stats[mod]["used_update"], class_stats[mod]["total_update"])
 
             class_stats[mod]["total_delete"] += attr_stats[msg]['total_delete']
             class_stats[mod]["used_delete"] += attr_stats[msg]['used_delete']
-            if class_stats[mod]["total_delete"] > 0:
-                class_stats[mod]["delete_coverage"] = round(class_stats[mod]["used_delete"] / class_stats[mod]["total_delete"] * 100)
+            class_stats[mod]["delete_coverage"] = _calculate_percentage(class_stats[mod]["used_delete"], class_stats[mod]["total_delete"])
 
             class_stats[mod]["total_subscribe"] += attr_stats[msg]['total_subscribe']
             class_stats[mod]["used_subscribe"] += attr_stats[msg]['used_subscribe']
-            if class_stats[mod]["total_subscribe"] > 0:
-                class_stats[mod]["subscribe_coverage"] = round(class_stats[mod]["used_subscribe"] / class_stats[mod]["total_subscribe"] * 100)
+            class_stats[mod]["subscribe_coverage"] = _calculate_percentage(class_stats[mod]["used_subscribe"], class_stats[mod]["total_subscribe"])
 
             class_stats[mod]["total_create_payload"] += attr_stats[msg]['total_create_payload']
             class_stats[mod]["used_create_payload"] += attr_stats[msg]['used_create_payload']
-            if class_stats[mod]["total_create_payload"] > 0:
-                class_stats[mod]["payload_create_coverage"] = round(class_stats[mod]["used_create_payload"] / class_stats[mod]["total_create_payload"] * 100)
+            class_stats[mod]["payload_create_coverage"] = _calculate_percentage(class_stats[mod]["used_create_payload"], class_stats[mod]["total_create_payload"])
 
             class_stats[mod]["total_replace_payload"] += attr_stats[msg]['total_replace_payload']
             class_stats[mod]["used_replace_payload"] += attr_stats[msg]['used_replace_payload']
-            if class_stats[mod]["total_replace_payload"] > 0:
-                class_stats[mod]["payload_replace_coverage"] = round(
-                    class_stats[mod]["used_replace_payload"] / class_stats[mod]["total_replace_payload"] * 100)
+            class_stats[mod]["payload_replace_coverage"] = _calculate_percentage(class_stats[mod]["used_replace_payload"], class_stats[mod]["total_replace_payload"])
 
             class_stats[mod]["total_update_payload"] += attr_stats[msg]['total_update_payload']
             class_stats[mod]["used_update_payload"] += attr_stats[msg]['used_update_payload']
-            if class_stats[mod]["total_update_payload"] > 0:
-                class_stats[mod]["payload_update_coverage"] = round(class_stats[mod]["used_update_payload"] / class_stats[mod]["total_update_payload"] * 100)
+            class_stats[mod]["payload_update_coverage"] = _calculate_percentage(class_stats[mod]["used_update_payload"], class_stats[mod]["total_update_payload"])
 
         used_coverage = class_stats[mod]['used_get'] + class_stats[mod]['used_create'] + class_stats[mod]['used_replace'] + class_stats[mod]['used_update'] + class_stats[mod]['used_delete'] + class_stats[mod]['used_subscribe'] + class_stats[mod]['used_create_payload'] + class_stats[mod]['used_replace_payload'] + class_stats[mod]['used_update_payload']
         total_coverage = class_stats[mod]['total_get'] + class_stats[mod]['total_create'] + class_stats[mod]['total_replace'] + class_stats[mod]['total_update'] + class_stats[mod]['total_delete'] + class_stats[mod]['total_subscribe'] + class_stats[mod]['total_create_payload'] + class_stats[mod]['total_replace_payload'] + class_stats[mod]['total_update_payload']
-        class_stats[mod]["total_coverage"] = round((used_coverage / total_coverage) * 100)
+        class_stats[mod]["total_coverage"] = _calculate_percentage(used_coverage, total_coverage)
         msg_stats_line = ["RESULT", "", "", "", "", "", "", "", "", "", ""]
         msg_stats_line.append(f"{used_coverage}/{total_coverage}({class_stats[mod]['total_coverage']}%)")
         msg_stats_line.append(f"{class_stats[mod]['used_get']}/{class_stats[mod]['total_get']}({class_stats[mod]['get_coverage']}%)")
@@ -433,7 +423,10 @@ def generate_msg_coverage_report(consolidated=False, logs_path=None):
         mod_stats_line = []
         mod_stats_line.extend([f"<a href='{mod}.html'>{mod}</a>"])
         mod_stats_line.extend([f"{used_coverage}/{total_coverage}({class_stats[mod]['total_coverage']}%)"])
-        mod_stats_line.extend([f"{len(class_stats[mod]['used_classes'])}/{len(class_stats[mod]['all_classes'])}({round(len(class_stats[mod]['used_classes'])/len(class_stats[mod]['all_classes'])*100)}%)"])
+        total_classes = len(class_stats[mod]['all_classes'])
+        used_classes = len(class_stats[mod]['used_classes'])
+        class_coverage = _calculate_percentage(used_classes, total_classes)
+        mod_stats_line.extend([f"{used_classes}/{total_classes}({class_coverage}%)"])
         mod_stats_line.extend([f"{class_stats[mod]['used_get']}/{class_stats[mod]['total_get']}({class_stats[mod]['get_coverage']}%)"])
         mod_stats_line.extend([f"{class_stats[mod]['used_create']}/{class_stats[mod]['total_create']}({class_stats[mod]['create_coverage']}%)"])
         mod_stats_line.extend([f"{class_stats[mod]['used_replace']}/{class_stats[mod]['total_replace']}({class_stats[mod]['replace_coverage']}%)"])
@@ -448,58 +441,51 @@ def generate_msg_coverage_report(consolidated=False, logs_path=None):
 
         stats["total_msg"] += len(class_stats[mod]['all_classes'])
         stats["used_msg"] += len(class_stats[mod]['used_classes'])
-        if stats["total_msg"] > 0:
-            stats["msg_coverage"] = round(stats["used_msg"] / stats["total_msg"] * 100)
+        stats["msg_coverage"] = _calculate_percentage(stats["used_msg"], stats["total_msg"])
 
         stats["total_get"] += class_stats[mod]['total_get']
         stats["used_get"] += class_stats[mod]['used_get']
-        if stats["total_get"] > 0:
-            stats["get_coverage"] = round(stats["used_get"] / stats["total_get"] * 100)
+        stats["get_coverage"] = _calculate_percentage(stats["used_get"], stats["total_get"])
 
         stats["total_create"] += class_stats[mod]['total_create']
         stats["used_create"] += class_stats[mod]['used_create']
-        if stats["total_create"] > 0:
-            stats["create_coverage"] = round(stats["used_create"] / stats["total_create"] * 100)
+        stats["create_coverage"] = _calculate_percentage(stats["used_create"], stats["total_create"])
 
         stats["total_replace"] += class_stats[mod]['total_replace']
         stats["used_replace"] += class_stats[mod]['used_replace']
-        if stats["total_replace"] > 0:
-            stats["replace_coverage"] = round(stats["used_replace"] / stats["total_replace"] * 100)
+        stats["replace_coverage"] = _calculate_percentage(stats["used_replace"], stats["total_replace"])
 
         stats["total_update"] += class_stats[mod]['total_update']
         stats["used_update"] += class_stats[mod]['used_update']
-        if stats["total_update"] > 0:
-            stats["update_coverage"] = round(stats["used_update"] / stats["total_update"] * 100)
+        stats["update_coverage"] = _calculate_percentage(stats["used_update"], stats["total_update"])
 
         stats["total_delete"] += class_stats[mod]['total_delete']
         stats["used_delete"] += class_stats[mod]['used_delete']
-        if stats["total_delete"] > 0:
-            stats["delete_coverage"] = round(stats["used_delete"] / stats["total_delete"] * 100)
+        stats["delete_coverage"] = _calculate_percentage(stats["used_delete"], stats["total_delete"])
 
         stats["total_subscribe"] += class_stats[mod]['total_subscribe']
         stats["used_subscribe"] += class_stats[mod]['used_subscribe']
-        if stats["total_subscribe"] > 0:
-            stats["subscribe_coverage"] = round(stats["used_subscribe"] / stats["total_subscribe"] * 100)
+        stats["subscribe_coverage"] = _calculate_percentage(stats["used_subscribe"], stats["total_subscribe"])
 
         stats["total_create_payload"] += class_stats[mod]['total_create_payload']
         stats["used_create_payload"] += class_stats[mod]['used_create_payload']
-        if stats["total_create_payload"] > 0:
-            stats["payload_create_coverage"] = round(stats["used_create_payload"] / stats["total_create_payload"] * 100)
+        stats["payload_create_coverage"] = _calculate_percentage(stats["used_create_payload"], stats["total_create_payload"])
 
         stats["total_replace_payload"] += class_stats[mod]['total_replace_payload']
         stats["used_replace_payload"] += class_stats[mod]['used_replace_payload']
-        if stats["total_replace_payload"] > 0:
-            stats["payload_replace_coverage"] = round(stats["used_replace_payload"] / stats["total_replace_payload"] * 100)
+        stats["payload_replace_coverage"] = _calculate_percentage(stats["used_replace_payload"], stats["total_replace_payload"])
 
         stats["total_update_payload"] += class_stats[mod]['total_update_payload']
         stats["used_update_payload"] += class_stats[mod]['used_update_payload']
-        if stats["total_update_payload"] > 0:
-            stats["payload_update_coverage"] = round(stats["used_update_payload"] / stats["total_update_payload"] * 100)
+        stats["payload_update_coverage"] = _calculate_percentage(stats["used_update_payload"], stats["total_update_payload"])
 
     used_coverage = stats['used_get'] + stats['used_create'] + stats['used_replace'] + stats['used_update'] + stats['used_delete'] + stats['used_subscribe'] + stats['used_create_payload'] + stats['used_replace_payload'] + stats['used_update_payload']
     total_coverage = stats['total_get'] + stats['total_create'] + stats['total_replace'] + stats['total_update'] + stats['total_delete'] + stats['total_subscribe'] + stats['total_create_payload'] + stats['total_replace_payload'] + stats['total_update_payload']
-    stats["total_coverage"] = round((used_coverage / total_coverage) * 100)
-    stats_line = [f"{len(stats['used_mods'])}/{len(stats['all_mods'])}({round(len(stats['used_mods'])/len(stats['all_mods'])*100)}%)"]
+    stats["total_coverage"] = _calculate_percentage(used_coverage, total_coverage)
+    total_modules = len(stats['all_mods'])
+    used_modules = len(stats['used_mods'])
+    module_coverage = _calculate_percentage(used_modules, total_modules)
+    stats_line = [f"{used_modules}/{total_modules}({module_coverage}%)"]
     colors.append('yellow')
     stats_line.extend([f"{used_coverage}/{total_coverage}({stats['total_coverage']}%)"])
     stats_line.extend([f"{stats['used_msg']}/{stats['total_msg']}({stats['msg_coverage']}%)"])
