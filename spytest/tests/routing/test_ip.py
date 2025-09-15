@@ -77,7 +77,7 @@ def ip_module_hooks(request):
         topo_requirements.extend(["D1T1:2", "D2T1:2"])
 
     try:
-        vars = st.ensure_min_topology(*topo_requirements)
+        vars = st.ensure_min_topology(*topo_requirements, fail=False)
     except Exception as exc:  # pylint: disable=broad-except
         pytest.skip("Required DUT topology is not available: {}".format(exc))
     if not vars:
@@ -88,7 +88,7 @@ def ip_module_hooks(request):
     if missing:
         pytest.skip("Missing required DUT links: {}".format(", ".join(missing)))
 
-    vars = st.ensure_min_topology(*topo_requirements)
+    vars = st.ensure_min_topology(*topo_requirements, fail=False)
     if not vars:
         pytest.skip("Required DUT topology is not available")
 
