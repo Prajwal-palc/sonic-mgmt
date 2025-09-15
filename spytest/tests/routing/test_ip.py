@@ -74,11 +74,6 @@ def ip_module_hooks(request):
     data.rate_pps = tgapi.normalize_pps(2000)
     data.pkts_per_burst = tgapi.normalize_pps(2000)
 
-    # delete me
-    st.log(data.ip4_addr)
-    st.log(data.ip6_addr)
-    # delete me
-
     # IP module configuration
     st.log("Vlan routing configuration on D1D2P1,D2D1P1")
     vlan_obj.create_vlan(vars.D1, data.vlan_1)
