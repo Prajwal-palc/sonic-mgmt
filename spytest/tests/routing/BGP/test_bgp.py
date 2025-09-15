@@ -29,6 +29,9 @@ def _to_native_intf(dut, intf):
             pass
     return intf
 
+    return st.get_other_names(dut, [intf])[0] if '/' in str(intf) else intf
+
+
 
 @pytest.fixture(scope="module", autouse=True)
 def bgp_module_hooks(request):
