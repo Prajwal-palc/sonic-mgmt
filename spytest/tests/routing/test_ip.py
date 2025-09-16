@@ -73,6 +73,8 @@ def ip_module_hooks(request):
 
     tgen_names = st.get_tg_names()
     data.tgen_present = bool(tgen_names)
+
+    data.tgen_present = bool(st.get_tg_names())
     vars = st.get_testbed_vars()
     if not vars or not getattr(vars, "dut_list", None):
         pytest.skip("Testbed information is not available")
