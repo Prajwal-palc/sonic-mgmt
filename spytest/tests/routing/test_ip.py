@@ -17,7 +17,7 @@ import apis.routing.route_map as rmap_obj
 import apis.routing.arp as arp_obj
 
 from utilities.common import random_vlan_list
-from utilities.utils import rif_support_check, report_tc_fail
+from utilities.utils import rif_support_check, report_tc_fail, make_list
 
 vars = dict()
 data = SpyTestDict()
@@ -64,6 +64,23 @@ data.d2_static_route = "10.10.10.0/24"
 data.tgen_present = False
 
 
+def _to_native_interface(dut, interface_name):
+    """Return the standard interface name for the given DUT interface."""
+    if not interface_name or not isinstance(interface_name, str):
+        return interface_name
+    native_prefixes = ("Ethernet", "PortChannel", "Vlan", "Loopback", "Management", "Mgmt")
+    if interface_name.startswith(native_prefixes):
+        return interface_name
+    converted = st.get_other_names(dut, [interface_name])[0]
+    return converted if converted else interface_name
+
+
+def _to_native_interface_list(dut, interfaces):
+    items = make_list(interfaces)
+    converted = [_to_native_interface(dut, item) for item in items]
+    return converted if isinstance(interfaces, (list, tuple, set)) else converted[0]
+
+
 @pytest.fixture(scope="module", autouse=True)
 def ip_module_hooks(request):
     global vars
@@ -73,6 +90,11 @@ def ip_module_hooks(request):
 
     tgen_names = st.get_tg_names()
     data.tgen_present = bool(tgen_names)
+    vars = st.get_testbed_vars()
+    if not vars or not getattr(vars, "dut_list", None):
+        pytest.skip("Testbed information is not available")
+    if len(vars.dut_list) < 2 or not getattr(vars, "D1", None) or not getattr(vars, "D2", None):
+        pytest.skip("Routing IP module requires at least two DUTs in the testbed")
 
     data.tgen_present = bool(st.get_tg_names())
     vars = st.get_testbed_vars()
@@ -80,7 +102,6 @@ def ip_module_hooks(request):
         pytest.skip("Testbed information is not available")
     if len(vars.dut_list) < 2 or not getattr(vars, "D1", None) or not getattr(vars, "D2", None):
         pytest.skip("Routing IP module requires at least two DUTs in the testbed")
-
     required_attrs = ["D1D2P1", "D2D1P1"]
     missing = [attr for attr in required_attrs if not getattr(vars, attr, None)]
     if missing:
@@ -89,6 +110,17 @@ def ip_module_hooks(request):
     for optional_attr in ["D1D2P2", "D1D2P3", "D2D1P2", "D2D1P3", "D1D2P4", "D2D1P4"]:
         if not hasattr(vars, optional_attr):
             setattr(vars, optional_attr, None)
+
+    def _normalize_attr(attr, dut):
+        if hasattr(vars, attr):
+            value = getattr(vars, attr)
+            if value:
+                setattr(vars, attr, _to_native_interface(dut, value))
+
+    for attr in ["D1D2P1", "D1D2P2", "D1D2P3", "D1D2P4", "D1T1P1", "D1T1P2"]:
+        _normalize_attr(attr, vars.D1)
+    for attr in ["D2D1P1", "D2D1P2", "D2D1P3", "D2D1P4", "D2T1P1", "D2T1P2"]:
+        _normalize_attr(attr, vars.D2)
 
     data.topology = SpyTestDict()
     data.topology.vlan = SpyTestDict(d1=vars.D1D2P1, d2=vars.D2D1P1)
@@ -778,9 +810,13 @@ def test_ft_verify_interfaces_order(ft_verify_interfaces_order_hooks):
     st.log("This test is to ensure that interfaces are listed in sorted order by 'interface name' in 'show ip/ipv6 "
            "interfaces'")
     free_ports = st.get_free_ports(vars.D1)
+    free_ports = _to_native_interface_list(vars.D1, free_ports)
+    free_ports = [port for port in free_ports if isinstance(port, str) and port.startswith("Ethernet")]
+    free_ports = list(dict.fromkeys(free_ports))
     if len(free_ports) < data.no_of_ports:
         data.no_of_ports = len(free_ports)
     data.req_ports = random.sample(free_ports, data.no_of_ports)
+    data.req_ports = _to_native_interface_list(vars.D1, data.req_ports)
     ipv4_addr = data.ip4_addr[11] + '/' + data.ipv4_mask
     ipv6_addr = data.ip6_addr[0] + '/' + data.ipv6_mask
     intf_list = []
