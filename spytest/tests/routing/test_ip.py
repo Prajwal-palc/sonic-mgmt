@@ -71,6 +71,9 @@ def ip_module_hooks(request):
     if len(dut_names) < 2:
         pytest.skip("Routing IP module requires at least two DUTs")
 
+    tgen_names = st.get_tg_names()
+    data.tgen_present = bool(tgen_names)
+
     data.tgen_present = bool(st.get_tg_names())
     vars = st.get_testbed_vars()
     if not vars or not getattr(vars, "dut_list", None):
@@ -96,8 +99,21 @@ def ip_module_hooks(request):
     data.rif_supported_1 = rif_support_check(vars.D1, platform=platform.lower())
     platform = basic_obj.get_hwsku(vars.D2)
     data.rif_supported_2 = rif_support_check(vars.D2, platform=platform.lower())
-    data.rate_pps = tgapi.normalize_pps(2000)
-    data.pkts_per_burst = tgapi.normalize_pps(2000)
+
+    def _set_default_traffic_rates():
+        data.rate_pps = 2000
+        data.pkts_per_burst = 2000
+
+    if data.tgen_present:
+        try:
+            data.rate_pps = tgapi.normalize_pps(2000)
+            data.pkts_per_burst = tgapi.normalize_pps(2000)
+        except IndexError as exc:
+            st.log("Unable to normalize traffic generator rate ({}); using defaults".format(exc))
+            _set_default_traffic_rates()
+            data.tgen_present = False
+    else:
+        _set_default_traffic_rates()
 
     # IP module configuration
     st.log("Vlan routing configuration on D1D2P1,D2D1P1")
