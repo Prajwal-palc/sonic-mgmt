@@ -81,6 +81,7 @@ def _to_native_interface_list(dut, interfaces):
     return converted if isinstance(interfaces, (list, tuple, set)) else converted[0]
 
 
+
 def _to_alias_interface(dut, interface_name):
     if not interface_name or not isinstance(interface_name, str):
         return interface_name
@@ -114,6 +115,12 @@ def ip_module_hooks(request):
 
     tgen_names = st.get_tg_names()
     data.tgen_present = bool(tgen_names)
+    vars = st.get_testbed_vars()
+    if not vars or not getattr(vars, "dut_list", None):
+        pytest.skip("Testbed information is not available")
+    if len(vars.dut_list) < 2 or not getattr(vars, "D1", None) or not getattr(vars, "D2", None):
+        pytest.skip("Routing IP module requires at least two DUTs in the testbed")
+    data.tgen_present = bool(st.get_tg_names())
     vars = st.get_testbed_vars()
     if not vars or not getattr(vars, "dut_list", None):
         pytest.skip("Testbed information is not available")
