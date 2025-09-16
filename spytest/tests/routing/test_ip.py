@@ -96,6 +96,12 @@ def ip_module_hooks(request):
     if len(vars.dut_list) < 2 or not getattr(vars, "D1", None) or not getattr(vars, "D2", None):
         pytest.skip("Routing IP module requires at least two DUTs in the testbed")
 
+    data.tgen_present = bool(st.get_tg_names())
+    vars = st.get_testbed_vars()
+    if not vars or not getattr(vars, "dut_list", None):
+        pytest.skip("Testbed information is not available")
+    if len(vars.dut_list) < 2 or not getattr(vars, "D1", None) or not getattr(vars, "D2", None):
+        pytest.skip("Routing IP module requires at least two DUTs in the testbed")
     required_attrs = ["D1D2P1", "D2D1P1"]
     missing = [attr for attr in required_attrs if not getattr(vars, attr, None)]
     if missing:
