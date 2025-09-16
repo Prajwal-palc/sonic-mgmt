@@ -72,25 +72,25 @@ def ip_module_hooks(request):
         pytest.skip("Routing IP module requires at least two DUTs")
 
     data.tgen_present = bool(st.get_tg_names())
-    topo_requirements = ["D1D2:4"]
-    if data.tgen_present:
-        topo_requirements.extend(["D1T1:2", "D2T1:2"])
+    vars = st.get_testbed_vars()
+    if not vars or not getattr(vars, "dut_list", None):
+        pytest.skip("Testbed information is not available")
+    if len(vars.dut_list) < 2 or not getattr(vars, "D1", None) or not getattr(vars, "D2", None):
+        pytest.skip("Routing IP module requires at least two DUTs in the testbed")
 
-    try:
-        vars = st.ensure_min_topology(*topo_requirements, fail=False)
-    except Exception as exc:  # pylint: disable=broad-except
-        pytest.skip("Required DUT topology is not available: {}".format(exc))
-    if not vars:
-        pytest.skip("Required DUT topology is not available")
-
-    required_attrs = ["D1", "D2", "D1D2P1", "D1D2P2", "D1D2P3", "D1D2P4"]
-    missing = [attr for attr in required_attrs if not hasattr(vars, attr)]
+    required_attrs = ["D1D2P1", "D2D1P1"]
+    missing = [attr for attr in required_attrs if not getattr(vars, attr, None)]
     if missing:
         pytest.skip("Missing required DUT links: {}".format(", ".join(missing)))
 
-    vars = st.ensure_min_topology(*topo_requirements, fail=False)
-    if not vars:
-        pytest.skip("Required DUT topology is not available")
+    for optional_attr in ["D1D2P2", "D1D2P3", "D2D1P2", "D2D1P3", "D1D2P4", "D2D1P4"]:
+        if not hasattr(vars, optional_attr):
+            setattr(vars, optional_attr, None)
+
+    data.topology = SpyTestDict()
+    data.topology.vlan = SpyTestDict(d1=vars.D1D2P1, d2=vars.D2D1P1)
+    data.topology.portchannel = SpyTestDict(enabled=False, d1_members=[], d2_members=[])
+    data.topology.routed = SpyTestDict(enabled=False, d1=vars.D1D2P4, d2=vars.D2D1P4)
 
     platform = basic_obj.get_hwsku(vars.D1)
     data.rif_supported_1 = rif_support_check(vars.D1, platform=platform.lower())
@@ -102,46 +102,61 @@ def ip_module_hooks(request):
     # IP module configuration
     st.log("Vlan routing configuration on D1D2P1,D2D1P1")
     vlan_obj.create_vlan(vars.D1, data.vlan_1)
-    vlan_obj.add_vlan_member(vars.D1, data.vlan_1, [vars.D1D2P1], tagging_mode=True)
+    vlan_obj.add_vlan_member(vars.D1, data.vlan_1, [data.topology.vlan.d1], tagging_mode=True)
     vlan_obj.create_vlan(vars.D2, data.vlan_1)
-    vlan_obj.add_vlan_member(vars.D2, data.vlan_1, [vars.D2D1P1], tagging_mode=True)
+    vlan_obj.add_vlan_member(vars.D2, data.vlan_1, [data.topology.vlan.d2], tagging_mode=True)
     ipfeature.config_ip_addr_interface(vars.D1, data.vlan_int_1, data.ip4_addr[2], 24, family=data.af_ipv4)
     ipfeature.config_ip_addr_interface(vars.D1, data.vlan_int_1, data.ip6_addr[2], 96, family=data.af_ipv6)
     ipfeature.config_ip_addr_interface(vars.D2, data.vlan_int_1, data.ip4_addr[3], 24, family=data.af_ipv4)
     ipfeature.config_ip_addr_interface(vars.D2, data.vlan_int_1, data.ip6_addr[3], 96, family=data.af_ipv6)
     st.log("Port routing configuration on port-channel")
-    data.dut1_pc_members = [vars.D1D2P2, vars.D1D2P3]
-    data.dut2_pc_members = [vars.D2D1P2, vars.D2D1P3]
-    pc_obj.create_portchannel(vars.D1, data.port_channel)
-    pc_obj.add_portchannel_member(vars.D1, data.port_channel, data.dut1_pc_members)
-    pc_obj.create_portchannel(vars.D2, data.port_channel)
-    pc_obj.add_portchannel_member(vars.D2, data.port_channel, data.dut2_pc_members)
-    ipfeature.config_ip_addr_interface(vars.D1, data.port_channel, data.ip4_addr[4], 24, family=data.af_ipv4)
-    ipfeature.config_ip_addr_interface(vars.D2, data.port_channel, data.ip4_addr[5], 24, family=data.af_ipv4)
-    ipfeature.config_ip_addr_interface(vars.D1, data.port_channel, data.ip6_addr[4], 96, family=data.af_ipv6)
-    ipfeature.config_ip_addr_interface(vars.D2, data.port_channel, data.ip6_addr[5], 96, family=data.af_ipv6)
+    data.dut1_pc_members = [member for member in [vars.D1D2P2, vars.D1D2P3] if member]
+    data.dut2_pc_members = [member for member in [vars.D2D1P2, vars.D2D1P3] if member]
+    if len(data.dut1_pc_members) >= 2 and len(data.dut2_pc_members) >= 2:
+        data.topology.portchannel.enabled = True
+        data.topology.portchannel.d1_members = data.dut1_pc_members
+        data.topology.portchannel.d2_members = data.dut2_pc_members
+        pc_obj.create_portchannel(vars.D1, data.port_channel)
+        pc_obj.add_portchannel_member(vars.D1, data.port_channel, data.dut1_pc_members)
+        pc_obj.create_portchannel(vars.D2, data.port_channel)
+        pc_obj.add_portchannel_member(vars.D2, data.port_channel, data.dut2_pc_members)
+        ipfeature.config_ip_addr_interface(vars.D1, data.port_channel, data.ip4_addr[4], 24, family=data.af_ipv4)
+        ipfeature.config_ip_addr_interface(vars.D2, data.port_channel, data.ip4_addr[5], 24, family=data.af_ipv4)
+        ipfeature.config_ip_addr_interface(vars.D1, data.port_channel, data.ip6_addr[4], 96, family=data.af_ipv6)
+        ipfeature.config_ip_addr_interface(vars.D2, data.port_channel, data.ip6_addr[5], 96, family=data.af_ipv6)
+    else:
+        data.topology.portchannel.enabled = False
+        st.log("Skipping port-channel configuration due to insufficient DUT-to-DUT links")
+
     st.log("port routing configuration on  D1D2P4,D2D1P4")
-    ipfeature.config_ip_addr_interface(vars.D1, vars.D1D2P4, data.ip4_addr[6], 24, family=data.af_ipv4)
-    ipfeature.config_ip_addr_interface(vars.D2, vars.D2D1P4, data.ip4_addr[7], 24, family=data.af_ipv4)
-    ipfeature.config_ip_addr_interface(vars.D1, vars.D1D2P4, data.ip6_addr[6], 96, family=data.af_ipv6)
-    ipfeature.config_ip_addr_interface(vars.D2, vars.D2D1P4, data.ip6_addr[7], 96, family=data.af_ipv6)
+    if data.topology.routed.d1 and data.topology.routed.d2:
+        data.topology.routed.enabled = True
+        ipfeature.config_ip_addr_interface(vars.D1, data.topology.routed.d1, data.ip4_addr[6], 24, family=data.af_ipv4)
+        ipfeature.config_ip_addr_interface(vars.D2, data.topology.routed.d2, data.ip4_addr[7], 24, family=data.af_ipv4)
+        ipfeature.config_ip_addr_interface(vars.D1, data.topology.routed.d1, data.ip6_addr[6], 96, family=data.af_ipv6)
+        ipfeature.config_ip_addr_interface(vars.D2, data.topology.routed.d2, data.ip6_addr[7], 96, family=data.af_ipv6)
+    else:
+        data.topology.routed.enabled = False
+        st.log("Skipping routed interface configuration due to insufficient DUT-to-DUT links")
     if data.tgen_present:
         st.log("configuring the dut1 ports connected to TGen with ip addresses")
         ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P1, data.ip4_addr[1], 24, family=data.af_ipv4)
         ipfeature.config_ip_addr_interface(vars.D1, vars.D1T1P2, data.ip6_addr[1], 96, family=data.af_ipv6)
-        ipfeature.create_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
-                                      family=data.af_ipv6)
-        ipfeature.create_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
-                                      family=data.af_ipv4)
+        if data.topology.routed.enabled:
+            ipfeature.create_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
+                                          family=data.af_ipv6)
+            ipfeature.create_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
+                                          family=data.af_ipv4)
         st.log("configuring the dut2 ports connected to TGen with ip addresses")
         ipfeature.config_ip_addr_interface(vars.D2, vars.D2T1P1, data.ip4_addr[8], 24, family=data.af_ipv4)
         ipfeature.config_ip_addr_interface(vars.D2, vars.D2T1P2, data.ip6_addr[8], 96, family=data.af_ipv6)
     yield
     if data.tgen_present:
-        ipfeature.delete_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
-                                      family=data.af_ipv4)
-        ipfeature.delete_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
-                                      family=data.af_ipv6)
+        if data.topology.routed.enabled:
+            ipfeature.delete_static_route(vars.D1, data.ip4_addr[7], data.static_ip_rt, shell=data.shell_vtysh,
+                                          family=data.af_ipv4)
+            ipfeature.delete_static_route(vars.D1, data.ip6_addr[7], data.static_ip6_rt, shell=data.shell_vtysh,
+                                          family=data.af_ipv6)
     ipfeature.clear_ip_configuration(st.get_dut_names())
     ipfeature.clear_ip_configuration(st.get_dut_names(), 'ipv6')
     vlan_obj.clear_vlan_configuration(st.get_dut_names())
@@ -156,6 +171,18 @@ def ip_func_hooks(request):
 def skip_if_no_tgen():
     if not data.tgen_present:
         pytest.skip("Traffic generator is not available for this test")
+
+
+def require_portchannel_links():
+    portchannel = getattr(getattr(data, "topology", SpyTestDict()), "portchannel", SpyTestDict())
+    if not getattr(portchannel, "enabled", False):
+        pytest.skip("Port-channel links are not available in the current testbed")
+
+
+def require_routed_links():
+    routed = getattr(getattr(data, "topology", SpyTestDict()), "routed", SpyTestDict())
+    if not getattr(routed, "enabled", False):
+        pytest.skip("Dedicated routed links are not available in the current testbed")
 
 
 def delete_bgp_router(dut, router_id, as_num):
@@ -384,6 +411,7 @@ def test_ft_ping_v4_v6_vlan():
 def test_ft_ping_v4_v6_after_ip_change_pc():
     # Objective - Verify that ping is successful between L3 interfaces when Ip address is removed and new ip
     # is assigned
+    require_portchannel_links()
     result = True
     st.log("In {} check portchannel is UP or not".format(vars.D2))
     if not pc_obj.verify_portchannel_state(vars.D2, data.port_channel, state="up"):
@@ -437,6 +465,7 @@ def test_ft_ping_v4_v6_after_ip_change_pc():
 @pytest.mark.inventory(feature='RIF Counters', release='Cyrus4.0.0', testcases=['RIF_COUNT_FUNC_0031'])
 def test_ft_ip6_static_route_traffic_forward_blackhole():
     skip_if_no_tgen()
+    require_routed_links()
     # Objective - Verify the Ipv6 traffic forwarding over static route.
     tg_handler = tgapi.get_handles_byname("T1D1P2", "T1D2P2")
     tg = tg_handler["tg"]
@@ -538,6 +567,7 @@ def test_ft_ip6_static_route_traffic_forward_blackhole():
 @pytest.mark.inventory(testcases=['RIF_COUNT_FUNC_001'])
 def test_ft_ip_static_route_traffic_forward():
     skip_if_no_tgen()
+    require_routed_links()
     # Objective - Verify the Ipv4 traffic forwarding over IPv4 static route.
     tg_handler = tgapi.get_handles_byname("T1D1P1", "T1D2P1")
     result = 0
@@ -633,6 +663,7 @@ def test_ft_ip_static_route_traffic_forward():
 @pytest.mark.inventory(testcases=['ft_ip6_L2_L3_translation'])
 def test_ft_ip_v4_v6_L2_L3_translation():
     skip_if_no_tgen()
+    require_routed_links()
     # Objective - Verify that L2 port to IPv4 L3 port transition and vice-versa is successful.
     st.log("Checking IPv4 ping from {} to {} over  routing interface".format(vars.D1, vars.D2))
     st.wait(5, 'adding delay after creating routing interface')
