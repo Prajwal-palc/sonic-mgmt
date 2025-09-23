@@ -5,9 +5,9 @@
 - **Inference:** The module-level `pytestmark` restricts execution to `pytest.mark.topology("t0")`, and the test logic references VLAN members and port channels that are characteristic of SONiC T0 fabrics, with conditional handling for dual ToR variants detected via `tbinfo["topo"]["name"]`.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L19-L31】【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L268-L291】
 
 
-## 2. Manual Tester Understanding
+## 2. Generic Understanding
 - **Scenario in plain language:** The DUT temporarily frees TCAM by removing the default data ACL, loads a custom ACL table type that watches VLAN 1000 traffic, applies IPv4/IPv6 rules, and then exercises those rules with sample packets to make sure hits are counted and forwarded correctly.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L75-L187】【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L266-L312】
-- **What a manual tester should take away:**
+- **What a we should take away:**
   - The goal is to prove that SONiC can host a bespoke ACL table without disturbing the default configuration and that the table correctly matches VLAN ingress traffic.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L111-L312】
   - Successful behaviour means the table and rules apply cleanly (no critical syslog entries), packets that match each rule exit via an uplink, and the per-rule counters increment exactly once when traffic is sent.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L293-L312】
   - Failures usually show up as ACL loader errors, packets leaking out the wrong interface, or counters that stay at zero even though traffic is observed.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L111-L312】
