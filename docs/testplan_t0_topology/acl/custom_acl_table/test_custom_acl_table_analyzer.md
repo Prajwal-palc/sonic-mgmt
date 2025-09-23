@@ -18,20 +18,6 @@
   - `setup_counterpoll_interval`: Draws attention to timing—counters must refresh quickly so their increments prove rule hits.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L34-L48】
   - `test_custom_acl`: Contains the evidence gathering loop: generate the sample packets, send them through VLAN ingress, and confirm that expected counters rise while the packets take the intended egress path.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L190-L312】
 
-## 2. Manual Tester Overview
-- **Scenario in plain language:** The automation removes the default data ACL to free TCAM space, uploads a custom ACL table definition that targets VLAN 1000, loads the ACL rules, and then sends example packets to make sure the new rules really catch traffic and increment counters. A manual tester would follow the same sequence on the DUT(s).【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L75-L187】【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L266-L312】
-- **High-level flow a manual tester can mirror:**
-  1. Disable or remove the existing `DATAACL` table so the switch has room for the custom table.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L75-L108】
-  2. Copy the custom ACL table JSON to the DUT, create the new table type, and bind it to VLAN 1000 (or the equivalent VLAN in the lab).【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L111-L153】
-  3. Load the ACL rules JSON so that match conditions for IPv4/IPv6 addresses, ports, and ranges are active on the custom table.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L156-L187】
-  4. For each rule, clear counters, send matching ingress traffic from a VLAN host toward the switch, confirm the packet exits an uplink, and verify the correct ACL counter increments.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L293-L312】
-- **Subtest/fixture roles translated for manual execution:**
-  - `remove_dataacl_table`: Mimics the preparation step of taking out the default data ACL so a tester can introduce the new table without TCAM conflicts.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L75-L108】
-  - `setup_custom_acl_table`: Represents the manual process of copying the custom table template, creating the ACL table type, and attaching it to VLAN 1000 while watching for CLI or syslog errors.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L111-L153】
-  - `setup_acl_rules`: Covers the action of loading ACL rule entries and cleaning them up afterward; manual testers would rely on `acl-loader` or `config acl add/del` to do the same.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L156-L187】
-  - `setup_counterpoll_interval`: Speeds up counter refresh so hits are visible quickly; a manual run could temporarily lower the ACL counter polling interval and restore it later.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L34-L48】
-  - `test_custom_acl`: Executes the verification loop—crafting packets for each rule, sending them through the PTF (or test host), and checking counter increments—mirroring what a manual tester would observe via packet captures and `aclshow` output.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L190-L312】
-
 ## 3. Overall Test Case Purpose
 - Validate that a custom ACL table type can be installed on the DUT, accept ACL rules, match traffic on VLAN ingress, forward matched traffic to uplinks, and update ACL hit counters accordingly.【F:tests/acl/custom_acl_table/test_custom_acl_table.py†L253-L312】
 
