@@ -1,99 +1,93 @@
-# Test Case Analyzer: `spytest/tests/routing/BGP/test_bgp.py`
+# BGP Functional Test Analyzer
 
 ## 1. Topology type
-- **Leaf-spine with traffic generator legs.** The module-level fixture enforces `st.ensure_min_topology('D1D2:1', 'D1T1:1', 'D2T1:1')`, which requires two DUTs (spine and leaf) interconnected by at least one link and each tied to a traffic generator port.【F:spytest/tests/routing/BGP/test_bgp.py†L19-L28】
-- **Evidence from helper utilities.** `bgplib.get_leaf_spine_topology_info()` and `bgplib.get_tg_topology_leafspine_bgp(...)` are repeatedly used to fetch node, AS, and traffic generator handles, reinforcing that the tests assume a spine-leaf fabric with TG endpoints rather than a simple P2P topology.【F:spytest/tests/routing/BGP/test_bgp.py†L60-L63】【F:spytest/tests/routing/BGP/test_bgp.py†L91-L103】
-- **Specialized overlays.** Class fixtures `bgp_rif_class_hook`, `bgp_ve_lag_class_hook`, and `bgp_l3_lag_class_hook` call `bgp_type_pre_config(...)` with arguments like `phy`, `veLag`, and `l3Lag`, indicating variations where the same spine-leaf underlay is exercised over physical links, VLAN-encapsulated Ethernet (VE) LAGs, or routed LAGs.【F:spytest/tests/routing/BGP/test_bgp.py†L446-L509】【F:spytest/tests/routing/BGP/test_bgp.py†L2193-L2224】
+- **Topology:** Leaf-spine setup with two DUTs (spine = D1, leaf = D2) and a traffic generator leg per DUT. The module autouse fixture calls `st.ensure_min_topology('D1D2:1', 'D1T1:1', 'D2T1:1')`, which requires a DUT-to-DUT link and one TG connection per DUT, and subsequent helpers such as `bgplib.get_leaf_spine_topology_info()` and `bgplib.l3tc_vrfipv4v6_address_leafspine_*` configure spine/leaf roles.
+- **Inference:** Repeated references to "spine" and "leaf" in `bgplib` helpers, `topo.spine_list`/`topo.leaf_list`, and the expectation of TG-facing ports reveal the classic two-tier fabric assumption rather than a simple point-to-point link or ring.
 
 ## 2. Overall test case purpose
-- **Broad BGP feature validation.** The file orchestrates end-to-end validation of SONiC’s BGP stack across IPv4 and IPv6, covering neighbor establishment, clearing, graceful restart, route aggregation, dynamic neighbors, policy controls (route-maps, prefix/AS filters), redistribution, community handling, update-source, authentication, and traffic forwarding.【F:spytest/tests/routing/BGP/test_bgp.py†L64-L188】【F:spytest/tests/routing/BGP/test_bgp.py†L503-L2259】
-- **Integration with SpyTest automation.** Tests rely on SpyTest service APIs (`st`, `tgapi`, and `bgplib`) to drive CLI/REST configuration, traffic generation, and verification, mirroring production operations within SONiC’s FRR-based control plane.【F:spytest/tests/routing/BGP/test_bgp.py†L4-L14】【F:spytest/tests/routing/BGP/test_bgp.py†L52-L98】
-- **Regression and community coverage.** Extensive `@pytest.mark` annotations tie each test to regression suites, inventory tags, and community pass/fail expectations, showing the file’s role in feature certification across releases such as Arlo and Buzznik.【F:spytest/tests/routing/BGP/test_bgp.py†L520-L705】【F:spytest/tests/routing/BGP/test_bgp.py†L972-L2244】
+- The file validates SONiC's BGP control-plane and data-plane behavior across IPv4/IPv6, covering neighbor formation, resilience (clear/reboot/update-delay), policy features (route-maps, prefix/AS-path/distribute/filter lists), redistribution (connected/static/blackhole), aggregation (including AS_SET and 4-byte ASNs), graceful restart, confederations, authentication, and traffic forwarding.
+- SpyTest orchestrates configuration on DUTs and traffic generators, exercising SONiC CLI layers (`vtysh`, `klish`) via `bgpapi`, `ipapi`, `tgapi`, and `bgplib` to emulate end-to-end workflows expected in SONiC regression suites.
 
 ## 3. Detailed breakdown of sub-testcases
+### Common infrastructure and helpers
+- **`bgp_module_hooks` (module autouse fixture)** – Normalizes traffic generator rates, derives the UI type (`bgp_cli_type`), ensures topology availability, pre-configures loopbacks, VLANs, port-channels, and TG BGP sessions through `bgp_pre_config`, and performs clean-up post-module.
+- **`bgp_pre_config` / `bgp_pre_config_cleanup`** – Provide module-wide base configuration and teardown for DUT interfaces, loopbacks, and traffic generator sessions.
+- **`TestBGPCommon` utility methods** – Offer reusable flows for BGP clearing, traffic tests, graceful restart, and aggregation checks. Derived classes invoke these for specific topologies.
 
-### Shared fixtures and helper flows
-- **`bgp_module_hooks` (autouse module fixture).** Normalizes traffic rates, derives CLI types, and runs `bgp_pre_config()` to wipe L3/L2 state, build loopbacks, and configure traffic generator and BGP sessions before yielding to tests. Cleanup reverses all changes via `bgp_pre_config_cleanup()` so each module starts from a known state.【F:spytest/tests/routing/BGP/test_bgp.py†L19-L55】
-- **`bgp_pre_config` / `bgp_pre_config_cleanup`.** Clear IP/vlan/portchannel state, configure loopback addresses, stage TG BGP sessions, and tear them down afterward to isolate BGP feature behavior.【F:spytest/tests/routing/BGP/test_bgp.py†L31-L54】
-- **`bgp_type_pre_config` & cleanup.** Provide scenario-specific base setup (physical, VE LAG, L3 LAG) by configuring underlay, VRF addresses, verifying pings, enabling BGP peers, and caching topology info into the global `topo` map that many tests read.【F:spytest/tests/routing/BGP/test_bgp.py†L446-L504】
-- **`TestBGPCommon` helper methods.**
-  - `ft_bgp_clear` clears neighbors via SONiC and FRR CLIs, ensures peering re-establishes, and reports pass/fail, validating operational commands for session recovery.【F:spytest/tests/routing/BGP/test_bgp.py†L73-L86】
-  - `ft_bgp_peer_traffic_check` advertises 100 IPv4 routes from a TG, configures update-delay timers, ensures routes remain suppressed until expiry, performs connectivity (ping) checks, and runs burst traffic verifying at least 95% success—validating BGP update delay and forwarding stability.【F:spytest/tests/routing/BGP/test_bgp.py†L88-L156】
-  - `ft_bgp_graceful_restart_and_aware_routers`, `ft_bgp_ipv4_no_route_aggregation_for_exact_prefix_match`, `ft_bgp_ipv4_route_aggregation_atomic_aggregate_without_as_set`, `ft_bgp_ipv6_route_aggregation_with_as_set`, and `ft_bgp_route_aggregation_4byteASN` encapsulate dedicated flows that configure GR, aggregate-address behaviors (with/without `as-set` and 4-byte ASN support), and validate learned routes/attributes accordingly.【F:spytest/tests/routing/BGP/test_bgp.py†L158-L289】
-- **Function-scoped fixtures.**
-  - `bgp_rif_func_hook` cleans ACL/route-map setups after route-map tests and triggers `bgp_common_func_hook` post `test_ft_bgp_peer_traffic_check` to drop update-delay timers.【F:spytest/tests/routing/BGP/test_bgp.py†L842-L872】
-  - `bgp_ipvx_route_adv_filter_fixture` derives a reduced two-node topology snapshot (`local_topo`), configures base redistribution/filtering prerequisites, and undoes them after each class.【F:spytest/tests/routing/BGP/test_bgp.py†L1004-L1123】
-  - `bgp_ipvx_route_adv_func_hook` and `bgp_ipvx_route_advt_func_hook` manage route-map state changes around specific inbound policy and update-source tests.【F:spytest/tests/routing/BGP/test_bgp.py†L1088-L1111】【F:spytest/tests/routing/BGP/test_bgp.py†L1855-L1894】
+### `TestBGPRif`
+- **`test_ft_bgp_v6_link_local_bgp`** – Enables BGP neighbor sessions over IPv6 link-local interfaces on both leaf and spine, confirms update counters, and verifies adjacency formation, proving SONiC can peer using link-local addresses and log activity.
+- **`test_ft_bgp_clear`** – Uses the common `ft_bgp_clear` helper to issue both SONiC and FRR BGP clear commands and ensure sessions recover, validating operational resiliency.
+- **`test_ft_bgp_peer_traffic_check`** – Leverages the common traffic procedure to advertise 100 IPv4 routes, manipulate update-delay timer behavior, verify RIB population timing, test ping reachability, and send TG-driven traffic to confirm data-plane forwarding under delayed updates.
+- **`test_ft_bgp_graceful_restart_and_aware_routers`** – Applies the graceful-restart preserve-forwarding-state knob on a leaf router and ensures adjacency with a GR-aware spine, demonstrating support for GR compatibility.
+- **`test_ft_bgp_ipv4_no_route_aggregation_for_exact_prefix_match`** – Configures an aggregate on the leaf, advertises component routes from the TG, and checks the spine retains the specific prefix when an exact match is present, preventing unwanted summarization.
+- **`test_ft_bgp_ipv4_route_aggregation_atomic_aggregate_without_as_set`** – Validates that when an aggregate is marked summary-only without AS_SET, the neighbor sees the summarized prefix (with aggregator/atomic attributes) and no longer sees individual routes; also enables zebra logging to inspect updates.
+- **`test_bgp_route_aggregation_4byteASN`** – Similar to the IPv4 aggregation test but ensures AS_SET preserves the full AS-path for an aggregate containing a 4-byte ASN, confirming large ASNs propagate correctly.
+- **`test_ft_bgp_ipv6_route_aggregation_with_as_set`** – Mirrors aggregation logic for IPv6 with AS_SET to ensure the aggregated IPv6 prefix carries full AS-path data.
+- **`test_ft_bgp_v4_dyn_nbr`** – Uses dynamic neighbor listen ranges with 4-byte AS numbers, configures per-peer listen ranges on leaf and static peers on spine, and ensures dynamic peering forms and cleans up.
+- **`test_ft_bgp_v6_dyn_nbr`** – Performs IPv6 dynamic neighbor peering by configuring listen ranges and static neighbors, verifying adjacency, and cleaning the IP/listen configuration.
+- **`test_ft_bgp_v4_max_dyn_nbr`** – Iterates through a limit of five listen ranges, configuring multiple dynamic neighbors simultaneously and verifying each neighbor reaches Established state, stressing scaling.
+- **`test_ft_bgp_rmap`** – Advertises a network, applies an access list + route-map to deny it, and confirms the peer no longer learns the route, testing outbound policy application after routes exist.
+- **`test_ft_bgp_rmap_out`** – Builds a multi-sequence route-map with various match/set clauses (including AS-path prepends), validates the correct networks are permitted or denied and attributes modified accordingly.
+- **`test_ft_bgp_ebgp_confed`** – Configures BGP confederation peers, ties an outbound route-map on the spine, advertises matching and non-matching routes via TG, and ensures only permitted prefixes reach the leaf, validating policy within confederations.
 
-### `TestBGPRif` (BGP over routed interfaces)
-- **`test_ft_bgp_v6_link_local_bgp`.** Configures IPv6 link-local interface neighbors on spine/leaf, monitors BGP update counters, and confirms adjacency before cleanup, ensuring the stack supports link-local session formation.【F:spytest/tests/routing/BGP/test_bgp.py†L503-L551】
-- **`test_ft_bgp_clear`.** Delegates to `TestBGPCommon.ft_bgp_clear` to validate SONiC and FRR neighbor clearing on physical interfaces.【F:spytest/tests/routing/BGP/test_bgp.py†L575-L579】
-- **`test_ft_bgp_peer_traffic_check`.** Executes the comprehensive update-delay and traffic validation flow from `TestBGPCommon.ft_bgp_peer_traffic_check` within the routed-interface topology.【F:spytest/tests/routing/BGP/test_bgp.py†L587-L589】
-- **`test_ft_bgp_graceful_restart_and_aware_routers`.** Runs the helper to confirm GR-capable vs GR-aware neighbor convergence.【F:spytest/tests/routing/BGP/test_bgp.py†L595-L597】
-- **`test_ft_bgp_ipv4_no_route_aggregation_for_exact_prefix_match`.** Ensures exact prefixes bypass aggregation when `aggregate-address` is present.【F:spytest/tests/routing/BGP/test_bgp.py†L603-L605】
-- **`test_ft_bgp_ipv4_route_aggregation_atomic_aggregate_without_as_set`.** Validates mandatory ATOMIC_AGGREGATE/AGGREGATOR attributes without AS-SET usage.【F:spytest/tests/routing/BGP/test_bgp.py†L611-L613】
-- **`test_bgp_route_aggregation_4byteASN`.** Confirms that summary-only aggregation with `as-set` retains the full AS path including 4-byte ASNs.【F:spytest/tests/routing/BGP/test_bgp.py†L619-L621】
-- **`test_ft_bgp_ipv6_route_aggregation_with_as_set`.** Exercises IPv6 aggregation with `as-set`, checking propagated attributes on the spine.【F:spytest/tests/routing/BGP/test_bgp.py†L625-L627】
-- **`test_ft_bgp_v4_dyn_nbr`.** Creates IPv4 listen ranges and peer-groups, auto-discovers dynamic neighbors using secondary interface IPs, and ensures adjacency before tearing down all state—verifying listen-range dynamic peering.【F:spytest/tests/routing/BGP/test_bgp.py†L631-L688】
-- **`test_ft_bgp_v6_dyn_nbr`.** Mirrors the dynamic neighbor validation for IPv6 addresses and listen ranges.【F:spytest/tests/routing/BGP/test_bgp.py†L691-L718】
-- **`test_ft_bgp_v4_max_dyn_nbr`.** Iteratively provisions five IPv4 dynamic neighbors with unique listen ranges, checks they all reach Established, and then removes each configuration, validating scale and cleanup of listen-range peering.【F:spytest/tests/routing/BGP/test_bgp.py†L720-L779】
-- **`test_ft_bgp_rmap`.** Advertises a route, applies an ACL-backed route-map to withdraw it, verifies the spine no longer has the prefix, and cleans ACL/route-map entries—demonstrating policy enforcement after route installation.【F:spytest/tests/routing/BGP/test_bgp.py†L781-L823】
-- **`test_ft_bgp_rmap_out`.** Builds layered ACLs and route-map sequences with AS-path prepending, advertises multiple prefixes, and verifies on the spine that only permitted networks appear with the desired community/AS path while denied networks stay absent; the fixture cleans the complex policy stack afterward.【F:spytest/tests/routing/BGP/test_bgp.py†L874-L969】
-- **`test_ft_bgp_ebgp_confed`.** Configures confederation identifier/peers on both DUTs, applies an outbound route-map, advertises permitted and denied prefixes from a TG, and checks that only permitted routes reach the confed leaf before removing all confed-specific state—validating confederation policy handling.【F:spytest/tests/routing/BGP/test_bgp.py†L972-L1034】
+### `TestBGPIPvxRouteAdvertisementFilter`
+- **`test_redistribute_connected_ipv4`** – Enables redistribution of connected IPv4 routes from DUT1 and checks DUT2 learns all connected prefixes, validating redistribution controls.
+- **`test_redistribute_static_ipv4`** – Installs static routes and ensures they are redistributed when enabled, confirming policy for static routes.
+- **`test_distribute_list_in_ipv4`** – Applies an inbound distribute-list ACL on DUT2 and checks suppression of a specific prefix, verifying access-list-based filtering (skipped for unsupported UI types).
+- **`test_filter_list_in_ipv4`** – Uses an AS-path filter-list inbound on DUT2 to block routes sourced from DUT1's AS, confirming AS-path filtering.
+- **`test_prefix_list_out_ipv4`** – Applies outbound prefix-lists on DUT2 to suppress advertising a particular IPv4 prefix to DUT1, covering export policies.
+- **`test_default_originate_ipv4`** – Enables default-originate (with route-map) toward DUT1 and confirms a 0.0.0.0/0 route is advertised, ensuring default route injection works.
+- **`test_route_map_in_ipv4`** – Applies inbound route-map `SETPROPS` on DUT2 to change metrics and local-pref for specified networks, verifying attribute manipulation.
+- **`test_redistribute_connected_ipv6`** – Mirrors the connected redistribution test for IPv6, filtering out link-local addresses and confirming receipt on DUT2.
+- **`test_redistribute_static_ipv6`** – Adds IPv6 static routes and ensures redistribution yields the expected learned routes on DUT2.
+- **`test_distribute_list_in_ipv6`** – Applies an inbound distribute-list on IPv6 neighbors to suppress a prefix, verifying IPv6 ACL-based filtering (skips unsupported UI types).
+- **`test_filter_list_in_ipv6`** – Uses inbound IPv6 AS-path filter-lists to block routes from DUT1's AS.
+- **`test_prefix_list_out_ipv6`** – Enforces an outbound IPv6 prefix-list to prevent advertising a specific prefix while permitting others.
+- **`test_filter_list_out_ipv6`** – Applies an outbound filter-list to block routes based on AS_PATH before export.
+- **`test_default_originate_ipv6`** – Enables IPv6 default-originate toward DUT1 and verifies `::/0` propagation.
+- **`test_route_map_in_ipv6`** – Uses inbound IPv6 route-map `SETPROPS6` to adjust metric and local-pref for targeted prefixes.
+- **`test_bgp_route_map_with_community`** – Configures a route-map matching on community and ensures only routes tagged with `100:100` are accepted, verifying community-based filtering.
+- **`test_bgp_ebgp4_nbr_update_source`** – Configures eBGP neighbors with explicit update-source interfaces and ebgp-multi-hop on both peers, clears sessions, and confirms adjacency recovers, validating update-source support.
+- **`test_bgp_ebgp4_nbr_authentication`** – Applies BGP passwords on both IPv4 neighbors, clears sessions, reboots DUT1, and ensures adjacency survives, confirming MD5 auth persistence.
+- **`test_bgp_ebgp6_traffic`** – Advertises 500 IPv6 routes from TG toward each DUT, verifies RIB counts, runs IPv6 traffic flows in both directions, reboots DUT1, and ensures routes persist/recover, validating large-scale IPv6 eBGP forwarding and resiliency.
+- **`test_route_aggregate_ipv6`** – Aggregates multiple IPv6 static blackhole routes into a summary and confirms only the aggregate is redistributed, proving summarization works.
+- **`test_static_blackhole_rt_redistribute_with_routemap_ipv6`** – Redistributes an IPv6 blackhole static route with a route-map metric and verifies the downstream AS receives the metric value, ensuring policy application on blackhole redistribution.
 
-### `TestBGPIPvxRouteAdvertisementFilter` (route distribution and policy)
-- **Fixture impact.** `bgp_ipvx_route_adv_filter_fixture` captures a simplified DUT pair (`local_topo`), seeds redistribution/policy prerequisites, and gives each test quick access to AS numbers, interface addresses, and output interface names.【F:spytest/tests/routing/BGP/test_bgp.py†L1004-L1123】
-- **`test_redistribute_connected_ipv4`.** Enables IPv4 connected redistribution on DUT1, collects connected routes, confirms they appear in DUT2’s BGP table, and then withdraws redistribution.【F:spytest/tests/routing/BGP/test_bgp.py†L1131-L1161】
-- **`test_redistribute_static_ipv4`.** Programs a static route, enables redistribution, verifies DUT2 learns it, and cleans both static route and redistribution knob.【F:spytest/tests/routing/BGP/test_bgp.py†L1167-L1206】
-- **`test_distribute_list_in_ipv4`.** Applies an inbound distribute-list to suppress a specific IPv4 prefix from the neighbor and confirms the route disappears while removing the filter afterward.【F:spytest/tests/routing/BGP/test_bgp.py†L1217-L1255】
-- **`test_filter_list_in_ipv4`.** Uses an inbound AS-path filter-list to block all routes sourced from DUT1’s AS and verifies the neighbor’s routing table is empty for that AS.【F:spytest/tests/routing/BGP/test_bgp.py†L1268-L1297】
-- **`test_prefix_list_out_ipv4`.** Attaches an outbound prefix-list on DUT2 that denies `202.1.1.0/24`, checks that DUT1 no longer learns it, and then removes the prefix-list from both IPv4 and IPv6 sessions.【F:spytest/tests/routing/BGP/test_bgp.py†L1314-L1364】
-- **`test_default_originate_ipv4`.** Commands DUT2 to advertise a default route with `default-originate`, confirms DUT1 learns `0.0.0.0/0`, and withdraws the configuration.【F:spytest/tests/routing/BGP/test_bgp.py†L1384-L1416】
-- **`test_route_map_in_ipv4`.** Applies an inbound route-map that sets metric/local-pref on selected prefixes and verifies the attributes were rewritten, demonstrating policy-based attribute manipulation.【F:spytest/tests/routing/BGP/test_bgp.py†L1430-L1465】
-- **`test_redistribute_connected_ipv6`.** Enables IPv6 connected redistribution, ensures learned routes on DUT2 include all connected networks except link-local, and tears down redistribution.【F:spytest/tests/routing/BGP/test_bgp.py†L1486-L1517】
-- **`test_redistribute_static_ipv6`.** Redistributes a configured IPv6 static route and verifies presence on the peer before cleanup.【F:spytest/tests/routing/BGP/test_bgp.py†L1524-L1564】
-- **`test_distribute_list_in_ipv6`.** Applies an inbound IPv6 distribute-list to block `102:1::/64`, confirms suppression, and removes the filter.【F:spytest/tests/routing/BGP/test_bgp.py†L1578-L1609】
-- **`test_filter_list_in_ipv6`.** Similar to the IPv4 case but for IPv6 AS-path filtering to ensure no routes from the specified AS pass through.【F:spytest/tests/routing/BGP/test_bgp.py†L1628-L1659】
-- **`test_prefix_list_out_ipv6`.** Enforces an outbound IPv6 prefix-list that denies `202:1::/64` and checks the peer does not learn the route before removing the configuration.【F:spytest/tests/routing/BGP/test_bgp.py†L1673-L1707】
-- **`test_filter_list_out_ipv6`.** Applies an outbound AS-path filter-list, ensuring DUT1 stops receiving the partner’s routes, validating egress AS filtering.【F:spytest/tests/routing/BGP/test_bgp.py†L1722-L1749】
-- **`test_default_originate_ipv6`.** Exercises IPv6 default-originate and verifies `::/0` delivery to the neighbor.【F:spytest/tests/routing/BGP/test_bgp.py†L1765-L1798】
-- **`test_route_map_in_ipv6`.** Uses an inbound route-map to set IPv6 metric and local-pref attributes to 6400/6200 and confirms the values were applied.【F:spytest/tests/routing/BGP/test_bgp.py†L1809-L1833】
-- **`test_bgp_route_map_with_community`.** Builds a route-map matching community `100:100`, injects a static route via blackhole next-hop, verifies the community tag is present on the peer, and tears down redistribution and policy knobs—validating community-based filtering with dynamic neighbors.【F:spytest/tests/routing/BGP/test_bgp.py†L1838-L1853】
-- **`test_bgp_ebgp4_nbr_update_source`.** Configures update-source and EBGP multi-hop on both DUTs, clears sessions, and ensures neighbors re-establish via loopback-sourced sessions before fixture cleanup removes the knobs.【F:spytest/tests/routing/BGP/test_bgp.py†L1890-L1931】
-- **`test_bgp_ebgp4_nbr_authentication`.** Sets BGP passwords on both sides, validates neighbor establishment before and after a fast reboot (with config save), and then removes the authentication—proving password persistence across restarts.【F:spytest/tests/routing/BGP/test_bgp.py†L1926-L1961】
-- **`test_bgp_ebgp6_traffic`.** Uses TG ports on both DUTs to advertise 500 IPv6 routes in each direction, verifies RIB growth and neighbor state, sends burst IPv6 traffic with ≥95% delivery, reboots a DUT to ensure routes persist, and monitors for regression, stressing high-scale eBGPv6 forwarding.【F:spytest/tests/routing/BGP/test_bgp.py†L1980-L2075】
-- **`test_route_aggregate_ipv6`.** Configures blackhole statics, enables IPv6 aggregate-address summary, verifies only the summary is exported (individual routes suppressed), and then cleans up statics and aggregate commands.【F:spytest/tests/routing/BGP/test_bgp.py†L2121-L2159】
-- **`test_static_blackhole_rt_redistribute_with_routemap_ipv6`.** Redistributes an IPv6 static blackhole via route-map `rmap_blackhole`, checks the peer sees metric 50, and removes the route and policy—validating redistribution of discard routes with attribute control.【F:spytest/tests/routing/BGP/test_bgp.py†L2175-L2211】
+### `TestBGPVeLag`
+- **`test_ft_bgp_clear`** – Reuses the common clear test but under the VE-over-LAG topology created by `bgp_ve_lag_class_hook`, validating the same resiliency when neighbors run over virtual Ethernet LAGs.
+- **`test_ft_bgp_peer_traffic_check`** – Executes the common traffic/update-delay scenario in the VE-over-LAG environment to ensure forwarding survives bundled interfaces.
 
-### `TestBGPVeLag` (BGP over VE on LAG)
-- **Fixture scope.** `bgp_ve_lag_class_hook` pre-provisions VE-over-LAG topology via `bgp_type_pre_config('veLag')`, sharing common helper logic for cleanup.【F:spytest/tests/routing/BGP/test_bgp.py†L2193-L2224】
-- **`test_ft_bgp_clear`.** Reuses `TestBGPCommon.ft_bgp_clear` to ensure neighbor clearing works over VE LAG links.【F:spytest/tests/routing/BGP/test_bgp.py†L2241-L2244】
-- **`test_ft_bgp_peer_traffic_check`.** Runs the traffic/update-delay validation across VE LAG neighbors, confirming parity with the physical topology.【F:spytest/tests/routing/BGP/test_bgp.py†L2250-L2258】
+### `TestBGPL3Lag`
+- **`test_ft_bgp_l3lag_peer_traffic_check`** – Runs the traffic/update-delay procedure with L3-over-LAG connectivity, confirming BGP sessions and traffic forwarding across routed port-channels.
 
-### `TestBGPL3Lag` (BGP over L3 LAG)
-- **Fixture scope.** `bgp_l3_lag_class_hook` prepares L3-over-LAG connectivity and ensures cleanup removes all BGP state at teardown.【F:spytest/tests/routing/BGP/test_bgp.py†L2230-L2240】
-- **`test_ft_bgp_l3lag_peer_traffic_check`.** Invokes `ft_bgp_peer_traffic_check` in the L3 LAG scenario to validate route advertisement and TG forwarding through routed port-channels.【F:spytest/tests/routing/BGP/test_bgp.py†L2286-L2292】
+### Additional fixtures
+- **`bgp_rif_class_hook`, `bgp_ve_lag_class_hook`, `bgp_l3_lag_class_hook`** – Prepare respective underlay configurations (physical interfaces, VE LAGs, L3 LAGs) using `bgp_type_pre_config` and clean up after class execution.
+- **`bgp_rif_func_hook`, `bgp_ve_lag_func_hook`, `bgp_ipvx_route_adv_func_hook`, `bgp_ipvx_route_advt_func_hook`** – Provide per-test clean-up or additional configuration toggles (e.g., revert route-maps, remove update-delay, undo update-source settings).
 
 ## 4. Dependencies and prerequisites
-- **SpyTest services:** `st` for logging/control, `tgapi` for traffic generation, and `utils.exec_foreach` for multi-DUT operations.【F:spytest/tests/routing/BGP/test_bgp.py†L4-L15】【F:spytest/tests/routing/BGP/test_bgp.py†L73-L82】
-- **SONiC BGP/IP APIs:** `apis.routing.bgp` and `apis.routing.ip` abstract FRR/SONiC CLI for configuration, verification, redistribution, prefix-list and AS-path operations, ping, and static route management.【F:spytest/tests/routing/BGP/test_bgp.py†L6-L7】【F:spytest/tests/routing/BGP/test_bgp.py†L781-L829】
-- **Switching/system utilities:** VLAN and port-channel APIs reset L2 state; logging and reboot modules facilitate syslog checks and fast reboot sequences used in authentication and traffic tests.【F:spytest/tests/routing/BGP/test_bgp.py†L8-L12】【F:spytest/tests/routing/BGP/test_bgp.py†L1938-L1960】
-- **Custom BGP library (`bgplib`).** Supplies topology metadata, canned configuration routines (loopbacks, TG sessions, underlay), and helper verifications (BGP ensure, neighbor dumps). Many flows depend on `bgplib` for environment prep and data lookups.【F:spytest/tests/routing/BGP/test_bgp.py†L16-L107】
-- **Topology constraints.** Tests expect at least two DUTs with TG connectivity, support for dynamic neighbors, loopbacks, IPv4/IPv6 addressing, and the ability to reboot DUTs under test without losing configuration—requirements enforced by the fixtures.【F:spytest/tests/routing/BGP/test_bgp.py†L19-L55】【F:spytest/tests/routing/BGP/test_bgp.py†L1890-L2066】
+- **Fixtures:** Module-level `bgp_module_hooks`; class fixtures (`bgp_rif_class_hook`, `bgp_ipvx_route_adv_filter_fixture`, `bgp_ve_lag_class_hook`, `bgp_l3_lag_class_hook`); function fixtures for targeted cleanup/toggles.
+- **Topology:** Requires at least two SONiC DUTs with TG connectivity and capabilities to form IPv4/IPv6 BGP sessions, including support for VE/L3 LAG variations.
+- **Stateful data:** Uses global `topo`/`bgplib.data` for interface names, ASNs, and TG handles.
+- **Traffic generator:** Relies on SpyTest TG APIs (`tgapi`) for BGP emulation and traffic streams.
 
 ## 5. Key inputs and parameters
-- **Traffic settings:** `rate_pps` and `pkts_per_burst` determine TG burst intensity and are normalized per platform before traffic runs.【F:spytest/tests/routing/BGP/test_bgp.py†L15-L27】
-- **CLI selection:** `bgp_cli_type` / `vtysh_cli_type` adapt command syntax (click vs vtysh vs klish) so tests run across management stacks.【F:spytest/tests/routing/BGP/test_bgp.py†L27-L33】
-- **Topology dictionaries:** The global `topo` map and the per-class `local_topo` snapshot expose DUT names, interface IDs, AS numbers, neighbor addresses, TG handles, and prebuilt peer-groups used throughout the tests.【F:spytest/tests/routing/BGP/test_bgp.py†L60-L103】【F:spytest/tests/routing/BGP/test_bgp.py†L1004-L1130】
-- **Policy identifiers:** Route-map names (`test-rmap`, `SETPROPS`, `UseGlobal`, `rmap1`), prefix-lists (`PREFIXOUT`, `PREFIXOUT6`), filter/distribute list IDs, and ACL names (`test-access-list*`) drive the control-plane filtering scenarios.【F:spytest/tests/routing/BGP/test_bgp.py†L781-L969】【F:spytest/tests/routing/BGP/test_bgp.py†L1314-L1707】
-- **Test prefixes/ASNs:** Specific networks (e.g., `134.5.6.0/24`, `123.1.0.0/16`, `6002:1::/64`, `202:1::/64`) and ASNs from `bgplib.data` (leaf/spine) are repeatedly injected to validate attribute propagation and filtering logic.【F:spytest/tests/routing/BGP/test_bgp.py†L166-L315】【F:spytest/tests/routing/BGP/test_bgp.py†L631-L2159】
+- **AS numbers & neighbors:** Pulled from `bgplib.data` (e.g., `spine_as`, `leaf_as`) and topology dictionaries (`info['D1_as']`, `topo['T1D1P1_ipv4']`).
+- **Traffic shaping:** Module-scoped `rate_pps` and derived `pkts_per_burst` drive TG flows; `tgapi.normalize_pps` adjusts them to lab capacity.
+- **Policy names:** Route-maps (`test-rmap`, `SETPROPS`, `rmap1`, `UseGlobal`, etc.), prefix-lists (`PREFIXOUT`, `PREFIXOUT6`), distribute/filter lists (`11`, `FILTER`, `FILTER6`), communities (`100:100`), and peer-groups (`leaf_spine`, `spine_leaf`).
+- **Prefixes:** Numerous IPv4/IPv6 networks for testing aggregation, redistribution, and filtering (e.g., `122.1.1.0/24`, `123.1.0.0/16`, `6002:1::/64`, `2018:3::/32`).
+- **Timers & thresholds:** Update-delay timer (`60` seconds) and listen limits (`limit = 5`) define stress scenarios; traffic verification expects ≥95% success ratios.
 
 ## 6. External libraries and modules
-- **`pytest`** drives parametrization, fixtures, and marking of community/regression categories.【F:spytest/tests/routing/BGP/test_bgp.py†L1-L2】
-- **SpyTest core (`spytest.st`, `spytest.tgapi`).** Provide device control, logging, polling, and TG operations essential for orchestrating the tests.【F:spytest/tests/routing/BGP/test_bgp.py†L4-L5】
-- **SONiC/SpyTest API wrappers (`apis.routing.ip`, `apis.routing.bgp`, `apis.switching.vlan`, `apis.switching.portchannel`, `apis.system.logging`, `apis.system.reboot`).** Abstract CLI/REST calls for network configuration, verification, logging, and reboot handling.【F:spytest/tests/routing/BGP/test_bgp.py†L6-L12】
-- **Custom libraries (`BGP.bgplib`, `utilities.common`).** `bgplib` contains reusable topology-aware workflows, while `utilities.common` supplies helpers like `exec_foreach` used for multi-DUT operations.【F:spytest/tests/routing/BGP/test_bgp.py†L13-L14】【F:spytest/tests/routing/BGP/test_bgp.py†L73-L86】
+- **`pytest`** – Provides fixtures, parametrization, and test structure.
+- **`spytest.st`** – SpyTest service wrapper for logging, assertions, topology helpers, and CLI execution.
+- **`spytest.tgapi`** – Traffic generator abstraction for emulated BGP sessions and traffic control.
+- **`apis.routing.ip`, `apis.routing.bgp`** – SONiC API layers for IP/BGP configuration, verification, and show commands.
+- **`apis.switching.vlan`, `apis.switching.portchannel`** – Used during pre-configuration to reset switching constructs.
+- **`apis.system.logging`, `apis.system.reboot`** – Inspect syslogs and handle device reboots/config saves.
+- **`BGP.bgplib`** – SpyTest BGP topology helper providing canned configuration flows, route advertisement utilities, and topology metadata.
+- **`utilities.common`** – Utility helpers like `exec_foreach` and error handling.
 
 ## 7. Unspecified items
-- Hardware SKUs, exact interface breakout details, and the concrete structure of `bgplib.data` (e.g., specific AS numbers or TG port identifiers) are abstracted behind library calls and are **Not specified** in the test file.
-- The precise pass/fail thresholds for some attribute checks (beyond the hardcoded numeric comparisons) and any environmental requirements for traffic generators (vendor/type) are likewise **Not specified**.
+- Exact hardware SKU, ASIC type, or SONiC image build are not specified.
+- Detailed contents of `bgplib.data` (e.g., actual ASNs/IPs) and underlying `testbed.yaml` inventory are not included in this file.
+- Traffic generator model, licensing, or port mappings beyond logical handles are not described.
