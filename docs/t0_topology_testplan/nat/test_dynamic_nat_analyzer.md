@@ -1,0 +1,65 @@
+# Dynamic NAT Test Analyzer
+
+## 1. Topology Type
+* **Topology:** T0 (single ToR with fanout/host/leaf connectivity).【F:tests/nat/test_dynamic_nat.py†L43-L45】
+* **Inference:** The module-wide `pytestmark` enforces `topology('t0')`, and every test consumes fixtures associated with this environment (e.g., `ptfhost`, `duthost`, `setup_test_env`), which are typical of the SONiC T0 testbed setup.【F:tests/nat/test_dynamic_nat.py†L52-L63】【F:tests/nat/test_dynamic_nat.py†L419-L463】
+
+## 2. Overall Test Case Purpose
+* **Goal:** Validate SONiC's Dynamic Network Address Translation (NAT) feature across functional, operational, and resiliency scenarios on a T0 topology. The suite covers translation correctness, persistence, ACL interactions, capacity thresholds, docker lifecycle effects, statistics clearing, interface flaps, zone configuration, and binding/pool management for TCP, UDP, ICMP, and GRE flows.【F:tests/nat/test_dynamic_nat.py†L52-L540】【F:tests/nat/test_dynamic_nat.py†L578-L1199】
+* **Framework Context:** These tests exercise the NAT service managed through SONiC CLI/Ansible abstractions (`config nat`, `show nat`, iptables inspection) within the broader pytest-based infrastructure shared across SONiC's functional validation libraries (`nat_helpers`, `ptf.testutils`, and common assertion helpers).【F:tests/nat/test_dynamic_nat.py†L8-L41】【F:tests/nat/test_dynamic_nat.py†L215-L243】【F:tests/nat/test_dynamic_nat.py†L508-L575】
+
+## 3. Detailed Breakdown of Sub-Testcases
+* **`test_nat_dynamic_basic`** – Provisions default dynamic NAT rules and verifies bidirectional TCP/UDP translation for host↔leaf paths, confirming baseline functionality.【F:tests/nat/test_dynamic_nat.py†L52-L63】 This establishes that the DUT can successfully translate flows before exploring advanced scenarios.
+* **`test_nat_dynamic_basic_icmp`** – Mirrors the basic test for ICMP, ensuring echo traffic is translated across the NAT pool when moving from host to leaf.【F:tests/nat/test_dynamic_nat.py†L66-L77】 Validates NAT support for control-plane critical ICMP flows.
+* **`test_nat_dynamic_entry_persist`** – Repeats traffic after randomized waits to confirm NAT entries persist across idle intervals shorter than protocol timeouts.【F:tests/nat/test_dynamic_nat.py†L80-L95】 Demonstrates session stickiness and timeout handling for L4 flows.
+* **`test_nat_dynamic_entry_persist_icmp`** – Similar persistence check for ICMP mappings, verifying entries remain active across repeated pings with deliberate pauses.【F:tests/nat/test_dynamic_nat.py†L98-L111】 Ensures non-TCP flows honor timeout expectations.
+* **`test_nat_dynamic_disable_nat`** – Disables the NAT feature globally, ensures traffic bypasses translation, re-enables NAT, and validates translations resume.【F:tests/nat/test_dynamic_nat.py†L114-L136】 Confirms feature toggling affects data plane as expected.
+* **`test_nat_dynamic_disable_nat_icmp`** – Repeats feature toggle validation for ICMP traffic.【F:tests/nat/test_dynamic_nat.py†L139-L158】 Confirms parity for non-L4 protocols.
+* **`test_nat_dynamic_bindings`** – Shrinks pool bindings, removes them, and verifies that lacking eligible ports causes drops or L3 forwarding without translation.【F:tests/nat/test_dynamic_nat.py†L161-L176】 Tests binding enforcement and failure handling.
+* **`test_nat_dynamic_bindings_icmp`** – Validates that removing bindings prevents ICMP translation, ensuring consistent policy enforcement across protocols.【F:tests/nat/test_dynamic_nat.py†L179-L189】
+* **`test_nat_dynamic_other_protocols`** – Crafts GRE packets to assert that unsupported protocols are forwarded without translation, checking protocol filtering logic.【F:tests/nat/test_dynamic_nat.py†L192-L212】
+* **`test_nat_dynamic_acl_rule_actions`** – Iteratively changes ACL actions between `do_not_nat` and `forward` to verify translation obeys ACL bindings.【F:tests/nat/test_dynamic_nat.py†L215-L243】 Validates policy-driven NAT decisions.
+* **`test_nat_dynamic_acl_rule_actions_icmp`** – Performs the ACL action toggling sequence for ICMP traffic.【F:tests/nat/test_dynamic_nat.py†L246-L273】
+* **`test_nat_dynamic_acl_modify_rule`** – After establishing working translations, applies a `do_not_nat` ACL for a specific subnet and confirms that traffic from that subnet is exempt from NAT while other flows were previously translated.【F:tests/nat/test_dynamic_nat.py†L276-L298】 Ensures dynamic policy updates take effect.
+* **`test_nat_dynamic_acl_modify_rule_icmp`** – The ICMP analog of modifying ACL behavior mid-test.【F:tests/nat/test_dynamic_nat.py†L301-L323】
+* **`test_nat_dynamic_pool_threshold`** – Configures a two-port pool to test allocation limits, verifies first two sessions translate, the third is denied, and ensures entries expire and new translations can form afterward.【F:tests/nat/test_dynamic_nat.py†L326-L416】 Demonstrates resource exhaustion handling and cleanup.
+* **`test_nat_dynamic_crud`** – Exercises create/update/delete workflows by changing pool ranges, verifying new translations use updated ports, and confirming entries clear after rule removal.【F:tests/nat/test_dynamic_nat.py†L419-L463】 Validates configuration lifecycle.
+* **`test_nat_dynamic_crud_icmp`** – Applies the CRUD workflow to ICMP translations and verifies updated identifier ranges.【F:tests/nat/test_dynamic_nat.py†L466-L487】
+* **`test_nat_dynamic_full_cone`** – Ensures configured wide port ranges behave as full-cone NAT, allowing external responders to reach translated endpoints without additional mapping changes.【F:tests/nat/test_dynamic_nat.py†L490-L505】
+* **`test_nat_dynamic_enable_disable_nat_docker`** – Stops/starts the NAT docker container to ensure iptables programming is removed and restored, and that traffic resumes translating post-restart.【F:tests/nat/test_dynamic_nat.py†L508-L540】 Validates service-level resiliency.
+* **`test_nat_dynamic_enable_disable_nat_docker_icmp`** – Equivalent docker lifecycle coverage for ICMP.【F:tests/nat/test_dynamic_nat.py†L543-L575】
+* **`test_nat_clear_statistics_dynamic`** – Checks NAT counters initialize empty, increment after traffic, then clear to zero when requested.【F:tests/nat/test_dynamic_nat.py†L578-L616】 Validates observability tooling.
+* **`test_nat_clear_translations_dynamic`** – Verifies translation table population after traffic, confirms expected address/port mappings, then clears entries and ensures no residual counters remain.【F:tests/nat/test_dynamic_nat.py†L619-L672】 Ensures translation housekeeping works.
+* **`test_nat_interfaces_flap_dynamic`** – Disables an outer interface to confirm existing translations persist in software and iptables, then re-enables the interface, refreshes neighbors, and verifies traffic recovers.【F:tests/nat/test_dynamic_nat.py†L675-L742】 Tests link flap resilience.
+* **`test_nat_dynamic_zones`** – Alters zone IDs to 0/1 combinations to ensure NAT only applies when zones align, reinstating proper zone config after negative testing.【F:tests/nat/test_dynamic_nat.py†L745-L776】 Validates zone-based policy.
+* **`test_nat_dynamic_zones_icmp`** – Performs the same zone manipulation for ICMP traffic.【F:tests/nat/test_dynamic_nat.py†L779-L798】
+* **`test_nat_dynamic_extremal_ports`** – Initiates sessions on edge-case ports (low/high values) to confirm translations succeed and the expected number of DNAPT entries appears.【F:tests/nat/test_dynamic_nat.py†L801-L829】 Ensures allocator handles atypical ports.
+* **`test_nat_dynamic_single_host`** – Scales translations from a single host across a contiguous port range while extending timeouts, verifying the DUT can sustain the expected number of entries and reverting timeouts afterward.【F:tests/nat/test_dynamic_nat.py†L832-L864】 Exercises scaling limits and timeout management.
+* **`test_nat_dynamic_binding_remove`** – Confirms bindings appear in CLI/iptables, removes them, ensures translations stop, and verifies iptables empties accordingly.【F:tests/nat/test_dynamic_nat.py†L867-L926】 Tests binding removal effects.
+* **`test_nat_dynamic_iptable_snat`** – Confirms SNAT rules exist for TCP/UDP/ICMP once pools/bindings are present and translations occur.【F:tests/nat/test_dynamic_nat.py†L929-L960】 Validates kernel rule programming.
+* **`test_nat_dynamic_outside_interface_delete`** – Removes the outside interface IP to verify NAT rules disappear, then restores the interface and checks translations recover.【F:tests/nat/test_dynamic_nat.py†L963-L1027】 Tests dependency on interface configuration.
+* **`test_nat_dynamic_nat_pools`** – Applies bindings via JSON payload, checks iptables before/after zone configuration, and verifies translations once zones are correct and sessions are re-established post-expiry.【F:tests/nat/test_dynamic_nat.py†L1030-L1117】 Exercises declarative configuration workflows.
+* **`test_nat_dynamic_modify_bindings`** – Removes bindings, confirms translations stop and iptables clears, re-adds bindings (with different ACL scope), and ensures traffic remains un-natted per expectations, validating runtime binding edits.【F:tests/nat/test_dynamic_nat.py†L1120-L1199】
+
+## 4. Dependencies and Prerequisites
+* **Fixtures:** Every test depends on `setup_test_env` for interface/topology context, `ptfhost`, `ptfadapter`, `duthost`, and `tbinfo`; some require additional fixtures like `protocol_type`, `enable_nat_feature`, and `enable_outer_interfaces` to manipulate device state.【F:tests/nat/test_dynamic_nat.py†L52-L137】【F:tests/nat/test_dynamic_nat.py†L675-L742】【F:tests/nat/test_dynamic_nat.py†L1120-L1199】 These fixtures must provide DUT access, packet test framework handles, and preconfigured NAT parameters.
+* **Topology Constraints:** Tests assume a NAT-capable DUT with host-to-ToR and ToR-to-leaf connectivity, consistent with the `setup_test_env` data structure supplying interface maps, NAT zones, pools, and VRF information.【F:tests/nat/test_dynamic_nat.py†L54-L76】【F:tests/nat/test_dynamic_nat.py†L963-L1019】 Proper configuration files and ACL/NAT templates are prerequisites.
+* **Helper Modules:** All NAT operations rely on `nat_helpers` utilities for configuration, traffic generation, stats collection, and CLI parsing, so these helpers and their underlying Ansible/pytest integrations must be available.【F:tests/nat/test_dynamic_nat.py†L8-L39】
+
+## 5. Key Inputs and Parameters
+* **Directional Constants:** `DIRECTION_PARAMS` enumerates traffic paths (host↔leaf) to iterate through translation scenarios.【F:tests/nat/test_dynamic_nat.py†L8-L63】
+* **NAT Pool Definitions:** `POOL_RANGE_START_PORT`, `POOL_RANGE_END_PORT`, and `TCP_GLOBAL_PORT` define default dynamic port ranges and expected translated ports used across tests.【F:tests/nat/test_dynamic_nat.py†L9-L13】【F:tests/nat/test_dynamic_nat.py†L326-L399】
+* **Timeouts:** `GLOBAL_UDP_NAPT_TIMEOUT` and `GLOBAL_TCP_NAPT_TIMEOUT` determine idle timers; tests modify or reference them when checking persistence or scaling behavior.【F:tests/nat/test_dynamic_nat.py†L10-L11】【F:tests/nat/test_dynamic_nat.py†L80-L95】【F:tests/nat/test_dynamic_nat.py†L832-L863】
+* **ACL and Zone Data:** Fields such as `acl_subnet`, `interfaces_nat_zone`, and `public_ip` from `setup_data` guide ACL-based tests, zone toggling, and iptables expectations.【F:tests/nat/test_dynamic_nat.py†L215-L243】【F:tests/nat/test_dynamic_nat.py†L745-L798】【F:tests/nat/test_dynamic_nat.py†L1030-L1097】
+* **Protocol Parameterization:** `protocol_type` fixture drives many tests to execute across TCP and UDP (and occasionally ICMP), ensuring broad coverage of translation logic.【F:tests/nat/test_dynamic_nat.py†L52-L505】
+
+## 6. External Libraries and Modules
+* **`nat_helpers`** – Provides configuration primitives, traffic generators, NAT telemetry access, and CLI wrappers used extensively throughout the suite.【F:tests/nat/test_dynamic_nat.py†L8-L39】
+* **`ptf.testutils`** – Supplies packet crafting and verification utilities for GRE and other protocol checks.【F:tests/nat/test_dynamic_nat.py†L40-L212】
+* **`pytest` & Marks** – Enables parameterization and topology scoping via decorators like `@pytest.mark.nat_dynamic` and `pytestmark` for T0, coordinating execution within the SONiC pytest harness.【F:tests/nat/test_dynamic_nat.py†L43-L214】
+* **`pytest_assert`** – SONiC’s assertion helper wraps `pytest` assertions with enhanced messaging for diagnostics.【F:tests/nat/test_dynamic_nat.py†L41-L463】
+* **Standard Libraries (`re`, `copy`, `time`, `random`)** – Support regex parsing of CLI output, deep copying of setup data, wait handling, and randomized delays used for persistence and resource tests.【F:tests/nat/test_dynamic_nat.py†L1-L4】【F:tests/nat/test_dynamic_nat.py†L80-L95】【F:tests/nat/test_dynamic_nat.py†L419-L463】
+
+## 7. Unspecified Items
+* Detailed fixture implementations (`setup_test_env`, `protocol_type`, `enable_nat_feature`, etc.) and concrete topology diagrams are **Not specified** within this file.
+* External infrastructure requirements (e.g., exact testbed.yaml structure, traffic generator setup) are **Not specified** beyond the usage inferred from helper functions.
