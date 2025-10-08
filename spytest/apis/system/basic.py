@@ -29,6 +29,30 @@ SYSTEM_STATUS_INVALID_PATTERNS = [
     "Error: Got unexpected extra argument",
 ]
 
+SYSTEM_STATUS_FATAL_PATTERNS = [
+    "System health configuration file not found",
+    "Root privileges are required",
+]
+
+_DISABLED_COMMANDS = {}
+
+
+def _disable_command(dut, command):
+    disabled = _DISABLED_COMMANDS.setdefault(dut, set())
+    disabled.add(command)
+
+
+def _is_command_disabled(dut, command):
+    return command in _DISABLED_COMMANDS.get(dut, set())
+
+
+def _stringify_command_output(output):
+    if output is None:
+        return ""
+    if isinstance(output, list):
+        return "\n".join(str(entry) for entry in output)
+    return str(output)
+
 HEALTH_OK_STATES = {
     "ok",
     "ready",
@@ -140,8 +164,15 @@ def _collect_system_health_summary(dut, cli_type="click", **kwargs):
         commands.append("show system-health summary")
     cmd_kwargs = _prepare_show_kwargs(kwargs)
     for command in commands:
+        if _is_command_disabled(dut, command):
+            continue
         output = st.show(dut, command, type=cli_type, **cmd_kwargs)
+        output_text = _stringify_command_output(output)
+        if any(pattern in output_text for pattern in SYSTEM_STATUS_FATAL_PATTERNS):
+            _disable_command(dut, command)
+            continue
         if _is_invalid_system_status_output(output):
+            _disable_command(dut, command)
             continue
         overall, services = _parse_system_health_summary(output)
         if overall or services:
@@ -217,31 +248,43 @@ def get_system_status(dut, service=None, **kwargs):
         cmd_kwargs = _prepare_show_kwargs(kwargs)
         has_status_core = st.is_feature_supported("system-status-core", dut)
         if has_status_core:
-            if cli_type == 'klish':
-                output = st.show(dut, "show system status core", type=cli_type, **cmd_kwargs)
-                if _is_invalid_system_status_output(output):
-                    st.log('show system status core is not supported in klish. Trying with click')
-                    cli_type = 'click'
-                    output = None
-            if cli_type == 'click':
-                output = st.show(dut, "show system status core", type=cli_type, **cmd_kwargs)
-            if _is_invalid_system_status_output(output):
+            command = "show system status core"
+            if _is_command_disabled(dut, command):
                 has_status_core = False
+                output = None
             else:
-                output_valid = True
-        if not has_status_core:
-            if cli_type == 'klish':
-                output = st.show(dut, "show system status", type=cli_type, **cmd_kwargs)
+                if cli_type == 'klish':
+                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
+                    if _is_invalid_system_status_output(output):
+                        st.log('show system status core is not supported in klish. Trying with click')
+                        cli_type = 'click'
+                        output = None
+                if cli_type == 'click':
+                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
                 if _is_invalid_system_status_output(output):
-                    st.log('show system status is not supported in klish. Trying with click')
-                    cli_type = 'click'
-                    output = None
-            if cli_type == 'click':
-                output = st.show(dut, "show system status", type=cli_type, **cmd_kwargs)
-            if _is_invalid_system_status_output(output):
+                    _disable_command(dut, command)
+                    has_status_core = False
+                else:
+                    output_valid = True
+        if not has_status_core:
+            command = "show system status"
+            if _is_command_disabled(dut, command):
+                output = None
                 output_valid = False
             else:
-                output_valid = True
+                if cli_type == 'klish':
+                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
+                    if _is_invalid_system_status_output(output):
+                        st.log('show system status is not supported in klish. Trying with click')
+                        cli_type = 'click'
+                        output = None
+                if cli_type == 'click':
+                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
+                if _is_invalid_system_status_output(output):
+                    _disable_command(dut, command)
+                    output_valid = False
+                else:
+                    output_valid = True
         if not output_valid:
             overall, services = _collect_system_health_summary(dut, cli_type='click', **kwargs)
             evaluation = _evaluate_system_health(overall, services, service=service)
