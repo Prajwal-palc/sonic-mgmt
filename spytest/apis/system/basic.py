@@ -20,194 +20,6 @@ from utilities.common import delete_file, make_list
 import utilities.utils as utils_obj
 
 
-SYSTEM_STATUS_INVALID_PATTERNS = [
-    "Too many matches",
-    "No such command",
-    "Unknown command",
-    "Invalid input detected",
-    "Usage: show [OPTIONS] COMMAND",
-    "Error: Got unexpected extra argument",
-]
-
-SYSTEM_STATUS_FATAL_PATTERNS = [
-    "System health configuration file not found",
-    "Root privileges are required",
-]
-
-_DISABLED_COMMANDS = {}
-
-
-def _disable_command(dut, command):
-    disabled = _DISABLED_COMMANDS.setdefault(dut, set())
-    disabled.add(command)
-
-
-def _is_command_disabled(dut, command):
-    return command in _DISABLED_COMMANDS.get(dut, set())
-
-
-def _stringify_command_output(output):
-    if output is None:
-        return ""
-    if isinstance(output, list):
-        return "\n".join(str(entry) for entry in output)
-    return str(output)
-
-HEALTH_OK_STATES = {
-    "ok",
-    "ready",
-    "system is ready",
-    "running",
-    "up",
-    "active",
-    "green",
-}
-
-HEALTH_BAD_STATES = {
-    "not ok",
-    "not ready",
-    "system is not ready",
-    "degraded",
-    "critical",
-    "down",
-    "failed",
-    "failure",
-    "inactive",
-    "unhealthy",
-    "waiting",
-    "red",
-    "disabled",
-}
-
-
-def _is_invalid_system_status_output(output):
-    if output is None:
-        return True
-    if isinstance(output, list):
-        output = "\n".join(str(entry) for entry in output)
-    for pattern in SYSTEM_STATUS_INVALID_PATTERNS:
-        if pattern in output:
-            return True
-    return False
-
-
-def _normalize_health_state(value):
-    if value is None:
-        return None
-    normalized = value.strip().lower()
-    if not normalized:
-        return None
-    normalized = normalized.split("(")[0].strip()
-    normalized = normalized.split("-")[0].strip() if normalized.startswith("system is") else normalized
-    if normalized in HEALTH_OK_STATES:
-        return True
-    if normalized in HEALTH_BAD_STATES:
-        return False
-    if normalized.startswith("system is ready"):
-        return True
-    if normalized.startswith("system is not ready"):
-        return False
-    return None
-
-
-def _parse_system_health_summary(output):
-    if not output:
-        return None, {}
-    if isinstance(output, list):
-        output = "\n".join(str(entry) for entry in output)
-    overall = None
-    services = {}
-    service_indent = None
-    for raw_line in output.splitlines():
-        stripped = raw_line.strip()
-        if not stripped:
-            if service_indent is not None:
-                service_indent = None
-            continue
-        lower = stripped.lower()
-        if lower.startswith("overall system state"):
-            overall = stripped.split(":", 1)[1].strip() if ":" in stripped else stripped
-            continue
-        if lower.startswith("system status") and ":" in stripped and overall is None:
-            overall = stripped.split(":", 1)[1].strip()
-            continue
-        if lower.startswith("services"):
-            service_indent = len(raw_line) - len(raw_line.lstrip())
-            continue
-        if service_indent is not None:
-            current_indent = len(raw_line) - len(raw_line.lstrip())
-            if current_indent <= service_indent and ":" not in stripped:
-                service_indent = None
-                continue
-            entry = stripped.lstrip("- ")
-            if ":" in entry:
-                name, state = entry.split(":", 1)
-                services[name.strip().lower()] = state.strip()
-                continue
-            service_indent = None
-    return overall, services
-
-
-def _prepare_show_kwargs(kwargs):
-    cmd_kwargs = kwargs.copy()
-    cmd_kwargs.pop("type", None)
-    cmd_kwargs.setdefault("skip_error_check", True)
-    cmd_kwargs.setdefault("skip_tmpl", True)
-    return cmd_kwargs
-
-
-def _collect_system_health_summary(dut, cli_type="click", **kwargs):
-    commands = []
-    if cli_type == "click":
-        commands.extend(["sudo show system-health summary", "show system-health summary"])
-    else:
-        commands.append("show system-health summary")
-    cmd_kwargs = _prepare_show_kwargs(kwargs)
-    for command in commands:
-        if _is_command_disabled(dut, command):
-            continue
-        output = st.show(dut, command, type=cli_type, **cmd_kwargs)
-        output_text = _stringify_command_output(output)
-        if any(pattern in output_text for pattern in SYSTEM_STATUS_FATAL_PATTERNS):
-            _disable_command(dut, command)
-            continue
-        if _is_invalid_system_status_output(output):
-            _disable_command(dut, command)
-            continue
-        overall, services = _parse_system_health_summary(output)
-        if overall or services:
-            return overall, services
-    return None, {}
-
-
-def _lookup_service_status(services, service):
-    if not service or not services:
-        return None
-    service_keys = {
-        service.lower(),
-        service.replace("_", " ").lower(),
-        service.replace("_", "-").lower(),
-        service.replace("-", " ").lower(),
-    }
-    for name, state in services.items():
-        normalized_name = name.lower()
-        if normalized_name in service_keys:
-            return state
-    return None
-
-
-def _evaluate_system_health(overall, services, service=None):
-    if service:
-        state = _lookup_service_status(services, service)
-        normalized_state = _normalize_health_state(state)
-        if normalized_state is not None:
-            return normalized_state
-    normalized_overall = _normalize_health_state(overall)
-    if normalized_overall is not None:
-        return normalized_overall
-    return None
-
-
 def force_cli_type_to_klish(cli_type):
     cli_type = "klish" if cli_type in utils_obj.get_supported_ui_type_list() else cli_type
     return cli_type
@@ -237,70 +49,45 @@ def get_system_status(dut, service=None, **kwargs):
     if cli_type != 'click':
         cli_type = utils_obj.override_supported_ui("rest-put", "rest-patch", cli_type=cli_type)
     kwargs.setdefault("skip_tmpl", True)
+    output = "???"
     if 'cmd' in kwargs:
         if cli_type == 'click':
             return st.show(dut, kwargs['cmd'], skip_tmpl=True, skip_error_check=True, type=cli_type)
         if cli_type == 'klish':
             return st.show(dut, kwargs['cmd'], skip_tmpl=True, skip_error_check=True, type=cli_type)
     try:
-        output = None
-        output_valid = False
-        cmd_kwargs = _prepare_show_kwargs(kwargs)
         has_status_core = st.is_feature_supported("system-status-core", dut)
         if has_status_core:
-            command = "show system status core"
-            if _is_command_disabled(dut, command):
+            if cli_type == 'klish':
+                if 'skip_error_check' not in kwargs:
+                    kwargs['skip_error_check'] = True
+                output = st.show(dut, "show system status core", type=cli_type, **kwargs)
+                if 'Error: Invalid input detected at' in output:
+                    st.log('show system status core is not supported in klish. Trying with click')
+                    cli_type = 'click'
+            if cli_type == 'click':
+                output = st.show(dut, "show system status core", type=cli_type, **kwargs)
+            if "Error: Got unexpected extra argument (core)" in output:
                 has_status_core = False
-                output = None
-            else:
-                if cli_type == 'klish':
-                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
-                    if _is_invalid_system_status_output(output):
-                        st.log('show system status core is not supported in klish. Trying with click')
-                        cli_type = 'click'
-                        output = None
-                if cli_type == 'click':
-                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
-                if _is_invalid_system_status_output(output):
-                    _disable_command(dut, command)
-                    has_status_core = False
-                else:
-                    output_valid = True
         if not has_status_core:
-            command = "show system status"
-            if _is_command_disabled(dut, command):
-                output = None
-                output_valid = False
-            else:
-                if cli_type == 'klish':
-                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
-                    if _is_invalid_system_status_output(output):
-                        st.log('show system status is not supported in klish. Trying with click')
-                        cli_type = 'click'
-                        output = None
-                if cli_type == 'click':
-                    output = st.show(dut, command, type=cli_type, **cmd_kwargs)
-                if _is_invalid_system_status_output(output):
-                    _disable_command(dut, command)
-                    output_valid = False
-                else:
-                    output_valid = True
-        if not output_valid:
-            overall, services = _collect_system_health_summary(dut, cli_type='click', **kwargs)
-            evaluation = _evaluate_system_health(overall, services, service=service)
-            if evaluation is not None:
-                return evaluation
-            return False
+            if cli_type == 'klish':
+                if 'skip_error_check' not in kwargs:
+                    kwargs['skip_error_check'] = True
+                output = st.show(dut, "show system status", type=cli_type, **kwargs)
+                if 'Error: Invalid input detected at' in output:
+                    st.log('show system status is not supported in klish. Trying with click')
+                    cli_type = 'click'
+            if cli_type == 'click':
+                output = st.show(dut, "show system status", type=cli_type, **kwargs)
+            if "Error: Got unexpected extra argument (status)" in output:
+                return None
         retval = st.parse_show(dut, "show system status", output)
         if not retval:
             return False
-        status_value = str(retval[0].get("status", "")).lower()
-        if status_value == "ready":
+        if retval[0]["status"] == "ready":
             return True
-        if service:
-            service_status = str(retval[0].get(service, "")).lower()
-            if service_status in ["up", "ok", "ready"]:
-                return True
+        if service and retval[0][service] == "Up":
+            return True
     except Exception as exp:
         msg = "Failed to read system online status output='{}' error='{}'"
         st.warn(msg.format(output, exp))
@@ -311,23 +98,11 @@ def get_system_status_all(dut, service=None, **kwargs):
     cli_type = st.get_ui_type(dut, **kwargs)
     cli_type = 'klish' if cli_type in utils_obj.get_supported_ui_type_list() + ['rest-patch', 'rest-put'] else cli_type
     failed_services = []
-    cmd_kwargs = _prepare_show_kwargs(kwargs)
     if cli_type == 'click':
         cmd = "sudo show system status"
     if cli_type == 'klish':
         cmd = "show system status"
-    output = st.show(dut, cmd, type=cli_type, **cmd_kwargs)
-    if _is_invalid_system_status_output(output):
-        overall, services = _collect_system_health_summary(dut, cli_type='click', **kwargs)
-        evaluation = _evaluate_system_health(overall, services, service=service)
-        if evaluation:
-            return True
-        for name, state in services.items():
-            if _normalize_health_state(state) is False:
-                failed_services.append("'{}' service state '{}'".format(name, state))
-        if failed_services:
-            st.log("Failed services list : {}".format(failed_services))
-        return False
+    output = st.show(dut, cmd, type=cli_type, **kwargs)
     if not output:
         return False
     if output[0]["status"] == "ready":
@@ -343,18 +118,11 @@ def get_system_status_all(dut, service=None, **kwargs):
 def get_system_status_all_brief(dut, service=None, **kwargs):
     cli_type = st.get_ui_type(dut, **kwargs)
     cli_type = 'klish' if cli_type in utils_obj.get_supported_ui_type_list() + ['rest-patch', 'rest-put'] else cli_type
-    cmd_kwargs = _prepare_show_kwargs(kwargs)
     if cli_type == 'click':
         cmd = "sudo show system status brief"
     if cli_type == 'klish':
         cmd = "show system status brief"
-    output = st.show(dut, cmd, type=cli_type, **cmd_kwargs)
-    if _is_invalid_system_status_output(output):
-        overall, services = _collect_system_health_summary(dut, cli_type='click', **kwargs)
-        evaluation = _evaluate_system_health(overall, services, service=service)
-        if evaluation is None:
-            return False
-        return evaluation
+    output = st.show(dut, cmd, type=cli_type, **kwargs)
     if not output:
         return False
     if output[0]["status"] == "System is ready":
@@ -368,24 +136,12 @@ def get_system_status_all_detail(dut, service=None, **kwargs):
     cli_type = st.get_ui_type(dut, **kwargs)
     failed_services = []
     cli_type = 'klish' if cli_type in utils_obj.get_supported_ui_type_list() + ['rest-patch', 'rest-put'] else cli_type
-    cmd_kwargs = _prepare_show_kwargs(kwargs)
     if cli_type == 'click':
-        output = st.show(dut, "sudo show system status detail", type=cli_type, **cmd_kwargs)
+        output = st.show(dut, "sudo show system status detail", type=cli_type, **kwargs)
     if cli_type == 'klish':
-        output = st.show(dut, "show system status detail", type=cli_type, **cmd_kwargs)
+        output = st.show(dut, "show system status detail", type=cli_type, **kwargs)
     if 'output' in kwargs:
         return output
-    if _is_invalid_system_status_output(output):
-        overall, services = _collect_system_health_summary(dut, cli_type='click', **kwargs)
-        evaluation = _evaluate_system_health(overall, services, service=service)
-        if evaluation:
-            return True
-        for name, state in services.items():
-            if _normalize_health_state(state) is False:
-                failed_services.append("'{}' service state '{}'".format(name, state))
-        if failed_services:
-            st.log("Failed services list : {}".format(failed_services))
-        return False
     if not output:
         return False
     if output[0]["status"] == "System is ready":
