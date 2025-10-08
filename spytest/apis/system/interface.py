@@ -31,7 +31,7 @@ get_phy_port = lambda intf: re.search(r"(\S+)\.\d+", intf).group(1) if re.search
 
 
 def force_cli_type_to_klish(cli_type):
-    cli_type = "klish" if cli_type in get_supported_ui_type_list() else cli_type
+    cli_type = "click" if cli_type in get_supported_ui_type_list() else cli_type
     return cli_type
 
 
