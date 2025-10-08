@@ -260,8 +260,37 @@ def get_syslog_from_remote_server(dut, severity=None, filter_list=None, lines=No
 
 
 def sonic_clear(dut, skip_error_check=True, **kwargs):
-    if st.is_feature_supported("sonic-clear-logging-command", dut):
-        st.config(dut, "sonic-clear logging", skip_error_check=skip_error_check, **kwargs)
+    if not st.is_feature_supported("sonic-clear-logging-command", dut):
+        return
+
+    def _is_invalid_output(output):
+        if output is None:
+            return True
+        text = str(output).strip()
+        if not text:
+            return False
+        invalid_tokens = [
+            "No such command",
+            "Unknown command",
+            "Usage: sonic-clear",
+        ]
+        return any(token in text for token in invalid_tokens)
+
+    commands = [
+        "sonic-clear logging",
+        "sonic-clear log",
+        "sonic-clear logs",
+    ]
+
+    for command in commands:
+        output = st.config(dut, command, skip_error_check=True, **kwargs)
+        if _is_invalid_output(output):
+            st.debug("sonic-clear logging command '{}' not supported, trying alternative syntax".format(command))
+            continue
+        return output
+
+    if not skip_error_check:
+        st.config(dut, commands[0], skip_error_check=skip_error_check, **kwargs)
 
 
 def check_for_logs_after_reboot(dut, severity=None, log_severity=[], except_logs=[]):
