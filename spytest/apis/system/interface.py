@@ -1559,7 +1559,7 @@ def is_port_group_supported(dut, cli_type=""):
         return True
 
 
-def config_ifname_type(dut, config='yes', cli_type="", ifname_type="alias", **kwargs):
+def config_ifname_type(dut, config='yes', cli_type="click", ifname_type="alias", **kwargs):
     """
     Function to configure interface naming(Modes: native: Ethernet0, standard: Eth1/1)
     Author: Lakshminarayana D (lakshminarayana.d@broadcom.com)
@@ -1643,7 +1643,7 @@ def config_ifname_type(dut, config='yes', cli_type="", ifname_type="alias", **kw
         return False
 
     reboot_needed = False
-    output = show_ifname_type(dut, cli_type='klish')
+    output = show_ifname_type(dut, cli_type='click')
     config_mode = output[0]['mode']
     oper_mode = output[0]['oper_mode']
     if config_mode == 'standard-extended':
