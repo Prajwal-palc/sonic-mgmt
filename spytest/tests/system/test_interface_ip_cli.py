@@ -2,6 +2,8 @@ import pytest
 
 from spytest import st, SpyTestDict
 
+from utilities.utils import get_interface_number_from_name
+
 import apis.routing.ip as ip_api
 
 
@@ -14,6 +16,11 @@ def module_setup():
     data.dut = vars.D1
     data.interface = "Ethernet4"
     data.ip_prefix = "100.2.2.2/24"
+    intf_info = get_interface_number_from_name(data.interface)
+    if isinstance(intf_info, dict) and {"type", "number"}.issubset(intf_info):
+        data.interface_cmd = f"{intf_info['type']} {intf_info['number']}"
+    else:
+        data.interface_cmd = data.interface
     yield
 
 
@@ -28,7 +35,7 @@ def interface_ip_cleanup():
             [
                 "sonic-cli",
                 "configure terminal",
-                f"interface {data.interface}",
+                f"interface {data.interface_cmd}",
                 f"no ip address {data.ip_prefix}",
                 "end",
                 "exit",
@@ -45,7 +52,7 @@ def _configure_ip(enable=True):
         [
             "sonic-cli",
             "configure terminal",
-            f"interface {data.interface}",
+            f"interface {data.interface_cmd}",
             command,
             "end",
             "exit",
