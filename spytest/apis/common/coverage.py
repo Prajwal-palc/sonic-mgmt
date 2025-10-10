@@ -498,8 +498,17 @@ def generate_msg_coverage_report(consolidated=False, logs_path=None):
 
     used_coverage = stats['used_get'] + stats['used_create'] + stats['used_replace'] + stats['used_update'] + stats['used_delete'] + stats['used_subscribe'] + stats['used_create_payload'] + stats['used_replace_payload'] + stats['used_update_payload']
     total_coverage = stats['total_get'] + stats['total_create'] + stats['total_replace'] + stats['total_update'] + stats['total_delete'] + stats['total_subscribe'] + stats['total_create_payload'] + stats['total_replace_payload'] + stats['total_update_payload']
-    stats["total_coverage"] = round((used_coverage / total_coverage) * 100)
-    stats_line = [f"{len(stats['used_mods'])}/{len(stats['all_mods'])}({round(len(stats['used_mods'])/len(stats['all_mods'])*100)}%)"]
+    if total_coverage:
+        stats["total_coverage"] = round((used_coverage / total_coverage) * 100)
+    else:
+        stats["total_coverage"] = 0
+
+    total_modules = len(stats['all_mods'])
+    if total_modules:
+        used_modules_percentage = round(len(stats['used_mods']) / total_modules * 100)
+        stats_line = [f"{len(stats['used_mods'])}/{total_modules}({used_modules_percentage}%)"]
+    else:
+        stats_line = ["0/0(0%)"]
     colors.append('yellow')
     stats_line.extend([f"{used_coverage}/{total_coverage}({stats['total_coverage']}%)"])
     stats_line.extend([f"{stats['used_msg']}/{stats['total_msg']}({stats['msg_coverage']}%)"])
