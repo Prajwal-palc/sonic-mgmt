@@ -557,6 +557,11 @@ def get_interface_ip_address(dut, interface_name=None, family="ipv4", cli_type='
             command = "show ipv6 interface"
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
+        if cli_type == 'klish' and not result:
+            st.log("No entries returned from '{}' using klish CLI. Falling back to click CLI for compatibility".format(command))
+            cli_type = 'click'
+            output = st.show(dut, command, type=cli_type)
+            result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
         if interface_name:
             match = {"interface": interface_name}
             output = utils.filter_and_select(result, None, match)
@@ -692,6 +697,11 @@ def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", 
             command = "show ipv6 interface"
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
+        if cli_type == 'klish' and not result:
+            st.log("No entries returned from '{}' using klish CLI. Falling back to click CLI for compatibility".format(command))
+            cli_type = 'click'
+            output = st.show(dut, command, type=cli_type)
+            result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
 
     for intf, ip_addr, vrf_name in zip(interfaces, ip_addrs, vrfs):
         if cli_type == 'click':
