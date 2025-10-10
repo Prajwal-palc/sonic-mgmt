@@ -1,3 +1,5 @@
+import ipaddress
+
 import pytest
 
 from spytest import st, SpyTestDict
@@ -30,34 +32,53 @@ def interface_ip_cleanup():
     if data.get("dut") and ip_api.verify_interface_ip_address(
         data.dut, data.interface, data.ip_prefix, cli_type="klish"
     ):
-        st.apply_script(
-            data.dut,
-            [
-                "sonic-cli",
-                "configure terminal",
-                f"interface {data.interface_cmd}",
-                f"no ip address {data.ip_prefix}",
-                "end",
-                "exit",
-            ],
-        )
+        _configure_ip(enable=False)
+
+
+def _get_ip_remove_commands(ip_prefix):
+    """Return a list of klish commands to remove an IPv4 address."""
+
+    commands = []
+
+    try:
+        interface = ipaddress.ip_interface(ip_prefix)
+    except ValueError:
+        return [f"no ip address {ip_prefix}"]
+
+    if interface.version != 4:
+        return [f"no ip address {ip_prefix}"]
+
+    ip_addr = str(interface.ip)
+    netmask = str(interface.network.netmask)
+
+    for template in (
+        f"no ip address {ip_addr}",
+        f"no ip address {ip_addr} {netmask}",
+        f"no ip address {ip_prefix}",
+        f"no ip address {ip_prefix} primary",
+        f"no ip address {ip_addr} {netmask} primary",
+    ):
+        if template not in commands:
+            commands.append(template)
+
+    return commands
 
 
 def _configure_ip(enable=True):
-    command = "ip address {}".format(data.ip_prefix)
-    if not enable:
-        command = "no {}".format(command)
-    st.apply_script(
-        data.dut,
-        [
-            "sonic-cli",
-            "configure terminal",
-            f"interface {data.interface_cmd}",
-            command,
-            "end",
-            "exit",
-        ],
-    )
+    command_list = [
+        "sonic-cli",
+        "configure terminal",
+        f"interface {data.interface_cmd}",
+    ]
+
+    if enable:
+        command_list.append(f"ip address {data.ip_prefix}")
+    else:
+        command_list.extend(_get_ip_remove_commands(data.ip_prefix))
+
+    command_list.extend(["end", "exit"])
+
+    st.apply_script(data.dut, command_list)
 
 
 @pytest.mark.inventory(feature="Regression")
