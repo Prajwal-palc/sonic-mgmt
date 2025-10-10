@@ -92,6 +92,6 @@ def test_configure_interface_ip_via_sonic_cli():
             ),
         )
 
-    st.show(data.dut, "show ip interface", type="klish")
+    st.show(data.dut, "show ip interface", type="click")
 
     st.report_pass("test_case_passed")
