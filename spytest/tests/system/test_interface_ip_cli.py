@@ -39,22 +39,22 @@ def _get_ip_remove_commands(ip_prefix):
     """Return a list of klish commands to remove an IPv4 address."""
 
     commands = []
-    base_command = f"no ip address {ip_prefix}"
-    commands.append(base_command)
 
     try:
         interface = ipaddress.ip_interface(ip_prefix)
     except ValueError:
-        return commands
+        return [f"no ip address {ip_prefix}"]
 
     if interface.version != 4:
-        return commands
+        return [f"no ip address {ip_prefix}"]
 
     ip_addr = str(interface.ip)
     netmask = str(interface.network.netmask)
 
     for template in (
+        f"no ip address {ip_addr}",
         f"no ip address {ip_addr} {netmask}",
+        f"no ip address {ip_prefix}",
         f"no ip address {ip_prefix} primary",
         f"no ip address {ip_addr} {netmask} primary",
     ):
