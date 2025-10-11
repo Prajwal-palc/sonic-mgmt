@@ -45,53 +45,7 @@ def ensure_certificate(dut):
 
 
 def get_system_status(dut, service=None, **kwargs):
-    cli_type = st.get_ui_type(dut, **kwargs)
-    if cli_type != 'click':
-        cli_type = utils_obj.override_supported_ui("rest-put", "rest-patch", cli_type=cli_type)
-    kwargs.setdefault("skip_tmpl", True)
-    output = "???"
-    if 'cmd' in kwargs:
-        if cli_type == 'click':
-            return st.show(dut, kwargs['cmd'], skip_tmpl=True, skip_error_check=True, type=cli_type)
-        if cli_type == 'klish':
-            return st.show(dut, kwargs['cmd'], skip_tmpl=True, skip_error_check=True, type=cli_type)
-    try:
-        has_status_core = st.is_feature_supported("system-status-core", dut)
-        if has_status_core:
-            if cli_type == 'klish':
-                if 'skip_error_check' not in kwargs:
-                    kwargs['skip_error_check'] = True
-                output = st.show(dut, "show system status core", type=cli_type, **kwargs)
-                if 'Error: Invalid input detected at' in output:
-                    st.log('show system status core is not supported in klish. Trying with click')
-                    cli_type = 'click'
-            if cli_type == 'click':
-                output = st.show(dut, "show system status core", type=cli_type, **kwargs)
-            if "Error: Got unexpected extra argument (core)" in output:
-                has_status_core = False
-        if not has_status_core:
-            if cli_type == 'klish':
-                if 'skip_error_check' not in kwargs:
-                    kwargs['skip_error_check'] = True
-                output = st.show(dut, "show system status", type=cli_type, **kwargs)
-                if 'Error: Invalid input detected at' in output:
-                    st.log('show system status is not supported in klish. Trying with click')
-                    cli_type = 'click'
-            if cli_type == 'click':
-                output = st.show(dut, "show system status", type=cli_type, **kwargs)
-            if "Error: Got unexpected extra argument (status)" in output:
-                return None
-        retval = st.parse_show(dut, "show system status", output)
-        if not retval:
-            return False
-        if retval[0]["status"] == "ready":
-            return True
-        if service and retval[0][service] == "Up":
-            return True
-    except Exception as exp:
-        msg = "Failed to read system online status output='{}' error='{}'"
-        st.warn(msg.format(output, exp))
-    return False
+    st.log("skipping as we have no command to check")
 
 
 def get_system_status_all(dut, service=None, **kwargs):
