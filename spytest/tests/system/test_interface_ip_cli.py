@@ -73,7 +73,7 @@ def test_configure_interface_ip_via_sonic_cli():
     _configure_ip(enable=True)
 
     if not ip_api.verify_interface_ip_address(
-        data.dut, data.interface, data.ip_prefix, cli_type="klish"
+        data.dut, data.interface, data.ip_prefix, cli_type="click"
     ):
         st.report_fail(
             "msg",
@@ -82,7 +82,7 @@ def test_configure_interface_ip_via_sonic_cli():
             ),
         )
 
-    st.show(data.dut, "show ip interface", type="klish")
+    st.show(data.dut, "show ip interface", type="click")
 
     _configure_ip(enable=False)
 
@@ -90,7 +90,7 @@ def test_configure_interface_ip_via_sonic_cli():
         data.dut,
         data.interface,
         data.ip_prefix,
-        cli_type="klish",
+        cli_type="click",
         negative=True,
     ):
         st.report_fail(
