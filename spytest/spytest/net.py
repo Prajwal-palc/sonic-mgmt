@@ -124,9 +124,10 @@ class Net(object):
         self.log_dutid_fmt = env.get("SPYTEST_LOG_DUTID_FMT", "LABEL")
         self.dut_log_lock = putils.Lock()
         self.use_no_more = env.match("SPYTEST_USE_NO_MORE", "1", "1")
+        self.use_terminal_length = env.match("SPYTEST_USE_TERMINAL_LENGTH", "1", "0")
         self.addl_mode_change_cmds = {}
         self.addl_mode_change_kwargs = {}
-        if not self.use_no_more:
+        if not self.use_no_more and self.use_terminal_length:
             self.addl_mode_change_cmds["mgmt-user"] = "terminal length 0"
             self.addl_mode_change_kwargs["mgmt-user"] = {"on_cr_recover": "retry5"}
         self.addl_mode_change_kwargs["vtysh-config"] = {"conf_terminal": True}
