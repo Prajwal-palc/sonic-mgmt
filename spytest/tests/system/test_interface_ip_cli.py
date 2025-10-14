@@ -82,16 +82,13 @@ def test_configure_interface_ip_via_sonic_cli():
             ),
         )
 
-    st.show(data.dut, "show ip interface", type="click")
-
     _configure_ip(enable=False)
 
-    if not ip_api.verify_interface_ip_address(
+    if ip_api.verify_interface_ip_address(
         data.dut,
         data.interface,
         data.ip_prefix,
-        cli_type="click",
-        negative=True,
+        cli_type="click"
     ):
         st.report_fail(
             "msg",
@@ -99,7 +96,5 @@ def test_configure_interface_ip_via_sonic_cli():
                 data.ip_prefix, data.interface
             ),
         )
-
-    st.show(data.dut, "show ip interface", type="click")
 
     st.report_pass("test_case_passed")
