@@ -22,6 +22,35 @@ from utilities.common import filter_and_select, dicts_list_values
 from utilities.common import make_list
 from utilities.common import str_encode, str_decode
 
+def get_random_space_string(min_spaces=0, max_spaces=1):
+    """Return a string containing a random number of space characters.
+
+    The helper is mainly used when constructing CLI commands where some
+    platforms allow, or even expect, an optional space between different
+    parts of an identifier (for example, ``Management0`` vs ``Management 0``).
+    By randomly including the whitespace we can cover both variants during
+    testing.
+
+    Args:
+        min_spaces: Minimum number of spaces to include. Defaults to 0.
+        max_spaces: Maximum number of spaces to include. Defaults to 1.
+
+    Returns:
+        A string made up of ``n`` space characters where ``n`` is chosen at
+        random between ``min_spaces`` and ``max_spaces`` (inclusive).
+    """
+
+    try:
+        min_spaces = int(min_spaces)
+        max_spaces = int(max_spaces)
+    except (TypeError, ValueError):
+        min_spaces, max_spaces = 0, 1
+
+    if min_spaces > max_spaces:
+        min_spaces, max_spaces = max_spaces, min_spaces
+
+    count = random.randint(min_spaces, max_spaces) if min_spaces >= 0 else 0
+    return " " * max(count, 0)
 
 def get_supported_ui_type_list(*more):
     retval = ['gnmi', 'gnmi-update', 'gnmi-replace', 'rest']
