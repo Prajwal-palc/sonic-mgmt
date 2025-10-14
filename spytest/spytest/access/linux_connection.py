@@ -6,6 +6,14 @@ import logging
 
 import netmiko
 
+try:
+    from netmiko.exceptions import NetmikoTimeoutException, NetmikoAuthenticationException
+except ImportError:  # pragma: no cover - fallback for older netmiko releases
+    from netmiko.ssh_exception import (  # type: ignore[attr-defined]
+        NetMikoTimeoutException as NetmikoTimeoutException,
+        NetMikoAuthenticationException as NetmikoAuthenticationException,
+    )
+
 from utilities import ctrl_chars
 from utilities.common import stack_trace
 from utilities.exceptions import DeviceConnectionError
@@ -73,7 +81,7 @@ class LinuxConnection(netmiko.cisco_base_connection.CiscoSSHConnection):
             try:
                 super(LinuxConnection, self).__init__(**kwargs)
                 break
-            except netmiko.ssh_exception.NetMikoTimeoutException:
+            except NetmikoTimeoutException:
                 msg = "Connection Timeout Error.."
                 self.log_warn(msg)
                 if try_index >= 4:
@@ -81,7 +89,7 @@ class LinuxConnection(netmiko.cisco_base_connection.CiscoSSHConnection):
                     continue
                 self.disconnect()
                 raise DeviceConnectionTimeout(msg)
-            except netmiko.ssh_exception.NetMikoAuthenticationException:
+            except NetmikoAuthenticationException:
                 msg = "Connection Authentication Error.."
                 self.log_warn(msg)
                 self.disconnect()
