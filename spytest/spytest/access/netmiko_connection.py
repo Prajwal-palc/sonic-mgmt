@@ -239,15 +239,45 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
             alt_prompt_terminator=alt_prompt_terminator or self.alt_prompt_terminator,
             delay_factor=delay_factor)
 
+    def _handle_prompt_exception(self, exc):
+        """Translate prompt detection failures into actionable errors."""
+        if not isinstance(exc, ValueError):
+            raise exc
+
+        message = exc.args[0] if exc.args else str(exc)
+        if "Router prompt not found" not in message:
+            raise exc
+
+        prompt = message.split(":", 1)[-1].strip()
+        if prompt.startswith('"') and prompt.endswith('"'):
+            prompt = prompt[1:-1]
+
+        try:
+            prompt = prompt.encode("utf-8").decode("unicode_escape")
+        except Exception:
+            pass
+
+        lowered_prompt = prompt.lower()
+        if "modulenotfounderror" in lowered_prompt or "importerror" in lowered_prompt:
+            err_msg = "Connection prompt error detected: {}".format(prompt)
+            self.log_exception(err_msg, call_stack=False, dump=True)
+            raise DeviceConnectionError(err_msg)
+
+    def _set_base_prompt_with_handling(self, pri_prompt_terminator, alt_prompt_terminator, delay_factor):
+        try:
+            return self._set_base_prompt(pri_prompt_terminator, alt_prompt_terminator, delay_factor)
+        except Exception as exc:
+            self._handle_prompt_exception(exc)
+            raise
+
     def set_base_prompt(self, pri_prompt_terminator=None,
                         alt_prompt_terminator=None, delay_factor=1):
         if pri_prompt_terminator is None:
             try:
-                return self._set_base_prompt(self.pri_prompt_terminator1, alt_prompt_terminator, delay_factor)
+                return self._set_base_prompt_with_handling(self.pri_prompt_terminator1, alt_prompt_terminator, delay_factor)
             except Exception:
-                pass
-            return self._set_base_prompt(self.pri_prompt_terminator2, alt_prompt_terminator, delay_factor)
-        return self._set_base_prompt(pri_prompt_terminator, alt_prompt_terminator, delay_factor)
+                return self._set_base_prompt_with_handling(self.pri_prompt_terminator2, alt_prompt_terminator, delay_factor)
+        return self._set_base_prompt_with_handling(pri_prompt_terminator, alt_prompt_terminator, delay_factor)
 
     def log_send(self, cmd):
         msg = ">>> {}".format(cmd)
