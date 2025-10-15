@@ -1,11 +1,13 @@
-"""Test IPv4 connectivity between virtual SONiC devices using CLI variants.
-"""
+"""Test IPv4 connectivity between virtual SONiC devices using CLI variants."""
+
+import re
 
 import pytest
 
 from spytest import st, SpyTestDict
 
 import apis.routing.ip as ip_api
+from utilities.utils import get_interface_number_from_name
 
 
 def _canonical_interface_name(dut, interface):
@@ -29,6 +31,27 @@ def _canonical_interface_name(dut, interface):
     return resolved
 
 
+def _klish_interface_identifier(interface):
+    """Return an interface identifier formatted for klish commands."""
+
+    if not interface:
+        return interface
+
+    info = get_interface_number_from_name(interface)
+    if isinstance(info, dict):
+        iface_type = info.get("type")
+        iface_number = info.get("number")
+        if iface_type and iface_number is not None:
+            return f"{iface_type} {iface_number}"
+
+    if isinstance(info, str):
+        match = re.search(r"([A-Za-z\-]+)\s*([0-9\/.]+)", info)
+        if match:
+            return f"{match.group(1)} {match.group(2)}"
+
+    return interface
+
+
 data = SpyTestDict()
 
 
@@ -40,6 +63,8 @@ def module_setup():
     data.dut2 = topology.D2
     data.interface_dut1 = _canonical_interface_name(data.dut1, topology.D1D2P1)
     data.interface_dut2 = _canonical_interface_name(data.dut2, topology.D2D1P1)
+    data.klish_interface_dut1 = _klish_interface_identifier(data.interface_dut1)
+    data.klish_interface_dut2 = _klish_interface_identifier(data.interface_dut2)
     data.ipv4_dut1 = "20.1.1.2"
     data.ipv4_dut2 = "20.1.1.3"
     data.subnet = "24"
@@ -58,9 +83,21 @@ def cleanup_interface_ip():
 def _configure_ipv4(enable=True):
     """Configure or remove IPv4 addresses on both DUTs via klish."""
     action = "add" if enable else "remove"
-    for dut, interface, ip_addr, ip_prefix in [
-        (data.dut1, data.interface_dut1, data.ipv4_dut1, data.ip_prefix_dut1),
-        (data.dut2, data.interface_dut2, data.ipv4_dut2, data.ip_prefix_dut2),
+    for dut, interface, klish_interface, ip_addr, ip_prefix in [
+        (
+            data.dut1,
+            data.interface_dut1,
+            data.klish_interface_dut1,
+            data.ipv4_dut1,
+            data.ip_prefix_dut1,
+        ),
+        (
+            data.dut2,
+            data.interface_dut2,
+            data.klish_interface_dut2,
+            data.ipv4_dut2,
+            data.ip_prefix_dut2,
+        ),
     ]:
         if not enable and not ip_api.verify_interface_ip_address(
             dut,
@@ -69,28 +106,27 @@ def _configure_ipv4(enable=True):
             cli_type="click",
         ):
             continue
-        if not ip_api.config_ip_addr_interface(
-            dut,
-            interface_name=interface,
-            ip_address=ip_addr,
-            subnet=data.subnet,
-            family="ipv4",
-            config=action,
-            cli_type="klish",
-        ):
-            if enable:
-                st.report_fail(
-                    "msg",
-                    "Failed to {} IPv4 {} on {}".format(
-                        action, ip_addr, interface
-                    ),
-                )
-            else:
-                st.error(
-                    "Failed to {} IPv4 {} on {}".format(
-                        action, ip_addr, interface
-                    )
-                )
+        command_lines = [
+            f"interface {klish_interface}",
+            (
+                f"ip address {ip_addr}/{data.subnet}"
+                if enable
+                else f"no ip address {ip_addr}/{data.subnet}"
+            ),
+            "exit",
+        ]
+        command = "\n".join(command_lines)
+        output = st.config(dut, command, type="klish", conf=True)
+        output_text = "\n".join(map(str, output)) if isinstance(output, (list, tuple)) else str(output)
+        if enable and "Error:" in output_text:
+            st.report_fail(
+                "msg",
+                "Failed to {} IPv4 {} on {}".format(action, ip_addr, interface),
+            )
+        if not enable and "Error:" in output_text:
+            st.error(
+                "Failed to {} IPv4 {} on {}".format(action, ip_addr, interface)
+            )
 
 
 def _verify_ipv4_configuration():
