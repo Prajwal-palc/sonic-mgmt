@@ -8,6 +8,27 @@ from spytest import st, SpyTestDict
 import apis.routing.ip as ip_api
 
 
+def _canonical_interface_name(dut, interface):
+    """Return the SONiC native interface name for klish commands."""
+
+    if not interface:
+        return interface
+
+    if not isinstance(interface, str):
+        return interface
+
+    resolved = interface
+    if not interface.lower().startswith("ethernet"):
+        other_names = st.get_other_names(dut, [interface])
+        if other_names and other_names[0] and other_names[0].lower().startswith("ethernet"):
+            resolved = other_names[0]
+
+    if resolved.lower().startswith("ethernet"):
+        return resolved.replace(" ", "")
+
+    return resolved
+
+
 data = SpyTestDict()
 
 
@@ -17,8 +38,8 @@ def module_setup():
     topology = st.ensure_min_topology("D1D2:1")
     data.dut1 = topology.D1
     data.dut2 = topology.D2
-    data.interface_dut1 = topology.D1D2P1
-    data.interface_dut2 = topology.D2D1P1
+    data.interface_dut1 = _canonical_interface_name(data.dut1, topology.D1D2P1)
+    data.interface_dut2 = _canonical_interface_name(data.dut2, topology.D2D1P1)
     data.ipv4_dut1 = "20.1.1.2"
     data.ipv4_dut2 = "20.1.1.3"
     data.subnet = "24"
