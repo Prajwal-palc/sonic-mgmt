@@ -200,6 +200,13 @@ class Hooks(object):
     def get_default_pass(self, dut):
         return self._impl(dut).get_default_pass(dut)
 
+    def get_ctrlc_recovery_indicators(self, dut):
+        impl = self._impl(dut)
+        getter = getattr(impl, "get_ctrlc_recovery_indicators", None)
+        if callable(getter):
+            return getter(dut)
+        return []
+
     def get_templates_info(self, dut, model):
         return self._impl(dut).get_templates_info(dut, model)
 

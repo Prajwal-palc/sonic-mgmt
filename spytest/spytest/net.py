@@ -2379,8 +2379,13 @@ class Net(object):
         self.dut_log(devname, "cli_prompt = {}".format(cli_prompt), cond=dbg)
         self.dut_log(devname, "list prompt = {}".format([prompt, prompt2]), cond=dbg)
         if cli_prompt in [prompt, prompt2]:
+            access.pop("ctrlc_recovery_attempts", None)
             self._set_last_prompt(access, cli_prompt)
             return True, None
+
+        if self._login_prompt_needs_ctrlc(devname, access, prompt2):
+            self._login_prompt_send_ctrlc(devname, access)
+            return False, None
 
         if re.compile(lldp_prompt).match(prompt2):
             try:
@@ -2480,6 +2485,58 @@ class Net(object):
         msg = "prompt2 is not seen in output '{}'"
         self.dut_log(devname, msg.format(output), cond=dbg)
         return rv, known_prompt
+
+    def _login_prompt_needs_ctrlc(self, devname, access, prompt):
+        attempts = access.get("ctrlc_recovery_attempts", 0)
+        if attempts >= 3:
+            return False
+
+        regex_login = self.wa.hooks.get_regex(devname, "login")
+        try:
+            if prompt and re.compile(regex_login).match(prompt):
+                return False
+        except Exception:
+            pass
+
+        regex_anyprompt = self.wa.hooks.get_regex(devname, "anyprompt")
+        try:
+            if prompt and re.compile(regex_anyprompt).match(prompt):
+                return False
+        except Exception:
+            pass
+
+        collected = [utils.to_string(access.get("last-prompt", "")), prompt or ""]
+        collected_text = "\n".join([text for text in collected if text])
+        if not collected_text:
+            return False
+
+        indicator_sources = self.wa.hooks.get_ctrlc_recovery_indicators(devname)
+        for indicator in utils.make_list(indicator_sources):
+            if not indicator:
+                continue
+            try:
+                if hasattr(indicator, "search") and indicator.search(collected_text):
+                    return True
+            except Exception:
+                self.dut_log(devname, "Invalid CTRL+C recovery indicator: {}".format(indicator))
+                continue
+            if isinstance(indicator, str) and indicator in collected_text:
+                return True
+        return False
+
+    def _login_prompt_send_ctrlc(self, devname, access):
+        attempts = access.get("ctrlc_recovery_attempts", 0) + 1
+        access["ctrlc_recovery_attempts"] = attempts
+        hndl = self._get_handle(devname)
+        if not hndl:
+            return
+        msg = "Detected login banner requiring CTRL+C - attempt {}".format(attempts)
+        self.dut_warn(devname, msg)
+        try:
+            hndl.send_command_timing("\x03")
+            hndl.clear_buffer()
+        except Exception as exp:
+            self.dut_warn(devname, "Failed to send CTRL+C: {}".format(exp))
 
     def _change_default_pwd(self, devname, pwd, altpwd, output):
         access = self._get_dev_access(devname)

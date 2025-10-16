@@ -145,6 +145,17 @@ class SonicHooks(object):
         commands = ["stty cols 80"]
         st.config(dut, commands, sudo=False, on_cr_recover="retry5")
 
+    def get_ctrlc_recovery_indicators(self, dut):
+        return [
+            "-- Powered by DLink --",
+            "Initializing License Module",
+            "serial_fetch.py",
+            "ModuleNotFoundError: No module named 'sonic_platform'",
+            "You are on",
+            "-- Software for Open Networking in the Cloud --",
+            re.compile(r"Traceback \(most recent call last\):"),
+        ]
+
     def init_config(self, dut, type, hwsku=None, profile="na"):
         if hwsku:
             basic.set_hwsku(dut, hwsku)
