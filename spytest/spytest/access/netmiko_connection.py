@@ -71,6 +71,8 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
         self.confirm_new_password_prompt = None
         self.prompt_unix_password = None
         self.in_login = False
+        self._missing_sonic_platform_logged = False
+        self._missing_sonic_platform_ctrlc_sent = False
         self.check_live_connection = bool(os.getenv("SPYTEST_CHECK_DEVICE_LIVE_CONNECTION", "0") != "0")
         self.fix_control_chars = bool(os.getenv("SPYTEST_FIX_DEVICE_CONTROL_CHARS", "1") != "0")
         self.product = kwargs.pop("product", "sonic")
@@ -214,6 +216,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
         Added extended_login to the base function for handling the password change in ssh scenario.
         """
         output = self._test_channel_read()
+        output = self._check_for_missing_sonic_platform(output)
         self.extended_login(output)
         self.set_base_prompt()
         self.disable_paging()
@@ -232,6 +235,55 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
     # pylint: disable=arguments-differ
     def disable_paging(self, **kwargs):
         return ""
+
+    def _strip_sonic_platform_trace(self, output):
+        if not output:
+            return output
+        sanitized = re.sub(
+            r"Traceback \(most recent call last\):.*?ModuleNotFoundError: No module named 'sonic_platform'\s*",
+            "",
+            output,
+            flags=re.DOTALL,
+        )
+        sanitized = re.sub(
+            r"^.*ModuleNotFoundError: No module named 'sonic_platform'.*\n?",
+            "",
+            sanitized,
+            flags=re.MULTILINE,
+        )
+        return sanitized
+
+    def _send_ctrl_c(self):
+        try:
+            self.log_warn("Sending Ctrl+C to abort failing login hook", rmctrl=False)
+            self.write_channel('\x03')
+            time.sleep(0.2 * self.global_delay_factor)
+            self.write_channel('\n')
+        except Exception as exc:
+            self.log_warn(
+                "Failed to send Ctrl+C while recovering from missing sonic_platform: {}".format(exc)
+            )
+
+    def _check_for_missing_sonic_platform(self, output):
+        if not output:
+            return output
+        if "ModuleNotFoundError" not in output or "sonic_platform" not in output:
+            return output
+        sanitized = self._strip_sonic_platform_trace(output)
+        if not self._missing_sonic_platform_logged:
+            err_msg = (
+                "Device login banner reported ModuleNotFoundError: No module named 'sonic_platform'. "
+                "SpyTest will send Ctrl+C to exit the failing login hook. Please install the sonic-platform "
+                "package or disable the decode-syseeprom hook on the device to prevent this warning."
+            )
+            self.log_warn("======== Connection: {} ======".format(err_msg))
+            self.log_warn(output, rmctrl=False)
+            self.log_warn("============================================")
+            self._missing_sonic_platform_logged = True
+        if not self._missing_sonic_platform_ctrlc_sent:
+            self._missing_sonic_platform_ctrlc_sent = True
+            self._send_ctrl_c()
+        return sanitized
 
     def _set_base_prompt(self, pri_prompt_terminator, alt_prompt_terminator, delay_factor):
         return super(NetmikoConnection, self).set_base_prompt(
@@ -331,6 +383,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
         return [False, retval]
 
     def extended_login(self, output):
+        output = self._check_for_missing_sonic_platform(output)
         retval = output or ""
         if self.device_type == "sonic_sshcon":
             if self.net_login and self.net_devname:
@@ -449,6 +502,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
     def read_channel(self):
         output = super(NetmikoConnection, self).read_channel()
         if output:
+            output = self._check_for_missing_sonic_platform(output)
             trace("============================== read_channel ============================")
             self.add_cached_read_data(output)
         if not self.in_login:
