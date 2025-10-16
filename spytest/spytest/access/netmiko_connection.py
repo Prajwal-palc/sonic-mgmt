@@ -239,15 +239,49 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
             alt_prompt_terminator=alt_prompt_terminator or self.alt_prompt_terminator,
             delay_factor=delay_factor)
 
+    def _set_base_prompt_with_handling(self, pri_prompt_terminator,
+                                       alt_prompt_terminator, delay_factor):
+        retries = 2
+        while True:
+            try:
+                return self._set_base_prompt(pri_prompt_terminator,
+                                             alt_prompt_terminator, delay_factor)
+            except Exception as exc:  # pylint: disable=broad-except
+                retries -= 1
+                if retries < 0 or not self._handle_prompt_exception(exc):
+                    raise
+
+    def _handle_prompt_exception(self, exc):
+        cached_lines = self.get_cached_read_lines(clear=False, rmctrl=False)
+        cached_output = "\n".join(cached_lines)
+        err_text = cached_output or str(exc)
+        if "ModuleNotFoundError" in err_text and "sonic_platform" in err_text:
+            err_msg = "Connection prompt error detected: ModuleNotFoundError: No module named 'sonic_platform'"
+            self.log_warn("======== Connection: {} ======".format(err_msg))
+            if cached_lines:
+                self.log_warn("--------------------------------------------")
+                self.log_warn(cached_lines, rmctrl=False)
+            self.log_warn("============================================")
+            self.clear_cached_read_data()
+            try:
+                self.clear_buffer()
+            except Exception:  # pylint: disable=broad-except
+                pass
+            self.write_channel("\n")
+            delay = getattr(self, "global_delay_factor", 1)
+            time.sleep(0.3 * delay)
+            return True
+        return False
+
     def set_base_prompt(self, pri_prompt_terminator=None,
                         alt_prompt_terminator=None, delay_factor=1):
         if pri_prompt_terminator is None:
             try:
-                return self._set_base_prompt(self.pri_prompt_terminator1, alt_prompt_terminator, delay_factor)
+                return self._set_base_prompt_with_handling(self.pri_prompt_terminator1, alt_prompt_terminator, delay_factor)
             except Exception:
                 pass
-            return self._set_base_prompt(self.pri_prompt_terminator2, alt_prompt_terminator, delay_factor)
-        return self._set_base_prompt(pri_prompt_terminator, alt_prompt_terminator, delay_factor)
+            return self._set_base_prompt_with_handling(self.pri_prompt_terminator2, alt_prompt_terminator, delay_factor)
+        return self._set_base_prompt_with_handling(pri_prompt_terminator, alt_prompt_terminator, delay_factor)
 
     def log_send(self, cmd):
         msg = ">>> {}".format(cmd)
