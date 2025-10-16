@@ -151,6 +151,7 @@ class SonicHooks(object):
             "Initializing License Module",
             "serial_fetch.py",
             "ModuleNotFoundError: No module named 'sonic_platform'",
+            re.compile(r"ModuleNotFoundError:.*sonic_platform"),
             "You are on",
             "-- Software for Open Networking in the Cloud --",
             re.compile(r"Traceback \(most recent call last\):"),

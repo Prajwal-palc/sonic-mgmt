@@ -2522,6 +2522,11 @@ class Net(object):
                 continue
             if isinstance(indicator, str) and indicator in collected_text:
                 return True
+        if (
+            "ModuleNotFoundError" in collected_text
+            and "sonic_platform" in collected_text
+        ):
+            return True
         return False
 
     def _login_prompt_send_ctrlc(self, devname, access):
