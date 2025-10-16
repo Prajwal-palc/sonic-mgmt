@@ -72,6 +72,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
         self.prompt_unix_password = None
         self.in_login = False
         self._missing_sonic_platform_logged = False
+        self._missing_sonic_platform_ctrlc_sent = False
         self.check_live_connection = bool(os.getenv("SPYTEST_CHECK_DEVICE_LIVE_CONNECTION", "0") != "0")
         self.fix_control_chars = bool(os.getenv("SPYTEST_FIX_DEVICE_CONTROL_CHARS", "1") != "0")
         self.product = kwargs.pop("product", "sonic")
@@ -252,6 +253,17 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
         )
         return sanitized
 
+    def _send_ctrl_c(self):
+        try:
+            self.log_warn("Sending Ctrl+C to abort failing login hook", rmctrl=False)
+            self.write_channel('\x03')
+            time.sleep(0.2 * self.global_delay_factor)
+            self.write_channel('\n')
+        except Exception as exc:
+            self.log_warn(
+                "Failed to send Ctrl+C while recovering from missing sonic_platform: {}".format(exc)
+            )
+
     def _check_for_missing_sonic_platform(self, output):
         if not output:
             return output
@@ -261,13 +273,16 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
         if not self._missing_sonic_platform_logged:
             err_msg = (
                 "Device login banner reported ModuleNotFoundError: No module named 'sonic_platform'. "
-                "The login will continue, but please install the sonic-platform package or disable the "
-                "decode-syseeprom hook on the device to remove this warning."
+                "SpyTest will send Ctrl+C to exit the failing login hook. Please install the sonic-platform "
+                "package or disable the decode-syseeprom hook on the device to prevent this warning."
             )
             self.log_warn("======== Connection: {} ======".format(err_msg))
             self.log_warn(output, rmctrl=False)
             self.log_warn("============================================")
             self._missing_sonic_platform_logged = True
+        if not self._missing_sonic_platform_ctrlc_sent:
+            self._missing_sonic_platform_ctrlc_sent = True
+            self._send_ctrl_c()
         return sanitized
 
     def _set_base_prompt(self, pri_prompt_terminator, alt_prompt_terminator, delay_factor):
