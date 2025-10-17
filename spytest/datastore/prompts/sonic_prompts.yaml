@@ -44,7 +44,8 @@ patterns:
     # MGMT-CLI Patterns
     # =====================================================================
     mgmt-user: '--sonic-mgmt--#'
-    mgmt-config: '--sonic-mgmt--\(config(-s)?\)#'
+    #mgmt-config: '--sonic-mgmt--\(config(-s)?\)#'
+    mgmt-config: '--sonic-mgmt--\((config(-s)?)?\)#'
     mgmt-intf-config: '--sonic-mgmt--\(conf\w*-if-Eth.*\)#'
     mgmt-subintf-config: '--sonic-mgmt--\(conf\w*-subif-Eth.*\)#'
     mgmt-ipv4-acl-config: '--sonic-mgmt--\(config-ipv4-acl\)#'
