@@ -2880,9 +2880,10 @@ def check_core_files(dut, **kwargs):
 
 
 def clear_core_files(dut, **kwargs):
+    '''
     if st.is_feature_supported("klish", dut):
         st.config(dut, "clear core-files", type='klish')
-
+    '''
 
 def check_kdump_files(dut, **kwargs):
 
