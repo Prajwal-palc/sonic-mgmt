@@ -1,6 +1,7 @@
 # This file contains the list of API's which performs IP,Ping related operations.
 # Author : Prudvi Mangadu (prudvi.mangadu@broadcom.com)
 
+import json
 import re
 import time
 import ipaddress
@@ -568,6 +569,59 @@ def get_interface_ip_address(dut, interface_name=None, family="ipv4", cli_type='
         return output
 
 
+def _parse_klish_show_ip_interface_json(raw_output):
+    entries = []
+    if not raw_output:
+        return entries
+    if isinstance(raw_output, (list, tuple)):
+        raw_output = "\n".join([str(line) for line in raw_output if line is not None])
+    if not isinstance(raw_output, str):
+        return entries
+    match = re.search(r'(\{.*\})', raw_output, re.DOTALL)
+    if not match:
+        return entries
+    try:
+        payload = json.loads(match.group(1))
+    except (TypeError, ValueError):
+        return entries
+
+    if not isinstance(payload, dict):
+        return entries
+
+    for key, value in payload.items():
+        if not (isinstance(key, str) and key.endswith('INTERFACE_IPADDR_LIST') and isinstance(value, list)):
+            continue
+        for item in value:
+            if not isinstance(item, dict):
+                continue
+            interface = item.get('portname') or item.get('interface') or item.get('name')
+            ip_addr = item.get('ip_prefix') or item.get('ipaddr') or item.get('ip-address') or item.get('ip_address')
+            if not (interface and ip_addr):
+                continue
+            vrf_name = item.get('vrfname') or item.get('vrf') or item.get('master') or ''
+            admin = item.get('admin_status') or item.get('admin') or ''
+            oper = item.get('oper_status') or item.get('oper') or ''
+            status_parts = [str(part) for part in [admin, oper] if part]
+            status = '/'.join(status_parts) if status_parts else ''
+            flags = item.get('flags') or ''
+            neighbor = item.get('neighbor') or item.get('bgp_neighbor') or ''
+            neighbor_ip = item.get('neighbor_ip') or item.get('neighborip') or ''
+
+            entry = {
+                'interface': 'Management0' if interface == 'eth0' else interface,
+                'ipaddr': ip_addr,
+                'vrf': vrf_name,
+                'status': status,
+                'flags': flags
+            }
+            if neighbor:
+                entry['neighbor'] = neighbor
+            if neighbor_ip:
+                entry['neighborip'] = neighbor_ip
+            entries.append(entry)
+    return entries
+
+
 def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", vrfname='', flags='', cli_type='', **kwargs):
     """
     Author: Chaitanya Vella (chaitanya-vella.kumar@broadcom.com)
@@ -698,10 +752,16 @@ def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", 
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
         if cli_type == 'klish' and not result:
-            st.log("No entries returned from '{}' using klish CLI. Falling back to click CLI for compatibility".format(command))
-            cli_type = 'click'
-            output = st.show(dut, command, type=cli_type)
-            result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
+            raw_output = st.show(dut, command, type=cli_type, skip_tmpl=True)
+            parsed_entries = _parse_klish_show_ip_interface_json(raw_output)
+            if parsed_entries:
+                st.debug("Parsed {} entries from JSON output of '{}'".format(len(parsed_entries), command))
+                result = parsed_entries
+            else:
+                st.log("No entries returned from '{}' using klish CLI. Falling back to click CLI for compatibility".format(command))
+                cli_type = 'click'
+                output = st.show(dut, command, type=cli_type)
+                result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
 
     for intf, ip_addr, vrf_name in zip(interfaces, ip_addrs, vrfs):
         if cli_type == 'click':
