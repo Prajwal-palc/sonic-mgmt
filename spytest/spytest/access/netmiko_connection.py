@@ -769,7 +769,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
                         self.dmsg_append(dbg_msg, "ECHOED", "OUTPUT:", self.dmsg_fmt(output))
                         out_lines = []
                     else:
-                        out_lines = output.split("\r\n")
+                        out_lines = re.split(r"\r?\n", output)
                     for index, line in enumerate(out_lines):
                         line2 = line.strip()
                         if not line2:
