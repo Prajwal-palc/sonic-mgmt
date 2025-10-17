@@ -569,22 +569,8 @@ def get_interface_ip_address(dut, interface_name=None, family="ipv4", cli_type='
         return output
 
 
-def _parse_klish_show_ip_interface_json(raw_output):
+def _normalize_show_ip_interface_entries(payload):
     entries = []
-    if not raw_output:
-        return entries
-    if isinstance(raw_output, (list, tuple)):
-        raw_output = "\n".join([str(line) for line in raw_output if line is not None])
-    if not isinstance(raw_output, str):
-        return entries
-    match = re.search(r'(\{.*\})', raw_output, re.DOTALL)
-    if not match:
-        return entries
-    try:
-        payload = json.loads(match.group(1))
-    except (TypeError, ValueError):
-        return entries
-
     if not isinstance(payload, dict):
         return entries
 
@@ -619,6 +605,41 @@ def _parse_klish_show_ip_interface_json(raw_output):
             if neighbor_ip:
                 entry['neighborip'] = neighbor_ip
             entries.append(entry)
+    return entries
+
+
+def _parse_klish_show_ip_interface_json(raw_output):
+    entries = []
+    if not raw_output:
+        return entries
+
+    if isinstance(raw_output, dict):
+        return _normalize_show_ip_interface_entries(raw_output)
+
+    normalized_dict_entries = []
+    string_parts = []
+    if isinstance(raw_output, (list, tuple)):
+        for item in raw_output:
+            if isinstance(item, dict):
+                normalized_dict_entries.extend(_normalize_show_ip_interface_entries(item))
+            elif item is not None:
+                string_parts.append(str(item))
+        if normalized_dict_entries:
+            return normalized_dict_entries
+        raw_output = "\n".join(string_parts)
+
+    if not isinstance(raw_output, str):
+        return entries
+
+    match = re.search(r'(\{.*\})', raw_output, re.DOTALL)
+    if not match:
+        return entries
+    try:
+        payload = json.loads(match.group(1))
+    except (TypeError, ValueError):
+        return entries
+
+    entries.extend(_normalize_show_ip_interface_entries(payload))
     return entries
 
 
