@@ -46,7 +46,8 @@ patterns:
     mgmt-user: '--sonic-mgmt--#'
     #mgmt-config: '--sonic-mgmt--\(config(-s)?\)#'
     mgmt-config: '--sonic-mgmt--\((config(-s)?)?\)#'
-    mgmt-intf-config: '--sonic-mgmt--\(conf\w*-if-Eth.*\)#'
+    #mgmt-intf-config: '--sonic-mgmt--\(conf\w*-if-Eth.*\)#'
+    mgmt-intf-config: '--sonic-mgmt--\((?:conf\w*-)?-?if-Eth.*\)#'
     mgmt-subintf-config: '--sonic-mgmt--\(conf\w*-subif-Eth.*\)#'
     mgmt-ipv4-acl-config: '--sonic-mgmt--\(config-ipv4-acl\)#'
     mgmt-ipv6-acl-config: '--sonic-mgmt--\(config-ipv6-acl\)#'
@@ -133,7 +134,9 @@ patterns:
     # =============================================================
     # modified by Dell-EMC
     # =============================================================
-    mgmt-any-config: '--sonic-mgmt--\((config|conf[ig]*-[^)]*)\)#'
+    #mgmt-any-config: '--sonic-mgmt--\((config|conf[ig]*-[^)]*)\)#'
+    
+    mgmt-any-config: '--sonic-mgmt--\([^)]*\)#'
     # =============================================================
     #mgmt-any-config: '--sonic-mgmt--\((config|conf[ig]*-[^)]*|mclag-domain-.*)\)#'
     # =============================================================
