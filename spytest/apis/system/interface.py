@@ -1670,7 +1670,7 @@ def show_ifname_type(dut, **kwargs):
     :param cli_type:
     :return:
     """
-    st.info("This is not usable in this cli")
+    st.log("This is not usable in this cli")
     '''
     cli_type = kwargs.pop('cli_type', "klish") or "klish"
     cli_type = force_cli_type_to_klish(cli_type=cli_type)
