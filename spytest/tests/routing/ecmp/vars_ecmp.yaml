@@ -1,0 +1,227 @@
+defaults:
+  min_topology:
+    - "D1T1:2"
+    - "D1D2:2"
+  cli_type:
+    - click
+    - klish
+  verify_timeout: 120
+  cleanup: true
+  supported_platforms:
+    - HW
+    - Virtual
+  log_severity: info
+
+testcases:
+  "2.4.1":
+    name: "ECMP Basic Functionality (Static)"
+    feature: static
+    automated: true
+    topology:
+      - "D1T1:2"
+      - "D1D2:2"
+    objective: "Validate that static routes with equal-cost next-hops are installed correctly and traffic is distributed."
+    steps:
+      - "Configure two static routes with the same prefix but different next hops."
+      - "Generate traffic across the ECMP group and monitor load balancing metrics."
+      - "Disable one next hop and verify uninterrupted forwarding over remaining paths."
+    validations:
+      - "Routing table displays both next hops for the target prefix."
+      - "Traffic generator reports balanced distribution within configured tolerance."
+      - "Traffic resumes via surviving next hop within failover SLA."
+    routes:
+      prefix: "198.51.100.0/24"
+      next_hops:
+        - alias: "D1D2P1"
+          gateway: "192.0.2.2"
+        - alias: "D1D2P2"
+          gateway: "192.0.2.6"
+    traffic_streams:
+      - src_tg: "T1"
+        dst_tg: "T1"
+        src_port: "D1T1P1"
+        dst_port: "D1T1P2"
+        rate_pps: 5000
+        tolerance_pct: 20
+    failover_action:
+      alias: "D1D2P1"
+      wait_sec: 30
+
+  "2.4.2":
+    name: "ECMP Scaling (Static)"
+    feature: static
+    automated: false
+    topology:
+      - "D1T1:2"
+      - "D1D2:4"
+    objective: "Validate performance and scalability with many ECMP routes and next hops."
+    steps:
+      - "Program ECMP routes with varying next-hop counts (4, 8, 16)."
+      - "Install 1K ECMP prefixes using automation hooks or traffic generator scripts."
+      - "Measure CPU and memory usage during scale operations."
+      - "Trigger next-hop failure and capture convergence timers."
+    validations:
+      - "All ECMP routes appear in routing table without errors."
+      - "Resource utilization remains below documented thresholds."
+      - "Failover time stays within SLA under scale."
+    scale_matrix:
+      - 4
+      - 8
+      - 16
+    prefix_count: 1024
+
+  "2.4.3":
+    name: "ECMP Negative Testing (Static)"
+    feature: static
+    automated: false
+    topology:
+      - "D1T1:2"
+      - "D1D2:2"
+    objective: "Ensure system rejects invalid ECMP configurations and remains stable."
+    steps:
+      - "Attempt ECMP configuration with duplicate or unreachable next hops."
+      - "Delete next hop under active traffic and observe behavior."
+      - "Re-add next hop to validate recovery procedures."
+      - "Attempt to exceed supported ECMP group size (e.g., 70 when limit is 64)."
+    validations:
+      - "CLI/syslog reports descriptive errors for invalid operations."
+      - "Traffic continues via remaining valid paths."
+      - "System limits enforcement prevents oversubscription."
+
+  "2.4.4":
+    name: "ECMP Basic Functionality (OSPF)"
+    feature: ospf
+    automated: true
+    topology:
+      - "D1T1:2"
+      - "D1D2:3"
+    objective: "Validate OSPF ECMP route installation and forwarding behavior."
+    steps:
+      - "Establish OSPF adjacencies with equal-cost neighbors."
+      - "Advertise identical prefixes from all neighbors."
+      - "Stream traffic and monitor hash distribution across links."
+      - "Shutdown one adjacency and confirm fast reroute."
+    validations:
+      - "OSPF routing table shows ECMP entries for target prefixes."
+      - "Traffic distribution remains even prior to failure."
+      - "Convergence time meets failover SLA after adjacency loss."
+    neighbors:
+      process_id: 100
+      area: "0.0.0.0"
+      dut_interface_aliases:
+        - "D1D2P1"
+        - "D1D2P2"
+        - "D1D2P3"
+      remote_router_ids:
+        - "10.0.0.2"
+        - "10.0.0.6"
+        - "10.0.0.10"
+    traffic_streams:
+      - src_tg: "T1"
+        dst_tg: "T1"
+        src_port: "D1T1P1"
+        dst_port: "D1T1P2"
+        rate_pps: 7000
+        tolerance_pct: 20
+
+  "2.4.5":
+    name: "ECMP Scaling (OSPF)"
+    feature: ospf
+    automated: false
+    topology:
+      - "D1T1:2"
+      - "D1D2:4"
+    objective: "Validate system scalability with large number of OSPF ECMP routes."
+    steps:
+      - "Advertise numerous equal-cost prefixes from neighbors."
+      - "Monitor CPU and memory usage on DUT."
+      - "Flap adjacency and observe recovery metrics."
+    validations:
+      - "All expected ECMP routes appear via OSPF."
+      - "Resource utilization remains within acceptable thresholds."
+      - "Adjacency flaps do not cause route loss."
+    prefix_count: 2048
+    neighbor_flap_interval: 60
+
+  "2.4.6":
+    name: "ECMP Basic Functionality (BGP)"
+    feature: bgp
+    automated: true
+    topology:
+      - "D1T1:2"
+      - "D1D2:3"
+    objective: "Validate ECMP route installation and forwarding for BGP-learned prefixes."
+    steps:
+      - "Establish BGP sessions with equal AS path length."
+      - "Advertise identical prefixes across peers."
+      - "Enable BGP multipath on DUT."
+      - "Send traffic and verify distribution."
+      - "Shutdown one peer and confirm reroute."
+    validations:
+      - "BGP RIB shows ECMP entries for target prefixes."
+      - "Traffic balanced across peers before failure."
+      - "Failover occurs without packet loss."
+    bgp_settings:
+      local_as: 65001
+      peer_groups:
+        - alias: "D1D2P1"
+          neighbor: "203.0.113.2"
+          remote_as: 65011
+        - alias: "D1D2P2"
+          neighbor: "203.0.113.6"
+          remote_as: 65012
+        - alias: "D1D2P3"
+          neighbor: "203.0.113.10"
+          remote_as: 65013
+      prefixes:
+        - "198.51.100.0/24"
+        - "198.51.101.0/24"
+    traffic_streams:
+      - src_tg: "T1"
+        dst_tg: "T1"
+        src_port: "D1T1P1"
+        dst_port: "D1T1P2"
+        rate_pps: 8000
+        tolerance_pct: 20
+    failover_action:
+      alias: "D1D2P2"
+      wait_sec: 45
+
+  "2.4.7":
+    name: "ECMP Scaling (BGP)"
+    feature: bgp
+    automated: false
+    topology:
+      - "D1T1:2"
+      - "D1D2:4"
+    objective: "Validate scalability for large-scale BGP ECMP routes."
+    steps:
+      - "Enable BGP multipath across all peers."
+      - "Advertise large number of identical prefixes."
+      - "Monitor resource utilization and session stability."
+      - "Introduce peer flap and capture convergence metrics."
+    validations:
+      - "DUT handles multiple ECMP entries without loss."
+      - "No BGP session resets or instability observed."
+      - "Failover adheres to SLA even under load."
+    prefix_count: 4096
+    peer_flap_interval: 120
+
+  "2.4.8":
+    name: "ECMP Negative Testing (Dynamic Routing)"
+    feature: dynamic
+    automated: false
+    topology:
+      - "D1T1:2"
+      - "D1D2:3"
+    objective: "Validate stability and rejection of invalid ECMP paths in OSPF/BGP."
+    steps:
+      - "Advertise mismatched metrics in OSPF and observe installation rules."
+      - "Advertise differing AS path lengths in BGP and ensure single-best selection."
+      - "Induce route flaps and confirm no loops or blackholes."
+      - "Attempt to exceed supported ECMP width with many peers."
+    validations:
+      - "Only equal-cost paths used for ECMP."
+      - "System logs informative errors for invalid advertisements."
+      - "No traffic loss or routing loops occur."
+    over_subscribe_width: 70

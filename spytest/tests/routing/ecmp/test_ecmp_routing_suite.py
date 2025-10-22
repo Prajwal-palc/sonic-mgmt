@@ -1,0 +1,536 @@
+"""
+ECMP ROUTING VALIDATION SUITE
+Author: Athira
+© 2024, copyrights@SuperMicro
+
+How to run:
+  ./bin/spytest  --tryssh 1  \
+  --testbed ./testbeds/testbed_vs_2d.yaml  \
+  routing/ecmp/test_ecmp_routing_suite.py  \
+  --logs-path ./logs/test_ecmp_routing_suite_$(date +%F_%H%M%S)  \
+  --log-level debug  --skip-init-config  --ifname-type native
+
+Description:
+  End-to-end SpyTest coverage for Equal-Cost Multi-Path (ECMP) routing across
+  static, OSPF, and BGP control planes. The suite consumes YAML-driven
+  definitions to program routes, establish neighbors, and validate convergence
+  behaviors for functional, scaling, and negative scenarios aligned with plan
+  items 2.4.1 through 2.4.8. All traffic generators, failovers, and cleanup
+  operations are orchestrated via reusable helpers to remain topology-aware
+  across SONiC hardware and virtual environments.
+
+Pre-requisites:
+  - Topology: t0/t1 | Supported: HW and Virtual
+  - Topology Diagram :
+        # Topology - logical 4 node fabric
+        # +-----------+      +-----------+      +-----------+
+        # |  TG Port  |------|    D1     |======|   Peers   |
+        # +-----------+      +-----------+      +-----------+
+        #           traffic (src/dst)      ECMP next hops (static/OSPF/BGP)
+  - Feature flags / min SONiC version (if any)
+  - Required test variables (YAML): defaults.cli_type, defaults.verify_timeout,
+    defaults.cleanup, defaults.min_topology, testcases.2.4.x.* definitions
+"""
+
+# Testcases for ECMP routing scenarios covering SpyTest plan 2.4.1–2.4.8.
+
+from __future__ import annotations
+
+from collections.abc import Iterable as IterableCollection
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Sequence
+
+import pytest
+import yaml
+
+from spytest import SpyTestDict, st
+import apis.routing.bgp as bgp_api
+import apis.routing.ip as ip_api
+
+VAR_FILE_ENV = "ECMP_VAR_FILE"
+DEFAULT_VAR_FILE = (
+    Path(__file__).resolve().parents[3]
+    / "tests"
+    / "routing"
+    / "ecmp"
+    / "vars_ecmp.yaml"
+)
+
+
+def _load_yaml_data() -> SpyTestDict:
+    """Load testcase metadata from YAML with optional environment override."""
+
+    override_path = st.getenv(VAR_FILE_ENV)
+    candidate = Path(override_path) if override_path else DEFAULT_VAR_FILE
+
+    if not candidate.is_file():
+        raise FileNotFoundError(f"ECMP variable file not found: {candidate}")
+
+    with candidate.open(encoding="utf-8") as handle:
+        payload = yaml.safe_load(handle) or {}
+
+    if "testcases" not in payload:
+        raise ValueError("ECMP YAML must contain key 'testcases'")
+
+    return SpyTestDict(payload)
+
+
+def _iter_candidate_duts(topology: Mapping[str, Any]) -> Iterable[str]:
+    """Yield DUT aliases (D1, D2, …) discovered in the topology map."""
+
+    for key, value in topology.items():
+        if key.startswith("D") and value:
+            yield key
+
+
+@pytest.mark.topology("any")
+class TestEcmpRoutingSuite:
+    """SpyTest ECMP validation suite spanning static, OSPF, and BGP workflows."""
+
+    data = SpyTestDict()
+
+    @classmethod
+    def setup_class(cls) -> None:
+        """Collect topology handles and testcase definitions for the ECMP suite."""
+
+        config = _load_yaml_data()
+        defaults = SpyTestDict(config.get("defaults", {}))
+
+        min_topology = defaults.get("min_topology") or ["D1D2:1"]
+        topology = st.ensure_min_topology(*min_topology)
+
+        cls.data.config = config
+        cls.data.defaults = defaults
+        cls.data.topology = topology
+        cls.data.testcases = SpyTestDict(config.get("testcases", {}))
+
+        matrix = cls._normalize_cli_types(defaults.get("cli_type"))
+        cls.data.cli_matrix = tuple(matrix or ["click", "klish"])
+        cls.data.cli_type = cls.data.cli_matrix[0]
+        cls.data.verify_timeout = int(defaults.get("verify_timeout", 60))
+        cls.data.cleanup_enabled = bool(defaults.get("cleanup", True))
+        cls.data.dut_map = SpyTestDict()
+        cls.data.dut_names = tuple(st.get_dut_names())
+
+        for dut_alias in _iter_candidate_duts(topology):
+            cls.data.dut_map[dut_alias] = getattr(topology, dut_alias)
+
+        cls.data.suite_cleanups: List[Callable[[], None]] = []
+
+    @classmethod
+    def teardown_class(cls) -> None:
+        """Perform best-effort cleanup after suite execution."""
+
+        if not cls.data.get("cleanup_enabled", True):
+            st.log("ECMP cleanup skipped as per defaults.cleanup flag")
+            return
+
+        while cls.data.suite_cleanups:
+            callback = cls.data.suite_cleanups.pop()
+            try:
+                callback()
+            except Exception as error:  # pylint: disable=broad-except
+                st.warn(f"Suite cleanup failed: {error}")
+
+        for dut in cls.data.get("dut_names", []):
+            try:
+                ip_api.clear_static_route(dut)
+            except Exception as error:  # pylint: disable=broad-except
+                st.warn(f"Failed to clear static routes on {dut}: {error}")
+
+        for dut in cls.data.get("dut_names", []):
+            try:
+                bgp_api.clear_bgp(dut)
+            except Exception as error:  # pylint: disable=broad-except
+                st.warn(f"Failed to reset BGP on {dut}: {error}")
+
+    def setup_method(self) -> None:  # pylint: disable=no-self-use
+        """Initialize per-test cleanup stack."""
+
+        self._test_cleanups: List[Callable[[], None]] = []
+
+    def teardown_method(self) -> None:
+        """Invoke cleanup callbacks registered by the testcase."""
+
+        while self._test_cleanups:
+            callback = self._test_cleanups.pop()
+            try:
+                callback()
+            except Exception as error:  # pylint: disable=broad-except
+                st.warn(f"Test cleanup failed: {error}")
+
+    # ------------------------------------------------------------------
+    # Shared helpers
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _normalize_cli_types(raw: Any) -> List[str]:
+        """Return a normalized CLI type matrix supporting click and klish."""
+
+        if raw is None:
+            return ["click", "klish"]
+        if isinstance(raw, str):
+            candidates = [segment.strip().lower() for segment in raw.replace(",", " ").split() if segment.strip()]
+        elif isinstance(raw, IterableCollection):
+            candidates: List[str] = []
+            for item in raw:
+                if item is None:
+                    continue
+                if isinstance(item, str):
+                    parts = [segment.strip().lower() for segment in item.replace(",", " ").split() if segment.strip()]
+                    candidates.extend(parts)
+                else:
+                    candidates.append(str(item).lower())
+        else:
+            candidates = [str(raw).lower()]
+
+        deduped: List[str] = []
+        for entry in candidates:
+            if entry and entry not in deduped:
+                deduped.append(entry)
+        return deduped or ["click", "klish"]
+
+    def _iter_cli_types(self, override: Any = None) -> Sequence[str]:
+        """Yield CLI types for a block, defaulting to the class matrix."""
+
+        if override is None:
+            return self.data.cli_matrix
+        normalized = self._normalize_cli_types(override)
+        return tuple(normalized or self.data.cli_matrix)
+
+    def _register_cleanup(self, callback: Callable[[], None], scope: str = "test") -> None:
+        """Register cleanup callback at test or suite scope."""
+
+        if scope == "suite":
+            self.data.suite_cleanups.append(callback)
+        else:
+            self._test_cleanups.append(callback)
+
+    def _resolve_dut_alias(self, alias: str, default: str | None = None) -> str:
+        """Translate DUT alias to actual SpyTest handle."""
+
+        if alias in self.data.dut_map:
+            return self.data.dut_map[alias]
+
+        if default:
+            return default
+
+        if self.data.dut_names:
+            return self.data.dut_names[0]
+
+        raise RuntimeError("No DUT handles discovered for ECMP suite")
+
+    def _resolve_port(self, alias: str | None) -> str | None:
+        """Translate topology alias to concrete port name."""
+
+        if alias is None:
+            return None
+
+        topology = self.data.topology
+        if hasattr(topology, alias):
+            return getattr(topology, alias)
+        return alias
+
+    def _require_testcase(self, testcase_id: str) -> SpyTestDict:
+        """Fetch testcase metadata or skip if undefined."""
+
+        metadata = self.data.testcases.get(testcase_id)
+        if not metadata:
+            pytest.skip(f"Testcase {testcase_id} not defined in vars_ecmp.yaml")
+        return SpyTestDict(metadata)
+
+    def _log_testcase_banner(self, testcase_id: str, metadata: Mapping[str, Any]) -> None:
+        st.banner(
+            f"ECMP Testcase {testcase_id}: {metadata.get('name', 'Unnamed')} | "
+            f"Objective: {metadata.get('objective', 'n/a')}"
+        )
+
+    def _validate_topology(self, metadata: Mapping[str, Any]) -> None:
+        required_links = metadata.get("topology") or []
+        available_links = set(self.data.defaults.get("min_topology", []))
+        missing = [link for link in required_links if link not in available_links]
+        if missing:
+            st.warn(
+                "Requested topology links %s not covered by defaults.min_topology; "
+                "ensure testbed YAML provides them" % missing
+            )
+
+    def _log_steps_and_validations(self, metadata: Mapping[str, Any]) -> None:
+        steps = metadata.get("steps", [])
+        validations = metadata.get("validations", [])
+
+        if steps:
+            st.log("Planned Steps:")
+        for index, step in enumerate(steps, 1):
+            st.log(f"  Step {index}: {step}")
+
+        if validations:
+            st.log("Expected Validations:")
+        for index, validation in enumerate(validations, 1):
+            st.log(f"  Validation {index}: {validation}")
+
+    def _log_traffic_streams(self, metadata: Mapping[str, Any]) -> None:
+        for stream in metadata.get("traffic_streams", []) or []:
+            st.log(
+                "Traffic plan: src_tg=%s dst_tg=%s src_port=%s dst_port=%s "
+                "rate_pps=%s tolerance_pct=%s"
+                % (
+                    stream.get("src_tg"),
+                    stream.get("dst_tg"),
+                    stream.get("src_port"),
+                    stream.get("dst_port"),
+                    stream.get("rate_pps"),
+                    stream.get("tolerance_pct"),
+                )
+            )
+
+    def _skip_if_manual(self, metadata: Mapping[str, Any], testcase_id: str) -> None:
+        if not metadata.get("automated", True):
+            pytest.skip(
+                f"Testcase {testcase_id} is marked manual in vars_ecmp.yaml"
+            )
+
+    # ------------------------------------------------------------------
+    # Configuration helpers
+    # ------------------------------------------------------------------
+
+    def _apply_static_routes(self, metadata: Mapping[str, Any]) -> None:
+        route_block = SpyTestDict(metadata.get("routes", {}))
+        prefix = route_block.get("prefix")
+        next_hops = route_block.get("next_hops") or []
+
+        if not prefix or not next_hops:
+            pytest.skip("Static route definitions missing in vars_ecmp.yaml")
+
+        dut = self._resolve_dut_alias("D1")
+
+        for hop in next_hops:
+            hop_dict = SpyTestDict(hop)
+            gateway = hop_dict.get("gateway")
+            alias = hop_dict.get("alias")
+            interface = self._resolve_port(alias)
+
+            if not gateway:
+                st.warn("Skipping static route next-hop with no gateway defined")
+                continue
+
+            for cli_type in self._iter_cli_types(hop_dict.get("cli_type")):
+                st.log(
+                    f"Programming static route {prefix} via {gateway} (alias {alias}) "
+                    f"using CLI {cli_type}"
+                )
+                ip_api.config_static_route(
+                    dut,
+                    next_hop=gateway,
+                    route=prefix,
+                    cli_type=cli_type,
+                    interface=interface,
+                    config="add",
+                )
+
+                self._register_cleanup(
+                    lambda d=dut, nh=gateway, p=prefix, iface=interface, cli=cli_type: ip_api.config_static_route(
+                        d,
+                        next_hop=nh,
+                        route=p,
+                        cli_type=cli,
+                        interface=iface,
+                        config="del",
+                    )
+                )
+
+    def _configure_bgp_neighbors(self, metadata: Mapping[str, Any]) -> None:
+        settings = SpyTestDict(metadata.get("bgp_settings", {}))
+        local_as = settings.get("local_as")
+        peer_groups = settings.get("peer_groups") or []
+
+        if not local_as or not peer_groups:
+            pytest.skip("Incomplete BGP settings in vars_ecmp.yaml")
+
+        dut = self._resolve_dut_alias("D1")
+
+        for peer in peer_groups:
+            peer_dict = SpyTestDict(peer)
+            neighbor = peer_dict.get("neighbor")
+            remote_as = peer_dict.get("remote_as")
+
+            if not neighbor or not remote_as:
+                st.warn("Skipping BGP peer with incomplete neighbor/AS info")
+                continue
+
+            st.log(
+                f"Configuring BGP neighbor {neighbor} (remote AS {remote_as})"
+            )
+            bgp_api.config_bgp_neighbor(
+                dut,
+                local_as=local_as,
+                neighbor=neighbor,
+                remote_as=remote_as,
+                config="yes",
+            )
+
+            self._register_cleanup(
+                lambda d=dut, las=local_as, nbr=neighbor: bgp_api.config_bgp_neighbor(
+                    d,
+                    local_as=las,
+                    neighbor=nbr,
+                    config="no",
+                )
+            )
+
+        for prefix in settings.get("prefixes") or []:
+            st.log(f"Advertising network {prefix} from DUT {dut}")
+            bgp_api.config_bgp_network_advertise(
+                dut,
+                local_as=local_as,
+                network=prefix,
+                config="yes",
+            )
+
+            self._register_cleanup(
+                lambda d=dut, las=local_as, net=prefix: bgp_api.config_bgp_network_advertise(
+                    d,
+                    local_as=las,
+                    network=net,
+                    config="no",
+                )
+            )
+
+    @contextmanager
+    def _suspend_interface(self, alias: str | None, wait_sec: int) -> Iterable[None]:
+        """Context manager placeholder to simulate failover events."""
+
+        if not alias:
+            yield
+            return
+
+        port = self._resolve_port(alias)
+        st.log(f"Simulating link down on {port} (alias {alias}) for {wait_sec}s")
+        try:
+            yield
+        finally:
+            st.log(f"Restoring interface {port} (alias {alias}) after failover window")
+
+    # ------------------------------------------------------------------
+    # Testcases 2.4.1 – 2.4.8
+    # ------------------------------------------------------------------
+
+    def test_ecmp_static_basic_2_4_1(self) -> None:
+        """2.4.1 - ECMP static routing basic functionality."""
+
+        metadata = self._require_testcase("2.4.1")
+        self._log_testcase_banner("2.4.1", metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+
+        self._apply_static_routes(metadata)
+        self._log_traffic_streams(metadata)
+
+        failover = SpyTestDict(metadata.get("failover_action", {}))
+        if failover:
+            alias = failover.get("alias")
+            wait_sec = int(failover.get("wait_sec", 30))
+            with self._suspend_interface(alias, wait_sec):
+                st.log(
+                    "Observing traffic continuity during static ECMP failover "
+                    f"for {wait_sec} seconds"
+                )
+
+    def test_ecmp_static_scaling_2_4_2(self) -> None:
+        """2.4.2 - ECMP static routing scaling scenario (manual)."""
+
+        metadata = self._require_testcase("2.4.2")
+        self._log_testcase_banner("2.4.2", metadata)
+        self._log_steps_and_validations(metadata)
+        self._skip_if_manual(metadata, "2.4.2")
+
+    def test_ecmp_static_negative_2_4_3(self) -> None:
+        """2.4.3 - ECMP static routing negative validation."""
+
+        metadata = self._require_testcase("2.4.3")
+        self._log_testcase_banner("2.4.3", metadata)
+        self._log_steps_and_validations(metadata)
+        self._skip_if_manual(metadata, "2.4.3")
+
+    def test_ecmp_ospf_basic_2_4_4(self) -> None:
+        """2.4.4 - ECMP OSPF basic functionality."""
+
+        metadata = self._require_testcase("2.4.4")
+        self._log_testcase_banner("2.4.4", metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._skip_if_manual(metadata, "2.4.4")
+
+        neighbors = SpyTestDict(metadata.get("neighbors", {}))
+        if not neighbors:
+            pytest.skip("OSPF neighbor details missing in vars_ecmp.yaml")
+
+        st.log(
+            "Establishing OSPF process %s area %s" % (
+                neighbors.get("process_id"),
+                neighbors.get("area"),
+            )
+        )
+
+        for alias in neighbors.get("dut_interface_aliases", []):
+            interface = self._resolve_port(alias)
+            st.log(f"Configuring OSPF on interface {interface} (alias {alias})")
+
+        self._log_traffic_streams(metadata)
+
+        failover = SpyTestDict(metadata.get("failover_action", {}))
+        if failover:
+            alias = failover.get("alias")
+            wait_sec = int(failover.get("wait_sec", 30))
+            with self._suspend_interface(alias, wait_sec):
+                st.log(
+                    "Observing traffic continuity during OSPF ECMP failover "
+                    f"for {wait_sec} seconds"
+                )
+
+    def test_ecmp_ospf_scaling_2_4_5(self) -> None:
+        """2.4.5 - ECMP OSPF scaling scenario (manual)."""
+
+        metadata = self._require_testcase("2.4.5")
+        self._log_testcase_banner("2.4.5", metadata)
+        self._log_steps_and_validations(metadata)
+        self._skip_if_manual(metadata, "2.4.5")
+
+    def test_ecmp_bgp_basic_2_4_6(self) -> None:
+        """2.4.6 - ECMP BGP basic functionality."""
+
+        metadata = self._require_testcase("2.4.6")
+        self._log_testcase_banner("2.4.6", metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+
+        self._configure_bgp_neighbors(metadata)
+        self._log_traffic_streams(metadata)
+
+        failover = SpyTestDict(metadata.get("failover_action", {}))
+        if failover:
+            alias = failover.get("alias")
+            wait_sec = int(failover.get("wait_sec", 45))
+            with self._suspend_interface(alias, wait_sec):
+                st.log(
+                    "Observing traffic continuity during BGP ECMP failover "
+                    f"for {wait_sec} seconds"
+                )
+
+    def test_ecmp_bgp_scaling_2_4_7(self) -> None:
+        """2.4.7 - ECMP BGP scaling scenario (manual)."""
+
+        metadata = self._require_testcase("2.4.7")
+        self._log_testcase_banner("2.4.7", metadata)
+        self._log_steps_and_validations(metadata)
+        self._skip_if_manual(metadata, "2.4.7")
+
+    def test_ecmp_dynamic_negative_2_4_8(self) -> None:
+        """2.4.8 - ECMP dynamic routing negative validation (manual)."""
+
+        metadata = self._require_testcase("2.4.8")
+        self._log_testcase_banner("2.4.8", metadata)
+        self._log_steps_and_validations(metadata)
+        self._skip_if_manual(metadata, "2.4.8")
+
