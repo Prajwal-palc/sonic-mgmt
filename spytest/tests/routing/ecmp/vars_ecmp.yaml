@@ -1,0 +1,19 @@
+# ECMP routing suite template variables.
+# Populate the `testcases` mapping with plan-specific metadata when authoring
+# concrete automation. The defaults block illustrates common suite options.
+
+defaults:
+  min_topology:
+    - "D1T1:2"
+    - "D1D2:2"
+  cli_type:
+    - click
+    - klish
+  verify_timeout: 120
+  cleanup: true
+  supported_platforms:
+    - HW
+    - Virtual
+  log_severity: info
+
+testcases: {}
