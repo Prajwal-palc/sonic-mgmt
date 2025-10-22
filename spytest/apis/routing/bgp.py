@@ -1890,6 +1890,19 @@ def clear_bgp_vtysh(dut, **kwargs):
         st.config(dut, command, type=cli_type, conf=False)
 
 
+def clear_bgp(dut, **kwargs):
+    """Clear BGP sessions on one or more DUTs."""
+
+    status = True
+    for node in make_list(dut):
+        try:
+            clear_bgp_vtysh(node, **kwargs)
+        except Exception as exc:  # pylint: disable=broad-except
+            st.warn("Failed to clear BGP on {}: {}".format(node, exc))
+            status = False
+    return status
+
+
 def clear_ip_bgp_vtysh(dut, value="*", **kwargs):
     cli_type = get_cfg_cli_type(dut, **kwargs)
     cli_type = "klish" if cli_type in get_supported_ui_type_list() else cli_type

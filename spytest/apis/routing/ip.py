@@ -806,6 +806,50 @@ def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", 
     return True
 
 
+def config_static_route(dut, route=None, next_hop=None, family='ipv4', interface=None, config='add', **kwargs):
+    """Configure or remove a static route.
+
+    This helper normalizes the inputs used across the SpyTest suites and
+    reuses the existing create/delete helpers.  The ``route`` parameter
+    expects a prefix in ``<ip>/<mask>`` format, but callers may also provide
+    ``dest`` and ``dest_subnet`` via ``kwargs`` for compatibility with older
+    helpers.  The ``config`` flag accepts a variety of values such as
+    ``add``/``del`` or ``yes``/``no``.
+    """
+
+    params = dict(kwargs)
+    cli_type = params.pop('cli_type', st.get_ui_type(dut))
+    if route is None:
+        dest = params.pop('dest', None)
+        dest_subnet = params.pop('dest_subnet', None)
+        if dest and dest_subnet is not None:
+            route = f"{dest}/{dest_subnet}"
+    if not route:
+        st.error("Static route prefix must be provided")
+        return False
+
+    normalized = (config or 'add').strip().lower()
+    if normalized in ('yes', 'add', 'create', 'apply', 'set', 'enable'):
+        action = 'add'
+    elif normalized in ('no', 'del', 'delete', 'remove', 'rem', 'disable'):
+        action = 'del'
+    else:
+        st.error("Invalid config action '{}' for static route".format(config))
+        return False
+
+    if not family:
+        family = 'ipv6' if ':' in route.split('/')[0] else 'ipv4'
+
+    vrf_name = params.pop('vrf', params.pop('vrf_name', None))
+    params['cli_type'] = cli_type
+
+    if action == 'add':
+        return create_static_route(dut, next_hop=next_hop, static_ip=route, family=family,
+                                   interface=interface, vrf=vrf_name, **params)
+    return delete_static_route(dut, next_hop=next_hop, static_ip=route, family=family,
+                               interface=interface, vrf=vrf_name, **params)
+
+
 def create_static_route(dut, next_hop=None, static_ip=None, shell="vtysh", family='ipv4', interface=None, vrf=None, **kwargs):
     """
     To create static route
@@ -1072,6 +1116,74 @@ def delete_static_route(dut, next_hop=None, static_ip=None, family='ipv4', shell
         st.error("UNSUPPORTED CLI TYPE -- {}".format(cli_type))
         return False
     return True
+
+
+def clear_static_route(dut, family='all', vrf_name=None, **kwargs):
+    """Remove all configured static routes on one or more DUTs."""
+
+    dut_list = utils.make_list(dut)
+    status = True
+
+    if family in (None, '', 'all'):
+        families = ['ipv4', 'ipv6']
+    else:
+        family_map = {
+            'ip': 'ipv4',
+            'ipv4': 'ipv4',
+            '4': 'ipv4',
+            'ipv6': 'ipv6',
+            '6': 'ipv6',
+        }
+        families = [family_map.get(str(family).lower(), str(family).lower())]
+
+    for node in dut_list:
+        params = dict(kwargs)
+        cli_type = params.pop('cli_type', st.get_ui_type(node))
+        for af in families:
+            try:
+                routes = fetch_ip_route(node, family=af, vrf_name=vrf_name, cli_type=cli_type)
+            except Exception as exc:  # pylint: disable=broad-except
+                st.warn("Failed to fetch {} static routes on {}: {}".format(af, node, exc))
+                status = False
+                continue
+
+            if not routes:
+                continue
+
+            processed = set()
+            for entry in routes:
+                route_type = str(entry.get('type', '')).upper()
+                if not route_type.startswith('S'):
+                    continue
+
+                prefix = entry.get('ip_address') or entry.get('prefix')
+                if not prefix:
+                    continue
+
+                nexthop = entry.get('nexthop') or entry.get('next_hop') or entry.get('nh') or ''
+                interface = entry.get('interface') or entry.get('ifname') or ''
+                entry_vrf = vrf_name or entry.get('vrf_name') or entry.get('vrf') or entry.get('dest_vrf_name')
+                key = (prefix, nexthop, interface, entry_vrf)
+                if key in processed:
+                    continue
+                processed.add(key)
+
+                delete_kwargs = dict(params)
+                delete_kwargs['cli_type'] = cli_type
+                result = delete_static_route(
+                    node,
+                    next_hop=nexthop or None,
+                    static_ip=prefix,
+                    family=af,
+                    interface=interface or None,
+                    vrf=entry_vrf,
+                    **delete_kwargs
+                )
+                if not result:
+                    status = False
+        st.log("Cleared static routes for {} on families {}".format(node, ", ".join(families)))
+
+    return status
 
 
 def show_ip_route(dut, family="ipv4", shell="sonic", vrf_name=None, **kwargs):
