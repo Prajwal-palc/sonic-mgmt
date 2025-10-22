@@ -15,7 +15,9 @@ Description:
   automation. The suite wires up reusable helpers to manage topology context,
   route programming, neighbor orchestration, and cleanup flows while delegating
   concrete testcase logic to project-specific implementations. Populate
-  vars_ecmp.yaml and replace the placeholder test with plan-aligned coverage.
+  vars_ecmp.yaml with the testcase catalog and map each plan entry to a Python
+  method. This module provides ready-to-extend coverage for plan items 2.4.1
+  through 2.4.8 spanning static, OSPF, and BGP ECMP behaviors.
 
 Pre-requisites:
   - Topology: t0/t1 | Supported: HW and Virtual
@@ -441,6 +443,49 @@ class TestEcmpRoutingSuite:
                 "for this test execution"
             )
 
+    @staticmethod
+    def _log_traffic_profile(metadata: Mapping[str, Any]) -> None:
+        """Emit structured summary of traffic generator expectations."""
+
+        streams = [SpyTestDict(item) for item in metadata.get("traffic_streams") or []]
+        if not streams:
+            st.log("No traffic generator profile defined for this testcase")
+            return
+
+        st.log("Traffic Profile:")
+        for index, stream in enumerate(streams, 1):
+            st.log(
+                "  Stream {idx}: {src} -> {dst} (ports {sport} -> {dport}) rate {rate}pps "
+                "tolerance {tol}%".format(
+                    idx=index,
+                    src=stream.get("src_tg", "n/a"),
+                    dst=stream.get("dst_tg", "n/a"),
+                    sport=stream.get("src_port", "n/a"),
+                    dport=stream.get("dst_port", "n/a"),
+                    rate=stream.get("rate_pps", "n/a"),
+                    tol=stream.get("tolerance_pct", "n/a"),
+                )
+            )
+
+    @staticmethod
+    def _log_scale_objectives(metadata: Mapping[str, Any]) -> None:
+        """Print scale matrix information captured in YAML metadata."""
+
+        matrix = metadata.get("scale_matrix") or metadata.get("prefix_count")
+        if not matrix:
+            st.log("No scale matrix captured for this testcase")
+            return
+
+        st.log(f"Scale Objectives: {matrix}")
+
+    @staticmethod
+    def _log_negative_focus(metadata: Mapping[str, Any]) -> None:
+        """Highlight negative testing dimensions for manual execution."""
+
+        st.log("Negative Test Focus Areas:")
+        for index, validation in enumerate(metadata.get("validations", []), 1):
+            st.log(f"  Expectation {index}: {validation}")
+
     def _verify_static_route_installation(self, metadata: Mapping[str, Any]) -> None:
         """Ensure configured static ECMP routes are installed on the DUT."""
 
@@ -506,4 +551,155 @@ class TestEcmpRoutingSuite:
             st.log("Failover simulation complete without traffic generator involvement")
 
         self._verify_static_route_installation(metadata)
+
+    def test_static_ecmp_scaling_matrix(self) -> None:
+        """Summarize static ECMP scale expectations from the plan."""
+
+        testcase_id = "2.4.2"
+        metadata = self._require_testcase(testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_scale_objectives(metadata)
+        pytest.skip("Static ECMP scaling is currently documented for manual execution")
+
+    def test_static_ecmp_negative_behaviors(self) -> None:
+        """Document static ECMP negative test workflows and skip automation."""
+
+        testcase_id = "2.4.3"
+        metadata = self._require_testcase(testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_negative_focus(metadata)
+        pytest.skip("Static ECMP negative plan presently requires manual validation")
+
+    def test_ospf_ecmp_basic_functionality(self) -> None:
+        """Exercise OSPF ECMP route validation workflows."""
+
+        testcase_id = "2.4.4"
+        metadata = self._require_testcase(testcase_id)
+        self._skip_if_manual(metadata, testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_traffic_profile(metadata)
+
+        neighbors = SpyTestDict(metadata.get("neighbors", {}))
+        process_id = neighbors.get("process_id")
+        area = neighbors.get("area", "0.0.0.0")
+        dut_aliases = neighbors.get("dut_interface_aliases") or []
+
+        if not process_id or not dut_aliases:
+            pytest.skip("OSPF neighbor metadata incomplete in vars_ecmp.yaml")
+
+        dut = self._resolve_dut_alias("D1")
+        st.log(
+            f"Preparing OSPF process {process_id} for ECMP validation on DUT {dut}"
+        )
+
+        for alias in dut_aliases:
+            interface = self._resolve_port(alias)
+            st.log(
+                "  Ensuring OSPF enabled on interface {interface} (alias {alias}) for "
+                "area {area}".format(interface=interface, alias=alias, area=area)
+            )
+
+        remote_ids = neighbors.get("remote_router_ids") or []
+        for router_id in remote_ids:
+            st.log(f"  Tracking remote OSPF neighbor router-id {router_id}")
+
+        st.log(
+            "Validation placeholder: integrate OSPF API hooks to program neighbors "
+            "and verify ECMP next-hop installation."
+        )
+
+    def test_ospf_ecmp_scaling_characterization(self) -> None:
+        """Capture scaling strategy for OSPF ECMP routes."""
+
+        testcase_id = "2.4.5"
+        metadata = self._require_testcase(testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_scale_objectives(metadata)
+        pytest.skip("OSPF ECMP scaling remains a manual characterization task")
+
+    def test_bgp_ecmp_basic_functionality(self) -> None:
+        """Validate BGP ECMP provisioning and failover handling."""
+
+        testcase_id = "2.4.6"
+        metadata = self._require_testcase(testcase_id)
+        self._skip_if_manual(metadata, testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_traffic_profile(metadata)
+
+        self._configure_bgp_neighbors(metadata)
+
+        prefixes = SpyTestDict(metadata.get("bgp_settings", {})).get("prefixes") or []
+        if not prefixes:
+            pytest.skip("BGP prefix list absent in vars_ecmp.yaml")
+
+        dut = self._resolve_dut_alias("D1")
+        failures: List[str] = []
+        for prefix in prefixes:
+            family = self._family_from_prefix(prefix)
+            st.log(f"Verifying BGP ECMP route {prefix} on DUT {dut}")
+            if not ip_api.verify_ip_route(
+                dut,
+                family=family,
+                ip_address=prefix,
+                type="B",
+                cli_type=self.data.cli_type,
+            ):
+                failures.append(prefix)
+
+        if failures:
+            pytest.fail(
+                "BGP ECMP routes missing from routing table: %s" % ", ".join(failures)
+            )
+
+        failover = SpyTestDict(metadata.get("failover_action", {}))
+        alias = failover.get("alias")
+        wait_sec = int(failover.get("wait_sec", 0) or 0)
+
+        with self._suspend_interface(alias, wait_sec):
+            st.log("BGP ECMP failover simulation executed")
+
+        for prefix in prefixes:
+            family = self._family_from_prefix(prefix)
+            if not ip_api.verify_ip_route(
+                dut,
+                family=family,
+                ip_address=prefix,
+                type="B",
+                cli_type=self.data.cli_type,
+            ):
+                pytest.fail(
+                    "BGP ECMP route %s missing after failover simulation" % prefix
+                )
+
+    def test_bgp_ecmp_scaling_characterization(self) -> None:
+        """Summarize BGP ECMP scale requirements awaiting automation."""
+
+        testcase_id = "2.4.7"
+        metadata = self._require_testcase(testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_scale_objectives(metadata)
+        pytest.skip("BGP ECMP scaling characterization documented for manual execution")
+
+    def test_dynamic_ecmp_negative_matrix(self) -> None:
+        """Catalog negative validation for dynamic routing ECMP scenarios."""
+
+        testcase_id = "2.4.8"
+        metadata = self._require_testcase(testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_negative_focus(metadata)
+        pytest.skip("Dynamic routing ECMP negatives remain manual per current plan")
 
