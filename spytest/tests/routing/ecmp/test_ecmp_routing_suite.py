@@ -75,7 +75,7 @@ def _load_yaml_data() -> SpyTestDict:
 
 
 def _iter_candidate_duts(topology: Mapping[str, Any]) -> Iterable[str]:
-    """Yield DUT aliases (D1, D2, …) discovered in the topology map."""
+    """Yield DUT aliases (D1, D2, ...) discovered in the topology map."""
 
     for key, value in topology.items():
         if key.startswith("D") and value:
@@ -403,6 +403,6 @@ class TestEcmpRoutingSuite:
         """Placeholder to be replaced with concrete ECMP test implementations."""
 
         pytest.skip(
-            "Template placeholder – replace with concrete ECMP testcases as needed"
+            "Template placeholder - replace with concrete ECMP testcases as needed"
         )
 
