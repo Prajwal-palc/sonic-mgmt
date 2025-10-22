@@ -34,10 +34,11 @@ Pre-requisites:
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable as IterableCollection
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Sequence
+from typing import Any, Callable, Iterable, List, Mapping, Sequence
 
 import pytest
 import yaml
@@ -95,8 +96,19 @@ class TestEcmpRoutingSuite:
         config = _load_yaml_data()
         defaults = SpyTestDict(config.get("defaults", {}))
 
-        min_topology = defaults.get("min_topology") or ["D1D2:1"]
-        topology = st.ensure_min_topology(*min_topology)
+        original_links = list(defaults.get("min_topology") or [])
+        sanitized_links = cls._filter_traffic_generator_links(original_links)
+        if original_links and sanitized_links != original_links:
+            removed = [link for link in original_links if link not in sanitized_links]
+            st.log(
+                "Filtered traffic generator dependencies from topology requirements: %s"
+                % removed
+            )
+        if not sanitized_links:
+            sanitized_links = ["D1D2:1"]
+        defaults["min_topology"] = sanitized_links
+
+        topology = st.ensure_min_topology(*sanitized_links)
 
         cls.data.config = config
         cls.data.defaults = defaults
@@ -274,6 +286,30 @@ class TestEcmpRoutingSuite:
                 f"Testcase {testcase_id} is marked manual in vars_ecmp.yaml"
             )
 
+    @staticmethod
+    def _filter_traffic_generator_links(links: Iterable[Any]) -> List[str]:
+        """Remove traffic generator connections from topology description."""
+
+        sanitized: List[str] = []
+        for entry in links or []:
+            if entry is None:
+                continue
+            text = str(entry)
+            alias = text.split(":", 1)[0]
+            alias_upper = alias.upper()
+            if re.match(r"^D\d+T\d+", alias_upper):
+                continue
+            sanitized.append(text)
+        return sanitized
+
+    @staticmethod
+    def _family_from_prefix(prefix: str | None) -> str:
+        """Derive IP family from a route prefix string."""
+
+        if not prefix:
+            return "ipv4"
+        return "ipv6" if ":" in prefix else "ipv4"
+
     # ------------------------------------------------------------------
     # Configuration helpers
     # ------------------------------------------------------------------
@@ -395,14 +431,79 @@ class TestEcmpRoutingSuite:
         finally:
             st.log(f"Restoring interface {port} (alias {alias}) after failover window")
 
+    def _log_skipped_traffic_generator(self, metadata: Mapping[str, Any]) -> None:
+        """Note that traffic generator metadata is ignored by the testcase."""
+
+        streams = metadata.get("traffic_streams") or []
+        if streams:
+            st.warn(
+                "Traffic generator definitions present in vars_ecmp.yaml are ignored "
+                "for this test execution"
+            )
+
+    def _verify_static_route_installation(self, metadata: Mapping[str, Any]) -> None:
+        """Ensure configured static ECMP routes are installed on the DUT."""
+
+        route_block = SpyTestDict(metadata.get("routes", {}))
+        prefix = route_block.get("prefix")
+        next_hops = [SpyTestDict(item) for item in route_block.get("next_hops") or []]
+
+        if not prefix or not next_hops:
+            pytest.skip("Static route definitions missing in vars_ecmp.yaml")
+
+        dut = self._resolve_dut_alias("D1")
+        family = self._family_from_prefix(prefix)
+
+        failures: List[str] = []
+        for hop in next_hops:
+            gateway = hop.get("gateway")
+            if not gateway:
+                continue
+            for cli_type in self._iter_cli_types(hop.get("cli_type")):
+                st.log(
+                    f"Verifying ECMP static route {prefix} via {gateway} on {dut} "
+                    f"using CLI {cli_type}"
+                )
+                if not ip_api.verify_ip_route(
+                    dut,
+                    family=family,
+                    ip_address=prefix,
+                    type="S",
+                    nexthop=gateway,
+                    cli_type=cli_type,
+                ):
+                    failures.append(f"{gateway} (cli {cli_type})")
+
+        if failures:
+            details = ", ".join(failures)
+            pytest.fail(
+                f"Static ECMP route {prefix} missing expected next-hops: {details}"
+            )
+
     # ------------------------------------------------------------------
     # Template placeholder
     # ------------------------------------------------------------------
 
-    def test_template_placeholder(self) -> None:  # pylint: disable=no-self-use
-        """Placeholder to be replaced with concrete ECMP test implementations."""
+    def test_static_ecmp_without_traffic_generator(self) -> None:
+        """Validate static ECMP routing without requiring a traffic generator."""
 
-        pytest.skip(
-            "Template placeholder - replace with concrete ECMP testcases as needed"
-        )
+        testcase_id = "2.4.1"
+        metadata = self._require_testcase(testcase_id)
+        self._skip_if_manual(metadata, testcase_id)
+        self._log_testcase_banner(testcase_id, metadata)
+        self._validate_topology(metadata)
+        self._log_steps_and_validations(metadata)
+        self._log_skipped_traffic_generator(metadata)
+
+        self._apply_static_routes(metadata)
+        self._verify_static_route_installation(metadata)
+
+        failover = SpyTestDict(metadata.get("failover_action", {}))
+        alias = failover.get("alias")
+        wait_sec = int(failover.get("wait_sec", 0) or 0)
+
+        with self._suspend_interface(alias, wait_sec):
+            st.log("Failover simulation complete without traffic generator involvement")
+
+        self._verify_static_route_installation(metadata)
 
