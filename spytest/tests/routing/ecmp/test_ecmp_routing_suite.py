@@ -11,13 +11,11 @@ How to run:
   --log-level debug  --skip-init-config  --ifname-type native
 
 Description:
-  End-to-end SpyTest coverage for Equal-Cost Multi-Path (ECMP) routing across
-  static, OSPF, and BGP control planes. The suite consumes YAML-driven
-  definitions to program routes, establish neighbors, and validate convergence
-  behaviors for functional, scaling, and negative scenarios aligned with plan
-  items 2.4.1 through 2.4.8. All traffic generators, failovers, and cleanup
-  operations are orchestrated via reusable helpers to remain topology-aware
-  across SONiC hardware and virtual environments.
+  Template harness for building Equal-Cost Multi-Path (ECMP) routing test
+  automation. The suite wires up reusable helpers to manage topology context,
+  route programming, neighbor orchestration, and cleanup flows while delegating
+  concrete testcase logic to project-specific implementations. Populate
+  vars_ecmp.yaml and replace the placeholder test with plan-aligned coverage.
 
 Pre-requisites:
   - Topology: t0/t1 | Supported: HW and Virtual
@@ -29,10 +27,10 @@ Pre-requisites:
         #           traffic (src/dst)      ECMP next hops (static/OSPF/BGP)
   - Feature flags / min SONiC version (if any)
   - Required test variables (YAML): defaults.cli_type, defaults.verify_timeout,
-    defaults.cleanup, defaults.min_topology, testcases.2.4.x.* definitions
+    defaults.cleanup, defaults.min_topology, testcase metadata (optional)
 """
 
-# Testcases for ECMP routing scenarios covering SpyTest plan 2.4.1–2.4.8.
+# Template scaffolding for ECMP routing scenarios.
 
 from __future__ import annotations
 
@@ -270,21 +268,6 @@ class TestEcmpRoutingSuite:
         for index, validation in enumerate(validations, 1):
             st.log(f"  Validation {index}: {validation}")
 
-    def _log_traffic_streams(self, metadata: Mapping[str, Any]) -> None:
-        for stream in metadata.get("traffic_streams", []) or []:
-            st.log(
-                "Traffic plan: src_tg=%s dst_tg=%s src_port=%s dst_port=%s "
-                "rate_pps=%s tolerance_pct=%s"
-                % (
-                    stream.get("src_tg"),
-                    stream.get("dst_tg"),
-                    stream.get("src_port"),
-                    stream.get("dst_port"),
-                    stream.get("rate_pps"),
-                    stream.get("tolerance_pct"),
-                )
-            )
-
     def _skip_if_manual(self, metadata: Mapping[str, Any], testcase_id: str) -> None:
         if not metadata.get("automated", True):
             pytest.skip(
@@ -413,124 +396,13 @@ class TestEcmpRoutingSuite:
             st.log(f"Restoring interface {port} (alias {alias}) after failover window")
 
     # ------------------------------------------------------------------
-    # Testcases 2.4.1 – 2.4.8
+    # Template placeholder
     # ------------------------------------------------------------------
 
-    def test_ecmp_static_basic_2_4_1(self) -> None:
-        """2.4.1 - ECMP static routing basic functionality."""
+    def test_template_placeholder(self) -> None:  # pylint: disable=no-self-use
+        """Placeholder to be replaced with concrete ECMP test implementations."""
 
-        metadata = self._require_testcase("2.4.1")
-        self._log_testcase_banner("2.4.1", metadata)
-        self._validate_topology(metadata)
-        self._log_steps_and_validations(metadata)
-
-        self._apply_static_routes(metadata)
-        self._log_traffic_streams(metadata)
-
-        failover = SpyTestDict(metadata.get("failover_action", {}))
-        if failover:
-            alias = failover.get("alias")
-            wait_sec = int(failover.get("wait_sec", 30))
-            with self._suspend_interface(alias, wait_sec):
-                st.log(
-                    "Observing traffic continuity during static ECMP failover "
-                    f"for {wait_sec} seconds"
-                )
-
-    def test_ecmp_static_scaling_2_4_2(self) -> None:
-        """2.4.2 - ECMP static routing scaling scenario (manual)."""
-
-        metadata = self._require_testcase("2.4.2")
-        self._log_testcase_banner("2.4.2", metadata)
-        self._log_steps_and_validations(metadata)
-        self._skip_if_manual(metadata, "2.4.2")
-
-    def test_ecmp_static_negative_2_4_3(self) -> None:
-        """2.4.3 - ECMP static routing negative validation."""
-
-        metadata = self._require_testcase("2.4.3")
-        self._log_testcase_banner("2.4.3", metadata)
-        self._log_steps_and_validations(metadata)
-        self._skip_if_manual(metadata, "2.4.3")
-
-    def test_ecmp_ospf_basic_2_4_4(self) -> None:
-        """2.4.4 - ECMP OSPF basic functionality."""
-
-        metadata = self._require_testcase("2.4.4")
-        self._log_testcase_banner("2.4.4", metadata)
-        self._validate_topology(metadata)
-        self._log_steps_and_validations(metadata)
-        self._skip_if_manual(metadata, "2.4.4")
-
-        neighbors = SpyTestDict(metadata.get("neighbors", {}))
-        if not neighbors:
-            pytest.skip("OSPF neighbor details missing in vars_ecmp.yaml")
-
-        st.log(
-            "Establishing OSPF process %s area %s" % (
-                neighbors.get("process_id"),
-                neighbors.get("area"),
-            )
+        pytest.skip(
+            "Template placeholder – replace with concrete ECMP testcases as needed"
         )
-
-        for alias in neighbors.get("dut_interface_aliases", []):
-            interface = self._resolve_port(alias)
-            st.log(f"Configuring OSPF on interface {interface} (alias {alias})")
-
-        self._log_traffic_streams(metadata)
-
-        failover = SpyTestDict(metadata.get("failover_action", {}))
-        if failover:
-            alias = failover.get("alias")
-            wait_sec = int(failover.get("wait_sec", 30))
-            with self._suspend_interface(alias, wait_sec):
-                st.log(
-                    "Observing traffic continuity during OSPF ECMP failover "
-                    f"for {wait_sec} seconds"
-                )
-
-    def test_ecmp_ospf_scaling_2_4_5(self) -> None:
-        """2.4.5 - ECMP OSPF scaling scenario (manual)."""
-
-        metadata = self._require_testcase("2.4.5")
-        self._log_testcase_banner("2.4.5", metadata)
-        self._log_steps_and_validations(metadata)
-        self._skip_if_manual(metadata, "2.4.5")
-
-    def test_ecmp_bgp_basic_2_4_6(self) -> None:
-        """2.4.6 - ECMP BGP basic functionality."""
-
-        metadata = self._require_testcase("2.4.6")
-        self._log_testcase_banner("2.4.6", metadata)
-        self._validate_topology(metadata)
-        self._log_steps_and_validations(metadata)
-
-        self._configure_bgp_neighbors(metadata)
-        self._log_traffic_streams(metadata)
-
-        failover = SpyTestDict(metadata.get("failover_action", {}))
-        if failover:
-            alias = failover.get("alias")
-            wait_sec = int(failover.get("wait_sec", 45))
-            with self._suspend_interface(alias, wait_sec):
-                st.log(
-                    "Observing traffic continuity during BGP ECMP failover "
-                    f"for {wait_sec} seconds"
-                )
-
-    def test_ecmp_bgp_scaling_2_4_7(self) -> None:
-        """2.4.7 - ECMP BGP scaling scenario (manual)."""
-
-        metadata = self._require_testcase("2.4.7")
-        self._log_testcase_banner("2.4.7", metadata)
-        self._log_steps_and_validations(metadata)
-        self._skip_if_manual(metadata, "2.4.7")
-
-    def test_ecmp_dynamic_negative_2_4_8(self) -> None:
-        """2.4.8 - ECMP dynamic routing negative validation (manual)."""
-
-        metadata = self._require_testcase("2.4.8")
-        self._log_testcase_banner("2.4.8", metadata)
-        self._log_steps_and_validations(metadata)
-        self._skip_if_manual(metadata, "2.4.8")
 
