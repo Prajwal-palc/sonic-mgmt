@@ -1,7 +1,7 @@
 """
 ECMP ROUTING VALIDATION SUITE
 Author: Athira
-© 2024, copyrights@SuperMicro
+Copyright 2024, copyrights@SuperMicro
 
 How to run:
   ./bin/spytest  --tryssh 1  \
