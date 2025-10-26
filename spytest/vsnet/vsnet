@@ -454,12 +454,13 @@ cd $(dirname $0)
 $DOCKERC system prune -f
 
 OPTS="--privileged"
+OPTS="$OPTS --cgroupns host"
 OPTS="$OPTS --restart always"
 #OPTS="$OPTS --rm"
 OPTS="$OPTS -d"
 OPTS="$OPTS --device /dev/kvm:/dev/kvm"
 OPTS="$OPTS -v $SHARE/$VM_NAME:/data:rw"
-OPTS="$OPTS --volume /sys/fs/cgroup:/sys/fs/cgroup:ro"
+OPTS="$OPTS --volume /sys/fs/cgroup:/sys/fs/cgroup:rw"
 {%- for IMG in IMAGES %}
 OPTS="$OPTS -v {{IMAGES[IMG]}}:/images/{{IMG}}"
 {%- endfor %}
@@ -482,7 +483,7 @@ else
   fi
 fi
 OPTS="$OPTS --env SCAPY_TGEN_PORTMAP=eth1"
-OPTS="$OPTS --tmpfs /tmp --tmpfs /run"
+OPTS="$OPTS --tmpfs /tmp --tmpfs /run --tmpfs /run/lock"
 OPTS="$OPTS --env SCID_PYTHON_BIN=/usr/bin"
 OPTS="$OPTS --env SPYTEST_PYTHON_VERSION={{PYVER}}"
 OPTS="$OPTS --env SPYTEST_SCAPY_USE_BRIDGE={{USE_BRIDGE}}"
@@ -1193,6 +1194,22 @@ def parse_known_args(parser):
     args.images = {"default": os.path.join(args.share, "images", "sonic-vs.img")}
     for name, value in args.image:
         args.images[name] = value
+
+    resolved_images = {}
+    for name, value in args.images.items():
+        path = os.path.abspath(os.path.expanduser(value))
+        if not os.path.exists(path):
+            parser.error(
+                f"Unable to locate SONiC image '{name}' at {path}. "
+                "Place the qcow file under <share>/images/ or pass --image to point to the file."
+            )
+        if os.path.isdir(path):
+            parser.error(
+                f"SONiC image '{name}' resolved to a directory ({path}). "
+                "Provide the full path to the qcow2 image file instead."
+            )
+        resolved_images[name] = path
+    args.images = resolved_images
     args.host = args.host or parser.host
     args.dockerc = parser.dockerc
     os.environ["DOCKER_HOST"] = args.host
