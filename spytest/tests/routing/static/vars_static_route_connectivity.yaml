@@ -1,0 +1,38 @@
+defaults:
+  min_topology:
+    - "D1D2:1"
+  cli_type:
+    - click
+  verify_timeout: 60
+  cleanup: true
+  supported_platforms:
+    - HW
+    - Virtual
+
+primary_links:
+  dut1_to_dut2: "Ethernet32"
+
+secondary_links:
+  dut2_aux: "Ethernet36"
+
+testcases:
+  "TC-IP-STATIC-001":
+    title: "Verify static route via DUT2 from DUT1"
+    objective: "Validate reachability to DUT2 secondary network through a static route configured on DUT1."
+    topology:
+      - "D1D2:1"
+    dut1:
+      interface: "Ethernet32"
+      address: "20.1.1.3/24"
+      static_route:
+        prefix: "30.1.1.0/24"
+        next_hop: "20.1.1.4"
+    dut2:
+      primary_interface: "Ethernet32"
+      primary_address: "20.1.1.4/24"
+      secondary_interface: "Ethernet36"
+      secondary_address: "30.1.1.3/24"
+    ping:
+      source_dut: "D1"
+      source_interface: "Ethernet32"
+      target_ip: "30.1.1.3"
