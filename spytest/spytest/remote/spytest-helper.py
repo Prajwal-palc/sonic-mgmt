@@ -18,6 +18,7 @@ import datetime
 import subprocess
 
 g_no_swss_copp_config = True
+g_swss_copp_missing = False
 g_breakout_native = False
 g_breakout_file = None
 g_debug = False
@@ -359,13 +360,82 @@ def backup_file(file_path):
     execute_check_cmd("cp {} {}".format(file_path, backup_filepath))
 
 
+def swss_file_exists(file_path):
+    try:
+        # nosemgrep-next-line
+        proc = subprocess.Popen("docker exec swss test -f {}".format(file_path),
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        proc.communicate()
+        proc.wait()
+        return proc.returncode == 0
+    except Exception as exp:
+        trace("Failed to verify swss file {}: {}".format(file_path, exp))
+    return False
+
+
+def mark_swss_copp_missing():
+    global g_swss_copp_missing
+    if not g_swss_copp_missing:
+        print("SWSS COPP config file {} not found. Skipping SWSS COPP operations.".format(copp_config_file))
+    g_swss_copp_missing = True
+
+
+def ensure_swss_copp_available(for_read=True):
+    global g_no_swss_copp_config
+    global g_swss_copp_missing
+    if g_no_swss_copp_config:
+        return False
+    if not for_read:
+        return True
+    if g_swss_copp_missing:
+        return False
+    if swss_file_exists(copp_config_file):
+        g_swss_copp_missing = False
+        return True
+    mark_swss_copp_missing()
+    return False
+
+
+def fetch_swss_file(src_path, dest_path):
+    global g_swss_copp_missing
+    if not ensure_swss_copp_available():
+        return False
+    result = execute_check_cmd("docker cp swss:{} {}".format(src_path, dest_path), trace_out=False)
+    if result.startswith("Error: Failed"):
+        if "Could not find the file" in result or "No such file" in result:
+            mark_swss_copp_missing()
+            return False
+        print_out(result)
+        return False
+    if result:
+        print_out(result)
+    g_swss_copp_missing = False
+    return True
+
+
+def push_swss_file(src_path, dest_path):
+    global g_swss_copp_missing
+    if not ensure_swss_copp_available(for_read=False):
+        return False
+    result = execute_check_cmd("docker cp {} swss:{}".format(src_path, dest_path), trace_out=False)
+    if result.startswith("Error: Failed"):
+        print_out(result)
+        return False
+    if result:
+        print_out(result)
+    g_swss_copp_missing = False
+    return True
+
+
 def backup_swss_docker_file(file_path):
     file_name = os.path.basename(file_path)
     golden_file = spytest_dir + "/{}.golden".format(file_name)
     backup_filepath = spytest_dir + "/{}.backup".format(file_name)
     if not os.path.exists(golden_file):
-        execute_check_cmd("docker cp swss:{} {}".format(file_path, golden_file))
-    execute_check_cmd("docker cp swss:{} {}".format(file_path, backup_filepath))
+        if not fetch_swss_file(file_path, golden_file):
+            return None
+    if not fetch_swss_file(file_path, backup_filepath):
+        return None
     return backup_filepath
 
 
@@ -381,13 +451,17 @@ def apply_file(filepath, method):
             commands_to_execute.append("config save -y")
     elif filepath.endswith('.copp'):
         filepath = json_fix(filepath)
-        if g_no_swss_copp_config:
-            pass
-        elif method == "full":
-            commands_to_execute.append("cp {} {}".format(filepath, init_copp_config_file))
+        if not ensure_swss_copp_available(for_read=False):
+            return
+        if method == "full":
+            execute_cmds(["cp {} {}".format(filepath, init_copp_config_file)])
         else:
-            backup_swss_docker_file(copp_config_file)
-            commands_to_execute.append("docker cp {} swss:{}".format(filepath, copp_config_file))
+            if ensure_swss_copp_available():
+                if backup_swss_docker_file(copp_config_file):
+                    push_swss_file(filepath, copp_config_file)
+            else:
+                push_swss_file(filepath, copp_config_file)
+        return
     elif filepath.endswith('.xml'):
         if method == "full":
             commands_to_execute.append("cp {} {}".format(filepath, init_minigraph_file))
@@ -774,8 +848,7 @@ def save_module_config():
     copy_or_delete(minigraph_file, module_minigraph_file)
 
     # Copy copp config file to ta location.
-    if not g_no_swss_copp_config:
-        execute_check_cmd("docker cp swss:{} {}".format(copp_config_file, module_copp_config_file))
+    fetch_swss_file(copp_config_file, module_copp_config_file)
 
     print("DONE")
 
@@ -870,8 +943,7 @@ def apply_ta_config(method, port_init_wait, poll_for_ports, config_type):
         changed_files.append("bgp")
 
     # Save and compare the copp.json file
-    if not g_no_swss_copp_config:
-        execute_check_cmd("docker cp swss:{} {}".format(copp_config_file, tmp_copp_file))
+    if fetch_swss_file(copp_config_file, tmp_copp_file):
         if not os.path.exists(tmp_copp_file) and os.path.exists(ta_copp_config_file):
             trace("SWSS COPP File Missing")
             changed_files.append("copp")
@@ -911,8 +983,7 @@ def apply_ta_config(method, port_init_wait, poll_for_ports, config_type):
     if os.path.exists(ta_bgp_config_file) and "bgp" in changed_files:
         execute_check_cmd("cp -f {} {}".format(ta_bgp_config_file, bgp_config_file))
     if os.path.exists(ta_copp_config_file) and "copp" in changed_files:
-        if not g_no_swss_copp_config:
-            execute_check_cmd("docker cp {} swss:{}".format(ta_copp_config_file, copp_config_file))
+        if push_swss_file(ta_copp_config_file, copp_config_file):
             method = "force-reboot"
 
     # We copied the changed files to actual files.
