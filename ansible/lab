@@ -16,6 +16,7 @@ all:
             sonic_msft_sup:
             sonic_msft_lc_100G:
             sonic_cisco_vs:
+            sonic_supermicro_sse_t8196:
         fanout:
           hosts:
             str-7260-10:
@@ -25,6 +26,86 @@ all:
             str-msn2700-02:
               ansible_host: 10.251.0.235
               os: sonic
+            dut2-fanout:
+              ansible_host: 172.31.63.40
+              os: sonic
+              platform: x86_64-supermicro_sse_t8196-r0
+              fanout_connections:
+                - fanout_port: Ethernet512
+                  peer_device: hw4
+                  peer_port: ens2f1np1
+                - fanout_port: Ethernet256
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet256
+                - fanout_port: Ethernet260
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet260
+                - fanout_port: Ethernet264
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet264
+                - fanout_port: Ethernet268
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet268
+                - fanout_port: Ethernet272
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet272
+                - fanout_port: Ethernet276
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet276
+                - fanout_port: Ethernet280
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet280
+                - fanout_port: Ethernet284
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet284
+                - fanout_port: Ethernet288
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet288
+                - fanout_port: Ethernet292
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet292
+                - fanout_port: Ethernet296
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet296
+                - fanout_port: Ethernet300
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet300
+                - fanout_port: Ethernet304
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet304
+                - fanout_port: Ethernet308
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet308
+                - fanout_port: Ethernet312
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet312
+                - fanout_port: Ethernet316
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet316
+                - fanout_port: Ethernet320
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet320
+                - fanout_port: Ethernet324
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet324
+                - fanout_port: Ethernet328
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet328
+                - fanout_port: Ethernet332
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet332
+                - fanout_port: Ethernet336
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet336
+                - fanout_port: Ethernet340
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet340
+                - fanout_port: Ethernet344
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet344
+                - fanout_port: Ethernet348
+                  peer_device: hw4-dut-01
+                  peer_port: Ethernet348
         mgmt:
           hosts:
             console-1:
@@ -40,6 +121,12 @@ all:
             server_1:
               ansible_host: 10.254.0.1
               ansible_hostv6: 2001:db7:1::1/64
+            hw4:
+              ansible_host: 172.31.56.2
+              external_port: ens2f1np1
+              trunk_vlan_range: 2100-2122
+              ptf_vlan_range: 2100-2118
+              vm_vlan_range: 2119-2122
         pdu:
           hosts:
             pdu-1:
@@ -64,6 +151,8 @@ all:
           ansible_host: 10.255.0.180
         ptf_vms5-1:
           ansible_host: 10.255.0.183
+        hw4-ptf:
+          ansible_host: 172.31.56.2
 
 sonic_sn2700_40:
   vars:
@@ -281,3 +370,15 @@ sonic_cisco_vs:
       ansible_user: admin
       ansible_ssh_user: admin
       ansible_altpassword: admin
+
+sonic_supermicro_sse_t8196:
+  vars:
+    hwsku: Supermicro_sse_t8196
+    iface_speed: 25000
+    mgmt_subnet_mask_length: 16
+    mgmt_subnet_v6_mask_length: 64
+  hosts:
+    hw4-dut-01:
+      ansible_host: 172.31.59.240
+      model: SSE-T8196S
+      serial: SST96AN15400025
