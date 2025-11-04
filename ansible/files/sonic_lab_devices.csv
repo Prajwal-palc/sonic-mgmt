@@ -8,3 +8,6 @@ pdu-2,192.168.9.3,Sentry,Pdu,snmp,
 console-1,192.168.10.1/23,Cisco,ConsoleServer,ssh,sonic
 console-2,192.168.10.2/23,Sonic,ConsoleServer,ssh,cisco
 management-1,192.168.10.3/23,Sonic,MgmtTsToRRouter,,sonic
+hw4-dut-01,172.31.59.240/16,Supermicro_sse_t8196,DevSonic,,sonic
+dut2-fanout,172.31.63.40/16,Supermicro_sse_t8196,FanoutLeaf,,sonic
+hw4,172.31.56.2/16,TestServ,Server,,ubuntu

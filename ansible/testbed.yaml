@@ -15,6 +15,21 @@
   auto_recover: 'False'
   comment: Test ptf Mellanox
 
+- conf-name: t0-24-hw4
+  group-name: t0-24-hw4
+  topo: t0-24
+  ptf_image_name: docker-ptf
+  ptf: hw4-ptf
+  ptf_ip: 172.31.56.2/16
+  ptf_ipv6:
+  server: hw4
+  vm_base:
+  dut:
+    - hw4-dut-01
+  inv_name: lab
+  auto_recover: 'False'
+  comment: Physical Supermicro SSE-T8196 t0-24 lab
+
 - conf-name: ptf2-b
   group-name: ptf2
   topo: ptf64
