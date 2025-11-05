@@ -172,6 +172,8 @@ all:
           ansible_host: 10.255.0.180
         ptf_vms5-1:
           ansible_host: 10.255.0.183
+        ptf_hw4_physical:
+          ansible_host: 10.255.0.200
 
 sonic_sn2700_40:
   vars:

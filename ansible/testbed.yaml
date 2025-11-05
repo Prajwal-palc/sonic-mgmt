@@ -267,3 +267,18 @@
   inv_name: lab
   auto_recover: 'True'
   comment: Multi servers testbed demo
+
+- conf-name: physical-t0
+  group-name: hw4-t0
+  topo: t0
+  ptf_image_name: docker-ptf
+  ptf: ptf_hw4_physical
+  ptf_ip: 10.255.0.200/24
+  ptf_ipv6:
+  server: server_hw4_group
+  vm_base: VM0100
+  dut:
+    - dut-sse-t8196
+  inv_name: lab
+  auto_recover: 'False'
+  comment: Physical testbed with T0 topology - 64 ports

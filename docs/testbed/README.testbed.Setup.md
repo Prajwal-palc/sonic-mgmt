@@ -254,6 +254,38 @@ We are using Arista switches as the fanout switches in our lab. So, the playbook
 
 Our fanout switches deploy using the Arista switch's eosadmin shell login. If you have an Arista switch as your fanout and you want to run `fanout/tasks/main.yml` to deploy the switch, please `scp` the `roles/fanout/template/rc.eos` file to the Arista switch flash, and make sure that you can login to the shell with `fanout_admin_user/fanout_admin_password`. For more information regarding credentials management for fanout, see: [fanout management configuration](https://github.com/sonic-net/sonic-mgmt/blob/master/docs/testbed/README.new.testbed.Configuration.md#fanout).
 
+### Define VLANs for the server trunk
+
+The VLAN subinterfaces that are created on the server for the PTF container and the front-panel ports of the VMs are derived from the trunk definition in the lab connection graph. The steps below mirror how the DUT-to-fanout links are described, but focus on the server port (for example `ens2f1np1`).
+
+1. Update the trunk entry for the server in [`ansible/files/sonic_lab_links.csv`](../../ansible/files/sonic_lab_links.csv). Set `StartDevice`/`StartPort` to the fanout port, `EndDevice`/`EndPort` to the server host/physical NIC, `VlanMode` to `Trunk`, and specify the allowed VLAN range in `VlanID`. For a 64-port T0 testbed that reserves VLANs 2100–2127 for the PTF container and VLANs 2128–2131 for four VM links, the line would look similar to:
+
+   ```text
+   dut2-fanout,Ethernet512,server_hw4_group,ens2f1np1,100000,2100-2131,Trunk,on
+   ```
+
+   Make sure the VLAN range covers every value used by the topology (e.g. the `Vlan` entries in `ansible/vars/topo_t0-standalone-64.yml`).
+
+2. Regenerate the connection graph XML that is consumed by Ansible if you maintain it with `creategraph.py`, and place the file under `ansible/files/`. The generated XML must carry the same VLAN range on the `<Connection>` element between the fanout and the server.
+
+3. Confirm that the server inventory entry (for example in `ansible/lab`) exposes the trunk interface through the `external_port` variable:
+
+   ```yaml
+   server_hw4_group:
+     ansible_host: 172.31.56.2
+     external_port: ens2f1np1
+   ```
+
+   The `vm_set` role reads this value and automatically creates the VLAN subinterfaces (`ens2f1np1.2100`, …, `ens2f1np1.2131`) during `add-topo`.
+
+4. After running `./testbed-cli.sh ... add-topo ...`, verify that the VLAN devices were created on the server and mapped to the correct bridges for the PTF container and VMs:
+
+   ```bash
+   sudo cat /proc/net/vlan/config | grep ens2f1np1
+   ```
+
+   Missing VLANs in this list usually indicate that the trunk range in the connection graph does not cover every VLAN consumed by the topology.
+
 **`TODO:`**
 - Improve testbed root fanout switch configuration method.
 - Update the inventory file format. Some of the early fanout definition files have duplicated fields with the inventory file. We should adopt a new inventory file and improve the lab graph.
