@@ -1,0 +1,53 @@
+---
+defaults:
+  cli_type: vtysh
+  verify_timeout: 45
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  primary_dut: "D1"
+  supporting_dut: "D2"
+  target_interface: "Ethernet0"
+  loopbacks:
+    numbered:
+      name: "Loopback0"
+      ipv4: "10.0.0.1/32"
+    unnumbered:
+      name: "Loopback1"
+      ipv4: "10.0.1.1/32"
+  reboot_matrix:
+    - warm
+    - fast
+    - cold
+  diag_cli: "show running-configuration interface {interface}"
+  diag_cli_type: vtysh
+  onie_reinstall: false
+  static_ipv4:
+    enabled: true
+    interface: "Ethernet4"
+    wait_after_config: 5
+    d1:
+      ipv4: "192.0.2.1/30"
+      routes:
+        - prefix: "198.51.100.0/30"
+          nexthop: "192.0.2.2"
+          onlink: true
+      ping_targets:
+        - "192.0.2.2"
+    d2:
+      ipv4: "192.0.2.2/30"
+      routes:
+        - prefix: "203.0.113.0/30"
+          nexthop: "192.0.2.1"
+          onlink: true
+      ping_targets:
+        - "192.0.2.1"
+    verification:
+      cli_types:
+        - vtysh
+        - klish
+
+testcases:
+  "1.2.1":
+    title: "IPv4 Unnumbered Interface"
+    description: "Validate persistence and recovery of IPv4 unnumbered configuration across reboot workflows."
