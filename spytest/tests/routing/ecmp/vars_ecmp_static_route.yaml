@@ -1,0 +1,164 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+    - "D1D3:1"
+
+testcases:
+  ECMP_01_001:
+    title: "Configure DUT uplink interfaces"
+    dut: "D1"
+    interfaces:
+      - "Ethernet32"
+      - "Ethernet12"
+
+  ECMP_01_002:
+    title: "Configure L3 addressing on DUT uplinks towards NH1 and NH2"
+    ip_configs:
+      - dut: "D1"
+        interface: "Ethernet32"
+        ip_address: "10.0.0.0/31"
+      - dut: "D1"
+        interface: "Ethernet12"
+        ip_address: "10.0.0.2/31"
+
+  ECMP_01_003:
+    title: "Provision two equal-cost static routes to 203.0.113.0/24"
+    routes:
+      - dut: "D1"
+        destination: "203.0.113.0/24"
+        next_hop: "10.0.0.1"
+        vrf: null
+      - dut: "D1"
+        destination: "203.0.113.0/24"
+        next_hop: "10.0.0.3"
+        vrf: null
+
+  ECMP_01_004:
+    title: "Verify ECMP route installation in FRR and kernel routing tables"
+    dut: "D1"
+    destination: "203.0.113.0/24"
+    expected_nexthops:
+      - "10.0.0.1"
+      - "10.0.0.3"
+
+  ECMP_01_005:
+    title: "Configure NH1 uplink interface"
+    dut: "D2"
+    interface: "Ethernet32"
+
+  ECMP_01_006:
+    title: "Configure L3 addressing on NH1 towards DUT"
+    dut: "D2"
+    ip_config:
+      dut: "D2"
+      interface: "Ethernet32"
+      ip_address: "10.0.0.1/31"
+    ping_target: "10.0.0.0"
+
+  ECMP_01_007:
+    title: "Configure Null0 route on NH1 for test destination"
+    dut: "D2"
+    destination: "203.0.113.0/24"
+
+  ECMP_01_008:
+    title: "Configure NH2 uplink interface"
+    dut: "D3"
+    interface: "Ethernet28"
+
+  ECMP_01_009:
+    title: "Configure L3 addressing on NH2 towards DUT"
+    dut: "D3"
+    ip_config:
+      dut: "D3"
+      interface: "Ethernet28"
+      ip_address: "10.0.0.3/31"
+    ping_target: "10.0.0.2"
+
+  ECMP_01_010:
+    title: "Configure Null0 route on NH2 for test destination"
+    dut: "D3"
+    destination: "203.0.113.0/24"
+
+  ECMP_01_011:
+    title: "Enable port counter polling on DUT"
+    dut: "D1"
+
+  ECMP_01_012:
+    title: "Generate diverse traffic flows to test destination"
+    dut: "D1"
+    destination: "203.0.113.0/24"
+    duration: 60
+    flow_count: 10000
+
+  ECMP_01_013:
+    title: "Verify ECMP load distribution across both next-hops"
+    dut: "D1"
+    interfaces:
+      - "Ethernet32"
+      - "Ethernet12"
+    min_balance_ratio: 0.40
+    max_balance_ratio: 0.60
+
+  ECMP_01_014:
+    title: "Verify ingress traffic on NH1 and NH2"
+    nh1_dut: "D2"
+    nh1_interface: "Ethernet32"
+    nh2_dut: "D3"
+    nh2_interface: "Ethernet28"
+
+  ECMP_01_015:
+    title: "Simulate next-hop failure by shutting down NH1 link"
+    fail_dut: "D2"
+    fail_interface: "Ethernet32"
+    verify_dut: "D1"
+    destination: "203.0.113.0/24"
+    remaining_nexthop: "10.0.0.3"
+
+  ECMP_01_016:
+    title: "Verify fast convergence and traffic continuity after NH1 failure"
+    dut: "D1"
+    active_interface: "Ethernet12"
+    failed_interface: "Ethernet32"
+
+  ECMP_01_017:
+    title: "Restore NH1 link and verify ECMP reconvergence"
+    restore_dut: "D2"
+    restore_interface: "Ethernet32"
+    verify_dut: "D1"
+    destination: "203.0.113.0/24"
+    expected_nexthops:
+      - "10.0.0.1"
+      - "10.0.0.3"
+
+  ECMP_01_018:
+    title: "Clean up DUT configuration"
+    dut: "D1"
+    cleanup_routes:
+      - destination: "203.0.113.0/24"
+        next_hop: "10.0.0.1"
+      - destination: "203.0.113.0/24"
+        next_hop: "10.0.0.3"
+    cleanup_ips:
+      - interface: "Ethernet32"
+        ip_address: "10.0.0.0/31"
+      - interface: "Ethernet12"
+        ip_address: "10.0.0.2/31"
+
+  ECMP_01_019:
+    title: "Clean up NH1 configuration"
+    dut: "D2"
+    cleanup_null_route: "203.0.113.0/24"
+    cleanup_ips:
+      - interface: "Ethernet32"
+        ip_address: "10.0.0.1/31"
+
+  ECMP_01_020:
+    title: "Clean up NH2 configuration"
+    dut: "D3"
+    cleanup_null_route: "203.0.113.0/24"
+    cleanup_ips:
+      - interface: "Ethernet28"
+        ip_address: "10.0.0.3/31"
