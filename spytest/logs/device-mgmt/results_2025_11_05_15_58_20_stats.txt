@@ -1,0 +1,106 @@
+
+======================= STATS: routing/static/test_static_route_blackhole.py::TestStaticRouteBlackhole.test_static_route_blackhole_drop ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:17
+TOTAL Sleep Time = 0:00:01
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:11.471
+TOTAL HELPER Time = 0:00:07.626
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-05 10:29:01,803 T0027: CMD TIME: 1525 D1 = show interfaces status Ethernet124
+2025-11-05 10:29:03,748 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-05 10:29:01,810 T0028: CMD TIME: 2529 D2 = show interfaces status Ethernet124
+2025-11-05 10:29:04,759 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-05 10:29:05,442 T0030: CMD TIME: 1520 D1 = show interfaces status Ethernet4
+2025-11-05 10:29:05,448 T0031: CMD TIME: 1517 D2 = show interfaces status Ethernet4
+2025-11-05 10:29:07,423 T0033: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/static/test_static_route_blackhole.py'  
+2025-11-05 10:29:07,430 T0032: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/static/test_static_route_blackhole.py'  
+2025-11-05 10:29:11,711 T0000: CMD TIME: 1417 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-05 10:29:13,138 T0000: CMD TIME: 261 D1 = configure terminal
+2025-11-05 10:29:13,827 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-05 10:29:14,195 T0000: CMD TIME: 1115 D1 = no shutdown
+2025-11-05 10:29:15,320 T0000: CMD TIME: 258 D1 = exit
+2025-11-05 10:29:16,017 T0000: CMD TIME: 460 D1 = no ip route 192.0.2.0/24 blackhole
+2025-11-05 10:29:16,484 T0000: WAIT TIME: 1 = static delay
+=========================================================
+
+======================= STATS: routing/static/test_static_route_blackhole.py::TestStaticRouteBlackhole.test_static_route_blackhole_drop ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception Failed Expected blackhole/null0 in klish show ip route output:
+
+Codes: K - kernel route, C - connected, S - static, B - BGP, O - OSPF
+        > - selected route, * - FIB route, q - queued route, r - rejected route
+
+-------------------------------------------------------------------------------
+VRF: default
+        Destination             Gateway                             Dist/Metric  Last Update
+-------------------------------------------------------------------------------
+ K> 10.1.1.0/24          Direct                              0/0          00:00:03 ago
+ K> 1.1.1.1              Direct                              0/0          00:00:03 ago
+ K> 192.0.2.0/24         Direct                              0/0          00:00:03 ago
+ S> 30.0.0.0/24          10.1.1.2                            1/0          00:00:03 ago
+                     via 10.1.1.2                  -
+ S> 20.1.1.0/24          10.1.1.2                            1/0          00:00:03 ago
+                     via 10.1.1.2                  -
+ S> 30.1.1.0/24          20.1.1.4                            1/0          00:00:03 ago
+                     via 20.1.1.4                  -
+
+-------------------------------------------------------------------------------
+VRF: Vrf_3
+        Destination             Gateway                             Dist/Metric  Last Update
+-------------------------------------------------------------------------------
+ S> 50.0.0.0/24          13.1.1.2                            1/0          00:00:03 ago
+                     via 13.1.1.2                  -
+
+-------------------------------------------------------------------------------
+VRF: Vrf_1
+        Destination             Gateway                             Dist/Metric  Last Update
+-------------------------------------------------------------------------------
+ S> 2.2.2.2/32           30.1.1.1                            1/0          00:00:03 ago
+                     via 30.1.1.1                  -
+ S> 50.0.0.0/24          20.1.1.2                            1/0          00:00:03 ago
+                     via 20.1.1.2                  -
+ S> 30.0.0.0/24          10.1.1.2                            1/0          00:00:03 ago
+                     via 10.1.1.2                  -
+ S> 20.0.0.0/24          10.1.1.1                            1/0          00:00:03 ago
+                     via 10.1.1.1                  -
+ S> 40.0.0.0/24          10.1.2.2                            1/0          00:00:03 ago
+                     via 10.1.2.2                  -
+
+-------------------------------------------------------------------------------
+VRF: Vrf_2
+        Destination             Gateway                             Dist/Metric  Last Update
+-------------------------------------------------------------------------------
+ S> 50.0.0.0/24          11.1.1.1                            1/0          00:00:03 ago
+                     via 11.1.1.1                  -
+
+-------------------------------------------------------------------------------
+VRF: VrfRED
+        Destination             Gateway                             Dist/Metric  Last Update
+-------------------------------------------------------------------------------
+ S> 2.2.2.2/32           10.1.1.2                            1/0          00:00:03 ago
+                     via 10.1.1.2                  -
+--sonic-mgmt--()#  in file /spytest_venv/lib/python3.8/site-packages/_pytest/outcomes.py at line 178
+TOTAL Test Time = 0:00:32
+TOTAL Sleep Time = 0:00:01
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:04.618
+TOTAL HELPER Time = 0:00:15.280
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-05 10:29:39,914 T0043: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestStaticRouteBlackhole.test_static_route_blackhole_drop'  
+2025-11-05 10:29:39,919 T0042: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestStaticRouteBlackhole.test_static_route_blackhole_drop'  
+2025-11-05 10:29:44,169 T0000: CMD TIME: 1165 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-05 10:29:45,343 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-05 10:29:46,022 T0000: CMD TIME: 308 D1 = ip route 192.0.2.0/24 blackhole
+2025-11-05 10:29:46,335 T0000: WAIT TIME: 1 = static delay
+2025-11-05 10:29:47,749 T0000: CMD TIME: 1391 D1 = do show ip route
+2025-11-05 10:29:49,587 T0000: CMD TIME: 1186 D1 = do show ip route static
+2025-11-05 10:29:51,213 T0000: CMD TIME: 309 D1 = do show running-config | section ip route
+2025-11-05 10:29:52,023 T0045: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestStaticRouteBlackhole.test_static_route_blackhole_drop'  
+2025-11-05 10:30:03,761 T0044: HELPER TIME: 3841 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestStaticRouteBlackhole.test_static_route_blackhole_drop'  
+=========================================================

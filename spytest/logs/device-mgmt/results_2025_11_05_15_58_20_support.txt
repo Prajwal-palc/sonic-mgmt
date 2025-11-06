@@ -1,0 +1,126 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: SKIP saving running config pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: SKIP saving running config pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: saving syslog pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: saving syslog pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog routing/static/test_static_route_blackhole.py 
+smic_sonic1: SKIP saving config_db post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving running config post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving syslog post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving config_db post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP generating tech-support post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving running config post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP collect core-files post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving syslog post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving sai_redis post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP generating sysinfo post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP generating tech-support post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP collect core-files post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving sai_redis post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP generating sysinfo post-class-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving config_db post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving running config post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: saving syslog post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving config_db post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving running config post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: saving syslog post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP generating tech-support post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP collect core-files post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP saving sai_redis post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic2: SKIP generating sysinfo post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP generating tech-support post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP collect core-files post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving sai_redis post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP generating sysinfo post-module-prolog routing/static/test_static_route_blackhole.py Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: SKIP saving running config pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: saving syslog pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: SKIP saving running config pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: saving syslog pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestStaticRouteBlackhole.test_static_route_blackhole_drop 
+smic_sonic1: SKIP saving config_db post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: saving syslog post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: saving syslog post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestStaticRouteBlackhole.test_static_route_blackhole_drop ScriptError
+smic_sonic1: SKIP saving config_db post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP saving running config post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP saving syslog post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP saving config_db post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP generating tech-support post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP saving running config post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP collect core-files post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP saving syslog post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP saving sai_redis post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP generating tech-support post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP generating sysinfo post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP collect core-files post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP saving sai_redis post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic2: SKIP generating sysinfo post-class-epilog routing/static/test_static_route_blackhole.py pass
+smic_sonic1: SKIP saving config_db post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: SKIP saving config_db post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: SKIP saving running config post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: saving syslog post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: SKIP saving running config post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: saving syslog post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: SKIP generating tech-support post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: SKIP collect core-files post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: SKIP saving sai_redis post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic2: SKIP generating sysinfo post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: SKIP generating tech-support post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: SKIP collect core-files post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: SKIP saving sai_redis post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: SKIP generating sysinfo post-module-epilog routing/static/test_static_route_blackhole.py fail
+smic_sonic1: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving running config session-epilog session pass
+smic_sonic1: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP saving config_db session-epilog session pass
+smic_sonic2: SKIP saving running config session-epilog session pass
+smic_sonic2: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP generating tech-support session-epilog session pass
+smic_sonic2: collect core-files session-epilog session pass
+smic_sonic1: SKIP generating tech-support session-epilog session pass
+smic_sonic1: collect core-files session-epilog session pass
+smic_sonic1: SKIP saving sai_redis session-epilog session pass
+smic_sonic1: SKIP generating sysinfo session-epilog session pass
+smic_sonic2: SKIP saving sai_redis session-epilog session pass
+smic_sonic2: SKIP generating sysinfo session-epilog session pass

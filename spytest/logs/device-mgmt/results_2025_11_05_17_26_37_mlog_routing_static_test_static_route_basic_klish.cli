@@ -1,0 +1,33 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet4
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,interface range Ethernet32,36
+class-prolog,,,D2,mgmt-config,no shutdown
+class-prolog,,,D2,mgmt-config,exit
+class-prolog,,,D2,mgmt-config,interface Ethernet 32
+class-prolog,,,D2,mgmt-config,ip address 20.1.1.4/24
+class-prolog,,,D2,mgmt-config,exit
+class-prolog,,,D2,mgmt-config,interface Ethernet 36
+class-prolog,,,D2,mgmt-config,ip address 30.1.1.3/24
+class-prolog,,,D2,mgmt-config,exit
+class-prolog,,,D2,mgmt-config,interface Ethernet36
+class-prolog,,,D2,mgmt-config,no ip address 30.1.1.3/24
+class-prolog,,,D2,mgmt-config,exit
+class-prolog,,,D2,mgmt-config,interface Ethernet 32
+class-prolog,,,D2,mgmt-config,no ip address 20.1.1.4/24
+class-prolog,,,D2,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet4
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,interface Ethernet 32
+class-prolog,,,D1,mgmt-config,no shutdown
+class-prolog,,,D1,mgmt-config,exit
+class-prolog,,,D1,mgmt-config,interface Ethernet 32
+class-prolog,,,D1,mgmt-config,ip address 20.1.1.3/24
+class-prolog,,,D1,mgmt-config,exit
+class-prolog,,,D1,mgmt-config,ping 20.1.1.4 -c 3
+class-prolog,,,D1,mgmt-config,interface Ethernet32
+class-prolog,,,D1,mgmt-config,no ip address 20.1.1.3/24
+class-prolog,,,D1,mgmt-config,exit
