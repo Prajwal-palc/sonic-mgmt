@@ -75,19 +75,55 @@ Install/update dependencies:
 
 ## Test Script Structure
 
-Standard test script pattern:
+### Test Documentation
+Each test file should include comprehensive docstring documentation:
+```python
+"""
+FEATURE NAME - TEST SCENARIO
+
+Author: Name
+Copyright (C) 2024, Company
+
+How to run:
+  ./bin/spytest --tryssh 1 \\
+  --testbed ./testbeds/testbed_vs_2d.yaml \\
+  tests/feature/test_file.py \\
+  --logs-path ./logs/test_$(date +%F_%H%M%S) \\
+  --log-level debug --skip-init-config --ifname-type native
+
+Description:
+  Detailed description of test scenario and what it validates.
+
+Pre-requisites:
+  - Topology: two-node (D1-D2) | Supported: HW and Virtual
+  - Feature flags / min SONiC version requirements
+  - Required test variables (YAML): path/to/vars_file.yaml
+"""
+```
+
+### Standard test script pattern:
 ```python
 import pytest
-from spytest import st
+from spytest import st, SpyTestDict
 import apis.routing.ip as ip_api
+
+# Module-level variables
+vars = SpyTestDict()
+data = SpyTestDict()
 
 @pytest.fixture(scope="module", autouse=True)
 def module_hooks(request):
     # Module prologue - setup, load vars
     global vars
-    vars = st.get_testbed_vars()
+    vars = st.ensure_min_topology("D1D2:1")  # or st.get_testbed_vars()
+
+    # Initialize test data
+    st.banner("MODULE PROLOGUE: Starting")
+    # Setup configuration here
     yield
+
     # Module epilogue - cleanup
+    st.banner("MODULE EPILOGUE: Cleanup")
 
 def test_my_feature():
     st.log("Starting test...")
@@ -97,11 +133,35 @@ def test_my_feature():
     st.report_pass("test_case_passed")
 ```
 
+Modern test pattern with external YAML configuration:
+```python
+from pathlib import Path
+import yaml
+
+DEFAULT_VAR_FILE = Path(__file__).resolve().parents[3] / "spytest/vars/feature/vars_file.yaml"
+
+def initialize_data() -> None:
+    """Load test configuration from YAML file"""
+    try:
+        with open(DEFAULT_VAR_FILE, "r") as f:
+            payload = yaml.safe_load(f)
+    except FileNotFoundError as error:
+        pytest.skip(str(error))
+
+    global vars, data
+    vars = st.ensure_min_topology(*payload.get("min_topology", ["D1D2:1"]))
+    data.config = SpyTestDict(payload)
+```
+
 ### Critical Patterns
 
-1. **Test Variables**: Load from YAML files in `spytest/vars/`
+1. **Test Variables**: Load from YAML files in `spytest/spytest/vars/`
    ```python
+   # Legacy approach
    vars = st.get_testbed_vars()  # Access D1, D2, D1T1P1, etc.
+
+   # Modern approach - specify topology requirements
+   vars = st.ensure_min_topology("D1D2:1", "D1T1:1")  # 1 link D1-D2, 1 link D1-TGen
    ```
 
 2. **Multi-CLI Support**: Tests specify and use CLI type
@@ -126,14 +186,33 @@ def test_my_feature():
    st.error("Error occurred")     # Error message
    ```
 
+5. **Test Case IDs**: Define test case identifiers for tracking
+   ```python
+   TC_IDS = SpyTestDict({
+       "reachability": "TC-IP-STATIC-001",
+       "route_absent": "TC-IP-STATIC-002",
+   })
+   ```
+
 ## Feature API Development
 
-When creating or modifying feature APIs in `apis/`:
+Feature APIs are organized by domain in `apis/`:
+- `apis/routing/` - Routing protocols (BGP, OSPF, static routes, IP configuration)
+- `apis/switching/` - L2 features (VLANs, STP, MAC, port channels)
+- `apis/qos/` - QoS features (queues, policers, classifiers)
+- `apis/security/` - Security features (ACLs, authentication)
+- `apis/system/` - System features (interfaces, logging, basic config)
+- `apis/common/` - Common utilities and helpers
+- `apis/yang/` - YANG/REST/gNMI utilities
+
+When creating or modifying feature APIs:
 
 1. **Abstract CLI types** - Handle click, klish, REST, gNMI variants
 2. **Use TextFSM templates** - For parsing CLI output (`templates/` directory)
 3. **Return structured data** - Not raw CLI strings
 4. **Handle version differences** - Support multiple SONiC versions
+5. **Use st.show() for show commands** - Framework function for CLI execution
+6. **Use st.config() for config commands** - Framework function for configuration
 
 Example API structure:
 ```python
@@ -212,10 +291,50 @@ After test execution, logs appear in `--logs-path` directory:
 3. **Traffic generators** - Requires external libraries (Ixia: /projects/scid/tgen or via SCID_TGEN_PATH)
 4. **Python 3 required** - Framework tested with Python 3.8+
 5. **Entry point** - Always use `./bin/spytest`, not direct pytest invocation
+6. **Working directory** - Commands should be run from the `spytest/` root directory
+7. **Module structure** - Core framework in `spytest/`, feature APIs in `apis/`, tests in `tests/`, utilities in `utilities/`
+
+## Debugging and Development Workflow
+
+### Running a Single Test
+```bash
+# Run single test with debug logging
+./bin/spytest --testbed testbeds/testbed_2vs.yaml \
+    tests/routing/static/test_static_route_basic.py::test_my_function \
+    --logs-path ./logs/debug \
+    --log-level debug \
+    --skip-init-config
+```
+
+### Useful Command-Line Options for Development
+- `--tryssh 1` - Enable SSH connection attempts
+- `--skip-init-config` - Skip initial device configuration (faster for iterative testing)
+- `--ifname-type native` - Use native interface names (Ethernet0, Ethernet4, etc.)
+- `--file-mode` - Execute tests in file mode (single device at a time)
+- `--logs-level debug` - Enable debug logging
+
+### Viewing Results
+After test execution:
+1. Check `<logs-path>/dashboard.html` for overview
+2. Review `<logs-path>/summary.txt` for quick summary
+3. Inspect `<logs-path>/dlog-D1-*.log` for per-device CLI commands/output
+4. Search module logs for "Report(" to find test results
+
+### Common Utilities
+
+Framework provides utility functions in `utilities/`:
+- `utilities/common.py` - General purpose utilities (IP manipulation, string operations)
+- `utilities/parallel.py` - Parallel test execution helpers
+- `utilities/utils.py` - Framework-specific utilities
+
+Core framework functions in `spytest/`:
+- `spytest/infra.py` - Infrastructure functions (logging, error detection)
+- `spytest/framework.py` - Test orchestration lifecycle
+- `spytest/net.py` - Device connection and CLI execution
 
 ## Documentation
 
-- `Doc/intro.md` - Comprehensive framework introduction (600 lines)
+- `Doc/intro.md` - Comprehensive framework introduction (600+ lines)
 - `Doc/install.md` - Installation instructions
 - `README.md` - Directory overview
 
