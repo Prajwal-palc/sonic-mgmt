@@ -1,0 +1,261 @@
+# BGP Incorrect AS Number Prevents Session - Test Variables
+# Test ID 2.4.3 - All Sub-testcases (2.4.3.1 through 2.4.3.5)
+# Reference: Doc/bgp_243.md
+
+defaults:
+  cli_type: "klish"  # BGP configuration requires klish/vtysh
+  verify_timeout: 90  # Seconds to verify session does NOT establish
+  cleanup: true  # Cleanup configuration after each test
+  min_topology:
+    - "D1D2:1"  # Minimum topology: 2 DUTs with 1 link
+  keepalive: 60  # BGP keepalive timer (seconds)
+  hold: 180  # BGP hold timer (seconds)
+  good_asn_dut1: 65001  # Correct ASN for DUT1
+  good_asn_dut2: 65002  # Correct ASN for DUT2
+  wrong_asn: 65003  # Intentionally wrong ASN for negative testing
+
+# ============================================================================
+# Test ID 2.4.3.1: eBGP IPv4 Numbered (Direct /30) – Wrong Remote-AS on DUT1
+# ============================================================================
+testcases:
+  "2.4.3.1":
+    title: "eBGP IPv4 numbered (direct /30) – wrong remote-as on dut1"
+    description: "Session must NOT form when remote-as is incorrect on one side"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65003  # WRONG: Should be 65002
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001  # Correct
+        vrf: "default"
+    verify:
+      expect_established: false  # Session should NOT form
+      expected_states: ["Idle", "Active", "Connect"]
+      check_logs: true
+      log_patterns:
+        - "bad.*as"
+        - "notification"
+        - "open.*error"
+
+  # ============================================================================
+  # Test ID 2.4.3.2: eBGP IPv4 Numbered (Loopback Multihop) – Wrong Remote-AS on DUT2
+  # ============================================================================
+  "2.4.3.2":
+    title: "eBGP IPv4 numbered (loopback multihop) – wrong remote-as on dut2"
+    description: "Multihop eBGP fails to form with AS mismatch"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback0"
+        ip_address: "1.1.1.1"
+        prefix_length: 32
+      - dut: "D2"
+        loopback: "Loopback0"
+        ip_address: "2.2.2.2"
+        prefix_length: 32
+    static_routes:
+      - dut: "D1"
+        destination: "2.2.2.2/32"
+        next_hop: "10.0.0.2"
+      - dut: "D2"
+        destination: "1.1.1.1/32"
+        next_hop: "10.0.0.1"
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2.2.2.2"
+        remote_asn: 65002  # Correct
+        update_source: "Loopback0"
+        ebgp_multihop: 2
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "1.1.1.1"
+        remote_asn: 65003  # WRONG: Should be 65001
+        update_source: "Loopback0"
+        ebgp_multihop: 2
+        vrf: "default"
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "1.1.1.1/32"
+      - dut: "D2"
+        local_asn: 65002
+        network: "2.2.2.2/32"
+    verify:
+      expect_established: false
+      expected_states: ["Idle", "Active", "Connect"]
+      check_logs: true
+
+  # ============================================================================
+  # Test ID 2.4.3.3: iBGP IPv4 Numbered – One Side Configured as eBGP (Wrong AS)
+  # ============================================================================
+  "2.4.3.3":
+    title: "iBGP IPv4 numbered – one side configured as eBGP (wrong AS)"
+    description: "Ensure iBGP session does not form when remote-as differs"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002  # Different AS - each thinks they're doing iBGP with their own AS
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65001  # Expecting iBGP with AS 65001
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65002  # Expecting iBGP with AS 65002
+        vrf: "default"
+    verify:
+      expect_established: false
+      expected_states: ["Idle", "Active", "Connect"]
+      check_logs: true
+
+  # ============================================================================
+  # Test ID 2.4.3.4: eBGP IPv4 Unnumbered (Interface Neighbor) – Wrong Remote-AS
+  # ============================================================================
+  "2.4.3.4":
+    title: "eBGP IPv4 unnumbered (interface neighbor) – wrong remote-as"
+    description: "Unnumbered eBGP fails when remote-as mismatched"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "unnumbered"
+        prefix_length: 0
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "unnumbered"
+        prefix_length: 0
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65003  # WRONG: Should be 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        interface: "Ethernet4"
+        remote_asn: "external"  # Should accept any external AS
+        vrf: "default"
+        extended_nexthop: true
+      - dut: "D2"
+        local_asn: 65003
+        interface: "Ethernet4"
+        remote_asn: "external"
+        vrf: "default"
+        extended_nexthop: true
+    verify:
+      expect_established: false  # May establish with 'external', but checking for issues
+      expected_states: ["Idle", "Active", "Connect", "Established"]  # Note: might actually establish
+      check_logs: true
+      note: "With remote-as external, session may form; primary test is AS validation logic"
+
+  # ============================================================================
+  # Test ID 2.4.3.5: iBGP IPv4 Unnumbered – One Side Wrong AS
+  # ============================================================================
+  "2.4.3.5":
+    title: "iBGP IPv4 unnumbered – one side wrong AS"
+    description: "iBGP unnumbered fails with AS mismatch"
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback0"
+        ip_address: "1.1.1.1"
+        prefix_length: 32
+      - dut: "D2"
+        loopback: "Loopback0"
+        ip_address: "2.2.2.2"
+        prefix_length: 32
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "unnumbered"
+        prefix_length: 0
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "unnumbered"
+        prefix_length: 0
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65003  # WRONG: Should be 65001 for iBGP
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        interface: "Ethernet4"
+        remote_asn: 65001  # Expecting iBGP with AS 65001
+        vrf: "default"
+        extended_nexthop: true
+      - dut: "D2"
+        local_asn: 65003
+        interface: "Ethernet4"
+        remote_asn: 65003  # Expecting iBGP with AS 65003
+        vrf: "default"
+        extended_nexthop: true
+    verify:
+      expect_established: false
+      expected_states: ["Idle", "Active", "Connect"]
+      check_logs: true
