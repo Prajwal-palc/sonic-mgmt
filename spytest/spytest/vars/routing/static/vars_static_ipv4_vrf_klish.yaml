@@ -1,0 +1,89 @@
+# Variable file for Static IPv4 Route VRF Test (Klish CLI)
+# Test Case: TC-IP-STATIC-VRF-001
+# Purpose: IPv4 static route configuration within a non-default VRF
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+# VRF Configuration
+vrf:
+  name: "Vrf-RED"
+  description: "Test VRF for static route validation"
+
+# Interface Configuration
+interfaces:
+  D1:
+    link:
+      # Physical interface connecting D1 to D2
+      name: "Ethernet4"
+      prefix: "10.0.24.1/31"
+      description: "Link to D2 in VRF"
+    loopback:
+      # Loopback interface on D1
+      name: "Loopback10"
+      prefix: "192.0.2.1/32"
+      description: "Loopback in VRF for route source"
+
+  D2:
+    link:
+      # Physical interface connecting D2 to D1
+      name: "Ethernet4"
+      prefix: "10.0.24.0/31"
+      description: "Link to D1"
+
+# Static Route Configuration
+routes:
+  primary:
+    # Static route to be configured in VRF on D1
+    destination: "198.51.100.0/24"
+    next_hop: "10.0.24.0"  # D2's link IP
+    vrf: "Vrf-RED"
+    description: "Test static route in VRF"
+    verify:
+      type: "S"
+      nexthop: "10.0.24.0"
+      selected: true
+      fib: true
+
+# Ping Configuration for Traffic Validation
+pings:
+  target: "198.51.100.1"  # Target IP in destination network
+  count: 4
+  family: "ipv4"
+  timeout: 5
+
+# Test Validation Parameters
+validation:
+  # Verify route exists in VRF routing table
+  route_in_vrf: true
+
+  # Verify route does NOT exist in global routing table (VRF isolation)
+  route_not_in_global: true
+
+  # Commands to validate
+  show_commands:
+    klish:
+      - "show ip route vrf Vrf-RED"
+      - "show ip vrf"
+      - "show ip vrf Vrf-RED"
+      - "show running-config | section ip route"
+    vtysh:
+      - "sudo vtysh -c 'show ip route vrf Vrf-RED'"
+      - "sudo vtysh -c 'show vrf Vrf-RED'"
+      - "sudo vtysh -c 'show running-config'"
+
+# Expected Behavior
+expected_results:
+  - "VRF Vrf-RED is successfully created"
+  - "Loopback10 is successfully bound to VRF Vrf-RED"
+  - "Ethernet4 on D1 is successfully bound to VRF Vrf-RED"
+  - "Static route 198.51.100.0/24 is installed in VRF Vrf-RED routing table"
+  - "Route is visible in 'show ip route vrf Vrf-RED'"
+  - "Route is NOT visible in 'show ip route' (global table)"
+  - "No cross-VRF routing leakage occurs"
+  - "Running configuration correctly reflects VRF and route"
+  - "Route can be successfully removed and verified absent"

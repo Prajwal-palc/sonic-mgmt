@@ -1,0 +1,34 @@
+# SpyTest Script Creation and Execution Guide
+
+## 1. Generate a New Script
+Use the below template to create new test cases.
+
+- Please use the **"click"** type.
+- Refer to the following files for guidance:
+  - **Test plan:** `/home/adminuser/sonic-mgmt/spytest/testcases.md`
+  - **Coding guideline:** `/home/adminuser/sonic-mgmt/spy_test_coding_guideline.md`
+
+---
+
+## 2. Steps to Run the Script
+
+1. Activate the virtual environment:
+   ```bash
+   source spytest/bin/activate
+   ```
+
+2. Execute the test:
+   ```bash
+   ./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_Dvs.yaml routing/testcase-file --logs-path ./logs/device-mgmt --log-level debug --skip-init-config --ifname-type native
+   ```
+
+---
+
+## 3. Review and Approval Process
+
+After creating and running the script:
+- I will review and approve it.
+- If the test passes successfully, push your changes using the commands from the following file:
+  ```
+  /home/adminuser/sonic-mgmt/spytest/Linux-Git-PR.txt
+  ```

@@ -1,0 +1,15 @@
+defaults:
+  cli_type: klish
+  cleanup: true
+  min_topology:
+    - D1D2:1
+
+routes:
+  blackhole:
+    prefix: 192.0.2.0/24
+    test_ip: 192.0.2.1
+    null_interface: Null0
+
+interfaces:
+  D1:
+    primary: Ethernet4

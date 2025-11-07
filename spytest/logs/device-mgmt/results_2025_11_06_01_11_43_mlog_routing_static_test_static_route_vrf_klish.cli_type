@@ -1,0 +1,11 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+interface.py::interface_noshutdown,klish
+interface.py::interface_operation,klish
+port.py::set_status,klish
+ip.py::config_ip_addr_interface,klish
+ip.py::ping,klish
+vrf.py::config_vrf,click
+vrf.py::verify_vrf,click
+ip.py::verify_ip_route,click
+ip.py::delete_ip_interface,klish
