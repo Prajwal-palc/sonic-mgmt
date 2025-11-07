@@ -1,0 +1,349 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+# Management VRF configuration
+mgmt_vrf:
+  name: "mgmt"
+  description: "Management VRF for out-of-band management"
+  # Management VRF typically exists by default in SONiC
+
+# Management interface IPv6 configuration
+interfaces:
+  D1:
+    mgmt:
+      name: "eth0"
+      ipv6_address: "2001:db8:mgmt::142/64"
+      ipv6_gateway: "2001:db8:mgmt::1"
+      description: "Management interface on D1"
+    # Data plane interface (should NOT be in mgmt VRF)
+    data:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:data::1/64"
+      description: "Data plane interface on D1"
+
+  D2:
+    mgmt:
+      name: "eth0"
+      ipv6_address: "2001:db8:mgmt::97/64"
+      ipv6_gateway: "2001:db8:mgmt::1"
+      description: "Management interface on D2"
+    # Data plane interface
+    data:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:data::2/64"
+      description: "Data plane interface on D2"
+    edge:
+      name: "Loopback0"
+      ipv6_address: "2001:db8:100::1/128"
+      description: "Loopback for testing"
+
+# Management VRF static routes
+routes:
+  mgmt_external_network:
+    dut: "D1"
+    destination: "2001:db8:external::/48"
+    next_hop: "2001:db8:mgmt::254"
+    vrf: "mgmt"
+    description: "IPv6 static route to external management network"
+    verify:
+      ip_address: "2001:db8:external::/48"
+      type: "S"
+      nexthop: "2001:db8:mgmt::254"
+      vrf_name: "mgmt"
+    test_target: "2001:db8:external::1"
+    expected_ping_result: true
+
+  mgmt_nms_host:
+    dut: "D1"
+    destination: "2001:db8:nms::100/128"
+    next_hop: "2001:db8:mgmt::254"
+    vrf: "mgmt"
+    description: "IPv6 static route to specific NMS host"
+    verify:
+      ip_address: "2001:db8:nms::100/128"
+      type: "S"
+      nexthop: "2001:db8:mgmt::254"
+      vrf_name: "mgmt"
+    test_target: "2001:db8:nms::100"
+    expected_ping_result: true
+
+  mgmt_backup_network:
+    dut: "D1"
+    destination: "2001:db8:backup::/48"
+    next_hop: "2001:db8:mgmt::253"
+    interface: "eth0"
+    vrf: "mgmt"
+    description: "IPv6 static route with interface and next-hop in mgmt VRF"
+    verify:
+      ip_address: "2001:db8:backup::/48"
+      type: "S"
+      nexthop: "2001:db8:mgmt::253"
+      vrf_name: "mgmt"
+    test_target: "2001:db8:backup::1"
+    expected_ping_result: true
+
+  mgmt_monitoring_server:
+    dut: "D1"
+    destination: "2001:db8:monitor::50/128"
+    next_hop: "2001:db8:mgmt::254"
+    vrf: "mgmt"
+    description: "IPv6 static route to monitoring server"
+    verify:
+      ip_address: "2001:db8:monitor::50/128"
+      type: "S"
+      nexthop: "2001:db8:mgmt::254"
+      vrf_name: "mgmt"
+    test_target: "2001:db8:monitor::50"
+    expected_ping_result: true
+
+# Ping configuration for reachability tests in Management VRF
+pings:
+  mgmt_external:
+    dut: "D1"
+    target: "2001:db8:external::1"
+    count: 5
+    family: ipv6
+    vrf: "mgmt"
+    expected_result: true
+    description: "Ping external management network via mgmt VRF"
+
+  mgmt_gateway:
+    dut: "D1"
+    target: "2001:db8:mgmt::254"
+    count: 5
+    family: ipv6
+    vrf: "mgmt"
+    expected_result: true
+    description: "Ping management gateway"
+
+  mgmt_nms:
+    dut: "D1"
+    target: "2001:db8:nms::100"
+    count: 5
+    family: ipv6
+    vrf: "mgmt"
+    expected_result: true
+    description: "Ping NMS host via mgmt VRF"
+
+  # Negative test - ping mgmt destination from default VRF (should fail)
+  mgmt_from_default_vrf:
+    dut: "D1"
+    target: "2001:db8:external::1"
+    count: 3
+    family: ipv6
+    vrf: null  # Default VRF
+    expected_result: false
+    description: "Negative test: Ping mgmt destination from data VRF should fail"
+
+# Show commands for validation - standard CLI
+show_commands:
+  vrf_validation:
+    - "show vrf"
+    - "show vrf | include mgmt"
+    - "show vrf mgmt"
+    - "show ip vrf"
+
+  interface_validation:
+    - "show ipv6 interface brief"
+    - "show ipv6 interface eth0"
+    - "show ipv6 interface brief vrf mgmt"
+    - "show interface status eth0"
+
+  route_validation:
+    - "show ipv6 route vrf mgmt"
+    - "show ipv6 route vrf mgmt 2001:db8:external::/48"
+    - "show ipv6 route vrf mgmt 2001:db8:nms::100/128"
+    - "show ipv6 route vrf mgmt static"
+    - "show running-config | include 'ipv6 route vrf mgmt'"
+
+  traffic_validation:
+    - "show ipv6 traffic"
+    - "show ipv6 traffic vrf mgmt"
+    - "show interfaces eth0 counters"
+    - "show interfaces eth0 counters detailed"
+
+  isolation_validation:
+    - "show ipv6 route"  # Default VRF - should NOT have mgmt routes
+    - "show ipv6 route vrf mgmt"  # Mgmt VRF - should have mgmt routes only
+
+# Show commands for validation - privileged sudo vtysh CLI
+show_commands_privileged:
+  vrf_validation:
+    - 'sudo vtysh -c "show vrf"'
+    - 'sudo vtysh -c "show vrf vrf mgmt"'
+
+  route_validation:
+    - 'sudo vtysh -c "show ipv6 route vrf mgmt"'
+    - 'sudo vtysh -c "show ipv6 route vrf mgmt 2001:db8:external::/48"'
+    - 'sudo vtysh -c "show ipv6 route vrf mgmt 2001:db8:nms::100/128"'
+    - 'sudo vtysh -c "show running-config | section ipv6 route"'
+
+  interface_validation:
+    - 'sudo vtysh -c "show ipv6 interface brief vrf mgmt"'
+    - 'sudo vtysh -c "show ipv6 interface eth0"'
+
+  traffic_validation:
+    - 'sudo vtysh -c "show ipv6 traffic"'
+
+  system_validation:
+    - 'sudo ip -6 route show vrf mgmt'
+    - 'sudo ip -6 route show table mgmt'
+
+# Ping commands using sudo (interface-specific)
+ping_commands_privileged:
+  - 'sudo ping6 -I eth0 2001:db8:mgmt::254 -c 5'
+  - 'sudo ping6 -I eth0 2001:db8:external::1 -c 5'
+  - 'sudo traceroute6 -i eth0 2001:db8:external::1'
+
+# Test scenarios based on TC-IP-STATIC-IPV6-008
+test_scenarios:
+  TC-IP-STATIC-IPV6-008:
+    name: "Configure and verify Management VRF Static Route-IPv6"
+    description: "Validate IPv6 static routes in Management VRF with isolation and traffic tests"
+    phases:
+      - name: "Verify Management VRF Pre-Configuration"
+        steps:
+          - "Verify Management VRF 'mgmt' exists by default"
+          - "Verify eth0 interface is in mgmt VRF"
+          - "Verify mgmt VRF status is active"
+          - "Verify separate routing table for mgmt VRF"
+          - "Verify management interface eth0 is up"
+          - "Verify IPv6 addressing on eth0"
+
+      - name: "Configure IPv6 Static Routes in Management VRF"
+        steps:
+          - "Configure basic mgmt VRF static route to external network"
+          - "Configure mgmt VRF route to specific NMS host"
+          - "Configure mgmt VRF route with interface and next-hop"
+          - "Configure mgmt VRF route to monitoring server"
+          - "Verify all routes appear in running-config"
+          - "Save configuration with write memory"
+
+      - name: "Verify VRF Isolation (Critical Security)"
+        steps:
+          - "Verify mgmt routes appear ONLY in mgmt VRF table"
+          - "Verify mgmt routes do NOT appear in default VRF"
+          - "Verify data routes do NOT appear in mgmt VRF"
+          - "Verify bidirectional VRF isolation"
+          - "Compare route counts between VRFs"
+          - "Validate no cross-VRF route leakage"
+
+      - name: "Management Traffic Validation"
+        steps:
+          - "Test IPv6 ping via mgmt VRF to external network"
+          - "Test ping using 'ping ipv6 vrf mgmt <dest>'"
+          - "Test ping using 'sudo ping6 -I eth0 <dest>'"
+          - "Verify 0% packet loss for valid mgmt destinations"
+          - "Verify traffic egresses via eth0 interface"
+          - "Verify eth0 interface counters increment"
+
+      - name: "Negative Testing - VRF Isolation"
+        steps:
+          - "Ping mgmt destination from default VRF (should fail)"
+          - "Verify 100% packet loss or network unreachable"
+          - "Verify data plane interface counters do NOT increment"
+          - "Confirm VRF isolation prevents cross-VRF traffic"
+
+      - name: "Show Command Validation - Standard CLI"
+        steps:
+          - "Execute 'show vrf | include mgmt' - verify mgmt VRF"
+          - "Execute 'show vrf mgmt' - verify details"
+          - "Execute 'show ipv6 route vrf mgmt' - verify all mgmt routes"
+          - "Execute 'show ipv6 route vrf mgmt <prefix>' - verify specific route"
+          - "Execute 'show ipv6 interface brief vrf mgmt' - verify eth0"
+          - "Execute 'show running-config | include ipv6 route vrf mgmt'"
+          - "Execute 'show ipv6 traffic' - verify traffic stats"
+          - "Execute 'show interfaces eth0 counters'"
+
+      - name: "Show Command Validation - Privileged CLI"
+        steps:
+          - "Execute 'sudo vtysh -c show vrf' - verify mgmt VRF"
+          - "Execute 'sudo vtysh -c show ipv6 route vrf mgmt'"
+          - "Execute 'sudo vtysh -c show ipv6 interface brief vrf mgmt'"
+          - "Execute 'sudo ip -6 route show vrf mgmt' - kernel table"
+          - "Verify consistency between standard and privileged CLI"
+
+      - name: "Enable/Disable in Global Configuration Mode"
+        steps:
+          - "Remove mgmt VRF static route with 'no ipv6 route vrf mgmt'"
+          - "Verify route disappears from mgmt VRF routing table"
+          - "Verify route removed from running-config"
+          - "Test ping to destination (should fail)"
+          - "Re-add mgmt VRF static route"
+          - "Verify route re-appears in routing table"
+          - "Test ping to destination (should succeed)"
+          - "Multiple enable/disable cycles"
+
+      - name: "Enable/Disable at Interface Level"
+        steps:
+          - "Shutdown eth0 interface"
+          - "Verify eth0 status is down"
+          - "Verify mgmt routes may remain in table but inactive"
+          - "Test ping to mgmt destination (should fail)"
+          - "Re-enable eth0 with 'no shutdown'"
+          - "Verify eth0 status is up"
+          - "Verify mgmt routes become active"
+          - "Test ping to mgmt destination (should succeed)"
+
+      - name: "Management Traffic Types Validation"
+        steps:
+          - "Verify interface counters for eth0 increment during mgmt traffic"
+          - "Verify data plane interface counters do NOT increment"
+          - "Test IPv6 traffic statistics show mgmt activity"
+          - "Verify traffic isolation to mgmt VRF"
+
+      - name: "Data VRF Independence Validation"
+        steps:
+          - "Verify data VRF routes unaffected by mgmt VRF config"
+          - "Verify data traffic forwarding continues normally"
+          - "Confirm complete independence between VRFs"
+
+      - name: "Configuration Persistence and State"
+        steps:
+          - "Verify running-config shows all mgmt VRF routes"
+          - "Execute 'write memory' to save config"
+          - "Verify configuration saved successfully"
+          - "Verify state consistency across CLI methods"
+          - "Compare klish, vtysh, and kernel routing tables"
+
+    expected_results:
+      - "Management VRF 'mgmt' exists by default and is active"
+      - "All mgmt VRF static routes install successfully"
+      - "Routes visible only in 'show ipv6 route vrf mgmt'"
+      - "Routes NOT visible in default VRF table"
+      - "Management traffic (ping) works via mgmt VRF"
+      - "VRF isolation strictly maintained (no route leakage)"
+      - "Interface counters for eth0 increment during mgmt traffic"
+      - "Data VRF routes completely unaffected"
+      - "Enable/disable works in global config mode"
+      - "Enable/disable works at interface level"
+      - "All show commands work correctly"
+      - "CLI consistency across klish, vtysh, kernel"
+      - "Configuration persists after save"
+      - "Interface state changes properly affect mgmt routes"
+
+# Additional test configuration
+test_config:
+  mgmt_gateway_reachable: true
+  mgmt_external_network_reachable: false  # May not be available in test env
+  use_gateway_as_ping_target: true  # Use gateway if external network not available
+  wait_after_route_config: 2  # seconds
+  wait_after_interface_change: 3  # seconds
+  ping_timeout: 10  # seconds
+  max_ping_retries: 3
+
+# Cleanup configuration
+cleanup:
+  remove_mgmt_routes: true
+  remove_mgmt_vrf: false  # Do NOT remove mgmt VRF (system default)
+  remove_eth0_config: false  # Do NOT remove eth0 config (system mgmt interface)
+  restore_baseline: true
