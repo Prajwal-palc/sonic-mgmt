@@ -1,0 +1,44 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.6":
+    title: "Verify system-name/description and management-address TLV advertised"
+    description: "Verify that LLDP system-name, system-description, and management-address TLVs are correctly configured and advertised to neighbors"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      # LLDP enable/disable test
+      test_enable_disable: true
+      # System configuration
+      system_name: "sonic-test-device"
+      system_description: "SONiC Test Device for LLDP TLV Validation"
+      peer_system_name: "sonic-peer-device"
+      peer_system_description: "SONiC Peer Device for LLDP TLV Testing"
+      # Management address configuration
+      management_address_ipv4: "192.168.100.10"
+      peer_management_address_ipv4: "192.168.100.20"
+      # TLV selection
+      enable_management_address_tlv: true
+    verify:
+      # Expected TLV values in neighbor output
+      expected_neighbor:
+        interface: "Ethernet4"
+        verify_system_name: true
+        verify_system_description: true
+        verify_management_address: true
+      # Wait times
+      lldp_stabilize_wait: 30
+      config_propagate_wait: 20
+    show_commands:
+      klish:
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
+      click:
+        - "show lldp neighbor"

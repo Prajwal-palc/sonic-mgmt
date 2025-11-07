@@ -1,0 +1,61 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.3":
+    title: "Verify LLDP with transmit-only, receive-only and both modes"
+    description: "Verify that LLDP operates correctly in different transmission modes (transmit-only, receive-only, and both transmit/receive) and that mode enforcement behaves as expected at both global and interface levels"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      lldp_global_enable: true
+      lldp_interface_enable: true
+    modes:
+      # Transmit-only mode configuration
+      transmit_only:
+        status: "tx"
+        expected_behavior:
+          # In transmit-only mode:
+          # - Frames are transmitted (TX counters increment)
+          # - Frames are NOT received/processed (RX counters do not increment)
+          # - Neighbor table should be empty or not updated
+          tx_active: true
+          rx_active: false
+          neighbors_visible: false
+      # Receive-only mode configuration
+      receive_only:
+        status: "rx"
+        expected_behavior:
+          # In receive-only mode:
+          # - Frames are received and processed (RX counters increment)
+          # - Frames are NOT transmitted (TX counters do not increment)
+          # - Neighbor table is populated
+          tx_active: false
+          rx_active: true
+          neighbors_visible: true
+      # Both modes active (default behavior)
+      both_modes:
+        status: "rx-and-tx"
+        expected_behavior:
+          # In both modes:
+          # - Bidirectional LLDP communication
+          # - Both TX and RX counters increment
+          # - Neighbor table is populated and updated
+          tx_active: true
+          rx_active: true
+          neighbors_visible: true
+    verify:
+      # Wait times for mode changes to take effect
+      mode_change_wait: 30
+      # Wait time for LLDP to stabilize after configuration
+      stabilization_wait: 30
+      # Expected neighbor information when in receive or both modes
+      expected_neighbor:
+        chassis_name: "sonic"
+        port_id: "Ethernet4"

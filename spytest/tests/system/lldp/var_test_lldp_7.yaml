@@ -1,0 +1,64 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.7":
+    title: "Verify VLAN specific LLDP functionality (VLAN Name TLV allowlist and max count)"
+    description: "Verify that LLDP VLAN Name TLV allowlist and maximum TLV count configurations work correctly"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      # LLDP enable/disable test
+      test_enable_disable: true
+      # VLAN configuration
+      vlans_to_create:
+        - vlan_id: 10
+          vlan_name: "VLAN_Ten"
+        - vlan_id: 20
+          vlan_name: "VLAN_Twenty"
+        - vlan_id: 21
+          vlan_name: "VLAN_TwentyOne"
+        - vlan_id: 22
+          vlan_name: "VLAN_TwentyTwo"
+        - vlan_id: 23
+          vlan_name: "VLAN_TwentyThree"
+        - vlan_id: 24
+          vlan_name: "VLAN_TwentyFour"
+        - vlan_id: 25
+          vlan_name: "VLAN_TwentyFive"
+        - vlan_id: 30
+          vlan_name: "VLAN_Thirty"
+        - vlan_id: 40
+          vlan_name: "VLAN_Forty"
+      # VLAN Name TLV configuration
+      vlan_allowlist: "10,20-25"
+      vlan_allowlist_ids: [10, 20, 21, 22, 23, 24, 25]
+      vlans_outside_allowlist: [30, 40]
+      max_tlv_count: 5
+      # Interface VLAN membership (if needed)
+      add_interface_to_vlans: false
+    verify:
+      # Expected VLAN Name TLV behavior
+      expected_vlan_tlvs:
+        max_count: 5
+        allowed_vlan_ids: [10, 20, 21, 22, 23, 24, 25]
+        disallowed_vlan_ids: [30, 40]
+      # Wait times
+      lldp_stabilize_wait: 30
+      vlan_config_wait: 10
+      tlv_config_wait: 15
+      # Packet capture settings (optional)
+      enable_packet_capture: false
+      capture_duration: 30
+    show_commands:
+      klish:
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
+      click:
+        - "show lldp neighbor"

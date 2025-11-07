@@ -1,0 +1,56 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.10":
+    title: "Save and reboot; verify LLDP post-reboot"
+    description: "Verify that LLDP configuration persists across device reboots and that LLDP functionality is fully restored after reboot"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      # Initial LLDP enable/disable test
+      test_initial_enable_disable: true
+      # Save configuration methods
+      test_klish_save: true    # Test 'write memory' in klish
+      test_click_save: true    # Test 'sudo config save -y' in click
+      # Reboot settings
+      perform_reboot: true
+      reboot_type: "normal"    # normal, fast, cold
+    verify:
+      # Pre-reboot verification
+      pre_reboot_stabilization: 30    # Wait for LLDP to stabilize before reboot
+      capture_pre_reboot_state: true
+      # Reboot timing
+      reboot_timeout: 600             # 10 minutes for reboot to complete
+      wait_after_reboot: 30           # Initial wait after system comes back
+      # Post-reboot verification
+      post_reboot_daemon_start: 60    # Wait for LLDP daemon to start
+      post_reboot_stabilization: 60   # Wait for LLDP to stabilize after reboot
+      neighbor_rediscovery_timeout: 120  # Timeout for neighbor rediscovery
+      # State comparison
+      compare_neighbor_count: true
+      compare_neighbor_details: true
+      verify_no_config_loss: true
+      # Stale entry checks
+      check_stale_entries: true
+      max_ttl: 120
+      ttl_tolerance: 10
+      # Multiple reboot test
+      perform_multiple_reboots: false
+      reboot_iterations: 2
+    show_commands:
+      klish:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
+        - "show running-config"
+      click:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show runningconfiguration all"

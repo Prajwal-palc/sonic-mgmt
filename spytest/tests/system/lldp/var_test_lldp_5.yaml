@@ -1,0 +1,52 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.5":
+    title: "Verify LLDP timers and multiplier"
+    description: "Verify that LLDP timers and hold-time multiplier configurations work correctly, and that the TTL values reflect the configured settings"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      # Initial LLDP enable/disable test
+      test_enable_disable: true
+      # System configuration
+      system_name: "sonic-dut1"
+      system_description: "SONiC Device Under Test 1"
+      peer_system_name: "sonic-dut2"
+      peer_system_description: "SONiC Device Under Test 2"
+      # Timer configurations to test
+      timer_tests:
+        - timer: 5
+          multiplier: 4
+          expected_ttl: 20
+        - timer: 10
+          multiplier: 4
+          expected_ttl: 40
+        - timer: 30
+          multiplier: 2
+          expected_ttl: 60
+    verify:
+      # Expected neighbor information
+      expected_neighbor:
+        interface: "Ethernet4"
+      # Validation parameters
+      ttl_tolerance: 5  # Allow +/- 5 seconds tolerance for TTL
+      stability_check_duration: 60  # Monitor neighbors for 60 seconds
+      ttl_expiry_wait: 70  # Wait for TTL to expire after shutdown
+    show_commands:
+      klish:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
+        - "show lldp statistics"
+        - "show lldp statistics Ethernet4"
+      click:
+        - "show lldp neighbor"
+        - "show lldp table"

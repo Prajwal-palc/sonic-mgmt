@@ -38,18 +38,18 @@ Start
 
 LLDP_details
   ^(-+\s*)*$$ -> Record
-  ^\s*Interface:\s*${Interface},\s*via:\s*${Via}\s*$$
+  ^\s*Interface:\s*${Interface},\s*via:\s*${Via}.*$$
   ^\s*Chassis:\s*$$
-  ^\s*ChassisID:\s*${Chassis_ID_value}\s*$$
+  ^\s*ChassisID:\s*\S+\s+${Chassis_ID_value}\s*$$
   ^\s*SysName:\s*${Chassis_name}\s*$$
   ^\s*SysDescr:\s*${Chassis_descr}\s*$$
   ^\s*TTL:\s*${Chassis_ttl}\s*$$
   ^\s*MgmtIP:\s*${Chassis_mgmt_ip}\s*$$
   ^\s*MgmtIP:\s*${Chassis_mgmt_ipv6}\s*$$
-  ^\s*Capability:\s*MAC_BRIDGE,\s*${Chassis_Capability_Bridge}\s*$$
-  ^\s*Capability:\s*ROUTER,\s*${Chassis_Capability_Router}\s*$$
+  ^\s*Capability:\s*(?:MAC_BRIDGE|Bridge),\s*${Chassis_Capability_Bridge}\s*$$
+  ^\s*Capability:\s*(?:ROUTER|Router),\s*${Chassis_Capability_Router}\s*$$
   ^\s*Port:\s*$$
-  ^\s*PortID:\s*${PortID_value}\s*$$
+  ^\s*PortID:\s*(?:\S+\s+)?${PortID_value}\s*$$
   ^\s*PortDescr:\s*${PortDescr}\s*$$
   ^\s*PortVlanID:\s*${PortVlanID_value}\s*$$
   ^\s*LLDP-MED -> LLDP_MED_details

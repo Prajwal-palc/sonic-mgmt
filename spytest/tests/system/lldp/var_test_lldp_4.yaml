@@ -1,0 +1,44 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.4":
+    title: "Verify LLDP neighbor discovery by enabling LLDP per interface"
+    description: "Verify that LLDP neighbor discovery works correctly when LLDP is enabled per interface, and to ensure that per-interface enable/disable functionality properly controls neighbor discovery and removal"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      lldp_global_enable: true
+      lldp_interface_enable: true
+      discovery_wait: 30
+      removal_wait: 30
+    verify:
+      # Required TLVs to verify
+      required_tlvs:
+        - "chassis_id"
+        - "port_id"
+        - "system_name"
+        - "system_capabilities"
+        - "ttl"
+      # Show commands to execute in klish mode (inside sonic-cli)
+      show_commands_klish:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
+        - "show lldp statistics"
+        - "show lldp statistics Ethernet4"
+      # Show commands to execute in click mode (outside sonic-cli)
+      show_commands_click:
+        - "show lldp neighbor"
+        - "show lldp table"
+    expected_output:
+      # Per-interface enable/disable reflects in neighbor table
+      neighbor_present_when_enabled: true
+      neighbor_absent_when_disabled: true
+      tlvs_complete_when_enabled: true

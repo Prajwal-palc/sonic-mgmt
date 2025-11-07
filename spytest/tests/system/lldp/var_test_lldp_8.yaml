@@ -1,0 +1,59 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.8":
+    title: "Negative testing: Rapid enable/disable of LLDP"
+    description: "Verify system stability and correct LLDP table behavior under rapid enable/disable operations"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      # Initial LLDP enable/disable test
+      test_initial_enable_disable: true
+      # Rapid toggle configuration
+      rapid_toggle_global:
+        enabled: true
+        iterations: 15
+        delay_between_iterations: 1  # seconds
+      rapid_toggle_interface:
+        enabled: true
+        iterations: 15
+        delay_between_iterations: 1  # seconds
+      rapid_toggle_combined:
+        enabled: true
+        iterations: 10
+        delay_between_iterations: 1  # seconds
+      # Repeat rapid toggle after stabilization
+      repeat_rapid_toggle: true
+      repeat_iterations: 10
+    verify:
+      # Convergence and stabilization
+      stabilization_wait: 45
+      convergence_timeout: 60
+      # TTL verification
+      default_ttl: 120  # seconds (default timer 30s × multiplier 4)
+      ttl_tolerance: 10  # seconds tolerance
+      # Stale entry checks
+      max_age_out_wait: 150  # Wait for entries to age out
+      check_stale_entries: true
+      # System stability checks
+      check_system_logs: true
+      check_memory_usage: false  # Optional - may require additional tools
+      check_cpu_usage: false     # Optional - may require additional tools
+      # Neighbor discovery after stabilization
+      verify_neighbor_after_churn: true
+      neighbor_discovery_timeout: 60
+    show_commands:
+      klish:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show lldp statistics"
+      click:
+        - "show lldp table"
+        - "show lldp neighbor"

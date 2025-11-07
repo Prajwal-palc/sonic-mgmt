@@ -1,0 +1,44 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.2":
+    title: "Verify LLDP neighbor discovery by enabling LLDP, connecting a peer"
+    description: "Verify that LLDP neighbor discovery works correctly when LLDP is enabled globally and on interfaces, and to ensure that neighbor information is properly updated when links change state"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      lldp_global_enable: true
+      lldp_interface_enable: true
+    verify:
+      # Expected neighbor information
+      expected_neighbor:
+        chassis_name: "sonic"
+        port_id: "Ethernet4"
+        # TLVs to verify
+        verify_tlvs:
+          - "chassis_id"
+          - "port_id"
+          - "system_name"
+          - "system_capabilities"
+      # Show commands to execute
+      show_commands:
+        regular_mode:
+          - "show lldp table"
+          - "show lldp neighbor"
+          - "show lldp neighbor Ethernet4"
+          - "show lldp statistics"
+          - "show lldp statistics Ethernet4"
+        config_mode:
+          - "show lldp neighbor"
+          - "show lldp table"
+    link_state_test:
+      # Test shutdown and no shutdown
+      shutdown_wait: 30
+      startup_wait: 30

@@ -1,0 +1,60 @@
+defaults:
+  cli_type_config: klish
+  cli_type_verify: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+testcases:
+  "1.1.9":
+    title: "Negative testing: Verify LLDP during rapid link failure"
+    description: "Verify LLDP behavior and neighbor table integrity during rapid interface link flaps"
+    config:
+      dut: "D1"
+      peer_dut: "D2"
+      interface: "Ethernet4"
+      # Initial LLDP enable/disable test
+      test_initial_enable_disable: true
+      # Rapid interface flapping configuration
+      rapid_flap:
+        enabled: true
+        iterations: 18
+        shutdown_delay: 2      # seconds to wait after shutdown
+        no_shutdown_delay: 3   # seconds to wait after no shutdown
+      # Repeat flapping for consistency check
+      repeat_rapid_flap: true
+      repeat_iterations: 10
+      # Asymmetric flapping (flap on one side only)
+      asymmetric_flap:
+        enabled: true
+        iterations: 10
+    verify:
+      # Timing expectations
+      withdrawal_max_time: 10       # Max seconds for neighbor withdrawal after link down
+      appearance_min_time: 20       # Min seconds expected for neighbor to reappear
+      appearance_max_time: 70       # Max seconds for neighbor appearance after link up
+      # TTL verification
+      default_ttl: 120              # seconds (default timer 30s × multiplier 4)
+      ttl_tolerance: 10             # seconds tolerance
+      # Stabilization and convergence
+      baseline_stabilization: 30    # Wait for baseline LLDP to stabilize
+      post_flap_stabilization: 45   # Wait after flapping for convergence
+      convergence_timeout: 90       # Timeout for table convergence
+      # Stale entry checks
+      check_stale_entries: true
+      max_age_out_wait: 150         # Wait for entries to age out
+      # Bidirectional verification
+      verify_both_duts: true
+      # System stability
+      check_system_stability: true
+    show_commands:
+      klish:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
+        - "show lldp statistics"
+      click:
+        - "show lldp table"
+        - "show lldp neighbor"
+        - "show lldp neighbor Ethernet4"
