@@ -1,0 +1,105 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+interfaces:
+  D1:
+    transit:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:1::1/64"
+      ipv6_link_local: "fe80::1"
+  D2:
+    transit:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:1::2/64"
+      ipv6_link_local: "fe80::2"
+    edge:
+      name: "Loopback0"
+      ipv6_address: "2001:db8:100::1/128"
+
+routes:
+  primary:
+    dut: "D1"
+    destination: "2001:db8:100::/64"
+    next_hop: "2001:db8:1::2"
+    vrf: null
+    verify:
+      ip_address: "2001:db8:100::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+
+pings:
+  edge:
+    dut: "D1"
+    target: "2001:db8:100::1"
+    count: 5
+    family: ipv6
+
+show_commands:
+  route_validation:
+    - "show ipv6 route"
+    - "show ipv6 route static"
+    - "show ipv6 route vrf mgmt"
+  privileged_validation:
+    - 'sudo vtysh -c "show ipv6 route"'
+    - 'sudo vtysh -c "show ipv6 route vrf mgmt"'
+  interface_validation:
+    - "show ipv6 interface"
+    - "show interface status"
+  neighbor_validation:
+    - "show ipv6 neighbors"
+
+test_scenarios:
+  TC-IP-STATIC-IPV6-001:
+    name: "Configure and verify IPv6 Static Route – Basic CLI"
+    description: "Validate IPv6 static route add/forward/remove with config mode and interface mode enable/disable"
+    phases:
+      - name: "Interface Configuration"
+        steps:
+          - "Configure IPv6 addressing on transit interfaces (Ethernet4)"
+          - "Verify interface is up and IPv6 addressing configured"
+          - "Configure IPv6 address on remote interface (Loopback0)"
+      - name: "Route Configuration - Global Mode"
+        steps:
+          - "Add IPv6 static route in global configuration mode"
+          - "Validate route installation via show ipv6 route"
+          - "Validate route via sudo vtysh commands"
+          - "Verify VRF isolation (route NOT in mgmt VRF)"
+      - name: "Traffic Validation"
+        steps:
+          - "Send ping6 traffic to validate reachability"
+          - "Verify 0% packet loss"
+          - "Check IPv6 neighbor discovery"
+      - name: "Route Disable/Enable - Config Mode"
+        steps:
+          - "Remove IPv6 static route"
+          - "Verify route disappears from routing table"
+          - "Test post-removal traffic (should fail)"
+          - "Re-add route and verify restoration"
+      - name: "Route Disable/Enable - Interface Mode"
+        steps:
+          - "Shutdown Ethernet4 interface"
+          - "Verify route becomes inactive"
+          - "Test traffic (should fail)"
+          - "No shutdown interface and verify recovery"
+      - name: "State Consistency Validation"
+        steps:
+          - "Compare show ipv6 route outputs across CLI methods"
+          - "Verify VRF isolation maintained"
+          - "Confirm state consistency"
+    expected_results:
+      - "Route installation successful"
+      - "Traffic forwarding works (0% loss)"
+      - "Route removal successful"
+      - "Post-removal traffic fails (100% loss)"
+      - "VRF isolation maintained"
+      - "State consistency across CLI methods"
+      - "Interface-level control functional"

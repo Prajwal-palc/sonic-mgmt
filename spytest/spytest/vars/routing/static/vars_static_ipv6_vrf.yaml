@@ -1,0 +1,305 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+interfaces:
+  D1:
+    transit:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:1::1/64"
+      ipv6_link_local: "fe80::1"
+  D2:
+    transit:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:1::2/64"
+      ipv6_link_local: "fe80::2"
+    edge:
+      name: "Loopback0"
+      ipv6_address: "2001:db8:100::1/128"
+
+vrf:
+  name: "BLUE"
+  description: "Test VRF for IPv6 static route validation"
+
+track_object:
+  id: 10
+  type: "interface"
+  interface: "Ethernet4"
+  state: "line-protocol"
+
+# IPv6 Static routes in VRF BLUE
+routes:
+  vrf_basic:
+    dut: "D1"
+    destination: "2001:db8:100::/64"
+    next_hop: "2001:db8:1::2"
+    vrf: "BLUE"
+    description: "Basic IPv6 static route in VRF BLUE with next-hop"
+    verify:
+      ip_address: "2001:db8:100::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      vrf_name: "BLUE"
+    test_target: "2001:db8:100::1"
+
+  vrf_interface:
+    dut: "D1"
+    destination: "2001:db8:101::/64"
+    interface: "Ethernet4"
+    vrf: "BLUE"
+    description: "IPv6 static route in VRF with interface only"
+    verify:
+      ip_address: "2001:db8:101::/64"
+      type: "S"
+      vrf_name: "BLUE"
+    test_target: "2001:db8:101::1"
+
+  vrf_interface_nexthop:
+    dut: "D1"
+    destination: "2001:db8:102::/64"
+    next_hop: "2001:db8:1::2"
+    interface: "Ethernet4"
+    vrf: "BLUE"
+    description: "IPv6 static route in VRF with interface and next-hop"
+    verify:
+      ip_address: "2001:db8:102::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      vrf_name: "BLUE"
+    test_target: "2001:db8:102::1"
+
+  vrf_with_distance:
+    dut: "D1"
+    destination: "2001:db8:103::/64"
+    next_hop: "2001:db8:1::2"
+    distance: 50
+    vrf: "BLUE"
+    description: "IPv6 static route in VRF with administrative distance"
+    verify:
+      ip_address: "2001:db8:103::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      vrf_name: "BLUE"
+      distance: 50
+    test_target: "2001:db8:103::1"
+
+  vrf_with_tag:
+    dut: "D1"
+    destination: "2001:db8:104::/64"
+    next_hop: "2001:db8:1::2"
+    tag: 100
+    vrf: "BLUE"
+    description: "IPv6 static route in VRF with tag"
+    verify:
+      ip_address: "2001:db8:104::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      vrf_name: "BLUE"
+      tag: 100
+    test_target: "2001:db8:104::1"
+
+  vrf_blackhole:
+    dut: "D1"
+    destination: "2001:db8:200::/64"
+    next_hop: "blackhole"
+    vrf: "BLUE"
+    description: "IPv6 blackhole route in VRF BLUE"
+    verify:
+      ip_address: "2001:db8:200::/64"
+      type: "S"
+      vrf_name: "BLUE"
+      blackhole: true
+    test_target: "2001:db8:200::1"
+    expected_ping_result: false
+
+  vrf_with_track:
+    dut: "D1"
+    destination: "2001:db8:300::/64"
+    next_hop: "2001:db8:1::2"
+    track: 10
+    vrf: "BLUE"
+    description: "IPv6 static route in VRF with track object"
+    verify:
+      ip_address: "2001:db8:300::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      vrf_name: "BLUE"
+      track: 10
+    test_target: "2001:db8:300::1"
+
+# Ping configuration for reachability tests in VRF
+pings:
+  vrf_edge:
+    dut: "D1"
+    target: "2001:db8:100::1"
+    count: 5
+    family: ipv6
+    vrf: "BLUE"
+  blackhole_test:
+    dut: "D1"
+    target: "2001:db8:200::1"
+    count: 5
+    family: ipv6
+    vrf: "BLUE"
+    expected_result: false
+
+# Show commands for validation - standard CLI
+show_commands:
+  vrf_validation:
+    - "show vrf"
+    - "show vrf BLUE"
+    - "show ip vrf"
+  route_validation:
+    - "show ipv6 route vrf BLUE"
+    - "show ipv6 route vrf BLUE 2001:db8:100::/64"
+    - "show running-config | grep 'ipv6 route vrf BLUE'"
+  interface_validation:
+    - "show ipv6 interface brief vrf BLUE"
+    - "show interface Ethernet4"
+  traffic_validation:
+    - "show ipv6 traffic"
+    - "show ipv6 neighbors vrf BLUE"
+  track_validation:
+    - "show track"
+    - "show track 10"
+
+# Show commands for validation - privileged sudo vtysh CLI
+show_commands_privileged:
+  vrf_validation:
+    - 'sudo vtysh -c "show vrf"'
+    - 'sudo vtysh -c "show vrf vrf BLUE"'
+  route_validation:
+    - 'sudo vtysh -c "show ipv6 route vrf BLUE"'
+    - 'sudo vtysh -c "show ipv6 route vrf BLUE 2001:db8:100::/64"'
+  interface_validation:
+    - 'sudo vtysh -c "show ipv6 interface brief vrf BLUE"'
+  traffic_validation:
+    - 'sudo vtysh -c "show ipv6 traffic"'
+
+test_scenarios:
+  TC-IP-STATIC-IPV6-007:
+    name: "Configure and verify IPv6 Static Route – VRF"
+    description: "Validate IPv6 static routes in non-default VRF (VRF BLUE) with comprehensive testing"
+    phases:
+      - name: "VRF Creation and Interface Assignment"
+        steps:
+          - "Create VRF BLUE on both DUTs"
+          - "Verify VRF creation via show vrf"
+          - "Assign Ethernet4 interfaces to VRF BLUE"
+          - "Configure IPv6 addresses on VRF interfaces"
+          - "Verify interface assignment to VRF"
+          - "Configure Loopback0 in VRF BLUE on DUT2"
+
+      - name: "IPv6 Static Route Configuration in VRF"
+        steps:
+          - "Configure basic IPv6 static route in VRF BLUE"
+          - "Configure route with interface only in VRF"
+          - "Configure route with interface + next-hop in VRF"
+          - "Configure route with administrative distance in VRF"
+          - "Configure route with tag in VRF"
+          - "Configure blackhole route in VRF"
+          - "Configure route with track object in VRF"
+
+      - name: "Route Installation Verification in VRF"
+        steps:
+          - "Verify all routes installed in VRF BLUE routing table"
+          - "Verify routes appear via show ipv6 route vrf BLUE"
+          - "Verify routes via sudo vtysh show commands"
+          - "Verify route attributes (distance, tag, track)"
+
+      - name: "VRF Isolation Verification"
+        steps:
+          - "Verify routes in VRF BLUE table"
+          - "Verify routes NOT in default VRF table"
+          - "Confirm complete VRF isolation"
+          - "No route leakage between VRFs"
+
+      - name: "Traffic Forwarding in VRF"
+        steps:
+          - "Test IPv6 reachability within VRF BLUE"
+          - "Ping Loopback0 IP from DUT1 within VRF"
+          - "Verify 0% packet loss for valid routes"
+          - "Verify traffic isolated to VRF BLUE"
+
+      - name: "Blackhole Route Traffic Test in VRF"
+        steps:
+          - "Test traffic to blackhole destination"
+          - "Verify 100% packet loss"
+          - "Verify silent drop (no ICMP unreachable)"
+
+      - name: "Track Object Dynamic Behavior in VRF"
+        steps:
+          - "Configure track object monitoring interface"
+          - "Verify route with track installed when interface UP"
+          - "Shutdown tracked interface"
+          - "Verify route withdrawn when track DOWN"
+          - "Re-enable interface"
+          - "Verify route restored when track UP"
+
+      - name: "Enable/Disable in Config Mode"
+        steps:
+          - "Remove IPv6 static route from VRF"
+          - "Verify route disappears from VRF routing table"
+          - "Test traffic fails after removal"
+          - "Re-add route to VRF"
+          - "Verify route restoration"
+          - "Verify traffic forwarding restored"
+
+      - name: "Enable/Disable at Interface Level"
+        steps:
+          - "Shutdown Ethernet4 interface in VRF"
+          - "Verify routes via Ethernet4 become inactive"
+          - "Test traffic fails with interface down"
+          - "Re-enable Ethernet4 interface"
+          - "Verify routes become active again"
+          - "Verify traffic forwarding restored"
+
+      - name: "Show Command Validation - Standard CLI"
+        steps:
+          - "Execute show vrf - verify VRF BLUE present"
+          - "Execute show ipv6 route vrf BLUE - verify all routes"
+          - "Execute show ipv6 route vrf BLUE <prefix> - verify specific route"
+          - "Execute show running-config - verify VRF config"
+          - "Execute show ipv6 interface brief vrf BLUE - verify interfaces"
+          - "Execute show ipv6 traffic - verify traffic stats"
+          - "Execute show track - verify track objects"
+
+      - name: "Show Command Validation - Privileged CLI"
+        steps:
+          - "Execute sudo vtysh -c 'show vrf' - verify VRF BLUE"
+          - "Execute sudo vtysh -c 'show ipv6 route vrf BLUE' - verify routes"
+          - "Execute sudo vtysh -c 'show ipv6 route vrf BLUE <prefix>' - verify specific"
+          - "Execute sudo vtysh -c 'show ipv6 interface brief vrf BLUE' - verify interfaces"
+          - "Execute sudo vtysh -c 'show ipv6 traffic' - verify traffic"
+          - "Verify consistency between standard and privileged CLI"
+
+      - name: "Configuration Persistence and Cleanup"
+        steps:
+          - "Verify running-config contains all VRF routes"
+          - "Save configuration (optional)"
+          - "Remove all static routes from VRF"
+          - "Unbind interfaces from VRF"
+          - "Remove VRF BLUE"
+          - "Verify complete cleanup"
+
+    expected_results:
+      - "VRF BLUE created successfully on both DUTs"
+      - "Interfaces assigned to VRF BLUE correctly"
+      - "All IPv6 static routes install in VRF BLUE"
+      - "VRF isolation maintained (no route leakage)"
+      - "Traffic forwarding works within VRF (0% loss)"
+      - "Blackhole route drops traffic (100% loss)"
+      - "Track object dynamically controls route"
+      - "Route enable/disable works in config mode"
+      - "Interface enable/disable affects route availability"
+      - "All show commands work correctly"
+      - "Show command consistency across CLI methods"
+      - "Configuration persistence functional"
