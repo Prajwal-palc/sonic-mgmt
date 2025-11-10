@@ -1,0 +1,337 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"  # Single link between D1 and D2 for negative testing
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+# Valid baseline configuration for negative testing
+valid_config:
+  D1_interface: "Ethernet4"
+  D1_ipv6: "2001:db8:10::1/64"
+  D2_interface: "Ethernet4"
+  D2_ipv6: "2001:db8:10::2/64"
+  valid_nexthop: "2001:db8:10::2"
+  valid_prefix: "2001:db8:20::/64"
+  valid_test_route: "2001:db8:30::/64"
+  description: "Baseline valid configuration for negative test comparisons"
+
+# Test VRF configuration
+test_vrf:
+  name: "RED"
+  rd: "100:1"
+  description: "Test VRF for negative VRF testing"
+
+# Invalid prefix test cases
+invalid_prefixes:
+  - value: "2001:db8:xyz::/64"
+    description: "Invalid hex characters in prefix"
+    expected_error: "Invalid IPv6 prefix format"
+    severity: "critical"
+
+  - value: "2001:db8::1::2/64"
+    description: "Double colon in non-compressed format"
+    expected_error: "Invalid IPv6 address"
+    severity: "critical"
+
+  - value: "2001:gggg::/64"
+    description: "Invalid hexadecimal characters"
+    expected_error: "Invalid IPv6 prefix"
+    severity: "critical"
+
+  - value: "2001:db8::/256"
+    description: "Prefix length exceeds maximum (128)"
+    expected_error: "Invalid prefix length"
+    severity: "critical"
+
+  - value: "2001:db8::/129"
+    description: "Prefix length exceeds maximum (128)"
+    expected_error: "Invalid prefix length"
+    severity: "critical"
+
+  - value: "invalid_prefix"
+    description: "Completely malformed prefix string"
+    expected_error: "Invalid IPv6 format"
+    severity: "critical"
+
+  - value: "192.168.1.0/24"
+    description: "IPv4 prefix in IPv6 command"
+    expected_error: "Invalid IPv6 address"
+    severity: "critical"
+
+  - value: "2001:db8:1234:5678:9abc:def0:1234:5678:90ab/64"
+    description: "IPv6 address too long (>128 bits)"
+    expected_error: "Invalid IPv6 address format"
+    severity: "critical"
+
+  - value: "::1/128"
+    description: "Loopback address as destination prefix"
+    expected_error: "Invalid destination prefix"
+    severity: "medium"
+
+  - value: "fe80::/64"
+    description: "Link-local prefix as destination"
+    expected_error: "Link-local not allowed for static routes"
+    severity: "medium"
+
+# Invalid next-hop test cases
+invalid_nexthops:
+  - value: "2001:db8:xyz::1"
+    description: "Invalid hex characters in next-hop"
+    expected_error: "Invalid IPv6 address format"
+    severity: "critical"
+
+  - value: "fe80::1"
+    description: "Link-local next-hop without interface"
+    expected_error: "Link-local requires interface specification"
+    severity: "high"
+
+  - value: "ff02::1"
+    description: "Multicast address as next-hop"
+    expected_error: "Invalid next-hop address"
+    severity: "high"
+
+  - value: "::1"
+    description: "Loopback address as next-hop"
+    expected_error: "Invalid next-hop address"
+    severity: "high"
+
+  - value: "::"
+    description: "Unspecified address as next-hop"
+    expected_error: "Invalid next-hop address"
+    severity: "high"
+
+  - value: "192.168.1.1"
+    description: "IPv4 address in IPv6 next-hop"
+    expected_error: "Invalid IPv6 address"
+    severity: "critical"
+
+  - value: "2001:db8::gggg"
+    description: "Invalid hex in next-hop address"
+    expected_error: "Invalid IPv6 format"
+    severity: "critical"
+
+  - value: "not_an_ip_address"
+    description: "Completely malformed next-hop"
+    expected_error: "Invalid IPv6 address"
+    severity: "critical"
+
+  - value: "2001:db8:ffff::1"
+    description: "Non-existent/unreachable next-hop"
+    expected_error: "Route installed but marked unreachable"
+    severity: "low"
+    allow_config: true  # May be accepted but route marked as unreachable
+
+# Invalid VRF test cases
+invalid_vrfs:
+  - value: "NON_EXISTENT_VRF"
+    description: "VRF that does not exist"
+    expected_error: "VRF not found"
+    severity: "high"
+
+  - value: "vrf_999"
+    description: "Numeric VRF that does not exist"
+    expected_error: "VRF does not exist"
+    severity: "high"
+
+  - value: "INVALID-VRF-NAME"
+    description: "Invalid VRF naming"
+    expected_error: "VRF not found"
+    severity: "high"
+
+  - value: ""
+    description: "Empty VRF name"
+    expected_error: "Invalid VRF name"
+    severity: "high"
+
+# Duplicate route test scenarios
+duplicate_routes:
+  exact_duplicate:
+    prefix: "2001:db8:30::/64"
+    nexthop: "2001:db8:10::2"
+    distance: 1
+    description: "Exact duplicate route (same prefix, nexthop, distance)"
+    expected_behavior: "Idempotent - second add ignored or silent"
+
+  different_distance:
+    prefix: "2001:db8:40::/64"
+    nexthop: "2001:db8:10::2"
+    distance_primary: 10
+    distance_backup: 20
+    description: "Same route with different administrative distances"
+    expected_behavior: "Both installed - primary active, backup standby"
+
+  ecmp_scenario:
+    prefix: "2001:db8:50::/64"
+    nexthop1: "2001:db8:10::2"
+    nexthop2: "2001:db8:11::2"
+    distance: 1
+    description: "Same prefix, different next-hops (ECMP)"
+    expected_behavior: "Both installed as ECMP - load balanced"
+    requires_second_link: true
+
+# Interface state change scenarios
+interface_tests:
+  shutdown_with_routes:
+    interface: "Ethernet4"
+    routes:
+      - prefix: "2001:db8:60::/64"
+        nexthop: "2001:db8:10::2"
+      - prefix: "2001:db8:61::/64"
+        nexthop: "2001:db8:10::2"
+      - prefix: "2001:db8:62::/64"
+        nexthop: "2001:db8:10::2"
+    description: "Multiple routes via same interface - shutdown test"
+    expected_behavior: "All routes become inactive/unreachable when interface down"
+
+  shutdown_cycles:
+    interface: "Ethernet4"
+    cycles: 3
+    route:
+      prefix: "2001:db8:70::/64"
+      nexthop: "2001:db8:10::2"
+    description: "Repeated interface shutdown/no shutdown cycles"
+    expected_behavior: "Routes become inactive/active with interface state"
+
+# System stability test parameters
+stability_tests:
+  rapid_invalid_commands:
+    iterations: 20
+    commands_per_iteration: 3
+    description: "Send multiple invalid commands rapidly"
+    expected_behavior: "All rejected, no crashes, system responsive"
+
+  memory_check:
+    baseline_threshold_mb: 1000
+    post_test_threshold_mb: 1100
+    description: "Check for memory leaks from invalid commands"
+    expected_behavior: "No significant memory increase"
+
+  process_monitoring:
+    processes:
+      - "bgpd"
+      - "zebra"
+      - "staticd"
+    check_interval_seconds: 5
+    description: "Monitor routing process health during negative tests"
+    expected_behavior: "All processes remain running, no restarts"
+
+# Show command validation
+show_commands:
+  route_validation:
+    - "show ipv6 route"
+    - "show ipv6 route static"
+    - "show running-config | grep ipv6"
+
+  vrf_validation:
+    - "show vrf"
+    - "show vrf | include RED"
+    - "show ipv6 route vrf RED"
+
+  interface_validation:
+    - "show ipv6 interface brief"
+    - "show interface status"
+
+  logging_validation:
+    - "show logging | grep -i error"
+    - "show logging | grep -i invalid"
+    - "show logging | grep -i failed"
+
+  process_validation:
+    - "show process | grep bgp"
+    - "show process | grep zebra"
+    - "show process cpu-usage"
+    - "show process memory"
+
+  privileged_validation:
+    - 'sudo vtysh -c "show ipv6 route"'
+    - 'sudo vtysh -c "show running-config | section ipv6"'
+
+  kernel_validation:
+    - "sudo ip -6 route show"
+    - "sudo ip -6 route list"
+
+# Expected results for negative testing
+expected_results:
+  invalid_prefix_handling:
+    - "All malformed IPv6 prefixes rejected immediately"
+    - "Clear error message indicating the problem"
+    - "No route added to routing table"
+    - "System remains stable"
+
+  invalid_nexthop_handling:
+    - "Invalid next-hop formats rejected"
+    - "Non-routable next-hops flagged or rejected"
+    - "Link-local next-hops without interface rejected"
+    - "Clear error messages provided"
+
+  vrf_handling:
+    - "Non-existent VRF references rejected immediately"
+    - "Error message: 'VRF not found' or similar"
+    - "No impact on existing VRF routing tables"
+
+  duplicate_handling:
+    - "Exact duplicates: idempotent behavior (ignored or silent)"
+    - "Different distance: both routes installed"
+    - "Different next-hop: ECMP created (if supported)"
+
+  interface_state_changes:
+    - "Routes become inactive when interface goes down"
+    - "Routes restore when interface comes back up"
+    - "No configuration loss during state changes"
+
+  system_stability:
+    - "No routing process crashes or restarts"
+    - "No memory leaks from invalid commands"
+    - "System remains responsive"
+    - "No routing table corruption"
+
+# Test execution notes
+test_notes:
+  error_message_variations:
+    - "Error messages may vary by SONiC version"
+    - "Some platforms may use different wording"
+    - "Check for presence of error, not exact text match"
+
+  timing_considerations:
+    - "Allow interface state changes to propagate (2-5 seconds)"
+    - "Give routing processes time to update (1-3 seconds)"
+    - "Monitor logs for delayed error messages"
+
+  platform_differences:
+    - "Some platforms may accept more/fewer invalid formats"
+    - "Hardware vs virtual may differ in validation strictness"
+    - "FRR version affects error message details"
+
+  cleanup_importance:
+    - "Always cleanup test VRFs and routes"
+    - "Verify routing table clean before test start"
+    - "Leave system in stable state after testing"
+
+# Cleanup instructions
+cleanup_instructions:
+  - "Remove all test static routes from D1"
+  - "Remove test VRF (RED) if created"
+  - "Re-enable any disabled interfaces (no shutdown)"
+  - "Verify routing table only has expected entries"
+  - "Clear any error logs (optional)"
+
+# Test case mapping to test plan
+test_case_mappings:
+  TC-IP-STATIC-IPV6-010:
+    description: "Negative IPv6 Static Route CLI Validation"
+    subtests:
+      - "TC-IP-STATIC-IPV6-010-001: Invalid Prefix Format Rejection"
+      - "TC-IP-STATIC-IPV6-010-002: Invalid Next-Hop Address Rejection"
+      - "TC-IP-STATIC-IPV6-010-003: Non-Existent VRF Rejection"
+      - "TC-IP-STATIC-IPV6-010-004: Duplicate Route Handling"
+      - "TC-IP-STATIC-IPV6-010-005: Interface State Change with Routes"
+      - "TC-IP-STATIC-IPV6-010-006: VRF Deletion with Active Routes"
+      - "TC-IP-STATIC-IPV6-010-007: System Stability Under Invalid Commands"
+      - "TC-IP-STATIC-IPV6-010-008: Privileged Command Validation"
+      - "TC-IP-STATIC-IPV6-010-009: Error Message Validation"

@@ -1,0 +1,488 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  stabilization_wait: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"  # Requires one link between D1 and D2 for scale testing
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+# Baseline interface configuration
+baseline:
+  D1_interface: "Ethernet4"
+  D1_ipv6: "2001:db8:10::1/64"
+  D2_interface: "Ethernet4"
+  D2_ipv6: "2001:db8:10::2/64"
+  nexthop: "2001:db8:10::2"
+  description: "Baseline connectivity path for scale testing"
+
+# Scale test configuration
+scale_config:
+  # Route scale targets (adjust based on platform capability)
+  small_scale: 1000          # Initial scale test - 1K routes
+  medium_scale: 10000        # Medium scale test - 10K routes
+  large_scale: 100000        # Large scale test - 100K routes
+  max_scale: 1000000         # Maximum scale test - 1M routes (platform dependent)
+
+  # Performance thresholds
+  max_cpu_percent: 80        # Maximum acceptable CPU usage (%)
+  max_memory_mb: 4096        # Maximum acceptable memory usage (MB)
+  max_add_time_ms: 100       # Max time to add single route (milliseconds)
+  max_delete_time_ms: 50     # Max time to delete single route (milliseconds)
+
+  # Route prefix configuration for scale testing
+  base_prefix: "2001:db8:1000::"  # Base IPv6 prefix for generated routes
+  prefix_length: 64               # Prefix length for all scale test routes
+
+  # Sample test prefixes for forwarding verification
+  test_prefixes:
+    - "2001:db8:1000:100::/64"
+    - "2001:db8:1000:500::/64"
+    - "2001:db8:1000:1000::/64"
+    - "2001:db8:1000:5000::/64"
+
+  # Timing parameters
+  measurement_interval: 10   # Seconds between resource measurements
+  reboot_wait: 120          # Wait time after reboot (seconds)
+
+# Destination configuration for forwarding validation
+destination:
+  loopback_config:
+    interface: "Loopback100"
+    ipv6: "2001:db8:1000:100::1/128"
+    description: "Test destination for forwarding verification"
+  loopback2_config:
+    interface: "Loopback500"
+    ipv6: "2001:db8:1000:500::1/128"
+    description: "Additional test destination"
+
+# Ping configuration for connectivity testing
+pings:
+  baseline:
+    dut: "D1"
+    target: "2001:db8:10::2"
+    count: 5
+    family: ipv6
+    description: "Baseline connectivity check"
+
+  destination1:
+    dut: "D1"
+    target: "2001:db8:1000:100::1"
+    count: 10
+    family: ipv6
+    description: "Forwarding test to first destination"
+
+  destination2:
+    dut: "D1"
+    target: "2001:db8:1000:500::1"
+    count: 10
+    family: ipv6
+    description: "Forwarding test to second destination"
+
+# Show commands for validation
+show_commands:
+  route_validation:
+    - "show ipv6 route"
+    - "show ipv6 route summary"
+    - "show ipv6 route static"
+    - "show ipv6 route 2001:db8:1000:100::/64"
+    - "show ipv6 route 2001:db8:1000:500::/64"
+    - "show running-config | include ipv6 route"
+    - "show running-config | grep ipv6 route | wc -l"
+
+  interface_validation:
+    - "show interface status"
+    - "show interface status Ethernet4"
+    - "show ipv6 interface brief"
+    - "show ipv6 interface Ethernet4"
+
+  system_resource_validation:
+    - "show processes cpu sorted"
+    - "show process"
+    - "show process memory"
+    - "show system memory"
+    - "show system uptime"
+
+  traffic_validation:
+    - "show ipv6 traffic"
+    - "show ipv6 neighbor"
+    - "show interfaces counters"
+    - "show interfaces Ethernet4 counters"
+
+  logging_validation:
+    - "show logging"
+    - "show logging | grep -i error"
+    - "show logging | grep -i route"
+    - "show logging | tail -50"
+
+  privileged_validation:
+    - 'sudo vtysh -c "show ipv6 route"'
+    - 'sudo vtysh -c "show ipv6 route summary"'
+    - 'sudo vtysh -c "show ipv6 route static"'
+    - 'sudo vtysh -c "show running-config | section ipv6 route"'
+    - 'sudo vtysh -c "configure terminal" -c "ipv6 route 2001:db8:9000:100::/64 2001:db8:10::2"'
+    - 'sudo vtysh -c "ping6 2001:db8:10::2 count 5"'
+
+  kernel_validation:
+    - "sudo ip -6 route show"
+    - "sudo ip -6 route show | wc -l"
+    - "sudo ip -6 route show | grep 2001:db8:1000"
+    - "sudo ip -6 route show 2001:db8:1000:100::/64"
+    - "sudo ip -6 route list"
+    - "sudo ip -6 neigh show"
+
+# Performance benchmarks (expected targets per scale level)
+performance_benchmarks:
+  small_scale_1k:
+    total_add_time_max: 120      # seconds (2 minutes)
+    avg_add_time_max: 120        # milliseconds per route
+    cpu_usage_max: 40            # percent
+    memory_increase_max: 500     # MB
+    route_summary_time_max: 1    # seconds
+    specific_lookup_time_max: 1  # seconds
+
+  medium_scale_10k:
+    total_add_time_max: 900      # seconds (15 minutes)
+    avg_add_time_max: 90         # milliseconds per route
+    cpu_usage_max: 50            # percent
+    memory_increase_max: 1536    # MB (1.5 GB)
+    route_summary_time_max: 2    # seconds
+    specific_lookup_time_max: 1  # seconds
+
+  large_scale_100k:
+    total_add_time_max: 7200     # seconds (2 hours)
+    avg_add_time_max: 70         # milliseconds per route
+    cpu_usage_max: 70            # percent
+    memory_increase_max: 3072    # MB (3 GB)
+    route_summary_time_max: 3    # seconds
+    specific_lookup_time_max: 2  # seconds
+
+  max_scale_1m:
+    total_add_time_max: 72000    # seconds (20 hours)
+    avg_add_time_max: 70         # milliseconds per route
+    cpu_usage_max: 80            # percent
+    memory_increase_max: 8192    # MB (platform dependent)
+    route_summary_time_max: 5    # seconds
+    specific_lookup_time_max: 3  # seconds
+
+# Test scenarios for TC-IP-STATIC-IPV6-011
+test_scenarios:
+  TC-IP-STATIC-IPV6-011:
+    name: "Configure and verify Static Route Scale & Performance - IPv6"
+    description: "Validate IPv6 static route scale limits, performance metrics, resource utilization, and system stability"
+
+    phases:
+      - name: "Environment Setup and Baseline"
+        steps:
+          - "Configure IPv6 on D1 Ethernet4 (2001:db8:10::1/64)"
+          - "Configure IPv6 on D2 Ethernet4 (2001:db8:10::2/64)"
+          - "Verify interface status and connectivity"
+          - "Capture baseline CPU and memory metrics"
+          - "Record baseline routing table state"
+        expected_results:
+          - "Interfaces operational (Up/Up state)"
+          - "IPv6 connectivity verified between D1 and D2"
+          - "Baseline metrics recorded successfully"
+          - "Minimal routes in table (connected, link-local only)"
+
+      - name: "Small Scale Test - 1K Routes"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-001: Add 1,000 IPv6 static routes"
+          - "TC-IP-STATIC-SCALE-002: Resource monitoring after 1K routes"
+        steps:
+          - "Add 1,000 static routes (2001:db8:1000:0-999::/64)"
+          - "Measure total addition time and average per route"
+          - "Monitor CPU and memory utilization"
+          - "Verify route count in routing table"
+          - "Verify sample routes at indices 0, 100, 500, 999"
+          - "Check routing process health"
+        expected_results:
+          - "All 1,000 routes successfully configured"
+          - "Total addition time < 2 minutes"
+          - "Average time per route < 120ms"
+          - "CPU usage < 40%"
+          - "Memory increase < 500 MB"
+          - "Sample routes verified with correct next-hop"
+          - "All routing processes stable"
+
+      - name: "Medium Scale Test - 10K Routes"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-003: Add 10,000 IPv6 static routes"
+          - "TC-IP-STATIC-SCALE-004: Forwarding verification with 10K routes"
+          - "TC-IP-STATIC-SCALE-005: Resource monitoring after 10K routes"
+        steps:
+          - "Clear previous routes from small scale test"
+          - "Add 10,000 static routes"
+          - "Measure performance metrics"
+          - "Verify forwarding to destination networks"
+          - "Test ping to loopback destinations"
+          - "Monitor system resources continuously"
+          - "Verify sample routes at various positions"
+        expected_results:
+          - "All 10,000 routes successfully configured"
+          - "Total addition time < 15 minutes"
+          - "Average time per route < 90ms"
+          - "CPU usage < 50%"
+          - "Memory increase < 1.5 GB"
+          - "Forwarding verified - ping succeeds"
+          - "Traffic statistics accurate"
+          - "System remains responsive"
+
+      - name: "Large Scale Test - 100K Routes"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-006: Add 100,000 IPv6 static routes"
+          - "TC-IP-STATIC-SCALE-007: Performance under scale"
+          - "TC-IP-STATIC-SCALE-008: Route lookup performance"
+        steps:
+          - "Reload system for clean state (optional)"
+          - "Add 100,000 static routes progressively"
+          - "Monitor CPU, memory, and process health during addition"
+          - "Measure route lookup time for random routes"
+          - "Test show command responsiveness"
+          - "Verify system stability indicators"
+        expected_results:
+          - "Routes added up to platform limit"
+          - "Total addition time < 2 hours (platform dependent)"
+          - "Average time per route < 70ms"
+          - "CPU usage < 70% sustained"
+          - "Memory increase < 3 GB"
+          - "Specific route lookup < 2 seconds"
+          - "Route summary < 3 seconds"
+          - "No process crashes or restarts"
+
+      - name: "Maximum Scale Test - 1M Routes (Optional)"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-009: Attempt 1 million IPv6 static routes"
+          - "TC-IP-STATIC-SCALE-010: System resource validation at maximum scale"
+        steps:
+          - "Attempt to add routes up to 1,000,000 or platform maximum"
+          - "Monitor system throughout extended test"
+          - "Verify graceful handling when limit reached"
+          - "Check for error messages and system stability"
+          - "Validate resource usage within platform specs"
+        expected_results:
+          - "Platform limit respected gracefully"
+          - "Clear error message if limit exceeded"
+          - "System remains stable and recoverable"
+          - "No crashes or data corruption"
+          - "CPU usage < 80% sustained"
+          - "Memory within platform specifications"
+
+      - name: "Route Deletion Performance"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-011: Delete routes from large scale table"
+          - "TC-IP-STATIC-SCALE-012: Clear all static routes"
+        steps:
+          - "Delete subset of routes (e.g., 10K routes)"
+          - "Measure deletion time and performance"
+          - "Verify memory reclamation"
+          - "Clear all remaining static routes"
+          - "Verify routing table returns to baseline"
+        expected_results:
+          - "Routes successfully deleted"
+          - "Average deletion time < 50ms per route"
+          - "Memory usage decreases proportionally"
+          - "Routing table clean after full deletion"
+          - "Only connected routes remain"
+
+      - name: "Persistence Validation"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-013: Save configuration with scale routes"
+          - "TC-IP-STATIC-SCALE-014: Reboot and verify route persistence"
+          - "TC-IP-STATIC-SCALE-015: Compare pre/post reboot configuration"
+        steps:
+          - "Add routes at medium scale (10K)"
+          - "Save configuration (write memory)"
+          - "Verify configuration file integrity"
+          - "Reboot system"
+          - "Wait for full system boot"
+          - "Verify all routes restored from startup-config"
+          - "Compare route counts and sample routes"
+          - "Verify forwarding restored"
+        expected_results:
+          - "Configuration saves successfully"
+          - "System reboots without errors"
+          - "All static routes restored after boot"
+          - "Route count matches pre-reboot count"
+          - "No route corruption or data loss"
+          - "Forwarding operational after reboot"
+
+      - name: "Interface Operations Under Scale"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-016: Interface shutdown with scale routes (config mode)"
+          - "TC-IP-STATIC-SCALE-017: Interface no shutdown (restore)"
+          - "TC-IP-STATIC-SCALE-018: Interface enable/disable in interface mode"
+        steps:
+          - "With routes configured, shutdown next-hop interface"
+          - "Verify routes become inactive"
+          - "Verify configuration persists"
+          - "Re-enable interface"
+          - "Verify routes become active again"
+          - "Test multiple enable/disable cycles"
+        expected_results:
+          - "Interface shutdown: routes become inactive"
+          - "Configuration remains in running-config"
+          - "No route loss or corruption"
+          - "Interface no shutdown: routes reactivate"
+          - "Connectivity restored automatically"
+          - "Multiple cycles work correctly"
+
+      - name: "Show Command Performance Validation"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-019: Standard show commands with large route table"
+          - "TC-IP-STATIC-SCALE-020: Verify route summary accuracy"
+        steps:
+          - "Execute 'show ipv6 route summary' and measure time"
+          - "Execute 'show ipv6 route <prefix>' for specific lookup"
+          - "Execute 'show ipv6 interface brief'"
+          - "Execute 'show processes cpu sorted'"
+          - "Execute 'show process memory'"
+          - "Verify all commands complete without timeout"
+          - "Validate output accuracy"
+        expected_results:
+          - "show ipv6 route summary < 3 seconds"
+          - "show ipv6 route <prefix> < 2 seconds"
+          - "show processes cpu sorted < 5 seconds"
+          - "All commands complete successfully"
+          - "No timeouts or errors"
+          - "Output format correct and readable"
+
+      - name: "Privileged Command Validation"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-021: vtysh route addition"
+          - "TC-IP-STATIC-SCALE-022: Kernel route table verification"
+          - "TC-IP-STATIC-SCALE-023: Ping via specific interface"
+        steps:
+          - "Add route via sudo vtysh command"
+          - "Verify route visible in routing table"
+          - "Check kernel routing table consistency"
+          - "Verify route count matches across CLI methods"
+          - "Test ping via vtysh"
+          - "Test ping via Linux command with interface"
+        expected_results:
+          - "vtysh route addition successful"
+          - "Route visible in both klish and vtysh"
+          - "Kernel routing table matches SONiC table"
+          - "Route counts consistent"
+          - "Ping successful via all methods"
+
+      - name: "Performance Metrics Collection"
+        test_cases:
+          - "TC-IP-STATIC-SCALE-024: Route addition time measurement"
+          - "TC-IP-STATIC-SCALE-025: CPU utilization profile"
+          - "TC-IP-STATIC-SCALE-026: Memory utilization profile"
+        steps:
+          - "Measure time for batches of routes at different scales"
+          - "Monitor CPU during route operations"
+          - "Monitor memory throughout test lifecycle"
+          - "Record performance metrics at each scale level"
+          - "Generate performance report"
+        expected_results:
+          - "Performance data collected at all scale levels"
+          - "Metrics within acceptable thresholds"
+          - "No performance degradation beyond expected"
+          - "CPU and memory trends reasonable"
+
+# Expected results summary
+expected_results_summary:
+  route_scale:
+    - "DUT handles configured static routes up to supported platform scale"
+    - "Small scale (1K): All routes installed successfully"
+    - "Medium scale (10K): All routes installed successfully"
+    - "Large scale (100K): Routes up to platform limit"
+    - "Maximum scale (1M): Graceful handling of platform limits"
+
+  performance:
+    - "Route addition time meets performance targets"
+    - "Route deletion time meets performance targets"
+    - "Average time per route < 100ms (small/medium scale)"
+    - "Performance consistent across scale levels"
+    - "No exponential degradation observed"
+
+  resource_utilization:
+    - "CPU utilization < 80% sustained maximum"
+    - "Memory utilization within platform specifications"
+    - "No memory leaks detected"
+    - "Resources freed properly after route deletion"
+    - "System remains responsive under scale"
+
+  system_stability:
+    - "All routing processes remain running"
+    - "No unexpected process restarts or crashes"
+    - "Forwarding remains operational"
+    - "No packet loss under normal conditions"
+    - "System stable throughout all tests"
+
+  persistence:
+    - "Configuration saves successfully at all scale levels"
+    - "All routes restored after system reboot"
+    - "No data corruption or route loss"
+    - "Configuration file integrity maintained"
+
+  interface_operations:
+    - "Routes transition properly between active/inactive states"
+    - "Interface operations work correctly under scale"
+    - "No route loss during interface state changes"
+    - "Configuration preserved through operations"
+
+  show_commands:
+    - "All show commands complete successfully"
+    - "No timeouts or command failures"
+    - "Response times acceptable (< 10 seconds)"
+    - "Output format correct across all commands"
+
+  cli_consistency:
+    - "Routes visible in all CLI methods (klish, vtysh, kernel)"
+    - "Route details consistent across views"
+    - "No discrepancies between control and data plane"
+
+# Cleanup instructions
+cleanup_instructions:
+  - "Remove all static routes from D1"
+  - "Remove IPv6 addresses from Ethernet4 on both DUTs"
+  - "Delete any test loopback interfaces"
+  - "Verify routing table clean (only connected routes)"
+  - "Leave interfaces in enabled (no shutdown) state"
+  - "Verify system resources return to baseline"
+
+# Notes and considerations
+notes:
+  platform_limits:
+    - "Virtual platforms may have lower scale limits than hardware"
+    - "Consult platform documentation for maximum route limits"
+    - "Memory-constrained platforms may not support maximum scale"
+    - "Some platforms have optimized route storage mechanisms"
+
+  performance_factors:
+    - "Route addition time may vary based on system load"
+    - "First batch of routes may be slower (FRR initialization)"
+    - "Consistent performance more important than absolute speed"
+    - "Platform hardware affects overall performance"
+
+  memory_management:
+    - "Monitor for memory leaks during long-running tests"
+    - "Memory should be reclaimed after route deletion"
+    - "Track memory usage trends, not just absolute values"
+    - "Allow time for garbage collection after deletions"
+
+  test_duration:
+    - "Small scale test: ~30 minutes"
+    - "Medium scale test: ~2 hours"
+    - "Large scale test: ~6-8 hours"
+    - "Maximum scale test: ~24-48 hours (platform dependent)"
+
+  automation:
+    - "Tests highly suitable for SPyTest automation"
+    - "Route generation can be programmatic"
+    - "Performance data collection can be automated"
+    - "Consider parallel execution for efficiency"
+
+  risk_mitigation:
+    - "Backup configuration before large-scale tests"
+    - "Monitor system resources; abort if limits approached"
+    - "Have rollback plan for system recovery"
+    - "Large scale tests may temporarily affect system performance"
