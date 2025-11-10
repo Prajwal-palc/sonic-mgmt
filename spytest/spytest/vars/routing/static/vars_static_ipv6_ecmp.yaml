@@ -1,0 +1,322 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  ecmp_verify_timeout: 60
+  cleanup: true
+  min_topology:
+    - "D1D2:2"  # Requires two links between D1 and D2 for ECMP
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+# ECMP path configuration - Two equal-cost paths
+ecmp_paths:
+  path1:
+    D1_interface: "Ethernet4"
+    D1_ipv6: "2001:db8:10::1/64"
+    D2_interface: "Ethernet4"
+    D2_ipv6: "2001:db8:10::2/64"
+    description: "Primary ECMP path via Ethernet4"
+
+  path2:
+    D1_interface: "Ethernet8"
+    D1_ipv6: "2001:db8:11::1/64"
+    D2_interface: "Ethernet8"
+    D2_ipv6: "2001:db8:11::2/64"
+    description: "Secondary ECMP path via Ethernet8"
+
+# Destination network configuration (simulated on D2 loopback)
+destination:
+  prefix: "2001:db8:20::/64"
+  test_ip: "2001:db8:20::1"
+  location: "D2 loopback0"
+  loopback_config:
+    interface: "Loopback0"
+    ipv6: "2001:db8:20::1/128"
+    description: "Destination network for ECMP testing"
+
+# ECMP static routes on D1 (both routes to same destination)
+ecmp_routes:
+  route1:
+    dut: "D1"
+    prefix: "2001:db8:20::/64"
+    nexthop: "2001:db8:10::2"  # Via Path 1
+    interface: "Ethernet4"
+    description: "First ECMP route via Path 1"
+    verify:
+      ip_address: "2001:db8:20::/64"
+      type: "S"
+      nexthop: "2001:db8:10::2"
+
+  route2:
+    dut: "D1"
+    prefix: "2001:db8:20::/64"
+    nexthop: "2001:db8:11::2"  # Via Path 2
+    interface: "Ethernet8"
+    description: "Second ECMP route via Path 2"
+    verify:
+      ip_address: "2001:db8:20::/64"
+      type: "S"
+      nexthop: "2001:db8:11::2"
+
+# Traffic test parameters for load balancing validation
+traffic:
+  ping_count: 100  # Number of pings for load balance test
+  ping_interval: 0.2  # Seconds between pings
+  stream_duration: 30  # Duration for traffic streams
+  expected_load_balance_tolerance: 0.2  # 20% tolerance (40%-60% split acceptable)
+
+# Ping targets for connectivity testing
+pings:
+  destination:
+    dut: "D1"
+    target: "2001:db8:20::1"
+    count: 5
+    family: ipv6
+  path1_nexthop:
+    dut: "D1"
+    target: "2001:db8:10::2"
+    count: 3
+    family: ipv6
+  path2_nexthop:
+    dut: "D1"
+    target: "2001:db8:11::2"
+    count: 3
+    family: ipv6
+
+# Show commands for validation
+show_commands:
+  route_validation:
+    - "show ipv6 route"
+    - "show ipv6 route static"
+    - "show ipv6 route 2001:db8:20::/64"
+    - "show running-config | include ipv6 route"
+
+  interface_validation:
+    - "show interface status"
+    - "show interface status Ethernet4"
+    - "show interface status Ethernet8"
+    - "show ipv6 interface brief"
+    - "show ipv6 interface Ethernet4"
+    - "show ipv6 interface Ethernet8"
+
+  counter_validation:
+    - "show interfaces counters"
+    - "show interfaces Ethernet4 counters"
+    - "show interfaces Ethernet8 counters"
+    - "show interfaces counters detailed"
+    - "show interfaces Ethernet4 counters detailed"
+    - "show interfaces Ethernet8 counters detailed"
+
+  privileged_validation:
+    - 'sudo vtysh -c "show ipv6 route"'
+    - 'sudo vtysh -c "show ipv6 route static"'
+    - 'sudo vtysh -c "show ipv6 route 2001:db8:20::/64"'
+    - 'sudo vtysh -c "show ipv6 fib 2001:db8:20::/64"'
+    - 'sudo vtysh -c "show running-config | section ipv6 route"'
+
+  kernel_validation:
+    - "sudo ip -6 route show"
+    - "sudo ip -6 route show 2001:db8:20::/64"
+    - "sudo ip -6 route list"
+    - "sudo ip -6 route get 2001:db8:20::1"
+    - "sudo ip -6 neigh show"
+    - "sudo ip -6 neigh show 2001:db8:10::2"
+    - "sudo ip -6 neigh show 2001:db8:11::2"
+
+# Test scenarios for TC-IP-STATIC-IPV6-009
+test_scenarios:
+  TC-IP-STATIC-IPV6-009:
+    name: "Configure and verify ECMP Route Validation (Static) IPv6"
+    description: "Validate IPv6 ECMP static route with multiple equal-cost next-hops, load balancing, and automatic failover"
+
+    phases:
+      - name: "Environment Setup"
+        steps:
+          - "Configure IPv6 on Path 1 interfaces (Ethernet4)"
+          - "Configure IPv6 on Path 2 interfaces (Ethernet8)"
+          - "Configure destination network loopback on D2"
+          - "Verify interface status and connectivity on both paths"
+        expected_results:
+          - "Both ECMP paths operational (Ethernet4 and Ethernet8)"
+          - "IPv6 connectivity verified on both paths independently"
+          - "Destination network reachable from D2"
+
+      - name: "Single Route Configuration"
+        steps:
+          - "Configure first static route via Path 1"
+          - "Verify single route installation"
+          - "Test reachability to destination"
+          - "Verify traffic uses only Path 1"
+        expected_results:
+          - "Single route installed with one next-hop"
+          - "Ping succeeds to destination"
+          - "Only Path 1 interface counters increment"
+
+      - name: "ECMP Route Configuration"
+        steps:
+          - "Configure second static route via Path 2"
+          - "Verify ECMP entry creation with both next-hops"
+          - "Validate both next-hops under same route entry"
+          - "Check route type is Static (S) with equal cost"
+        expected_results:
+          - "ECMP entry created successfully"
+          - "Two next-hops (2001:db8:10::2 and 2001:db8:11::2) active"
+          - "Both appear under route 2001:db8:20::/64"
+          - "Equal cost indicated for both paths"
+
+      - name: "Load Balancing Validation"
+        steps:
+          - "Clear interface counters on both paths"
+          - "Send sustained ping traffic (100+ packets)"
+          - "Monitor interface counters on Ethernet4 and Ethernet8"
+          - "Calculate traffic distribution percentage"
+          - "Verify load balancing within tolerance"
+        expected_results:
+          - "Both interface counters increment"
+          - "Traffic distributes approximately 40%-60% per path"
+          - "Load balancing observed across ECMP paths"
+          - "No single path carries 100% of traffic"
+
+      - name: "Next-Hop Failure Simulation"
+        steps:
+          - "Shutdown Ethernet4 interface (Path 1)"
+          - "Verify automatic failover to Path 2"
+          - "Test connectivity with single path"
+          - "Verify only Path 2 carries traffic"
+          - "Confirm no manual intervention required"
+        expected_results:
+          - "Ethernet4 goes to Down/Down state"
+          - "Route automatically updates to single next-hop"
+          - "Only Path 2 (via 2001:db8:11::2) remains active"
+          - "Ping succeeds using remaining path"
+          - "Minimal packet loss during failover"
+
+      - name: "Path Recovery and ECMP Re-establishment"
+        steps:
+          - "Re-enable Ethernet4 interface (no shutdown)"
+          - "Verify interface comes back up"
+          - "Verify ECMP automatically re-establishes"
+          - "Test load balancing after recovery"
+          - "Confirm normal ECMP operation restored"
+        expected_results:
+          - "Ethernet4 returns to Up/Up state"
+          - "ECMP entry restored with both next-hops"
+          - "Load balancing resumes across both paths"
+          - "No configuration changes needed for restoration"
+
+      - name: "Enable/Disable - Global Config Mode"
+        steps:
+          - "Remove first ECMP route via 'no ipv6 route' command"
+          - "Verify ECMP degrades to single route"
+          - "Test connectivity with single path"
+          - "Re-add first route via 'ipv6 route' command"
+          - "Verify ECMP restoration"
+          - "Test multiple enable/disable cycles"
+        expected_results:
+          - "Route removal successful - ECMP becomes single path"
+          - "Route addition successful - ECMP restored"
+          - "Configuration persists in running-config"
+          - "Multiple cycles work correctly"
+
+      - name: "Enable/Disable - Interface Mode"
+        steps:
+          - "Shutdown interface via interface configuration"
+          - "Verify route becomes inactive"
+          - "Test traffic behavior"
+          - "Re-enable interface via 'no shutdown'"
+          - "Verify route recovery"
+          - "Test ECMP functionality after interface recovery"
+        expected_results:
+          - "Interface shutdown deactivates ECMP path"
+          - "Traffic uses remaining active path"
+          - "Interface 'no shutdown' restores ECMP path"
+          - "ECMP re-established automatically"
+
+      - name: "Show Command Validation"
+        steps:
+          - "Execute all standard CLI show commands"
+          - "Execute privileged (sudo vtysh) show commands"
+          - "Validate kernel routing table"
+          - "Check IPv6 neighbor entries"
+          - "Verify consistency across CLI methods"
+        expected_results:
+          - "ECMP visible in 'show ipv6 route'"
+          - "Both next-hops shown under same route entry"
+          - "vtysh output consistent with klish CLI"
+          - "Kernel routing table shows ECMP (multipath)"
+          - "Neighbor entries exist for both next-hops"
+
+# Expected results summary
+expected_results_summary:
+  ecmp_installation:
+    - "Two static routes for same prefix (2001:db8:20::/64) installed"
+    - "Both next-hops appear under same route with equal cost"
+    - "Route type: Static (S) for both entries"
+    - "ECMP entry visible in routing table"
+
+  load_balancing:
+    - "Traffic distributes across Ethernet4 and Ethernet8"
+    - "Interface counters on both paths increment during traffic"
+    - "Distribution approximately balanced (40%-60% per interface)"
+    - "Per-flow or per-packet hashing works correctly"
+
+  failover_behavior:
+    - "When one path fails, other remains active automatically"
+    - "No manual intervention required for failover"
+    - "Connectivity maintained with minimal packet loss"
+    - "Upon restoration, ECMP re-establishes automatically"
+
+  configuration_persistence:
+    - "Both route commands visible in running-config"
+    - "Configuration survives 'write memory'"
+    - "Enable/disable cycles work correctly"
+    - "Interface state changes properly affect routes"
+
+  cli_consistency:
+    - "ECMP visible in all CLI methods (klish, vtysh, kernel)"
+    - "Route details consistent across views"
+    - "Neighbor entries valid for both next-hops"
+    - "No discrepancies between control and data plane"
+
+# Cleanup instructions
+cleanup_instructions:
+  - "Remove both ECMP static routes from D1"
+  - "Remove IPv6 addresses from Ethernet4 and Ethernet8 on both DUTs"
+  - "Delete Loopback0 interface from D2"
+  - "Verify all routes removed from routing table"
+  - "Leave interfaces in enabled (no shutdown) state"
+
+# Notes and considerations
+notes:
+  ecmp_hashing:
+    - "SONiC/FRR uses flow-based hashing by default"
+    - "Hash based on: src/dst IPv6, protocol, src/dst port"
+    - "ICMP ping may not distribute perfectly (single flow)"
+    - "For better distribution, use varied traffic sources"
+
+  load_balancing_tolerance:
+    - "Perfect 50/50 split is rare in practice"
+    - "Accept 40/60 to 60/40 distribution as normal"
+    - "Per-flow hashing means some flows may prefer one path"
+    - "Extended testing with multiple flows shows better distribution"
+
+  failover_timing:
+    - "Interface down detected quickly (physical link failure)"
+    - "Next-hop unreachability may take longer (ND timers)"
+    - "Expect 1-3 seconds for failover convergence"
+    - "Some packet loss during transition is acceptable"
+
+  ecmp_support:
+    - "SONiC typically supports up to 32-64 ECMP paths"
+    - "This test uses 2 paths (minimal ECMP)"
+    - "Can be extended to 3+ paths for comprehensive testing"
+    - "Verify platform ECMP capabilities before testing"
+
+  traffic_generation:
+    - "Simple ping may not trigger optimal ECMP distribution"
+    - "For production testing, use traffic generator"
+    - "Consider iperf3, scapy, or hardware TGen"
+    - "Multiple concurrent flows demonstrate better load balancing"
