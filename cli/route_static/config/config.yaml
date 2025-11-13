@@ -1,0 +1,125 @@
+# Static Route CLI Test Configuration
+# This file contains all configurable parameters for pytest execution
+
+# Test Devices Configuration
+devices:
+  - name: VS-1
+    host: 192.168.100.97
+    port: 22
+    username: admin
+    password: YourPaSsWoRd
+    enabled: true
+
+  - name: VS-2
+    host: 192.168.100.142
+    port: 22
+    username: admin
+    password: YourPaSsWoRd
+    enabled: true
+
+# SSH Connection Settings
+ssh:
+  timeout: 30
+  connect_timeout: 10
+  auth_timeout: 10
+  banner_timeout: 10
+  channel_timeout: 5
+
+# CLI Settings
+cli:
+  mode: sonic-cli
+  config_mode: configure terminal
+  prompt_timeout: 3
+  command_timeout: 10
+
+# Logging Settings
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_dir: /home/adminuser/draksha/cli/route_static/logs
+  cli_log_dir: /home/adminuser/draksha/cli/route_static/logs/cli_output
+  db_snapshot_dir: /home/adminuser/draksha/cli/route_static/logs/db_snapshots
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_format: "{device}_{testcase}_{timestamp}.log"
+
+# Results Settings
+results:
+  results_dir: /home/adminuser/draksha/cli/route_static/results
+  html_report: route_static_cli_test_report.html
+  pytest_report: pytest_report_final.html
+  summary_report: route_static_cli_summary.html
+  summary_md: route_static_summary.md
+  execution_summary_md: route_static_execution_summary.md
+
+# Test Data Configuration
+test_data:
+  ipv4:
+    prefix_base: 10.0.0.0
+    nexthop_base: 192.168.1.1
+    prefixes:
+      - 10.1.1.0/24
+      - 10.2.2.0/24
+      - 10.3.3.0/24
+      - 10.4.4.0/24
+      - 10.5.5.0/24
+    nexthops:
+      - 192.168.1.1
+      - 192.168.1.2
+      - 192.168.1.3
+
+  ipv6:
+    prefix_base: "2001:db8::"
+    nexthop_base: "2001:db8:100::1"
+    prefixes:
+      - "2001:db8:1::/64"
+      - "2001:db8:2::/64"
+      - "2001:db8:3::/64"
+      - "2001:db8:4::/64"
+      - "2001:db8:5::/64"
+    nexthops:
+      - "2001:db8:100::1"
+      - "2001:db8:100::2"
+      - "2001:db8:100::3"
+
+# VRF Configuration
+vrf:
+  enabled: false  # Set to true when VRF is configured
+  vrf_names:
+    - Vrf1
+    - Vrf2
+
+# Interface Configuration
+interfaces:
+  enabled: false  # Set to true to test interface-based routes
+  test_interfaces:
+    - Ethernet0
+    - Ethernet4
+    - Ethernet8
+
+# Test Execution Settings
+execution:
+  cleanup_before_test: true
+  cleanup_after_test: true
+  parallel_execution: false
+  retry_on_failure: false
+  retry_count: 2
+  capture_db_snapshot: true
+  capture_cli_output: true
+
+# Database Settings
+database:
+  snapshot_commands:
+    - show running-configuration
+    - show ip route
+    - show ipv6 route
+    - show ip route static
+    - show ipv6 route static
+
+# Reporting Settings
+reporting:
+  generate_html: true
+  generate_markdown: true
+  generate_json: true
+  include_screenshots: false
+  detailed_errors: true
+  include_timestamps: true
+  include_device_info: true
