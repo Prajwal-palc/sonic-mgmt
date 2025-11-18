@@ -1,0 +1,190 @@
+# ECMP3 - Reject Invalid ECMP Configuration Test Variables
+# Test ID: TC_ECMP_2.4.3
+# Purpose: Variables for testing invalid ECMP configuration rejection and stability
+
+defaults:
+  cli_type: klish  # Use klish CLI exclusively as per requirement
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:2"  # DUT1 connected to DUT2 with 2 links
+    - "D1D3:1"  # DUT1 connected to DUT3 with 1 link
+
+# Network Configuration
+network:
+  destination_network: "200.0.0.0/24"
+  destination_ip: "200.0.0.1"
+  unreachable_nexthop: "192.168.99.99"
+  max_nexthop_limit: 64  # Platform-dependent, typical limit
+
+# Interface Configuration
+interfaces:
+  dut1_to_dut2:
+    interface: "Ethernet0"
+    ip: "10.0.1.1/30"
+
+  dut2_to_dut1:
+    interface: "Ethernet0"
+    ip: "10.0.1.2/30"
+
+  dut1_to_dut3:
+    interface: "Ethernet4"
+    ip: "10.0.2.1/30"
+
+  dut3_to_dut1:
+    interface: "Ethernet0"
+    ip: "10.0.2.2/30"
+
+  dut1_loopback:
+    interface: "Loopback0"
+    ip: "1.1.1.1/32"
+
+  dut2_loopback:
+    interface: "Loopback0"
+    ip: "200.0.0.1/32"
+
+  dut3_loopback:
+    interface: "Loopback0"
+    ip: "200.0.0.2/32"
+
+# Next-Hop Configuration
+nexthops:
+  nexthop1: "10.0.1.2"  # via DUT2
+  nexthop2: "10.0.2.2"  # via DUT3
+
+# Traffic Parameters
+traffic:
+  ping_count: 100
+  ping_interval: 0.1  # seconds
+  max_packet_loss: 5.0  # percent
+  stress_ping_count: 1000
+  stress_ping_interval: 0.01  # seconds
+
+# Test Cases Configuration
+testcases:
+  "2.4.3.1":
+    title: "Reject duplicate next-hop configuration"
+    description: "Verify system rejects duplicate next-hop and maintains 2 unique next-hops"
+    expected_nexthop_count: 2
+    duplicate_nexthop: "10.0.1.2"
+    validation:
+      - nexthop_count_unchanged: true
+      - no_duplicate_entries: true
+      - system_stable: true
+
+  "2.4.3.2":
+    title: "Reject unreachable next-hop configuration"
+    description: "Verify system rejects/ignores unreachable next-hop, traffic continues via valid paths"
+    expected_active_nexthops: 2
+    unreachable_nexthop: "192.168.99.99"
+    validation:
+      - active_nexthops_count: 2
+      - unreachable_not_forwarding: true
+      - traffic_unaffected: true
+      - max_packet_loss: 10.0
+
+  "2.4.3.3":
+    title: "Delete next-hop during active traffic"
+    description: "Verify minimal packet loss when next-hop deleted during traffic"
+    nexthop_to_delete: "10.0.1.2"
+    remaining_nexthop: "10.0.2.2"
+    validation:
+      - nexthop_count_after_delete: 1
+      - max_packet_loss_during_delete: 10.0
+      - traffic_continues: true
+      - remaining_nexthop_active: true
+
+  "2.4.3.4":
+    title: "Re-add next-hop and verify recovery"
+    description: "Verify ECMP restoration when deleted next-hop is re-added"
+    nexthop_to_delete: "10.0.1.2"
+    nexthop_to_readd: "10.0.1.2"
+    validation:
+      - nexthop_count_before_delete: 2
+      - nexthop_count_after_delete: 1
+      - nexthop_count_after_readd: 2
+      - load_distribution_restored: true
+      - max_packet_loss: 5.0
+
+  "2.4.3.5":
+    title: "Exceed maximum next-hop limit"
+    description: "Verify system enforces maximum next-hop limit (e.g., 64 NH)"
+    max_nexthop_limit: 64
+    validation:
+      - limit_enforced: true
+      - excess_rejected: true
+      - warning_issued: true
+      - system_stable: true
+
+  "2.4.3.6":
+    title: "Invalid next-hop during traffic"
+    description: "Verify traffic stability when invalid next-hop added during traffic"
+    invalid_attempts:
+      - type: "unreachable"
+        nexthop: "192.168.99.99"
+      - type: "duplicate"
+        nexthop: "10.0.1.2"
+    validation:
+      - zero_packet_loss: true
+      - nexthop_count_unchanged: true
+      - traffic_uninterrupted: true
+      - system_responsive: true
+
+# Validation Commands (klish mode via sonic-cli)
+validation_commands:
+  route_verification:
+    - "show ip route 200.0.0.0/24"
+    - "show ip route static"
+    - "show ip route"
+
+  nexthop_verification:
+    - "show ip next-hop"
+    - "show arp"
+
+  interface_verification:
+    - "show interface status Ethernet0"
+    - "show interface status Ethernet4"
+    - "show interface counters Ethernet0"
+    - "show interface counters Ethernet4"
+
+  system_health:
+    - "show processes"
+    - "show system memory"
+    - "show logging | grep -i route"
+
+  platform_capabilities:
+    - "show platform capabilities"
+    - "show ip ecmp"
+
+# Expected Results
+expected_results:
+  duplicate_nexthop:
+    nexthop_count: 2
+    duplicate_rejected: true
+    system_error: false
+
+  unreachable_nexthop:
+    active_nexthops: 2
+    unreachable_not_active: true
+    traffic_forwarding: true
+    packet_loss_max: 10.0
+
+  delete_during_traffic:
+    final_nexthop_count: 1
+    packet_loss_max: 10.0
+    traffic_continues: true
+
+  recovery:
+    restored_nexthop_count: 2
+    load_balanced: true
+    packet_loss_max: 5.0
+
+  max_limit:
+    limit_value: 64
+    limit_enforced: true
+    excess_rejected: true
+
+  invalid_during_traffic:
+    packet_loss_max: 5.0
+    nexthop_count: 2
+    system_stable: true
