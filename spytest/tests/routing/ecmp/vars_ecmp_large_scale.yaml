@@ -1,0 +1,316 @@
+defaults:
+  # Configuration CLI type: use klish for configuration operations
+  config_cli_type: klish
+
+  # Verification CLI types: use both CLICK and KLISH for validation
+  verify_cli_types:
+    - click
+    - klish
+
+  # Verification timeout in seconds
+  verify_timeout: 30
+
+  # Enable cleanup after tests
+  cleanup: true
+
+  # Minimum topology requirement: D1 (DUT), D2 (NH1), D3 (NH2)
+  min_topology:
+    - "D1D2:1"
+    - "D1D3:1"
+
+  # Scale parameters
+  ip_subnets_per_link: 64
+  total_route_prefixes: 50000
+
+testcases:
+  # ========================================================================
+  # Interface Bring-Up Tests (ECMP_02_001 - ECMP_02_003)
+  # ========================================================================
+  ECMP_02_001:
+    title: "Bring up DUT uplink interfaces"
+    description: "Execute interface startup on Ethernet32 and Ethernet12"
+    interfaces:
+      - "Ethernet32"
+      - "Ethernet12"
+    expected_status: "up"
+
+  ECMP_02_002:
+    title: "Bring up NH1 uplink interface"
+    description: "Execute interface startup on NH1 Ethernet32"
+    interface: "Ethernet32"
+    expected_status: "up"
+
+  ECMP_02_003:
+    title: "Bring up NH2 uplink interface"
+    description: "Execute interface startup on NH2 Ethernet28"
+    interface: "Ethernet28"
+    expected_status: "up"
+
+  # ========================================================================
+  # IP Address Configuration Tests (ECMP_02_004 - ECMP_02_007)
+  # ========================================================================
+  ECMP_02_004:
+    title: "Configure 64 /31 subnets on DUT Ethernet32 towards NH1"
+    description: "Configure 10.0.i.0/31 addresses (i=0..63) on Ethernet32"
+    dut_interface: "Ethernet32"
+    ip_base: "10.0.{i}.0"
+    subnet: "31"
+    count: 64
+    sample_verify_ips:
+      - "10.0.0.0"
+      - "10.0.63.0"
+
+  ECMP_02_005:
+    title: "Configure 64 /31 subnets on DUT Ethernet12 towards NH2"
+    description: "Configure 10.0.i.2/31 addresses (i=0..63) on Ethernet12"
+    dut_interface: "Ethernet12"
+    ip_base: "10.0.{i}.2"
+    subnet: "31"
+    count: 64
+    sample_verify_ips:
+      - "10.0.0.2"
+      - "10.0.63.2"
+
+  ECMP_02_006:
+    title: "Configure 64 /31 subnets on NH1 Ethernet32 towards DUT"
+    description: "Configure 10.0.i.1/31 addresses (i=0..63) on NH1 Ethernet32"
+    nh1_interface: "Ethernet32"
+    ip_base: "10.0.{i}.1"
+    subnet: "31"
+    count: 64
+    sample_ping_ips:
+      - "10.0.{i}.0"
+      - "10.0.{i}.0"
+    sample_ping_indices:
+      - 0
+      - 63
+
+  ECMP_02_007:
+    title: "Configure 64 /31 subnets on NH2 Ethernet28 towards DUT"
+    description: "Configure 10.0.i.3/31 addresses (i=0..63) on NH2 Ethernet28"
+    nh2_interface: "Ethernet28"
+    ip_base: "10.0.{i}.3"
+    subnet: "31"
+    count: 64
+    sample_ping_ips:
+      - "10.0.{i}.2"
+      - "10.0.{i}.2"
+    sample_ping_indices:
+      - 0
+      - 63
+
+  # ========================================================================
+  # IP Verification Test (ECMP_02_008)
+  # ========================================================================
+  ECMP_02_008:
+    title: "Verify IP addressing and neighbor resolution across all devices"
+    description: "Check IP count, neighbor table, and connectivity"
+    expected_ip_count: 128
+    sample_pings:
+      - target: "10.0.0.1"
+        description: "NH1 first IP"
+      - target: "10.0.63.1"
+        description: "NH1 last IP"
+      - target: "10.0.0.3"
+        description: "NH2 first IP"
+      - target: "10.0.63.3"
+        description: "NH2 last IP"
+
+  # ========================================================================
+  # Route Programming Tests (ECMP_02_009 - ECMP_02_010)
+  # ========================================================================
+  ECMP_02_009:
+    title: "Program large-scale ECMP routes (50k prefixes, 128-way ECMP)"
+    description: "Add 50,000 prefixes under 198.18.0.0/16 with 128 next-hops each"
+    route_prefix_base: "198.18"
+    nh1_base: "10.0.{i}.1"
+    nh2_base: "10.0.{i}.3"
+    total_prefixes: 50000
+    nh_count_per_side: 64
+    expected_ecmp_width: 128
+    timeout_minutes: 30
+
+  ECMP_02_010:
+    title: "Verify route installation and resource headroom"
+    description: "Check FRR route count, APPL_DB entries, CRM resources, and sample routes"
+    expected_route_count: 50000
+    sample_routes:
+      - "198.18.1.0/24"
+      - "198.18.100.0/24"
+      - "198.18.200.0/24"
+    expected_nexthop_count: 128
+    verify_crm: true
+    verify_system_resources: true
+
+  # ========================================================================
+  # Traffic and Counter Tests (ECMP_02_011 - ECMP_02_014)
+  # ========================================================================
+  ECMP_02_011:
+    title: "Enable port counter polling on DUT"
+    description: "Execute counterpoll port enable and clear counters"
+    commands:
+      - "sudo counterpoll port enable"
+      - "show interfaces counters -c"
+
+  ECMP_02_012:
+    title: "Generate high-entropy traffic flows to test destinations"
+    description: "Generate diverse flows targeting 198.18.0.0/16 range"
+    traffic_duration_sec: 60
+    min_flow_count: 128
+    target_prefix_range: "198.18.0.0/16"
+
+  ECMP_02_013:
+    title: "Verify traffic distribution across both uplinks under scale"
+    description: "Monitor TX counters on Ethernet32 and Ethernet12"
+    dut_interfaces:
+      - "Ethernet32"
+      - "Ethernet12"
+    expected_balance_range:
+      min_percent: 45
+      max_percent: 55
+
+  ECMP_02_014:
+    title: "Sample individual prefix ECMP width verification"
+    description: "Verify ECMP width for multiple sample prefixes"
+    sample_prefixes:
+      - "198.18.1.0/24"
+      - "198.18.100.0/24"
+      - "198.18.200.0/24"
+      - "198.18.255.0/24"
+    expected_nexthop_count: 128
+
+  # ========================================================================
+  # Failover Tests (ECMP_02_015 - ECMP_02_017)
+  # ========================================================================
+  ECMP_02_015:
+    title: "Simulate NH1 link failure to test large-scale ECMP failover"
+    description: "Shutdown Ethernet32 on NH1 and verify convergence"
+    nh1_interface: "Ethernet32"
+    convergence_wait: 5
+    expected_dut_interface_status: "down"
+
+  ECMP_02_016:
+    title: "Verify fast convergence and route withdrawal under scale"
+    description: "Check routes converge to 64-way ECMP (via NH2 only)"
+    sample_routes:
+      - "198.18.1.0/24"
+      - "198.18.100.0/24"
+    expected_nexthop_count: 64
+    expected_convergence_time_sec: 2
+
+  ECMP_02_017:
+    title: "Measure traffic loss window during large-scale failover"
+    description: "Analyze counter deltas and packet drops during failure"
+    monitor_interfaces:
+      - "Ethernet32"
+      - "Ethernet12"
+    expected_max_convergence_sec: 2
+
+  # ========================================================================
+  # Recovery Tests (ECMP_02_018 - ECMP_02_019)
+  # ========================================================================
+  ECMP_02_018:
+    title: "Restore NH1 link after failure"
+    description: "Bring up Ethernet32 on NH1 and verify link recovery"
+    nh1_interface: "Ethernet32"
+    recovery_wait: 5
+    expected_interface_status: "up"
+
+  ECMP_02_019:
+    title: "Verify ECMP restoration to 128-way after link recovery"
+    description: "Check routes restore to full 128-way ECMP"
+    sample_routes:
+      - "198.18.1.0/24"
+      - "198.18.100.0/24"
+      - "198.18.200.0/24"
+    expected_nexthop_count: 128
+
+  # ========================================================================
+  # Cleanup Tests (ECMP_02_020 - ECMP_02_023)
+  # ========================================================================
+  ECMP_02_020:
+    title: "Clean up routes on DUT"
+    description: "Delete all 50,000 routes from DUT"
+    route_prefix_base: "198.18"
+    total_prefixes: 50000
+    nh1_base: "10.0.{i}.1"
+    nh2_base: "10.0.{i}.3"
+    nh_count_per_side: 64
+
+  ECMP_02_021:
+    title: "Clean up IP addressing on DUT interfaces"
+    description: "Remove all secondary IPs from Ethernet32 and Ethernet12"
+    interfaces:
+      - interface: "Ethernet32"
+        ip_base: "10.0.{i}.0"
+        subnet: "31"
+        count: 64
+      - interface: "Ethernet12"
+        ip_base: "10.0.{i}.2"
+        subnet: "31"
+        count: 64
+
+  ECMP_02_022:
+    title: "Clean up IP addressing on NH1"
+    description: "Remove all IPs from NH1 Ethernet32"
+    interface: "Ethernet32"
+    ip_base: "10.0.{i}.1"
+    subnet: "31"
+    count: 64
+
+  ECMP_02_023:
+    title: "Clean up IP addressing on NH2"
+    description: "Remove all IPs from NH2 Ethernet28"
+    interface: "Ethernet28"
+    ip_base: "10.0.{i}.3"
+    subnet: "31"
+    count: 64
+
+# ========================================================================
+# Performance Expectations and Metrics
+# ========================================================================
+performance_expectations:
+  route_programming_time_max_minutes: 30
+  route_convergence_time_max_sec: 2
+  memory_overhead_max_gb: 4
+  cpu_during_programming_max_percent: 80
+  packet_loss_during_failover_max_percent: 0.1
+  crm_nexthop_groups_expected: 50000
+  crm_nexthop_entries_expected: 128
+  arp_neighbor_entries_expected: 128
+
+# ========================================================================
+# Pass/Fail Criteria
+# ========================================================================
+pass_fail_criteria:
+  pass:
+    - "Successfully configure 128 /31 point-to-point links (64 per physical uplink)"
+    - "Install 50,000 prefixes with 128-way ECMP without errors"
+    - "System resources (CRM, memory, CPU) remain within acceptable limits"
+    - "Traffic distributes roughly evenly across both uplinks under high ECMP width"
+    - "After NH1 failure, routes converge to 64-way ECMP (via NH2 only) within 1-2 seconds"
+    - "Minimal packet loss during failover (convergence time <2 seconds)"
+    - "ECMP fully restores to 128-way when failed link recovers"
+    - "All cleanup steps execute without errors"
+
+  fail:
+    - "Unable to configure high-density IP addressing (neighbor table overflow, etc.)"
+    - "Routes fail to install or system becomes unresponsive during route programming"
+    - "CRM resources exhausted (nexthop groups, routes, neighbors)"
+    - "Significant ECMP hashing imbalance (>70% traffic via one path with many flows)"
+    - "Prolonged convergence after failure (>5 seconds) or traffic blackhole"
+    - "Routes fail to restore to full 128-way ECMP after link recovery"
+    - "Persistent configuration or routing table entries after cleanup"
+    - "System instability, crashes, or errors during any phase"
+
+# ========================================================================
+# Notes and Recommendations
+# ========================================================================
+notes:
+  - "Virtual switches may have lower limits than hardware; adjust route count and ECMP width accordingly"
+  - "Route programming of 50k × 128-way routes may take 10-30+ minutes depending on platform"
+  - "Traffic generation requires high flow diversity (>128 flows minimum) to exercise full ECMP width"
+  - "Monitor CRM resources, process CPU/memory, and neighbor table throughout testing"
+  - "For performance tuning, start with smaller scale (e.g., 5k routes, 16-way ECMP) to baseline"
+  - "Route deletion may take as long as installation; be patient during cleanup"
+  - "Only use 'config save -y' if you want persistent large-scale configuration"
