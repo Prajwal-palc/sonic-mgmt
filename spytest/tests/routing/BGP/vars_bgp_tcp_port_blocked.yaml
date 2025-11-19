@@ -1,0 +1,611 @@
+# BGP Test ID 2.4.4: TCP Port 179 Blocked Prevents BGP Session
+# Variable definitions for test_bgp_tcp_port_blocked.py
+#
+# This file contains configuration parameters for all subtests:
+# - 2.4.4.1: Bidirectional iptables blocking
+# - 2.4.4.2: Unidirectional iptables blocking
+# - 2.4.4.3: ACL-based blocking (hardware)
+# - 2.4.4.4: Intermediate host firewall
+# - 2.4.4.5: Negative control (unrelated port)
+# - 2.4.4.6: Stress test with intermittent blocking
+# - 2.4.4.7: Route exchange verification
+# - 2.4.4.8: Logging and diagnostics
+
+defaults:
+  # CLI types: klish for configuration, click for show commands
+  config_cli_type: klish
+  show_cli_type: click
+
+  # Timing parameters (in seconds)
+  blocked_wait_seconds: 30        # Time to wait while port is blocked
+  recover_wait_seconds: 60        # Time to wait for session recovery
+  verify_timeout: 120             # Timeout for verification polls
+
+  # BGP timers
+  keepalive: 60
+  holdtime: 180
+
+  # Cleanup configuration after tests
+  cleanup: true
+
+  # Minimum topology requirement
+  min_topology:
+    - "D1D2:1"
+
+# Common IP addressing scheme for all tests
+common:
+  d1_ip: "10.0.0.1"
+  d2_ip: "10.0.0.2"
+  subnet: "24"
+  interface: "Ethernet0"
+  d1_asn: 65001
+  d2_asn: 65002
+  d1_router_id: "1.1.1.1"
+  d2_router_id: "2.2.2.2"
+
+# Test case definitions
+testcases:
+
+  # Test 2.4.4.1: Block TCP/179 both directions using DUT iptables
+  "2.4.4.1":
+    title: "Block TCP/179 both directions using DUT iptables (virtual env)"
+    description: |
+      Apply iptables rules on DUTs to drop TCP dst-port 179 in both directions
+      and verify BGP session fails to form; remove rules and verify recovery.
+
+    # DUT IP addresses
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    # Interface configuration
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    # BGP router configuration
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+
+    # BGP neighbor configuration
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        keepalive: 60
+        holdtime: 180
+        vrf: "default"
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        keepalive: 60
+        holdtime: 180
+        vrf: "default"
+
+    # iptables rules to block TCP/179
+    iptables_rules:
+      # D1 rules
+      - dut: "D1"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D1"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "sport"
+        action: "DROP"
+
+      - dut: "D1"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D1"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "sport"
+        action: "DROP"
+
+      # D2 rules
+      - dut: "D2"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "sport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "sport"
+        action: "DROP"
+
+  # Test 2.4.4.2: Block TCP/179 one-direction (ingress) using DUT iptables
+  "2.4.4.2":
+    title: "Block TCP/179 one-direction (ingress) using DUT iptables"
+    description: |
+      Block TCP/179 in one direction (D2 cannot receive from D1) to verify
+      asymmetric block also prevents session establishment.
+
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+
+    # One-directional block: D2 blocks incoming from D1
+    iptables_rules:
+      - dut: "D2"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+        source_ip: "10.0.0.1"
+
+  # Test 2.4.4.3: Block TCP/179 via SONiC ACL (hardware/production-like test)
+  "2.4.4.3":
+    title: "Block TCP/179 via SONiC ACL (hardware/production-like test)"
+    description: |
+      Apply SONiC ACL or hardware ACL to drop TCP dst-port 179 between D1 and D2
+      to emulate production firewall behavior.
+
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+
+    # ACL configuration for D1
+    acl_rules:
+      - dut: "D1"
+        acl_name: "ACL_BGP_BLOCK"
+        rule_name: "RULE_DROP_BGP"
+        interface: "Ethernet0"
+        src_ip: "10.0.0.2"
+        protocol: "tcp"
+        dst_port: 179
+        action: "DROP"
+
+  # Test 2.4.4.4: Block TCP/179 using intermediate host/netfilter
+  "2.4.4.4":
+    title: "Block TCP/179 using intermediate host/netfilter (test host firewall)"
+    description: |
+      Simulate network firewall by blocking TCP/179 on an intermediate test host
+      that sits on the path. Useful when DUT kernel/ACL access is restricted.
+
+    # Note: This test requires an intermediate host in the path
+    # Configuration similar to 2.4.4.1 but rules applied on intermediate host
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+
+  # Test 2.4.4.5: Negative control - block unrelated port
+  "2.4.4.5":
+    title: "Negative control: block unrelated port (e.g., TCP/22) - ensure BGP unaffected"
+    description: |
+      Demonstrate that blocking an unrelated TCP port does not affect BGP;
+      validates test specificity.
+
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+
+    # Block unrelated port (TCP/22 - SSH)
+    iptables_rules:
+      - dut: "D1"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 22
+        direction: "dport"
+        action: "DROP"
+        source_ip: "10.0.0.2"
+
+      - dut: "D1"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 22
+        direction: "dport"
+        action: "DROP"
+
+  # Test 2.4.4.6: Stress - intermittent drop of TCP/179
+  "2.4.4.6":
+    title: "Stress: intermittent drop of TCP/179 (netem / rate-limit) and stability"
+    description: |
+      Apply intermittent blocking (netem/drop rules) to mimic flaky firewall
+      and observe BGP behavior (retries, flaps, timers).
+
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        keepalive: 10
+        holdtime: 30
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        keepalive: 10
+        holdtime: 30
+
+    # Stress test parameters
+    stress_cycles: 5
+    block_duration: 15    # seconds to block
+    unblock_duration: 20  # seconds to allow traffic
+
+    # iptables rules for intermittent blocking
+    iptables_rules:
+      # D1 rules
+      - dut: "D1"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D1"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      # D2 rules
+      - dut: "D2"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+  # Test 2.4.4.7: Verify no routes exchanged when TCP/179 blocked
+  "2.4.4.7":
+    title: "Verify no routes exchanged when TCP/179 blocked"
+    description: |
+      Confirm that while port 179 is blocked, no BGP routes are exchanged
+      or installed in RIB/FIB.
+
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+    d1_asn: 65001
+    d2_asn: 65002
+
+    # Test prefix to advertise from D1
+    test_prefix: "100.64.1.0/24"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    # Loopback interface for test prefix
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback100"
+        ip_address: "100.64.1.1"
+        subnet: "32"
+
+    # Static routes (if needed for connectivity)
+    static_routes: []
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+
+    # Block TCP/179 during test
+    iptables_rules:
+      - dut: "D1"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D1"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+  # Test 2.4.4.8: Logging and diagnostics
+  "2.4.4.8":
+    title: "Logging and diagnostics: capture TCP handshake failures and syslogs while blocked"
+    description: |
+      Collect and validate relevant log messages and packet captures to ensure
+      correct failure diagnostics are available.
+
+    d1_ip: "10.0.0.1"
+    d2_ip: "10.0.0.2"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.1"
+        subnet: "24"
+
+      - dut: "D2"
+        interface: "Ethernet0"
+        ip_address: "10.0.0.2"
+        subnet: "24"
+
+    routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+
+    # Packet capture settings
+    pcap_interface: "Ethernet0"
+    pcap_file: "/tmp/bgp_tcp179_block_test.pcap"
+
+    # Log files to collect
+    log_files:
+      - "/var/log/frr/bgpd.log"
+      - "/var/log/syslog"
+
+    iptables_rules:
+      - dut: "D1"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D1"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "INPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
+
+      - dut: "D2"
+        chain: "OUTPUT"
+        protocol: "tcp"
+        port: 179
+        direction: "dport"
+        action: "DROP"
