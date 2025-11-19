@@ -142,6 +142,7 @@ class TestBgpSessionStabilityAfterReload:
 
         # CLI type
         cls.data.cli_type = defaults.get("cli_type", "klish")
+        cls.data.bgp_show_cli_type = defaults.get("bgp_show_cli_type", "klish")
 
         # Timeouts and SLO
         cls.data.verify_timeout = int(defaults.get("verify_timeout", 90))
@@ -253,15 +254,31 @@ class TestBgpSessionStabilityAfterReload:
 
         # Configure IPv4 address
         if ip_address:
+            # Split IP address and subnet (e.g., "10.0.0.1/30" -> "10.0.0.1", "30")
+            ip_parts = ip_address.split("/")
+            if len(ip_parts) != 2:
+                st.report_fail("msg", f"Invalid IP address format: {ip_address}. Expected format: x.x.x.x/prefix")
+
+            ip_addr = ip_parts[0]
+            subnet = ip_parts[1]
+
             if not ip_api.config_ip_addr_interface(
-                dut, interface, ip_address, family="ipv4", config="add", cli_type=self.data.cli_type
+                dut, interface, ip_addr, subnet=subnet, family="ipv4", config="add", cli_type=self.data.cli_type
             ):
                 st.report_fail("msg", f"Failed to configure IP {ip_address} on {dut}:{interface}")
 
         # Configure IPv6 address if provided
         if ipv6_address:
+            # Split IPv6 address and prefix (e.g., "2001:db8::1/64" -> "2001:db8::1", "64")
+            ipv6_parts = ipv6_address.split("/")
+            if len(ipv6_parts) != 2:
+                st.report_fail("msg", f"Invalid IPv6 address format: {ipv6_address}. Expected format: xxxx::/prefix")
+
+            ipv6_addr = ipv6_parts[0]
+            prefix = ipv6_parts[1]
+
             if not ip_api.config_ip_addr_interface(
-                dut, interface, ipv6_address, family="ipv6", config="add", cli_type=self.data.cli_type
+                dut, interface, ipv6_addr, subnet=prefix, family="ipv6", config="add", cli_type=self.data.cli_type
             ):
                 st.report_fail("msg", f"Failed to configure IPv6 {ipv6_address} on {dut}:{interface}")
 
@@ -273,9 +290,17 @@ class TestBgpSessionStabilityAfterReload:
         """
         st.log(f"Configuring Loopback0 on {dut}: {loopback_ip}")
 
+        # Split loopback IP address and subnet (e.g., "1.1.1.1/32" -> "1.1.1.1", "32")
+        ip_parts = loopback_ip.split("/")
+        if len(ip_parts) != 2:
+            st.report_fail("msg", f"Invalid loopback IP format: {loopback_ip}. Expected format: x.x.x.x/prefix")
+
+        ip_addr = ip_parts[0]
+        subnet = ip_parts[1]
+
         # Configure loopback IP (this creates the interface automatically)
         if not ip_api.config_ip_addr_interface(
-            dut, "Loopback0", loopback_ip, family="ipv4", config="add", cli_type=self.data.cli_type
+            dut, "Loopback0", ip_addr, subnet=subnet, family="ipv4", config="add", cli_type=self.data.cli_type
         ):
             st.report_fail("msg", f"Failed to configure loopback IP {loopback_ip} on {dut}")
 
@@ -534,11 +559,11 @@ class TestBgpSessionStabilityAfterReload:
         result = bgp_api.verify_bgp_neighborship(
             dut,
             family=family,
-            shell="sonic",
             neighbor=neighbor_ip,
             state=expected_state,
             iterations=iterations,
-            delay=delay
+            delay=delay,
+            cli_type=self.data.bgp_show_cli_type
         )
 
         if result:
@@ -551,7 +576,7 @@ class TestBgpSessionStabilityAfterReload:
     def _verify_bgp_summary(self, dut: str) -> bool:
         """Verify BGP summary shows expected sessions."""
         st.log(f"Verifying BGP summary on {dut}")
-        output = bgp_api.show_bgp_ipv4_summary(dut, cli_type=self.data.cli_type)
+        output = bgp_api.show_bgp_ipv4_summary(dut, cli_type=self.data.bgp_show_cli_type)
         if output:
             st.log(f"BGP summary output: {output}")
             return True
@@ -562,7 +587,7 @@ class TestBgpSessionStabilityAfterReload:
         st.log(f"Verifying BGP neighbor {neighbor_ip} is NOT configured on {dut}")
 
         # Try to get neighbor info - should fail or return empty
-        output = bgp_api.show_bgp_neighbor(dut, neighbor_ip, cli_type=self.data.cli_type)
+        output = bgp_api.show_bgp_neighbor(dut, neighbor_ip, cli_type=self.data.bgp_show_cli_type)
         if not output:
             st.log(f"BGP neighbor {neighbor_ip} is not configured (as expected)")
             return True

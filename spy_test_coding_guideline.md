@@ -36,7 +36,7 @@ Add a module‑level docstring _banner_ that answers **what/why/how**:
 """
 <FEATURE NAME>
 Author: Athira
-© <Current YEAR>, copyrights@SuperMicro
+<Current YEAR>
 
 How to run:
   ./bin/spytest  --tryssh 1  \
@@ -83,7 +83,7 @@ Pre‑requisites:
 """
 STATIC IPV4 ROUTING
 Author: Athira
-© 2024, copyrights@SuperMicro
+2025
 
 How to run:
   ./bin/spytest  --tryssh 1  \
