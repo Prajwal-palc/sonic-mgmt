@@ -9,6 +9,7 @@
 
 defaults:
   cli_type: klish
+  bgp_show_cli_type: klish
   verify_timeout: 90
   cleanup: true
   min_topology:

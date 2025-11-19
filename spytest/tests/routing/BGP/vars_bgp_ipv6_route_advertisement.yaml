@@ -1,0 +1,685 @@
+# BGP IPv6 Unicast Route Advertisement Test Variables
+# Test ID 3.2.2 - All Sub-testcases (3.2.2.1 through 3.2.2.8)
+# Test Objective: Verify IPv6 unicast routes advertised correctly
+
+defaults:
+  cli_type: "klish"  # BGP configuration requires klish/vtysh, not click
+  verify_timeout: 120  # Seconds to wait for BGP convergence and route advertisement
+  cleanup: true  # Cleanup configuration after each test
+  min_topology:
+    - "D1D2:1"  # Minimum topology: 2 DUTs with 1 link
+  keepalive: 60  # BGP keepalive timer (seconds)
+  hold: 180  # BGP hold timer (seconds)
+
+# ============================================================================
+# Test ID 3.2.2.1: Basic IPv6 Network Advertisement via eBGP (Single Prefix)
+# ============================================================================
+testcases:
+  "3.2.2.1":
+    title: "Basic IPv6 Network Advertisement via eBGP (Single Prefix)"
+    description: "Verify a single IPv6 network is advertised correctly from D1 to D2 via eBGP"
+    test_objective: "Verify IPv6 unicast routes advertised correctly via eBGP"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 128
+    static_routes: []
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::2"
+        remote_asn: 65002
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:24::1"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::1/128"
+        expected_next_hop: "2001:db8:24::1"
+        expected_as_path: "65001"
+
+  # ============================================================================
+  # Test ID 3.2.2.2: Multiple IPv6 Network Advertisements via eBGP
+  # ============================================================================
+  "3.2.2.2":
+    title: "Multiple IPv6 Network Advertisements via eBGP"
+    description: "Verify multiple IPv6 networks are advertised correctly from D1 to D2 via eBGP"
+    test_objective: "Verify multiple IPv6 unicast routes advertised correctly"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "2001:db8:101::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "2001:db8:102::1"
+        prefix_length: 128
+    static_routes: []
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::2"
+        remote_asn: 65002
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:24::1"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:101::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:102::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::1/128"
+          - "2001:db8:101::1/128"
+          - "2001:db8:102::1/128"
+        expected_next_hop: "2001:db8:24::1"
+        expected_as_path: "65001"
+        min_routes: 3
+
+  # ============================================================================
+  # Test ID 3.2.2.3: IPv6 Network Advertisement via iBGP (Single Prefix)
+  # ============================================================================
+  "3.2.2.3":
+    title: "IPv6 Network Advertisement via iBGP (Single Prefix)"
+    description: "Verify a single IPv6 network is advertised correctly from D1 to D2 via iBGP"
+    test_objective: "Verify IPv6 unicast routes advertised correctly via iBGP"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 128
+    static_routes: []
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::2"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+      - dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::1"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::1/128"
+        expected_next_hop: "2001:db8:24::1"
+        expected_as_path: ""  # Empty for iBGP
+
+  # ============================================================================
+  # Test ID 3.2.2.4: IPv6 Network Advertisement via iBGP (Multiple Prefixes)
+  # ============================================================================
+  "3.2.2.4":
+    title: "IPv6 Network Advertisement via iBGP (Multiple Prefixes)"
+    description: "Verify multiple IPv6 networks are advertised correctly from D1 to D2 via iBGP"
+    test_objective: "Verify multiple IPv6 unicast routes advertised correctly via iBGP"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "2001:db8:101::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "2001:db8:102::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback4"
+        ip_address: "2001:db8:103::1"
+        prefix_length: 128
+    static_routes: []
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::2"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+      - dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::1"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:101::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:102::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:103::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::1/128"
+          - "2001:db8:101::1/128"
+          - "2001:db8:102::1/128"
+          - "2001:db8:103::1/128"
+        expected_next_hop: "2001:db8:24::1"
+        expected_as_path: ""  # Empty for iBGP
+        min_routes: 4
+
+  # ============================================================================
+  # Test ID 3.2.2.5: IPv6 Network Advertisement with Next-Hop-Self (iBGP)
+  # ============================================================================
+  "3.2.2.5":
+    title: "IPv6 Network Advertisement with Next-Hop-Self (iBGP)"
+    description: "Verify IPv6 routes advertised with next-hop-self in iBGP scenario"
+    test_objective: "Verify next-hop-self configuration for IPv6 iBGP peering"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback0"
+        ip_address: "2001:db8:1::1"
+        prefix_length: 128
+      - dut: "D2"
+        loopback: "Loopback0"
+        ip_address: "2001:db8:2::2"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 128
+    static_routes:
+      - dut: "D1"
+        destination: "2001:db8:2::2/128"
+        next_hop: "2001:db8:24::2"
+      - dut: "D2"
+        destination: "2001:db8:1::1/128"
+        next_hop: "2001:db8:24::1"
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:2::2"
+        remote_asn: 65001
+        update_source: "Loopback0"
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+        next_hop_self: true
+      - dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:1::1"
+        remote_asn: 65001
+        update_source: "Loopback0"
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast 2001:db8:100::1/128"
+        expected_routes:
+          - "2001:db8:100::1/128"
+        expected_next_hop: "2001:db8:1::1"  # Next-hop modified to D1's loopback
+        expected_as_path: ""
+
+  # ============================================================================
+  # Test ID 3.2.2.6: IPv6 Network Advertisement from Loopback Addresses
+  # ============================================================================
+  "3.2.2.6":
+    title: "IPv6 Network Advertisement from Loopback Addresses"
+    description: "Verify IPv6 loopback networks are advertised via eBGP loopback-based peering"
+    test_objective: "Verify IPv6 loopback routes advertised correctly"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback0"
+        ip_address: "2001:db8:1::1"
+        prefix_length: 128
+      - dut: "D2"
+        loopback: "Loopback0"
+        ip_address: "2001:db8:2::2"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 64
+      - dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "2001:db8:200::1"
+        prefix_length: 64
+    static_routes:
+      - dut: "D1"
+        destination: "2001:db8:2::2/128"
+        next_hop: "2001:db8:24::2"
+      - dut: "D2"
+        destination: "2001:db8:1::1/128"
+        next_hop: "2001:db8:24::1"
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:2::2"
+        remote_asn: 65002
+        update_source: "Loopback0"
+        ebgp_multihop: 2
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:1::1"
+        remote_asn: 65001
+        update_source: "Loopback0"
+        ebgp_multihop: 2
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::"
+        prefix_length: 64
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:200::"
+        prefix_length: 64
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::/64"
+          - "2001:db8:200::/64"
+        expected_next_hop: "2001:db8:1::1"
+        expected_as_path: "65001"
+        min_routes: 2
+
+  # ============================================================================
+  # Test ID 3.2.2.7: IPv6 Network Advertisement with Prefix-List Filtering
+  # ============================================================================
+  "3.2.2.7":
+    title: "IPv6 Network Advertisement with Prefix-List Filtering"
+    description: "Verify IPv6 routes advertised with prefix-list filtering applied"
+    test_objective: "Verify prefix-list filtering for IPv6 route advertisement"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "2001:db8:101::1"
+        prefix_length: 128
+      - dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "2001:db8:102::1"
+        prefix_length: 128
+    static_routes: []
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::2"
+        remote_asn: 65002
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+        prefix_list_out: "ALLOW_100"  # Only allow 2001:db8:100::/64 routes
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:24::1"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    prefix_lists:
+      - dut: "D1"
+        name: "ALLOW_100"
+        family: "ipv6"
+        seq: 10
+        action: "permit"
+        prefix: "2001:db8:100::1/128"
+      - dut: "D1"
+        name: "ALLOW_100"
+        family: "ipv6"
+        seq: 20
+        action: "deny"
+        prefix: "::/0"
+        le: 128
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:101::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:102::1"
+        prefix_length: 128
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::1/128"  # Only this route should be advertised
+        unexpected_routes:
+          - "2001:db8:101::1/128"  # These should be filtered
+          - "2001:db8:102::1/128"
+        expected_next_hop: "2001:db8:24::1"
+        expected_as_path: "65001"
+        min_routes: 1
+        max_routes: 1
+
+  # ============================================================================
+  # Test ID 3.2.2.8: IPv6 Network Advertisement with Bidirectional Exchange
+  # ============================================================================
+  "3.2.2.8":
+    title: "IPv6 Network Advertisement with Bidirectional Exchange"
+    description: "Verify IPv6 routes advertised bidirectionally between D1 and D2"
+    test_objective: "Verify bidirectional IPv6 route advertisement and learning"
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::1"
+        prefix_length: 64
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:24::2"
+        prefix_length: 64
+    loopbacks:
+      - dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:100::1"
+        prefix_length: 64
+      - dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "2001:db8:101::1"
+        prefix_length: 64
+      - dut: "D2"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:200::1"
+        prefix_length: 64
+      - dut: "D2"
+        loopback: "Loopback2"
+        ip_address: "2001:db8:201::1"
+        prefix_length: 64
+    static_routes: []
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:24::2"
+        remote_asn: 65002
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:24::1"
+        remote_asn: 65001
+        vrf: "default"
+        address_family: "ipv6"
+        activate: true
+    bgp_networks:
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:100::"
+        prefix_length: 64
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D1"
+        local_asn: 65001
+        network: "2001:db8:101::"
+        prefix_length: 64
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        network: "2001:db8:200::"
+        prefix_length: 64
+        address_family: "ipv6"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        network: "2001:db8:201::"
+        prefix_length: 64
+        address_family: "ipv6"
+        vrf: "default"
+    verification:
+      - dut: "D1"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:200::/64"  # Routes learned from D2
+          - "2001:db8:201::/64"
+        expected_next_hop: "2001:db8:24::2"
+        expected_as_path: "65002"
+        min_routes: 2
+      - dut: "D2"
+        command: "show bgp ipv6 unicast"
+        expected_routes:
+          - "2001:db8:100::/64"  # Routes learned from D1
+          - "2001:db8:101::/64"
+        expected_next_hop: "2001:db8:24::1"
+        expected_as_path: "65001"
+        min_routes: 2
