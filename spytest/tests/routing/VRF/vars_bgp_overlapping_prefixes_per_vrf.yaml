@@ -1,0 +1,476 @@
+# BGP VRF Overlapping Prefixes Test Variables
+# Test Suite: BGP Test ID 5.1.3 - Overlapping prefixes per VRF
+# Topology: testbed_vs_2node.yaml (2 DUTs connected via Ethernet4)
+
+defaults:
+  cli_type_config: klish
+  cli_type_show: click
+  verify_timeout: 90
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+# Common configuration shared across test cases
+common:
+  interfaces:
+    D1:
+      ethernet:
+        name: Ethernet4
+        ip_address: 10.10.1.1/30
+    D2:
+      ethernet:
+        name: Ethernet4
+        ip_address: 10.10.1.2/30
+
+  asn:
+    D1: 65001
+    D2: 65002
+
+# Test case definitions
+testcases:
+
+  # ========================================================================
+  # Test 5.1.3.1: Basic RIB isolation — identical IPv4 prefix in two VRFs
+  # ========================================================================
+  "5.1.3.1":
+    title: "Basic RIB isolation — identical IPv4 prefix in two VRFs"
+    description: "Verify same IPv4 prefix can exist in VRF_A and VRF_B with independent RIB entries"
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.1/32
+
+    routes:
+      - dut: D1
+        vrf: VRF_A
+        destination: 10.10.10.0/24
+        next_hop: 10.10.1.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 10.10.1.2
+
+      - dut: D1
+        vrf: VRF_B
+        destination: 10.10.10.0/24
+        next_hop: 192.0.2.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 192.0.2.2
+
+  # ========================================================================
+  # Test 5.1.3.2: Data-plane isolation — forwarding to VRF-specific next-hops
+  # ========================================================================
+  "5.1.3.2":
+    title: "Data-plane isolation — forwarding to VRF-specific next-hops"
+    description: "Confirm packets for identical prefix in VRF_A and VRF_B forwarded to respective next-hops"
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.1/32
+
+      - dut: D2
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.2/32
+
+      - dut: D2
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.2/32
+
+    routes:
+      - dut: D1
+        vrf: VRF_A
+        destination: 10.10.10.0/24
+        next_hop: 10.10.1.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 10.10.1.2
+
+      - dut: D1
+        vrf: VRF_B
+        destination: 10.10.10.0/24
+        next_hop: 192.0.2.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 192.0.2.2
+
+  # ========================================================================
+  # Test 5.1.3.3: IPv6 overlapping prefixes per VRF
+  # ========================================================================
+  "5.1.3.3":
+    title: "IPv6 overlapping prefixes per VRF"
+    description: "Verify identical IPv6 prefix present in two VRFs remains isolated"
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback11
+          ip_address: 2001:db8:a::1/128
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback21
+          ip_address: 2001:db8:a::1/128
+
+    routes:
+      - dut: D1
+        vrf: VRF_A
+        destination: 2001:db8:10::/64
+        next_hop: 2001:db8::2
+        family: ipv6
+        verify:
+          type: S
+          nexthop: 2001:db8::2
+
+      - dut: D1
+        vrf: VRF_B
+        destination: 2001:db8:10::/64
+        next_hop: 2001:db8:a::2
+        family: ipv6
+        verify:
+          type: S
+          nexthop: 2001:db8:a::2
+
+  # ========================================================================
+  # Test 5.1.3.4: Overlapping prefix with different route types (static vs BGP)
+  # ========================================================================
+  "5.1.3.4":
+    title: "Overlapping prefix with different route types (static vs BGP) across VRFs"
+    description: "Ensure static route in one VRF and BGP-learned route in another VRF do not conflict"
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.1/32
+
+      - dut: D2
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.2/32
+
+    static_routes:
+      - dut: D1
+        vrf: VRF_A
+        destination: 10.10.10.0/24
+        next_hop: 10.10.1.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 10.10.1.2
+
+    bgp_instances:
+      - dut: D1
+        vrf: VRF_B
+        local_asn: 65001
+        neighbors:
+          - ip: 192.0.2.2
+            remote_asn: 65002
+        networks:
+          - 10.10.10.0/24
+
+      - dut: D2
+        vrf: VRF_B
+        local_asn: 65002
+        neighbors:
+          - ip: 192.0.2.1
+            remote_asn: 65001
+        networks:
+          - 10.10.10.0/24
+
+    bgp_routes:
+      - dut: D1
+        vrf: VRF_B
+        destination: 10.10.10.0/24
+        family: ipv4
+        verify:
+          type: B
+
+  # ========================================================================
+  # Test 5.1.3.5: Controlled sharing via RT import/export
+  # ========================================================================
+  "5.1.3.5":
+    title: "Controlled sharing via RT import/export (intentional import)"
+    description: "Validate explicit import/export allows VRF to learn overlapping prefix from another VRF"
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.1/32
+
+    bgp_instances:
+      - dut: D1
+        vrf: VRF_A
+        local_asn: 65001
+        networks:
+          - 10.10.10.0/24
+        route_target:
+          export:
+            - "65001:10"
+
+      - dut: D1
+        vrf: VRF_B
+        local_asn: 65001
+        route_target:
+          import:
+            - "65001:10"
+
+    verify:
+      - dut: D1
+        vrf: VRF_A
+        prefix: 10.10.10.0/24
+        should_exist: true
+
+      - dut: D1
+        vrf: VRF_B
+        prefix: 10.10.10.0/24
+        should_exist: true
+        description: "Route should be imported via RT"
+
+  # ========================================================================
+  # Test 5.1.3.6: Persistence across save & reboot
+  # ========================================================================
+  "5.1.3.6":
+    title: "Persistence across save & reboot"
+    description: "Verify overlapping prefix entries and VRF isolation persist after config save and DUT reboot"
+
+    reboot_dut: D1
+    reboot_type: normal  # Can be: normal, fast, warm
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.1/32
+
+    routes:
+      - dut: D1
+        vrf: VRF_A
+        destination: 10.10.10.0/24
+        next_hop: 10.10.1.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 10.10.1.2
+
+      - dut: D1
+        vrf: VRF_B
+        destination: 10.10.10.0/24
+        next_hop: 192.0.2.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 192.0.2.2
+
+  # ========================================================================
+  # Test 5.1.3.7: Intentional misconfiguration leak (lab-only)
+  # ========================================================================
+  "5.1.3.7":
+    title: "Intentional misconfiguration leak (lab-only)"
+    description: "Deliberately create misconfiguration to observe and document how leakage occurs"
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+    routes:
+      - dut: D1
+        vrf: VRF_A
+        destination: 10.10.10.0/24
+        next_hop: 10.10.1.2
+        family: ipv4
+        verify:
+          type: S
+          nexthop: 10.10.1.2
+
+    misconfiguration:
+      dut: D1
+      description: "Import VRF route into global table (intentional leak)"
+      commands:
+        - "router bgp 65001 vrf VRF_A"
+        - "address-family ipv4 unicast"
+        - "network 10.10.10.0/24"
+        - "exit"
+        - "exit"
+        - "router bgp 65001"
+        - "address-family ipv4 unicast"
+        - "import vrf VRF_A"
+        - "exit"
+        - "exit"
+      verify_leak:
+        dut: D1
+        table: global
+        prefix: 10.10.10.0/24
+
+    rollback:
+      dut: D1
+      description: "Remove import to fix leak"
+      commands:
+        - "router bgp 65001"
+        - "address-family ipv4 unicast"
+        - "no import vrf VRF_A"
+        - "exit"
+        - "exit"
+        - "no router bgp 65001 vrf VRF_A"
+
+  # ========================================================================
+  # Test 5.1.3.8: Scale: many VRFs with the same prefix
+  # ========================================================================
+  "5.1.3.8":
+    title: "Scale: many VRFs with the same prefix (lab/manual)"
+    description: "Evaluate behavior when many VRFs host identical prefix"
+
+    num_vrfs: 50  # Number of VRFs to create (adjust based on platform capabilities)
+
+    vrf_template:
+      dut: D1
+      name_prefix: VRF_SCALE_
+      loopback_base: 100
+
+    route_template:
+      destination: 10.10.10.0/24
+      next_hop_prefix: 10.10
+      family: ipv4
+
+  # ========================================================================
+  # Test 5.1.3.9: Diagnostics: BGP/MP-BGP attributes and captures
+  # ========================================================================
+  "5.1.3.9":
+    title: "Diagnostics: BGP/MP-BGP attributes and captures for overlapping-prefix investigation"
+    description: "Capture BGP/MP-BGP NLRI (RD/RT), system logs and tcpdumps"
+
+    diagnostic_dut: D1
+
+    vrfs:
+      - dut: D1
+        name: VRF_A
+        loopback:
+          interface: Loopback10
+          ip_address: 192.0.2.1/32
+
+      - dut: D1
+        name: VRF_B
+        loopback:
+          interface: Loopback20
+          ip_address: 192.0.2.1/32
+
+    bgp_instances:
+      - dut: D1
+        vrf: VRF_A
+        local_asn: 65001
+        networks:
+          - 10.10.10.0/24
+        route_target:
+          export:
+            - "65001:10"
+
+      - dut: D1
+        vrf: VRF_B
+        local_asn: 65001
+        route_target:
+          import:
+            - "65001:10"
+
+    verify:
+      - dut: D1
+        vrf: VRF_A
+        prefix: 10.10.10.0/24
+
+      - dut: D1
+        vrf: VRF_B
+        prefix: 10.10.10.0/24
+        description: "Should be imported via RT"
+
+    capture:
+      interface: Ethernet4
+      filter: "tcp port 179"
+      output_file: "/tmp/bgp_vrf_overlap_diagnostics.pcap"
+
+# Additional notes and metadata
+metadata:
+  test_suite_id: "5.1.3"
+  feature: BGP
+  sub_feature: VRF
+  category: Routing
+  topology_requirement: "2-node minimum"
+  estimated_duration_minutes: 120
+  tags:
+    - vrf
+    - bgp
+    - route-isolation
+    - mp-bgp
+    - route-target
+
+  notes: |
+    - All test cases use klish CLI for configuration and click CLI for show commands
+    - VRF names (VRF_A, VRF_B) can be modified if needed
+    - Prefixes (10.10.10.0/24) and next-hops should align with topology
+    - Some subtests (RT import/export, scale, intentional leak) require specific features
+    - Scale test (5.1.3.8) may need adjustment based on platform limits
+    - Reboot test (5.1.3.6) timeout is extended to account for reboot time
+    - Negative test (5.1.3.7) should only be run in lab environments
+
+  prerequisites:
+    - VRF support enabled
+    - MP-BGP support for RT import/export tests (5.1.3.5, 5.1.3.9)
+    - Minimum 2 DUTs connected via at least 1 link
+    - Loopback interfaces available (Loopback10-30 and Loopback100-150 for scale)
+
+  cleanup_notes: |
+    - All VRFs, routes, and BGP instances are automatically cleaned up after each test
+    - Cleanup can be disabled by setting defaults.cleanup to false
+    - Manual cleanup may be needed if tests fail unexpectedly
+    - Use cleanup_bgp.py utility for emergency cleanup if needed
