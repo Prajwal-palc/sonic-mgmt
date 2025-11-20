@@ -1,0 +1,301 @@
+---
+# BGP AS-PATH Loop Prevention Test Variables
+# Test ID: 4.1.1
+# Topology: testbed_vs_2node.yaml (2 DUTs with 1 link)
+
+defaults:
+  cli_type_config: klish  # Use klish for configuration commands
+  cli_type_show: click    # Use click for show commands
+  verify_timeout: 90
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+# Global test parameters
+global_params:
+  # DUT1 parameters (AS 65001)
+  d1_asn: 65001
+  d1_router_id: "1.1.1.1"
+  d1_interface: "Ethernet4"
+  d1_ip: "10.0.24.1"
+  d1_subnet: "31"
+
+  # DUT2 parameters (AS 65002)
+  d2_asn: 65002
+  d2_router_id: "2.2.2.2"
+  d2_interface: "Ethernet4"
+  d2_ip: "10.0.24.0"
+  d2_subnet: "31"
+
+  # Test prefixes
+  test_prefix_1: "198.51.200.0/24"
+  test_prefix_2: "198.51.201.0/24"
+  test_prefix_ipv6: "2001:db8:200::/64"
+
+testcases:
+  "4.1.1.1":
+    title: "Basic AS-PATH loop detection (direct eBGP)"
+    description: "Verify route with local AS in AS_PATH is rejected"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.24.1"
+        subnet: "31"
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.24.0"
+        subnet: "31"
+
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.24.0"
+        remote_asn: 65002
+        family: "ipv4"
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.24.1"
+        remote_asn: 65001
+        family: "ipv4"
+
+    verify_sessions:
+      - dut: "D1"
+        neighbor_ip: "10.0.24.0"
+      - dut: "D2"
+        neighbor_ip: "10.0.24.1"
+
+    prefix_lists:
+      - dut: "D2"
+        prefix_list_name: "TEST_PREFIX"
+        sequence: "10"
+        action: "permit"
+        prefix: "198.51.200.0/24"
+
+    route_maps:
+      - dut: "D2"
+        route_map_name: "SET_ASPATH"
+        sequence: "10"
+        action: "permit"
+        match_prefix_list: "TEST_PREFIX"
+        set_aspath_prepend: "65001 65100"  # Prepend local AS of D1
+
+    bgp_networks:
+      - dut: "D2"
+        local_asn: 65002
+        network: "198.51.200.0/24"
+        family: "ipv4"
+
+    route_map_apply:
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.24.1"
+        route_map_name: "SET_ASPATH"
+        direction: "out"
+        family: "ipv4"
+
+    verify_route_absent:
+      - dut: "D1"
+        prefix: "198.51.200.0/24"
+
+    expected:
+      - "Route containing local AS (65001) in AS_PATH is rejected on D1"
+      - "Route not present in BGP table"
+      - "Route not installed in RIB/FIB"
+      - "Logs indicate AS-PATH loop detection"
+
+  "4.1.1.2":
+    title: "AS-PATH prepend does not bypass loop detection"
+    description: "Verify multiple AS prepends still trigger loop detection"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.24.1"
+        subnet: "31"
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.24.0"
+        subnet: "31"
+
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.24.0"
+        remote_asn: 65002
+        family: "ipv4"
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.24.1"
+        remote_asn: 65001
+        family: "ipv4"
+
+    verify_sessions:
+      - dut: "D1"
+        neighbor_ip: "10.0.24.0"
+      - dut: "D2"
+        neighbor_ip: "10.0.24.1"
+
+    prefix_lists:
+      - dut: "D2"
+        prefix_list_name: "TEST_PREFIX_PREPEND"
+        sequence: "10"
+        action: "permit"
+        prefix: "198.51.201.0/24"
+
+    route_maps:
+      - dut: "D2"
+        route_map_name: "SET_ASPATH_PREPEND"
+        sequence: "10"
+        action: "permit"
+        match_prefix_list: "TEST_PREFIX_PREPEND"
+        set_aspath_prepend: "65001 65001 65100"  # Multiple prepends with local AS
+
+    bgp_networks:
+      - dut: "D2"
+        local_asn: 65002
+        network: "198.51.201.0/24"
+        family: "ipv4"
+
+    route_map_apply:
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.24.1"
+        route_map_name: "SET_ASPATH_PREPEND"
+        direction: "out"
+        family: "ipv4"
+
+    verify_route_absent:
+      - dut: "D1"
+        prefix: "198.51.201.0/24"
+
+    expected:
+      - "Route with prepended AS_PATH still rejected on D1"
+      - "Multiple occurrences of local AS do not bypass loop detection"
+      - "Route not present in BGP table"
+      - "Route not installed in RIB/FIB"
+
+  "4.1.1.6":
+    title: "IPv6 AS-PATH loop prevention"
+    description: "Verify AS-PATH loop prevention for IPv6 NLRI"
+
+    interfaces:
+      - dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:1::1"
+        subnet: "64"
+        family: "ipv6"
+      - dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:1::2"
+        subnet: "64"
+        family: "ipv6"
+
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:1::2"
+        remote_asn: 65002
+        family: "ipv6"
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:1::1"
+        remote_asn: 65001
+        family: "ipv6"
+
+    prefix_lists:
+      - dut: "D2"
+        prefix_list_name: "TEST_PREFIX_v6"
+        sequence: "10"
+        action: "permit"
+        prefix: "2001:db8:200::/64"
+        family: "ipv6"
+
+    route_maps:
+      - dut: "D2"
+        route_map_name: "SET_ASPATH_v6"
+        sequence: "10"
+        action: "permit"
+        match_prefix_list: "TEST_PREFIX_v6"
+        set_aspath_prepend: "65001 65100"
+
+    verify_route_absent:
+      - dut: "D1"
+        prefix: "2001:db8:200::/64"
+        family: "ipv6"
+
+    expected:
+      - "IPv6 routes with local AS in AS_PATH are rejected"
+      - "Loop prevention semantics identical to IPv4"
+
+  "4.1.1.7":
+    title: "Policy bypass prevention"
+    description: "Ensure policies cannot silently create AS loops"
+    test_type: "NEGATIVE"
+    notes:
+      - "Tests that route-maps cannot bypass AS-PATH loop detection"
+      - "Platform should prevent or warn about dangerous configs"
+      - "Behavior may be vendor-specific"
+
+  "4.1.1.8":
+    title: "Logging and diagnostics for AS loop events"
+    description: "Validate diagnostic information for AS-PATH loop prevention"
+
+    diagnostic_checks:
+      - type: "syslog"
+        location: "/var/log/frr/frr.log"
+        expected_messages:
+          - "AS path loop detected"
+          - "BGP update rejected"
+
+      - type: "pcap"
+        interface: "Ethernet4"
+        filter: "port 179"
+        expected_content:
+          - "BGP UPDATE with AS_PATH attribute"
+          - "Local AS number in AS_PATH"
+
+      - type: "show_commands"
+        commands:
+          - "show ip bgp <prefix>"
+          - "show ip bgp neighbors <peer> received-routes"
+          - "show logging | grep -i loop"
+
+    notes:
+      - "Requires access to system logs"
+      - "Packet capture capability needed"
+      - "Validates operator diagnostic capabilities"
+
+# Additional notes for test execution
+execution_notes:
+  - "Tests 4.1.1.1 and 4.1.1.2 are fully automated for 2-node topology"
+  - "Test 4.1.1.6 requires IPv6 support"
+  - "Test 4.1.1.7 is a negative test - platform behavior may vary"
+  - "Test 4.1.1.8 focuses on diagnostics and observability"
+  - "Replace IP addresses and AS numbers as needed for your testbed"
+  - "Ensure BGP sessions have time to establish (use appropriate timeouts)"
+  - "Clean up all configurations after test completion"
