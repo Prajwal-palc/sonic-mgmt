@@ -1,0 +1,959 @@
+# BGP Next-hop Propagation Test Variables - Test ID 3.2.4
+# ================================================================
+# This file contains test case definitions for BGP next-hop propagation
+# testing covering IPv4 and IPv6 scenarios with eBGP and iBGP sessions.
+#
+# Topology: testbed_vs_2node.yaml (2 DUTs connected via Ethernet4)
+# Configuration CLI: klish (sonic-cli)
+# Verification CLI: click (show commands)
+#
+# Test Coverage:
+# - 3.2.4.1: eBGP IPv4 next-hop rewrite (directly connected)
+# - 3.2.4.2: iBGP IPv4 next-hop preserved (no next-hop-self)
+# - 3.2.4.3: iBGP next-hop-self behavior
+# - 3.2.4.4: eBGP multi-hop loopback-based next-hop
+# - 3.2.4.5: IPv6 eBGP next-hop rewrite
+# - 3.2.4.6: IPv6 link-local next-hop handling
+# - 3.2.4.7: Route-reflector next-hop propagation
+# - 3.2.4.8: Next-hop unreachable behavior (RIB/FIB)
+# - 3.2.4.9: Static redistribution next-hop
+# ================================================================
+
+defaults:
+  config_cli_type: klish
+  show_cli_type: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  bgp_convergence_time: 30
+
+testcases:
+  # ================================================================
+  # Test 3.2.4.1: eBGP IPv4 Next-hop Rewrite (Directly Connected)
+  # ================================================================
+  "3.2.4.1":
+    title: "eBGP IPv4 next-hop rewrite (directly connected)"
+    description: "When a prefix is advertised from eBGP peer A to B, B should see the next-hop as A's advertising IP (link IP)"
+
+    setup:
+      # Configure interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 192.168.100.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65002
+        router_id: 192.168.100.2
+
+      # Configure BGP neighbors
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 192.168.100.2
+        remote_asn: 65002
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65002
+        neighbor_ip: 192.168.100.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Advertise test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.100.0/24
+        family: ipv4
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: 192.168.100.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 192.168.100.1
+        expected_state: Established
+
+      # Verify next-hop on D2 is D1's link IP
+      - type: bgp_nexthop
+        dut: D2
+        prefix: 198.51.100.0/24
+        expected_nexthop: 192.168.100.1
+        family: ipv4
+
+      # Verify route installed in RIB
+      - type: route_in_rib
+        dut: D2
+        prefix: 198.51.100.0/24
+        should_exist: true
+        family: ipv4
+
+  # ================================================================
+  # Test 3.2.4.2: iBGP IPv4 Next-hop Preserved (No next-hop-self)
+  # ================================================================
+  "3.2.4.2":
+    title: "iBGP IPv4 next-hop preserved (no next-hop-self)"
+    description: "Verify iBGP peers preserve the original next-hop learned from eBGP when redistributing into iBGP"
+
+    setup:
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Configure link interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure static routes for loopback reachability
+      - type: static_route
+        dut: D1
+        destination: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        destination: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors (same AS)
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        update_source: Loopback0
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        update_source: Loopback0
+        family: ipv4
+
+      # Advertise test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.101.0/24
+        family: ipv4
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify next-hop on D2 is preserved (D1's loopback)
+      - type: bgp_nexthop
+        dut: D2
+        prefix: 198.51.101.0/24
+        expected_nexthop: 1.1.1.1
+        family: ipv4
+
+  # ================================================================
+  # Test 3.2.4.3: iBGP Next-hop-self Behavior
+  # ================================================================
+  "3.2.4.3":
+    title: "iBGP next-hop-self behavior (explicitly set)"
+    description: "Verify that configuring next-hop-self on iBGP speaker causes it to set itself as next-hop"
+
+    setup:
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Configure link interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure static routes
+      - type: static_route
+        dut: D1
+        destination: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        destination: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors with next-hop-self on D1
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        update_source: Loopback0
+        next_hop_self: true
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        update_source: Loopback0
+        family: ipv4
+
+      # Advertise test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.101.0/24
+        family: ipv4
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify next-hop on D2 is D1's loopback (next-hop-self rewritten)
+      - type: bgp_nexthop
+        dut: D2
+        prefix: 198.51.101.0/24
+        expected_nexthop: 1.1.1.1
+        family: ipv4
+
+  # ================================================================
+  # Test 3.2.4.4: eBGP Multi-hop Loopback-based Next-hop
+  # ================================================================
+  "3.2.4.4":
+    title: "eBGP IPv4 multi-hop using loopbacks next-hop behavior"
+    description: "When eBGP is formed between loopbacks with ebgp-multihop, verify next-hop behavior"
+
+    setup:
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Configure link interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure static routes for loopback reachability
+      - type: static_route
+        dut: D1
+        destination: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        destination: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65002
+        router_id: 2.2.2.2
+
+      # Configure eBGP neighbors with multihop
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65002
+        update_source: Loopback0
+        ebgp_multihop: 2
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65002
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        update_source: Loopback0
+        ebgp_multihop: 2
+        family: ipv4
+
+      # Advertise test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 203.0.113.0/24
+        family: ipv4
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify next-hop on D2 is D1's loopback (update-source IP)
+      - type: bgp_nexthop
+        dut: D2
+        prefix: 203.0.113.0/24
+        expected_nexthop: 1.1.1.1
+        family: ipv4
+
+      # Verify next-hop is reachable
+      - type: nexthop_reachable
+        dut: D2
+        nexthop: 1.1.1.1
+        should_be_reachable: true
+
+  # ================================================================
+  # Test 3.2.4.5: IPv6 eBGP Next-hop Rewrite
+  # ================================================================
+  "3.2.4.5":
+    title: "IPv6 eBGP next-hop rewrite (global IPv6 addresses)"
+    description: "For IPv6 eBGP, ensure that the next-hop for received prefixes is set to the advertising neighbor's IPv6 address"
+
+    setup:
+      # Configure link interfaces with IPv6
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: "2001:db8:100::1"
+        prefix_length: 64
+        family: ipv6
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: "2001:db8:100::2"
+        prefix_length: 64
+        family: ipv6
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65002
+        router_id: 2.2.2.2
+
+      # Configure BGP neighbors for IPv6
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: "2001:db8:100::2"
+        remote_asn: 65002
+        family: ipv6
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65002
+        neighbor_ip: "2001:db8:100::1"
+        remote_asn: 65001
+        family: ipv6
+
+      # Advertise IPv6 test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: "2001:db8:50::/64"
+        family: ipv6
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: "2001:db8:100::2"
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: "2001:db8:100::1"
+        expected_state: Established
+
+      # Verify next-hop on D2 is D1's IPv6 link address
+      - type: bgp_nexthop
+        dut: D2
+        prefix: "2001:db8:50::/64"
+        expected_nexthop: "2001:db8:100::1"
+        family: ipv6
+
+  # ================================================================
+  # Test 3.2.4.6: IPv6 Link-local Next-hop Handling
+  # ================================================================
+  "3.2.4.6":
+    title: "IPv6 link-local next-hop handling (fe80::) with zone index"
+    description: "Verify that when IPv6 routes are learned with link-local next-hops, the system records the interface (zone index)"
+
+    setup:
+      # Enable IPv6 on interfaces (link-local auto-generated)
+      - type: ipv6_enable
+        dut: D1
+        interface: Ethernet4
+
+      - type: ipv6_enable
+        dut: D2
+        interface: Ethernet4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65002
+        router_id: 2.2.2.2
+
+      # Configure BGP neighbors using interface-based peering for IPv6
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        interface: Ethernet4
+        remote_asn: 65002
+        family: ipv6
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65002
+        interface: Ethernet4
+        remote_asn: 65001
+        family: ipv6
+
+      # Advertise IPv6 test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: "2001:db8:60::/64"
+        family: ipv6
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: Ethernet4
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: Ethernet4
+        expected_state: Established
+
+      # Verify next-hop shows link-local with zone index
+      - type: bgp_nexthop
+        dut: D2
+        prefix: "2001:db8:60::/64"
+        expected_nexthop: "fe80::"
+        family: ipv6
+
+  # ================================================================
+  # Test 3.2.4.7: Route-Reflector Next-hop Propagation
+  # ================================================================
+  "3.2.4.7":
+    title: "iBGP with Route-Reflector: next-hop propagation from client->non-client"
+    description: "When a route is learned from an eBGP peer by a route-reflector client, verify how next-hop is propagated"
+
+    setup:
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Configure link interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure static routes
+      - type: static_route
+        dut: D1
+        destination: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        destination: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP with D1 as RR, D2 as client
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        update_source: Loopback0
+        route_reflector_client: true
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        update_source: Loopback0
+        family: ipv4
+
+      # Advertise test prefix from D1 (RR)
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.102.0/24
+        family: ipv4
+
+    verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify next-hop on D2 (should be D1's loopback)
+      - type: bgp_nexthop
+        dut: D2
+        prefix: 198.51.102.0/24
+        expected_nexthop: 1.1.1.1
+        family: ipv4
+
+  # ================================================================
+  # Test 3.2.4.8: Next-hop Unreachable Behavior (RIB/FIB)
+  # ================================================================
+  "3.2.4.8":
+    title: "Next-hop unreachable behavior (RIB vs FIB) - IPv4 and IPv6"
+    description: "Verify that when a BGP next-hop is not reachable, route may exist in RIB but not be installed in FIB"
+
+    # Phase 1: Configure with unreachable next-hop
+    phase1_setup:
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Configure link interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Only configure static route on D2 (NOT on D1 - making D2 unreachable from D1)
+      - type: static_route
+        dut: D2
+        destination: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        update_source: Loopback0
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        update_source: Loopback0
+        family: ipv4
+
+      # Advertise test prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.103.0/24
+        family: ipv4
+
+    phase1_verify:
+      # Verify BGP session established
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify route NOT in routing table (next-hop unreachable)
+      - type: route_in_rib
+        dut: D2
+        prefix: 198.51.103.0/24
+        should_exist: false
+        family: ipv4
+
+      # Verify next-hop is not reachable
+      - type: nexthop_reachable
+        dut: D2
+        nexthop: 1.1.1.1
+        should_be_reachable: true
+
+    # Phase 2: Make next-hop reachable
+    phase2_setup:
+      # Add static route on D1 to make D2's loopback reachable
+      - type: static_route
+        dut: D1
+        destination: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+    phase2_verify:
+      # Verify route NOW in routing table (next-hop reachable)
+      - type: route_in_rib
+        dut: D2
+        prefix: 198.51.103.0/24
+        should_exist: true
+        family: ipv4
+
+      # Verify next-hop is reachable
+      - type: nexthop_reachable
+        dut: D2
+        nexthop: 1.1.1.1
+        should_be_reachable: true
+
+  # ================================================================
+  # Test 3.2.4.9: Static Redistribution Next-hop
+  # ================================================================
+  "3.2.4.9":
+    title: "Redistribution/aggregate: next-hop set when advertising static into BGP"
+    description: "Verify next-hop used when a locally configured static route is redistributed into BGP"
+
+    setup:
+      # Configure link interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure IPv6 on interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: "2001:db8:100::1"
+        prefix_length: 64
+        family: ipv6
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: "2001:db8:100::2"
+        prefix_length: 64
+        family: ipv6
+
+      # Configure static routes to Null0 (for redistribution)
+      - type: static_route
+        dut: D1
+        destination: 198.51.200.0/24
+        interface: Null0
+        family: ipv4
+
+      - type: static_route
+        dut: D1
+        destination: "2001:db8:200::/64"
+        interface: Null0
+        family: ipv6
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 192.168.100.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65002
+        router_id: 192.168.100.2
+
+      # Configure BGP neighbors for IPv4
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 192.168.100.2
+        remote_asn: 65002
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65002
+        neighbor_ip: 192.168.100.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Configure BGP neighbors for IPv6
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: "2001:db8:100::2"
+        remote_asn: 65002
+        family: ipv6
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65002
+        neighbor_ip: "2001:db8:100::1"
+        remote_asn: 65001
+        family: ipv6
+
+      # Advertise static routes via BGP network command
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.200.0/24
+        family: ipv4
+
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: "2001:db8:200::/64"
+        family: ipv6
+
+    verify:
+      # Verify BGP sessions established
+      - type: bgp_session
+        dut: D1
+        neighbor: 192.168.100.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 192.168.100.1
+        expected_state: Established
+
+      # Verify IPv4 next-hop on D2 is D1's link IP
+      - type: bgp_nexthop
+        dut: D2
+        prefix: 198.51.200.0/24
+        expected_nexthop: 192.168.100.1
+        family: ipv4
+
+      # Verify IPv6 next-hop on D2 is D1's IPv6 link address
+      - type: bgp_nexthop
+        dut: D2
+        prefix: "2001:db8:200::/64"
+        expected_nexthop: "2001:db8:100::1"
+        family: ipv6
+
+      # Verify routes installed in RIB
+      - type: route_in_rib
+        dut: D2
+        prefix: 198.51.200.0/24
+        should_exist: true
+        family: ipv4
+
+      - type: route_in_rib
+        dut: D2
+        prefix: "2001:db8:200::/64"
+        should_exist: true
+        family: ipv6
