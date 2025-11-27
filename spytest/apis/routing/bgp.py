@@ -642,7 +642,7 @@ def create_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, keep_alive=60, 
         # Enter neighbor context with combined command
         commands.append("neighbor {} remote-as {}".format(neighbor_ip, remote_asn))
         # Configure properties within neighbor context
-        commands.append("timers {} {}".format(keep_alive, hold))
+        # commands.append("timers {} {}".format(keep_alive, hold))
         if password:
             commands.append("password {}".format(password))
         # Configure address-family within neighbor context
@@ -1121,6 +1121,7 @@ def config_bgp_neighbor_properties(dut, local_asn, neighbor_ip, family=None, mod
                 commands.append("{} password {}".format(no_form, password))
 
         if "keep_alive" in properties and "hold_time" in properties:
+            # Neighbor timers not supported in klish neighbor context
             commands.append("{} timers {} {}".format(no_form, properties["keep_alive"], properties["hold_time"]))
 
         if "neighbor_shutdown" in properties:
