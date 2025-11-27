@@ -317,6 +317,8 @@ class TestBgpIpv4Basic:
 
             # Step 2: Configure BGP routers
             st.banner("Step 2: Configure BGP routers")
+            self._unconfigure_bgp(self.data.dut1, dut1_config["bgp_asn"])
+            self._unconfigure_bgp(self.data.dut2, dut2_config["bgp_asn"])
             self._configure_bgp_router(
                 self.data.dut1,
                 dut1_config["bgp_asn"],
