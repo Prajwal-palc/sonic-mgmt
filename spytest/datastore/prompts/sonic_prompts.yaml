@@ -45,7 +45,7 @@ patterns:
     # =====================================================================
     mgmt-user: '--sonic-mgmt--#'
     #mgmt-config: '--sonic-mgmt--\(config(-s)?\)#'
-    mgmt-config: '--sonic-mgmt--\((config(-s)?)?\)#'
+    mgmt-config: '--sonic-mgmt--(\([^)]*\))?#'
     #mgmt-intf-config: '--sonic-mgmt--\(conf\w*-if-Eth.*\)#'
     mgmt-intf-config: '--sonic-mgmt--\((?:conf\w*-)?-?if-Eth.*\)#'
     mgmt-subintf-config: '--sonic-mgmt--\(conf\w*-subif-Eth.*\)#'
@@ -506,3 +506,4 @@ sudo_include_prompts: ['normal-user']
 #    Prompts where show commands should be not be executed with DO.
 ##########################################################################
 do_exclude_prompts: ['normal-user', 'vtysh-user', 'mgmt-user', 'root-user']
+

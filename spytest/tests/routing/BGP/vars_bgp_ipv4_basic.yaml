@@ -1,0 +1,51 @@
+# BGP IPv4 Basic Test Configuration
+# This file contains test variables for BGP IPv4 basic configuration and verification tests
+
+defaults:
+  # CLI type to use for configuration and verification
+  cli_type: klish
+
+  # Timeout for BGP session verification (seconds)
+  verify_timeout: 90
+
+  # Enable cleanup after test execution
+  cleanup: true
+
+  # Minimum topology requirement: 2 DUTs with 1 link between them
+  min_topology:
+    - "D1D2:1"
+
+# Test cases configuration
+testcases:
+  # Test Case 001: BGP IPv4 Configure, Verify, Unconfigure
+  "001":
+    title: "BGP IPv4 neighbor session establishment and cleanup"
+    description: |
+      Configure IPv4 addresses on interfaces, establish iBGP neighbor session,
+      verify session state, and perform clean unconfiguration.
+
+    # DUT1 configuration parameters
+    # Note: interface name is dynamically resolved from topology
+    dut1:
+      ip_address: "10.1.1.1"
+      subnet: "24"
+      bgp_asn: 65001
+      router_id: "1.1.1.1"
+      neighbor_ip: "10.1.1.2"
+      remote_asn: 65001
+
+    # DUT2 configuration parameters
+    # Note: interface name is dynamically resolved from topology
+    dut2:
+      ip_address: "10.1.1.2"
+      subnet: "24"
+      bgp_asn: 65001
+      router_id: "2.2.2.2"
+      neighbor_ip: "10.1.1.1"
+      remote_asn: 65001
+
+    # Expected verification results
+    verification:
+      bgp_session_state: "Established"
+      address_family: "ipv4"
+      neighbor_count: 1
