@@ -14,17 +14,18 @@ Description:
   End-to-end validation of BGP IPv4 neighbor session establishment using
   SpyTest APIs and the klish CLI. The test configures IPv4 addresses on
   interfaces, establishes iBGP neighbor sessions, verifies session state,
-  and performs clean teardown. This test uses topology-aware variables
-  from YAML to remain reusable across SONiC hardware and virtual environments.
+  and performs clean teardown. Interface names are dynamically resolved from
+  the topology file, and test parameters are loaded from YAML to remain
+  reusable across SONiC hardware and virtual environments.
 
 Pre-requisites:
   - Topology: two-node (D1-D2) | Supported: HW and Virtual
   - Topology Diagram:
-        # Topology - 2 nodes
+        # Topology - 2 nodes (interfaces dynamically resolved from topology)
         # +--------------------+                       +--------------------+
         # |        DUT1        |                       |        DUT2        |
-        # | Eth4 10.1.1.1/24   |=======================| Eth4 10.1.1.2/24   |
-        # | BGP AS 65001       |                       | BGP AS 65001       |
+        # |    10.1.1.1/24     |=======================|    10.1.1.2/24     |
+        # | BGP AS 65001       |      D1D2P1-D2D1P1   | BGP AS 65001       |
         # | Router-ID 1.1.1.1  |                       | Router-ID 2.2.2.2  |
         # +--------------------+                       +--------------------+
 
@@ -102,7 +103,12 @@ class TestBgpIpv4Basic:
         cls.data.dut1 = topology.D1
         cls.data.dut2 = topology.D2
 
+        # Store interface references from topology (dynamically resolved)
+        cls.data.dut1_interface = topology.D1D2P1  # DUT1's interface connected to DUT2
+        cls.data.dut2_interface = topology.D2D1P1  # DUT2's interface connected to DUT1
+
         st.log(f"Setup complete: DUT1={cls.data.dut1}, DUT2={cls.data.dut2}")
+        st.log(f"Interfaces: DUT1={cls.data.dut1_interface}, DUT2={cls.data.dut2_interface}")
 
     @classmethod
     def teardown_class(cls) -> None:
@@ -206,6 +212,7 @@ class TestBgpIpv4Basic:
         dut: str,
         local_asn: int,
         neighbor_ip: str,
+        remote_asn: int,
         family: str = "ipv4",
         vrf: str = 'default'
     ) -> None:
@@ -218,6 +225,7 @@ class TestBgpIpv4Basic:
             family=family,
             mode='unicast',
             vrf=vrf,
+            remote_asn=remote_asn,
             activate='yes',
             cli_type=self.data.cli_type
         )
@@ -245,7 +253,7 @@ class TestBgpIpv4Basic:
                 cli_type=self.data.cli_type
             )
 
-        if not st.poll_wait(_check_bgp_session, self.data.verify_timeout, 5):
+        if not st.poll_wait(_check_bgp_session, self.data.verify_timeout):
             st.report_fail("msg", f"BGP session {neighbor_ip} not in {state} state on {dut}")
 
     def _unconfigure_bgp(self, dut: str, local_asn: int = None, vrf: str = 'default') -> None:
@@ -296,13 +304,13 @@ class TestBgpIpv4Basic:
             st.banner("Step 1: Configure interface IP addresses")
             self._configure_interface_ip(
                 self.data.dut1,
-                dut1_config["interface"],
+                self.data.dut1_interface,
                 dut1_config["ip_address"],
                 dut1_config["subnet"]
             )
             self._configure_interface_ip(
                 self.data.dut2,
-                dut2_config["interface"],
+                self.data.dut2_interface,
                 dut2_config["ip_address"],
                 dut2_config["subnet"]
             )
@@ -340,12 +348,14 @@ class TestBgpIpv4Basic:
             self._activate_bgp_neighbor(
                 self.data.dut1,
                 dut1_config["bgp_asn"],
-                dut1_config["neighbor_ip"]
+                dut1_config["neighbor_ip"],
+                dut1_config["remote_asn"]
             )
             self._activate_bgp_neighbor(
                 self.data.dut2,
                 dut2_config["bgp_asn"],
-                dut2_config["neighbor_ip"]
+                dut2_config["neighbor_ip"],
+                dut2_config["remote_asn"]
             )
 
             # Step 5: Verify BGP session establishment
@@ -373,13 +383,13 @@ class TestBgpIpv4Basic:
             st.banner("Step 7: Unconfigure interface IP addresses")
             self._unconfigure_interface_ip(
                 self.data.dut1,
-                dut1_config["interface"],
+                self.data.dut1_interface,
                 dut1_config["ip_address"],
                 dut1_config["subnet"]
             )
             self._unconfigure_interface_ip(
                 self.data.dut2,
-                dut2_config["interface"],
+                self.data.dut2_interface,
                 dut2_config["ip_address"],
                 dut2_config["subnet"]
             )

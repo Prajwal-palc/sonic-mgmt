@@ -638,17 +638,18 @@ def create_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, keep_alive=60, 
             st.config(dut, command, type='vtysh')
     elif cli_type == 'klish':
         commands = list()
-        commands.append("neighbor {}".format(neighbor_ip))
-        commands.append("remote-as {}".format(remote_asn))
+        # Enter neighbor context with combined command
+        commands.append("neighbor {} remote-as {}".format(neighbor_ip, remote_asn))
+        # Configure properties within neighbor context
         commands.append("timers {} {}".format(keep_alive, hold))
         if password:
-            commands.append("password {}\n".format(password))
+            commands.append("password {}".format(password))
+        # Configure address-family within neighbor context
         if family:
             commands.append("address-family {} unicast".format(family))
             commands.append("activate")
-            commands.append("exit")
-        commands.append("exit")
-        commands.append("exit")
+            commands.append("exit")  # Exit neighbor AF
+        commands.append("exit")  # Exit neighbor context
         st.config(dut, commands, type=cli_type)
     elif cli_type in ["rest-patch", "rest-put"]:
         rest_urls = st.get_datastore(dut, 'rest_urls')
@@ -755,15 +756,25 @@ def config_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, family="ipv4",
         return True
     elif cli_type == "klish":
         commands = list()
-        commands.append("{} neighbor {}".format(cfgmode, neighbor_ip))
+        neighbor_prefix = "neighbor {}".format(neighbor_ip)
+
         if config == "yes":
-            commands.append("remote-as {}".format(remote_asn))
-            commands.append("timers {} {}".format(keep_alive, hold))
-            commands.append("timers connect {}".format(connect_retry))
+            # Configure timers at router BGP level (not within neighbor context)
+            commands.append("{} remote-as {}".format(neighbor_prefix, remote_asn))
+            commands.append("{} timers {} {}".format(neighbor_prefix, keep_alive, hold))
+            commands.append("{} timers connect {}".format(neighbor_prefix, connect_retry))
+
+            # Enter neighbor context for address-family configuration
+            commands.append("{} remote-as {}".format(neighbor_prefix, remote_asn))
             commands.append("address-family {} unicast".format(family))
             commands.append("activate")
-            commands.append("exit")
-            commands.append("exit")  # exit neighbor
+            commands.append("exit")  # exit neighbor AF
+            commands.append("exit")  # exit neighbor context
+        else:
+            # For deletion, use 'no' prefix with combined command
+            commands.append("no {} remote-as {}".format(neighbor_prefix, remote_asn))
+            commands.append("no {}".format(neighbor_prefix))
+
         commands.append("exit")  # exit router-bgp
         st.config(dut, commands, type=cli_type, skip_error_check=skip_error_check)
         return True
@@ -1078,26 +1089,44 @@ def config_bgp_neighbor_properties(dut, local_asn, neighbor_ip, family=None, mod
         return True
     elif cli_type == "klish":
         commands = list()
+        remote_asn = kwargs.get('remote_asn', None)
+
+        # In klish BGP, to configure neighbor properties, we must enter neighbor context
+        # This requires: neighbor X followed by remote-as Y
+        # Build the neighbor identifier
         if not peergroup:
             neigh_name = get_interface_number_from_name(neighbor_ip)
             if isinstance(neigh_name, dict):
-                commands.append("neighbor interface {} {}".format(neigh_name["type"], neigh_name["number"]))
+                neighbor_cmd = "neighbor interface {} {}".format(neigh_name["type"], neigh_name["number"])
             else:
-                commands.append("neighbor {}".format(neigh_name))
+                neighbor_cmd = "neighbor {}".format(neigh_name)
         else:
-            commands.append("peer-group {}".format(neighbor_ip))
+            neighbor_cmd = "peer-group {}".format(neighbor_ip)
+
+        # Enter neighbor context if we have remote_asn
+        # Must use combined command in klish
+        if remote_asn:
+            commands.append("{} remote-as {}".format(neighbor_cmd, remote_asn))
+
+        # Configure neighbor-level properties (within neighbor context)
         if "password" in properties:
             password = "" if no_form == 'no' else properties["password"]
             if kwargs.get('encrypted'):
+                if not remote_asn:
+                    commands.append(neighbor_cmd)
                 commands.append("password {} encrypted".format(password))
-                commands.append("exit")
-
+                if not remote_asn:
+                    commands.append("exit")
             else:
                 commands.append("{} password {}".format(no_form, password))
+
         if "keep_alive" in properties and "hold_time" in properties:
             commands.append("{} timers {} {}".format(no_form, properties["keep_alive"], properties["hold_time"]))
+
         if "neighbor_shutdown" in properties:
             commands.append("{} shutdown".format(no_form))
+
+        # Configure address-family properties (within neighbor AF context)
         if family and mode:
             commands.append("address-family {} {}".format(family, mode))
             if "activate" in properties:
@@ -1118,18 +1147,18 @@ def config_bgp_neighbor_properties(dut, local_asn, neighbor_ip, family=None, mod
                 commands.append("{} maximum-prefix {}".format(no_form, cmd))
 
             if "community" in properties:
-                # community = "" if no_form == 'no' else properties["community"]
                 commands.append("{} send-community {}".format(no_form, properties["community"]))
             if "soft_reconfig" in properties:
                 commands.append("{} soft-reconfiguration inbound".format(no_form))
             if "orf_dir" in properties:
                 commands.append("{} capability orf prefix-list {}".format(no_form, properties["orf_dir"]))
 
-            commands.append("exit")
-        if kwargs.get('encrypted'):
-            commands.append("exit")
-        else:
-            commands.extend(["exit", "exit"])
+            commands.append("exit")  # Exit from address-family
+
+        # Exit from neighbor context (if we entered it)
+        if remote_asn or kwargs.get('encrypted'):
+            commands.append("exit")  # Exit from neighbor context
+
         st.config(dut, commands, type=cli_type, skip_error_check=skip_error_check)
         return True
     else:

@@ -25,8 +25,8 @@ testcases:
       verify session state, and perform clean unconfiguration.
 
     # DUT1 configuration parameters
+    # Note: interface name is dynamically resolved from topology
     dut1:
-      interface: "Ethernet4"
       ip_address: "10.1.1.1"
       subnet: "24"
       bgp_asn: 65001
@@ -35,8 +35,8 @@ testcases:
       remote_asn: 65001
 
     # DUT2 configuration parameters
+    # Note: interface name is dynamically resolved from topology
     dut2:
-      interface: "Ethernet4"
       ip_address: "10.1.1.2"
       subnet: "24"
       bgp_asn: 65001
