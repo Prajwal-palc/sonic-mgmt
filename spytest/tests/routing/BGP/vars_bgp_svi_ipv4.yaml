@@ -1,0 +1,216 @@
+# BGP IPv4 over SVI (VLAN Interface) Test Variables
+# Test ID: BGP-SVI-001
+# Reference: Doc/bgp_svi.md
+
+defaults:
+  cli_type: "klish"  # Configuration via sonic-cli (klish)
+  verify_cli_type: "klish"  # Show commands use klish CLI
+  verify_timeout: 300  # Seconds to wait for BGP session establishment (increased for SVI)
+  svi_wait_time: 30  # Seconds to wait after SVI configuration before BGP
+  cleanup: true  # Cleanup configuration after each test
+  min_topology:
+    - "D1D2:1"  # Minimum topology: 2 DUTs with 1 link
+  keepalive: 60  # BGP keepalive timer (seconds)
+  hold: 180  # BGP hold timer (seconds)
+
+# ============================================================================
+# Test Case BGP-SVI-001.1: BGP over SVI Configuration and Session Establishment
+# ============================================================================
+testcases:
+  "BGP-SVI-001.1":
+    title: "BGP over SVI Configuration and Session Establishment"
+    description: "Verify iBGP IPv4 neighbor session establishment over VLAN interface (SVI)"
+
+    # VLAN Configuration
+    vlans:
+      - dut: "D1"
+        vlan_id: 100
+        vlan_name: "Vlan100"
+      - dut: "D2"
+        vlan_id: 100
+        vlan_name: "Vlan100"
+
+    # Physical Interface to VLAN Assignment
+    vlan_members:
+      - dut: "D1"
+        vlan_id: 100
+        interface: "{{D1D2P1}}"
+        tagging_mode: "untagged"  # Access mode
+      - dut: "D2"
+        vlan_id: 100
+        interface: "{{D2D1P1}}"
+        tagging_mode: "untagged"  # Access mode
+
+    # SVI (VLAN Interface) IP Configuration
+    svi_interfaces:
+      - dut: "D1"
+        interface: "Vlan100"
+        ip_address: "10.10.10.1"
+        prefix_length: 24
+        admin_status: "up"
+      - dut: "D2"
+        interface: "Vlan100"
+        ip_address: "10.10.10.2"
+        prefix_length: 24
+        admin_status: "up"
+
+    # Physical Interface Configuration
+    interfaces:
+      - dut: "D1"
+        interface: "{{D1D2P1}}"
+        admin_status: "up"
+      - dut: "D2"
+        interface: "{{D2D1P1}}"
+        admin_status: "up"
+
+    # BGP Router Configuration
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+        vrf: "default"
+
+    # BGP Neighbor Configuration
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.10.10.2"
+        remote_asn: "65001"  # iBGP (same AS)
+        vrf: "default"
+        family: "ipv4"
+        activate: true
+        update_source: "Vlan100"  # Use SVI as update source for iBGP
+      - dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "10.10.10.1"
+        remote_asn: "65001"  # iBGP (same AS)
+        vrf: "default"
+        family: "ipv4"
+        activate: true
+        update_source: "Vlan100"  # Use SVI as update source for iBGP
+
+    # Verification Checks
+    verification:
+      # VLAN verification
+      vlan_checks:
+        - dut: "D1"
+          vlan_id: 100
+          expected_state: "active"
+        - dut: "D2"
+          vlan_id: 100
+          expected_state: "active"
+
+      # Interface verification
+      interface_checks:
+        - dut: "D1"
+          interface: "{{D1D2P1}}"
+          expected_status: "up"
+        - dut: "D2"
+          interface: "{{D2D1P1}}"
+          expected_status: "up"
+        - dut: "D1"
+          interface: "Vlan100"
+          expected_status: "up"
+          ip_address: "10.10.10.1/24"
+        - dut: "D2"
+          interface: "Vlan100"
+          expected_status: "up"
+          ip_address: "10.10.10.2/24"
+
+      # IP route verification
+      route_checks:
+        - dut: "D1"
+          ip_address: "10.10.10.0/24"
+          route_type: "C"  # Connected
+          interface: "Vlan100"
+        - dut: "D2"
+          ip_address: "10.10.10.0/24"
+          route_type: "C"  # Connected
+          interface: "Vlan100"
+
+      # BGP session verification
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.10.10.2"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.10.10.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Test Case BGP-SVI-001.2: ICMP Reachability over SVI (Ping Test)
+# ============================================================================
+  "BGP-SVI-001.2":
+    title: "ICMP Reachability over SVI"
+    description: "Verify Layer 3 connectivity over VLAN interface using ICMP ping"
+
+    # Note: This test is expected to fail as ping is not currently supported in sonic-cli
+    # Once ping support is added to sonic-cli, this test will pass
+    expected_failure: true
+    failure_reason: "ping command not supported in sonic-cli (klish) - SONiC limitation"
+
+    # Ping Tests
+    ping_tests:
+      - source_dut: "D1"
+        destination_ip: "10.10.10.2"
+        source_interface: "Vlan100"
+        count: 5
+        timeout: 5
+        expected_loss: 0  # 0% packet loss expected (when ping works)
+      - source_dut: "D2"
+        destination_ip: "10.10.10.1"
+        source_interface: "Vlan100"
+        count: 5
+        timeout: 5
+        expected_loss: 0  # 0% packet loss expected (when ping works)
+
+# ============================================================================
+# Cleanup Configuration
+# ============================================================================
+cleanup:
+  # Remove BGP neighbors first
+  bgp_neighbors:
+    - dut: "D1"
+      local_asn: 65001
+      neighbor_ip: "10.10.10.2"
+    - dut: "D2"
+      local_asn: 65001
+      neighbor_ip: "10.10.10.1"
+
+  # Remove BGP router instance
+  bgp_routers:
+    - dut: "D1"
+      local_asn: 65001
+    - dut: "D2"
+      local_asn: 65001
+
+  # Remove SVI IP addresses
+  svi_interfaces:
+    - dut: "D1"
+      interface: "Vlan100"
+    - dut: "D2"
+      interface: "Vlan100"
+
+  # Remove VLAN member interfaces
+  vlan_members:
+    - dut: "D1"
+      vlan_id: 100
+      interface: "{{D1D2P1}}"
+    - dut: "D2"
+      vlan_id: 100
+      interface: "{{D2D1P1}}"
+
+  # Remove VLANs
+  vlans:
+    - dut: "D1"
+      vlan_id: 100
+    - dut: "D2"
+      vlan_id: 100

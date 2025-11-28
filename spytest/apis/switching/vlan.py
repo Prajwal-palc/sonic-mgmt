@@ -66,7 +66,7 @@ def create_vlan(dut, vlan_list, cli_type='', **kwargs):
         elif cli_type == "click":
             commands.append("config vlan add {}".format(each_vlan))
         elif cli_type == "klish":
-            commands.append("interface Vlan {}".format(each_vlan))
+            commands.append("vlan {}".format(each_vlan))
             commands.append('exit')
         elif cli_type in ["rest-put", "rest-patch"]:
             vlan_data = dict()
