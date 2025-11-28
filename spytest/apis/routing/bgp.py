@@ -360,7 +360,7 @@ def config_bgp_router(dut, local_asn, router_id='', keep_alive=60, hold=180, con
     """
     cli_type = get_cfg_cli_type(dut, **kwargs)
     if cli_type in get_supported_ui_type_list():
-        # kwargs['router_id'] = router_id
+        kwargs['router_id'] = router_id
         kwargs['keep_alive'] = keep_alive
         kwargs['hold'] = hold
         st.log('config_bgp_router: kwargs: {}'.format(kwargs))
@@ -487,8 +487,8 @@ def config_bgp_router(dut, local_asn, router_id='', keep_alive=60, hold=180, con
         if config == 'yes':
             if router_id:
                 command += "router-id {}\n".format(router_id)
-            if keep_alive and hold:
-                command += "timers {} {}\n".format(keep_alive, hold)
+            #if keep_alive and hold:
+                #command += "timers {} {}\n".format(keep_alive, hold)
             if 'cluster_id' in kwargs:
                 command += "cluster-id {}\n".format(kwargs['cluster_id'])
         if config == 'no' and keep_alive:
@@ -561,7 +561,7 @@ def create_bgp_router(dut, local_asn, router_id='', keep_alive=60, hold=180, cli
         # Add validation for IPV4 address
         if router_id:
             command.append("router-id {}".format(router_id))
-        command.append("timers {} {}".format(keep_alive, hold))
+        #command.append("timers {} {}".format(keep_alive, hold))
         command.append("exit")
     elif cli_type in ["rest-patch", "rest-put"]:
 
@@ -761,8 +761,9 @@ def config_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, family="ipv4",
         if config == "yes":
             # Configure timers at router BGP level (not within neighbor context)
             commands.append("{} remote-as {}".format(neighbor_prefix, remote_asn))
-            commands.append("{} timers {} {}".format(neighbor_prefix, keep_alive, hold))
-            commands.append("{} timers connect {}".format(neighbor_prefix, connect_retry))
+            # COMMENTED OUT: Timer commands not supported in klish mode
+            # commands.append("{} timers {} {}".format(neighbor_prefix, keep_alive, hold))
+            # commands.append("{} timers connect {}".format(neighbor_prefix, connect_retry))
 
             # Enter neighbor context for address-family configuration
             commands.append("{} remote-as {}".format(neighbor_prefix, remote_asn))
@@ -772,9 +773,9 @@ def config_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, family="ipv4",
             commands.append("exit")  # exit neighbor context
         else:
             # For deletion, use 'no' prefix with combined command
-            commands.append("no {} remote-as {}".format(neighbor_prefix, remote_asn))
-            commands.append("no {}".format(neighbor_prefix))
-
+            #commands.append("no {} remote-as {}".format(neighbor_prefix, remote_asn))
+            #commands.append("no {}".format(neighbor_prefix))
+            commands.append("no router bgp")
         commands.append("exit")  # exit router-bgp
         st.config(dut, commands, type=cli_type, skip_error_check=skip_error_check)
         return True
@@ -4098,6 +4099,7 @@ def verify_bgp_summary(dut, family='ipv4', shell="sonic", **kwargs):
     :return:
     """
     cli_type = get_show_cli_type(dut, **kwargs)
+    kwargs.pop('cli_type', None)  # Remove cli_type from kwargs to avoid verification mismatch
     if cli_type in get_supported_ui_type_list():
         if isinstance(kwargs['neighbor'], list):
             if isinstance(kwargs['state'], str):
