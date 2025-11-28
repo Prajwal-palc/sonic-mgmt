@@ -322,8 +322,12 @@ def config_ip_addr_interface(dut, interface_name='', ip_address='', subnet='', f
                         command = command + "\n" + "ip address {}/{} gwaddr {}".format(ip_address, subnet, gw_addr)
                 else:
                     intf = get_interface_number_from_name(interface_name)
-                    zero_or_more_space = get_random_space_string()
-                    command = "interface {}{}{}".format(intf['type'], zero_or_more_space, intf['number'])
+                    # Ethernet interfaces need space: "Ethernet 4", others don't: "Loopback0"
+                    if intf['type'] == 'Ethernet':
+                        zero_or_more_space = get_random_space_string()
+                        command = "interface {}{} {}".format(intf['type'], zero_or_more_space, intf['number'])
+                    else:
+                        command = "interface {}{}".format(intf['type'], intf['number'])
                     fam = "ip" if family == 'ipv4' else 'ipv6'
                     command = command + "\n" + "{} address {}/{}".format(fam, ip_address, subnet)
                     if is_secondary_ip == 'yes':
