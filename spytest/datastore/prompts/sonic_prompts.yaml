@@ -135,8 +135,8 @@ patterns:
     # modified by Dell-EMC
     # =============================================================
     #mgmt-any-config: '--sonic-mgmt--\((config|conf[ig]*-[^)]*)\)#'
-    
-    mgmt-any-config: '--sonic-mgmt--\([^)]*\)#'
+
+    mgmt-any-config: '--sonic-mgmt--(\([^)]*\))?#'
     # =============================================================
     #mgmt-any-config: '--sonic-mgmt--\((config|conf[ig]*-[^)]*|mclag-domain-.*)\)#'
     # =============================================================
