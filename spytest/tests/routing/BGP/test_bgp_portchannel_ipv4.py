@@ -815,10 +815,10 @@ class TestBgpPortchannelIpv4:
             # Step 2: Save configuration on both DUTs
             st.banner("Step 2: Save running configuration to startup")
             st.log("Saving configuration on DUT1")
-            basic_api.deploy_package(dut1, mode='save', cli_type=self.data.cli_type)
+            basic_api.deploy_package(dut1, mode='save')
 
             st.log("Saving configuration on DUT2")
-            basic_api.deploy_package(dut2, mode='save', cli_type=self.data.cli_type)
+            basic_api.deploy_package(dut2, mode='save')
 
             st.log("Configuration saved successfully on both DUTs")
 
