@@ -1,0 +1,196 @@
+# 4-Device VLAN Topology Configuration
+# Topology: D1 <-> D2 <-> D4 <-> D3
+# VLANs: 10 (untagged), 20 (tagged)
+# Port-Channels: LAG50 between D1-D2 and D3-D4
+
+defaults:
+  min_topology: ["D1D2:4", "D2D4:2", "D3D4:4"]
+  cli_type: klish
+  cleanup: true
+  verify_timeout: 30
+  vlan_id_untagged: 10
+  vlan_id_tagged: 20
+  portchannel_id: 50
+
+# Device information
+devices:
+  D1:
+    ip: "192.168.100.217"
+    mgmt_ip: "192.168.100.217"
+    username: "admin"
+    password: "YourPaSsWoRd"
+  D2:
+    ip: "192.168.100.142"
+    mgmt_ip: "192.168.100.142"
+    username: "admin"
+    password: "YourPaSsWoRd"
+  D3:
+    ip: "192.168.100.105"
+    mgmt_ip: "192.168.100.105"
+    username: "admin"
+    password: "YourPaSsWoRd"
+  D4:
+    ip: "192.168.100.54"
+    mgmt_ip: "192.168.100.54"
+    username: "admin"
+    password: "YourPaSsWoRd"
+
+# Interface mappings
+interfaces:
+  # D1 <-> D2 connections
+  D1_D2_vlan10_untagged:
+    D1_interface: "Ethernet0"
+    D2_interface: "Ethernet0"
+    vlan_id: 10
+    type: "access"
+    D1_mac: "00:11:22:33:44:01"
+    D2_mac: "00:11:22:33:44:02"
+
+  D1_D2_vlan20_tagged:
+    D1_interface: "Ethernet4"
+    D2_interface: "Ethernet4"
+    vlan_id: 20
+    type: "trunk"
+    D1_mac: "00:11:22:33:55:01"
+    D2_mac: "00:11:22:33:55:02"
+
+  D1_D2_lag50_member1:
+    D1_interface: "Ethernet8"
+    D2_interface: "Ethernet24"
+    portchannel: 50
+
+  D1_D2_lag50_member2:
+    D1_interface: "Ethernet12"
+    D2_interface: "Ethernet28"
+    portchannel: 50
+
+  # D2 <-> D4 connections
+  D2_D4_vlan10_untagged:
+    D2_interface: "Ethernet16"
+    D4_interface: "Ethernet32"
+    vlan_id: 10
+    type: "access"
+    D2_mac: "00:11:22:33:44:03"
+    D4_mac: "00:11:22:33:44:04"
+
+  D2_D4_vlan20_tagged:
+    D2_interface: "Ethernet20"
+    D4_interface: "Ethernet36"
+    vlan_id: 20
+    type: "trunk"
+    D2_mac: "00:11:22:33:55:03"
+    D4_mac: "00:11:22:33:55:04"
+
+  # D3 <-> D4 connections
+  D3_D4_vlan10_untagged:
+    D3_interface: "Ethernet32"
+    D4_interface: "Ethernet16"
+    vlan_id: 10
+    type: "access"
+    D3_mac: "00:11:22:33:44:05"
+    D4_mac: "00:11:22:33:44:06"
+
+  D3_D4_vlan20_tagged:
+    D3_interface: "Ethernet36"
+    D4_interface: "Ethernet20"
+    vlan_id: 20
+    type: "trunk"
+    D3_mac: "00:11:22:33:55:05"
+    D4_mac: "00:11:22:33:55:06"
+
+  D3_D4_lag50_member1:
+    D3_interface: "Ethernet40"
+    D4_interface: "Ethernet24"
+    portchannel: 50
+
+  D3_D4_lag50_member2:
+    D3_interface: "Ethernet44"
+    D4_interface: "Ethernet28"
+    portchannel: 50
+
+# VLAN configuration
+vlans:
+  vlan10:
+    id: 10
+    name: "Vlan10"
+    description: "Untagged VLAN for access ports"
+
+  vlan20:
+    id: 20
+    name: "Vlan20"
+    description: "Tagged VLAN for trunk ports"
+
+# Port-Channel configuration
+portchannels:
+  lag50_D1_D2:
+    id: 50
+    name: "PortChannel50"
+    members:
+      D1: ["Ethernet8", "Ethernet12"]
+      D2: ["Ethernet24", "Ethernet28"]
+    mode: "active"
+    vlan_id: 20
+    type: "trunk"
+
+  lag50_D3_D4:
+    id: 50
+    name: "PortChannel50"
+    members:
+      D3: ["Ethernet40", "Ethernet44"]
+      D4: ["Ethernet24", "Ethernet28"]
+    mode: "active"
+    vlan_id: 20
+    type: "trunk"
+
+# Traffic generation scenarios
+traffic_scenarios:
+  untagged_unicast:
+    vlan_id: 10
+    type: "unicast"
+    packet_count: 100
+    packet_size: 64
+
+  untagged_broadcast:
+    vlan_id: 10
+    type: "broadcast"
+    packet_count: 50
+    packet_size: 64
+
+  tagged_unicast:
+    vlan_id: 20
+    type: "unicast"
+    packet_count: 100
+    packet_size: 64
+
+  tagged_broadcast:
+    vlan_id: 20
+    type: "broadcast"
+    packet_count: 50
+    packet_size: 64
+
+  portchannel_unicast:
+    vlan_id: 20
+    type: "unicast"
+    via_portchannel: true
+    packet_count: 200
+    packet_size: 64
+
+  portchannel_broadcast:
+    vlan_id: 20
+    type: "broadcast"
+    via_portchannel: true
+    packet_count: 100
+    packet_size: 64
+
+# Test case IDs
+test_cases:
+  TC_VLAN_TOPO_001: "Verify VLAN10 untagged unicast traffic D1->D2"
+  TC_VLAN_TOPO_002: "Verify VLAN10 untagged broadcast traffic"
+  TC_VLAN_TOPO_003: "Verify VLAN20 tagged unicast traffic D1->D2"
+  TC_VLAN_TOPO_004: "Verify VLAN20 tagged broadcast traffic"
+  TC_VLAN_TOPO_005: "Verify Port-Channel unicast traffic via LAG50"
+  TC_VLAN_TOPO_006: "Verify Port-Channel broadcast traffic via LAG50"
+  TC_VLAN_TOPO_007: "Verify VLAN10 traffic D2->D4"
+  TC_VLAN_TOPO_008: "Verify VLAN20 traffic D2->D4"
+  TC_VLAN_TOPO_009: "Verify VLAN10 traffic D3->D4"
+  TC_VLAN_TOPO_010: "Verify VLAN20 traffic D3->D4 via LAG50"
