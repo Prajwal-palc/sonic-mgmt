@@ -17,12 +17,13 @@ defaults:
 
 # Test cases configuration
 testcases:
-  # Test Case 001: BGP IPv4 Configure, Verify, Unconfigure
+  # Test Case 001: BGP IPv4 Configure and Verify
   "001":
-    title: "BGP IPv4 neighbor session establishment and cleanup"
+    title: "BGP IPv4 neighbor session establishment"
     description: |
       Configure IPv4 addresses on interfaces, establish iBGP neighbor session,
-      verify session state, and perform clean unconfiguration.
+      and verify session state. BGP session persists for use by test 002.
+      Cleanup is performed in module teardown after test 002 completes.
 
     # DUT1 configuration parameters
     # Note: interface name is dynamically resolved from topology
@@ -49,3 +50,125 @@ testcases:
       bgp_session_state: "Established"
       address_family: "ipv4"
       neighbor_count: 1
+
+  # Test Case 002: BGP IPv4 Traffic Validation
+  # This test extends test 001 and reuses its BGP configuration
+  "002":
+    title: "BGP IPv4 traffic forwarding validation using Scapy"
+    description: |
+      Extends test 001 by validating bidirectional traffic forwarding
+      using Scapy-generated packets over the established BGP session.
+      Test verifies that traffic flows correctly between BGP peers
+      in both directions without reconfiguring BGP.
+
+    # Traffic configuration
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 1000             # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "udp"           # Traffic type: udp, icmp, or tcp
+
+    # Expected verification results
+    verification:
+      min_packets_expected: 9000  # Minimum packets to send (duration * pps * 0.9)
+
+  # Test Case 003: BGP IPv4 Route Advertisement and Host-to-Host Routing
+  # This test extends test 001 by adding hosts and advertising LAN networks via BGP
+  "003":
+    title: "BGP IPv4 route advertisement and host-to-host routing validation with real hosts"
+    description: |
+      Extends test 001 by configuring LAN interfaces on routers, adding real host devices,
+      and advertising LAN networks via the existing iBGP session from test 001.
+
+      Topology: Host1 ---- Eth16 ---- R1 ---- Eth4(iBGP from test 001) ---- R2 ---- Eth16 ---- Host2
+                  H1            R1-LAN         R1-R2 iBGP link              R2-LAN          H2
+
+      Test 001 already configured:
+      - R1 Eth4: 10.1.1.1/24, R2 Eth4: 10.1.1.2/24 (iBGP link)
+      - iBGP session between R1 and R2 (AS 65001)
+
+      Test 003 adds:
+      - R1 LAN interface (Eth16) for Host1
+      - R2 LAN interface (Eth16) for Host2
+      - Host devices with static default routes
+      - BGP network advertisements for LAN subnets
+
+    # Router 1 (smic_sonic1) - extends test 001 config
+    router1:
+      # LAN interface connecting to Host1 (NEW for test 003)
+      lan_interface: "Ethernet16"  # Connected to vs_sonic_3 Ethernet0
+      lan_ip: "192.0.2.1"
+      lan_subnet: "24"
+      lan_network: "192.0.2.0/24"  # Network to advertise via BGP
+
+      # WAN interface already configured in test 001
+      wan_interface: "Ethernet4"   # Already has 10.1.1.1/24 from test 001
+      wan_ip: "10.1.1.1"          # From test 001
+      wan_subnet: "24"             # From test 001
+
+      # BGP configuration from test 001
+      bgp_asn: 65001              # From test 001
+      router_id: "1.1.1.1"        # From test 001
+      neighbor_ip: "10.1.1.2"     # From test 001
+      remote_asn: 65001           # From test 001
+
+    # Router 2 (smic_sonic2) - extends test 001 config
+    router2:
+      # WAN interface already configured in test 001
+      wan_interface: "Ethernet4"   # Already has 10.1.1.2/24 from test 001
+      wan_ip: "10.1.1.2"          # From test 001
+      wan_subnet: "24"             # From test 001
+
+      # LAN interface connecting to Host2 (NEW for test 003)
+      lan_interface: "Ethernet16"  # Connected to vs_sonic_4 Ethernet16
+      lan_ip: "198.51.100.1"
+      lan_subnet: "24"
+      lan_network: "198.51.100.0/24"  # Network to advertise via BGP
+
+      # BGP configuration from test 001
+      bgp_asn: 65001              # From test 001
+      router_id: "2.2.2.2"        # From test 001
+      neighbor_ip: "10.1.1.1"     # From test 001
+      remote_asn: 65001           # From test 001
+
+    # Host 1 (vs_sonic_3) configuration (NEW for test 003)
+    host1:
+      device: "vs_sonic_3"
+      interface: "Ethernet0"       # Connected to smic_sonic1 Ethernet16
+      ip: "192.0.2.10"
+      subnet: "24"
+      gateway: "192.0.2.1"         # Router1 LAN IP
+
+    # Host 2 (vs_sonic_4) configuration (NEW for test 003)
+    host2:
+      device: "vs_sonic_4"
+      interface: "Ethernet16"      # Connected to smic_sonic2 Ethernet16
+      ip: "198.51.100.10"
+      subnet: "24"
+      gateway: "198.51.100.1"      # Router2 LAN IP
+
+    # Traffic configuration for host-to-host testing
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 100              # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "icmp"          # Traffic type: icmp for end-to-end testing
+
+    # Expected verification results
+    verification:
+      # BGP route verification
+      bgp_routes_expected: 1        # Each router should learn 1 route from peer
+      route_protocol: "B"           # BGP routes marked with "B" in routing table
+
+      # Routing table verification
+      router1_should_learn: "198.51.100.0/24"  # R1 should learn R2's LAN network
+      router2_should_learn: "192.0.2.0/24"     # R2 should learn R1's LAN network
+      next_hop_r1: "10.1.1.2"                  # Next hop for R1 (using test 001 WAN IP)
+      next_hop_r2: "10.1.1.1"                  # Next hop for R2 (using test 001 WAN IP)
+
+      # Host-to-host connectivity
+      host1_ping_host2: "198.51.100.10"        # H1 should ping H2
+      host2_ping_host1: "192.0.2.10"           # H2 should ping H1
+
+      # Traffic verification
+      min_packets_expected: 900     # Minimum packets for traffic validation (90%)
