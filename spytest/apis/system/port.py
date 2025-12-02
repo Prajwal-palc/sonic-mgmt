@@ -46,8 +46,10 @@ def _get_klish_portmap(dut, portlist, ifname_type_oper):
         # no need to check ifname_type
         return retval
 
-    command = "show interface status | grep \"Name|{} \"".format(" |".join(portlist))
-    output = st.show(dut, command, type="klish")
+    # Set terminal length to avoid pagination issues, especially after reboot
+    st.config(dut, "terminal length 0", type="klish", skip_error_check=True)
+    command = "show interface status"
+    output = st.show(dut, command, type="klish", skip_error_check=True)
     if not output:
         return retval
 
