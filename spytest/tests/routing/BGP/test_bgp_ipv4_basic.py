@@ -514,11 +514,11 @@ class TestBgpIpv4Basic:
                 state="Established"
             )
 
-            st.log("BGP sessions verified - using established session from test 001")
-
-            # Step 2: Verify basic connectivity with ping
-            st.banner("Step 2: Verify basic connectivity with ping")
-            ping_result = scapy_api.verify_ping(
+            # Step 2: Configure BGP routers
+            st.banner("Step 2: Configure BGP routers")
+            self._unconfigure_bgp(self.data.dut1, dut1_config["bgp_asn"])
+            self._unconfigure_bgp(self.data.dut2, dut2_config["bgp_asn"])
+            self._configure_bgp_router(
                 self.data.dut1,
                 dut1_config["neighbor_ip"],
                 src_ip=dut1_config["ip_address"],

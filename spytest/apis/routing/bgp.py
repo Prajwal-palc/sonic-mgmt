@@ -234,10 +234,11 @@ def unconfig_router_bgp(dut, **kwargs):
         if 'vrf_name' in kwargs and 'local_asn' in kwargs:
             command += '  ' + kwargs['local_asn'] + ' vrf ' + kwargs['vrf_name']
     elif cli_type == 'klish':
-        if kwargs.get("vrf_name"):
-            command = "no router bgp vrf {}".format(kwargs.get("vrf_name"))
-        else:
-            command = "no router bgp"
+        #if kwargs.get("vrf_name"):
+        #    command = "no router bgp vrf {}".format(kwargs.get("vrf_name"))
+        #else:
+        #    command = "no router bgp"
+        command = "no router bgp"
     elif cli_type in ["rest-patch", "rest-put"]:
         rest_urls = st.get_datastore(dut, 'rest_urls')
         vrf_name = kwargs['vrf_name'] if kwargs.get('vrf_name') else "default"
@@ -641,7 +642,7 @@ def create_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, keep_alive=60, 
         # Enter neighbor context with combined command
         commands.append("neighbor {} remote-as {}".format(neighbor_ip, remote_asn))
         # Configure properties within neighbor context
-        commands.append("timers {} {}".format(keep_alive, hold))
+        # commands.append("timers {} {}".format(keep_alive, hold))
         if password:
             commands.append("password {}".format(password))
         # Configure address-family within neighbor context
@@ -759,14 +760,12 @@ def config_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, family="ipv4",
         neighbor_prefix = "neighbor {}".format(neighbor_ip)
 
         if config == "yes":
-            # Configure timers at router BGP level (not within neighbor context)
+            # Enter neighbor context and configure properties within it
             commands.append("{} remote-as {}".format(neighbor_prefix, remote_asn))
-            # COMMENTED OUT: Timer commands not supported in klish mode
-            # commands.append("{} timers {} {}".format(neighbor_prefix, keep_alive, hold))
-            # commands.append("{} timers connect {}".format(neighbor_prefix, connect_retry))
-
-            # Enter neighbor context for address-family configuration
-            commands.append("{} remote-as {}".format(neighbor_prefix, remote_asn))
+            # Configure timers within neighbor context (no neighbor prefix needed)
+            #commands.append("timers {} {}".format(keep_alive, hold))
+            #commands.append("timers connect {}".format(connect_retry))
+            # Configure address-family within neighbor context
             commands.append("address-family {} unicast".format(family))
             commands.append("activate")
             commands.append("exit")  # exit neighbor AF
@@ -1122,6 +1121,7 @@ def config_bgp_neighbor_properties(dut, local_asn, neighbor_ip, family=None, mod
                 commands.append("{} password {}".format(no_form, password))
 
         if "keep_alive" in properties and "hold_time" in properties:
+            # Neighbor timers not supported in klish neighbor context
             commands.append("{} timers {} {}".format(no_form, properties["keep_alive"], properties["hold_time"]))
 
         if "neighbor_shutdown" in properties:
@@ -4099,7 +4099,7 @@ def verify_bgp_summary(dut, family='ipv4', shell="sonic", **kwargs):
     :return:
     """
     cli_type = get_show_cli_type(dut, **kwargs)
-    kwargs.pop('cli_type', None)  # Remove cli_type from kwargs to avoid verification mismatch
+    kwargs.pop('cli_type', None)  # Remove cli_type from kwargs to avoid matching it against output
     if cli_type in get_supported_ui_type_list():
         if isinstance(kwargs['neighbor'], list):
             if isinstance(kwargs['state'], str):
