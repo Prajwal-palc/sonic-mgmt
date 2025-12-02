@@ -226,26 +226,20 @@ class TestBgpIpv4Basic:
         """
         Configure BGP router with AS number and router-id.
 
-        Pattern from test_bgp_svi_ipv4.py:
-        - Use enable_router_bgp_mode() to enter BGP mode
-        - Router-ID should be configured separately if needed
-        - Do NOT exit BGP mode (neighbor config needs to be in same mode)
+        Uses direct CLI commands to configure BGP router and router-id.
+        Correct klish syntax: router bgp <asn>, then router-id <id>
         """
         st.log(f"Configuring BGP router on {dut}: AS {local_asn}, Router-ID {router_id}")
 
-        # Create BGP router instance and stay in BGP router mode
-        # Note: Router-ID configuration is skipped here as it's not working in klish
-        # BGP will use router-id from loopback or can be configured via direct commands
-        result = bgp_api.enable_router_bgp_mode(
-            dut,
-            local_asn=local_asn,
-            vrf_name=vrf,
-            cli_type=self.data.cli_type
-        )
-        if not result:
-            st.report_fail("msg", f"Failed to create BGP router on {dut}")
-
-        st.log(f"BGP router AS {local_asn} configured on {dut} (router-ID will be auto-assigned or configured separately)")
+        # Configure BGP router with router-id using direct CLI
+        # Correct syntax: router bgp <asn> then router-id <id>
+        bgp_config = [
+            f"router bgp {local_asn}",
+            f"router-id {router_id}",
+            "exit"
+        ]
+        st.config(dut, bgp_config, type="klish", skip_error_check=False)
+        st.log(f"BGP router AS {local_asn} with router-id {router_id} configured on {dut}")
 
     def _configure_bgp_neighbor(
         self,
@@ -256,20 +250,35 @@ class TestBgpIpv4Basic:
         family: str = "ipv4",
         vrf: str = 'default'
     ) -> None:
-        """Configure BGP neighbor."""
-        st.log(f"Configuring BGP neighbor on {dut}: neighbor {neighbor_ip} remote-as {remote_asn}")
-        result = bgp_api.config_bgp_neighbor(
-            dut,
-            local_asn=local_asn,
-            neighbor_ip=neighbor_ip,
-            remote_asn=remote_asn,
-            family=family,
-            config='yes',
-            vrf=vrf,
-            cli_type=self.data.cli_type
-        )
-        if not result:
-            st.report_fail("msg", f"Failed to configure BGP neighbor {neighbor_ip} on {dut}")
+        """
+        Configure BGP neighbor and activate in address family.
+
+        Uses direct CLI commands for BGP neighbor configuration.
+        Correct klish syntax:
+        router bgp <asn>
+        neighbor <ip> remote-as <remote-asn>
+        address-family ipv4 unicast
+        activate
+        """
+        st.log(f"Configuring BGP neighbor {neighbor_ip} (AS {remote_asn}) on {dut}")
+
+        # Configure BGP neighbor using direct CLI
+        # Correct syntax:
+        # router bgp <asn>
+        # neighbor <ip> remote-as <remote-asn>
+        # address-family ipv4 unicast
+        # activate
+        neighbor_config = [
+            f"router bgp {local_asn}",
+            f"neighbor {neighbor_ip} remote-as {remote_asn}",
+            f"address-family {family} unicast",
+            "activate",
+            "exit",
+            "exit"
+        ]
+
+        st.config(dut, neighbor_config, type="klish", skip_error_check=False)
+        st.log(f"BGP neighbor {neighbor_ip} configured and activated on {dut}")
 
     def _activate_bgp_neighbor(
         self,
@@ -280,21 +289,15 @@ class TestBgpIpv4Basic:
         family: str = "ipv4",
         vrf: str = 'default'
     ) -> None:
-        """Activate BGP neighbor in address family."""
-        st.log(f"Activating BGP neighbor {neighbor_ip} on {dut} for {family}")
-        result = bgp_api.config_bgp_neighbor_properties(
-            dut,
-            local_asn=local_asn,
-            neighbor_ip=neighbor_ip,
-            family=family,
-            mode='unicast',
-            vrf=vrf,
-            remote_asn=remote_asn,
-            activate='yes',
-            cli_type=self.data.cli_type
-        )
-        if not result:
-            st.report_fail("msg", f"Failed to activate BGP neighbor {neighbor_ip} on {dut}")
+        """
+        Activate BGP neighbor in address family.
+
+        Note: This method is now redundant as _configure_bgp_neighbor
+        handles both neighbor configuration and activation.
+        Kept for backward compatibility.
+        """
+        st.log(f"Note: BGP neighbor {neighbor_ip} already activated in _configure_bgp_neighbor")
+        # No additional action needed as neighbor is already activated
 
     def _verify_bgp_session(
         self,
@@ -756,22 +759,27 @@ class TestBgpIpv4Basic:
 
             # Step 6: Advertise LAN networks via existing BGP session
             st.banner("Step 6: Advertise LAN networks via existing BGP session")
+            # Advertise R1 LAN network using direct CLI (import-check not supported in klish)
             st.log(f"R1 advertising network {router1_config['lan_network']}")
-            bgp_api.advertise_bgp_network(
-                self.data.dut1,
-                router1_config['bgp_asn'],
-                router1_config['lan_network'],
-                vrf='default',
-                cli_type=self.data.cli_type
-            )
+            network_config_r1 = [
+                f"router bgp {router1_config['bgp_asn']}",
+                "address-family ipv4 unicast",
+                f"network {router1_config['lan_network']}",
+                "exit",
+                "exit"
+            ]
+            st.config(self.data.dut1, network_config_r1, type="klish", skip_error_check=False)
+
+            # Advertise R2 LAN network using direct CLI
             st.log(f"R2 advertising network {router2_config['lan_network']}")
-            bgp_api.advertise_bgp_network(
-                self.data.dut2,
-                router2_config['bgp_asn'],
-                router2_config['lan_network'],
-                vrf='default',
-                cli_type=self.data.cli_type
-            )
+            network_config_r2 = [
+                f"router bgp {router2_config['bgp_asn']}",
+                "address-family ipv4 unicast",
+                f"network {router2_config['lan_network']}",
+                "exit",
+                "exit"
+            ]
+            st.config(self.data.dut2, network_config_r2, type="klish", skip_error_check=False)
 
             # Wait for BGP route propagation
             st.wait(10, "Waiting for BGP route propagation")
@@ -878,24 +886,25 @@ class TestBgpIpv4Basic:
             # Cleanup test 003 additions only (preserve test 001's BGP configuration)
             st.banner("Cleanup: Remove test 003 additions (preserving test 001 BGP)")
             try:
-                # Unadvertise networks from BGP (but keep BGP session)
+                # Unadvertise networks from BGP using direct CLI (but keep BGP session)
                 st.log("Unadvertising LAN networks from BGP")
-                bgp_api.advertise_bgp_network(
-                    self.data.dut1,
-                    router1_config['bgp_asn'],
-                    router1_config['lan_network'],
-                    config='no',
-                    vrf='default',
-                    cli_type=self.data.cli_type
-                )
-                bgp_api.advertise_bgp_network(
-                    self.data.dut2,
-                    router2_config['bgp_asn'],
-                    router2_config['lan_network'],
-                    config='no',
-                    vrf='default',
-                    cli_type=self.data.cli_type
-                )
+                no_network_config_r1 = [
+                    f"router bgp {router1_config['bgp_asn']}",
+                    "address-family ipv4 unicast",
+                    f"no network {router1_config['lan_network']}",
+                    "exit",
+                    "exit"
+                ]
+                st.config(self.data.dut1, no_network_config_r1, type="klish", skip_error_check=True)
+
+                no_network_config_r2 = [
+                    f"router bgp {router2_config['bgp_asn']}",
+                    "address-family ipv4 unicast",
+                    f"no network {router2_config['lan_network']}",
+                    "exit",
+                    "exit"
+                ]
+                st.config(self.data.dut2, no_network_config_r2, type="klish", skip_error_check=True)
 
                 # Remove static routes from hosts
                 st.log("Removing static routes from hosts")

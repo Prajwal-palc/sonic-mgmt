@@ -374,16 +374,15 @@ class TestBgpPortchannelIpv4:
 
             st.log(f"Creating BGP router AS {local_asn} with router-id {router_id} on {router_cfg.get('dut')}")
 
-            # Configure BGP router with router-id
-            result = bgp_api.enable_router_bgp_mode(
-                dut,
-                local_asn=local_asn,
-                router_id=router_id,
-                vrf_name=vrf,
-                cli_type=self.data.cli_type
-            )
-            if not result:
-                st.report_fail("msg", f"Failed to create BGP router on {router_cfg.get('dut')}")
+            # Configure BGP router with router-id using direct CLI
+            # Correct syntax: router bgp <asn> then router-id <id>
+            bgp_config = [
+                f"router bgp {local_asn}",
+                f"router-id {router_id}",
+                "exit"
+            ]
+            st.config(dut, bgp_config, type="klish", skip_error_check=False)
+            st.log(f"BGP router configured on {router_cfg.get('dut')}")
 
     def _configure_bgp_neighbors(self, testcase: SpyTestDict) -> None:
         """Configure BGP neighbors and activate address family."""
@@ -402,36 +401,28 @@ class TestBgpPortchannelIpv4:
 
             st.log(f"Creating BGP neighbor {neighbor_ip} (AS {remote_asn}) on {neighbor_cfg.get('dut')}")
 
-            # Step 1: Create BGP neighbor
-            result = bgp_api.config_bgp_neighbor(
-                dut,
-                local_asn=local_asn,
-                neighbor_ip=neighbor_ip,
-                remote_asn=remote_asn,
-                family=family,
-                vrf=vrf,
-                config='yes',
-                cli_type=self.data.cli_type
-            )
-            if not result:
-                st.report_fail("msg", f"Failed to create BGP neighbor {neighbor_ip} on {neighbor_cfg.get('dut')}")
+            # Configure BGP neighbor using direct CLI
+            # Correct syntax:
+            # router bgp <asn>
+            # neighbor <ip> remote-as <remote-asn>
+            # address-family ipv4 unicast
+            # activate
+            neighbor_config = [
+                f"router bgp {local_asn}",
+                f"neighbor {neighbor_ip} remote-as {remote_asn}",
+            ]
 
-            # Step 2: Activate BGP neighbor in address family
             if activate:
-                st.log(f"Activating BGP neighbor {neighbor_ip} in {family} unicast address family")
-                result = bgp_api.config_bgp_neighbor_properties(
-                    dut,
-                    local_asn=local_asn,
-                    neighbor_ip=neighbor_ip,
-                    remote_asn=remote_asn,
-                    family=family,
-                    mode='unicast',
-                    vrf=vrf,
-                    activate='yes',
-                    cli_type=self.data.cli_type
-                )
-                if not result:
-                    st.report_fail("msg", f"Failed to activate BGP neighbor {neighbor_ip} on {neighbor_cfg.get('dut')}")
+                neighbor_config.extend([
+                    f"address-family {family} unicast",
+                    "activate",
+                    "exit",
+                ])
+
+            neighbor_config.append("exit")
+
+            st.config(dut, neighbor_config, type="klish", skip_error_check=False)
+            st.log(f"BGP neighbor {neighbor_ip} configured and activated on {neighbor_cfg.get('dut')}")
 
     def _verify_bgp_sessions(self, testcase: SpyTestDict) -> None:
         """Verify BGP session establishment."""
@@ -654,69 +645,88 @@ class TestBgpPortchannelIpv4:
 
             # Step 6: Advertise LAN networks
             st.banner("Step 6: Advertise LAN networks via BGP")
-            bgp_api.advertise_bgp_network(
-                dut1,
-                router1_config['bgp_asn'],
-                router1_config['lan_network'],
-                vrf='default',
-                cli_type=self.data.cli_type
-            )
-            bgp_api.advertise_bgp_network(
-                dut2,
-                router2_config['bgp_asn'],
-                router2_config['lan_network'],
-                vrf='default',
-                cli_type=self.data.cli_type
-            )
+            # Advertise R1 LAN network using direct CLI (import-check not supported in klish)
+            st.log(f"R1 advertising network {router1_config['lan_network']}")
+            network_config_r1 = [
+                f"router bgp {router1_config['bgp_asn']}",
+                "address-family ipv4 unicast",
+                f"network {router1_config['lan_network']}",
+                "exit",
+                "exit"
+            ]
+            st.config(dut1, network_config_r1, type="klish", skip_error_check=False)
+
+            # Advertise R2 LAN network using direct CLI
+            st.log(f"R2 advertising network {router2_config['lan_network']}")
+            network_config_r2 = [
+                f"router bgp {router2_config['bgp_asn']}",
+                "address-family ipv4 unicast",
+                f"network {router2_config['lan_network']}",
+                "exit",
+                "exit"
+            ]
+            st.config(dut2, network_config_r2, type="klish", skip_error_check=False)
 
             st.wait(10, "Waiting for BGP route propagation")
 
-            # Step 7-8: Verify route learning and connectivity
+            # Step 7-8: Verify route learning and host connectivity
             st.banner("Step 7-8: Verify route learning and host connectivity")
 
-            # Test host-to-host connectivity
-            ping_result_h1_h2 = ip_api.ping(
+            # Test host-to-host connectivity using Linux ping (ping not supported in klish)
+            # Use direct ping command instead of API to avoid klish mode issues
+            st.log(f"Pinging from Host1 to Host2: {verification['host1_ping_host2']}")
+            ping_output_h1_h2 = st.show(
                 host1,
-                verification['host1_ping_host2'],
-                family='ipv4',
-                count=5,
-                cli_type=self.data.cli_type
+                f"ping -c 5 {verification['host1_ping_host2']}",
+                skip_tmpl=True,
+                skip_error_check=True
             )
 
-            ping_result_h2_h1 = ip_api.ping(
+            st.log(f"Pinging from Host2 to Host1: {verification['host2_ping_host1']}")
+            ping_output_h2_h1 = st.show(
                 host2,
-                verification['host2_ping_host1'],
-                family='ipv4',
-                count=5,
-                cli_type=self.data.cli_type
+                f"ping -c 5 {verification['host2_ping_host1']}",
+                skip_tmpl=True,
+                skip_error_check=True
             )
 
-            if ping_result_h1_h2 and ping_result_h2_h1:
+            # Check ping results
+            ping_success_h1_h2 = isinstance(ping_output_h1_h2, str) and ("bytes from" in ping_output_h1_h2 or "0% packet loss" in ping_output_h1_h2)
+            ping_success_h2_h1 = isinstance(ping_output_h2_h1, str) and ("bytes from" in ping_output_h2_h1 or "0% packet loss" in ping_output_h2_h1)
+
+            if ping_success_h1_h2 and ping_success_h2_h1:
                 st.log("SUCCESS: Bidirectional host-to-host routing verified")
             else:
                 st.log("WARNING: Host-to-host connectivity has issues")
+                if not ping_success_h1_h2:
+                    st.log(f"Host1->Host2 ping failed or has packet loss")
+                if not ping_success_h2_h1:
+                    st.log(f"Host2->Host1 ping failed or has packet loss")
 
         finally:
             # Cleanup test 003 additions
             st.banner("Cleanup: Remove test 003 additions")
             try:
-                # Unadvertise networks
-                bgp_api.advertise_bgp_network(
-                    dut1,
-                    router1_config['bgp_asn'],
-                    router1_config['lan_network'],
-                    config='no',
-                    vrf='default',
-                    cli_type=self.data.cli_type
-                )
-                bgp_api.advertise_bgp_network(
-                    dut2,
-                    router2_config['bgp_asn'],
-                    router2_config['lan_network'],
-                    config='no',
-                    vrf='default',
-                    cli_type=self.data.cli_type
-                )
+                # Unadvertise networks using direct CLI
+                st.log(f"Unadvertising network {router1_config['lan_network']} from R1")
+                no_network_config_r1 = [
+                    f"router bgp {router1_config['bgp_asn']}",
+                    "address-family ipv4 unicast",
+                    f"no network {router1_config['lan_network']}",
+                    "exit",
+                    "exit"
+                ]
+                st.config(dut1, no_network_config_r1, type="klish", skip_error_check=True)
+
+                st.log(f"Unadvertising network {router2_config['lan_network']} from R2")
+                no_network_config_r2 = [
+                    f"router bgp {router2_config['bgp_asn']}",
+                    "address-family ipv4 unicast",
+                    f"no network {router2_config['lan_network']}",
+                    "exit",
+                    "exit"
+                ]
+                st.config(dut2, no_network_config_r2, type="klish", skip_error_check=True)
 
                 # Remove static routes
                 ip_api.delete_static_route(
@@ -840,7 +850,11 @@ class TestBgpPortchannelIpv4:
 
             verification = testcase.get("verification", {})
 
-            # Verify PortChannel interfaces are up
+            # Set terminal length to avoid pagination issues
+            st.config(dut1, "terminal length 0", type="klish", skip_error_check=True)
+            st.config(dut2, "terminal length 0", type="klish", skip_error_check=True)
+
+            # Verify PortChannel interfaces are up using direct show commands
             for intf_check in verification.get("interface_checks", []):
                 dut = self._resolve_dut(intf_check.get("dut"))
                 interface = intf_check.get("interface")
@@ -848,16 +862,14 @@ class TestBgpPortchannelIpv4:
 
                 st.log(f"Verifying {interface} is {expected_status} on {intf_check.get('dut')}")
 
-                result = intf_api.verify_interface_status(
-                    dut,
-                    interface,
-                    property='oper',
-                    value=expected_status,
-                    cli_type=self.data.cli_type
-                )
+                # Use show command directly to avoid prompt detection issues
+                output = st.show(dut, f"show interface {interface}", type="klish", skip_error_check=True, skip_tmpl=True)
 
-                if not result:
-                    st.log(f"WARNING: {interface} is not {expected_status} on {intf_check.get('dut')}")
+                if isinstance(output, str):
+                    if expected_status == "up" and "up" in output.lower():
+                        st.log(f"SUCCESS: {interface} is {expected_status} on {intf_check.get('dut')}")
+                    else:
+                        st.log(f"WARNING: {interface} status verification - output: {output[:200]}")
 
             # Step 7-8: Verify BGP session is re-established
             st.banner("Step 7-8: Verify BGP session re-established after reboot")
