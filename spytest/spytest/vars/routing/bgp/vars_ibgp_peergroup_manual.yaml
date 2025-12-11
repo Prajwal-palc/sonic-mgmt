@@ -1,0 +1,119 @@
+# Variable file for iBGP Peer Group Manual Test
+# Test: test_ibgp_peergroup_manual.py
+# Test Case: PG-01 - Create Peer-Group & Attach Neighbors
+# Author: Based on Manual Configuration
+# © 2025, copyrights@SuperMicro
+
+# IPv4 Configuration
+ipv4:
+  dut1_address: "10.1.1.1"
+  dut2_address: "10.1.1.2"
+  prefix_length: "24"
+
+# iBGP Configuration (Internal BGP - Same AS Number 65001)
+bgp:
+  type: "ibgp"  # Internal BGP - same AS on both devices
+  dut1_asn: "65001"
+  dut1_router_id: "1.1.1.1"
+  dut2_asn: "65001"
+  dut2_router_id: "2.2.2.2"
+
+# Peer Group Configuration
+# DUT2 uses peer-group "1" to attach neighbor 10.1.1.1
+peer_group:
+  name: "1"  # Peer-group name on DUT2
+  remote_asn: "65001"
+  description: "iBGP peer group for AS 65001"
+
+# CLI Configuration
+cli:
+  type: "klish"
+
+# Interface Configuration
+interface:
+  dut1_interface: "Ethernet4"
+  dut2_interface: "Ethernet4"
+
+# Test Parameters
+test:
+  ping_count: 5
+  bgp_wait_time: 90
+
+# Manual Configuration Steps
+# ===========================
+
+# DUT1 (192.168.100.196) Configuration:
+# -------------------------------------
+# admin@sonic:~$ sonic-cli
+# sonic# configure terminal
+# sonic()# interface Ethernet4
+# sonic(-if-Ethernet4)# ip address 10.1.1.1/24
+# sonic(-if-Ethernet4)# router bgp 65001
+# sonic(-router-bgp)# router-id 1.1.1.1
+# sonic(-router-bgp)# neighbor 10.1.1.2 remote-as 65001
+# sonic(-router-bgp-neighbor)# address-family ipv4 unicast
+# sonic(-router-bgp-neighbor-af)# activate
+# sonic(-router-bgp-neighbor-af)# end
+# sonic# show bgp ipv4 unicast summary
+# sonic# show bgp ipv4 unicast neighbors
+# sonic# show bgp ipv4 unicast neighbors 10.1.1.2
+
+# DUT2 (192.168.100.55) Configuration with Peer-Group:
+# -----------------------------------------------------
+# admin@sonic:~$ sonic-cli
+# sonic# configure terminal
+# sonic()# router bgp 65001
+# sonic(-router-bgp)# router-id 2.2.2.2
+# sonic(-router-bgp)# neighbor 10.1.1.1 remote-as 65001
+# sonic(-router-bgp-neighbor)# address-family ipv4 unicast
+# sonic(-router-bgp-neighbor-af)# activate
+# sonic(-router-bgp-neighbor-af)# end
+# sonic# configure
+# sonic()# router bgp 65001
+# sonic(-router-bgp)# no neighbor 10.1.1.1
+# sonic(-router-bgp)# neighbor 10.1.1.1 remote-as 65001
+# sonic(-router-bgp-neighbor)# peer-group 1
+# sonic(-router-bgp-neighbor)# end
+# sonic# show running-configuration bgp
+# sonic# show bgp ipv4 unicast neighbors
+
+# Expected Output from DUT2:
+# ---------------------------
+# BGP neighbor is 10.1.1.1, remote AS 65001, local AS 65001, internal link
+#  Member of peer-group 1 for session parameters  <-- VERIFY THIS LINE
+
+# Verification Commands:
+# ----------------------
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_ipv4_summary: "show bgp ipv4 unicast summary"
+  bgp_neighbors: "show bgp ipv4 unicast neighbors"
+  bgp_neighbor_detail: "show bgp ipv4 unicast neighbors <neighbor-ip>"
+  running_config: "show running-configuration bgp"
+
+# Expected Behavior:
+# ------------------
+expected:
+  bgp_session_state: "Established"
+  peer_group_created: true
+  peer_group_membership: "Member of peer-group 1 for session parameters"
+  ipv4_ping: "success"
+
+# Key Verification Points:
+# ------------------------
+verification:
+  - "BGP session between 10.1.1.1 and 10.1.1.2 is Established"
+  - "Peer-group '1' is created on DUT2"
+  - "Neighbor 10.1.1.1 is attached to peer-group '1'"
+  - "show bgp ipv4 unicast neighbors 10.1.1.1 displays 'Member of peer-group 1 for session parameters'"
+  - "show running-configuration bgp contains 'peer-group 1'"
+  - "IPv4 connectivity verified via ping"
+
+# Notes:
+# ------
+notes:
+  - "This test uses iBGP (Internal BGP) with same AS number 65001 on both devices"
+  - "DUT1 configures neighbor directly without peer-group"
+  - "DUT2 creates peer-group '1' and attaches neighbor to it"
+  - "Peer-group simplifies configuration when multiple neighbors share same policies"
+  - "The key verification is 'Member of peer-group X for session parameters' in show output"
