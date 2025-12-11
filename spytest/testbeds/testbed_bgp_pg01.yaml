@@ -15,29 +15,17 @@ devices:
     properties: {services: default, build: default, config: default, errors: default}
 
 topology:
-  # D1 (smic_sonic1) connections
+  # D1 (smic_sonic1) connections - ONLY WORKING PORTS
   smic_sonic1:
     interfaces:
-      # D1 ↔ D2 VLAN10 untagged (access port)
-      Ethernet0: {EndDevice: smic_sonic2, EndPort: Ethernet0}
-      # D1 ↔ D2 VLAN20 tagged (trunk port)
+      # D1 ↔ D2 Primary link for BGP testing
       Ethernet4: {EndDevice: smic_sonic2, EndPort: Ethernet4}
-      # D1 ↔ D2 LAG50 member 1
-      Ethernet8: {EndDevice: smic_sonic2, EndPort: Ethernet24}
-      # D1 ↔ D2 LAG50 member 2
-      Ethernet12: {EndDevice: smic_sonic2, EndPort: Ethernet28}
 
-  # D2 (smic_sonic2) connections
+  # D2 (smic_sonic2) connections - ONLY WORKING PORTS
   smic_sonic2:
     interfaces:
-      # D2 ↔ D1 VLAN10 untagged (access port)
-      Ethernet0: {EndDevice: smic_sonic1, EndPort: Ethernet0}
-      # D2 ↔ D1 VLAN20 tagged (trunk port)
+      # D2 ↔ D1 Primary link for BGP testing
       Ethernet4: {EndDevice: smic_sonic1, EndPort: Ethernet4}
-      # D2 ↔ D1 LAG50 member 1
-      Ethernet24: {EndDevice: smic_sonic1, EndPort: Ethernet8}
-      # D2 ↔ D1 LAG50 member 2
-      Ethernet28: {EndDevice: smic_sonic1, EndPort: Ethernet12}
 
 services: {default: {}}
 builds:   {default: {}}

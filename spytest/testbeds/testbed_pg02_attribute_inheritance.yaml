@@ -1,0 +1,89 @@
+# Testbed Configuration for PG-02: Attribute Inheritance Test
+# 2-device topology for BGP peer-group attribute inheritance testing
+#
+# Devices:
+#   - DUT1: 192.168.100.196 (admin/YourPaSsWoRd)
+#   - DUT2: 192.168.100.55 (admin/YourPaSsWoRd)
+#
+# Topology:
+#   DUT1:Ethernet4 <----> DUT2:Ethernet4
+#
+# Usage:
+#   cd /home/adminuser/draksha/sonic-mgmt/spytest
+#   ./bin/spytest --tryssh 1 \
+#     --testbed ./testbeds/testbed_pg02_attribute_inheritance.yaml \
+#     tests/routing/bgp/test_pg02_attribute_inheritance.py \
+#     --logs-path ./logs/pg02_$(date +%F_%H%M%S) \
+#     --log-level debug --skip-init-config --ifname-type native
+
+version: 2.0
+
+devices:
+  sonic1:
+    device_type: sonic
+    hwsku: Accton-AS7712-32X
+    access:
+      protocol: ssh
+      ip: 192.168.100.196
+      port: 22
+    credentials:
+      username: admin
+      password: YourPaSsWoRd
+      altpassword: YourPaSsWoRd
+    properties:
+      sonic_version: unknown
+      console: ""
+
+  sonic2:
+    device_type: sonic
+    hwsku: Accton-AS7712-32X
+    access:
+      protocol: ssh
+      ip: 192.168.100.55
+      port: 22
+    credentials:
+      username: admin
+      password: YourPaSsWoRd
+      altpassword: YourPaSsWoRd
+    properties:
+      sonic_version: unknown
+      console: ""
+
+topology:
+  sonic1:
+    interfaces:
+      Ethernet4:
+        EndDevice: sonic2
+        EndPort: Ethernet4
+        speed: 40000
+
+  sonic2:
+    interfaces:
+      Ethernet4:
+        EndDevice: sonic1
+        EndPort: Ethernet4
+        speed: 40000
+
+# Device role mapping
+devices_info:
+  D1: sonic1
+  D2: sonic2
+
+# Parameters for test execution
+params:
+  # Testbed parameters
+  testbed_type: physical
+  topology: D1D2:1
+
+  # Device parameters
+  sonic_username: admin
+  sonic_password: YourPaSsWoRd
+
+  # Test parameters
+  cli_type: klish
+  skip_init_config: true
+  ifname_type: native
+
+  # BGP parameters
+  bgp_convergence_timeout: 90
+  verify_timeout: 90
