@@ -1,0 +1,34 @@
+version: 2.0
+devices:
+  smic_sonic1:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.184, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+  
+  smic_sonic2:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.242, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+    
+  smic_sonic3:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.117, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+
+topology:
+  smic_sonic1:
+    interfaces:
+      Ethernet0: {EndDevice: smic_sonic2, EndPort: Ethernet48}
+  smic_sonic2:
+    interfaces:
+      Ethernet32: {EndDevice: smic_sonic3, EndPort: Ethernet32}
+      
+
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}
