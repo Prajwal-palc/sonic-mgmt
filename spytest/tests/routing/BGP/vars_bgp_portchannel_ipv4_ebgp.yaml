@@ -1,0 +1,332 @@
+# BGP IPv4 over PortChannel Test Variables - eBGP
+# Test ID: BGP-PC-eBGP-001, BGP-PC-eBGP-002, BGP-PC-eBGP-003, BGP-PC-eBGP-004
+# Reference: Doc/test_bgp_portchannel.md
+
+defaults:
+  cli_type: "klish"  # Configuration via sonic-cli (klish)
+  verify_cli_type: "klish"  # Show commands use klish CLI
+  verify_timeout: 300  # Seconds to wait for BGP session establishment
+  pc_wait_time: 30  # Seconds to wait after PortChannel configuration before BGP
+  cleanup: true  # Cleanup configuration after each test
+  min_topology:
+    - "D1D2:1"  # Minimum topology: 2 DUTs with 1 link
+  keepalive: 60  # BGP keepalive timer (seconds)
+  hold: 180  # BGP hold timer (seconds)
+
+# ============================================================================
+# Test Case BGP-PC-eBGP-001: eBGP over PortChannel Session Establishment
+# ============================================================================
+testcases:
+  "BGP-PC-eBGP-001":
+    title: "eBGP over PortChannel Configuration and Session Establishment"
+    description: "Verify eBGP IPv4 neighbor session establishment over PortChannel interface"
+
+    # PortChannel Configuration
+    portchannels:
+      - dut: "D1"
+        portchannel_id: 10
+      - dut: "D2"
+        portchannel_id: 10
+
+    # PortChannel Member Configuration
+    portchannel_members:
+      - dut: "D1"
+        portchannel_id: 10
+        interface: "{{D1D2P1}}"
+      - dut: "D2"
+        portchannel_id: 10
+        interface: "{{D2D1P1}}"
+
+    # Physical Interface Configuration
+    interfaces:
+      - dut: "D1"
+        interface: "{{D1D2P1}}"
+        admin_status: "up"
+      - dut: "D2"
+        interface: "{{D2D1P1}}"
+        admin_status: "up"
+
+    # PortChannel L3 Interface IP Configuration
+    portchannel_interfaces:
+      - dut: "D1"
+        interface: "PortChannel10"
+        ip_address: "10.20.20.1"
+        prefix_length: 24
+        admin_status: "up"
+      - dut: "D2"
+        interface: "PortChannel10"
+        ip_address: "10.20.20.2"
+        prefix_length: 24
+        admin_status: "up"
+
+    # BGP Router Configuration
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+        vrf: "default"
+
+    # BGP Neighbor Configuration
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.20.20.2"
+        remote_asn: "65002"  # eBGP (different AS)
+        vrf: "default"
+        family: "ipv4"
+        activate: true
+      - dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.20.20.1"
+        remote_asn: "65001"  # eBGP (different AS)
+        vrf: "default"
+        family: "ipv4"
+        activate: true
+
+    # Verification Checks
+    verification:
+      # PortChannel verification
+      portchannel_checks:
+        - dut: "D1"
+          portchannel_id: 10
+          expected_state: "up"
+        - dut: "D2"
+          portchannel_id: 10
+          expected_state: "up"
+
+      # Interface verification
+      interface_checks:
+        - dut: "D1"
+          interface: "{{D1D2P1}}"
+          expected_status: "up"
+        - dut: "D2"
+          interface: "{{D2D1P1}}"
+          expected_status: "up"
+        - dut: "D1"
+          interface: "PortChannel10"
+          expected_status: "up"
+          ip_address: "10.20.20.1/24"
+        - dut: "D2"
+          interface: "PortChannel10"
+          expected_status: "up"
+          ip_address: "10.20.20.2/24"
+
+      # BGP session verification
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.20.20.2"
+          expected_state: "Established"
+          remote_asn: 65002
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.20.20.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Test Case BGP-PC-eBGP-002: BGP over PortChannel Traffic Validation
+# ============================================================================
+  "BGP-PC-eBGP-002":
+    title: "eBGP over PortChannel Traffic Validation using Scapy"
+    description: |
+      Extends test BGP-PC-eBGP-001 by validating bidirectional traffic forwarding
+      using Scapy-generated packets over the established eBGP session on PortChannel.
+      Reuses the existing BGP session from test 001.
+
+    # Traffic configuration
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 1000             # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "udp"           # Traffic type: udp, icmp, or tcp
+
+    # Expected verification results
+    verification:
+      min_packets_expected: 9000  # Minimum packets to send (duration * pps * 0.9)
+
+      # BGP session verification (reuse from test 001)
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.20.20.2"
+          expected_state: "Established"
+          remote_asn: 65002
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.20.20.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Test Case BGP-PC-eBGP-003: BGP Route Advertisement over PortChannel with Hosts
+# ============================================================================
+  "BGP-PC-eBGP-003":
+    title: "eBGP route advertisement and host-to-host routing validation over PortChannel"
+    description: |
+      Extends test BGP-PC-eBGP-001 by adding LAN interfaces on routers, real host devices,
+      and advertising LAN networks via the existing eBGP session over PortChannel.
+
+      Topology: Host1 ---- Eth16 ---- R1 ---- PortChannel10(eBGP) ---- R2 ---- Eth16 ---- Host2
+
+    # Router 1 (D1) configuration
+    router1:
+      portchannel_interface: "PortChannel10"
+      portchannel_ip: "10.20.20.1"
+      portchannel_subnet: "24"
+
+      lan_interface: "Ethernet16"
+      lan_ip: "192.0.2.1"
+      lan_subnet: "24"
+      lan_network: "192.0.2.0/24"
+
+      bgp_asn: 65001
+      router_id: "1.1.1.1"
+      neighbor_ip: "10.20.20.2"
+      remote_asn: 65002
+
+    # Router 2 (D2) configuration
+    router2:
+      portchannel_interface: "PortChannel10"
+      portchannel_ip: "10.20.20.2"
+      portchannel_subnet: "24"
+
+      lan_interface: "Ethernet16"
+      lan_ip: "198.51.100.1"
+      lan_subnet: "24"
+      lan_network: "198.51.100.0/24"
+
+      bgp_asn: 65002
+      router_id: "2.2.2.2"
+      neighbor_ip: "10.20.20.1"
+      remote_asn: 65001
+
+    # Host 1 (vs_sonic_3) configuration
+    host1:
+      device: "vs_sonic_3"
+      interface: "Ethernet0"
+      ip: "192.0.2.10"
+      subnet: "24"
+      gateway: "192.0.2.1"
+
+    # Host 2 (vs_sonic_4) configuration
+    host2:
+      device: "vs_sonic_4"
+      interface: "Ethernet16"
+      ip: "198.51.100.10"
+      subnet: "24"
+      gateway: "198.51.100.1"
+
+    # Expected verification results
+    verification:
+      router1_should_learn: "198.51.100.0/24"
+      router2_should_learn: "192.0.2.0/24"
+      next_hop_r1: "10.20.20.2"
+      next_hop_r2: "10.20.20.1"
+
+      host1_ping_host2: "198.51.100.10"
+      host2_ping_host1: "192.0.2.10"
+
+      # BGP session verification (reuse from test 001)
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.20.20.2"
+          expected_state: "Established"
+          remote_asn: 65002
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.20.20.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Test Case BGP-PC-eBGP-004: BGP Config Persistence (Save and Reboot)
+# ============================================================================
+  "BGP-PC-eBGP-004":
+    title: "eBGP over PortChannel Config Persistence across Save and Reboot"
+    description: |
+      Verify eBGP configuration over PortChannel persists across save and reboot.
+      Tests configuration save, device reboot, and BGP session re-establishment.
+
+    # Verification checks after reboot
+    verification:
+      # PortChannel verification
+      portchannel_checks:
+        - dut: "D1"
+          portchannel_id: 10
+          expected_state: "up"
+        - dut: "D2"
+          portchannel_id: 10
+          expected_state: "up"
+
+      # Interface verification after reboot
+      interface_checks:
+        - dut: "D1"
+          interface: "PortChannel10"
+          expected_status: "up"
+          ip_address: "10.20.20.1/24"
+        - dut: "D2"
+          interface: "PortChannel10"
+          expected_status: "up"
+          ip_address: "10.20.20.2/24"
+
+      # BGP session verification after reboot
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.20.20.2"
+          expected_state: "Established"
+          remote_asn: 65002
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.20.20.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Cleanup Configuration
+# ============================================================================
+cleanup:
+  # Remove BGP neighbors first
+  bgp_neighbors:
+    - dut: "D1"
+      local_asn: 65001
+      neighbor_ip: "10.20.20.2"
+    - dut: "D2"
+      local_asn: 65002
+      neighbor_ip: "10.20.20.1"
+
+  # Remove BGP router instance
+  bgp_routers:
+    - dut: "D1"
+      local_asn: 65001
+    - dut: "D2"
+      local_asn: 65002
+
+  # Remove PortChannel IP addresses
+  portchannel_interfaces:
+    - dut: "D1"
+      interface: "PortChannel10"
+    - dut: "D2"
+      interface: "PortChannel10"
+
+  # Remove PortChannel member interfaces
+  portchannel_members:
+    - dut: "D1"
+      portchannel_id: 10
+      interface: "{{D1D2P1}}"
+    - dut: "D2"
+      portchannel_id: 10
+      interface: "{{D2D1P1}}"
+
+  # Remove PortChannels
+  portchannels:
+    - dut: "D1"
+      portchannel_id: 10
+    - dut: "D2"
+      portchannel_id: 10
