@@ -478,6 +478,14 @@ def delete_ip_interface(dut, interface_name, ip_address, subnet="32", family="ip
         st.config(dut, command, skip_error_check=skip_error)
         return True
     elif cli_type == 'klish':
+        # Handle case where ip_address already contains prefix (e.g., "192.0.2.10/24")
+        if '/' in str(ip_address):
+            ip_addr_only = str(ip_address).split('/')[0]
+            prefix_len = str(ip_address).split('/')[1]
+        else:
+            ip_addr_only = ip_address
+            prefix_len = subnet
+
         fam = "ip" if family == 'ipv4' else 'ipv6'
         interface_name = [interface_name] if isinstance(interface_name, str) else interface_name
         port_hash_list = segregate_intf_list_type(intf=interface_name, range_format=True)
@@ -489,12 +497,12 @@ def delete_ip_interface(dut, interface_name, ip_address, subnet="32", family="ip
                 command.append("no {} address".format(fam))
             elif ifname == 'eth0':
                 command.append("interface Management 0")
-                command.append("no {} address {}/{}".format(fam, ip_address, subnet))
+                command.append("no {} address {}/{}".format(fam, ip_addr_only, prefix_len))
             else:
                 intf = get_interface_number_from_name(ifname)
                 zero_or_more_space = get_random_space_string()
                 command.append("interface {}{}{}".format(intf['type'], zero_or_more_space, intf['number']))
-                sub_cmd = "no {} address {}/{}".format(fam, ip_address, subnet)
+                sub_cmd = "no {} address {}/{}".format(fam, ip_addr_only, prefix_len)
                 if is_secondary_ip == 'yes':
                     sub_cmd += ' secondary'
                 command.append(sub_cmd)
@@ -1835,12 +1843,14 @@ def config_route_map(dut, route_map, config='yes', **kwargs):
         cmd += "\n"
         cmd += "exit\n"
         st.config(dut, cmd, type=cli_type)
+        return True
     else:
         cmd = "no route-map {}".format(route_map)
         if 'sequence' in kwargs:
             cmd += " permit {}".format(kwargs['sequence'])
         cmd += "\n"
         st.config(dut, cmd, type=cli_type)
+        return True
 
 
 def config_route_map_global_nexthop(dut, route_map='route_map_next_hop_global', sequence='10', config='yes', **kwargs):

@@ -56,6 +56,14 @@ Bgp_table_vtysh
   #    Network          Next Hop            Metric LocPrf Weight Path
   ^${STATUS_CODE}\s*${INTERNAL}\s*${NETWORK}\s+${NEXT_HOP}\s+${WEIGHT}\s+\(*${AS_PATH}\)*(\s+${ORIGIN})*\s*$$ -> Record
   #
+  # eBGP learned routes: Metric present, no LocPrf, Weight, AS path, and origin
+  # Example: *>  198.51.100.0/24  10.1.1.2                 0             0 65002 ?
+  ^${STATUS_CODE}\s*${INTERNAL}\s*${NETWORK}\s+${NEXT_HOP}\s{1,24}${METRIC}\s{1,12}${WEIGHT}\s+\(*${AS_PATH}\)*(\s+${ORIGIN})*\s*$$ -> Record
+  #
+  # Locally originated routes: Metric present, no LocPrf, Weight 32768, no AS path number, only origin
+  # Example: *>  1.1.1.1/32       0.0.0.0                  0         32768 ?
+  ^${STATUS_CODE}\s*${INTERNAL}\s*${NETWORK}\s+${NEXT_HOP}\s{1,24}${METRIC}\s{1,12}${WEIGHT}\s+${ORIGIN}\s*$$ -> Record
+  #
   # IPv6 routes on 2 lines
   # IPv6 example - entry on 2 line, upto nexthop in first line and all other info in 2nd line
   #    Network          Next Hop            Metric LocPrf Weight Path

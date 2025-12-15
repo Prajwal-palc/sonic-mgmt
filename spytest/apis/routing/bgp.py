@@ -360,7 +360,8 @@ def config_bgp_router(dut, local_asn, router_id='', keep_alive=60, hold=180, con
     :return:
     """
     cli_type = get_cfg_cli_type(dut, **kwargs)
-    if cli_type in get_supported_ui_type_list():
+    # NOTE: Exclude 'klish' from UMF path due to return value issues - use direct klish commands instead
+    if cli_type in get_supported_ui_type_list() and cli_type != 'klish':
         kwargs['router_id'] = router_id
         kwargs['keep_alive'] = keep_alive
         kwargs['hold'] = hold
@@ -630,12 +631,12 @@ def create_bgp_neighbor(dut, local_asn, neighbor_ip, remote_asn, keep_alive=60, 
         if family == "ipv6":
             command = "address-family ipv6 unicast"
             st.config(dut, command, type='vtysh')
-            command = "neighbor {} activate".format(neighbor_ip)
+            command = "activate"
             st.config(dut, command, type='vtysh')
         if family == "ipv4":
             command = "address-family ipv4 unicast"
             st.config(dut, command, type='vtysh')
-            command = "neighbor {} activate".format(neighbor_ip)
+            command = "activate"
             st.config(dut, command, type='vtysh')
     elif cli_type == 'klish':
         commands = list()
@@ -1077,7 +1078,7 @@ def config_bgp_neighbor_properties(dut, local_asn, neighbor_ip, family=None, mod
             st.config(dut, command, type=cli_type)
             if "activate" in properties:
                 if properties["activate"]:
-                    command = "{} neighbor {} activate".format(no_form, neighbor_ip)
+                    command = "{} activate".format(no_form)
                     st.config(dut, command, type=cli_type)
             if "default-originate" in properties:
                 if properties["default-originate"]:
@@ -4267,7 +4268,8 @@ def config_address_family_redistribute(dut, local_asn, mode_type, mode, value, c
     cli_type = get_cfg_cli_type(dut, **kwargs)
     route_map = kwargs.get('route_map')
 
-    if cli_type in get_supported_ui_type_list():
+    # NOTE: Exclude 'klish' from UMF path due to return value issues - use direct klish commands instead
+    if cli_type in get_supported_ui_type_list() and cli_type != 'klish':
         family = mode_type
         redist_type = value.upper()
         if value.upper() == 'CONNECTED':
@@ -4796,6 +4798,7 @@ def config_bgp(dut, **kwargs):
             else:
                 my_cmd = '{} router bgp'.format(config_cmd)
             st.config(dut, my_cmd, type=cli_type)
+        return True
     elif cli_type == "klish":
         commands = list()
         neigh_name = get_interface_number_from_name(neighbor)
@@ -4847,12 +4850,27 @@ def config_bgp(dut, **kwargs):
 
         for type1 in config_type_list:
             if type1 in sub_list:
-                if neigh_name and not peergroup:
+                # For klish, neighbor and remote-as must be on same line
+                if neigh_name and not peergroup and config_remote_as and remote_as:
                     if isinstance(neigh_name, dict):
-                        my_cmd = "neighbor interface {} {}".format(neigh_name["type"], neigh_name["number"])
+                        my_cmd = "{} neighbor interface {} {} remote-as {}".format(
+                            config_cmd, neigh_name["type"], neigh_name["number"], remote_as)
                     else:
-                        my_cmd = "neighbor {}".format(neigh_name)
+                        my_cmd = "{} neighbor {} remote-as {}".format(config_cmd, neigh_name, remote_as)
                     commands.append(my_cmd)
+                    config_remote_as = False
+                    neigh_name = None  # Neighbor configured, don't add it again
+                elif neigh_name and not peergroup:
+                    # In klish, if only doing address-family operations (activate, routeMap, etc.)
+                    # without remote_as, don't generate bare neighbor command.
+                    # These operations will be done in router-bgp address-family context.
+                    #  Only generate neighbor command if "neighbor" is explicitly in config_type_list
+                    if 'neighbor' in config_type_list:
+                        if isinstance(neigh_name, dict):
+                            my_cmd = "neighbor interface {} {}".format(neigh_name["type"], neigh_name["number"])
+                        else:
+                            my_cmd = "neighbor {}".format(neigh_name)
+                        commands.append(my_cmd)
                 if peergroup:
                     my_cmd_peer = '{} peer-group {}'.format(config_cmd, peergroup)
                     if 'peergroup' in config_type_list:
@@ -4870,10 +4888,11 @@ def config_bgp(dut, **kwargs):
                     commands.append(my_cmd_peer)
                 if config_remote_as and remote_as:
                     if interface and not peergroup:
-                        my_cmd = "neighbor interface {} {}".format(intf_name['type'], intf_name['number'])
+                        my_cmd = "neighbor interface {} {} remote-as {}".format(intf_name['type'], intf_name['number'], remote_as)
                         commands.append(my_cmd)
-                    my_cmd = '{} remote-as {}'.format(config_cmd, remote_as)
-                    commands.append(my_cmd)
+                    else:
+                        my_cmd = '{} remote-as {}'.format(config_cmd, remote_as)
+                        commands.append(my_cmd)
                     config_remote_as = False
                 if activate in ['af_only', 'af_default']:
                     # show ip bgp summary will list
@@ -5120,6 +5139,7 @@ def config_bgp(dut, **kwargs):
             my_cmd = '{} router bgp'.format(config_cmd)
             cli_output = st.config(dut, my_cmd, type=cli_type, skip_error_check=True)
             fail_on_error(cli_output)
+        return True
     elif cli_type in ["rest-patch", "rest-put"]:
         shutdown = kwargs.get("shutdown", None) if "shutdown" in config_type_list else None
         if config == 'yes':
@@ -6337,7 +6357,11 @@ def verify_ip_bgp_route(dut, family='ipv4', **kwargs):
     output = show_ip_bgp_route(dut, family=family, cli_type=cli_type)
     kwargs.pop("cli_type", None)
     for each in kwargs.keys():
-        match = {each: kwargs[each]}
+        # TextFSM templates define fields in UPPERCASE (e.g., NETWORK, NEXT_HOP)
+        # but TextFSM parser returns them in lowercase (e.g., network, next_hop)
+        # Convert field name to lowercase to match parsed output
+        field_name_lower = each.lower()
+        match = {field_name_lower: kwargs[each]}
         entries = filter_and_select(output, None, match)
         if not entries:
             st.log("{} and {} is not match ".format(each, kwargs[each]))
@@ -6345,15 +6369,190 @@ def verify_ip_bgp_route(dut, family='ipv4', **kwargs):
     return True
 
 
-def verify_ip_bgp_route_network_list(dut, family='ipv4', nw_list=[], **kwargs):
+def show_ip_route_bgp(dut, family='ipv4', **kwargs):
+    """
+    Show BGP routes from the IP routing table (not BGP table).
 
+    This function runs "show ip route" and filters for BGP routes (type 'B').
+
+    Args:
+        dut: Device under test
+        family: Address family (ipv4/ipv6), defaults to 'ipv4'
+        **kwargs: Additional parameters including:
+            - cli_type: CLI type to use (click, klish, rest, etc.)
+            - vrf_name: VRF name to check routes in
+
+    Returns:
+        list: List of BGP routes from IP routing table
+
+    Example:
+        routes = show_ip_route_bgp(dut1, family='ipv4', cli_type='klish')
+    """
+    from apis.routing.ip import show_ip_route
+    from spytest.utils import filter_and_select
+
+    cli_type = kwargs.pop('cli_type', get_show_cli_type(dut, **kwargs))
+    vrf_name = kwargs.pop('vrf_name', None)
+
+    # Get all IP routes
+    output = show_ip_route(dut, family=family, cli_type=cli_type, vrf_name=vrf_name)
+
+    # Filter for BGP routes only (type 'B')
+    bgp_routes = filter_and_select(output, None, {'type': 'B'})
+
+    # Filter out incomplete entries (those with empty nexthop)
+    # The show_ip_route template sometimes creates duplicate entries
+    # where one has valid data and another has empty fields
+    valid_routes = []
+    for route in bgp_routes:
+        # Keep only routes with non-empty nexthop OR interface
+        if route.get('nexthop') or route.get('interface'):
+            valid_routes.append(route)
+
+    return valid_routes
+
+
+def verify_ip_route_bgp(dut, family='ipv4', **kwargs):
+    """
+    Verify BGP routes are installed in the IP routing table.
+
+    This function checks "show ip route" output to verify BGP routes
+    are present in the RIB (Routing Information Base), not just the BGP table.
+
+    Args:
+        dut: Device under test
+        family: Address family (ipv4/ipv6), defaults to 'ipv4'
+        **kwargs: Additional parameters including:
+            - network: Network prefix to verify (e.g., '192.168.1.0/24')
+            - nexthop: Next hop IP address
+            - cli_type: CLI type to use (click, klish, rest, etc.)
+            - Any other IP route fields to verify
+
+    Returns:
+        bool: True if BGP route is found in IP routing table, False otherwise
+
+    Example:
+        verify_ip_route_bgp(dut1, network='10.1.1.0/24', nexthop='10.1.1.2', cli_type='klish')
+    """
+    from spytest.utils import filter_and_select
+
+    cli_type = kwargs.pop('cli_type', get_show_cli_type(dut, **kwargs))
+
+    # Get BGP routes from IP routing table
+    bgp_routes = show_ip_route_bgp(dut, family=family, cli_type=cli_type)
+
+    # Map parameters to show_ip_route template field names
+    # Template uses: ip_address, nexthop, type, interface, distance, cost, etc.
+    match_dict = {}
+    network_to_match = None
+
+    for key, value in kwargs.items():
+        key_lower = key.lower()
+
+        # Map 'network' to 'ip_address' (show_ip_route field name)
+        if key_lower == 'network':
+            network_to_match = value
+            # Don't add to match_dict yet - we'll handle it separately to support both formats
+        # Map both 'nexthop' and 'next_hop' variations
+        elif key_lower in ['nexthop', 'next_hop']:
+            match_dict['nexthop'] = value
+        # Map other fields directly (converting to lowercase for template compatibility)
+        else:
+            match_dict[key_lower] = value
+
+    # Filter BGP routes for the specified criteria
+    # If network was specified, we need to match flexibly (with or without prefix)
+    if network_to_match:
+        # Try exact match first
+        match_dict_with_network = match_dict.copy()
+        match_dict_with_network['ip_address'] = network_to_match
+        entries = filter_and_select(bgp_routes, None, match_dict_with_network)
+
+        # If no exact match and network doesn't have '/', try matching entries that start with the IP
+        if not entries and '/' not in str(network_to_match):
+            # Manual filtering: check if any route's ip_address starts with the given network
+            for route in bgp_routes:
+                if not route.get('ip_address'):
+                    continue
+                # Check if this route matches all other criteria
+                match = True
+                for k, v in match_dict.items():
+                    if route.get(k) != v:
+                        match = False
+                        break
+                # Check if IP starts with the given network
+                if match and route['ip_address'].startswith(str(network_to_match)):
+                    entries = [route]
+                    break
+    else:
+        entries = filter_and_select(bgp_routes, None, match_dict)
+
+    if not entries:
+        st.log("BGP route not found in IP routing table. Expected: {}".format(match_dict))
+        st.log("BGP routes in routing table: {}".format(bgp_routes))
+        return False
+
+    return True
+
+
+def verify_bgp_rib(dut, family='ipv4', **kwargs):
+    """
+    Verify BGP routes are installed in the IP routing table (RIB).
+
+    This function checks the IP routing table to verify that BGP routes
+    have been properly installed, not just present in the BGP table.
+    It calls verify_ip_route_bgp() which checks "show ip route" output.
+
+    Args:
+        dut: Device under test
+        family: Address family (ipv4/ipv6), defaults to 'ipv4'
+        **kwargs: Additional parameters including:
+            - network: Network prefix to verify (e.g., '192.168.1.0/24')
+            - nexthop or next_hop: Next hop IP address
+            - cli_type: CLI type to use (click, klish, rest, etc.)
+            - Any other IP route attributes to verify
+
+    Returns:
+        bool: True if BGP route is installed in RIB, False otherwise
+
+    Example:
+        verify_bgp_rib(dut1, network='10.1.1.0/24', nexthop='10.1.1.2', cli_type='klish')
+    """
+    return verify_ip_route_bgp(dut, family=family, **kwargs)
+
+
+def verify_ip_bgp_route_network_list(dut, family='ipv4', nw_list=[], **kwargs):
+    """
+    Verify that a list of BGP networks are installed in the IP routing table.
+
+    This function checks the IP routing table (RIB) to verify that BGP routes
+    for the specified networks are actually installed, not just present in the BGP table.
+
+    Args:
+        dut: Device under test
+        family: Address family (ipv4/ipv6), defaults to 'ipv4'
+        nw_list: List of network prefixes to verify (e.g., ['192.168.1.0/24', '10.0.0.0/8'])
+        **kwargs: Additional parameters including:
+            - cli_type: CLI type to use (click, klish, rest, etc.)
+
+    Returns:
+        bool: True if all BGP networks are installed in IP routing table, False otherwise
+
+    Example:
+        verify_ip_bgp_route_network_list(dut1, nw_list=['10.1.1.0/24', '192.168.0.0/16'], cli_type='klish')
+    """
     cli_type = get_show_cli_type(dut, **kwargs)
-    output = show_ip_bgp_route(dut, family=family, cli_type=cli_type)
+
+    # Get BGP routes from IP routing table (not BGP table)
+    output = show_ip_route_bgp(dut, family=family, cli_type=cli_type)
+
     for network in nw_list:
-        match = {'network': network}
+        # Map 'network' to 'ip_address' (show_ip_route field name)
+        match = {'ip_address': network}
         entries = filter_and_select(output, None, match)
         if not entries:
-            st.log("BGP Network {} is not matching ".format(network))
+            st.log("BGP Network {} is not installed in IP routing table".format(network))
+            st.log("BGP routes in routing table: {}".format(output))
             return False
     return True
 
