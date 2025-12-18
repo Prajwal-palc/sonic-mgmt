@@ -6614,6 +6614,51 @@ def show_bgp_ip_prefix(dut, ip_prefix, family='ipv4'):
     return entries
 
 
+def show_bgp_ipv4_network_parsed(dut, family='ipv4'):
+    """
+    API to get BGP routes using 'show ip bgp network' with manual parsing.
+
+    This function works around TextFSM template spacing constraint issues by
+    bypassing the template and parsing the output manually using regex.
+
+    :param dut: Device under test
+    :param family: Address family (default: ipv4)
+    :return: List of dictionaries with 'network' and 'next_hop' keys
+
+    Example:
+        routes = show_bgp_ipv4_network_parsed(dut1)
+        # Returns: [{'network': '10.1.12.0/24', 'next_hop': '10.1.12.1'}, ...]
+    """
+    import re
+
+    if family == 'ipv4':
+        cmd = "show ip bgp network"
+    elif family == 'ipv6':
+        cmd = "show ipv6 bgp network"
+    else:
+        st.error(f"Unsupported address family: {family}")
+        return []
+
+    # Use skip_tmpl=True to bypass broken TextFSM template
+    raw_output = st.show(dut, cmd, type='click', skip_tmpl=True)
+
+    routes = []
+    if isinstance(raw_output, str):
+        lines = raw_output.split('\n')
+        for line in lines:
+            # Match BGP route lines - handles status codes and extracts network/next-hop
+            # Pattern matches: " *>i 10.2.23.0/24     10.2.23.3                0    100      0 i"
+            match = re.match(r'\s*[*>cihulsmdSR]*\s*([0-9.:/A-Fa-f]+)\s+([0-9.:A-Fa-f]+)\s+', line)
+            if match:
+                routes.append({
+                    'network': match.group(1),
+                    'next_hop': match.group(2)
+                })
+
+    st.log(f"Parsed {len(routes)} BGP routes from '{cmd}' output")
+    return routes
+
+
 def activate_bgp_neighbor(dut, local_asn, neighbor_ip, family="ipv4", config='yes', vrf='default', **kwargs):
     """
 
