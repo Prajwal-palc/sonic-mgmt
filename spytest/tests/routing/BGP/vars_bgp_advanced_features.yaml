@@ -1,0 +1,170 @@
+# BGP Advanced Features Test Variables
+# Test cases: BGP-20, BGP-15, BGP-21, BGP-25, BGP-26
+# Covers IPv4/IPv6 network advertisement, v6only sessions, and aggregate-address features
+
+defaults:
+  # CLI type: klish required for BGP configuration
+  cli_type: klish
+
+  # Verification timeout in seconds
+  verify_timeout: 60
+
+  # Enable cleanup after tests
+  cleanup: true
+
+  # Minimum topology requirement: 2 nodes with 1 link
+  min_topology:
+    - "D1D2:1"
+
+  # AS numbers for DUTs
+  d1_as: 65001
+  d2_as: 65002
+
+  # Router IDs
+  d1_router_id: "1.1.1.1"
+  d2_router_id: "2.2.2.2"
+
+  # D1-D2 link IPv4 addresses
+  d1d2_ipv4: "10.0.24.1/31"
+  d2d1_ipv4: "10.0.24.0/31"
+
+  # D1-D2 link IPv6 addresses
+  d1d2_ipv6: "2001:db8:24::1/127"
+  d2d1_ipv6: "2001:db8:24::0/127"
+
+testcases:
+  "BGP-20":
+    title: "Verify IPv4 Network Advertisement"
+    description: |
+      Verify that an IPv4 prefix present in the RIB is advertised from SONiC to a BGP peer
+      and is usable for traffic forwarding.
+    loopback_ip: "203.0.113.1/32"
+    network: "203.0.113.1/32"
+    verification:
+      - Check BGP table on DUT2 for prefix 203.0.113.1/32
+      - Check IP routing table on DUT2 for prefix 203.0.113.1/32
+      - Optional: Traffic test from H2 to 203.0.113.1
+
+  "BGP-15":
+    title: "Verify BGP Session Using IPv6 Link-Local Only (v6only)"
+    description: |
+      Verify that BGP peering can be established using only IPv6 link-local addresses,
+      without global IPv6 addressing. This is a control-plane validation only.
+    verification:
+      - BGP state should be Established using link-local addresses
+      - show bgp ipv6 unicast summary
+      - show bgp ipv6 unicast neighbors
+    notes: |
+      Requires dynamic link-local neighbor discovery. In production, neighbor link-local
+      address should be discovered via ICMPv6 Neighbor Discovery or manually configured.
+
+  "BGP-21":
+    title: "Verify IPv6 Network Advertisement"
+    description: |
+      Verify IPv6 prefix advertisement and forwarding.
+    loopback_ipv6: "2001:db8:1::1/128"
+    network: "2001:db8:1::1/128"
+    verification:
+      - Check BGP IPv6 table on DUT2 for prefix 2001:db8:1::1/128
+      - Check IPv6 routing table on DUT2 for prefix 2001:db8:1::1/128
+      - Optional: ICMPv6 echo to 2001:db8:1::1
+
+  "BGP-25":
+    title: "Verify Aggregate-Address Advertisement"
+    description: |
+      Verify that SONiC advertises an aggregated prefix when component routes exist.
+      Without summary-only, both aggregate and component routes should be advertised.
+    loopback1_ip: "10.10.1.1/24"
+    loopback2_ip: "10.10.2.1/24"
+    network1: "10.10.1.0/24"
+    network2: "10.10.2.0/24"
+    aggregate: "10.10.0.0/16"
+    verification:
+      - Aggregate route 10.10.0.0/16 should be present in DUT2 BGP table
+      - Component routes 10.10.1.0/24 and 10.10.2.0/24 should also be present
+    notes: |
+      Component routes must exist in RIB for aggregate to be advertised.
+
+  "BGP-26":
+    title: "Verify Aggregate Summary-Only Behavior"
+    description: |
+      Verify that component routes are suppressed when summary-only is configured.
+      Only the aggregate route should be advertised to peers.
+    loopback1_ip: "10.10.1.1/24"
+    loopback2_ip: "10.10.2.1/24"
+    network1: "10.10.1.0/24"
+    network2: "10.10.2.0/24"
+    aggregate: "10.10.0.0/16"
+    summary_only: true
+    verification:
+      - Aggregate route 10.10.0.0/16 should be present in DUT2 BGP table
+      - Component routes 10.10.1.0/24 and 10.10.2.0/24 should NOT be present
+      - Traffic to component network addresses should succeed via aggregate route
+    notes: |
+      summary-only suppresses advertisement of more-specific routes that are
+      covered by the aggregate.
+
+# Traffic generation configuration (optional, for data-plane validation)
+traffic:
+  enabled: false  # Set to true to enable Scapy-based traffic tests
+  scapy:
+    # Traffic host configurations
+    h1:
+      interface: "Ethernet4"  # Connected to D1
+      ipv4: "192.0.2.1/24"
+      ipv6: "2001:db8:h1::1/64"
+
+    h2:
+      interface: "Ethernet8"  # Connected to D2
+      ipv4: "198.51.100.1/24"
+      ipv6: "2001:db8:h2::1/64"
+
+  # Traffic test scenarios
+  tests:
+    bgp20_icmpv4:
+      description: "Send ICMPv4 echo to 203.0.113.1 from H2"
+      src: "h2"
+      dst_ip: "203.0.113.1"
+      protocol: "icmpv4"
+      count: 5
+      expected: "success"
+
+    bgp21_icmpv6:
+      description: "Send ICMPv6 echo to 2001:db8:1::1 from H2"
+      src: "h2"
+      dst_ip: "2001:db8:1::1"
+      protocol: "icmpv6"
+      count: 5
+      expected: "success"
+
+    bgp26_aggregate_traffic:
+      description: "Send ICMP to component network via aggregate route"
+      src: "h2"
+      dst_ip: "10.10.1.1"
+      protocol: "icmpv4"
+      count: 5
+      expected: "success"
+
+# Cleanup utilities
+cleanup:
+  bgp:
+    # Commands to clear BGP configuration (klish)
+    - "configure terminal"
+    - "no router bgp <AS>"
+    - "exit"
+    - "clear bgp all"
+
+  interfaces:
+    # Commands to remove IP address from interface (klish)
+    - "configure terminal"
+    - "interface <INTERFACE>"
+    - "no ip address"
+    - "no ipv6 address"
+    - "exit"
+    - "exit"
+
+  loopback:
+    # Commands to remove loopback interface (klish)
+    - "configure terminal"
+    - "no interface <LOOPBACK>"
+    - "exit"
