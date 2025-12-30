@@ -1,0 +1,88 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,ip address 20.1.1.1/24
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,mtu 9100
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,network 20.1.1.1/24 area 0
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,mtu 1500
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,mtu 9100
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D4,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,ip address 20.1.1.2/24
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,mtu 9100
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,network 20.1.1.2/24 area 0
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMTUMismatchEthernet.test_ospf_mtu_mismatch_prevents_adjacency_ethernet,D2,mgmt-config,exit
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D3,normal-user,show interfaces status Ethernet124

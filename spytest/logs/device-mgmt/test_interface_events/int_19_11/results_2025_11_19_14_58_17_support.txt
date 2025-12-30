@@ -1,0 +1,84 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: saving syslog pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: saving syslog pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py 
+smic_sonic1: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP saving running config post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP saving running config post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic2: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation Pass
+smic_sonic1: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: SKIP saving running config post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: saving syslog post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: SKIP saving running config post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: saving syslog post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic2: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events8_speed_auto_negoation.py Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration Pass

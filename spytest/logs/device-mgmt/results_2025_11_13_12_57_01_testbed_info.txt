@@ -1,0 +1,29 @@
+########## /home/adminuser/Siddu/sonic-mgmt/spytest/./testbeds/testbed_2vs.yaml ##########version: 2.0
+devices:
+  smic_sonic1:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.75, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+  
+  smic_sonic2:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.195, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+
+topology:
+  smic_sonic1:
+    interfaces:
+      Ethernet0: {EndDevice: smic_sonic2, EndPort: Ethernet0}
+      Ethernet4: {EndDevice: smic_sonic2, EndPort: Ethernet4}
+      Ethernet8: {EndDevice: smic_sonic2, EndPort: Ethernet8}
+      Ethernet12: {EndDevice: smic_sonic2, EndPort: Ethernet12}
+  
+
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}
+###################################

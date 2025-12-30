@@ -1,0 +1,427 @@
+# IPv4 Unnumbered Interface - L2/L3/ACL Scenarios Test Variables
+# Test ID: TC_IPv4_Unnumbered_1.2.2
+# Purpose: Variables for testing IPv4 unnumbered in L2/L3/ACL scenarios
+
+defaults:
+  cli_type: klish  # Use klish CLI exclusively as per requirement
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2"  # Two DUTs required
+
+# DUT1 Configuration (Primary DUT with unnumbered interface)
+dut1:
+  interfaces:
+    donor:
+      name: "Loopback0"
+      ip: "10.10.10.1/32"
+      ip_addr: "10.10.10.1"
+      netmask: "32"
+      type: "loopback"
+      description: "Donor interface for IP unnumbered"
+
+    target:
+      name: "Ethernet0"
+      type: "physical"
+      description: "Target unnumbered interface"
+      borrows_from: "Loopback0"
+      connected_to: "DUT2:Ethernet0"
+
+# DUT2 Configuration (Neighbor DUT for connectivity testing)
+dut2:
+  interfaces:
+    ethernet0:
+      name: "Ethernet0"
+      ip: "10.10.10.2/30"
+      ip_addr: "10.10.10.2"
+      netmask: "30"
+      type: "physical"
+      description: "Connected to DUT1 Ethernet0 (unnumbered)"
+      connected_to: "DUT1:Ethernet0"
+
+    loopback0:
+      name: "Loopback0"
+      ip: "20.20.20.1/32"
+      ip_addr: "20.20.20.1"
+      netmask: "32"
+      type: "loopback"
+      description: "Reachability testing destination"
+
+# Static Routes Configuration
+static_routes:
+  dut1:
+    - destination: "20.20.20.1/32"
+      nexthop: "10.10.10.2"
+      interface: "Ethernet0"
+      description: "Route to DUT2 Loopback0"
+
+  dut2:
+    - destination: "10.10.10.1/32"
+      nexthop: "10.10.10.1"
+      interface: "Ethernet0"
+      description: "Route to DUT1 Loopback0"
+
+# ACL Configuration
+acls:
+  test_acl_permit:
+    name: "TEST_ACL"
+    description: "Permit ICMP from DUT2"
+    rules:
+      - "permit icmp 10.10.10.2/32 any"
+      - "permit tcp any any established"
+      - "deny ip any any"
+    application:
+      interface: "Ethernet0"
+      direction: "in"
+
+  test_acl_deny:
+    name: "TEST_ACL_DENY"
+    description: "Deny ICMP from DUT2"
+    rules:
+      - "deny icmp 10.10.10.2/32 any"
+      - "permit icmp any any"
+    application:
+      interface: "Ethernet0"
+      direction: "in"
+
+# Connectivity Testing Parameters
+connectivity:
+  ping:
+    count: 5
+    timeout: 2
+    packet_size: 56
+    expected_loss_percent: 0.0  # For successful pings
+
+  source_selection:
+    enabled: true
+    sources:
+      - ip: "10.10.10.1"
+        description: "DUT1 Loopback0 IP"
+      - interface: "Ethernet0"
+        description: "DUT1 Ethernet0 (unnumbered)"
+      - interface: "Loopback0"
+        description: "DUT1 Loopback0"
+
+# Test Cases Configuration
+testcases:
+  "1.2.2.1":
+    title: "Configure and verify IPv4 unnumbered for L2/L3/ACL"
+    description: "Configure Loopback0 as donor, Ethernet0 as unnumbered, and DUT2 interfaces"
+    steps:
+      - "Configure DUT1 Loopback0 with IP 10.10.10.1/32"
+      - "Configure DUT1 Ethernet0 with ip unnumbered Loopback0"
+      - "Configure DUT2 Ethernet0 with IP 10.10.10.2/30"
+      - "Configure DUT2 Loopback0 with IP 20.20.20.1/32"
+      - "Verify running-config on both DUTs"
+      - "Save configuration on both DUTs"
+    validation:
+      - unnumbered_config_present: true
+      - dut1_donor_has_ip: true
+      - dut1_target_borrows_ip: true
+      - dut2_ethernet0_has_ip: true
+      - dut2_loopback0_has_ip: true
+
+  "1.2.2.2":
+    title: "Basic Layer 3 connectivity"
+    description: "Test basic ping between DUT1 and DUT2 Ethernet0"
+    validation:
+      - ping_dut2_ethernet0: true
+      - packet_loss: 0.0
+      - arp_resolution: true
+
+  "1.2.2.3":
+    title: "Ping with source selection"
+    description: "Test ping with explicit source IP selection (unnumbered IP)"
+    source_options:
+      - "10.10.10.1"  # IP address
+      - "Ethernet0"   # Interface name
+      - "Loopback0"   # Donor interface
+    validation:
+      - all_source_types_work: true
+      - packet_loss: 0.0
+
+  "1.2.2.4":
+    title: "Static routes over unnumbered interface"
+    description: "Configure and test static routes using unnumbered interface"
+    routes_to_test:
+      - source: "DUT1"
+        destination: "20.20.20.1/32"
+        nexthop: "10.10.10.2"
+      - source: "DUT2"
+        destination: "10.10.10.1/32"
+        nexthop: "10.10.10.1"
+    validation:
+      - routes_installed: true
+      - routes_in_fib: true
+      - end_to_end_ping: true
+      - bidirectional_reachability: true
+
+  "1.2.2.5":
+    title: "ACL permit enforcement"
+    description: "Create and apply ACL that permits traffic, verify enforcement"
+    acl_to_apply: "TEST_ACL"
+    validation:
+      - acl_created: true
+      - acl_applied: true
+      - permitted_traffic_passes: true
+      - acl_counters_increment: true
+
+  "1.2.2.6":
+    title: "ACL deny enforcement"
+    description: "Modify ACL to deny traffic, verify enforcement"
+    acl_to_apply: "TEST_ACL_DENY"
+    validation:
+      - acl_created: true
+      - acl_applied: true
+      - denied_traffic_blocked: true
+      - packet_loss: 100.0
+      - acl_counters_increment: true
+
+# Validation Commands (klish mode via sonic-cli)
+validation_commands:
+  running_config:
+    - "show running-config"
+    - "show running-config interface Loopback0"
+    - "show running-config interface Ethernet0"
+
+  startup_config:
+    - "show startup-config interface Loopback0"
+    - "show startup-config interface Ethernet0"
+
+  ip_interface:
+    - "show ip interface"
+    - "show ip interface brief"
+    - "show ip interface Loopback0"
+    - "show ip interface Ethernet0"
+
+  routing:
+    - "show ip route"
+    - "show ip route summary"
+    - "show ip route 20.20.20.1"
+    - "show ip route 10.10.10.1"
+
+  acl:
+    - "show ip access-lists"
+    - "show ip access-lists TEST_ACL"
+    - "show ip access-lists TEST_ACL_DENY"
+    - "show ip access-lists interface Ethernet0"
+
+  interface_status:
+    - "show interface status"
+    - "show interface status Ethernet0"
+    - "show interface counters"
+    - "show interface counters Ethernet0"
+
+  arp:
+    - "show arp"
+    - "show ip arp"
+
+# Expected Results
+expected_results:
+  baseline_config:
+    dut1:
+      donor_interface: "Loopback0"
+      donor_ip: "10.10.10.1/32"
+      target_interface: "Ethernet0"
+      unnumbered_config: "ip unnumbered Loopback0"
+      target_borrowed_ip: "10.10.10.1/32"
+    dut2:
+      ethernet0_ip: "10.10.10.2/30"
+      loopback0_ip: "20.20.20.1/32"
+
+  connectivity:
+    ping_dut2_ethernet0:
+      success: true
+      packet_loss: 0.0
+      destination: "10.10.10.2"
+    ping_with_source:
+      success: true
+      packet_loss: 0.0
+      source_ip_used: "10.10.10.1"
+
+  static_routes:
+    dut1_route_to_dut2_loopback:
+      prefix: "20.20.20.1/32"
+      nexthop: "10.10.10.2"
+      installed: true
+      in_fib: true
+    dut2_route_to_dut1_loopback:
+      prefix: "10.10.10.1/32"
+      nexthop: "10.10.10.1"
+      installed: true
+      in_fib: true
+    end_to_end_ping:
+      success: true
+      packet_loss: 0.0
+
+  acl_permit:
+    acl_name: "TEST_ACL"
+    applied_to: "Ethernet0"
+    direction: "in"
+    ping_from_dut2:
+      success: true
+      packet_loss: 0.0
+    counters_increment: true
+
+  acl_deny:
+    acl_name: "TEST_ACL_DENY"
+    applied_to: "Ethernet0"
+    direction: "in"
+    ping_from_dut2:
+      success: false
+      packet_loss: 100.0
+    counters_increment: true
+
+# Configuration Commands (klish mode)
+config_commands:
+  dut1_configure_donor:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "ip address 10.10.10.1/32"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  dut1_configure_unnumbered:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no shutdown"
+    - "ip unnumbered Loopback0"
+    - "exit"
+    - "exit"
+
+  dut2_configure_ethernet0:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "ip address 10.10.10.2/30"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  dut2_configure_loopback0:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "ip address 20.20.20.1/32"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  dut1_static_route:
+    - "configure terminal"
+    - "ip route 20.20.20.1/32 10.10.10.2"
+    - "exit"
+
+  dut2_static_route:
+    - "configure terminal"
+    - "ip route 10.10.10.1/32 10.10.10.1"
+    - "exit"
+
+  create_acl_permit:
+    - "configure terminal"
+    - "ip access-list TEST_ACL"
+    - "permit icmp 10.10.10.2/32 any"
+    - "permit tcp any any established"
+    - "deny ip any any"
+    - "exit"
+    - "exit"
+
+  create_acl_deny:
+    - "configure terminal"
+    - "ip access-list TEST_ACL_DENY"
+    - "deny icmp 10.10.10.2/32 any"
+    - "permit icmp any any"
+    - "exit"
+    - "exit"
+
+  apply_acl:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "ip access-group TEST_ACL in"
+    - "exit"
+    - "exit"
+
+  remove_acl:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no ip access-group TEST_ACL in"
+    - "exit"
+    - "exit"
+
+  save_config:
+    - "write memory"
+
+# Cleanup Commands
+cleanup_commands:
+  remove_unnumbered:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no ip unnumbered Loopback0"
+    - "exit"
+    - "exit"
+
+  remove_static_routes_dut1:
+    - "configure terminal"
+    - "no ip route 20.20.20.1/32 10.10.10.2"
+    - "exit"
+
+  remove_static_routes_dut2:
+    - "configure terminal"
+    - "no ip route 10.10.10.1/32 10.10.10.1"
+    - "exit"
+
+  remove_acls:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no ip access-group TEST_ACL in"
+    - "no ip access-group TEST_ACL_DENY in"
+    - "exit"
+    - "no ip access-list TEST_ACL"
+    - "no ip access-list TEST_ACL_DENY"
+    - "exit"
+
+  remove_ips:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "no ip address 10.10.10.1/32"
+    - "exit"
+    - "interface Ethernet0"
+    - "no ip address"
+    - "exit"
+    - "exit"
+
+# Performance Criteria
+performance:
+  ping_rtt:
+    max_acceptable: 10  # milliseconds
+    typical: 1  # millisecond on local network
+
+  route_convergence:
+    max_time: 5  # seconds
+
+  acl_enforcement:
+    immediate: true  # Should be immediate
+
+  configuration_apply:
+    max_time: 3  # seconds
+
+# Error Patterns
+error_patterns:
+  unnumbered_failure:
+    - "unnumbered.*fail"
+    - "donor.*not.*configured"
+    - "loopback.*no.*ip"
+
+  routing_failure:
+    - "route.*not.*installed"
+    - "nexthop.*unreachable"
+
+  acl_failure:
+    - "acl.*not.*found"
+    - "access-list.*error"
+    - "failed.*to.*apply"
+
+# Traffic Testing (if applicable)
+traffic:
+  enabled: false  # Set to true if using traffic generator
+  generator: null
+  streams: []

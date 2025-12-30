@@ -1,0 +1,4 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+reboot.py::dut_reboot,click
+basic.py::show_version,click

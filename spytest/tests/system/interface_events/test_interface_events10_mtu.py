@@ -132,7 +132,7 @@ class TestInterfaceMtuChanges:
 
             # Store baseline MTU if not already stored
             if interface not in self.data.original_mtu:
-                status_output = intf_api.show_interface_status(
+                status_output = intf_api.interface_status_show(
                     self.data.dut1,
                     interfaces=interface,
                     cli_type=self.data.cli_type
@@ -197,7 +197,7 @@ class TestInterfaceMtuChanges:
         """
         try:
             # Get interface status
-            status_output = intf_api.show_interface_status(
+            status_output = intf_api.interface_status_show(
                 self.data.dut1,
                 interfaces=interface,
                 cli_type=self.data.cli_type
@@ -228,7 +228,7 @@ class TestInterfaceMtuChanges:
             True if interface is up, False otherwise
         """
         try:
-            status_output = intf_api.show_interface_status(
+            status_output = intf_api.interface_status_show(
                 self.data.dut1,
                 interfaces=interface,
                 cli_type=self.data.cli_type
@@ -593,7 +593,7 @@ class TestInterfaceMtuChanges:
         invalid_mtu = self.data.invalid_mtu_values["below_min"]
 
         # Step 1: Get current MTU
-        status_before = intf_api.show_interface_status(
+        status_before = intf_api.interface_status_show(
             self.data.dut1,
             interfaces=interface,
             cli_type=self.data.cli_type
@@ -612,7 +612,7 @@ class TestInterfaceMtuChanges:
         time.sleep(3)
 
         # Step 3: Verify MTU unchanged or error occurred
-        status_after = intf_api.show_interface_status(
+        status_after = intf_api.interface_status_show(
             self.data.dut1,
             interfaces=interface,
             cli_type=self.data.cli_type
@@ -655,7 +655,7 @@ class TestInterfaceMtuChanges:
         invalid_mtu = self.data.invalid_mtu_values["above_max"]
 
         # Step 1: Get current MTU
-        status_before = intf_api.show_interface_status(
+        status_before = intf_api.interface_status_show(
             self.data.dut1,
             interfaces=interface,
             cli_type=self.data.cli_type
@@ -674,7 +674,7 @@ class TestInterfaceMtuChanges:
         time.sleep(3)
 
         # Step 3: Verify MTU unchanged or error occurred
-        status_after = intf_api.show_interface_status(
+        status_after = intf_api.interface_status_show(
             self.data.dut1,
             interfaces=interface,
             cli_type=self.data.cli_type
@@ -717,7 +717,7 @@ class TestInterfaceMtuChanges:
         invalid_mtu = self.data.invalid_mtu_values["way_above"]
 
         # Step 1: Get current MTU
-        status_before = intf_api.show_interface_status(
+        status_before = intf_api.interface_status_show(
             self.data.dut1,
             interfaces=interface,
             cli_type=self.data.cli_type
@@ -736,7 +736,7 @@ class TestInterfaceMtuChanges:
         time.sleep(3)
 
         # Step 3: Verify MTU unchanged or error occurred
-        status_after = intf_api.show_interface_status(
+        status_after = intf_api.interface_status_show(
             self.data.dut1,
             interfaces=interface,
             cli_type=self.data.cli_type

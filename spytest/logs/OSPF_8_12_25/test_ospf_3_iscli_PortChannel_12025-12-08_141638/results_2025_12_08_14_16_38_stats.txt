@@ -1,0 +1,41 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py::TestOSPFStaticRoutingPortChannel4Node.test_ospf_portchannel_static_routing_4node ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:14.286
+TOTAL HELPER Time = 0:00:15.254
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-08 08:47:23,328 T0056: CMD TIME: 961 D1 = show interfaces status Ethernet124
+2025-12-08 08:47:23,355 T0057: CMD TIME: 968 D2 = show interfaces status Ethernet124
+2025-12-08 08:47:23,371 T0059: CMD TIME: 1013 D4 = show interfaces status Ethernet124
+2025-12-08 08:47:23,363 T0058: CMD TIME: 1068 D3 = show interfaces status Ethernet124
+2025-12-08 08:47:24,708 T0056: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-08 08:47:24,742 T0057: CMD TIME: 256 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-08 08:47:24,804 T0059: CMD TIME: 255 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-08 08:47:24,852 T0058: CMD TIME: 256 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-08 08:47:25,552 T0061: CMD TIME: 973 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-08 08:47:25,564 T0064: CMD TIME: 976 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-08 08:47:25,572 T0063: CMD TIME: 971 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-08 08:47:25,558 T0062: CMD TIME: 1025 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-08 08:47:27,074 T0065: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py'  
+2025-12-08 08:47:27,082 T0066: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py'  
+2025-12-08 08:47:27,097 T0067: HELPER TIME: 3819 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py'  
+2025-12-08 08:47:27,105 T0068: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py'  
+2025-12-08 08:47:31,377 T0000: CMD TIME: 763 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-08 08:47:32,149 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-08 08:47:32,833 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-12-08 08:47:33,509 T0000: CMD TIME: 813 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-08 08:47:34,331 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-08 08:47:35,010 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-12-08 08:47:35,685 T0000: CMD TIME: 813 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-08 08:47:36,507 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-08 08:47:37,186 T0000: CMD TIME: 257 D3 = terminal length 0
+2025-12-08 08:47:37,860 T0000: CMD TIME: 862 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-08 08:47:38,731 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-08 08:47:39,409 T0000: CMD TIME: 257 D4 = terminal length 0
+=========================================================

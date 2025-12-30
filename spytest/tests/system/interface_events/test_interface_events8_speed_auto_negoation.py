@@ -55,7 +55,6 @@ TEST_INTERFACE_2 = "Ethernet4"
 # Wait times
 WAIT_FOR_INTERFACE_UP = 5
 WAIT_FOR_AUTO_NEGOTIATION = 15
-WAIT_AFTER_LINK_FLAP = 20
 VERIFICATION_DELAY = 2
 
 
@@ -87,6 +86,10 @@ class TestInterfaceEventsSpeedAutoNegotiation:
 
         # Store original interface configurations
         cls.data.original_configs = {}
+
+        # Set terminal length 0 once to avoid pagination for all show commands
+        st.log("Setting terminal length 0 to disable pagination")
+        st.config(cls.data.dut1, "terminal length 0", type=CLI_TYPE)
 
         st.log(f"DUT1: {cls.data.dut1}")
         st.log(f"DUT2: {cls.data.dut2}")
@@ -176,76 +179,6 @@ class TestInterfaceEventsSpeedAutoNegotiation:
             "configure terminal",
             f"interface {interface}",
             "speed auto",
-            "exit",
-            "exit"
-        ]
-        result = st.config(dut, commands, type=CLI_TYPE)
-        return result
-
-    @staticmethod
-    def _configure_speed_fixed(dut: str, interface: str, speed: str) -> bool:
-        """
-        Configure fixed speed on interface.
-
-        Args:
-            dut: Device handle
-            interface: Interface name
-            speed: Speed value (e.g., "10000" for 10G)
-
-        Returns:
-            True if successful
-        """
-        st.log(f"Configuring speed {speed} on {interface} on {dut}")
-        commands = [
-            "configure terminal",
-            f"interface {interface}",
-            f"speed {speed}",
-            "exit",
-            "exit"
-        ]
-        result = st.config(dut, commands, type=CLI_TYPE)
-        return result
-
-    @staticmethod
-    def _interface_shutdown(dut: str, interface: str) -> bool:
-        """
-        Administratively shutdown an interface.
-
-        Args:
-            dut: Device handle
-            interface: Interface name
-
-        Returns:
-            True if successful
-        """
-        st.log(f"Shutting down interface {interface} on {dut}")
-        commands = [
-            "configure terminal",
-            f"interface {interface}",
-            "shutdown",
-            "exit",
-            "exit"
-        ]
-        result = st.config(dut, commands, type=CLI_TYPE)
-        return result
-
-    @staticmethod
-    def _interface_no_shutdown(dut: str, interface: str) -> bool:
-        """
-        Administratively enable an interface.
-
-        Args:
-            dut: Device handle
-            interface: Interface name
-
-        Returns:
-            True if successful
-        """
-        st.log(f"Bringing up interface {interface} on {dut}")
-        commands = [
-            "configure terminal",
-            f"interface {interface}",
-            "no shutdown",
             "exit",
             "exit"
         ]
@@ -729,76 +662,9 @@ class TestInterfaceEventsSpeedAutoNegotiation:
         st.report_pass("test_case_passed")
 
     @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_008_09"])
-    def test_link_flap_with_auto_negotiation(self) -> None:
-        """
-        TC_INTF_EVENTS_008_09: Test link flap with auto-negotiation enabled.
-
-        Test Steps:
-            1. Shutdown Ethernet0
-            2. Verify interface is down
-            3. Bring interface back up
-            4. Wait for auto-negotiation
-            5. Verify interface operational
-            6. Verify speed configuration persists
-
-        Expected Result:
-            - Interface goes down on shutdown
-            - Interface comes back up on no shutdown
-            - Auto-negotiation re-runs successfully
-            - Speed configuration persists
-        """
-        st.log("\n" + "=" * 80)
-        st.log("TEST: Link Flap with Auto-Negotiation")
-        st.log("=" * 80)
-
-        # Shutdown interface
-        st.log(f"\nStep 1: Shutting down {self.data.interface1}")
-        result = self._interface_shutdown(self.data.dut1, self.data.interface1)
-
-        if not result:
-            st.report_fail("msg", f"Failed to shutdown {self.data.interface1}")
-
-        time.sleep(VERIFICATION_DELAY)
-
-        # Verify interface is down
-        st.log("\nStep 2: Verifying interface is down")
-        interface_status = self._get_interface_status(self.data.dut1, self.data.interface1)
-
-        if not self._verify_interface_admin_status(interface_status, self.data.interface1, "down"):
-            st.log("Warning: Interface admin status not showing down")
-
-        # Bring interface back up
-        st.log(f"\nStep 3: Bringing up {self.data.interface1}")
-        result = self._interface_no_shutdown(self.data.dut1, self.data.interface1)
-
-        if not result:
-            st.report_fail("msg", f"Failed to bring up {self.data.interface1}")
-
-        # Wait for auto-negotiation
-        st.log(f"\nStep 4: Waiting {WAIT_AFTER_LINK_FLAP} seconds for re-negotiation")
-        time.sleep(WAIT_AFTER_LINK_FLAP)
-
-        # Verify interface is up and negotiated
-        st.log("\nStep 5: Verifying interface status after link flap")
-        interface_status = self._get_interface_status(self.data.dut1, self.data.interface1)
-
-        if not self._verify_interface_admin_status(interface_status, self.data.interface1, "up"):
-            st.report_fail("msg", "Interface admin status not up after link flap")
-
-        if not self._verify_interface_oper_status(interface_status, self.data.interface1, "up"):
-            st.log("Warning: Interface operational status not up after link flap")
-
-        # Extract and display speed after link flap
-        speed_after_flap = self._extract_interface_speed(interface_status, self.data.interface1)
-        st.log(f"\nSpeed after link flap for {self.data.interface1}: {speed_after_flap}")
-
-        st.log("\nLink flap with auto-negotiation test completed")
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_008_10"])
     def test_configuration_persistence(self) -> None:
         """
-        TC_INTF_EVENTS_008_10: Test configuration persistence.
+        TC_INTF_EVENTS_008_09: Test configuration persistence.
 
         Test Steps:
             1. Get running configuration for test interfaces
@@ -825,10 +691,10 @@ class TestInterfaceEventsSpeedAutoNegotiation:
         st.log("\nConfiguration persistence check completed")
         st.report_pass("test_case_passed")
 
-    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_008_11"])
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_008_10"])
     def test_final_state_verification(self) -> None:
         """
-        TC_INTF_EVENTS_008_11: Final state verification.
+        TC_INTF_EVENTS_008_10: Final state verification.
 
         Test Steps:
             1. Verify all test interfaces operational

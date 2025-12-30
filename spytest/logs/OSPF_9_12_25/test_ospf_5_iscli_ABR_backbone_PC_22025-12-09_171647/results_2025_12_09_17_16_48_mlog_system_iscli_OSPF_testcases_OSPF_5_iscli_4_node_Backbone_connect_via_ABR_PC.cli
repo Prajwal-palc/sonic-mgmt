@@ -1,0 +1,355 @@
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,channel-group 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,channel-group 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,channel-group 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,channel-group 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,do show PortChannel summary
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,ip address 20.1.1.2/24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,ip address 30.1.1.1/24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,do show running-configuration interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,do show running-configuration interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,area 2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,network 20.1.1.2/24 area 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,network 30.1.1.1/24 area 2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,do show ip ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,do show ip ospf database summary
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D4,mgmt-config,no interface PortChannel 130
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,channel-group 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,channel-group 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,channel-group 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,channel-group 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,do show PortChannel summary
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,ip address 10.1.1.2/24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,ip address 20.1.1.1/24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,do show running-configuration interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,do show running-configuration interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,area 1
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,network 10.1.1.2/24 area 1
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,network 20.1.1.1/24 area 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,do show ip ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,do show ip ospf database summary
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,normal-user,sudo -s ping -c 4 20.1.1.2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface PortChannel 120
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D2,mgmt-config,no interface PortChannel 120
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D3,normal-user,configure terminal
+class-prolog,,,D3,mgmt-config,terminal length 0
+framework,,,D3,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,channel-group 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,channel-group 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,do show PortChannel summary
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,ip address 30.1.1.2/24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,do show running-configuration interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,area 2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,network 30.1.1.2/24 area 2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,do show ip ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,do show ip ospf route
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,normal-user,sudo -s ping -c 4 10.1.1.1
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface PortChannel 130
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D3,mgmt-config,no interface PortChannel 130
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,channel-group 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,channel-group 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,do show PortChannel summary
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,ip address 10.1.1.1/24
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,do show running-configuration interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,area 1
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,network 10.1.1.1/24 area 1
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,do show ip ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,do show ip ospf route
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,sudo -s ping -c 4 10.1.1.2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,sudo -s ping -c 4 30.1.1.2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,sudo -s traceroute 30.1.1.2
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface PortChannel 110
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no channel-group
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel,D1,mgmt-config,no interface PortChannel 110

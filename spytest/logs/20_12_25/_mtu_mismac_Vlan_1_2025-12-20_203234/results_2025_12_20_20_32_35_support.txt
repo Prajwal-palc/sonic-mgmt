@@ -1,0 +1,168 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_2: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_4: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_3: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py 
+vs_sonic_1: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_2: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_4: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_3: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py::TestOSPFMTUMismatchVLAN Pass
+vs_sonic_1: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_3: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_2: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_4: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_12_iscli_4_MTU_mismatch_prevents_adj_VLAN.py Pass
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: saving syslog pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: saving syslog pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: saving syslog pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: saving syslog pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestOSPFMTUMismatchVLAN.test_ospf_mtu_mismatch_prevents_adjacency_vlan Pass

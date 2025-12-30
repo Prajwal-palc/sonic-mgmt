@@ -1,0 +1,82 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,normal-user,configure terminal
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,lldp enable
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp timer
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp system-name
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp system-description
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select system-capabilities
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select management-address
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-set management-address ipv4 10.1.1.1
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select link-aggregation
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select max-frame-size
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select port-vlan-id
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select power-management
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,no lldp tlv-select vlan-name
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,end
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-user,exit
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,normal-user,configure terminal
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,interface Ethernet 0
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-intf-config,lldp enable
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-intf-config,lldp receive
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-intf-config,lldp transmit
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-intf-config,exit
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-config,end
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D2,mgmt-user,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,configure terminal
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,lldp enable
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,end
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,configure terminal
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,interface Ethernet 0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,lldp enable
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,lldp receive
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,lldp transmit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,exit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,end
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,show lldp neighbors Ethernet0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,show lldp neighbors
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,show lldp table
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,show lldp neighbors Ethernet0
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,show lldp neighbors
+framework,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,show lldp table
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,configure terminal
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,lldp enable
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp timer
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp system-name
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp system-description
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select system-capabilities
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select management-address
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-set management-address ipv4 10.1.1.1
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select link-aggregation
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select max-frame-size
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select port-vlan-id
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select power-management
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,no lldp tlv-select vlan-name
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,end
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,normal-user,configure terminal
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,interface Ethernet 0
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,lldp enable
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,lldp receive
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,lldp transmit
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-intf-config,exit
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-config,end
+module-or-class-epilog,,TestLldpCliConfiguration.test_lldp_cli_configuration,D1,mgmt-user,exit

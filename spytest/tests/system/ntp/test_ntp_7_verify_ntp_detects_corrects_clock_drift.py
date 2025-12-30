@@ -200,7 +200,12 @@ class TestNtpClockDriftCorrection:
         script.extend(command_list)
         script.extend(["end", "exit"])
 
-        st.apply_script(dut, script)
+        output = st.apply_script(dut, script)
+
+        # Check for CLI errors in the output
+        output_str = str(output or "")
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI command failed with error: {output_str}")
 
     @staticmethod
     def _run_klish_show(dut: str, command: str) -> str:
@@ -216,7 +221,13 @@ class TestNtpClockDriftCorrection:
         """
         script = ["sonic-cli", command, "exit"]
         output = st.apply_script(dut, script)
-        return str(output or "")
+        output_str = str(output or "")
+
+        # Check for CLI errors in the output
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI show command '{command}' failed with error: {output_str}")
+
+        return output_str
 
     @classmethod
     def _verify_initial_sync(cls, dut: str) -> bool:
@@ -234,15 +245,6 @@ class TestNtpClockDriftCorrection:
         st.log("NTP Associations (klish):")
         st.log(klish_associations)
 
-        # Check click show ntp
-        click_ntp = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        if isinstance(click_ntp, list):
-            click_ntp_str = "\n".join(str(line) for line in click_ntp)
-        else:
-            click_ntp_str = str(click_ntp)
-        st.log("NTP Status (click):")
-        st.log(click_ntp_str)
-
         # Look for synchronization indicators
         # - '*' marker in associations
         # - 'synchronised' in status
@@ -251,7 +253,7 @@ class TestNtpClockDriftCorrection:
         is_synced = False
 
         # Check for synchronization markers
-        if "*" in klish_associations or "synchronised" in click_ntp_str.lower():
+        if "*" in klish_associations or "synchronised" in klish_associations.lower():
             is_synced = True
         elif "reach" in klish_associations.lower():
             # Check reach value - 377 (octal) = all 8 polls successful
@@ -277,13 +279,10 @@ class TestNtpClockDriftCorrection:
         """
         baseline = {}
 
-        # Record system time
-        clock_output = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        if isinstance(clock_output, list):
-            clock_str = "\n".join(str(line) for line in clock_output)
-        else:
-            clock_str = str(clock_output)
-        baseline["system_time"] = clock_str.strip()
+        # Record system time using Linux command
+        clock_cmd = "date"
+        clock_output = st.config(dut, clock_cmd, skip_error_check=True)
+        baseline["system_time"] = str(clock_output).strip()
         baseline["timestamp"] = time.time()
 
         # Record NTP associations
@@ -344,13 +343,10 @@ class TestNtpClockDriftCorrection:
         """
         drift_data = {}
 
-        # Record time before drift
-        time_before = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        if isinstance(time_before, list):
-            time_before_str = "\n".join(str(line) for line in time_before)
-        else:
-            time_before_str = str(time_before)
-        drift_data["time_before"] = time_before_str.strip()
+        # Record time before drift using Linux command
+        time_before_cmd = "date"
+        time_before = st.config(dut, time_before_cmd, skip_error_check=True)
+        drift_data["time_before"] = str(time_before).strip()
         drift_data["timestamp_before"] = time.time()
 
         # Apply drift using date command
@@ -367,12 +363,9 @@ class TestNtpClockDriftCorrection:
 
         # Record time after drift
         time.sleep(2)  # Brief wait for command to take effect
-        time_after = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        if isinstance(time_after, list):
-            time_after_str = "\n".join(str(line) for line in time_after)
-        else:
-            time_after_str = str(time_after)
-        drift_data["time_after"] = time_after_str.strip()
+        time_after_cmd = "date"
+        time_after = st.config(dut, time_after_cmd, skip_error_check=True)
+        drift_data["time_after"] = str(time_after).strip()
         drift_data["timestamp_after"] = time.time()
         drift_data["drift_minutes"] = drift_minutes
 
@@ -422,26 +415,14 @@ class TestNtpClockDriftCorrection:
             snapshot["offset"] = offset
             st.log(f"Extracted Offset: {offset} seconds")
 
-            # Get NTP status (click)
-            click_ntp = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-            if isinstance(click_ntp, list):
-                click_ntp_str = "\n".join(str(line) for line in click_ntp)
-            else:
-                click_ntp_str = str(click_ntp)
-            snapshot["ntp_status"] = click_ntp_str
-            st.log(f"NTP Status:\n{click_ntp_str}")
-
-            # Get system clock
-            clock_output = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-            if isinstance(clock_output, list):
-                clock_str = "\n".join(str(line) for line in clock_output)
-            else:
-                clock_str = str(clock_output)
-            snapshot["system_time"] = clock_str.strip()
-            st.log(f"System Time: {clock_str.strip()}")
+            # Get system clock using Linux command
+            clock_cmd = "date"
+            clock_output = st.config(dut, clock_cmd, skip_error_check=True)
+            snapshot["system_time"] = str(clock_output).strip()
+            st.log(f"System Time: {snapshot['system_time']}")
 
             # Check synchronization status
-            is_synced = "*" in associations or "synchronised" in click_ntp_str.lower()
+            is_synced = "*" in associations or "synchronised" in associations.lower()
             snapshot["is_synced"] = is_synced
             st.log(f"Synchronized: {is_synced}")
 

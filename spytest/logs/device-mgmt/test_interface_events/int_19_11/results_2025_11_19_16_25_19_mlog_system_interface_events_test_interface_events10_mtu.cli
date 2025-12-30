@@ -1,0 +1,88 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_minimum,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_minimum,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_minimum,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_minimum,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_minimum,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_maximum,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_maximum,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_maximum,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_maximum,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_maximum,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_standard,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_standard,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_standard,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_standard,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_standard,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_jumbo,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_jumbo,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_jumbo,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_jumbo,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_jumbo,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_mid_range,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_mid_range,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_mid_range,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_mid_range,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_change_to_mid_range,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_rapid_mtu_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_rapid_mtu_changes,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_rapid_mtu_changes,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_rapid_mtu_changes,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_rapid_mtu_changes,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_persistence_through_flap,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_persistence_through_flap,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_persistence_through_flap,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_persistence_through_flap,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_persistence_through_flap,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_sequential_mtu_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_sequential_mtu_changes,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_sequential_mtu_changes,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_sequential_mtu_changes,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_sequential_mtu_changes,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_below_minimum,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_below_minimum,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_below_minimum,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_below_minimum,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_below_minimum,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_above_maximum,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_above_maximum,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_above_maximum,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_above_maximum,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_above_maximum,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces,D1,mgmt-config,exit

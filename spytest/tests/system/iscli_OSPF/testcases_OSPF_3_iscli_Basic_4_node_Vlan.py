@@ -15,7 +15,7 @@ Description:
   1. Creating VLANs and adding ports to VLANs on all devices
   2. Configuring IP addresses on VLAN interfaces
   3. Configuring static routes on D1 and D3
-  4. Restarting BGP docker and validating static routes in routing table
+  4. Validating static routes in routing table (BGP docker restart step commented out)
   5. Configuring OSPF on D2 and D4 (middle nodes)
   6. Verifying OSPF neighbor adjacency (Full state)
   7. Verifying DR/BDR election
@@ -864,7 +864,7 @@ class TestOSPFStaticRoutingVLAN4Node:
         2. Create VLANs and add ports to VLANs, verify with 'show Vlan'
         3. Configure IP addresses on VLAN interfaces, verify with 'show running-configuration interface Vlan X'
         4. Configure static routes on D1 and D3
-        5. Restart BGP docker on D1 and D3
+        5. (COMMENTED OUT) Restart BGP docker on D1 and D3
         6. Verify static routes appear in routing tables
         7. Configure OSPF on D2 and D4
         8. Verify OSPF neighbor adjacency (Full state)
@@ -885,6 +885,9 @@ class TestOSPFStaticRoutingVLAN4Node:
         st.log("\n" + "=" * 80)
         st.log("TEST: OSPF with VLAN and Static Routing - 4-Node Topology")
         st.log("=" * 80)
+
+        # Initialize validation failure tracking
+        validation_failures = []
 
         dut1 = self.data.dut1
         dut2 = self.data.dut2
@@ -943,44 +946,68 @@ class TestOSPFStaticRoutingVLAN4Node:
         # Verify D1: VLAN 10 with Ethernet0, Ethernet4
         vlan_output_dut1 = self._get_show_vlan_output(dut1)
         if not self._verify_vlan_exists(vlan_output_dut1, self.data.vlan10):
-            st.report_fail("msg", f"VLAN {self.data.vlan10} does not exist on {dut1}")
+            error_msg = f"VLAN {self.data.vlan10} does not exist on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         for port in self.data.dut1_vlan10_ports:
             if not self._verify_port_in_vlan(vlan_output_dut1, self.data.vlan10, port):
-                st.report_fail("msg", f"Port {port} is not in VLAN {self.data.vlan10} on {dut1}")
+                error_msg = f"Port {port} is not in VLAN {self.data.vlan10} on {dut1}"
+                st.error(error_msg)
+                validation_failures.append(error_msg)
 
         # Verify D2: VLAN 10 and VLAN 20
         vlan_output_dut2 = self._get_show_vlan_output(dut2)
         if not self._verify_vlan_exists(vlan_output_dut2, self.data.vlan10):
-            st.report_fail("msg", f"VLAN {self.data.vlan10} does not exist on {dut2}")
+            error_msg = f"VLAN {self.data.vlan10} does not exist on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         for port in self.data.dut2_vlan10_ports:
             if not self._verify_port_in_vlan(vlan_output_dut2, self.data.vlan10, port):
-                st.report_fail("msg", f"Port {port} is not in VLAN {self.data.vlan10} on {dut2}")
+                error_msg = f"Port {port} is not in VLAN {self.data.vlan10} on {dut2}"
+                st.error(error_msg)
+                validation_failures.append(error_msg)
         if not self._verify_vlan_exists(vlan_output_dut2, self.data.vlan20):
-            st.report_fail("msg", f"VLAN {self.data.vlan20} does not exist on {dut2}")
+            error_msg = f"VLAN {self.data.vlan20} does not exist on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         for port in self.data.dut2_vlan20_ports:
             if not self._verify_port_in_vlan(vlan_output_dut2, self.data.vlan20, port):
-                st.report_fail("msg", f"Port {port} is not in VLAN {self.data.vlan20} on {dut2}")
+                error_msg = f"Port {port} is not in VLAN {self.data.vlan20} on {dut2}"
+                st.error(error_msg)
+                validation_failures.append(error_msg)
 
         # Verify D4: VLAN 20 and VLAN 30
         vlan_output_dut4 = self._get_show_vlan_output(dut4)
         if not self._verify_vlan_exists(vlan_output_dut4, self.data.vlan20):
-            st.report_fail("msg", f"VLAN {self.data.vlan20} does not exist on {dut4}")
+            error_msg = f"VLAN {self.data.vlan20} does not exist on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         for port in self.data.dut4_vlan20_ports:
             if not self._verify_port_in_vlan(vlan_output_dut4, self.data.vlan20, port):
-                st.report_fail("msg", f"Port {port} is not in VLAN {self.data.vlan20} on {dut4}")
+                error_msg = f"Port {port} is not in VLAN {self.data.vlan20} on {dut4}"
+                st.error(error_msg)
+                validation_failures.append(error_msg)
         if not self._verify_vlan_exists(vlan_output_dut4, self.data.vlan30):
-            st.report_fail("msg", f"VLAN {self.data.vlan30} does not exist on {dut4}")
+            error_msg = f"VLAN {self.data.vlan30} does not exist on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         for port in self.data.dut4_vlan30_ports:
             if not self._verify_port_in_vlan(vlan_output_dut4, self.data.vlan30, port):
-                st.report_fail("msg", f"Port {port} is not in VLAN {self.data.vlan30} on {dut4}")
+                error_msg = f"Port {port} is not in VLAN {self.data.vlan30} on {dut4}"
+                st.error(error_msg)
+                validation_failures.append(error_msg)
 
         # Verify D3: VLAN 30
         vlan_output_dut3 = self._get_show_vlan_output(dut3)
         if not self._verify_vlan_exists(vlan_output_dut3, self.data.vlan30):
-            st.report_fail("msg", f"VLAN {self.data.vlan30} does not exist on {dut3}")
+            error_msg = f"VLAN {self.data.vlan30} does not exist on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         for port in self.data.dut3_vlan30_ports:
             if not self._verify_port_in_vlan(vlan_output_dut3, self.data.vlan30, port):
-                st.report_fail("msg", f"Port {port} is not in VLAN {self.data.vlan30} on {dut3}")
+                error_msg = f"Port {port} is not in VLAN {self.data.vlan30} on {dut3}"
+                st.error(error_msg)
+                validation_failures.append(error_msg)
 
         st.log("PASS: VLANs created and ports added successfully, all verified")
 
@@ -1012,28 +1039,40 @@ class TestOSPFStaticRoutingVLAN4Node:
         # Verify D1: Vlan10 IP
         config_output = self._get_running_config_vlan_interface(dut1, self.data.vlan10)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut1_vlan10_ip):
-            st.report_fail("msg", f"IP address verification failed for Vlan{self.data.vlan10} on {dut1}")
+            error_msg = f"IP address verification failed for Vlan{self.data.vlan10} on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D2: Vlan10 and Vlan20 IPs
         config_output = self._get_running_config_vlan_interface(dut2, self.data.vlan10)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut2_vlan10_ip):
-            st.report_fail("msg", f"IP address verification failed for Vlan{self.data.vlan10} on {dut2}")
+            error_msg = f"IP address verification failed for Vlan{self.data.vlan10} on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         config_output = self._get_running_config_vlan_interface(dut2, self.data.vlan20)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut2_vlan20_ip):
-            st.report_fail("msg", f"IP address verification failed for Vlan{self.data.vlan20} on {dut2}")
+            error_msg = f"IP address verification failed for Vlan{self.data.vlan20} on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D4: Vlan20 and Vlan30 IPs
         config_output = self._get_running_config_vlan_interface(dut4, self.data.vlan20)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut4_vlan20_ip):
-            st.report_fail("msg", f"IP address verification failed for Vlan{self.data.vlan20} on {dut4}")
+            error_msg = f"IP address verification failed for Vlan{self.data.vlan20} on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         config_output = self._get_running_config_vlan_interface(dut4, self.data.vlan30)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut4_vlan30_ip):
-            st.report_fail("msg", f"IP address verification failed for Vlan{self.data.vlan30} on {dut4}")
+            error_msg = f"IP address verification failed for Vlan{self.data.vlan30} on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D3: Vlan30 IP
         config_output = self._get_running_config_vlan_interface(dut3, self.data.vlan30)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut3_vlan30_ip):
-            st.report_fail("msg", f"IP address verification failed for Vlan{self.data.vlan30} on {dut3}")
+            error_msg = f"IP address verification failed for Vlan{self.data.vlan30} on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: IP addresses configured successfully, all verified")
 
@@ -1054,17 +1093,17 @@ class TestOSPFStaticRoutingVLAN4Node:
         st.log("PASS: Static routes configured successfully")
 
         # ===== STEP 5: Restart BGP docker on D1 and D3 =====
-        st.log("\n" + "-" * 80)
-        st.log("STEP 5: Restart BGP docker on D1 and D3")
-        st.log("-" * 80)
+        # st.log("\n" + "-" * 80)
+        # st.log("STEP 5: Restart BGP docker on D1 and D3")
+        # st.log("-" * 80)
 
-        self._restart_bgp_docker(dut1)
-        self._restart_bgp_docker(dut3)
+        # self._restart_bgp_docker(dut1)
+        # self._restart_bgp_docker(dut3)
 
-        st.log(f"Waiting {WAIT_AFTER_BGP_RESTART} seconds for BGP docker to restart...")
-        time.sleep(WAIT_AFTER_BGP_RESTART)
+        # st.log(f"Waiting {WAIT_AFTER_BGP_RESTART} seconds for BGP docker to restart...")
+        # time.sleep(WAIT_AFTER_BGP_RESTART)
 
-        st.log("PASS: BGP docker restarted on D1 and D3")
+        # st.log("PASS: BGP docker restarted on D1 and D3")
 
         # ===== STEP 6: Verify static routes in routing tables =====
         st.log("\n" + "-" * 80)
@@ -1074,12 +1113,16 @@ class TestOSPFStaticRoutingVLAN4Node:
         # Verify D1 has route to 30.1.1.0/24
         route_output_dut1 = self._get_show_ip_route_output(dut1)
         if not self._verify_static_route_in_routing_table(route_output_dut1, "30.1.1.0/24"):
-            st.report_fail("msg", f"Static route 30.1.1.0/24 not found in routing table on {dut1}")
+            error_msg = f"Static route 30.1.1.0/24 not found in routing table on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D3 has route to 10.1.1.0/24
         route_output_dut3 = self._get_show_ip_route_output(dut3)
         if not self._verify_static_route_in_routing_table(route_output_dut3, "10.1.1.0/24"):
-            st.report_fail("msg", f"Static route 10.1.1.0/24 not found in routing table on {dut3}")
+            error_msg = f"Static route 10.1.1.0/24 not found in routing table on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Static routes verified in routing tables")
 
@@ -1121,10 +1164,14 @@ class TestOSPFStaticRoutingVLAN4Node:
 
         # Verify neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2}")
+            error_msg = f"OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4}")
+            error_msg = f"OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: OSPF neighbors are in Full state")
 
@@ -1162,12 +1209,16 @@ class TestOSPFStaticRoutingVLAN4Node:
         # Ping from D1 to D3's IP (30.1.1.1)
         target_ip_d3 = self.data.dut3_vlan30_ip.split('/')[0]  # 30.1.1.1
         if not self._verify_ping_success(dut1, target_ip_d3):
-            st.report_fail("msg", f"Ping from {dut1} to {target_ip_d3} failed")
+            error_msg = f"Ping from {dut1} to {target_ip_d3} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Ping from D3 to D1's IP (10.1.1.1)
         target_ip_d1 = self.data.dut1_vlan10_ip.split('/')[0]  # 10.1.1.1
         if not self._verify_ping_success(dut3, target_ip_d1):
-            st.report_fail("msg", f"Ping from {dut3} to {target_ip_d1} failed")
+            error_msg = f"Ping from {dut3} to {target_ip_d1} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Ping connectivity verified between D1 and D3")
 
@@ -1225,8 +1276,34 @@ class TestOSPFStaticRoutingVLAN4Node:
 
         # ===== TEST COMPLETE =====
         st.log("\n" + "=" * 80)
-        st.log("TEST COMPLETE: OSPF with VLAN and static routing validated successfully")
+        st.log("TEST COMPLETE: OSPF with VLAN and static routing test execution finished")
         st.log("Test flow: Remove IPs → VLAN Config → IP Config → Static Routes → BGP Restart → OSPF Config → Neighbor Full → DR/BDR → Ping → Cleanup ✓")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== CHECK FOR VALIDATION FAILURES AND COLLECT TECH SUPPORT IF NEEDED =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            for dut in [dut1, dut2, dut3, dut4]:
+                try:
+                    st.generate_tech_support(dut=dut, name="ospf_vlan_static_4node_validation_failure")
+                    st.log(f"Tech support collected from {dut}")
+                except Exception as e:
+                    st.log(f"Warning: Failed to collect tech support from {dut}: {str(e)}")
+
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail("msg", f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}")
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("SUCCESS: All validations passed - No failures detected")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

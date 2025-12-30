@@ -1,0 +1,323 @@
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_auto ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.111
+TOTAL HELPER Time = 0:00:07.623
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:45:25,912 T0027: CMD TIME: 1875 D1 = show interfaces status Ethernet124
+2025-11-19 10:45:25,918 T0028: CMD TIME: 1871 D2 = show interfaces status Ethernet124
+2025-11-19 10:45:28,217 T0027: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:45:28,223 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:45:28,906 T0030: CMD TIME: 1927 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 10:45:28,912 T0031: CMD TIME: 1925 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 10:45:31,289 T0032: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events9_speed_change.py'  
+2025-11-19 10:45:31,296 T0033: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events9_speed_change.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_auto ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.902
+TOTAL HELPER Time = 0:00:15.398
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:45:47,922 T0043: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_auto'  
+2025-11-19 10:45:47,927 T0042: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_auto'  
+2025-11-19 10:45:52,181 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:45:53,104 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:45:53,788 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:45:54,105 T0000: CMD TIME: 1166 D1 = no shutdown
+2025-11-19 10:45:55,280 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:45:56,029 T0047: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_auto'  
+2025-11-19 10:46:05,664 T0046: HELPER TIME: 3961 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_auto'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_10g ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_10g ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:26
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.700
+TOTAL HELPER Time = 0:00:15.395
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:46:14,126 T0050: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_10g'  
+2025-11-19 10:46:14,131 T0051: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_10g'  
+2025-11-19 10:46:18,382 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:46:19,306 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:46:19,985 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:46:20,302 T0000: CMD TIME: 963 D1 = no shutdown
+2025-11-19 10:46:21,274 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:46:22,010 T0055: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_10g'  
+2025-11-19 10:46:31,641 T0054: HELPER TIME: 3962 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_10g'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_1g ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_1g ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.696
+TOTAL HELPER Time = 0:00:15.399
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:46:40,207 T0058: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_1g'  
+2025-11-19 10:46:40,214 T0059: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_1g'  
+2025-11-19 10:46:44,464 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:46:45,386 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:46:46,065 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:46:46,381 T0000: CMD TIME: 962 D1 = no shutdown
+2025-11-19 10:46:47,353 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:46:48,093 T0063: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_1g'  
+2025-11-19 10:46:57,727 T0062: HELPER TIME: 3965 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_1g'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_100m ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_change_to_100m ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.752
+TOTAL HELPER Time = 0:00:15.401
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:47:06,713 T0067: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_100m'  
+2025-11-19 10:47:06,718 T0066: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_100m'  
+2025-11-19 10:47:10,971 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:47:11,895 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:47:12,574 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:47:12,891 T0000: CMD TIME: 1015 D1 = no shutdown
+2025-11-19 10:47:13,915 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:47:14,650 T0071: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_100m'  
+2025-11-19 10:47:24,284 T0070: HELPER TIME: 3964 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_change_to_100m'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_rapid_speed_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_rapid_speed_changes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:26
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.696
+TOTAL HELPER Time = 0:00:15.395
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:47:32,764 T0074: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_rapid_speed_changes'  
+2025-11-19 10:47:32,772 T0075: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_rapid_speed_changes'  
+2025-11-19 10:47:37,025 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:47:37,946 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:47:38,624 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:47:38,940 T0000: CMD TIME: 962 D1 = no shutdown
+2025-11-19 10:47:39,911 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:47:40,647 T0079: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_rapid_speed_changes'  
+2025-11-19 10:47:50,281 T0078: HELPER TIME: 3958 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_rapid_speed_changes'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_persistence_through_flap ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_persistence_through_flap ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:28
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.252
+TOTAL HELPER Time = 0:00:15.399
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:47:59,199 T0082: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_persistence_through_flap'  
+2025-11-19 10:47:59,206 T0083: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_persistence_through_flap'  
+2025-11-19 10:48:03,457 T0000: CMD TIME: 1014 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:48:04,480 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:48:05,159 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:48:05,475 T0000: CMD TIME: 1416 D1 = no shutdown
+2025-11-19 10:48:06,899 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:48:07,634 T0087: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_persistence_through_flap'  
+2025-11-19 10:48:17,270 T0086: HELPER TIME: 3963 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_persistence_through_flap'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_sequential_speed_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_sequential_speed_changes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.749
+TOTAL HELPER Time = 0:00:15.396
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:48:25,888 T0090: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_sequential_speed_changes'  
+2025-11-19 10:48:25,898 T0091: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_sequential_speed_changes'  
+2025-11-19 10:48:30,158 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:48:31,081 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:48:31,762 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 10:48:32,079 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-19 10:48:33,101 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:48:33,841 T0095: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_sequential_speed_changes'  
+2025-11-19 10:48:43,474 T0094: HELPER TIME: 3960 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_sequential_speed_changes'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_invalid_speed_value_handling ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_invalid_speed_value_handling ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.750
+TOTAL HELPER Time = 0:00:15.400
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:48:52,123 T0098: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_invalid_speed_value_handling'  
+2025-11-19 10:48:52,129 T0099: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_invalid_speed_value_handling'  
+2025-11-19 10:48:56,383 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:48:57,305 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:48:57,984 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:48:58,301 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-19 10:48:59,323 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:49:00,058 T0103: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_invalid_speed_value_handling'  
+2025-11-19 10:49:09,693 T0102: HELPER TIME: 3962 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_invalid_speed_value_handling'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 117
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.699
+TOTAL HELPER Time = 0:00:15.399
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:49:18,262 T0106: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces'  
+2025-11-19 10:49:18,270 T0107: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces'  
+2025-11-19 10:49:22,529 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:49:23,453 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:49:24,132 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:49:24,450 T0000: CMD TIME: 963 D1 = no shutdown
+2025-11-19 10:49:25,430 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 10:49:26,176 T0111: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces'  
+2025-11-19 10:49:35,807 T0110: HELPER TIME: 3961 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces'  
+=========================================================

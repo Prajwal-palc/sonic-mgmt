@@ -1,0 +1,69 @@
+
+======================= STATS: system/iscli_Vlan/test_interface_1_iscli_vlan.py::TestVlanConfiguration.test_vlan_creation_and_port_management ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:12
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.670
+TOTAL HELPER Time = 0:00:07.625
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-26 12:23:07,543 T0028: CMD TIME: 1122 D2 = show interfaces status Ethernet124
+2025-11-26 12:23:07,550 T0027: CMD TIME: 1169 D1 = show interfaces status Ethernet124
+2025-11-26 12:23:09,086 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 12:23:09,139 T0027: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 12:23:09,831 T0031: CMD TIME: 1116 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-26 12:23:09,825 T0030: CMD TIME: 1525 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-26 12:23:11,796 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_1_iscli_vlan.py'  
+2025-11-26 12:23:11,804 T0033: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_1_iscli_vlan.py'  
+2025-11-26 12:23:16,068 T0000: CMD TIME: 711 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 12:23:16,788 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-26 12:23:17,472 T0000: CMD TIME: 258 D1 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_Vlan/test_interface_1_iscli_vlan.py::TestVlanConfiguration.test_vlan_creation_and_port_management ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:55
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:13.301
+TOTAL HELPER Time = 0:00:15.246
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-26 12:23:40,220 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanConfiguration.test_vlan_creation_and_port_management'  
+2025-11-26 12:23:40,228 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanConfiguration.test_vlan_creation_and_port_management'  
+2025-11-26 12:23:44,495 T0000: CMD TIME: 662 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 12:23:45,577 T0000: CMD TIME: 359 D1 = show Vlan
+2025-11-26 12:23:46,359 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 12:23:47,037 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 12:23:47,303 T0000: CMD TIME: 308 D1 = vlan 3
+2025-11-26 12:23:50,033 T0000: CMD TIME: 359 D1 = do show Vlan
+2025-11-26 12:23:50,814 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 12:23:51,079 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-26 12:23:51,396 T0000: CMD TIME: 1619 D1 = switchport trunk allowed vlan 3
+2025-11-26 12:23:53,023 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 12:23:55,701 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 12:23:55,966 T0000: CMD TIME: 307 D1 = interface Ethernet4
+2025-11-26 12:23:56,282 T0000: CMD TIME: 1365 D1 = switchport trunk allowed vlan 3
+2025-11-26 12:23:57,655 T0000: CMD TIME: 256 D1 = exit
+2025-11-26 12:24:00,335 T0000: CMD TIME: 411 D1 = do show Vlan
+2025-11-26 12:24:01,171 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 12:24:01,436 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-26 12:24:01,751 T0000: CMD TIME: 1366 D1 = no switchport trunk allowed vlan 3
+2025-11-26 12:24:03,125 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 12:24:05,805 T0000: CMD TIME: 359 D1 = do show Vlan
+2025-11-26 12:24:06,585 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-26 12:24:06,849 T0000: CMD TIME: 307 D1 = interface Ethernet4
+2025-11-26 12:24:07,165 T0000: CMD TIME: 1415 D1 = no switchport trunk allowed vlan 3
+2025-11-26 12:24:08,588 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 12:24:11,267 T0000: CMD TIME: 359 D1 = do show Vlan
+2025-11-26 12:24:12,049 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-26 12:24:12,313 T0000: CMD TIME: 308 D1 = no vlan 3
+2025-11-26 12:24:15,043 T0000: CMD TIME: 358 D1 = do show Vlan
+2025-11-26 12:24:15,854 T0049: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanConfiguration.test_vlan_creation_and_port_management'  
+2025-11-26 12:24:27,595 T0048: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanConfiguration.test_vlan_creation_and_port_management'  
+=========================================================

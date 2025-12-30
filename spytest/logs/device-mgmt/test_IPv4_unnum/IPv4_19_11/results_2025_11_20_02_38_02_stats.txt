@@ -1,0 +1,194 @@
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:09.888
+TOTAL HELPER Time = 0:00:07.625
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:08:58,548 T0027: CMD TIME: 1880 D1 = show interfaces status Ethernet124
+2025-11-19 21:08:58,555 T0028: CMD TIME: 2128 D2 = show interfaces status Ethernet124
+2025-11-19 21:09:00,852 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 21:09:01,116 T0028: CMD TIME: 254 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 21:09:01,804 T0031: CMD TIME: 2027 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 21:09:01,798 T0030: CMD TIME: 3344 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 21:09:05,587 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py'  
+2025-11-19 21:09:05,595 T0033: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py'  
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.165
+TOTAL HELPER Time = 0:00:15.264
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:09:22,313 T0043: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify'  
+2025-11-19 21:09:22,319 T0042: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify'  
+2025-11-19 21:09:26,571 T0000: CMD TIME: 1165 D1 = show platform summary
+2025-11-19 21:09:28,326 T0047: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify'  
+2025-11-19 21:09:28,334 T0046: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify'  
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.166
+TOTAL HELPER Time = 0:00:15.252
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:09:36,433 T0050: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity'  
+2025-11-19 21:09:36,440 T0051: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity'  
+2025-11-19 21:09:40,684 T0000: CMD TIME: 1166 D1 = show platform summary
+2025-11-19 21:09:42,466 T0054: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity'  
+2025-11-19 21:09:42,474 T0055: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity'  
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.218
+TOTAL HELPER Time = 0:00:15.271
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:09:50,605 T0059: HELPER TIME: 3818 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection'  
+2025-11-19 21:09:50,610 T0058: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection'  
+2025-11-19 21:09:54,861 T0000: CMD TIME: 1218 D1 = show platform summary
+2025-11-19 21:09:56,690 T0063: HELPER TIME: 3818 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection'  
+2025-11-19 21:09:56,694 T0062: HELPER TIME: 3818 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection'  
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.165
+TOTAL HELPER Time = 0:00:15.255
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:10:07,261 T0066: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes'  
+2025-11-19 21:10:07,268 T0067: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes'  
+2025-11-19 21:10:11,520 T0000: CMD TIME: 1165 D1 = show platform summary
+2025-11-19 21:10:13,258 T0071: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes'  
+2025-11-19 21:10:13,263 T0070: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes'  
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.215
+TOTAL HELPER Time = 0:00:15.256
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:10:21,409 T0074: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement'  
+2025-11-19 21:10:21,416 T0075: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement'  
+2025-11-19 21:10:25,660 T0000: CMD TIME: 1215 D1 = show platform summary
+2025-11-19 21:10:27,447 T0079: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement'  
+2025-11-19 21:10:27,452 T0078: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement'  
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ipv4_unnumbered/test_ipv4_unnumbered_2_l2_l3_acl.py::TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.216
+TOTAL HELPER Time = 0:00:15.256
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 21:10:35,612 T0082: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement'  
+2025-11-19 21:10:35,617 T0083: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement'  
+2025-11-19 21:10:39,864 T0000: CMD TIME: 1216 D1 = show platform summary
+2025-11-19 21:10:41,677 T0086: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement'  
+2025-11-19 21:10:41,685 T0087: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement'  
+=========================================================

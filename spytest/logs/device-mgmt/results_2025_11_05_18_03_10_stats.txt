@@ -1,0 +1,86 @@
+
+======================= STATS: system/lldp/test_lldp_2.py::TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.038
+TOTAL HELPER Time = 0:00:07.621
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-05 12:34:02,221 T0028: CMD TIME: 1270 D2 = show interfaces status Ethernet124
+2025-11-05 12:34:02,229 T0027: CMD TIME: 1316 D1 = show interfaces status Ethernet124
+2025-11-05 12:34:03,910 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-05 12:34:03,967 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-05 12:34:04,654 T0031: CMD TIME: 1473 D2 = show interfaces status Ethernet4
+2025-11-05 12:34:04,660 T0030: CMD TIME: 1469 D1 = show interfaces status Ethernet4
+2025-11-05 12:34:06,582 T0032: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_2.py'  
+2025-11-05 12:34:06,588 T0033: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_2.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_2.py::TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes ===========================
+RESULT = Fail
+DESCRIPTION = LLDP neighbor not discovered on D1 interface Ethernet4
+TOTAL Test Time = 0:02:52
+TOTAL Sleep Time = 0:00:15
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:40.748
+TOTAL HELPER Time = 0:02:02.346
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-05 12:34:22,803 T0042: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes'  
+2025-11-05 12:34:22,809 T0043: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes'  
+2025-11-05 12:34:27,092 T0000: CMD TIME: 1165 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-05 12:34:28,266 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-05 12:34:28,950 T0000: CMD TIME: 308 D1 = interface Ethernet 4
+2025-11-05 12:34:29,267 T0000: CMD TIME: 1468 D1 = no shutdown
+2025-11-05 12:34:30,744 T0000: CMD TIME: 257 D1 = exit
+2025-11-05 12:34:31,430 T0000: CMD TIME: 1066 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-05 12:34:32,505 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-05 12:34:33,185 T0000: CMD TIME: 358 D2 = interface Ethernet 4
+2025-11-05 12:34:33,557 T0000: CMD TIME: 969 D2 = no shutdown
+2025-11-05 12:34:34,535 T0000: CMD TIME: 258 D2 = exit
+2025-11-05 12:34:34,799 T0000: WAIT TIME: 5 = static delay
+2025-11-05 12:34:40,223 T0000: CMD TIME: 308 D1 = lldp enable
+2025-11-05 12:34:40,953 T0000: CMD TIME: 309 D2 = lldp enable
+2025-11-05 12:34:41,684 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-05 12:34:42,052 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-05 12:34:42,317 T0000: CMD TIME: 258 D1 = exit
+2025-11-05 12:34:43,003 T0000: CMD TIME: 360 D2 = interface Ethernet 4
+2025-11-05 12:34:43,371 T0000: CMD TIME: 310 D2 = lldp enable
+2025-11-05 12:34:43,693 T0000: CMD TIME: 258 D2 = exit
+2025-11-05 12:34:43,958 T0000: WAIT TIME: 10 = static delay
+2025-11-05 12:34:54,387 T0000: CMD TIME: 259 D1 = exit
+2025-11-05 12:34:54,652 T0000: CMD TIME: 361 D1 = exit
+2025-11-05 12:34:55,440 T0000: CMD TIME: 1876 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:34:58,773 T0000: CMD TIME: 1774 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:01,993 T0000: CMD TIME: 1321 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:04,755 T0000: CMD TIME: 1319 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:07,522 T0000: CMD TIME: 1322 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:10,285 T0000: CMD TIME: 1422 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:13,150 T0000: CMD TIME: 1422 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:16,015 T0000: CMD TIME: 1471 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:18,932 T0000: CMD TIME: 1370 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:21,751 T0000: CMD TIME: 1323 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:24,517 T0000: CMD TIME: 1320 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:27,279 T0000: CMD TIME: 1323 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:30,063 T0000: CMD TIME: 1374 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:32,879 T0000: CMD TIME: 1270 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:35,596 T0000: CMD TIME: 1525 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:38,567 T0000: CMD TIME: 1374 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:41,385 T0000: CMD TIME: 1271 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:44,099 T0000: CMD TIME: 1223 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:46,763 T0000: CMD TIME: 1321 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:49,532 T0000: CMD TIME: 1325 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:52,299 T0000: CMD TIME: 1321 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:55,061 T0000: CMD TIME: 2077 D1 = show lldp neighbors Ethernet4
+2025-11-05 12:35:58,595 T0046: HELPER TIME: 50666 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-05 12:36:49,714 T0046: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/techsupport_D1-smic_sonic1_pre-function-epilog-TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes_sonic_dump_D-Link_20251105_123600.tar.gz
+2025-11-05 12:36:08,346 T0047: HELPER TIME: 55465 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-05 12:37:04,367 T0047: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/techsupport_D2-smic_sonic2_pre-function-epilog-TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes_sonic_dump_D-Link_20251105_123610.tar.gz
+2025-11-05 12:37:05,375 T0052: HELPER TIME: 4293 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes'  
+2025-11-05 12:37:05,380 T0053: HELPER TIME: 4290 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes'  
+=========================================================

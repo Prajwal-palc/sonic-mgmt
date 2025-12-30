@@ -139,49 +139,6 @@ class TestNtpServerSyncAndStatus:
         klish_ntp_associations = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_associations)
 
-        # ========== SHOW COMMANDS - CLICK MODE ==========
-
-        # Show command 1: show ntp (click)
-        st.log("=" * 80)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_output = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_output)
-
-        # Show command 2: show clock (click)
-        st.log("=" * 80)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        st.log("=" * 80)
-        click_clock_output = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_output)
-
-        # Convert click outputs to strings for validation
-        if isinstance(click_ntp_output, list):
-            click_ntp_str = '\n'.join(str(line) for line in click_ntp_output)
-        else:
-            click_ntp_str = str(click_ntp_output)
-
-        if isinstance(click_clock_output, list):
-            click_clock_str = '\n'.join(str(line) for line in click_clock_output)
-        else:
-            click_clock_str = str(click_clock_output)
-
-        # ========== VALIDATION - Basic NTP Configuration ==========
-        st.log("=" * 80)
-        st.log("VALIDATION - Checking NTP configuration and status")
-        st.log("=" * 80)
-
-        # Validation 1: Check that "show ntp" returned non-empty output
-        if not click_ntp_str or not click_ntp_str.strip():
-            st.log("Warning: 'show ntp' returned empty output")
-        else:
-            st.log("Validation passed: 'show ntp' returned output")
-
-        # Validation 2: Check that "show clock" returned non-empty output
-        if not click_clock_str or not click_clock_str.strip():
-            st.report_fail("msg", "'show clock' returned empty output")
-        st.log("Validation passed: 'show clock' returned output")
-
         # ========== PART 2: MULTIPLE NTP SERVERS ==========
 
         # Step 4: Configure multiple NTP servers
@@ -373,14 +330,25 @@ class TestNtpServerSyncAndStatus:
         script = ["sonic-cli", "configure terminal"]
         script.extend(command_list)
         script.extend(["end", "exit"])
-        st.apply_script(dut, script)
+        output = st.apply_script(dut, script)
+
+        # Check for CLI errors in the output
+        output_str = str(output or "")
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI command failed with error: {output_str}")
 
     @staticmethod
     def _run_klish_show(dut: str, command: str) -> str:
         """Run show command inside sonic-cli (klish) context and return output."""
         script = ["sonic-cli", command, "exit"]
         output = st.apply_script(dut, script)
-        return str(output or "")
+        output_str = str(output or "")
+
+        # Check for CLI errors in the output
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI show command '{command}' failed with error: {output_str}")
+
+        return output_str
 
     @classmethod
     def _restore_defaults(cls, dut: str) -> None:

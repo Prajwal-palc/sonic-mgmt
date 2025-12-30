@@ -1,0 +1,34 @@
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D4,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan,D2,mgmt-config,vlan 20

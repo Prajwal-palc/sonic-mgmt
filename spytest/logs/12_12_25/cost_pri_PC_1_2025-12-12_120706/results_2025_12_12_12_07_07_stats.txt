@@ -1,0 +1,41 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py::TestOSPFCostPathSelectionPortChannel4Node.test_ospf_cost_path_selection_portchannel ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.341
+TOTAL HELPER Time = 0:00:15.284
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-12 06:37:51,020 T0057: CMD TIME: 962 D2 = show interfaces status Ethernet124
+2025-12-12 06:37:51,044 T0058: CMD TIME: 966 D3 = show interfaces status Ethernet124
+2025-12-12 06:37:51,054 T0056: CMD TIME: 1016 D1 = show interfaces status Ethernet124
+2025-12-12 06:37:51,060 T0059: CMD TIME: 1012 D4 = show interfaces status Ethernet124
+2025-12-12 06:37:52,402 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-12 06:37:52,431 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-12 06:37:52,501 T0056: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-12 06:37:52,508 T0059: CMD TIME: 256 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-12 06:37:53,207 T0061: CMD TIME: 1045 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-12 06:37:53,213 T0062: CMD TIME: 1092 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-12 06:37:53,216 T0063: CMD TIME: 1529 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-12 06:37:53,225 T0064: CMD TIME: 1540 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-12 06:37:55,279 T0067: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py'  
+2025-12-12 06:37:55,270 T0065: HELPER TIME: 3827 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py'  
+2025-12-12 06:37:55,291 T0066: HELPER TIME: 3820 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py'  
+2025-12-12 06:37:55,298 T0068: HELPER TIME: 3823 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py'  
+2025-12-12 06:37:59,579 T0000: CMD TIME: 712 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-12 06:38:00,300 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-12 06:38:00,985 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-12-12 06:38:01,660 T0000: CMD TIME: 862 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-12 06:38:02,532 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-12 06:38:03,211 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-12-12 06:38:03,887 T0000: CMD TIME: 812 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-12 06:38:04,709 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-12 06:38:05,388 T0000: CMD TIME: 257 D3 = terminal length 0
+2025-12-12 06:38:06,063 T0000: CMD TIME: 711 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-12 06:38:06,783 T0000: CMD TIME: 259 D4 = configure terminal
+2025-12-12 06:38:07,462 T0000: CMD TIME: 258 D4 = terminal length 0
+=========================================================

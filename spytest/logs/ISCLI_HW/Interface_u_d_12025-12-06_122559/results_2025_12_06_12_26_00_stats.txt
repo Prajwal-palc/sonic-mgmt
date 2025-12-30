@@ -1,0 +1,44 @@
+
+======================= STATS: system/iscli_Hardware/test_interface_1_iscli_events_admin_up_down_HW.py::TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.935
+TOTAL HELPER Time = 0:00:07.625
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-06 06:56:51,748 T0031: CMD TIME: 1221 D1 = show interfaces status Ethernet513
+2025-12-06 06:56:51,756 T0032: CMD TIME: 1569 D2 = show interfaces status Ethernet128
+2025-12-06 06:56:53,389 T0031: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-06 06:56:53,744 T0032: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-06 06:56:54,438 T0034: CMD TIME: 1014 D1 = show interfaces status Ethernet272
+2025-12-06 06:56:54,428 T0035: CMD TIME: 1621 D2 = show interfaces status Ethernet56
+2025-12-06 06:56:56,491 T0036: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Hardware/test_interface_1_iscli_events_admin_up_down_HW.py'  
+2025-12-06 06:56:56,497 T0037: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Hardware/test_interface_1_iscli_events_admin_up_down_HW.py'  
+=========================================================
+
+======================= STATS: system/iscli_Hardware/test_interface_1_iscli_events_admin_up_down_HW.py::TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception TypeError can only concatenate list (not "str") to list in file /tests/system/iscli_Hardware/test_interface_1_iscli_events_admin_up_down_HW.py at line 341
+TOTAL Test Time = 0:00:35
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.997
+TOTAL HELPER Time = 0:00:15.250
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-06 06:57:12,892 T0046: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle'  
+2025-12-06 06:57:12,897 T0047: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle'  
+2025-12-06 06:57:20,182 T0000: CMD TIME: 560 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-06 06:57:21,180 T0000: CMD TIME: 261 D1 = end
+2025-12-06 06:57:21,860 T0000: CMD TIME: 258 D1 = exit
+2025-12-06 06:57:23,037 T0000: CMD TIME: 612 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-06 06:57:24,069 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-12-06 06:57:24,743 T0000: CMD TIME: 5049 D1 = show interface status
+2025-12-06 06:57:30,302 T0051: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle'  
+2025-12-06 06:57:39,937 T0050: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle'  
+=========================================================

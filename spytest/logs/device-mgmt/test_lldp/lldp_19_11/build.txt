@@ -1,0 +1,19 @@
+build: SONiC.D-Link-S202411.R1.1.0
+uitype: click
+Execution Started: 2025-11-19 20:53:37.874442
+Execution Completed: 2025-11-19 20:55:43.721242
+Execution Time: 0:02:06
+DailyRun: 0
+Python: 3.8.10
+Combined Report: 0
+GCOV Run: 0
+Image Build Path: 
+EMail: None
+EMailSubject: Run Report
+Dry Run: 0
+GCOV_POST_RUN_KPI_UPDATE: 0
+GCOV_MERGE_HTML: 0
+Pass Rate: 0.00%
+Suite: 
+Platforms Not Covered: 
+Chips Not Covered: 

@@ -1,0 +1,148 @@
+
+======================= STATS: system/interface_events/testcases_Interface_events2.py::TestInterfaceEvents.test_interface_admin_state_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:24
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:20.034
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 07:05:24,305 T0027: CMD TIME: 1975 D1 = show interfaces status Ethernet124
+2025-11-19 07:05:26,700 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 07:05:24,312 T0028: CMD TIME: 3683 D2 = show interfaces status Ethernet124
+2025-11-19 07:05:28,416 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 07:05:29,096 T0030: CMD TIME: 1927 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 07:05:29,101 T0031: CMD TIME: 2027 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 07:05:31,574 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/testcases_Interface_events2.py'  
+2025-11-19 07:05:31,579 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/testcases_Interface_events2.py'  
+2025-11-19 07:05:35,843 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:05:36,765 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 07:05:37,449 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-19 07:05:38,124 T0000: CMD TIME: 8485 D1 = do show interface status
+=========================================================
+
+======================= STATS: system/interface_events/testcases_Interface_events2.py::TestInterfaceEvents.test_interface_admin_state_changes ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:03:01
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:01:40.855
+TOTAL HELPER Time = 0:00:15.269
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 07:06:09,285 T0042: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-19 07:06:09,292 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-19 07:06:13,552 T0000: CMD TIME: 1668 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:06:15,229 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:06:15,905 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-19 07:06:16,579 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:06:17,252 T0000: CMD TIME: 359 D1 = interface Ethernet0
+2025-11-19 07:06:18,027 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 07:06:19,457 T0000: CMD TIME: 256 D1 = end
+2025-11-19 07:06:23,135 T0000: CMD TIME: 6670 D1 = show interface status
+2025-11-19 07:06:30,369 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 07:06:31,097 T0000: CMD TIME: 317 D1 = sudo tail -20 /var/log/syslog
+2025-11-19 07:06:31,849 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:06:32,773 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 07:06:33,450 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 07:06:34,124 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-19 07:06:34,850 T0000: CMD TIME: 1014 D1 = shutdown
+2025-11-19 07:06:36,281 T0000: CMD TIME: 257 D1 = end
+2025-11-19 07:06:39,962 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-19 07:06:40,643 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-11-19 07:06:41,322 T0000: CMD TIME: 6272 D1 = do show interface status
+2025-11-19 07:06:48,143 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:06:48,408 T0000: CMD TIME: 310 D1 = exit
+2025-11-19 07:06:49,137 T0000: CMD TIME: 264 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:06:49,825 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:06:50,746 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:06:51,424 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:06:52,098 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:06:52,824 T0000: CMD TIME: 964 D1 = no shutdown
+2025-11-19 07:06:54,205 T0000: CMD TIME: 257 D1 = end
+2025-11-19 07:06:57,884 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:06:58,559 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-19 07:06:59,233 T0000: CMD TIME: 6265 D1 = do show interface status
+2025-11-19 07:07:06,049 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:07:06,314 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 07:07:07,041 T0000: CMD TIME: 264 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:07:07,730 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:07:08,651 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:07:09,328 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 07:07:10,000 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-19 07:07:10,724 T0000: CMD TIME: 1012 D1 = shutdown
+2025-11-19 07:07:12,152 T0000: CMD TIME: 256 D1 = end
+2025-11-19 07:07:15,831 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:07:16,507 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-19 07:07:17,180 T0000: CMD TIME: 6565 D1 = do show interface status
+2025-11-19 07:07:24,301 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:07:24,566 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 07:07:25,293 T0000: CMD TIME: 313 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:07:26,028 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:07:26,949 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:07:27,626 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 07:07:28,300 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:07:29,025 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 07:07:30,454 T0000: CMD TIME: 257 D1 = end
+2025-11-19 07:07:34,133 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:07:34,809 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-19 07:07:35,483 T0000: CMD TIME: 6518 D1 = do show interface status
+2025-11-19 07:07:42,560 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:07:42,826 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 07:07:43,553 T0000: CMD TIME: 264 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:07:44,242 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:07:45,164 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:07:45,840 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:07:46,515 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:07:47,240 T0000: CMD TIME: 1065 D1 = shutdown
+2025-11-19 07:07:48,725 T0000: CMD TIME: 258 D1 = end
+2025-11-19 07:07:52,407 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-19 07:07:53,091 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-11-19 07:07:53,769 T0000: CMD TIME: 6315 D1 = do show interface status
+2025-11-19 07:08:00,614 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 07:08:00,879 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 07:08:01,607 T0000: CMD TIME: 264 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:08:02,293 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:08:03,214 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:03,890 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:04,562 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-19 07:08:05,287 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-19 07:08:06,716 T0000: CMD TIME: 256 D1 = end
+2025-11-19 07:08:10,394 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:11,070 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-19 07:08:11,744 T0000: CMD TIME: 9936 D1 = do show interface status
+2025-11-19 07:08:22,233 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:08:22,498 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 07:08:23,225 T0000: CMD TIME: 264 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:08:23,913 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:08:24,835 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:25,513 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:26,187 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:08:26,912 T0000: CMD TIME: 1013 D1 = shutdown
+2025-11-19 07:08:28,343 T0000: CMD TIME: 257 D1 = end
+2025-11-19 07:08:32,021 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:32,697 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-19 07:08:33,371 T0000: CMD TIME: 6224 D1 = do show interface status
+2025-11-19 07:08:40,185 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:08:40,450 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 07:08:41,183 T0000: CMD TIME: 264 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:08:41,869 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:08:42,790 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:43,467 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:44,141 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:08:44,866 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 07:08:46,295 T0000: CMD TIME: 256 D1 = end
+2025-11-19 07:08:49,974 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:08:50,650 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-19 07:08:51,323 T0000: CMD TIME: 6519 D1 = do show interface status
+2025-11-19 07:08:58,393 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 07:08:58,662 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 07:08:59,393 T0000: CMD TIME: 314 D1 = sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+2025-11-19 07:09:00,163 T0048: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-19 07:09:00,171 T0049: HELPER TIME: 3830 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+=========================================================

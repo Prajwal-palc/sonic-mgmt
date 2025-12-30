@@ -1,0 +1,792 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>TimeTaken</th>
+      <th>ExecutedOn</th>
+      <th>Syslogs</th>
+      <th>FCLI</th>
+      <th>TSSH</th>
+      <th>DCNT</th>
+      <th>Description</th>
+      <th>Devices</th>
+      <th>KnownIssue</th>
+      <th>Doc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_3_iscli_Basic_4_node_Vlan.log'>system/iscli_OSPF/testcases_OSPF_3_iscli_Basic_4_node_Vlan.py</a></td>
+      <td>TestOSPFStaticRoutingVLAN4Node.test_ospf_vlan_static_routing_4node</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_3_iscli_Basic_4_node_Vlan.log'>Fail</a></td>
+      <td>0:12:42</td>
+      <td>2025-12-18 17:01:34</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 2 validation failure(s):
+  - OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_VLAN_STATIC_4NODE_001: Validate OSPF with VLAN and static routing in 4-node topology. Test Procedure: 1. Remove IP addresses from all Ethernet interfaces that will be added to VLANs 2. Create VLANs and add ports to VLANs, verify with 'show Vlan' 3. Configure IP addresses on VLAN interfaces, verify with 'show running-configuration interface Vlan X' 4. Configure static routes on D1 and D3 5. (COMMENTED OUT) Restart BGP docker on D1 and D3 6. Verify static routes appear in routing tables 7. Configure OSPF on D2 and D4 8. Verify OSPF neighbor adjacency (Full state) 9. Verify DR/BDR election 10. Verify ping from D1 to D3 11. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - VLANs created with correct ports (verified via show Vlan) - IP addresses configured on VLAN interfaces (verified via show running-configuration) - Static routes installed in routing tables - OSPF neighbors form adjacency (Full state) - DR/BDR election occurs - Ping from D1 to D3 successful - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_1_iscli_vlan.log'>system/iscli_Vlan/test_interface_1_iscli_vlan.py</a></td>
+      <td>TestVlanConfiguration.test_vlan_creation_and_port_management</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_1_iscli_vlan.log'>Pass</a></td>
+      <td>0:01:10</td>
+      <td>2025-12-18 17:03:27</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_VLAN_001: Validate CLI for VLAN creation and port management. Test Procedure: 1. Verify baseline (no VLANs configured) 2. Remove IP addresses (IPv4 and IPv6) from all testbed interfaces 3. Create VLAN 3 4. Verify VLAN 3 exists 4.1. Verify VLAN 3 status is Down (no active member ports) 5. Add Ethernet0 to VLAN 3 6. Add Ethernet4 to VLAN 3 7. Verify both ports are members of VLAN 3 8. Remove Ethernet0 from VLAN 3 9. Verify Ethernet0 is not in VLAN 3, Ethernet4 is still in VLAN 3 10. Remove Ethernet4 from VLAN 3 11. Verify VLAN 3 exists but has no ports 12. Delete VLAN 3 13. Verify no VLANs configured Expected Result: - IP addresses can be removed from interfaces - VLAN can be created successfully - VLAN status is Down when no active member ports are configured - Ports can be added to VLAN as tagged members - Ports can be removed from VLAN - VLAN can be deleted successfully - All changes are reflected accurately in 'show Vlan' output</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py</a></td>
+      <td>TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.log'>Fail</a></td>
+      <td>0:12:44</td>
+      <td>2025-12-18 17:17:00</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 9 validation failure(s):
+  - STEP 7: OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - STEP 7: OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - STEP 7: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - STEP 7: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4
+  - STEP 7: OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - STEP 7: OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - STEP 9: D1 should have Type 1 LSAs from all 4 routers
+  - STEP 12: D1 should have OSPF route to 20.1.1.0/24
+  - STEP 12: D1 should have OSPF route to 30.1.1.0/24</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_TYPE1_LSA_4NODE_PC_001: Validate OSPF Type 1 LSAs in 4-node topology over PortChannels. Test Procedure: 1. Remove IP addresses from Ethernet interfaces before adding to PortChannels 2. Create PortChannels on all devices 3. Add Ethernet interfaces as members to respective PortChannels 4. Verify PortChannel creation and member addition 5. Configure IP addresses on PortChannel interfaces 6. Configure OSPF Area 0 on all devices 7. Verify OSPF neighbor adjacency (Full state) on all links 8. Verify DR/BDR election on all broadcast segments 9. Verify Type 1 LSAs from all 4 routers present in database 10. Verify self-originated LSAs have correct link counts 11. Verify Type 2 Network LSAs present 12. Verify OSPF routes learned with correct costs 13. Verify end-to-end connectivity 14. Cleanup: Remove all configurations Expected Result: - PortChannels created successfully with member ports - OSPF neighbors form Full adjacency on all links - DR/BDR election occurs on each segment - All 4 routers' Type 1 LSAs present in database - D1 LSA: 1 link, D2 LSA: 2 links, D4 LSA: 2 links, D3 LSA: 1 link - Type 2 Network LSAs present for all broadcast segments - OSPF routes learned with correct costs - End-to-end ping successful - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.log'>Fail</a></td>
+      <td>0:05:07</td>
+      <td>2025-12-18 17:22:56</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 28 validation failure(s). See errors above.</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_TYPE5_LSA_4NODE_001: Validate OSPF Type 5 External LSAs in 4-node topology. Test Procedure: 1. Configure IP addresses on all interfaces 2. Configure OSPF Area 0 on all devices 3. Verify OSPF neighbor adjacency (Full state) on all links 4. Configure static routes on D1 (ASBR) for external networks 5. Verify static routes are installed in D1's routing table 6. Redistribute static routes into OSPF on D1 7. Verify Type 5 External LSAs are generated on D1 (self-originated) 8. Verify Type 5 External LSAs are present in OSPF database on all devices 9. Verify external routes appear in routing tables with O E2 flag 10. Verify complete OSPF database on all devices 11. Test end-to-end connectivity 12. Cleanup: Remove all configurations Expected Result: - OSPF neighbors form Full adjacency on all links - Static routes installed on D1 - Type 5 External LSAs generated on D1 for all external networks - Type 5 LSAs propagated to D2, D4, and D3 - External routes visible in all routing tables with E2 flag - OSPF database contains AS External Link States on all devices - End-to-end connectivity working - All configurations cleaned up Known Issue: - This test validates the bug reported in JIRA where Type 5 LSAs are not generated even after 'redistribute static' is configured</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.py</a></td>
+      <td>TestOSPFMD5Authentication4Node.test_ospf_md5_authentication</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.log'>Pass</a></td>
+      <td>0:08:34</td>
+      <td>2025-12-18 17:32:21</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>OSPF MD5 authentication test completed successfully</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>Test OSPF MD5 authentication functionality. Test Steps: 1. Configure IP addresses on all interfaces 2. Verify IP configuration 3. Configure OSPF with MD5 authentication 4. Verify OSPF neighbors reach Full state 5. Verify cryptographic authentication is enabled 6. Verify OSPF routes are learned 7. Test authentication failure (mismatched key) 8. Verify neighbor goes down 9. Restore correct key 10. Verify neighbor comes back up 11. Cleanup configuration</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_2_iscli_events_mtu_change.log'>system/iscli_interface_events/test_interface_2_iscli_events_mtu_change.py</a></td>
+      <td>TestInterfaceMTUChanges.test_interface_mtu_change_cycle</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_2_iscli_events_mtu_change.log'>Pass</a></td>
+      <td>0:01:01</td>
+      <td>2025-12-18 17:33:50</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_MTU_001: Validate CLI for MTU configuration changes. Test Procedure: 1. Verify baseline MTU (9100) 2. Change MTU to 1600 3. Verify MTU = 1600 in running-config 4. Change MTU to 2000 5. Verify MTU = 2000 in running-config 6. Restore MTU to 9100 7. Verify MTU = 9100 in running-config 8. Final validation Expected Result: - MTU changes are reflected accurately in running-configuration - MTU can be successfully changed: 9100   1600   2000   9100 - System remains stable after all MTU changes</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.py</a></td>
+      <td>TestOSPFAreaMismatchPortChannel.test_ospf_area_mismatch_prevents_adjacency_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.log'>Pass</a></td>
+      <td>0:04:13</td>
+      <td>2025-12-18 17:39:06</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_AREA_MISMATCH_PC_001: Validate OSPF area mismatch prevents adjacency using PortChannel. Test Procedure: 1. Remove IP addresses from Ethernet interfaces (baseline) 2. Create PortChannel 120 and add Ethernet16 to PortChannel on D2 and D4 3. Configure IP addresses on PortChannel interfaces and validate 4. Verify ping connectivity (should succeed) 5. Configure OSPF on D2 with Area 0 6. Configure OSPF on D4 with Area 1 (intentional mismatch) 7. Wait for OSPF to attempt adjacency formation 8. Verify NO neighbors on both routers (adjacency fails) 9. Verify "Number of fully adjacent neighbors: 0" 10. Fix area mismatch - change D4 to Area 0 11. Verify adjacency succeeds (neighbors in Full state) 12. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - PortChannel created and ports added successfully - IP addresses configured and validated on PortChannel interfaces - Ping succeeds before OSPF - With area mismatch: NO OSPF adjacency (no neighbors) - After fixing mismatch: Adjacency succeeds (Full state) - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_PortChannel_test_interface_1_iscli_portchannel.log'>system/iscli_PortChannel/test_interface_1_iscli_portchannel.py</a></td>
+      <td>TestPortChannelConfiguration.test_portchannel_creation_port_management_and_ip_addressing</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_PortChannel_test_interface_1_iscli_portchannel.log'>Fail</a></td>
+      <td>0:03:36</td>
+      <td>2025-12-18 17:43:27</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 1 validation failure(s). See errors above.</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_PORTCHANNEL_001: Validate CLI for PortChannel creation, port management, and IP addressing on both devices. Test Procedure (performed on BOTH DUT1 and DUT2): 1. Verify baseline (no PortChannels configured) 2. Remove IP addresses (IPv4 and IPv6) from all testbed interfaces 3. Create PortChannel 10 4. Verify PortChannel 10 exists with no member ports 5. Add Ethernet0 to PortChannel 10 5a. Verify PortChannel 10 status is Down '(D)' on DUT1 (after adding on DUT1, before DUT2) 6. Verify Ethernet0 is member of PortChannel 10 7. Add Ethernet4 to PortChannel 10 8. Verify both Ethernet0 and Ethernet4 are members of PortChannel 10 9. Configure IPv4 address on PortChannel 10 (different IPs on each device) 10. Verify IPv4 address is configured 11. Remove IPv4 address from PortChannel 10 (using "no ip address") 12. Verify IPv4 address is removed 13. Configure IPv6 address on PortChannel 10 (different IPs on each device) 14. Verify IPv6 address is configured 15. Remove IPv6 address from PortChannel 10 (using "no ipv6 address") 16. Verify IPv6 address is removed 17. Remove Ethernet0 from PortChannel 10 18. Remove Ethernet4 from PortChannel 10 19. Delete PortChannel 10 20. Verify no PortChannels configured Expected Result: - IP addresses can be removed from interfaces on both devices - PortChannel can be created successfully on both devices - Ports can be added to PortChannel as members on both devices - IPv4 addresses can be configured and removed on both devices - IPv6 addresses can be configured and removed on both devices - Ports can be removed from PortChannel on both devices - PortChannel can be deleted successfully on both devices - All changes are reflected accurately in show commands on both devices</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.py</a></td>
+      <td>TestOSPFType1LSAs4NodeVLAN.test_ospf_type1_lsa_verification_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.log'>Fail</a></td>
+      <td>0:15:08</td>
+      <td>2025-12-18 17:59:25</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 9 validation failure(s):
+  - OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4
+  - OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - D1 should have Type 1 LSAs from all 4 routers
+  - D1 should have OSPF route to 20.1.1.0/24
+  - D1 should have OSPF route to 30.1.1.0/24</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_TYPE1_LSA_4NODE_VLAN_001: Validate OSPF Type 1 LSAs in 4-node topology over VLANs. Test Procedure: 1. Remove IP addresses from Ethernet interfaces before adding to VLANs 2. Create VLANs on all devices 3. Add Ethernet interfaces as members to respective VLANs 4. Verify VLAN creation and member addition 5. Configure IP addresses on VLAN interfaces 6. Validate IP address configuration 7. Configure OSPF Area 0 on all devices 8. Verify OSPF neighbor adjacency (Full state) on all links 9. Verify DR/BDR election on all broadcast segments 10. Verify Type 1 LSAs from all 4 routers present in database 11. Verify self-originated LSAs have correct link counts 12. Verify Type 2 Network LSAs present 13. Verify OSPF routes learned with correct costs 14. Verify end-to-end connectivity 15. Cleanup: Remove all configurations 16. Tech Support: Collect tech support if validation failures occur Expected Result: - VLANs created successfully with member ports - IP addresses configured and validated on VLAN interfaces - OSPF neighbors form Full adjacency on all links - DR/BDR election occurs on each segment - All 4 routers' Type 1 LSAs present in database - D1 LSA: 1 link, D2 LSA: 2 links, D4 LSA: 2 links, D3 LSA: 1 link - Type 2 Network LSAs present for all broadcast segments - OSPF routes learned with correct costs - End-to-end ping successful - All configurations cleaned up - Tech support collected on failures</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.py</a></td>
+      <td>TestOSPFMultiAreaABR.test_ospf_multiarea_abr_backbone</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.log'>Pass</a></td>
+      <td>0:04:13</td>
+      <td>2025-12-18 18:04:29</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_ABR_MULTIAREA_001: Validate OSPF multi-area configuration with ABRs. Test Procedure: 1. Configure IP addresses on all interfaces and validate 2. Configure OSPF on D1 (Area 1) 3. Configure OSPF on D2 (ABR - Area 0 and Area 1) 4. Configure OSPF on D4 (ABR - Area 0 and Area 2) 5. Configure OSPF on D3 (Area 2) 6. Verify OSPF neighbor adjacencies (Full state) 7. Verify ABR status on D2 and D4 8. Verify OSPF database (Summary LSAs) 9. Verify inter-area routing 10. Verify ping connectivity across all areas 11. Verify traceroute through ABRs 12. Cleanup: Remove all configurations Expected Result: - IP addresses configured and validated - OSPF neighbors form adjacency (Full state) - D2 and D4 are identified as ABRs - Summary LSAs are generated by ABRs - Inter-area routes are installed - Ping successful across all areas - Traceroute shows path through ABRs - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4NodePC.test_ospf_type5_external_lsa_verification_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.log'>Fail</a></td>
+      <td>0:07:45</td>
+      <td>2025-12-18 18:13:05</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 34 validation failure(s). See errors above.</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_TYPE5_LSA_4NODE_PC_001: Validate OSPF Type 5 External LSAs in 4-node topology over PortChannels. Test Procedure: 1. Remove IP addresses from Ethernet interfaces before adding to PortChannels 2. Create PortChannels on all devices 3. Add Ethernet interfaces as members to PortChannels 4. Verify PortChannel creation and member addition 5. Configure IP addresses on PortChannel interfaces 6. Verify IP configuration on PortChannels 7. Configure OSPF Area 0 on all devices 8. Verify OSPF neighbor adjacency (Full state) on all links 9. Configure static routes on D1 (ASBR) for external networks 10. Verify static routes are installed in D1's routing table 11. Redistribute static routes into OSPF on D1 12. Verify Type 5 External LSAs are generated on D1 (self-originated) 13. Verify Type 5 External LSAs are present in OSPF database on all devices 14. Verify external routes appear in routing tables with O E2 flag 15. Verify complete OSPF database on all devices 16. Test end-to-end connectivity 17. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - PortChannels created successfully - Ports added to PortChannels successfully - IP addresses configured on PortChannels - OSPF neighbors form Full adjacency on all links - Static routes installed on D1 - Type 5 External LSAs generated on D1 for all external networks - Type 5 LSAs propagated to D2, D4, and D3 - External routes visible in all routing tables with E2 flag - OSPF database contains AS External Link States on all devices - End-to-end connectivity working - All configurations cleaned up Known Issue: - This test validates the bug reported in JIRA where Type 5 LSAs are not generated even after 'redistribute static' is configured</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_2_iscli_vlan_ip.log'>system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py</a></td>
+      <td>TestVlanIPConfiguration.test_vlan_ip_configuration</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_2_iscli_vlan_ip.log'>Pass</a></td>
+      <td>0:01:10</td>
+      <td>2025-12-18 18:14:57</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_VLAN_IP_001: Validate CLI for VLAN creation, port management, and IP address assignment. Test Procedure: 1. Remove IP addresses (IPv4 and IPv6) from all testbed interfaces 2. Create VLAN 3 3. Add Ethernet0 to VLAN 3 4. Configure IPv4 address on VLAN 3 interface 5. Verify IPv4 address in running-config 6. Remove IPv4 address 7. Verify no IPv4 address in running-config 8. Configure IPv6 address on VLAN 3 interface 9. Verify IPv6 address in running-config 10. Remove IPv6 address 11. Verify no IPv6 address in running-config 12. Remove port from VLAN 13. Delete VLAN 3 14. Verify no VLANs configured Expected Result: - IP addresses can be removed from interfaces - VLAN can be created successfully - Ports can be added to VLAN - IPv4 address can be configured and removed from VLAN interface - IPv6 address can be configured and removed from VLAN interface - All changes are reflected accurately in running-configuration</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.py</a></td>
+      <td>TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.log'>Pass</a></td>
+      <td>0:10:02</td>
+      <td>2025-12-18 18:25:48</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_COST_PATH_SELECTION_001: Validate OSPF cost-based path selection. Test Procedure: 1. Configure IP addresses on all parallel links (4 links between each device pair) 2. Configure OSPF on all devices with different costs on parallel links 3. Verify OSPF neighbors form on all links (Full state) 4. Verify that lowest cost path (cost 10) is selected for routing 5. Test dynamic cost change - verify path switches when cost changes 6. Test link failure - verify automatic failover to next lowest cost 7. Test ECMP - verify load balancing when costs are equal 8. Verify end-to-end connectivity with ping 9. Cleanup: Remove all configurations Expected Result: - IP addresses configured successfully on all interfaces - OSPF neighbors form on all parallel links - Traffic uses lowest cost path (Ethernet0 with cost 10) - Path switches to Ethernet4 when Ethernet0 cost increased - Automatic failover when Ethernet0 shut down - ECMP when Ethernet0 and Ethernet4 have equal costs - End-to-end ping successful - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py</a></td>
+      <td>TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.log'>Fail</a></td>
+      <td>0:18:57</td>
+      <td>2025-12-18 18:45:35</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 23 validation failure(s):
+  - STEP 8: Expected 4 OSPF neighbors on vs_sonic_1
+  - STEP 8: Neighbor 10.0.1.2 on vs_sonic_1 Vlan10 not in Full state
+  - STEP 8: Neighbor 10.0.2.2 on vs_sonic_1 Vlan20 not in Full state
+  - STEP 8: Neighbor 10.0.3.2 on vs_sonic_1 Vlan30 not in Full state
+  - STEP 8: Neighbor 10.0.4.2 on vs_sonic_1 Vlan40 not in Full state
+  - STEP 8: Expected 8 OSPF neighbors on vs_sonic_2
+  - STEP 8: Expected 8 OSPF neighbors on vs_sonic_4
+  - STEP 8: Expected 4 OSPF neighbors on vs_sonic_3
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_1 Vlan10
+  - STEP 9: MD5 algorithm not shown on vs_sonic_1 Vlan10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 Vlan10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 Vlan110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 Vlan110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 Vlan60
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_3 Vlan60
+  - STEP 10: OSPF route 20.0.1.0/30 not found on vs_sonic_1
+  - STEP 10: OSPF route 30.0.1.0/30 not found on vs_sonic_1
+  - STEP 10: OSPF route 10.0.1.0/30 not found on vs_sonic_3
+  - STEP 10: OSPF route 20.0.1.0/30 not found on vs_sonic_3
+  - STEP 11: Router Link States not found in vs_sonic_1 OSPF database
+  - STEP 13: Expected 3 OSPF neighbors on vs_sonic_1 (Vlan10 down)
+  - STEP 15: Neighbor 10.0.1.2 on Vlan10 did not come back up
+  - STEP 15: Expected 4 OSPF neighbors on vs_sonic_1 after restore</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>Test OSPF MD5 authentication functionality over VLANs. Test Steps: 1. Remove IP addresses from Ethernet interfaces 2. Create VLANs 3. Add Ethernet interfaces to VLANs 4. Verify VLAN creation and member addition 5. Configure IP addresses on VLANs 6. Verify IP configuration 7. Configure OSPF with MD5 authentication 8. Verify OSPF neighbors reach Full state 9. Verify cryptographic authentication is enabled 10. Verify OSPF routes are learned 11. Test authentication failure (mismatched key) 12. Verify neighbor goes down 13. Restore correct key 14. Verify neighbor comes back up 15. Cleanup configuration</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>Pass</a></td>
+      <td>0:01:42</td>
+      <td>2025-12-18 18:47:46</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_CLI_001: Validate CLI for admin/link state changes. Test Procedure: 1. Bring all testbed interfaces to admin UP state 2. Verify baseline - all interfaces show Admin = "up" 3. Shutdown primary test interface (Ethernet0) 4. Verify Ethernet0 shows Admin = "down" 5. Verify other interfaces remain Admin = "up" 6. Bring Ethernet0 back up (no shutdown) 7. Verify Ethernet0 shows Admin = "up" 8. Verify complete state cycle: up   down   up Expected Result: - Admin state changes are reflected accurately in CLI - Only target interface state changes - State transitions complete within seconds - CLI output is consistent and accurate</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_isolation</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>Pass</a></td>
+      <td>0:01:43</td>
+      <td>2025-12-18 18:49:29</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>Validate that admin state changes on one interface do not affect other interfaces. Test Procedure: 1. Verify all interfaces are admin UP 2. Shutdown Ethernet0 3. Verify Ethernet4, Ethernet8, Ethernet12 remain UP 4. Bring Ethernet0 back UP 5. Verify all interfaces are UP Expected Result: - Interface admin state changes are isolated - Only target interface changes state - Other interfaces unaffected</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4NodeVLAN.test_ospf_type5_external_lsa_verification_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.log'>Fail</a></td>
+      <td>0:10:27</td>
+      <td>2025-12-18 19:01:17</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 34 validation failure(s). See errors above.</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_TYPE5_LSA_4NODE_VLAN_001: Validate OSPF Type 5 External LSAs in 4-node topology over VLANs. Test Procedure: 1. Remove IP addresses from Ethernet interfaces before adding to VLANs 2. Create VLANs on all devices 3. Add Ethernet interfaces as members to VLANs 4. Verify VLAN creation and member addition 5. Configure IP addresses on VLAN interfaces 6. Verify IP configuration on VLANs 7. Configure OSPF Area 0 on all devices 8. Verify OSPF neighbor adjacency (Full state) on all links 9. Configure static routes on D1 (ASBR) for external networks 10. Verify static routes are installed in D1's routing table 11. Redistribute static routes into OSPF on D1 12. Verify Type 5 External LSAs are generated on D1 (self-originated) 13. Verify Type 5 External LSAs are present in OSPF database on all devices 14. Verify external routes appear in routing tables with O E2 flag 15. Verify complete OSPF database on all devices 16. Test end-to-end connectivity 17. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - VLANs created successfully - Ports added to VLANs successfully - IP addresses configured on VLANs - OSPF neighbors form Full adjacency on all links - Static routes installed on D1 - Type 5 External LSAs generated on D1 for all external networks - Type 5 LSAs propagated to D2, D4, and D3 - External routes visible in all routing tables with E2 flag - OSPF database contains AS External Link States on all devices - End-to-end connectivity working - All configurations cleaned up Known Issue: - This test validates the bug reported in JIRA where Type 5 LSAs are not generated even after 'redistribute static' is configured</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.py</a></td>
+      <td>TestOSPFMultiAreaABRVlan.test_ospf_multiarea_abr_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.log'>Fail</a></td>
+      <td>0:14:20</td>
+      <td>2025-12-18 19:16:26</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 10 validation failure(s):
+  - STEP 8: OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - STEP 8: OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - STEP 8: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - STEP 8: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4
+  - STEP 8: OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - STEP 8: OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - STEP 9: vs_sonic_2 is not configured as ABR
+  - STEP 9: vs_sonic_2 does not have both Area 0 and Area 1
+  - STEP 9: vs_sonic_4 is not configured as ABR
+  - STEP 9: vs_sonic_4 does not have both Area 0 and Area 2</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_ABR_MULTIAREA_VLAN_001: Validate OSPF multi-area configuration with ABRs using VLANs. Test Procedure: 1. Remove IP addresses from all Ethernet interfaces (baseline) 2. Create VLANs and add ports to VLANs on all DUTs 3. Configure IP addresses on VLAN interfaces and validate 4. Configure OSPF on D1 (Area 1) 5. Configure OSPF on D2 (ABR - Area 0 and Area 1) 6. Configure OSPF on D4 (ABR - Area 0 and Area 2) 7. Configure OSPF on D3 (Area 2) 8. Verify OSPF neighbor adjacencies (Full state) 9. Verify ABR status on D2 and D4 10. Verify OSPF database (Summary LSAs) 11. Verify inter-area routing 12. Verify ping connectivity across all areas 13. Verify traceroute through ABRs 14. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - VLANs created and ports added successfully - IP addresses configured and validated on VLAN interfaces - OSPF neighbors form adjacency (Full state) - D2 and D4 are identified as ABRs - Summary LSAs are generated by ABRs - Inter-area routes are installed - Ping successful across all areas - Traceroute shows path through ABRs - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py</a></td>
+      <td>TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.log'>Fail</a></td>
+      <td>0:08:33</td>
+      <td>2025-12-18 19:25:44</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 4 validation failure(s):
+  - STEP 5: OSPF Area 0 not configured on vs_sonic_2
+  - STEP 6: OSPF Area 1 not configured on vs_sonic_4
+  - STEP 11: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2 after fix
+  - STEP 11: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4 after fix</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_AREA_MISMATCH_VLAN_001: Validate OSPF area mismatch prevents adjacency using VLAN interfaces. Test Procedure: 1. Remove IP addresses from Ethernet interfaces (baseline) 2. Create VLAN 20 and add Ethernet16 to VLAN on D2 and D4 3. Configure IP addresses on VLAN interfaces and validate 4. Verify ping connectivity (should succeed) 5. Configure OSPF on D2 with Area 0 6. Configure OSPF on D4 with Area 1 (intentional mismatch) 7. Wait for OSPF to attempt adjacency formation 8. Verify NO neighbors on both routers (adjacency fails) 9. Verify "Number of fully adjacent neighbors: 0" 10. Fix area mismatch - change D4 to Area 0 11. Verify adjacency succeeds (neighbors in Full state) 12. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - VLAN created and ports added successfully - IP addresses configured and validated on VLAN interfaces - Ping succeeds before OSPF - With area mismatch: NO OSPF adjacency (no neighbors) - After fixing mismatch: Adjacency succeeds (Full state) - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.py</a></td>
+      <td>TestOSPFDRBDRElectionPortChannel.test_ospf_dr_bdr_election_with_priority_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.log'>Pass</a></td>
+      <td>0:09:34</td>
+      <td>2025-12-18 19:36:03</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_DR_BDR_ELECTION_PC_001: Validate OSPF DR/BDR election with priority modification using PortChannel interfaces. Test Procedure: 1. Remove IP addresses from Ethernet interfaces (baseline) 2. Create PortChannel 120 and add Ethernet16 to PortChannel on D2 and D4 3. Configure IP addresses on PortChannel interfaces and validate 4. Configure OSPF on both routers (default priority 1) 5. Verify OSPF neighbor adjacency (Full state) 6. Check initial DR/BDR election (based on Router ID) 7. Modify OSPF priority on D4 PortChannel120 to 6 8. Restart OSPF on both routers to trigger re-election 9. Verify new DR/BDR roles (D4 should be DR, D2 should be BDR) 10. Additional verification: Set D2 priority to 10 and restart OSPF 11. Verify D2 becomes DR (priority 10 > 6) and D4 becomes BDR 12. Verify priority values in neighbor output 13. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - PortChannel created and ports added successfully - IP addresses configured and validated on PortChannel interfaces - OSPF neighbors form adjacency (Full state) - Initial DR/BDR election occurs - After D4 priority change to 6, D4 becomes DR and D2 becomes BDR - After D2 priority change to 10, D2 becomes DR and D4 becomes BDR - Priority values reflected correctly in neighbor output - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.py</a></td>
+      <td>TestOSPFAreaMismatch.test_ospf_area_mismatch_prevents_adjacency</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.log'>Pass</a></td>
+      <td>0:03:49</td>
+      <td>2025-12-18 19:40:37</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_AREA_MISMATCH_001: Validate OSPF area mismatch prevents adjacency. Test Procedure: 1. Configure IP addresses on D2 and D4 and validate 2. Verify ping connectivity (should succeed) 3. Configure OSPF on D2 with Area 0 4. Configure OSPF on D4 with Area 1 (intentional mismatch) 5. Wait for OSPF to attempt adjacency formation 6. Verify NO neighbors on both routers (adjacency fails) 7. Verify "Number of fully adjacent neighbors: 0" 8. Fix area mismatch - change D4 to Area 0 9. Verify adjacency succeeds (neighbors in Full state) 10. Cleanup: Remove all configurations Expected Result: - IP addresses configured and validated - Ping succeeds before OSPF - With area mismatch: NO OSPF adjacency (no neighbors) - After fixing mismatch: Adjacency succeeds (Full state) - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.py</a></td>
+      <td>TestOSPFDRBDRElection.test_ospf_dr_bdr_election_with_priority</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.log'>Pass</a></td>
+      <td>0:06:15</td>
+      <td>2025-12-18 19:47:37</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_DR_BDR_ELECTION_001: Validate OSPF DR/BDR election with priority modification. Test Procedure: 1. Configure IP addresses on D2 and D4 and validate 2. Configure OSPF on both routers (default priority 1) 3. Verify OSPF neighbor adjacency (Full state) 4. Check initial DR/BDR election (based on Router ID) 5. Modify OSPF priority on D4 to 6 6. Restart OSPF on both routers to trigger re-election 7. Verify new DR/BDR roles (D4 should be DR, D2 should be BDR) 8. Additional verification: Set D2 priority to 10 and restart OSPF 9. Verify D2 becomes DR (priority 10 > 6) and D4 becomes BDR 10. Verify priority values in neighbor output 11. Cleanup: Remove all configurations Expected Result: - IP addresses configured and validated - OSPF neighbors form adjacency (Full state) - Initial DR/BDR election occurs - After D4 priority change to 6, D4 becomes DR and D2 becomes BDR - After D2 priority change to 10, D2 becomes DR and D4 becomes BDR - Priority values reflected correctly in neighbor output - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_2_iscli_Basic_4_node.log'>system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py</a></td>
+      <td>TestOSPFStaticRouting4Node.test_ospf_static_routing_4node</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_2_iscli_Basic_4_node.log'>Pass</a></td>
+      <td>0:06:33</td>
+      <td>2025-12-18 19:55:00</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_STATIC_4NODE_001: Validate OSPF with static routing in 4-node topology. Test Procedure: 1. Configure IP addresses on all interfaces 2. Configure static routes on D1 and D3 3. Restart BGP docker on D1 and D3 4. Verify static routes appear in routing tables 5. Configure OSPF on D2 and D4 6. Verify OSPF neighbor adjacency (Full state) 7. Verify DR/BDR election 8. Verify ping from D1 to D3 9. Cleanup: Remove all configurations Expected Result: - IP addresses configured successfully - Static routes installed in routing tables - OSPF neighbors form adjacency (Full state) - DR/BDR election occurs - Ping from D1 to D3 successful - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.py</a></td>
+      <td>TestOSPFCostPathSelectionVLAN4Node.test_ospf_cost_path_selection_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.log'>Fail</a></td>
+      <td>0:21:03</td>
+      <td>2025-12-18 20:16:52</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 15 validation failure(s):
+  - STEP 8: D1 should have 4 OSPF neighbors
+  - STEP 8: D2 should have 8 OSPF neighbors
+  - STEP 8: D3 should have 4 OSPF neighbors
+  - STEP 8: D4 should have 8 OSPF neighbors
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan110
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan120
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan130
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan140
+  - STEP 10: Route should use lowest cost path via Vlan110
+  - STEP 11: Route should switch to Vlan120 after cost change
+  - STEP 11: Route should switch back to Vlan110 after cost restore
+  - STEP 12: D1 should have 3 neighbors after Vlan110 shutdown
+  - STEP 12: Traffic should failover to Vlan120
+  - STEP 12: D1 should have 4 neighbors after Vlan110 restored
+  - STEP 12: Traffic should return to Vlan110</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_COST_PATH_SELECTION_VLAN_001: Validate OSPF cost-based path selection using VLANs. Test Procedure: 1. Remove IP addresses from Ethernet interfaces before adding to VLANs 2. Create VLANs on all devices 3. Add Ethernet interfaces as members to VLANs 4. Verify VLAN creation and member addition 5. Configure IP addresses on VLAN interfaces 6. Validate IP address configuration 7. Configure OSPF on all devices with different costs on parallel VLANs 8. Verify OSPF neighbors form on all VLANs (Full state) 9. Verify OSPF interface costs on VLANs 10. Verify that lowest cost path (cost 10) is selected for routing 11. Test dynamic cost change - verify path switches when cost changes 12. Test link failure - verify automatic failover to next lowest cost 13. Test ECMP - verify load balancing when costs are equal 14. Verify end-to-end connectivity with ping 15. Verify OSPF database 16. Cleanup: Remove all configurations 17. Tech Support: Collect tech support if validation failures occur Expected Result: - VLANs created successfully with member ports - IP addresses configured and validated on all VLAN interfaces - OSPF neighbors form on all parallel VLANs - Traffic uses lowest cost path (Vlan110 with cost 10) - Path switches to Vlan120 when Vlan110 cost increased - Automatic failover when Vlan110 shut down - ECMP when Vlan110 and Vlan120 have equal costs - End-to-end ping successful - All configurations cleaned up - Tech support collected on failures</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py</a></td>
+      <td>TestOSPFCostPathSelectionPortChannel4Node.test_ospf_cost_path_selection_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.log'>Pass</a></td>
+      <td>0:13:42</td>
+      <td>2025-12-18 20:31:25</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_COST_PATH_SELECTION_PC_001: Validate OSPF cost-based path selection using PortChannels. Test Procedure: 1. Remove IP addresses from Ethernet interfaces before adding to PortChannels 2. Create PortChannels on all devices 3. Add Ethernet interfaces as members to PortChannels 4. Verify PortChannel creation and member addition 5. Configure IP addresses on PortChannel interfaces 6. Configure OSPF on all devices with different costs on parallel PortChannels 7. Verify OSPF neighbors form on all PortChannels (Full state) 8. Verify that lowest cost path (cost 10) is selected for routing 9. Test dynamic cost change - verify path switches when cost changes 10. Test link failure - verify automatic failover to next lowest cost 11. Test ECMP - verify load balancing when costs are equal 12. Verify end-to-end connectivity with ping 13. Cleanup: Remove all configurations Expected Result: - PortChannels created successfully with member ports - IP addresses configured successfully on all PortChannel interfaces - OSPF neighbors form on all parallel PortChannels - Traffic uses lowest cost path (PortChannel110 with cost 10) - Path switches to PortChannel120 when PortChannel110 cost increased - Automatic failover when PortChannel110 shut down - ECMP when PortChannel110 and PortChannel120 have equal costs - End-to-end ping successful - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_4_iscli_events_ip_address.log'>system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py</a></td>
+      <td>TestInterfaceIPAddressAndConnectivity.test_interface_ip_address_and_connectivity</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_4_iscli_events_ip_address.log'>Pass</a></td>
+      <td>0:01:23</td>
+      <td>2025-12-18 20:33:16</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_IP_001: Validate CLI for IP address configuration and connectivity. Test Procedure: 1. Verify baseline (no IP address on both DUTs) 2. Configure IP address "10.0.0.2/30" on DUT1 3. Configure IP address "10.0.0.1/30" on DUT2 4. Verify IP addresses in running-config on both DUTs 5. Test ping from DUT1 to DUT2 (continue even if it fails) 6. Remove IP addresses from both DUTs 7. Verify no IP addresses on both DUTs 8. Final validation Expected Result: - IP addresses are configured successfully on both DUTs - IP addresses are reflected accurately in running-configuration - Ping test is attempted (may fail, test continues) - IP addresses are removed successfully - System remains stable</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.py</a></td>
+      <td>TestOSPFMD5AuthenticationPortChannel4Node.test_ospf_md5_authentication_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.log'>Fail</a></td>
+      <td>0:18:43</td>
+      <td>2025-12-18 20:53:11</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 9 validation failure(s):
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_1 PortChannel10
+  - STEP 9: MD5 algorithm not shown on vs_sonic_1 PortChannel10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 PortChannel10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 PortChannel110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 PortChannel110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 PortChannel60
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_3 PortChannel60
+  - STEP 13: Neighbor 10.0.1.2 on PortChannel10 still present after auth failure
+  - STEP 13: Expected 3 OSPF neighbors on vs_sonic_1 (PortChannel10 down)</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>Test OSPF MD5 authentication functionality over PortChannels. Test Steps: 1. Remove IP addresses from Ethernet interfaces 2. Create PortChannels 3. Add Ethernet interfaces to PortChannels 4. Verify PortChannel creation and member addition 5. Configure IP addresses on PortChannels 6. Verify IP configuration 7. Configure OSPF with MD5 authentication 8. Verify OSPF neighbors reach Full state 9. Verify cryptographic authentication is enabled 10. Verify OSPF routes are learned 11. Test authentication failure (mismatched key) 12. Verify neighbor goes down 13. Restore correct key 14. Verify neighbor comes back up 15. Cleanup configuration</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_5_iscli_events_ipv6_address.log'>system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py</a></td>
+      <td>TestInterfaceIPv6AddressAndConnectivity.test_interface_ipv6_address_and_connectivity</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_5_iscli_events_ipv6_address.log'>Pass</a></td>
+      <td>0:01:29</td>
+      <td>2025-12-18 20:55:09</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_IPV6_001: Validate CLI for IPv6 address configuration and connectivity. Test Procedure: 1. Verify baseline (no IPv6 addresses on both DUTs) 2. Configure IPv6 addresses on both DUTs: - DUT1: 2001:db8::2/64 - DUT2: 2001:db8::1/64 3. Wait for configuration to apply 4. Verify IPv6 addresses in running-config on both DUTs 5. Test ping6 connectivity from DUT1 to DUT2 6. Remove IPv6 addresses from both DUTs 7. Verify no IPv6 addresses on both DUTs 8. Final validation Expected Result: - IPv6 address configuration is successful on both DUTs - IPv6 addresses are reflected accurately in running-configuration - Ping6 connectivity test executes (may fail in virtual environment) - Test continues even if ping6 fails - IPv6 addresses can be successfully removed - System remains stable after all changes</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.py</a></td>
+      <td>TestOSPFDRBDRElectionVLAN.test_ospf_dr_bdr_election_with_priority_vlan</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.log'>Fail</a></td>
+      <td>0:13:26</td>
+      <td>2025-12-18 21:09:42</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 2 validation failure(s):
+  - STEP 5: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_2
+  - STEP 5: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_4</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_DR_BDR_ELECTION_VLAN_001: Validate OSPF DR/BDR election with priority modification using VLAN interfaces. Test Procedure: 1. Remove IP addresses from Ethernet interfaces (baseline) 2. Create VLAN 20 and add Ethernet16 to VLAN on D2 and D4 3. Configure IP addresses on VLAN interfaces and validate 4. Configure OSPF on both routers (default priority 1) 5. Verify OSPF neighbor adjacency (Full state) 6. Check initial DR/BDR election (based on Router ID) 7. Modify OSPF priority on D4 Vlan20 to 6 8. Restart OSPF on both routers to trigger re-election 9. Verify new DR/BDR roles (D4 should be DR, D2 should be BDR) 10. Additional verification: Set D2 priority to 10 and restart OSPF 11. Verify D2 becomes DR (priority 10 > 6) and D4 becomes BDR 12. Verify priority values in neighbor output 13. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - VLAN created and ports added successfully - IP addresses configured and validated on VLAN interfaces - OSPF neighbors form adjacency (Full state) - Initial DR/BDR election occurs - After D4 priority change to 6, D4 becomes DR and D2 becomes BDR - After D2 priority change to 10, D2 becomes DR and D4 becomes BDR - Priority values reflected correctly in neighbor output - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_3_iscli_events_description.log'>system/iscli_interface_events/test_interface_3_iscli_events_description.py</a></td>
+      <td>TestInterfaceDescriptionChanges.test_interface_description_change_cycle</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_3_iscli_events_description.log'>Pass</a></td>
+      <td>0:01:10</td>
+      <td>2025-12-18 21:11:21</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_DESCRIPTION_001: Validate CLI for description configuration changes. Test Procedure: 1. Verify baseline (no description) 2. Add description "sonic" 3. Verify description = "sonic" in running-config 4. Remove description (no description) 5. Verify no description in running-config 6. Add description "test_interface" 7. Verify description = "test_interface" in running-config 8. Remove description 9. Verify no description in running-config 10. Final validation Expected Result: - Description changes are reflected accurately in running-configuration - Description can be successfully added and removed multiple times - System remains stable after all description changes</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.py</a></td>
+      <td>TestOSPFType1LSAs4Node.test_ospf_type1_lsa_verification</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.log'>Fail</a></td>
+      <td>0:10:37</td>
+      <td>2025-12-18 21:23:05</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 7 validation failure(s):
+  - STEP 3: OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - STEP 3: OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - STEP 3: OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - STEP 3: OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - STEP 5: D1 should have Type 1 LSAs from all 4 routers
+  - STEP 8: D1 should have OSPF route to 20.1.1.0/24
+  - STEP 8: D1 should have OSPF route to 30.1.1.0/24</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_TYPE1_LSA_4NODE_001: Validate OSPF Type 1 LSAs in 4-node topology. Test Procedure: 1. Configure IP addresses on all interfaces 2. Configure OSPF Area 0 on all devices 3. Verify OSPF neighbor adjacency (Full state) on all links 4. Verify DR/BDR election on all broadcast segments 5. Verify Type 1 LSAs from all 4 routers present in database 6. Verify self-originated LSAs have correct link counts 7. Verify Type 2 Network LSAs present 8. Verify OSPF routes learned with correct costs 9. Verify end-to-end connectivity 10. Cleanup: Remove all configurations Expected Result: - OSPF neighbors form Full adjacency on all links - DR/BDR election occurs on each segment - All 4 routers' Type 1 LSAs present in database - D1 LSA: 1 link, D2 LSA: 2 links, D4 LSA: 2 links, D3 LSA: 1 link - Type 2 Network LSAs present for all broadcast segments - OSPF routes learned with correct costs - End-to-end ping successful - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.py</a></td>
+      <td>TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.log'>Pass</a></td>
+      <td>0:06:10</td>
+      <td>2025-12-18 21:30:03</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_ABR_MULTIAREA_PC_001: Validate OSPF multi-area configuration with ABRs using PortChannels. Test Procedure: 1. Remove IP addresses from all Ethernet interfaces (baseline) 2. Create PortChannels and add ports to PortChannels on all DUTs + validate members 3. Configure IP addresses on PortChannel interfaces and validate 4. Configure OSPF on D1 (Area 1) 5. Configure OSPF on D2 (ABR - Area 0 and Area 1) 6. Configure OSPF on D4 (ABR - Area 0 and Area 2) 7. Configure OSPF on D3 (Area 2) 8. Verify OSPF neighbor adjacencies (Full state) 9. Verify ABR status on D2 and D4 10. Verify OSPF database (Summary LSAs) 11. Verify inter-area routing 12. Verify ping connectivity across all areas 13. Verify traceroute through ABRs 14. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - PortChannels created and ports added successfully - IP addresses configured and validated on PortChannel interfaces - OSPF neighbors form adjacency (Full state) - D2 and D4 are identified as ABRs - Summary LSAs are generated by ABRs - Inter-area routes are installed - Ping successful across all areas - Traceroute shows path through ABRs - All configurations cleaned up</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_4_iscli_Basic_4_node_PortChannel.log'>system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py</a></td>
+      <td>TestOSPFStaticRoutingPortChannel4Node.test_ospf_portchannel_static_routing_4node</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_4_iscli_Basic_4_node_PortChannel.log'>Fail</a></td>
+      <td>0:16:44</td>
+      <td>2025-12-18 21:47:38</td>
+      <td><a href='results_2025_12_18_22_17_32_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 2 validation failure(s):
+  - STEP 8: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - STEP 8: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_OSPF_PORTCHANNEL_STATIC_4NODE_001: Validate OSPF with PortChannel and static routing in 4-node topology. Test Procedure: 1. Remove IP addresses from all Ethernet interfaces that will be added to PortChannels 2. Create PortChannels and add ports to PortChannels, verify with 'show PortChannel summary' 3. Configure IP addresses on PortChannel interfaces, verify with 'show running-configuration interface PortChannel X' 4. Configure static routes on D1 and D3 5. Restart BGP docker on D1 and D3 6. Verify static routes appear in routing tables 7. Configure OSPF on D2 and D4 8. Verify OSPF neighbor adjacency (Full state) 9. Verify DR/BDR election 10. Verify ping from D1 to D3 11. Cleanup: Remove all configurations Expected Result: - IP addresses removed from Ethernet interfaces - PortChannels created with correct ports (verified via show PortChannel summary) - IP addresses configured on PortChannel interfaces (verified via show running-configuration) - Static routes installed in routing tables - OSPF neighbors form adjacency (Full state) - DR/BDR election occurs - Ping from D1 to D3 successful - All configurations cleaned up</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

@@ -1,0 +1,1253 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Module</th>
+      <th>Function</th>
+      <th>Result</th>
+      <th>Test Time</th>
+      <th>Helper Time</th>
+      <th>CMD Time</th>
+      <th>TG Time</th>
+      <th>Wait</th>
+      <th>TGWait</th>
+      <th>PROMPT NFOUND</th>
+      <th>TECH SUPPORT</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_3_iscli_Basic_4_node_Vlan.log'>system/iscli_OSPF/testcases_OSPF_3_iscli_Basic_4_node_Vlan.py</a></td>
+      <td>TestOSPFStaticRoutingVLAN4Node.test_ospf_vlan_static_routing_4node</td>
+      <td></td>
+      <td>0:00:19</td>
+      <td>0:00:15.254</td>
+      <td>0:00:15.415</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_3_iscli_Basic_4_node_Vlan.log'>system/iscli_OSPF/testcases_OSPF_3_iscli_Basic_4_node_Vlan.py</a></td>
+      <td>TestOSPFStaticRoutingVLAN4Node.test_ospf_vlan_static_routing_4node</td>
+      <td>Fail</td>
+      <td>0:12:42</td>
+      <td>0:09:59.247</td>
+      <td>0:03:25.488</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 2 validation failure(s):
+  - OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_1_iscli_vlan.log'>system/iscli_Vlan/test_interface_1_iscli_vlan.py</a></td>
+      <td>TestVlanConfiguration.test_vlan_creation_and_port_management</td>
+      <td></td>
+      <td>0:00:16</td>
+      <td>0:00:25.696</td>
+      <td>0:00:11.014</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_1_iscli_vlan.log'>system/iscli_Vlan/test_interface_1_iscli_vlan.py</a></td>
+      <td>TestVlanConfiguration.test_vlan_creation_and_port_management</td>
+      <td>Pass</td>
+      <td>0:01:10</td>
+      <td>0:00:30.499</td>
+      <td>0:00:23.696</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py</a></td>
+      <td>TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel</td>
+      <td></td>
+      <td>0:00:24</td>
+      <td>0:00:25.694</td>
+      <td>0:00:16.457</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py</a></td>
+      <td>TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel</td>
+      <td>Fail</td>
+      <td>0:12:44</td>
+      <td>0:09:59.240</td>
+      <td>0:03:13.633</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 9 validation failure(s):
+  - STEP 7: OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - STEP 7: OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - STEP 7: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - STEP 7: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4
+  - STEP 7: OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - STEP 7: OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - STEP 9: D1 should have Type 1 LSAs from all 4 routers
+  - STEP 12: D1 should have OSPF route to 20.1.1.0/24
+  - STEP 12: D1 should have OSPF route to 30.1.1.0/24</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.712</td>
+      <td>0:00:15.169</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification</td>
+      <td>Fail</td>
+      <td>0:05:07</td>
+      <td>0:05:14.853</td>
+      <td>0:01:24.114</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>4</td>
+      <td>Test completed with 28 validation failure(s). See errors above.</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.py</a></td>
+      <td>TestOSPFMD5Authentication4Node.test_ospf_md5_authentication</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.711</td>
+      <td>0:00:14.966</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.py</a></td>
+      <td>TestOSPFMD5Authentication4Node.test_ospf_md5_authentication</td>
+      <td>Pass</td>
+      <td>0:08:34</td>
+      <td>0:00:30.493</td>
+      <td>0:04:54.026</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>OSPF MD5 authentication test completed successfully</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_2_iscli_events_mtu_change.log'>system/iscli_interface_events/test_interface_2_iscli_events_mtu_change.py</a></td>
+      <td>TestInterfaceMTUChanges.test_interface_mtu_change_cycle</td>
+      <td></td>
+      <td>0:00:14</td>
+      <td>0:00:25.723</td>
+      <td>0:00:09.605</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_2_iscli_events_mtu_change.log'>system/iscli_interface_events/test_interface_2_iscli_events_mtu_change.py</a></td>
+      <td>TestInterfaceMTUChanges.test_interface_mtu_change_cycle</td>
+      <td>Pass</td>
+      <td>0:01:01</td>
+      <td>0:00:30.509</td>
+      <td>0:00:23.820</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.py</a></td>
+      <td>TestOSPFAreaMismatchPortChannel.test_ospf_area_mismatch_prevents_adjacency_portchannel</td>
+      <td></td>
+      <td>0:00:18</td>
+      <td>0:00:25.720</td>
+      <td>0:00:12.409</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_PC.py</a></td>
+      <td>TestOSPFAreaMismatchPortChannel.test_ospf_area_mismatch_prevents_adjacency_portchannel</td>
+      <td>Pass</td>
+      <td>0:04:13</td>
+      <td>0:00:30.511</td>
+      <td>0:01:00.239</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_PortChannel_test_interface_1_iscli_portchannel.log'>system/iscli_PortChannel/test_interface_1_iscli_portchannel.py</a></td>
+      <td>TestPortChannelConfiguration.test_portchannel_creation_port_management_and_ip_addressing</td>
+      <td></td>
+      <td>0:00:18</td>
+      <td>0:00:25.711</td>
+      <td>0:00:12.197</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_PortChannel_test_interface_1_iscli_portchannel.log'>system/iscli_PortChannel/test_interface_1_iscli_portchannel.py</a></td>
+      <td>TestPortChannelConfiguration.test_portchannel_creation_port_management_and_ip_addressing</td>
+      <td>Fail</td>
+      <td>0:03:36</td>
+      <td>0:05:10.064</td>
+      <td>0:01:05.555</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>4</td>
+      <td>Test completed with 1 validation failure(s). See errors above.</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.py</a></td>
+      <td>TestOSPFType1LSAs4NodeVLAN.test_ospf_type1_lsa_verification_vlan</td>
+      <td></td>
+      <td>0:00:24</td>
+      <td>0:00:25.712</td>
+      <td>0:00:16.633</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Vlan.py</a></td>
+      <td>TestOSPFType1LSAs4NodeVLAN.test_ospf_type1_lsa_verification_vlan</td>
+      <td>Fail</td>
+      <td>0:15:08</td>
+      <td>0:09:54.437</td>
+      <td>0:05:28.172</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 9 validation failure(s):
+  - OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4
+  - OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - D1 should have Type 1 LSAs from all 4 routers
+  - D1 should have OSPF route to 20.1.1.0/24
+  - D1 should have OSPF route to 30.1.1.0/24</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.py</a></td>
+      <td>TestOSPFMultiAreaABR.test_ospf_multiarea_abr_backbone</td>
+      <td></td>
+      <td>0:00:24</td>
+      <td>0:00:25.707</td>
+      <td>0:00:17.376</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Eth.py</a></td>
+      <td>TestOSPFMultiAreaABR.test_ospf_multiarea_abr_backbone</td>
+      <td>Pass</td>
+      <td>0:04:13</td>
+      <td>0:00:30.536</td>
+      <td>0:01:41.644</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4NodePC.test_ospf_type5_external_lsa_verification_portchannel</td>
+      <td></td>
+      <td>0:00:24</td>
+      <td>0:00:25.708</td>
+      <td>0:00:17.920</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_PC.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4NodePC.test_ospf_type5_external_lsa_verification_portchannel</td>
+      <td>Fail</td>
+      <td>0:07:45</td>
+      <td>0:05:22.109</td>
+      <td>0:03:20.674</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>4</td>
+      <td>Test completed with 34 validation failure(s). See errors above.</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_2_iscli_vlan_ip.log'>system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py</a></td>
+      <td>TestVlanIPConfiguration.test_vlan_ip_configuration</td>
+      <td></td>
+      <td>0:00:16</td>
+      <td>0:00:25.697</td>
+      <td>0:00:10.733</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_Vlan_test_interface_2_iscli_vlan_ip.log'>system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py</a></td>
+      <td>TestVlanIPConfiguration.test_vlan_ip_configuration</td>
+      <td>Pass</td>
+      <td>0:01:10</td>
+      <td>0:00:30.503</td>
+      <td>0:00:19.709</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.py</a></td>
+      <td>TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.704</td>
+      <td>0:00:15.288</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth.py</a></td>
+      <td>TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection</td>
+      <td>Pass</td>
+      <td>0:10:02</td>
+      <td>0:00:30.530</td>
+      <td>0:05:12.478</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py</a></td>
+      <td>TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.717</td>
+      <td>0:00:15.568</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py</a></td>
+      <td>TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan</td>
+      <td>Fail</td>
+      <td>0:18:57</td>
+      <td>0:10:18.470</td>
+      <td>0:07:32.485</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 23 validation failure(s):
+  - STEP 8: Expected 4 OSPF neighbors on vs_sonic_1
+  - STEP 8: Neighbor 10.0.1.2 on vs_sonic_1 Vlan10 not in Full state
+  - STEP 8: Neighbor 10.0.2.2 on vs_sonic_1 Vlan20 not in Full state
+  - STEP 8: Neighbor 10.0.3.2 on vs_sonic_1 Vlan30 not in Full state
+  - STEP 8: Neighbor 10.0.4.2 on vs_sonic_1 Vlan40 not in Full state
+  - STEP 8: Expected 8 OSPF neighbors on vs_sonic_2
+  - STEP 8: Expected 8 OSPF neighbors on vs_sonic_4
+  - STEP 8: Expected 4 OSPF neighbors on vs_sonic_3
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_1 Vlan10
+  - STEP 9: MD5 algorithm not shown on vs_sonic_1 Vlan10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 Vlan10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 Vlan110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 Vlan110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 Vlan60
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_3 Vlan60
+  - STEP 10: OSPF route 20.0.1.0/30 not found on vs_sonic_1
+  - STEP 10: OSPF route 30.0.1.0/30 not found on vs_sonic_1
+  - STEP 10: OSPF route 10.0.1.0/30 not found on vs_sonic_3
+  - STEP 10: OSPF route 20.0.1.0/30 not found on vs_sonic_3
+  - STEP 11: Router Link States not found in vs_sonic_1 OSPF database
+  - STEP 13: Expected 3 OSPF neighbors on vs_sonic_1 (Vlan10 down)
+  - STEP 15: Neighbor 10.0.1.2 on Vlan10 did not come back up
+  - STEP 15: Expected 4 OSPF neighbors on vs_sonic_1 after restore</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle</td>
+      <td></td>
+      <td>0:00:15</td>
+      <td>0:00:25.728</td>
+      <td>0:00:11.176</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle</td>
+      <td>Pass</td>
+      <td>0:01:42</td>
+      <td>0:00:30.524</td>
+      <td>0:00:54.032</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_isolation</td>
+      <td></td>
+      <td>0:00:15</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_isolation</td>
+      <td>Pass</td>
+      <td>0:01:43</td>
+      <td>0:00:30.513</td>
+      <td>0:00:54.602</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4NodeVLAN.test_ospf_type5_external_lsa_verification_vlan</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.735</td>
+      <td>0:00:15.899</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Vlan.py</a></td>
+      <td>TestOSPFType5ExternalLSAs4NodeVLAN.test_ospf_type5_external_lsa_verification_vlan</td>
+      <td>Fail</td>
+      <td>0:10:27</td>
+      <td>0:05:34.093</td>
+      <td>0:05:42.042</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>4</td>
+      <td>Test completed with 34 validation failure(s). See errors above.</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.py</a></td>
+      <td>TestOSPFMultiAreaABRVlan.test_ospf_multiarea_abr_vlan</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.696</td>
+      <td>0:00:14.933</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_Vlan.py</a></td>
+      <td>TestOSPFMultiAreaABRVlan.test_ospf_multiarea_abr_vlan</td>
+      <td>Fail</td>
+      <td>0:14:20</td>
+      <td>0:09:59.238</td>
+      <td>0:04:30.867</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 10 validation failure(s):
+  - STEP 8: OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - STEP 8: OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - STEP 8: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - STEP 8: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4
+  - STEP 8: OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - STEP 8: OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - STEP 9: vs_sonic_2 is not configured as ABR
+  - STEP 9: vs_sonic_2 does not have both Area 0 and Area 1
+  - STEP 9: vs_sonic_4 is not configured as ABR
+  - STEP 9: vs_sonic_4 does not have both Area 0 and Area 2</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py</a></td>
+      <td>TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan</td>
+      <td></td>
+      <td>0:00:19</td>
+      <td>0:00:25.691</td>
+      <td>0:00:13.333</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py</a></td>
+      <td>TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan</td>
+      <td>Fail</td>
+      <td>0:08:33</td>
+      <td>0:07:46.659</td>
+      <td>0:01:23.208</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>6</td>
+      <td>Test completed with 4 validation failure(s):
+  - STEP 5: OSPF Area 0 not configured on vs_sonic_2
+  - STEP 6: OSPF Area 1 not configured on vs_sonic_4
+  - STEP 11: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2 after fix
+  - STEP 11: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4 after fix</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.py</a></td>
+      <td>TestOSPFDRBDRElectionPortChannel.test_ospf_dr_bdr_election_with_priority_portchannel</td>
+      <td></td>
+      <td>0:00:19</td>
+      <td>0:00:25.716</td>
+      <td>0:00:14.263</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_PC.py</a></td>
+      <td>TestOSPFDRBDRElectionPortChannel.test_ospf_dr_bdr_election_with_priority_portchannel</td>
+      <td>Pass</td>
+      <td>0:09:34</td>
+      <td>0:00:30.514</td>
+      <td>0:01:16.889</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.py</a></td>
+      <td>TestOSPFAreaMismatch.test_ospf_area_mismatch_prevents_adjacency</td>
+      <td></td>
+      <td>0:00:18</td>
+      <td>0:00:25.714</td>
+      <td>0:00:12.318</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.log'>system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Eth.py</a></td>
+      <td>TestOSPFAreaMismatch.test_ospf_area_mismatch_prevents_adjacency</td>
+      <td>Pass</td>
+      <td>0:03:49</td>
+      <td>0:00:30.502</td>
+      <td>0:00:49.983</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.py</a></td>
+      <td>TestOSPFDRBDRElection.test_ospf_dr_bdr_election_with_priority</td>
+      <td></td>
+      <td>0:00:19</td>
+      <td>0:00:25.711</td>
+      <td>0:00:13.117</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_Eth.py</a></td>
+      <td>TestOSPFDRBDRElection.test_ospf_dr_bdr_election_with_priority</td>
+      <td>Pass</td>
+      <td>0:06:15</td>
+      <td>0:00:30.516</td>
+      <td>0:01:07.449</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_2_iscli_Basic_4_node.log'>system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py</a></td>
+      <td>TestOSPFStaticRouting4Node.test_ospf_static_routing_4node</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.737</td>
+      <td>0:00:15.607</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_2_iscli_Basic_4_node.log'>system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py</a></td>
+      <td>TestOSPFStaticRouting4Node.test_ospf_static_routing_4node</td>
+      <td>Pass</td>
+      <td>0:06:33</td>
+      <td>0:00:30.517</td>
+      <td>0:01:28.930</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.py</a></td>
+      <td>TestOSPFCostPathSelectionVLAN4Node.test_ospf_cost_path_selection_vlan</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.702</td>
+      <td>0:00:15.210</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Vlan.py</a></td>
+      <td>TestOSPFCostPathSelectionVLAN4Node.test_ospf_cost_path_selection_vlan</td>
+      <td>Fail</td>
+      <td>0:21:03</td>
+      <td>0:10:04.035</td>
+      <td>0:07:58.898</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>4</td>
+      <td>Test completed with 15 validation failure(s):
+  - STEP 8: D1 should have 4 OSPF neighbors
+  - STEP 8: D2 should have 8 OSPF neighbors
+  - STEP 8: D3 should have 4 OSPF neighbors
+  - STEP 8: D4 should have 8 OSPF neighbors
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan110
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan120
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan130
+  - STEP 9: OSPF cost verification failed on vs_sonic_1 Vlan140
+  - STEP 10: Route should use lowest cost path via Vlan110
+  - STEP 11: Route should switch to Vlan120 after cost change
+  - STEP 11: Route should switch back to Vlan110 after cost restore
+  - STEP 12: D1 should have 3 neighbors after Vlan110 shutdown
+  - STEP 12: Traffic should failover to Vlan120
+  - STEP 12: D1 should have 4 neighbors after Vlan110 restored
+  - STEP 12: Traffic should return to Vlan110</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py</a></td>
+      <td>TestOSPFCostPathSelectionPortChannel4Node.test_ospf_cost_path_selection_portchannel</td>
+      <td></td>
+      <td>0:00:24</td>
+      <td>0:00:25.699</td>
+      <td>0:00:16.771</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.log'>system/iscli_OSPF/testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_PC.py</a></td>
+      <td>TestOSPFCostPathSelectionPortChannel4Node.test_ospf_cost_path_selection_portchannel</td>
+      <td>Pass</td>
+      <td>0:13:42</td>
+      <td>0:00:30.519</td>
+      <td>0:07:19.023</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_4_iscli_events_ip_address.log'>system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py</a></td>
+      <td>TestInterfaceIPAddressAndConnectivity.test_interface_ip_address_and_connectivity</td>
+      <td></td>
+      <td>0:00:14</td>
+      <td>0:00:25.687</td>
+      <td>0:00:09.768</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_4_iscli_events_ip_address.log'>system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py</a></td>
+      <td>TestInterfaceIPAddressAndConnectivity.test_interface_ip_address_and_connectivity</td>
+      <td>Pass</td>
+      <td>0:01:23</td>
+      <td>0:00:30.522</td>
+      <td>0:00:35.429</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.py</a></td>
+      <td>TestOSPFMD5AuthenticationPortChannel4Node.test_ospf_md5_authentication_portchannel</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.732</td>
+      <td>0:00:15.869</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.py</a></td>
+      <td>TestOSPFMD5AuthenticationPortChannel4Node.test_ospf_md5_authentication_portchannel</td>
+      <td>Fail</td>
+      <td>0:18:43</td>
+      <td>0:10:16.043</td>
+      <td>0:07:08.188</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 9 validation failure(s):
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_1 PortChannel10
+  - STEP 9: MD5 algorithm not shown on vs_sonic_1 PortChannel10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 PortChannel10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 PortChannel110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 PortChannel110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 PortChannel60
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_3 PortChannel60
+  - STEP 13: Neighbor 10.0.1.2 on PortChannel10 still present after auth failure
+  - STEP 13: Expected 3 OSPF neighbors on vs_sonic_1 (PortChannel10 down)</td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_5_iscli_events_ipv6_address.log'>system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py</a></td>
+      <td>TestInterfaceIPv6AddressAndConnectivity.test_interface_ipv6_address_and_connectivity</td>
+      <td></td>
+      <td>0:00:14</td>
+      <td>0:00:25.693</td>
+      <td>0:00:09.499</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_5_iscli_events_ipv6_address.log'>system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py</a></td>
+      <td>TestInterfaceIPv6AddressAndConnectivity.test_interface_ipv6_address_and_connectivity</td>
+      <td>Pass</td>
+      <td>0:01:29</td>
+      <td>0:00:30.503</td>
+      <td>0:00:43.479</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.py</a></td>
+      <td>TestOSPFDRBDRElectionVLAN.test_ospf_dr_bdr_election_with_priority_vlan</td>
+      <td></td>
+      <td>0:00:18</td>
+      <td>0:00:25.697</td>
+      <td>0:00:12.275</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.log'>system/iscli_OSPF/testcases_OSPF_7_iscli_4_node_DR_BDR_elect_VLAN.py</a></td>
+      <td>TestOSPFDRBDRElectionVLAN.test_ospf_dr_bdr_election_with_priority_vlan</td>
+      <td>Fail</td>
+      <td>0:13:26</td>
+      <td>0:07:32.243</td>
+      <td>0:01:21.867</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>6</td>
+      <td>Test completed with 2 validation failure(s):
+  - STEP 5: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_2
+  - STEP 5: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_4</td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_3_iscli_events_description.log'>system/iscli_interface_events/test_interface_3_iscli_events_description.py</a></td>
+      <td>TestInterfaceDescriptionChanges.test_interface_description_change_cycle</td>
+      <td></td>
+      <td>0:00:14</td>
+      <td>0:00:25.694</td>
+      <td>0:00:09.739</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_interface_events_test_interface_3_iscli_events_description.log'>system/iscli_interface_events/test_interface_3_iscli_events_description.py</a></td>
+      <td>TestInterfaceDescriptionChanges.test_interface_description_change_cycle</td>
+      <td>Pass</td>
+      <td>0:01:10</td>
+      <td>0:00:30.542</td>
+      <td>0:00:28.644</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.py</a></td>
+      <td>TestOSPFType1LSAs4Node.test_ospf_type1_lsa_verification</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.700</td>
+      <td>0:00:15.584</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>62</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_Eth.py</a></td>
+      <td>TestOSPFType1LSAs4Node.test_ospf_type1_lsa_verification</td>
+      <td>Fail</td>
+      <td>0:10:37</td>
+      <td>0:10:04.068</td>
+      <td>0:01:41.770</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 7 validation failure(s):
+  - STEP 3: OSPF neighbor 10.1.1.2 not in Full state on vs_sonic_1
+  - STEP 3: OSPF neighbor 10.1.1.1 not in Full state on vs_sonic_2
+  - STEP 3: OSPF neighbor 30.1.1.2 not in Full state on vs_sonic_4
+  - STEP 3: OSPF neighbor 30.1.1.1 not in Full state on vs_sonic_3
+  - STEP 5: D1 should have Type 1 LSAs from all 4 routers
+  - STEP 8: D1 should have OSPF route to 20.1.1.0/24
+  - STEP 8: D1 should have OSPF route to 30.1.1.0/24</td>
+    </tr>
+    <tr>
+      <td>63</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.py</a></td>
+      <td>TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.714</td>
+      <td>0:00:15.446</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>64</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.log'>system/iscli_OSPF/testcases_OSPF_5_iscli_4_node_Backbone_connect_via_ABR_PC.py</a></td>
+      <td>TestOSPFMultiAreaABRPortChannel.test_ospf_multiarea_abr_portchannel</td>
+      <td>Pass</td>
+      <td>0:06:10</td>
+      <td>0:00:30.517</td>
+      <td>0:03:05.743</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Test case passed</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_4_iscli_Basic_4_node_PortChannel.log'>system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py</a></td>
+      <td>TestOSPFStaticRoutingPortChannel4Node.test_ospf_portchannel_static_routing_4node</td>
+      <td></td>
+      <td>0:00:23</td>
+      <td>0:00:25.704</td>
+      <td>0:00:16.066</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Module Configuration</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td><a href='results_2025_12_18_22_17_32_mlog_system_iscli_OSPF_testcases_OSPF_4_iscli_Basic_4_node_PortChannel.log'>system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel.py</a></td>
+      <td>TestOSPFStaticRoutingPortChannel4Node.test_ospf_portchannel_static_routing_4node</td>
+      <td>Fail</td>
+      <td>0:16:44</td>
+      <td>0:10:18.463</td>
+      <td>0:03:23.483</td>
+      <td>0:00:00.000</td>
+      <td>0:00:00</td>
+      <td>0:00:00</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Test completed with 2 validation failure(s):
+  - STEP 8: OSPF neighbor 20.1.1.2 not in Full state on vs_sonic_2
+  - STEP 8: OSPF neighbor 20.1.1.1 not in Full state on vs_sonic_4</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

@@ -1,0 +1,45 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,configure terminal
+function-prolog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,interface Ethernet0
+function-prolog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,mtu 9100
+function-prolog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,mtu 1600
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,mtu 2000
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,mtu 9100
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,mtu 9100
+function-or-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,interface Ethernet0
+module-or-class-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,mtu 9100
+module-or-class-epilog,,TestInterfaceMTUChanges.test_interface_mtu_change_cycle,D1,mgmt-config,exit
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D3,normal-user,show interfaces status Ethernet124

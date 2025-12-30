@@ -1,0 +1,11 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D1,normal-user,show interfaces status
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+class-prolog,,,D1,normal-user,cat /proc/uptime
+class-prolog,,,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+class-prolog,,,D1,normal-user,cat /proc/uptime
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D2,normal-user,show interfaces status

@@ -1,0 +1,46 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,normal-user,show platform summary
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,normal-user,configure terminal
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,mgmt-config,no ip route 200.0.0.0/24 10.0.1.2
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,mgmt-config,no ip route 200.0.0.0/24 10.0.2.2
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,mgmt-config,no ip route 200.0.0.0/24 192.168.99.99
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,mgmt-config,exit
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,mgmt-config,exit
+module-or-class-epilog,,TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic,D1,normal-user,show interfaces counters -c
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet124

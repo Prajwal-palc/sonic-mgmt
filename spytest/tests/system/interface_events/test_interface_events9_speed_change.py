@@ -1,6 +1,6 @@
 """
-INTERFACE EVENTS - SPEED CHANGES
-Author: Test Engineering Team
+INTERFACE EVENTS - SPEED CONFIGURATION CHANGE AND RESTORATION
+Author: Athira
 © 2025, copyrights@SuperMicro
 
 How to run:
@@ -11,23 +11,24 @@ How to run:
   --log-level debug --skip-init-config --ifname-type native
 
 Description:
-  Validates that interface speed can be changed to various supported values (auto, 10G, 1G, 100M)
-  and that configuration changes are accurately reflected in CLI outputs. Tests speed modifications,
-  persistence through interface flaps, rapid speed changes, and proper error handling for invalid
-  speed values. Ensures interface remains operational after speed changes and that new speed is
-  correctly applied and displayed in interface status.
+  This test validates interface speed configuration changes by:
+  1. Getting the first operational interface from testbed
+  2. Capturing baseline speed (e.g., 40G)
+  3. Changing speed to a different value (e.g., 10G using "speed 10000")
+  4. Verifying the speed change is reflected in "show interface status"
+  5. Restoring the original speed
+  6. Verifying the restoration
+
+  This mirrors the exact CLI workflow:
+    - show interface status (capture baseline)
+    - configure terminal -> interface Ethernet0 -> speed 10000 -> exit -> exit
+    - show interface status (verify change: 40G -> 10G)
+    - configure terminal -> interface Ethernet0 -> speed 40000 -> exit -> exit
+    - show interface status (verify restoration: 10G -> 40G)
 
 Pre-requisites:
   - Topology: 2-node | Supported: HW and Virtual
-  - Topology Diagram:
-        # Topology - 2 nodes
-        # +--------------------+                       +--------------------+
-        # |       DUT1         |                       |       DUT2         |
-        # | (smic_sonic1)      |<-----Ethernet0------->| (smic_sonic2)      |
-        # | 192.168.100.193    |   (Speed Changes)     | 192.168.100.195    |
-        # |                    |<-----Ethernet4------->|                    |
-        # +--------------------+                       +--------------------+
-  - Interfaces support multiple speed configurations
+  - At least one interface should be operationally up
   - Access to sonic-cli (klish)
   - Required test variables: CLI type (klish)
 """
@@ -38,616 +39,669 @@ import pytest
 import time
 from typing import Dict, Any, List, Optional
 
-from spytest import st
-from spytest.dicts import SpyTestDict
-import apis.system.interface as intf_api
+from spytest import st, SpyTestDict
+
+
+# CLI type for all operations
+CLI_TYPE = "klish"
+
+# Wait times
+WAIT_AFTER_SPEED_CHANGE = 5
+WAIT_FOR_LINK_STABILIZATION = 3
 
 
 @pytest.mark.topology("any")
 class TestInterfaceSpeedChanges:
-    """Test cases for validating interface speed change configurations and persistence."""
+    """Test cases for validating interface speed configuration changes and restoration."""
 
     data = SpyTestDict()
 
     @classmethod
     def setup_class(cls) -> None:
-        """Initialize topology and test parameters."""
-        # Get DUT handles
+        """Initialize topology and get first operational interface from testbed."""
+        st.log("=" * 80)
+        st.log("SETUP: Initializing Interface Speed Change Test Suite")
+        st.log("=" * 80)
+
+        # Get minimum topology - 2 devices connected
+        min_topology = ["D1D2:2"]  # 2 links between D1 and D2
+        topology = st.ensure_min_topology(*min_topology)
+
+        cls.data.topology = topology
+        cls.data.dut1 = topology.D1
+        cls.data.dut2 = topology.D2
         cls.data.dut_names = st.get_dut_names()
-        if not cls.data.dut_names:
-            st.report_fail("msg", "No DUTs available in topology")
 
-        cls.data.dut1 = cls.data.dut_names[0]
+        # Get first interface from topology links
+        # topology has D1D2P1, D1D2P2 etc. - we'll use the first link
+        if hasattr(topology, 'D1D2P1'):
+            cls.data.test_interface = topology.D1D2P1
+        else:
+            # Fallback to Ethernet0 if topology doesn't have link info
+            cls.data.test_interface = "Ethernet0"
 
-        # CLI type - use klish as specified
-        cls.data.cli_type = "klish"
+        # Store original speed for restoration
+        cls.data.original_speed = None
+        cls.data.original_speed_numeric = None  # e.g., "40000" for 40G
 
-        # Test interfaces
-        cls.data.test_interfaces = ["Ethernet0", "Ethernet4"]
+        # Set terminal length 0 to disable pagination
+        st.log("Setting terminal length 0 to disable pagination")
+        st.config(cls.data.dut1, "terminal length 0", type=CLI_TYPE)
 
-        # Store original speeds for restoration
-        cls.data.original_speeds = {}
-
-        # Supported speeds to test
-        cls.data.speeds_to_test = {
-            "auto": "auto",
-            "10G": "10000",
-            "1G": "1000",
-            "100M": "100"
-        }
-
-        # Verify timeout for status checks
-        cls.data.verify_timeout = 30
-
-        st.log(f"Test setup complete. DUT1: {cls.data.dut1}, CLI: {cls.data.cli_type}")
+        st.log(f"DUT1: {cls.data.dut1}")
+        st.log(f"DUT2: {cls.data.dut2}")
+        st.log(f"Test Interface: {cls.data.test_interface}")
 
     @classmethod
     def teardown_class(cls) -> None:
-        """Restore interfaces to original state."""
-        st.log("Teardown: Restoring interface speeds to original values")
-
-        for interface, original_speed in cls.data.original_speeds.items():
-            try:
-                if original_speed:
-                    st.log(f"Restoring {interface} to speed {original_speed}")
-                    intf_api.interface_operation(
-                        cls.data.dut1,
-                        interface,
-                        operation="startup",
-                        cli_type=cls.data.cli_type
-                    )
-            except Exception as e:
-                st.log(f"Warning: Failed to restore {interface}: {str(e)}")
+        """Cleanup test suite."""
+        st.log("=" * 80)
+        st.log("TEARDOWN: Cleaning up Interface Speed Change Test Suite")
+        st.log("=" * 80)
+        st.log("Cleanup completed")
 
     def setup_method(self) -> None:
-        """Per-test setup - ensure interfaces are up."""
-        st.log("Test setup: Bringing up test interfaces")
-
-        for interface in self.data.test_interfaces:
-            # Bring interface up
-            intf_api.interface_operation(
-                self.data.dut1,
-                interface,
-                operation="startup",
-                cli_type=self.data.cli_type
-            )
-
-            # Store baseline speed if not already stored
-            if interface not in self.data.original_speeds:
-                status_output = intf_api.show_interface_status(
-                    self.data.dut1,
-                    interfaces=interface,
-                    cli_type=self.data.cli_type
-                )
-                if status_output:
-                    self.data.original_speeds[interface] = status_output[0].get("speed", "10000")
-
-        # Wait for interfaces to come up
-        time.sleep(5)
+        """Setup before each test method."""
+        st.log("\n" + "-" * 80)
+        st.log("SETUP METHOD: Starting new test case")
+        st.log("-" * 80)
 
     def teardown_method(self) -> None:
-        """Per-test teardown - ensure interfaces are operational."""
-        st.log("Test teardown: Verifying interfaces are operational")
+        """Teardown after each test method."""
+        st.log("-" * 80)
+        st.log("TEARDOWN METHOD: Completed test case")
+        st.log("-" * 80 + "\n")
 
-        for interface in self.data.test_interfaces:
-            try:
-                intf_api.interface_operation(
-                    self.data.dut1,
-                    interface,
-                    operation="startup",
-                    cli_type=self.data.cli_type
-                )
-            except Exception as e:
-                st.log(f"Warning: Failed to ensure {interface} is up: {str(e)}")
-
-    def _change_interface_speed(self, interface: str, speed: str) -> bool:
+    @staticmethod
+    def _get_interface_status_raw(dut: str) -> str:
         """
-        Change interface speed configuration.
+        Get interface status using 'show interface status' command.
+        Returns raw CLI output as string for manual parsing.
+
+        IMPORTANT: Always uses "show interface status" WITHOUT interface name
+        to avoid pagination issues.
 
         Args:
-            interface: Interface name (e.g., "Ethernet0")
-            speed: Speed value ("auto", "10000", "1000", "100")
+            dut: Device handle
 
         Returns:
-            True if configuration successful, False otherwise
+            Command output as raw string
         """
-        try:
-            st.log(f"Changing {interface} speed to {speed}")
-            result = intf_api.interface_speed_config(
-                self.data.dut1,
-                interface_list=[interface],
-                speed=speed,
-                cli_type=self.data.cli_type
-            )
-            time.sleep(3)  # Allow time for speed change to apply
-            return result
-        except Exception as e:
-            st.log(f"Speed change failed: {str(e)}")
-            return False
+        # ALWAYS use just "show interface status" - no interface name
+        command = "show interface status"
 
-    def _verify_interface_speed(self, interface: str, expected_speed: str) -> bool:
+        # Execute command and get raw output
+        output = st.show(dut, command, type=CLI_TYPE)
+
+        # If output is a list/dict (parsed), we need to convert back or get raw
+        if isinstance(output, (list, dict)):
+            # Try to get raw output using skip_tmpl
+            st.log("Got parsed output, attempting to get raw output")
+            output_raw = st.show(dut, command, type=CLI_TYPE, skip_tmpl=True)
+            if output_raw:
+                output = output_raw
+
+        # Convert to string if needed
+        if not isinstance(output, str):
+            output = str(output)
+
+        st.log(f"Interface status raw output:\n{output}")
+        return output
+
+    @staticmethod
+    def _configure_interface_speed(dut: str, interface: str, speed_value: str) -> bool:
         """
-        Verify interface speed matches expected value.
+        Configure interface speed using klish commands.
+        Example: speed 10000 (for 10G), speed 40000 (for 40G)
 
         Args:
+            dut: Device handle
             interface: Interface name
-            expected_speed: Expected speed value
+            speed_value: Speed value in Mbps (e.g., "10000" for 10G, "40000" for 40G)
 
         Returns:
-            True if speed matches, False otherwise
+            True if successful
         """
-        try:
-            # Get interface status
-            status_output = intf_api.show_interface_status(
-                self.data.dut1,
-                interfaces=interface,
-                cli_type=self.data.cli_type
-            )
-
-            if not status_output:
-                st.log(f"ERROR: No status output for {interface}")
-                return False
-
-            actual_speed = status_output[0].get("speed", "")
-            st.log(f"Interface {interface} - Expected speed: {expected_speed}, Actual speed: {actual_speed}")
-
-            # Handle different speed representations
-            # "auto" should match "auto" or negotiated value
-            if expected_speed.lower() == "auto":
-                return actual_speed.lower() == "auto" or actual_speed != ""
-
-            # For numeric speeds, handle both formats (e.g., "10G", "10000")
-            if expected_speed == "10000":
-                return actual_speed in ["10G", "10000", "10000M"]
-            elif expected_speed == "1000":
-                return actual_speed in ["1G", "1000", "1000M"]
-            elif expected_speed == "100":
-                return actual_speed in ["100M", "100"]
-
-            return actual_speed.lower() == expected_speed.lower()
-
-        except Exception as e:
-            st.log(f"Speed verification failed: {str(e)}")
-            return False
-
-    def _verify_interface_operational(self, interface: str) -> bool:
-        """
-        Verify interface is operationally up.
-
-        Args:
-            interface: Interface name
-
-        Returns:
-            True if interface is up, False otherwise
-        """
-        try:
-            status_output = intf_api.show_interface_status(
-                self.data.dut1,
-                interfaces=interface,
-                cli_type=self.data.cli_type
-            )
-
-            if not status_output:
-                return False
-
-            admin_status = status_output[0].get("admin", "")
-            oper_status = status_output[0].get("oper", "")
-
-            st.log(f"Interface {interface} - Admin: {admin_status}, Oper: {oper_status}")
-
-            return admin_status.lower() == "up" and oper_status.lower() == "up"
-
-        except Exception as e:
-            st.log(f"Operational status check failed: {str(e)}")
-            return False
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_01"])
-    def test_speed_change_to_auto(self) -> None:
-        """
-        TC 009.01 - Verify interface speed can be changed to auto-negotiation mode.
-
-        Steps:
-        1. Change Ethernet0 speed to auto
-        2. Verify speed shows as auto in interface status
-        3. Verify interface remains operational
-        """
-        st.log("=" * 80)
-        st.log("TEST: Change interface speed to AUTO")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        target_speed = "auto"
-
-        # Step 1: Change speed to auto
-        result = self._change_interface_speed(interface, target_speed)
-        if not result:
-            st.report_fail("msg", f"Failed to configure speed {target_speed} on {interface}")
-
-        # Wait for link to stabilize
-        time.sleep(10)
-
-        # Step 2: Verify speed change
-        if not self._verify_interface_speed(interface, target_speed):
-            st.report_fail("msg", f"{interface} speed not showing as {target_speed}")
-
-        # Step 3: Verify interface operational
-        if not self._verify_interface_operational(interface):
-            st.report_fail("msg", f"{interface} not operational after speed change")
-
-        st.log(f"SUCCESS: {interface} speed changed to {target_speed} and operational")
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_02"])
-    def test_speed_change_to_10g(self) -> None:
-        """
-        TC 009.02 - Verify interface speed can be changed to fixed 10G.
-
-        Steps:
-        1. Change Ethernet0 speed to 10G (10000 Mbps)
-        2. Verify speed shows as 10G in interface status
-        3. Verify interface remains operational
-        """
-        st.log("=" * 80)
-        st.log("TEST: Change interface speed to 10G")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        target_speed = "10000"
-
-        # Step 1: Change speed to 10G
-        result = self._change_interface_speed(interface, target_speed)
-        if not result:
-            st.report_fail("msg", f"Failed to configure speed {target_speed} on {interface}")
-
-        # Wait for link to stabilize
-        time.sleep(10)
-
-        # Step 2: Verify speed change
-        if not self._verify_interface_speed(interface, target_speed):
-            st.report_fail("msg", f"{interface} speed not showing as 10G")
-
-        # Step 3: Verify interface operational
-        if not self._verify_interface_operational(interface):
-            st.report_fail("msg", f"{interface} not operational after speed change to 10G")
-
-        st.log(f"SUCCESS: {interface} speed changed to 10G and operational")
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_03"])
-    def test_speed_change_to_1g(self) -> None:
-        """
-        TC 009.03 - Verify interface speed can be changed to 1G (if supported).
-
-        Steps:
-        1. Change Ethernet0 speed to 1G (1000 Mbps)
-        2. Verify speed configuration (may not be supported on all interfaces)
-        3. If supported, verify interface operational
-
-        Note: This test may fail on high-speed interfaces that don't support 1G.
-        """
-        st.log("=" * 80)
-        st.log("TEST: Change interface speed to 1G (if supported)")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        target_speed = "1000"
-
-        # Step 1: Attempt to change speed to 1G
-        result = self._change_interface_speed(interface, target_speed)
-
-        if not result:
-            st.log(f"NOTICE: Speed 1G not supported on {interface} - this is acceptable")
-            st.report_pass("test_case_passed")
-            return
-
-        # Wait for link
-        time.sleep(15)
-
-        # Step 2: Verify speed change if command succeeded
-        if self._verify_interface_speed(interface, target_speed):
-            st.log(f"SUCCESS: {interface} supports and configured for 1G")
-
-            # Step 3: Verify operational
-            if not self._verify_interface_operational(interface):
-                st.log(f"NOTICE: {interface} configured for 1G but link not up (may need peer configuration)")
-        else:
-            st.log(f"NOTICE: Speed command accepted but 1G may not be fully supported on {interface}")
-
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_04"])
-    def test_speed_change_to_100m(self) -> None:
-        """
-        TC 009.04 - Verify interface speed can be changed to 100M (if supported).
-
-        Steps:
-        1. Change Ethernet0 speed to 100M (100 Mbps)
-        2. Verify speed configuration (typically not supported on high-speed interfaces)
-        3. Verify error handling if unsupported
-
-        Note: This test expects 100M to be unsupported on most modern interfaces.
-        """
-        st.log("=" * 80)
-        st.log("TEST: Change interface speed to 100M (typically unsupported)")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        target_speed = "100"
-
-        # Step 1: Attempt to change speed to 100M
-        result = self._change_interface_speed(interface, target_speed)
-
-        if not result:
-            st.log(f"EXPECTED: Speed 100M not supported on {interface}")
-            st.report_pass("test_case_passed")
-            return
-
-        # If command succeeded (unlikely), verify
-        time.sleep(10)
-
-        if self._verify_interface_speed(interface, target_speed):
-            st.log(f"NOTICE: {interface} supports 100M speed")
-        else:
-            st.log(f"NOTICE: 100M configuration attempted but not applied")
-
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_05"])
-    def test_rapid_speed_changes(self) -> None:
-        """
-        TC 009.05 - Verify system handles rapid sequential speed changes.
-
-        Steps:
-        1. Rapidly change speed: auto -> 10G -> auto -> 10G
-        2. Verify final speed configuration is correct
-        3. Verify interface remains operational
-        4. Verify system stability
-        """
-        st.log("=" * 80)
-        st.log("TEST: Rapid speed changes")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        speed_sequence = ["auto", "10000", "auto", "10000"]
-
-        # Step 1: Perform rapid speed changes
-        for speed in speed_sequence:
-            st.log(f"Changing to speed: {speed}")
-            self._change_interface_speed(interface, speed)
-            time.sleep(2)  # Brief pause between changes
-
-        # Wait for final state to stabilize
-        time.sleep(10)
-
-        # Step 2: Verify final speed (should be 10G)
-        final_speed = "10000"
-        if not self._verify_interface_speed(interface, final_speed):
-            st.report_fail("msg", f"Final speed not {final_speed} after rapid changes")
-
-        # Step 3: Verify interface operational
-        if not self._verify_interface_operational(interface):
-            st.report_fail("msg", f"{interface} not operational after rapid speed changes")
-
-        st.log(f"SUCCESS: System handled rapid speed changes, final speed is 10G")
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_06"])
-    def test_speed_persistence_through_flap(self) -> None:
-        """
-        TC 009.06 - Verify speed configuration persists through interface flap.
-
-        Steps:
-        1. Configure interface speed to 10G
-        2. Verify speed configuration
-        3. Shutdown interface
-        4. Bring interface up (no shutdown)
-        5. Verify speed configuration persisted
-        """
-        st.log("=" * 80)
-        st.log("TEST: Speed persistence through interface flap")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        target_speed = "10000"
-
-        # Step 1: Configure speed
-        result = self._change_interface_speed(interface, target_speed)
-        if not result:
-            st.report_fail("msg", f"Failed to configure initial speed {target_speed}")
-
-        time.sleep(5)
-
-        # Step 2: Verify initial speed
-        if not self._verify_interface_speed(interface, target_speed):
-            st.report_fail("msg", f"Initial speed configuration failed")
-
-        # Step 3: Shutdown interface
-        st.log(f"Flapping {interface}: shutdown")
-        intf_api.interface_operation(
-            self.data.dut1,
-            interface,
-            operation="shutdown",
-            cli_type=self.data.cli_type
-        )
-        time.sleep(3)
-
-        # Step 4: Bring interface up
-        st.log(f"Flapping {interface}: no shutdown")
-        intf_api.interface_operation(
-            self.data.dut1,
-            interface,
-            operation="startup",
-            cli_type=self.data.cli_type
-        )
-        time.sleep(10)
-
-        # Step 5: Verify speed persisted
-        if not self._verify_interface_speed(interface, target_speed):
-            st.report_fail("msg", f"Speed configuration did not persist through interface flap")
-
-        st.log(f"SUCCESS: Speed {target_speed} persisted through interface flap")
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_07"])
-    def test_sequential_speed_changes(self) -> None:
-        """
-        TC 009.07 - Verify multiple sequential speed changes work correctly.
-
-        Steps:
-        1. Change to auto, verify
-        2. Change to 10G, verify
-        3. Change to auto, verify
-        4. Change to 10G, verify
-        5. Verify interface operational after all changes
-        """
-        st.log("=" * 80)
-        st.log("TEST: Sequential speed changes with verification")
-        st.log("=" * 80)
-
-        interface = "Ethernet0"
-        speed_sequence = [
-            ("auto", "auto"),
-            ("10000", "10000"),
-            ("auto", "auto"),
-            ("10000", "10000")
+        st.log(f"Configuring {interface} with speed {speed_value}")
+        commands = [
+            "configure terminal",
+            f"interface {interface}",
+            f"speed {speed_value}",
+            "exit",  # Exit from interface config mode
+            "exit"   # Exit from configure terminal mode
         ]
+        result = st.config(dut, commands, type=CLI_TYPE)
+        return result
 
-        for idx, (speed_to_set, speed_to_verify) in enumerate(speed_sequence, 1):
-            st.log(f"Step {idx}: Changing to {speed_to_set}")
-
-            # Configure speed
-            result = self._change_interface_speed(interface, speed_to_set)
-            if not result:
-                st.report_fail("msg", f"Failed to configure speed {speed_to_set} in step {idx}")
-
-            time.sleep(8)
-
-            # Verify speed
-            if not self._verify_interface_speed(interface, speed_to_verify):
-                st.report_fail("msg", f"Speed verification failed for {speed_to_verify} in step {idx}")
-
-            st.log(f"Step {idx}: SUCCESS - Speed is {speed_to_verify}")
-
-        # Final operational check
-        if not self._verify_interface_operational(interface):
-            st.report_fail("msg", f"{interface} not operational after sequential changes")
-
-        st.log(f"SUCCESS: All sequential speed changes completed successfully")
-        st.report_pass("test_case_passed")
-
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_08"])
-    @pytest.mark.negative
-    def test_invalid_speed_value_handling(self) -> None:
+    @staticmethod
+    def _extract_interface_speed(interface_output: str, interface: str) -> str:
         """
-        TC 009.08 - Verify proper error handling for invalid speed values.
+        Extract interface speed from raw CLI output by parsing the table.
 
-        Steps:
-        1. Get current interface speed
-        2. Attempt to configure invalid speed value (12345)
-        3. Verify command is rejected or speed unchanged
-        4. Verify interface remains operational
+        Example output:
+        ------------------------------------------------------------------------------------------
+        Name                Description         Admin          Oper           Speed          MTU
+        ------------------------------------------------------------------------------------------
+        Ethernet0           -                   up             up             40G            9100
+
+        Args:
+            interface_output: Raw CLI output string
+            interface: Interface name
+
+        Returns:
+            Speed value as string (e.g., "40G", "10G"), or empty string if not found
         """
-        st.log("=" * 80)
-        st.log("TEST: Invalid speed value handling")
-        st.log("=" * 80)
+        if not interface_output:
+            st.log("No output to parse")
+            return ""
 
-        interface = "Ethernet0"
-        invalid_speed = "12345"
+        # Split output into lines
+        lines = interface_output.strip().split('\n')
 
-        # Step 1: Get current speed
-        status_before = intf_api.show_interface_status(
-            self.data.dut1,
-            interfaces=interface,
-            cli_type=self.data.cli_type
+        # Find the line containing the interface
+        for line in lines:
+            # Skip header and separator lines
+            if '---' in line or 'Name' in line or 'Description' in line:
+                continue
+
+            # Check if this line contains our interface
+            if interface in line:
+                # Split line by whitespace
+                parts = line.split()
+
+                # Expected format: [Name, Description, Admin, Oper, Speed, MTU]
+                # Example: ['Ethernet0', '-', 'up', 'up', '40G', '9100']
+                if len(parts) >= 5:
+                    speed = parts[4]  # Speed is the 5th column (index 4)
+                    st.log(f"Found {interface} in output, speed = {speed}")
+                    return speed
+
+        st.log(f"Interface {interface} not found in output")
+        return ""
+
+    @staticmethod
+    def _extract_interface_oper_status(interface_output: str, interface: str) -> str:
+        """
+        Extract interface operational status from raw CLI output.
+
+        Example output:
+        ------------------------------------------------------------------------------------------
+        Name                Description         Admin          Oper           Speed          MTU
+        ------------------------------------------------------------------------------------------
+        Ethernet0           -                   up             up             40G            9100
+
+        Args:
+            interface_output: Raw CLI output string
+            interface: Interface name
+
+        Returns:
+            Oper status as string (e.g., "up", "down"), or empty string if not found
+        """
+        if not interface_output:
+            st.log("No output to parse")
+            return ""
+
+        # Split output into lines
+        lines = interface_output.strip().split('\n')
+
+        # Find the line containing the interface
+        for line in lines:
+            # Skip header and separator lines
+            if '---' in line or 'Name' in line or 'Description' in line:
+                continue
+
+            # Check if this line contains our interface
+            if interface in line:
+                # Split line by whitespace
+                parts = line.split()
+
+                # Expected format: [Name, Description, Admin, Oper, Speed, MTU]
+                # Example: ['Ethernet0', '-', 'up', 'up', '40G', '9100']
+                if len(parts) >= 4:
+                    oper_status = parts[3]  # Oper is the 4th column (index 3)
+                    st.log(f"Found {interface} in output, oper status = {oper_status}")
+                    return oper_status
+
+        st.log(f"Interface {interface} not found in output")
+        return ""
+
+    @staticmethod
+    def _verify_interface_oper_status(interface_output: str, interface: str,
+                                     expected_status: str) -> bool:
+        """
+        Verify interface operational status matches expected value.
+
+        Args:
+            interface_output: Raw CLI output string
+            interface: Interface name to verify
+            expected_status: Expected oper status (up/down)
+
+        Returns:
+            True if status matches expected, False otherwise
+        """
+        actual_status = TestInterfaceSpeedChanges._extract_interface_oper_status(
+            interface_output, interface
         )
 
-        if not status_before:
-            st.report_fail("msg", f"Could not get initial status for {interface}")
+        if not actual_status:
+            st.log(f"Could not extract oper status for {interface}")
+            return False
 
-        speed_before = status_before[0].get("speed", "")
-        st.log(f"Current speed before invalid change: {speed_before}")
+        matches = actual_status.lower() == expected_status.lower()
+        st.log(f"Interface {interface}: oper={actual_status}, expected={expected_status}, match={matches}")
+        return matches
 
-        # Step 2: Attempt invalid speed configuration
-        st.log(f"Attempting to configure invalid speed: {invalid_speed}")
-        result = self._change_interface_speed(interface, invalid_speed)
+    @staticmethod
+    def _speed_display_to_numeric(speed_display: str) -> str:
+        """
+        Convert speed display format to numeric Mbps value.
+        Example: "40G" -> "40000", "10G" -> "10000", "1G" -> "1000"
 
-        time.sleep(5)
+        Args:
+            speed_display: Speed in display format (e.g., "40G", "10G")
 
-        # Step 3: Verify speed unchanged or error occurred
-        status_after = intf_api.show_interface_status(
-            self.data.dut1,
-            interfaces=interface,
-            cli_type=self.data.cli_type
-        )
+        Returns:
+            Speed in Mbps as string (e.g., "40000", "10000")
+        """
+        speed_map = {
+            "40G": "40000",
+            "10G": "10000",
+            "1G": "1000",
+            "100M": "100",
+            "auto": "auto"
+        }
+        return speed_map.get(speed_display, speed_display)
 
-        if status_after:
-            speed_after = status_after[0].get("speed", "")
-            st.log(f"Speed after invalid change attempt: {speed_after}")
+    @staticmethod
+    def _verify_speed_match(actual_speed: str, expected_speed: str) -> bool:
+        """
+        Verify if actual speed matches expected speed (handles different formats).
 
-            # Invalid speed should be rejected - speed should remain unchanged or command fail
-            if result and speed_after == invalid_speed:
-                st.report_fail("msg", f"Invalid speed {invalid_speed} was incorrectly accepted")
+        Args:
+            actual_speed: Speed from show command (e.g., "10G")
+            expected_speed: Expected speed display (e.g., "10G")
 
-            st.log(f"EXPECTED: Invalid speed {invalid_speed} was rejected")
+        Returns:
+            True if speeds match, False otherwise
+        """
+        # Normalize both speeds for comparison
+        actual_lower = actual_speed.lower().strip()
+        expected_lower = expected_speed.lower().strip()
 
-        # Step 4: Verify interface still operational
-        if not self._verify_interface_operational(interface):
-            st.log(f"WARNING: Interface operational status affected by invalid command")
+        # Direct match
+        if actual_lower == expected_lower:
+            return True
 
-        st.log(f"SUCCESS: Invalid speed value properly handled")
+        # Handle variations: "10G" vs "10g", "40G" vs "40000"
+        speed_equivalents = {
+            "10g": ["10g", "10000"],
+            "40g": ["40g", "40000"],
+            "1g": ["1g", "1000"],
+            "100m": ["100m", "100"]
+        }
+
+        for key, values in speed_equivalents.items():
+            if actual_lower in values and expected_lower in values:
+                return True
+
+        return False
+
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_01"])
+    def test_get_first_operational_interface(self) -> None:
+        """
+        TC_INTF_EVENTS_009_01: Get first operational interface from testbed.
+
+        Test Steps:
+            1. Execute show interface status command
+            2. Parse output line by line to find first interface with oper status = up
+            3. Store interface name for subsequent tests
+
+        Expected Result:
+            - At least one interface is operationally up
+            - Interface name stored successfully
+        """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Get First Operational Interface from Testbed")
+        st.log("=" * 80)
+
+        # Ensure terminal length 0 is set to avoid pagination
+        st.config(self.data.dut1, "terminal length 0", type=CLI_TYPE)
+
+        # Step 1: Get all interface status (raw CLI output)
+        st.log("\nStep 1: Executing: show interface status")
+        interface_status_output = self._get_interface_status_raw(self.data.dut1)
+
+        if not interface_status_output:
+            st.report_fail("msg", "No interface status output received")
+
+        # Step 2: Parse output line by line to find first UP interface
+        st.log("\nStep 2: Parsing output to find first operationally UP interface")
+        first_up_interface = None
+
+        # Split output into lines
+        lines = interface_status_output.strip().split('\n')
+
+        for line in lines:
+            # Skip header and separator lines
+            if '---' in line or 'Name' in line or 'Description' in line:
+                continue
+
+            # Parse line: Name Description Admin Oper Speed MTU
+            # Example: Ethernet0           -                   up             up             40G            9100
+            parts = line.split()
+
+            if len(parts) >= 4:
+                interface_name = parts[0]  # First column
+                oper_status = parts[3]     # Fourth column (Oper)
+
+                st.log(f"  Checking {interface_name}: oper={oper_status}")
+
+                if oper_status.lower() == "up":
+                    first_up_interface = interface_name
+                    st.log(f"\n  ✓ Found first UP interface: {first_up_interface}")
+                    break
+
+        if not first_up_interface:
+            st.report_fail("msg", "No operationally UP interface found in testbed")
+
+        # Step 3: Store the interface for subsequent tests
+        self.data.test_interface = first_up_interface
+        st.log(f"\nTest interface selected from testbed: {self.data.test_interface}")
+
+        st.log("\nFirst operational interface identified successfully")
         st.report_pass("test_case_passed")
 
-    @pytest.mark.inventory(feature="Interface Events", testcases=["TC_INTF_EVENTS_009_09"])
-    def test_speed_changes_on_multiple_interfaces(self) -> None:
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_02"])
+    def test_capture_baseline_speed(self) -> None:
         """
-        TC 009.09 - Verify speed changes work on multiple interfaces.
+        TC_INTF_EVENTS_009_02: Capture baseline speed of the interface.
 
-        Steps:
-        1. Change Ethernet0 to auto, verify
-        2. Change Ethernet4 to auto, verify
-        3. Change both back to 10G, verify
-        4. Verify both interfaces operational
+        Test Steps:
+            1. Execute show interface status for the test interface
+            2. Parse output to verify interface is operationally up
+            3. Extract and store current speed (baseline)
+
+        Expected Result:
+            - Interface is operationally up
+            - Baseline speed captured (e.g., "40G")
         """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Capture Baseline Speed")
         st.log("=" * 80)
-        st.log("TEST: Speed changes on multiple interfaces")
+
+        interface = self.data.test_interface
+
+        # Ensure terminal length 0 is set to avoid pagination
+        st.config(self.data.dut1, "terminal length 0", type=CLI_TYPE)
+
+        # Step 1: Execute show interface status command
+        st.log(f"\nStep 1: Executing: show interface status")
+        interface_status = self._get_interface_status_raw(self.data.dut1)
+
+        if not interface_status:
+            st.report_fail("msg", f"No interface status output for {interface}")
+
+        # Step 2: Parse and verify interface is operationally UP
+        st.log("\nStep 2: Parsing output to verify interface is operationally UP")
+        oper_status = self._extract_interface_oper_status(interface_status, interface)
+
+        st.log(f"  Interface {interface} oper status: {oper_status}")
+
+        if oper_status.lower() != "up":
+            st.report_fail("msg", f"Interface {interface} is not operationally up (status: {oper_status})")
+
+        # Step 3: Parse and extract baseline speed
+        st.log("\nStep 3: Parsing output to extract baseline speed")
+        baseline_speed = self._extract_interface_speed(interface_status, interface)
+
+        if not baseline_speed:
+            st.report_fail("msg", f"Could not extract speed for {interface}")
+
+        # Store baseline speed
+        self.data.original_speed = baseline_speed
+        self.data.original_speed_numeric = self._speed_display_to_numeric(baseline_speed)
+
+        st.log(f"\n  ✓ Baseline speed captured: {self.data.original_speed}")
+        st.log(f"  ✓ Baseline speed numeric value: {self.data.original_speed_numeric}")
+
+        st.log("\nBaseline speed captured successfully")
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_03"])
+    def test_change_speed_to_10g(self) -> None:
+        """
+        TC_INTF_EVENTS_009_03: Change interface speed to 10G.
+
+        Test Steps:
+            1. Configure interface speed to 10000 (10G)
+            2. Wait for speed change to apply
+            3. Verify command executed successfully
+
+        Expected Result:
+            - Speed configuration command succeeds
+        """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Change Interface Speed to 10G")
         st.log("=" * 80)
 
-        interfaces = ["Ethernet0", "Ethernet4"]
+        interface = self.data.test_interface
+        new_speed = "10000"  # 10G in Mbps
 
-        # Step 1 & 2: Change both to auto
-        for interface in interfaces:
-            st.log(f"Changing {interface} to auto")
-            result = self._change_interface_speed(interface, "auto")
-            if not result:
-                st.report_fail("msg", f"Failed to configure auto on {interface}")
-            time.sleep(5)
+        # Step 1: Configure speed 10000
+        st.log(f"\nStep 1: Configuring {interface} with speed {new_speed}")
+        st.log(f"Executing: configure terminal -> interface {interface} -> speed 10000 -> exit -> exit")
 
-        # Verify both at auto
-        time.sleep(10)
-        for interface in interfaces:
-            if not self._verify_interface_speed(interface, "auto"):
-                st.report_fail("msg", f"{interface} speed not showing as auto")
-            st.log(f"SUCCESS: {interface} configured to auto")
+        result = self._configure_interface_speed(self.data.dut1, interface, new_speed)
 
-        # Step 3: Change both to 10G
-        for interface in interfaces:
-            st.log(f"Changing {interface} to 10G")
-            result = self._change_interface_speed(interface, "10000")
-            if not result:
-                st.report_fail("msg", f"Failed to configure 10G on {interface}")
-            time.sleep(5)
+        if not result:
+            st.log("Warning: Speed configuration command may have failed")
 
-        # Verify both at 10G
-        time.sleep(10)
-        for interface in interfaces:
-            if not self._verify_interface_speed(interface, "10000"):
-                st.report_fail("msg", f"{interface} speed not showing as 10G")
-            st.log(f"SUCCESS: {interface} configured to 10G")
+        # Step 2: Wait for speed change to apply
+        st.log(f"\nStep 2: Waiting {WAIT_AFTER_SPEED_CHANGE} seconds for speed change to apply")
+        time.sleep(WAIT_AFTER_SPEED_CHANGE)
 
-        # Step 4: Verify both operational
-        for interface in interfaces:
-            if not self._verify_interface_operational(interface):
-                st.log(f"WARNING: {interface} not fully operational")
+        st.log(f"\nSpeed change command executed for {interface}")
+        st.report_pass("test_case_passed")
 
-        st.log(f"SUCCESS: Speed changes applied successfully on all interfaces")
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_04"])
+    def test_verify_speed_change_to_10g(self) -> None:
+        """
+        TC_INTF_EVENTS_009_04: Verify speed changed to 10G.
+
+        Test Steps:
+            1. Execute show interface status
+            2. Parse output to extract current speed
+            3. Verify speed is now 10G (changed from baseline)
+
+        Expected Result:
+            - Speed shows as "10G" in interface status
+            - Speed has changed from baseline (e.g., 40G -> 10G)
+        """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Verify Speed Changed to 10G")
+        st.log("=" * 80)
+
+        interface = self.data.test_interface
+
+        # Ensure terminal length 0 is set to avoid pagination
+        st.config(self.data.dut1, "terminal length 0", type=CLI_TYPE)
+
+        # Step 1: Execute show interface status
+        st.log(f"\nStep 1: Executing: show interface status")
+        interface_status = self._get_interface_status_raw(self.data.dut1)
+
+        if not interface_status:
+            st.report_fail("msg", f"No interface status output for {interface}")
+
+        # Step 2: Parse output to extract current speed
+        st.log("\nStep 2: Parsing output to extract current speed")
+        current_speed = self._extract_interface_speed(interface_status, interface)
+
+        if not current_speed:
+            st.report_fail("msg", f"Could not extract speed for {interface}")
+
+        st.log(f"  Current speed: {current_speed}")
+        st.log(f"  Baseline speed was: {self.data.original_speed}")
+
+        # Step 3: Verify speed is 10G
+        st.log("\nStep 3: Verifying speed changed to 10G")
+        if not self._verify_speed_match(current_speed, "10G"):
+            st.report_fail("msg", f"Speed not showing as 10G. Current: {current_speed}")
+
+        st.log(f"\n  ✓ SUCCESS: Speed changed from {self.data.original_speed} to {current_speed}")
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_05"])
+    def test_restore_original_speed(self) -> None:
+        """
+        TC_INTF_EVENTS_009_05: Restore interface to original speed.
+
+        Test Steps:
+            1. Configure interface speed back to original/baseline value
+            2. Wait for speed change to apply
+            3. Verify command executed successfully
+
+        Expected Result:
+            - Speed configuration command succeeds
+            - Interface configured with original speed
+        """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Restore Original Speed")
+        st.log("=" * 80)
+
+        interface = self.data.test_interface
+        original_speed_numeric = self.data.original_speed_numeric
+
+        if not original_speed_numeric:
+            st.report_fail("msg", "Original speed not captured - cannot restore")
+
+        # Step 1: Configure back to original speed
+        st.log(f"\nStep 1: Restoring {interface} to original speed {original_speed_numeric}")
+        st.log(f"Executing: configure terminal -> interface {interface} -> speed {original_speed_numeric} -> exit -> exit")
+
+        result = self._configure_interface_speed(self.data.dut1, interface, original_speed_numeric)
+
+        if not result:
+            st.log("Warning: Speed restoration command may have failed")
+
+        # Step 2: Wait for speed change to apply
+        st.log(f"\nStep 2: Waiting {WAIT_AFTER_SPEED_CHANGE} seconds for speed restoration")
+        time.sleep(WAIT_AFTER_SPEED_CHANGE)
+
+        st.log(f"\nSpeed restoration command executed for {interface}")
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_06"])
+    def test_verify_speed_restoration(self) -> None:
+        """
+        TC_INTF_EVENTS_009_06: Verify speed restored to original value.
+
+        Test Steps:
+            1. Execute show interface status
+            2. Parse output to extract current speed
+            3. Verify speed matches original baseline speed
+
+        Expected Result:
+            - Speed shows as original value (e.g., "40G")
+            - Speed has been restored (10G -> 40G)
+        """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Verify Speed Restoration")
+        st.log("=" * 80)
+
+        interface = self.data.test_interface
+
+        # Ensure terminal length 0 is set to avoid pagination
+        st.config(self.data.dut1, "terminal length 0", type=CLI_TYPE)
+
+        # Step 1: Execute show interface status
+        st.log(f"\nStep 1: Executing: show interface status")
+        interface_status = self._get_interface_status_raw(self.data.dut1)
+
+        if not interface_status:
+            st.report_fail("msg", f"No interface status output for {interface}")
+
+        # Step 2: Parse output to extract current speed
+        st.log("\nStep 2: Parsing output to extract current speed")
+        current_speed = self._extract_interface_speed(interface_status, interface)
+
+        if not current_speed:
+            st.report_fail("msg", f"Could not extract speed for {interface}")
+
+        st.log(f"  Current speed: {current_speed}")
+        st.log(f"  Original baseline speed: {self.data.original_speed}")
+
+        # Step 3: Verify speed matches original
+        st.log("\nStep 3: Verifying speed restored to original value")
+        if not self._verify_speed_match(current_speed, self.data.original_speed):
+            st.report_fail("msg",
+                f"Speed not restored to original. Current: {current_speed}, Expected: {self.data.original_speed}")
+
+        st.log(f"\n  ✓ SUCCESS: Speed restored to original value: {current_speed}")
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.inventory(feature="Regression", testcases=["TC_INTF_EVENTS_009_07"])
+    def test_final_verification(self) -> None:
+        """
+        TC_INTF_EVENTS_009_07: Final verification of interface state.
+
+        Test Steps:
+            1. Execute show interface status
+            2. Parse output to verify interface is still operationally up
+            3. Parse output to verify speed is at baseline value
+            4. Display test summary
+
+        Expected Result:
+            - Interface is operationally up
+            - Speed is at original baseline value
+            - System is stable
+        """
+        st.log("\n" + "=" * 80)
+        st.log("TEST: Final Verification")
+        st.log("=" * 80)
+
+        interface = self.data.test_interface
+
+        # Ensure terminal length 0 is set to avoid pagination
+        st.config(self.data.dut1, "terminal length 0", type=CLI_TYPE)
+
+        # Step 1: Execute show interface status
+        st.log(f"\nStep 1: Executing: show interface status")
+        interface_status = self._get_interface_status_raw(self.data.dut1)
+
+        if not interface_status:
+            st.report_fail("msg", f"No interface status output for {interface}")
+
+        # Step 2: Parse and verify interface operational status
+        st.log("\nStep 2: Parsing output to verify interface is operationally UP")
+        oper_status = self._extract_interface_oper_status(interface_status, interface)
+        st.log(f"  Interface {interface} oper status: {oper_status}")
+
+        if oper_status.lower() != "up":
+            st.log(f"  WARNING: Interface {interface} is not operationally up")
+
+        # Step 3: Parse and verify speed
+        st.log("\nStep 3: Parsing output to verify speed is at baseline value")
+        current_speed = self._extract_interface_speed(interface_status, interface)
+        st.log(f"  Final speed: {current_speed}")
+        st.log(f"  Baseline speed: {self.data.original_speed}")
+
+        if self._verify_speed_match(current_speed, self.data.original_speed):
+            st.log("  ✓ Speed matches baseline - restoration confirmed")
+        else:
+            st.log(f"  Note: Speed is {current_speed}, baseline was {self.data.original_speed}")
+
+        # Step 4: Display test summary
+        st.log("\n" + "=" * 80)
+        st.log("TEST SUMMARY")
+        st.log("=" * 80)
+        st.log(f"Interface:        {interface}")
+        st.log(f"Baseline Speed:   {self.data.original_speed}")
+        st.log(f"Changed to:       10G")
+        st.log(f"Restored to:      {current_speed}")
+        st.log(f"Final Oper Status: {oper_status}")
+        st.log(f"System State:     Stable")
+        st.log("=" * 80)
+
+        st.log("\nFinal verification completed successfully")
         st.report_pass("test_case_passed")

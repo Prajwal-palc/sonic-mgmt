@@ -1,0 +1,300 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>TimeTaken</th>
+      <th>ExecutedOn</th>
+      <th>Syslogs</th>
+      <th>FCLI</th>
+      <th>TSSH</th>
+      <th>DCNT</th>
+      <th>Description</th>
+      <th>Devices</th>
+      <th>KnownIssue</th>
+      <th>Doc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_1_iscli_events_admin_up_down_HW.log'>system/iscli_Hardware/test_interface_1_iscli_events_admin_up_down_HW.py</a></td>
+      <td>TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_1_iscli_events_admin_up_down_HW.log'>Pass</a></td>
+      <td>0:01:15</td>
+      <td>2025-12-10 12:11:44</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_CLI_001_HW: Validate CLI for admin/link state changes on hardware. Test Procedure: 1. Dynamically get first interface from testbed topology 2. Bring interface to admin UP state 3. Verify baseline - interface shows Admin = "up" 4. Shutdown test interface 5. Verify interface shows Admin = "down" 6. Bring interface back up (no shutdown) 7. Verify interface shows Admin = "up" 8. Verify complete state cycle: up   down   up Expected Result: - Admin state changes are reflected accurately in CLI - State transitions complete within seconds - CLI output is consistent and accurate</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_2_iscli_events_mtu_change_HW.log'>system/iscli_Hardware/test_interface_2_iscli_events_mtu_change_HW.py</a></td>
+      <td>TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_2_iscli_events_mtu_change_HW.log'>Pass</a></td>
+      <td>0:00:55</td>
+      <td>2025-12-10 12:13:24</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_MTU_001_HW: Validate CLI for MTU configuration changes on hardware. Test Procedure: 1. Dynamically get first interface from testbed topology 2. Verify baseline MTU (9100) 3. Change MTU to 1600 4. Verify MTU = 1600 in running-config 5. Change MTU to 2000 6. Verify MTU = 2000 in running-config 7. Restore MTU to 9100 8. Verify MTU = 9100 in running-config 9. Final validation Expected Result: - MTU changes are reflected accurately in running-configuration - MTU can be successfully changed: 9100   1600   2000   9100 - System remains stable after all MTU changes</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_2_iscli_vlan_ip_HW.log'>system/iscli_Hardware/test_interface_2_iscli_vlan_ip_HW.py</a></td>
+      <td>TestVlanIPConfigurationHW.test_vlan_ip_configuration</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_2_iscli_vlan_ip_HW.log'>Pass</a></td>
+      <td>0:01:08</td>
+      <td>2025-12-10 12:15:17</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_VLAN_IP_001_HW: Validate CLI for VLAN creation, port management, and IP address assignment on hardware. Test Procedure: 1. Dynamically get first interface from testbed 2. Remove IP addresses (IPv4 and IPv6) from first interface 3. Create VLAN 3 4. Add first interface to VLAN 3 5. Configure IPv4 address on VLAN 3 interface 6. Verify IPv4 address in running-config 7. Remove IPv4 address 8. Verify no IPv4 address in running-config 9. Configure IPv6 address on VLAN 3 interface 10. Verify IPv6 address in running-config 11. Remove IPv6 address 12. Verify no IPv6 address in running-config 13. Remove port from VLAN 14. Delete VLAN 3 15. Verify no VLANs configured Expected Result: - IP addresses can be removed from interface - VLAN can be created successfully - Port can be added to VLAN - IPv4 address can be configured and removed from VLAN interface - IPv6 address can be configured and removed from VLAN interface - All changes are reflected accurately in running-configuration</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_1_iscli_vlan_HW.log'>system/iscli_Hardware/test_interface_1_iscli_vlan_HW.py</a></td>
+      <td>TestVlanConfigurationHW.test_vlan_creation_and_port_management</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_1_iscli_vlan_HW.log'>Pass</a></td>
+      <td>0:00:54</td>
+      <td>2025-12-10 12:16:59</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_VLAN_001_HW: Validate CLI for VLAN creation and port management on hardware. Test Procedure: 1. Dynamically get first interface from testbed 2. Verify baseline (no VLANs configured) 3. Remove IP addresses (IPv4 and IPv6) from first interface 4. Create VLAN 3 5. Verify VLAN 3 exists 6. Add first interface to VLAN 3 7. Verify interface is member of VLAN 3 8. Remove interface from VLAN 3 9. Verify VLAN 3 exists but has no ports 10. Delete VLAN 3 11. Verify no VLANs configured Expected Result: - IP addresses can be removed from interface - VLAN can be created successfully - Port can be added to VLAN as tagged member - Port can be removed from VLAN - VLAN can be deleted successfully - All changes are reflected accurately in 'show Vlan' output</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_3_iscli_events_description_HW.log'>system/iscli_Hardware/test_interface_3_iscli_events_description_HW.py</a></td>
+      <td>TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_3_iscli_events_description_HW.log'>Pass</a></td>
+      <td>0:01:01</td>
+      <td>2025-12-10 12:18:44</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_DESCRIPTION_001_HW: Validate CLI for description configuration changes on hardware. Test Procedure: 1. Dynamically get first interface from testbed topology 2. Verify baseline (no description) 3. Add description "sonic" 4. Verify description = "sonic" in running-config 5. Remove description (no description) 6. Verify no description in running-config 7. Add description "test_interface" 8. Verify description = "test_interface" in running-config 9. Remove description 10. Verify no description in running-config 11. Final validation Expected Result: - Description changes are reflected accurately in running-configuration - Description can be successfully added and removed multiple times - System remains stable after all description changes</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_5_iscli_events_ipv6_address_HW.log'>system/iscli_Hardware/test_interface_5_iscli_events_ipv6_address_HW.py</a></td>
+      <td>TestInterfaceIPv6AddressHW.test_interface_ipv6_address_and_connectivity</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_5_iscli_events_ipv6_address_HW.log'>Pass</a></td>
+      <td>0:01:12</td>
+      <td>2025-12-10 12:20:41</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_IPV6_001_HW: Validate CLI for IPv6 address configuration and connectivity on hardware. Test Procedure: 1. Dynamically get first interface from both DUTs in testbed 2. Verify baseline (no IPv6 address on both DUTs) 3. Configure IPv6 address "2001:db8::2/64" on DUT1 4. Configure IPv6 address "2001:db8::1/64" on DUT2 5. Verify IPv6 addresses in running-config on both DUTs 6. Test ping6 from DUT1 to DUT2 (2001:db8::2 -> 2001:db8::1) 7. Remove IPv6 addresses from both DUTs 8. Verify no IPv6 addresses on both DUTs 9. Final validation Expected Result: - IPv6 addresses are configured successfully on both DUTs - IPv6 addresses are reflected accurately in running-configuration - Ping6 connectivity test is performed from DUT1 to DUT2 - IPv6 addresses can be removed successfully - System remains stable</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_1_iscli_portchannel_HW.log'>system/iscli_Hardware/test_interface_1_iscli_portchannel_HW.py</a></td>
+      <td>TestPortChannelConfigurationHW.test_portchannel_creation_port_management_and_ip_addressing</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_1_iscli_portchannel_HW.log'>Fail</a></td>
+      <td>0:10:36</td>
+      <td>2025-12-10 12:32:09</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test completed with 1 validation failure(s). See errors above.</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_PORTCHANNEL_001_HW: Validate CLI for PortChannel creation, port management, and IP addressing on hardware. Test Procedure: - Configuration: Performed on BOTH DUT1 and DUT2 - Validation: Performed ONLY on DUT1 Steps: 1. Dynamically get first interface from each DUT in testbed 2. Configure on both, Verify baseline on DUT1 (no PortChannels configured) 3. Remove IP addresses on both (IPv4 and IPv6) from first interface 4. Create PortChannel 10 on both 5. Verify PortChannel 10 exists on DUT1 with no member ports 5a. Verify PortChannel 10 operational status is Down '(D)' on DUT1 6. Add first interface to PortChannel 10 on DUT1 6a. Verify PortChannel 10 still shows '(D)' on DUT1 (before DUT2 configuration) 6b. Add first interface to PortChannel 10 on DUT2 7. Verify first interface is member of PortChannel 10 on DUT1 7a. Verify PortChannel 10 operational status is Up '(U)' on DUT1 8. Configure IPv4 address on PortChannel 10 on both (different IPs on each device) 9. Verify IPv4 address is configured on DUT1 10. Remove IPv4 address from PortChannel 10 on both 11. Verify IPv4 address is removed on DUT1 12. Configure IPv6 address on PortChannel 10 on both (different IPs on each device) 13. Verify IPv6 address is configured on DUT1 14. Remove IPv6 address from PortChannel 10 on both 15. Verify IPv6 address is removed on DUT1 16. Remove first interface from PortChannel 10 on both 17. Delete PortChannel 10 on both 18. Verify no PortChannels configured on DUT1 Expected Result: - Configuration is applied successfully on both DUT1 and DUT2 - All validations on DUT1 pass correctly - All changes are reflected accurately in show commands on DUT1</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_4_iscli_events_ip_address_HW.log'>system/iscli_Hardware/test_interface_4_iscli_events_ip_address_HW.py</a></td>
+      <td>TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity</td>
+      <td><a href='results_2025_12_10_17_39_23_mlog_system_iscli_Hardware_test_interface_4_iscli_events_ip_address_HW.log'>Pass</a></td>
+      <td>0:01:11</td>
+      <td>2025-12-10 12:34:17</td>
+      <td><a href='results_2025_12_10_17_39_23_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_IP_001_HW: Validate CLI for IP address configuration and connectivity on hardware. Test Procedure: 1. Dynamically get first interface from both DUTs in testbed 2. Verify baseline (no IP address on both DUTs) 3. Configure IP address "10.0.0.2/30" on DUT1 4. Configure IP address "10.0.0.1/30" on DUT2 5. Verify IP addresses in running-config on both DUTs 6. Test ping from DUT1 to DUT2 (10.0.0.2 -> 10.0.0.1) 7. Remove IP addresses from both DUTs 8. Verify no IP addresses on both DUTs 9. Final validation Expected Result: - IP addresses are configured successfully on both DUTs - IP addresses are reflected accurately in running-configuration - Ping connectivity test is performed from DUT1 to DUT2 - IP addresses can be removed successfully - System remains stable</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

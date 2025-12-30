@@ -1,0 +1,154 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp enable
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authentication-key 1 md5 MyMD5Secret123
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authentication-key 10 sha1 MySHA1Secret456
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authentication-key 20 sha256 MySHA256Secret789
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authentication-key 30 sha384 MySHA384SecretABC
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authentication-key 40 sha512 MySHA512SecretXYZ
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp trusted-key 1
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp trusted-key 10
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp trusted-key 20
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp trusted-key 30
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp trusted-key 40
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authenticate
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,show ntp
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,show clock
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp server 216.239.35.0 key 10 iburst
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp server 216.239.35.0 key 20 iburst prefer
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authentication-key 99 md5 NonTrustedSecret
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp server 216.239.35.0 key 99 iburst
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authenticate
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp authenticate
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp trusted-key 10
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp trusted-key 10
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,show ntp
+framework,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,show clock
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp trusted-key 1
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp trusted-key 10
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp trusted-key 20
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp trusted-key 30
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp trusted-key 40
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authentication-key 1
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authentication-key 10
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authentication-key 20
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authentication-key 30
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authentication-key 40
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authentication-key 99
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,ntp enable
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-config,end
+module-or-class-epilog,,TestNtpAuthenticatedSync.test_ntp_4_verify_authenticated_sync,D1,mgmt-user,exit

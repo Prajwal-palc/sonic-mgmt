@@ -1,0 +1,428 @@
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_minimum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.576
+TOTAL HELPER Time = 0:00:07.631
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:56:15,331 T0028: CMD TIME: 1923 D2 = show interfaces status Ethernet124
+2025-11-19 10:56:15,324 T0027: CMD TIME: 2081 D1 = show interfaces status Ethernet124
+2025-11-19 10:56:17,673 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:56:17,829 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:56:18,510 T0031: CMD TIME: 1931 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 10:56:18,516 T0030: CMD TIME: 2131 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 10:56:21,096 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events10_mtu.py'  
+2025-11-19 10:56:21,105 T0033: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events10_mtu.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_minimum ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.750
+TOTAL HELPER Time = 0:00:15.404
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:56:37,820 T0042: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_minimum'  
+2025-11-19 10:56:37,827 T0043: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_minimum'  
+2025-11-19 10:56:42,079 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:56:43,001 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:56:43,685 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:56:44,002 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 10:56:45,024 T0000: CMD TIME: 260 D1 = exit
+2025-11-19 10:56:45,778 T0047: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_minimum'  
+2025-11-19 10:56:55,414 T0046: HELPER TIME: 3968 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_minimum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_maximum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_maximum ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:29
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.800
+TOTAL HELPER Time = 0:00:15.412
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:57:05,835 T0050: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_maximum'  
+2025-11-19 10:57:05,842 T0051: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_maximum'  
+2025-11-19 10:57:10,093 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:57:11,016 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:57:11,696 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:57:12,013 T0000: CMD TIME: 1064 D1 = no shutdown
+2025-11-19 10:57:13,086 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:57:13,838 T0055: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_maximum'  
+2025-11-19 10:57:23,476 T0054: HELPER TIME: 3977 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_maximum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_standard ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_standard ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.850
+TOTAL HELPER Time = 0:00:15.395
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:57:32,105 T0059: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_standard'  
+2025-11-19 10:57:32,110 T0058: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_standard'  
+2025-11-19 10:57:36,365 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:57:37,288 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:57:37,967 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:57:38,284 T0000: CMD TIME: 1114 D1 = no shutdown
+2025-11-19 10:57:39,407 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:57:40,149 T0063: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_standard'  
+2025-11-19 10:57:49,785 T0062: HELPER TIME: 3958 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_standard'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_jumbo ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_jumbo ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:29
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.852
+TOTAL HELPER Time = 0:00:15.421
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:58:00,280 T0066: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_jumbo'  
+2025-11-19 10:58:00,285 T0067: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_jumbo'  
+2025-11-19 10:58:04,540 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:58:05,514 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:58:06,193 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:58:06,510 T0000: CMD TIME: 1065 D1 = no shutdown
+2025-11-19 10:58:07,584 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:58:08,326 T0071: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_jumbo'  
+2025-11-19 10:58:17,961 T0070: HELPER TIME: 3984 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_jumbo'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_mid_range ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_change_to_mid_range ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.748
+TOTAL HELPER Time = 0:00:15.399
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:58:26,797 T0074: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_mid_range'  
+2025-11-19 10:58:26,805 T0075: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_mid_range'  
+2025-11-19 10:58:31,056 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:58:31,979 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:58:32,657 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:58:32,974 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 10:58:33,995 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:58:34,738 T0079: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_mid_range'  
+2025-11-19 10:58:44,371 T0078: HELPER TIME: 3965 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_change_to_mid_range'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_rapid_mtu_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_rapid_mtu_changes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.751
+TOTAL HELPER Time = 0:00:15.392
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:58:52,965 T0083: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_rapid_mtu_changes'  
+2025-11-19 10:58:52,970 T0082: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_rapid_mtu_changes'  
+2025-11-19 10:58:57,224 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:58:58,147 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:58:58,827 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:58:59,144 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-19 10:59:00,167 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:59:00,909 T0087: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_rapid_mtu_changes'  
+2025-11-19 10:59:10,543 T0086: HELPER TIME: 3955 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_rapid_mtu_changes'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_persistence_through_flap ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_persistence_through_flap ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.749
+TOTAL HELPER Time = 0:00:15.403
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:59:19,089 T0090: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_persistence_through_flap'  
+2025-11-19 10:59:19,094 T0091: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_persistence_through_flap'  
+2025-11-19 10:59:23,348 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:59:24,270 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:59:24,949 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:59:25,266 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 10:59:26,288 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:59:27,031 T0095: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_persistence_through_flap'  
+2025-11-19 10:59:36,662 T0094: HELPER TIME: 3965 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_persistence_through_flap'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_sequential_mtu_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_sequential_mtu_changes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.850
+TOTAL HELPER Time = 0:00:15.407
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:59:45,286 T0098: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_sequential_mtu_changes'  
+2025-11-19 10:59:45,297 T0099: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_sequential_mtu_changes'  
+2025-11-19 10:59:49,557 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:59:50,480 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:59:51,159 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 10:59:51,476 T0000: CMD TIME: 1114 D1 = no shutdown
+2025-11-19 10:59:52,599 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:59:53,343 T0103: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_sequential_mtu_changes'  
+2025-11-19 11:00:02,975 T0102: HELPER TIME: 3963 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_sequential_mtu_changes'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:28
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.850
+TOTAL HELPER Time = 0:00:15.391
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:00:12,536 T0107: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_below_minimum'  
+2025-11-19 11:00:12,542 T0106: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_below_minimum'  
+2025-11-19 11:00:16,794 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:00:17,767 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:00:18,447 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:00:18,764 T0000: CMD TIME: 1064 D1 = no shutdown
+2025-11-19 11:00:19,837 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:00:20,584 T0111: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_below_minimum'  
+2025-11-19 11:00:30,219 T0110: HELPER TIME: 3956 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_below_minimum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.748
+TOTAL HELPER Time = 0:00:15.392
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:00:38,900 T0114: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_above_maximum'  
+2025-11-19 11:00:38,908 T0115: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_above_maximum'  
+2025-11-19 11:00:43,162 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:00:44,084 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:00:44,762 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:00:45,079 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 11:00:46,101 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:00:46,841 T0119: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_above_maximum'  
+2025-11-19 11:00:56,475 T0118: HELPER TIME: 3956 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_above_maximum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:30
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.799
+TOTAL HELPER Time = 0:00:15.407
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:01:08,106 T0122: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum'  
+2025-11-19 11:01:08,114 T0123: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum'  
+2025-11-19 11:01:12,366 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:01:13,339 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:01:14,018 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:01:14,335 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-19 11:01:15,358 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:01:16,101 T0127: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum'  
+2025-11-19 11:01:25,734 T0126: HELPER TIME: 3970 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events10_mtu.py at line 135
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.799
+TOTAL HELPER Time = 0:00:15.409
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:01:34,450 T0130: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces'  
+2025-11-19 11:01:34,457 T0131: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces'  
+2025-11-19 11:01:38,710 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:01:39,633 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:01:40,316 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:01:40,635 T0000: CMD TIME: 1063 D1 = no shutdown
+2025-11-19 11:01:41,707 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:01:42,448 T0135: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces'  
+2025-11-19 11:01:52,082 T0134: HELPER TIME: 3973 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces'  
+=========================================================

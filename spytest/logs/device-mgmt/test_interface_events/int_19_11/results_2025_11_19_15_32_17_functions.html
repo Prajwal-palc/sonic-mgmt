@@ -1,0 +1,332 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>TimeTaken</th>
+      <th>ExecutedOn</th>
+      <th>Syslogs</th>
+      <th>FCLI</th>
+      <th>TSSH</th>
+      <th>DCNT</th>
+      <th>Description</th>
+      <th>Devices</th>
+      <th>KnownIssue</th>
+      <th>Doc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Fail</a></td>
+      <td>0:05:20</td>
+      <td>2025-11-19 10:08:54</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>1001</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_01: Bring interfaces to UP state. Test Steps: 1. Configure no shutdown on Ethernet0 and Ethernet4 2. Verify interfaces are administratively up 3. Verify operational status Expected Result: - Interfaces show admin and oper status as 'up'</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Fail</a></td>
+      <td>0:05:40</td>
+      <td>2025-11-19 10:14:34</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>224</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'show interface status' failed to give prompt, recovered using CTRL+C</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_02: Baseline interface status check (before auto-negotiation). Test Steps: 1. Capture interface status before auto-negotiation 2. Record current speed configuration 3. Store baseline data Expected Result: - Baseline data captured successfully - Current speed configuration recorded</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Fail</a></td>
+      <td>0:05:18</td>
+      <td>2025-11-19 10:19:51</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>211</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_03: Configure speed auto on Ethernet0. Test Steps: 1. Execute speed auto command on Ethernet0 2. Verify command executes without errors Expected Result: - Speed auto configuration accepted - No errors during configuration</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Pass</a></td>
+      <td>0:00:27</td>
+      <td>2025-11-19 10:20:17</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>7</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_04: Verify speed auto configuration on Ethernet0. Test Steps: 1. Execute show interface status command 2. Verify speed shows as "auto" 3. Verify interface remains operational Expected Result: - Speed field shows "auto" - Interface operational status is up</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Pass</a></td>
+      <td>0:00:42</td>
+      <td>2025-11-19 10:20:59</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>20</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_05: Verify link negotiation on Ethernet0. Test Steps: 1. Wait for auto-negotiation to complete 2. Check interface status 3. Verify negotiated speed 4. Verify link is stable Expected Result: - Auto-negotiation completes successfully - Interface shows negotiated speed - Link is stable and operational</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Fail</a></td>
+      <td>0:05:23</td>
+      <td>2025-11-19 10:26:21</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>213</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_06: Configure speed auto on Ethernet4. Test Steps: 1. Execute speed auto command on Ethernet4 2. Verify command executes without errors Expected Result: - Speed auto configuration accepted - No errors during configuration</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Pass</a></td>
+      <td>0:00:25</td>
+      <td>2025-11-19 10:26:45</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>8</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_07: Verify speed auto configuration on Ethernet4. Test Steps: 1. Execute show interface status command 2. Verify speed shows as "auto" or negotiated value 3. Verify interface remains operational Expected Result: - Speed configuration applied - Interface operational status is up</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Fail</a></td>
+      <td>0:05:58</td>
+      <td>2025-11-19 10:32:43</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>237</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'show interface status' failed to give prompt, recovered using CTRL+C</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_08: Verify multiple interfaces with auto-negotiation. Test Steps: 1. Get status of all interfaces 2. Verify both Ethernet0 and Ethernet4 configured 3. Verify both interfaces operational Expected Result: - Both interfaces show speed configuration - Both interfaces operational - No conflicts with multiple interfaces using auto-negotiation</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Pass</a></td>
+      <td>0:00:28</td>
+      <td>2025-11-19 10:33:10</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>11</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_09: Test configuration persistence. Test Steps: 1. Get running configuration for test interfaces 2. Verify speed auto configuration present 3. Validate configuration consistency Expected Result: - Running configuration shows speed auto - Configuration properly saved</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>system/interface_events/test_interface_events8_speed_auto_negoation.py</a></td>
+      <td>TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification</td>
+      <td><a href='results_2025_11_19_15_32_17_mlog_system_interface_events_test_interface_events8_speed_auto_negoation.log'>Fail</a></td>
+      <td>0:05:41</td>
+      <td>2025-11-19 10:38:51</td>
+      <td><a href='results_2025_11_19_15_32_17_syslog.html'>226</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'show interface status' failed to give prompt, recovered using CTRL+C</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_008_10: Final state verification. Test Steps: 1. Verify all test interfaces operational 2. Check interface speeds 3. Verify no error conditions 4. Confirm system stability Expected Result: - All interfaces in expected state - No residual error conditions - System stable</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

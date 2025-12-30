@@ -1,0 +1,5 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+basic.py::get_hwsku,click
+ip.py::delete_static_route,klish
+interface.py::clear_interface_counters,click

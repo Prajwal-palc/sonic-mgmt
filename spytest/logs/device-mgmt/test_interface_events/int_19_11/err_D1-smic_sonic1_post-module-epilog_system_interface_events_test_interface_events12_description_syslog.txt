@@ -1,0 +1,1575 @@
+Nov 19 12:02:54.129312 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 12:02:57.145372 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 12:02:57.624055 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet24 failed, err -1
+Nov 19 12:02:57.624244 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet24
+Nov 19 12:02:57.624399 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.624566 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.624810 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.624949 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e6
+Nov 19 12:02:57.625099 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet24
+Nov 19 12:02:57.625342 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.625799 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.625868 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 12:02:57.632826 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 12:02:57.634513 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.635439 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002323 doesn't exist
+Nov 19 12:02:57.636994 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 12:02:57.657460 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet28 failed, err -1
+Nov 19 12:02:57.657639 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet28
+Nov 19 12:02:57.657797 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.657938 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.659311 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.659470 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e7
+Nov 19 12:02:57.659617 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet28
+Nov 19 12:02:57.659767 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.660225 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.660353 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 12:02:57.662160 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 12:02:57.665490 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.665632 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002324 doesn't exist
+Nov 19 12:02:57.665991 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 12:02:57.682962 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet36 failed, err -1
+Nov 19 12:02:57.683145 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet36
+Nov 19 12:02:57.683338 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.683484 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.685321 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.685476 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e8
+Nov 19 12:02:57.685632 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet36
+Nov 19 12:02:57.685770 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.686102 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.686259 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 12:02:57.689088 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 12:02:57.693442 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.693591 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002325 doesn't exist
+Nov 19 12:02:57.693958 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 12:02:57.713523 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet32 failed, err -1
+Nov 19 12:02:57.713706 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet32
+Nov 19 12:02:57.713867 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.714013 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.714453 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.714611 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e9
+Nov 19 12:02:57.714750 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet32
+Nov 19 12:02:57.714900 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.715272 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.715398 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 12:02:57.718014 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 12:02:57.720299 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.720438 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002326 doesn't exist
+Nov 19 12:02:57.720801 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 12:02:57.735274 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet40 failed, err -1
+Nov 19 12:02:57.735443 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet40
+Nov 19 12:02:57.735595 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.735740 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.736017 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.736163 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ea
+Nov 19 12:02:57.736321 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet40
+Nov 19 12:02:57.736461 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.736915 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.737043 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 12:02:57.739881 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 12:02:57.741803 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.741941 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002327 doesn't exist
+Nov 19 12:02:57.742351 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 12:02:57.758114 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet44 failed, err -1
+Nov 19 12:02:57.758310 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet44
+Nov 19 12:02:57.758464 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.758611 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.758871 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.759016 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000eb
+Nov 19 12:02:57.759158 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet44
+Nov 19 12:02:57.759314 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.759652 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.759777 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 12:02:57.761574 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 12:02:57.763236 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.763374 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002328 doesn't exist
+Nov 19 12:02:57.763735 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 12:02:57.776633 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet20 failed, err -1
+Nov 19 12:02:57.776798 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet20
+Nov 19 12:02:57.776949 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.777094 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.781302 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.781455 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ec
+Nov 19 12:02:57.781600 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet20
+Nov 19 12:02:57.781751 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.782079 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.782233 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 12:02:57.783991 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 12:02:57.785684 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.785860 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002329 doesn't exist
+Nov 19 12:02:57.786237 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 12:02:57.803737 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet16 failed, err -1
+Nov 19 12:02:57.803903 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet16
+Nov 19 12:02:57.804055 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.804216 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.804498 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.804650 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ed
+Nov 19 12:02:57.804790 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet16
+Nov 19 12:02:57.804926 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.805339 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.805476 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 12:02:57.807315 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 12:02:57.808905 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.809038 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000232a doesn't exist
+Nov 19 12:02:57.809457 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 12:02:57.824362 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet52 failed, err -1
+Nov 19 12:02:57.824528 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet52
+Nov 19 12:02:57.824695 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.824868 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.825145 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.825329 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ee
+Nov 19 12:02:57.825472 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet52
+Nov 19 12:02:57.825613 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.825955 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.826081 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 12:02:57.827934 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 12:02:57.829950 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.830084 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000232b doesn't exist
+Nov 19 12:02:57.830471 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 12:02:57.846372 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet48 failed, err -1
+Nov 19 12:02:57.846549 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet48
+Nov 19 12:02:57.846699 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.846842 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.847109 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.847280 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ef
+Nov 19 12:02:57.847422 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet48
+Nov 19 12:02:57.847571 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.847908 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.848027 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 12:02:57.849907 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 12:02:57.851520 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.851656 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000232c doesn't exist
+Nov 19 12:02:57.852014 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 12:02:57.865283 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet56 failed, err -1
+Nov 19 12:02:57.865461 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet56
+Nov 19 12:02:57.865624 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.865767 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.866021 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.866161 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f0
+Nov 19 12:02:57.866330 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet56
+Nov 19 12:02:57.866469 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.866878 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.867002 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 12:02:57.870338 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 12:02:57.871903 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.872035 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000232d doesn't exist
+Nov 19 12:02:57.872423 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 12:02:57.886138 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet60 failed, err -1
+Nov 19 12:02:57.886321 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet60
+Nov 19 12:02:57.886503 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.886646 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.886895 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.887050 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f1
+Nov 19 12:02:57.887207 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet60
+Nov 19 12:02:57.887348 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.888220 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.888349 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 12:02:57.897280 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 12:02:57.899115 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.899269 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000232e doesn't exist
+Nov 19 12:02:57.899657 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 12:02:57.911118 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet68 failed, err -1
+Nov 19 12:02:57.911309 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet68
+Nov 19 12:02:57.911461 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.911606 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.911867 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.912008 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f2
+Nov 19 12:02:57.912146 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet68
+Nov 19 12:02:57.912312 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.913482 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.913660 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 12:02:57.916472 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 12:02:57.921978 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.922119 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000232f doesn't exist
+Nov 19 12:02:57.922504 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 12:02:57.934320 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet64 failed, err -1
+Nov 19 12:02:57.934488 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet64
+Nov 19 12:02:57.934657 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.934796 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.935040 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.935203 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f3
+Nov 19 12:02:57.935349 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet64
+Nov 19 12:02:57.935489 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.935834 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.935969 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 12:02:57.939991 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 12:02:57.941804 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.941948 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002330 doesn't exist
+Nov 19 12:02:57.942334 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 12:02:57.955332 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet72 failed, err -1
+Nov 19 12:02:57.955498 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet72
+Nov 19 12:02:57.955662 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.955809 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.956064 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.956244 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f4
+Nov 19 12:02:57.956388 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet72
+Nov 19 12:02:57.956536 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.956855 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.956999 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 12:02:57.962742 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 12:02:57.964304 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.964440 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002331 doesn't exist
+Nov 19 12:02:57.964820 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 12:02:57.977091 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet76 failed, err -1
+Nov 19 12:02:57.977316 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet76
+Nov 19 12:02:57.977472 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.977617 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.977880 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.978022 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f5
+Nov 19 12:02:57.978161 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet76
+Nov 19 12:02:57.978327 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:57.978663 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.978789 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 12:02:57.980553 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 12:02:57.985942 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:57.986079 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002332 doesn't exist
+Nov 19 12:02:57.986474 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 12:02:57.998717 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet104 failed, err -1
+Nov 19 12:02:57.998874 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet104
+Nov 19 12:02:57.999047 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:57.999206 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:57.999464 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:57.999618 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f6
+Nov 19 12:02:57.999772 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet104
+Nov 19 12:02:57.999911 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.000296 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.000421 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 12:02:58.002243 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 12:02:58.003818 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.003954 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002333 doesn't exist
+Nov 19 12:02:58.004331 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 12:02:58.021554 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet108 failed, err -1
+Nov 19 12:02:58.021731 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet108
+Nov 19 12:02:58.021881 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.022038 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.022312 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.022460 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f7
+Nov 19 12:02:58.022605 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet108
+Nov 19 12:02:58.022754 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.023103 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.023251 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 12:02:58.025008 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 12:02:58.026624 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.026783 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002334 doesn't exist
+Nov 19 12:02:58.027146 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 12:02:58.041293 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet116 failed, err -1
+Nov 19 12:02:58.041462 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet116
+Nov 19 12:02:58.041622 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.041772 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.042016 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.042154 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f8
+Nov 19 12:02:58.042336 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet116
+Nov 19 12:02:58.042476 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.042846 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.042991 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 12:02:58.045252 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 12:02:58.047161 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.047315 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002335 doesn't exist
+Nov 19 12:02:58.047671 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 12:02:58.064257 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet112 failed, err -1
+Nov 19 12:02:58.064423 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet112
+Nov 19 12:02:58.064574 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.064721 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.064980 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.065145 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f9
+Nov 19 12:02:58.065311 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet112
+Nov 19 12:02:58.065452 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.065795 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.065932 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 12:02:58.067697 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 12:02:58.070230 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.070368 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002336 doesn't exist
+Nov 19 12:02:58.070737 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 12:02:58.085583 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet124 failed, err -1
+Nov 19 12:02:58.085773 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet124
+Nov 19 12:02:58.085922 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.086083 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.086394 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.086541 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fa
+Nov 19 12:02:58.086683 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet124
+Nov 19 12:02:58.086824 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.087173 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.087322 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 12:02:58.089072 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 12:02:58.090657 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.090792 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002337 doesn't exist
+Nov 19 12:02:58.091151 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 12:02:58.104941 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet120 failed, err -1
+Nov 19 12:02:58.105104 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet120
+Nov 19 12:02:58.105316 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.105464 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.105722 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.105868 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fb
+Nov 19 12:02:58.106019 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet120
+Nov 19 12:02:58.106156 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.106522 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.106648 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 12:02:58.109399 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 12:02:58.114798 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.114931 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002338 doesn't exist
+Nov 19 12:02:58.115317 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 12:02:58.127774 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet84 failed, err -1
+Nov 19 12:02:58.127940 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet84
+Nov 19 12:02:58.128091 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.128256 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.128522 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.128664 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fc
+Nov 19 12:02:58.128802 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet84
+Nov 19 12:02:58.128938 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.129337 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.129463 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 12:02:58.131307 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 12:02:58.133983 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.134130 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002339 doesn't exist
+Nov 19 12:02:58.134516 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 12:02:58.149053 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet80 failed, err -1
+Nov 19 12:02:58.149285 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet80
+Nov 19 12:02:58.149441 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.149586 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.149844 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.149990 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fd
+Nov 19 12:02:58.150140 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet80
+Nov 19 12:02:58.150307 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.150644 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.150770 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 12:02:58.152543 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 12:02:58.157976 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.158114 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000233a doesn't exist
+Nov 19 12:02:58.158498 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 12:02:58.172146 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet88 failed, err -1
+Nov 19 12:02:58.172330 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet88
+Nov 19 12:02:58.172482 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.172627 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.172892 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.173043 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fe
+Nov 19 12:02:58.173227 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet88
+Nov 19 12:02:58.173372 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.173713 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.173840 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 12:02:58.178274 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 12:02:58.179896 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.180044 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000233b doesn't exist
+Nov 19 12:02:58.180441 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 12:02:58.195583 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet92 failed, err -1
+Nov 19 12:02:58.195760 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet92
+Nov 19 12:02:58.195908 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.196063 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.196370 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.196518 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ff
+Nov 19 12:02:58.196660 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet92
+Nov 19 12:02:58.196799 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.197160 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.197316 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 12:02:58.199099 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 12:02:58.200697 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.200826 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000233c doesn't exist
+Nov 19 12:02:58.201361 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 12:02:58.213976 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet100 failed, err -1
+Nov 19 12:02:58.214139 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet100
+Nov 19 12:02:58.214331 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.214478 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.214890 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.215048 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000100
+Nov 19 12:02:58.215186 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet100
+Nov 19 12:02:58.215354 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.217403 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.217532 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 12:02:58.219328 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 12:02:58.220910 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.221058 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000233d doesn't exist
+Nov 19 12:02:58.221459 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 12:02:58.238345 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet96 failed, err -1
+Nov 19 12:02:58.238513 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet96
+Nov 19 12:02:58.238665 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.238827 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.239091 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.239259 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000101
+Nov 19 12:02:58.239403 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet96
+Nov 19 12:02:58.239554 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.239895 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.240021 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 12:02:58.242030 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 12:02:58.243731 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.243877 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000233e doesn't exist
+Nov 19 12:02:58.244258 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 12:02:58.266992 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet24 failed, err -1
+Nov 19 12:02:58.267163 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet24
+Nov 19 12:02:58.267334 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.267481 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.267744 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.267890 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e6
+Nov 19 12:02:58.268032 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet24
+Nov 19 12:02:58.268180 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.268559 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.268682 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 12:02:58.273986 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 12:02:58.275673 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.275818 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000233f doesn't exist
+Nov 19 12:02:58.276169 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 12:02:58.294288 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet28 failed, err -1
+Nov 19 12:02:58.294459 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet28
+Nov 19 12:02:58.294624 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.294771 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.295028 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.295181 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e7
+Nov 19 12:02:58.295352 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet28
+Nov 19 12:02:58.295493 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.297451 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.297582 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 12:02:58.299720 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 12:02:58.301435 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.301582 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002340 doesn't exist
+Nov 19 12:02:58.301945 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 12:02:58.316032 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet36 failed, err -1
+Nov 19 12:02:58.316215 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet36
+Nov 19 12:02:58.316372 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.316530 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.316798 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.316943 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e8
+Nov 19 12:02:58.317085 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet36
+Nov 19 12:02:58.317262 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.317613 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.317736 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 12:02:58.320787 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 12:02:58.324956 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.325094 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002341 doesn't exist
+Nov 19 12:02:58.325511 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 12:02:58.339521 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet32 failed, err -1
+Nov 19 12:02:58.339696 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet32
+Nov 19 12:02:58.339851 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.340009 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.340300 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.340447 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e9
+Nov 19 12:02:58.340628 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet32
+Nov 19 12:02:58.340764 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.341104 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.341275 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 12:02:58.343354 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 12:02:58.344953 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.345087 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002342 doesn't exist
+Nov 19 12:02:58.345499 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 12:02:58.359453 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet40 failed, err -1
+Nov 19 12:02:58.359846 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet40
+Nov 19 12:02:58.360032 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.360177 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.360496 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.360644 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ea
+Nov 19 12:02:58.360785 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet40
+Nov 19 12:02:58.360932 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.361745 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.361876 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 12:02:58.368389 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 12:02:58.369991 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.370151 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002343 doesn't exist
+Nov 19 12:02:58.370528 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 12:02:58.383160 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet44 failed, err -1
+Nov 19 12:02:58.383353 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet44
+Nov 19 12:02:58.383527 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.383675 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.383930 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.384075 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000eb
+Nov 19 12:02:58.384230 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet44
+Nov 19 12:02:58.384372 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.384710 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.384846 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 12:02:58.388114 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 12:02:58.389712 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.389850 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002344 doesn't exist
+Nov 19 12:02:58.390234 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 12:02:58.403843 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet20 failed, err -1
+Nov 19 12:02:58.404029 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet20
+Nov 19 12:02:58.404208 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.404437 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.404763 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.404910 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ec
+Nov 19 12:02:58.405063 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet20
+Nov 19 12:02:58.405388 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.405739 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.405867 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 12:02:58.410588 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 12:02:58.412386 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.412524 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002345 doesn't exist
+Nov 19 12:02:58.412884 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 12:02:58.428021 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet16 failed, err -1
+Nov 19 12:02:58.428182 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet16
+Nov 19 12:02:58.428363 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.428525 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.428787 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.428930 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ed
+Nov 19 12:02:58.429078 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet16
+Nov 19 12:02:58.429267 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.429609 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.429735 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 12:02:58.431568 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 12:02:58.436966 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.437115 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002346 doesn't exist
+Nov 19 12:02:58.437605 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 12:02:58.449854 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet52 failed, err -1
+Nov 19 12:02:58.450018 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet52
+Nov 19 12:02:58.450178 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.450340 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.450604 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.450760 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ee
+Nov 19 12:02:58.450920 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet52
+Nov 19 12:02:58.451068 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.451429 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.451564 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 12:02:58.453368 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 12:02:58.454977 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.455125 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002347 doesn't exist
+Nov 19 12:02:58.455503 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 12:02:58.469515 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet48 failed, err -1
+Nov 19 12:02:58.469684 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet48
+Nov 19 12:02:58.469835 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.469981 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.470251 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.470397 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ef
+Nov 19 12:02:58.470540 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet48
+Nov 19 12:02:58.470680 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.471031 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.471167 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 12:02:58.473934 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 12:02:58.475552 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.475689 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002348 doesn't exist
+Nov 19 12:02:58.476050 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 12:02:58.491876 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet56 failed, err -1
+Nov 19 12:02:58.492061 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet56
+Nov 19 12:02:58.492228 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.492394 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.492650 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.492797 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f0
+Nov 19 12:02:58.492938 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet56
+Nov 19 12:02:58.493088 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.493473 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.493609 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 12:02:58.495389 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 12:02:58.496978 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.497119 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002349 doesn't exist
+Nov 19 12:02:58.497542 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 12:02:58.512266 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet60 failed, err -1
+Nov 19 12:02:58.512434 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet60
+Nov 19 12:02:58.512594 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.512736 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.512983 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.513157 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f1
+Nov 19 12:02:58.513323 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet60
+Nov 19 12:02:58.513465 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.513822 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.513948 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 12:02:58.515889 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 12:02:58.521510 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.521671 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000234a doesn't exist
+Nov 19 12:02:58.522040 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 12:02:58.533268 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet68 failed, err -1
+Nov 19 12:02:58.533437 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet68
+Nov 19 12:02:58.533590 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.533737 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.533993 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.534147 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f2
+Nov 19 12:02:58.534315 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet68
+Nov 19 12:02:58.534456 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.534794 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.534920 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 12:02:58.536686 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 12:02:58.541850 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.542172 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000234b doesn't exist
+Nov 19 12:02:58.542599 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 12:02:58.554722 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet64 failed, err -1
+Nov 19 12:02:58.554898 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet64
+Nov 19 12:02:58.555044 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.555198 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.555483 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.555637 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f3
+Nov 19 12:02:58.555775 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet64
+Nov 19 12:02:58.555910 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.556272 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.556398 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 12:02:58.558239 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 12:02:58.559812 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.559946 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000234c doesn't exist
+Nov 19 12:02:58.560349 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 12:02:58.582681 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet72 failed, err -1
+Nov 19 12:02:58.582845 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet72
+Nov 19 12:02:58.583016 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.583174 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.583447 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.583611 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f4
+Nov 19 12:02:58.583747 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet72
+Nov 19 12:02:58.583894 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.584596 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.584719 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 12:02:58.589353 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 12:02:58.592585 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.592733 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000234d doesn't exist
+Nov 19 12:02:58.593082 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 12:02:58.611595 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet76 failed, err -1
+Nov 19 12:02:58.611772 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet76
+Nov 19 12:02:58.611925 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.612084 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.613344 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.613503 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f5
+Nov 19 12:02:58.613649 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet76
+Nov 19 12:02:58.613790 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.614331 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.614543 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 12:02:58.620912 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 12:02:58.622553 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.622704 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000234e doesn't exist
+Nov 19 12:02:58.623068 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 12:02:58.641443 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet104 failed, err -1
+Nov 19 12:02:58.641628 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet104
+Nov 19 12:02:58.641781 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.641928 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.642545 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.642698 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f6
+Nov 19 12:02:58.642843 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet104
+Nov 19 12:02:58.643008 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.644035 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.644163 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 12:02:58.649871 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 12:02:58.651456 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.651594 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000234f doesn't exist
+Nov 19 12:02:58.651958 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 12:02:58.681239 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet108 failed, err -1
+Nov 19 12:02:58.681410 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet108
+Nov 19 12:02:58.681585 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.681730 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.681987 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.682133 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f7
+Nov 19 12:02:58.682289 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet108
+Nov 19 12:02:58.682431 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.682774 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.682898 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 12:02:58.685365 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 12:02:58.688948 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.689089 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002350 doesn't exist
+Nov 19 12:02:58.689507 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 12:02:58.704756 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet116 failed, err -1
+Nov 19 12:02:58.704930 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet116
+Nov 19 12:02:58.705087 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.705299 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.709363 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.709518 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f8
+Nov 19 12:02:58.709666 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet116
+Nov 19 12:02:58.709807 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.710163 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.710315 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 12:02:58.712298 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 12:02:58.713927 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.714061 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002351 doesn't exist
+Nov 19 12:02:58.714447 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 12:02:58.726595 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet112 failed, err -1
+Nov 19 12:02:58.726753 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet112
+Nov 19 12:02:58.726898 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.727049 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.727332 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.727479 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f9
+Nov 19 12:02:58.727621 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet112
+Nov 19 12:02:58.727780 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.728100 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.728244 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 12:02:58.730728 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 12:02:58.733709 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.733876 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002352 doesn't exist
+Nov 19 12:02:58.734262 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 12:02:58.750746 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet124 failed, err -1
+Nov 19 12:02:58.750923 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet124
+Nov 19 12:02:58.751083 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.751253 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.751535 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.751680 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fa
+Nov 19 12:02:58.751822 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet124
+Nov 19 12:02:58.751962 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.752317 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.752443 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 12:02:58.754334 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 12:02:58.755981 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.756126 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002353 doesn't exist
+Nov 19 12:02:58.756535 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 12:02:58.771466 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet120 failed, err -1
+Nov 19 12:02:58.771631 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet120
+Nov 19 12:02:58.771782 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.771927 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.772180 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.772342 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fb
+Nov 19 12:02:58.772485 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet120
+Nov 19 12:02:58.772625 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.772960 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.773085 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 12:02:58.774890 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 12:02:58.776481 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.776617 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002354 doesn't exist
+Nov 19 12:02:58.777288 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 12:02:58.791474 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet84 failed, err -1
+Nov 19 12:02:58.791647 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet84
+Nov 19 12:02:58.791810 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.791956 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.792250 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.792396 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fc
+Nov 19 12:02:58.792551 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet84
+Nov 19 12:02:58.792687 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.793016 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.793158 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 12:02:58.795491 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 12:02:58.803390 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.803528 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002355 doesn't exist
+Nov 19 12:02:58.803892 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 12:02:58.816482 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet80 failed, err -1
+Nov 19 12:02:58.816660 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet80
+Nov 19 12:02:58.816808 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.816949 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.817276 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.817426 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fd
+Nov 19 12:02:58.817578 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet80
+Nov 19 12:02:58.817715 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.818061 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.818183 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 12:02:58.819968 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 12:02:58.822675 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.822809 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002356 doesn't exist
+Nov 19 12:02:58.823177 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 12:02:58.836657 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet88 failed, err -1
+Nov 19 12:02:58.836824 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet88
+Nov 19 12:02:58.836975 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.837136 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.837416 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.837563 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fe
+Nov 19 12:02:58.837705 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet88
+Nov 19 12:02:58.837844 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.838183 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.838325 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 12:02:58.842993 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 12:02:58.844635 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.844796 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002357 doesn't exist
+Nov 19 12:02:58.845186 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 12:02:58.858638 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet92 failed, err -1
+Nov 19 12:02:58.858822 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet92
+Nov 19 12:02:58.858976 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.859121 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.859392 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.859539 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ff
+Nov 19 12:02:58.859681 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet92
+Nov 19 12:02:58.859820 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.860164 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.860314 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 12:02:58.862130 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 12:02:58.865993 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.866127 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002358 doesn't exist
+Nov 19 12:02:58.866515 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 12:02:58.878742 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet100 failed, err -1
+Nov 19 12:02:58.878904 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet100
+Nov 19 12:02:58.879052 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.879208 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.879483 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.879630 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000100
+Nov 19 12:02:58.879772 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet100
+Nov 19 12:02:58.879911 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.880263 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.880388 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 12:02:58.884683 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 12:02:58.886374 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.886511 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002359 doesn't exist
+Nov 19 12:02:58.886883 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 12:02:58.899568 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet96 failed, err -1
+Nov 19 12:02:58.899733 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet96
+Nov 19 12:02:58.899885 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.900030 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:58.900300 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:58.900448 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000101
+Nov 19 12:02:58.900591 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet96
+Nov 19 12:02:58.900730 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:58.901066 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:58.901226 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 12:02:58.906498 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 12:02:58.908074 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:58.908203 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000235a doesn't exist
+Nov 19 12:02:58.908593 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 12:02:59.012359 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet24 failed, err -1
+Nov 19 12:02:59.012529 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet24
+Nov 19 12:02:59.012683 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.012852 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.013124 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.013314 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e6
+Nov 19 12:02:59.013458 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet24
+Nov 19 12:02:59.013606 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.014388 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.015372 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 12:02:59.017823 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 12:02:59.025448 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.026339 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000235b doesn't exist
+Nov 19 12:02:59.026714 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 12:02:59.045867 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet28 failed, err -1
+Nov 19 12:02:59.046027 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet28
+Nov 19 12:02:59.046190 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.046376 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.046642 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.046799 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e7
+Nov 19 12:02:59.046948 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet28
+Nov 19 12:02:59.047080 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.047452 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.047580 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 12:02:59.051667 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 12:02:59.056863 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.057001 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000235c doesn't exist
+Nov 19 12:02:59.057414 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 12:02:59.076166 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet36 failed, err -1
+Nov 19 12:02:59.076358 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet36
+Nov 19 12:02:59.076510 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.076669 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.076941 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.077083 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e8
+Nov 19 12:02:59.077271 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet36
+Nov 19 12:02:59.077415 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.077770 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.077905 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 12:02:59.080765 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 12:02:59.082389 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.082527 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000235d doesn't exist
+Nov 19 12:02:59.082888 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 12:02:59.101266 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet32 failed, err -1
+Nov 19 12:02:59.101435 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet32
+Nov 19 12:02:59.101601 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.101749 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.102005 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.102150 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e9
+Nov 19 12:02:59.102307 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet32
+Nov 19 12:02:59.102448 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.102787 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.102914 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 12:02:59.106713 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 12:02:59.110098 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.110260 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000235e doesn't exist
+Nov 19 12:02:59.110623 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 12:02:59.125430 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet40 failed, err -1
+Nov 19 12:02:59.125598 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet40
+Nov 19 12:02:59.125750 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.125896 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.126153 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.126315 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ea
+Nov 19 12:02:59.126457 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet40
+Nov 19 12:02:59.126597 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.126936 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.127062 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 12:02:59.130365 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 12:02:59.131942 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.132078 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000235f doesn't exist
+Nov 19 12:02:59.132459 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 12:02:59.147899 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet44 failed, err -1
+Nov 19 12:02:59.148068 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet44
+Nov 19 12:02:59.148220 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.148382 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.148647 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.148788 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000eb
+Nov 19 12:02:59.148926 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet44
+Nov 19 12:02:59.149075 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.149456 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.149582 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 12:02:59.151373 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 12:02:59.152913 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.153049 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002360 doesn't exist
+Nov 19 12:02:59.153462 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 12:02:59.167713 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet20 failed, err -1
+Nov 19 12:02:59.167890 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet20
+Nov 19 12:02:59.168050 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.168192 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.168472 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.168618 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ec
+Nov 19 12:02:59.168761 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet20
+Nov 19 12:02:59.169359 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.169702 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.169827 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 12:02:59.172447 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 12:02:59.178118 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.178278 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002361 doesn't exist
+Nov 19 12:02:59.178648 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 12:02:59.188649 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet16 failed, err -1
+Nov 19 12:02:59.188807 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet16
+Nov 19 12:02:59.188951 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.189103 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.189414 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.189562 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ed
+Nov 19 12:02:59.189723 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet16
+Nov 19 12:02:59.189856 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.190190 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.190343 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 12:02:59.194725 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 12:02:59.196308 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.196446 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002362 doesn't exist
+Nov 19 12:02:59.196810 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 12:02:59.209665 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet52 failed, err -1
+Nov 19 12:02:59.209832 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet52
+Nov 19 12:02:59.209993 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.210143 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.210420 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.210566 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ee
+Nov 19 12:02:59.210726 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet52
+Nov 19 12:02:59.210867 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.211243 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.211370 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 12:02:59.214286 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 12:02:59.217559 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.217699 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002363 doesn't exist
+Nov 19 12:02:59.218081 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 12:02:59.230621 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet48 failed, err -1
+Nov 19 12:02:59.230788 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet48
+Nov 19 12:02:59.230952 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.231098 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.231369 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.231515 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ef
+Nov 19 12:02:59.231657 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet48
+Nov 19 12:02:59.231799 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.232583 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.232711 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 12:02:59.235795 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 12:02:59.237950 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.238084 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002364 doesn't exist
+Nov 19 12:02:59.238489 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 12:02:59.252873 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet56 failed, err -1
+Nov 19 12:02:59.253038 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet56
+Nov 19 12:02:59.253219 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.253384 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.253640 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.253785 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f0
+Nov 19 12:02:59.253926 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet56
+Nov 19 12:02:59.254065 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.254417 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.254543 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 12:02:59.257806 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 12:02:59.259414 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.259553 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002365 doesn't exist
+Nov 19 12:02:59.259915 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 12:02:59.272752 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet60 failed, err -1
+Nov 19 12:02:59.272917 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet60
+Nov 19 12:02:59.273067 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.273251 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.273512 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.273658 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f1
+Nov 19 12:02:59.273801 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet60
+Nov 19 12:02:59.273941 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.277402 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.277531 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 12:02:59.279317 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 12:02:59.280867 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.281003 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002366 doesn't exist
+Nov 19 12:02:59.281412 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 12:02:59.293487 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet68 failed, err -1
+Nov 19 12:02:59.293655 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet68
+Nov 19 12:02:59.293808 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.294413 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.294670 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.294816 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f2
+Nov 19 12:02:59.294959 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet68
+Nov 19 12:02:59.295097 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.295453 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.295578 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 12:02:59.298595 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 12:02:59.301399 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.301537 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002367 doesn't exist
+Nov 19 12:02:59.301895 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 12:02:59.319346 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet64 failed, err -1
+Nov 19 12:02:59.319512 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet64
+Nov 19 12:02:59.319672 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.319838 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.320107 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.320277 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f3
+Nov 19 12:02:59.320423 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet64
+Nov 19 12:02:59.320562 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.320898 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.321022 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 12:02:59.326329 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 12:02:59.327889 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.328026 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002368 doesn't exist
+Nov 19 12:02:59.328405 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 12:02:59.340810 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet72 failed, err -1
+Nov 19 12:02:59.340972 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet72
+Nov 19 12:02:59.341154 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.341342 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.341621 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.341767 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f4
+Nov 19 12:02:59.341910 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet72
+Nov 19 12:02:59.342058 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.342419 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.342545 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 12:02:59.345256 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 12:02:59.350377 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.350514 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002369 doesn't exist
+Nov 19 12:02:59.350873 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 12:02:59.362786 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet76 failed, err -1
+Nov 19 12:02:59.362953 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet76
+Nov 19 12:02:59.363119 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.363282 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.365298 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.365451 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f5
+Nov 19 12:02:59.365595 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet76
+Nov 19 12:02:59.365736 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.366081 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.366204 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 12:02:59.367986 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 12:02:59.369677 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.369811 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000236a doesn't exist
+Nov 19 12:02:59.370182 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 12:02:59.384865 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet104 failed, err -1
+Nov 19 12:02:59.385031 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet104
+Nov 19 12:02:59.385214 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.385378 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.385634 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.385779 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f6
+Nov 19 12:02:59.385922 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet104
+Nov 19 12:02:59.386062 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.386416 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.386542 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 12:02:59.388351 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 12:02:59.393484 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.393621 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000236b doesn't exist
+Nov 19 12:02:59.393986 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 12:02:59.404310 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet108 failed, err -1
+Nov 19 12:02:59.404476 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet108
+Nov 19 12:02:59.404628 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.404775 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.405033 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.405311 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f7
+Nov 19 12:02:59.405460 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet108
+Nov 19 12:02:59.405601 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.407739 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.407880 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 12:02:59.411475 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 12:02:59.414533 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.414670 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000236c doesn't exist
+Nov 19 12:02:59.415026 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 12:02:59.430722 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet116 failed, err -1
+Nov 19 12:02:59.430888 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet116
+Nov 19 12:02:59.431055 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.431211 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.431496 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.431642 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f8
+Nov 19 12:02:59.431783 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet116
+Nov 19 12:02:59.431922 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.432293 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.432420 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 12:02:59.434325 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 12:02:59.436351 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.436488 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000236d doesn't exist
+Nov 19 12:02:59.436867 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 12:02:59.452426 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet112 failed, err -1
+Nov 19 12:02:59.452600 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet112
+Nov 19 12:02:59.452748 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.452890 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.453179 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.453401 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f9
+Nov 19 12:02:59.453546 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet112
+Nov 19 12:02:59.453686 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.454035 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.454159 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 12:02:59.456009 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 12:02:59.460385 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.460524 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000236e doesn't exist
+Nov 19 12:02:59.460884 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 12:02:59.472983 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet124 failed, err -1
+Nov 19 12:02:59.473172 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet124
+Nov 19 12:02:59.473343 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.473490 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.473744 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.473889 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fa
+Nov 19 12:02:59.474031 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet124
+Nov 19 12:02:59.474170 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.474523 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.474648 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 12:02:59.476502 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 12:02:59.481027 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.481188 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000236f doesn't exist
+Nov 19 12:02:59.481573 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 12:02:59.492924 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet120 failed, err -1
+Nov 19 12:02:59.493089 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet120
+Nov 19 12:02:59.493295 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.493444 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.493701 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.493846 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fb
+Nov 19 12:02:59.493989 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet120
+Nov 19 12:02:59.494128 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.494483 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.494608 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 12:02:59.498164 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 12:02:59.499725 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.499860 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002370 doesn't exist
+Nov 19 12:02:59.500225 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 12:02:59.513954 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet84 failed, err -1
+Nov 19 12:02:59.514132 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet84
+Nov 19 12:02:59.514300 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.514448 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.514709 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.514864 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fc
+Nov 19 12:02:59.515008 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet84
+Nov 19 12:02:59.515147 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.515497 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.515622 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 12:02:59.520969 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 12:02:59.522615 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.522748 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002371 doesn't exist
+Nov 19 12:02:59.523111 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 12:02:59.534103 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet80 failed, err -1
+Nov 19 12:02:59.534285 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet80
+Nov 19 12:02:59.534476 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.534631 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.535754 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.535910 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fd
+Nov 19 12:02:59.536055 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet80
+Nov 19 12:02:59.536206 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.536573 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.536708 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 12:02:59.542114 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 12:02:59.543710 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.544334 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002372 doesn't exist
+Nov 19 12:02:59.544948 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 12:02:59.558798 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet88 failed, err -1
+Nov 19 12:02:59.558966 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet88
+Nov 19 12:02:59.559117 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.559290 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.559560 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.559703 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fe
+Nov 19 12:02:59.559841 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet88
+Nov 19 12:02:59.559978 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.560337 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.560468 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 12:02:59.562275 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 12:02:59.563843 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.563978 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002373 doesn't exist
+Nov 19 12:02:59.564354 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 12:02:59.578821 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet92 failed, err -1
+Nov 19 12:02:59.578995 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet92
+Nov 19 12:02:59.579147 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.579351 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.579647 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.579804 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ff
+Nov 19 12:02:59.579944 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet92
+Nov 19 12:02:59.580140 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.580520 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.580645 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 12:02:59.582676 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 12:02:59.584283 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.584433 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002374 doesn't exist
+Nov 19 12:02:59.584791 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 12:02:59.602698 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet100 failed, err -1
+Nov 19 12:02:59.602872 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet100
+Nov 19 12:02:59.603022 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.603164 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.603444 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.603597 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000100
+Nov 19 12:02:59.603783 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet100
+Nov 19 12:02:59.603933 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.604287 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.604414 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 12:02:59.606224 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 12:02:59.607823 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.607958 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002375 doesn't exist
+Nov 19 12:02:59.608355 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 12:02:59.621945 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet96 failed, err -1
+Nov 19 12:02:59.622112 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet96
+Nov 19 12:02:59.622278 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.622441 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.625308 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.625460 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000101
+Nov 19 12:02:59.625604 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet96
+Nov 19 12:02:59.625744 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.626083 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.626215 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 12:02:59.628015 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 12:02:59.629816 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.629950 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002376 doesn't exist
+Nov 19 12:02:59.630329 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 12:02:59.655733 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet24 failed, err -1
+Nov 19 12:02:59.655896 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet24
+Nov 19 12:02:59.656067 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.656209 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.656497 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.656652 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e6
+Nov 19 12:02:59.656791 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet24
+Nov 19 12:02:59.656927 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.657322 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.657448 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 12:02:59.660443 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 12:02:59.662633 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.662781 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002377 doesn't exist
+Nov 19 12:02:59.663153 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 12:02:59.684092 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet28 failed, err -1
+Nov 19 12:02:59.684294 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet28
+Nov 19 12:02:59.684448 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.684594 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.685102 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.685296 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e7
+Nov 19 12:02:59.685442 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet28
+Nov 19 12:02:59.685582 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.685926 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.686062 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 12:02:59.689562 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 12:02:59.691133 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.691284 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002378 doesn't exist
+Nov 19 12:02:59.691645 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 12:02:59.705870 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet36 failed, err -1
+Nov 19 12:02:59.706038 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet36
+Nov 19 12:02:59.706231 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.706394 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.706671 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.706815 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e8
+Nov 19 12:02:59.706953 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet36
+Nov 19 12:02:59.707102 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.707457 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.707582 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 12:02:59.710700 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 12:02:59.712778 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.712925 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002379 doesn't exist
+Nov 19 12:02:59.713335 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 12:02:59.727148 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet32 failed, err -1
+Nov 19 12:02:59.727329 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet32
+Nov 19 12:02:59.727480 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.727624 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.727886 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.728027 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000e9
+Nov 19 12:02:59.728166 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet32
+Nov 19 12:02:59.728330 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.728665 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.728791 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 12:02:59.734116 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 12:02:59.735722 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.735882 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000237a doesn't exist
+Nov 19 12:02:59.736477 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 12:02:59.749834 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet40 failed, err -1
+Nov 19 12:02:59.750001 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet40
+Nov 19 12:02:59.750153 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.750315 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.750581 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.750723 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ea
+Nov 19 12:02:59.750861 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet40
+Nov 19 12:02:59.750996 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.751358 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.751483 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 12:02:59.753327 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 12:02:59.754894 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.755026 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000237b doesn't exist
+Nov 19 12:02:59.755411 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 12:02:59.769429 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet44 failed, err -1
+Nov 19 12:02:59.769606 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet44
+Nov 19 12:02:59.769755 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.769898 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.770159 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.770333 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000eb
+Nov 19 12:02:59.770476 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet44
+Nov 19 12:02:59.770615 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.770954 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.771089 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 12:02:59.773676 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 12:02:59.777486 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.777632 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000237c doesn't exist
+Nov 19 12:02:59.777981 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 12:02:59.789991 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet20 failed, err -1
+Nov 19 12:02:59.790160 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet20
+Nov 19 12:02:59.790334 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.790479 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.790734 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.790879 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ec
+Nov 19 12:02:59.791030 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet20
+Nov 19 12:02:59.791166 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.791525 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.791658 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 12:02:59.795131 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 12:02:59.801851 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.801985 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000237d doesn't exist
+Nov 19 12:02:59.802387 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 12:02:59.815662 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet16 failed, err -1
+Nov 19 12:02:59.815824 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet16
+Nov 19 12:02:59.815973 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.816130 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.816402 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.816547 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ed
+Nov 19 12:02:59.816706 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet16
+Nov 19 12:02:59.816839 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.817382 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.817508 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 12:02:59.821958 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 12:02:59.823610 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.823752 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000237e doesn't exist
+Nov 19 12:02:59.824091 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 12:02:59.836629 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet52 failed, err -1
+Nov 19 12:02:59.836797 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet52
+Nov 19 12:02:59.836947 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.837092 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.837404 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.837561 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ee
+Nov 19 12:02:59.837700 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet52
+Nov 19 12:02:59.837836 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.838186 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.838328 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 12:02:59.842728 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 12:02:59.844324 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.844480 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000237f doesn't exist
+Nov 19 12:02:59.844878 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 12:02:59.858691 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet48 failed, err -1
+Nov 19 12:02:59.858859 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet48
+Nov 19 12:02:59.859009 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.859154 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.859443 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.859589 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ef
+Nov 19 12:02:59.859731 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet48
+Nov 19 12:02:59.859870 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.860209 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.860359 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 12:02:59.862144 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 12:02:59.864614 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.864759 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002380 doesn't exist
+Nov 19 12:02:59.865141 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 12:02:59.879956 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet56 failed, err -1
+Nov 19 12:02:59.880116 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet56
+Nov 19 12:02:59.880295 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.880441 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.880705 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.880848 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f0
+Nov 19 12:02:59.880986 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet56
+Nov 19 12:02:59.881154 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.881514 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.881639 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 12:02:59.883430 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 12:02:59.885361 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.885499 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002381 doesn't exist
+Nov 19 12:02:59.885858 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 12:02:59.901453 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet60 failed, err -1
+Nov 19 12:02:59.901619 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet60
+Nov 19 12:02:59.901771 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.901917 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.902179 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.902364 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f1
+Nov 19 12:02:59.902543 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet60
+Nov 19 12:02:59.902697 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.903096 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.903221 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 12:02:59.905062 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 12:02:59.910010 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.910143 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002382 doesn't exist
+Nov 19 12:02:59.910527 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet68 failed, err -1
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet68
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f2
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet68
+Nov 19 12:02:59.937149 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.937149 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.937149 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 12:02:59.937149 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 12:02:59.942607 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.942745 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002383 doesn't exist
+Nov 19 12:02:59.943121 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 12:02:59.956127 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet64 failed, err -1
+Nov 19 12:02:59.956316 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet64
+Nov 19 12:02:59.956470 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.956626 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.956886 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.957039 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f3
+Nov 19 12:02:59.957203 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet64
+Nov 19 12:02:59.957375 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.957715 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.957841 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 12:02:59.959631 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 12:02:59.961325 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.961464 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002384 doesn't exist
+Nov 19 12:02:59.961827 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 12:02:59.975461 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet72 failed, err -1
+Nov 19 12:02:59.975626 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet72
+Nov 19 12:02:59.975775 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.975928 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.976174 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.976359 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f4
+Nov 19 12:02:59.976502 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet72
+Nov 19 12:02:59.976642 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:02:59.976978 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.977115 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 12:02:59.982017 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 12:02:59.983712 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:02:59.983849 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002385 doesn't exist
+Nov 19 12:02:59.984211 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 12:02:59.998720 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet76 failed, err -1
+Nov 19 12:02:59.998928 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet76
+Nov 19 12:02:59.999100 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:02:59.999282 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:02:59.999572 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:02:59.999946 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f5
+Nov 19 12:03:00.000127 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet76
+Nov 19 12:03:00.000284 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.000638 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.000772 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 12:03:00.003606 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 12:03:00.006245 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.006399 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002386 doesn't exist
+Nov 19 12:03:00.006774 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 12:03:00.021868 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet104 failed, err -1
+Nov 19 12:03:00.022036 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet104
+Nov 19 12:03:00.022188 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.022348 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.022606 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.022752 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f6
+Nov 19 12:03:00.022892 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet104
+Nov 19 12:03:00.023031 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.023395 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.023521 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 12:03:00.025420 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 12:03:00.030296 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.030434 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002387 doesn't exist
+Nov 19 12:03:00.030796 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 12:03:00.044723 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet108 failed, err -1
+Nov 19 12:03:00.044903 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet108
+Nov 19 12:03:00.045081 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.045250 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.045567 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.045714 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f7
+Nov 19 12:03:00.046092 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet108
+Nov 19 12:03:00.046242 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.046614 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.046740 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 12:03:00.048577 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 12:03:00.050161 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.050315 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002388 doesn't exist
+Nov 19 12:03:00.050686 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 12:03:00.063797 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet116 failed, err -1
+Nov 19 12:03:00.063963 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet116
+Nov 19 12:03:00.064115 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.064271 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.064532 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.064677 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f8
+Nov 19 12:03:00.064819 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet116
+Nov 19 12:03:00.064958 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.065410 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.065551 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 12:03:00.070723 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 12:03:00.072300 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.072438 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002389 doesn't exist
+Nov 19 12:03:00.072816 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 12:03:00.085180 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet112 failed, err -1
+Nov 19 12:03:00.085363 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet112
+Nov 19 12:03:00.085517 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.085662 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.085940 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.086086 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000f9
+Nov 19 12:03:00.086228 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet112
+Nov 19 12:03:00.086385 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.086725 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.086851 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 12:03:00.089516 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 12:03:00.093431 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.093581 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000238a doesn't exist
+Nov 19 12:03:00.093952 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 12:03:00.105964 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet124 failed, err -1
+Nov 19 12:03:00.106377 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet124
+Nov 19 12:03:00.106533 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.106681 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.106952 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.107107 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fa
+Nov 19 12:03:00.107246 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet124
+Nov 19 12:03:00.107414 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.107753 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.107878 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 12:03:00.110847 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 12:03:00.112550 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.112698 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000238b doesn't exist
+Nov 19 12:03:00.113058 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 12:03:00.129660 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet120 failed, err -1
+Nov 19 12:03:00.129828 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet120
+Nov 19 12:03:00.129979 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.130124 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.130418 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.130565 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fb
+Nov 19 12:03:00.130707 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet120
+Nov 19 12:03:00.130847 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.131184 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.131326 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 12:03:00.133061 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 12:03:00.134660 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.134792 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000238c doesn't exist
+Nov 19 12:03:00.135156 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 12:03:00.154992 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet84 failed, err -1
+Nov 19 12:03:00.155170 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet84
+Nov 19 12:03:00.155340 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.155487 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.155934 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.156095 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fc
+Nov 19 12:03:00.156236 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet84
+Nov 19 12:03:00.156404 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.156933 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.157061 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 12:03:00.160692 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 12:03:00.164113 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.164251 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000238d doesn't exist
+Nov 19 12:03:00.164631 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 12:03:00.171742 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 12:03:00.182356 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet80 failed, err -1
+Nov 19 12:03:00.182539 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet80
+Nov 19 12:03:00.182742 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.182890 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.183153 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.183333 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fd
+Nov 19 12:03:00.183476 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet80
+Nov 19 12:03:00.183615 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.183954 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.184081 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 12:03:00.186725 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 12:03:00.189423 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.189562 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000238e doesn't exist
+Nov 19 12:03:00.189942 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 12:03:00.204377 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet88 failed, err -1
+Nov 19 12:03:00.204544 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet88
+Nov 19 12:03:00.204695 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.204842 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.205106 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.205303 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000fe
+Nov 19 12:03:00.205448 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet88
+Nov 19 12:03:00.205588 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.205928 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.206054 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 12:03:00.207855 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 12:03:00.210146 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.210320 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000238f doesn't exist
+Nov 19 12:03:00.210691 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 12:03:00.226668 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet92 failed, err -1
+Nov 19 12:03:00.226833 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet92
+Nov 19 12:03:00.226985 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.227131 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.227403 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.227549 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x10000000000ff
+Nov 19 12:03:00.227701 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet92
+Nov 19 12:03:00.227850 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.228207 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.228347 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 12:03:00.230128 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 12:03:00.231720 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.231857 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002390 doesn't exist
+Nov 19 12:03:00.232236 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 12:03:00.248625 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet100 failed, err -1
+Nov 19 12:03:00.248788 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet100
+Nov 19 12:03:00.248951 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.249094 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.249415 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.249563 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000100
+Nov 19 12:03:00.249704 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet100
+Nov 19 12:03:00.249862 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.250184 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.250333 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 12:03:00.252105 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 12:03:00.253748 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.253884 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002391 doesn't exist
+Nov 19 12:03:00.254242 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 12:03:00.268192 D-Link ERR syncd#syncd: :- vs_create_tap_device: ioctl TUNSETIFF on fd 14440 Ethernet96 failed, err -1
+Nov 19 12:03:00.268384 D-Link ERR syncd#syncd: :- vs_create_hostif_tap_interface: failed to create TAP device for Ethernet96
+Nov 19 12:03:00.268545 D-Link ERR syncd#syncd: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.268691 D-Link ERR syncd#syncd: :- sendApiResponse: api SAI_COMMON_API_CREATE failed in syncd mode: SAI_STATUS_FAILURE
+Nov 19 12:03:00.268947 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_TYPE: SAI_HOSTIF_TYPE_NETDEV
+Nov 19 12:03:00.269102 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_OBJ_ID: oid:0x1000000000101
+Nov 19 12:03:00.269300 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_NAME: Ethernet96
+Nov 19 12:03:00.269443 D-Link ERR syncd#syncd: :- processQuadEvent: attr: SAI_HOSTIF_ATTR_QUEUE: 7
+Nov 19 12:03:00.269780 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 12:03:00.269908 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 12:03:00.273421 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 12:03:00.275018 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 12:03:00.275156 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000002392 doesn't exist
+Nov 19 12:03:00.275534 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 12:03:03.187572 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 12:03:06.204221 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 12:03:07.058437 D-Link ERR monit[422]: 'container_checker' status failed (4) -- Unexpected running containers: erp, stp
+Nov 19 12:03:09.421483 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s

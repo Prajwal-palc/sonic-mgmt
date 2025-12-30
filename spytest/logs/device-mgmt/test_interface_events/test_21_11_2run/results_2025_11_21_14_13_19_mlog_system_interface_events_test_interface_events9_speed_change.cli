@@ -1,0 +1,58 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_get_first_operational_interface,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_get_first_operational_interface,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_get_first_operational_interface,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_get_first_operational_interface,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceSpeedChanges.test_get_first_operational_interface,D1,mgmt-config,do show interface status
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_capture_baseline_speed,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_capture_baseline_speed,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_capture_baseline_speed,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_capture_baseline_speed,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceSpeedChanges.test_capture_baseline_speed,D1,mgmt-config,do show interface status
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_change_speed_to_10g,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_change_speed_to_10g,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_change_speed_to_10g,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_change_speed_to_10g,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceSpeedChanges.test_change_speed_to_10g,D1,mgmt-config,speed 10000
+function-or-epilog,,TestInterfaceSpeedChanges.test_change_speed_to_10g,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_change_to_10g,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_change_to_10g,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_change_to_10g,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_change_to_10g,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_change_to_10g,D1,mgmt-config,do show interface status
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_restore_original_speed,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_restore_original_speed,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_restore_original_speed,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_restore_original_speed,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceSpeedChanges.test_restore_original_speed,D1,mgmt-config,speed 40000
+function-or-epilog,,TestInterfaceSpeedChanges.test_restore_original_speed,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_restoration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_restoration,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_restoration,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_restoration,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceSpeedChanges.test_verify_speed_restoration,D1,mgmt-config,do show interface status
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceSpeedChanges.test_final_verification,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_final_verification,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceSpeedChanges.test_final_verification,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceSpeedChanges.test_final_verification,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceSpeedChanges.test_final_verification,D1,mgmt-config,do show interface status
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124

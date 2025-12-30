@@ -1,0 +1,235 @@
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D3,normal-user,configure terminal
+class-prolog,,,D3,mgmt-config,terminal length 0
+framework,,,D3,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,interface Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,ip address 3.3.3.3/32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,ip unnumbered Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,network 3.3.3.3/32 area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,ip ospf area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,do show ip ospf interface
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,do show ip route
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,ping 1.1.1.1 -c 3
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no ip ospf area
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no ip ospf network
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no ip unnumbered
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D3,mgmt-config,no interface Loopback0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip address 2.2.2.2/32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip unnumbered Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip unnumbered Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,do show running-configuration interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,network 2.2.2.2/32 area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip ospf area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,ip ospf area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,do show ip ospf interface
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,do show ip route
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip ospf area
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip ospf network
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip ospf area
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip ospf network
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip unnumbered
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip unnumbered
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D2,mgmt-config,no interface Loopback0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,interface Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,ip address 1.1.1.1/32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,ip unnumbered Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,do show running-configuration interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,network 1.1.1.1/32 area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,ip ospf area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,do show ip ospf interface
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,do show ip route
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,ping 3.3.3.3 -c 3
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,ping 4.4.4.4 -c 3
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no ip ospf area
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no ip ospf network
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no ip unnumbered
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D1,mgmt-config,no interface Loopback0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip address 4.4.4.4/32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip unnumbered Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip unnumbered Loopback0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,network 4.4.4.4/32 area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip ospf area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,ip ospf area 0
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,do show ip ospf interface
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,do show ip route
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip ospf area
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip ospf network
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip ospf area
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip ospf network
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip unnumbered
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip unnumbered
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFUnnumberedLoopback4Node.test_ospf_unnumbered_adjacency_over_loopback,D4,mgmt-config,no interface Loopback0

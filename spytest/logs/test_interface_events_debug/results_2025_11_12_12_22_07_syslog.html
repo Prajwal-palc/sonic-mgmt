@@ -1,0 +1,2675 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Device</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>LogDate</th>
+      <th>LogLevel</th>
+      <th>LogModule</th>
+      <th>LogMessage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:04.292883</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:07.318025</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:22.431368</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:24.764977</td>
+      <td>ERR</td>
+      <td>monit[402]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:25.451260</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:28.477958</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:31.494925</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:34.517326</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:37.540786</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:40.572906</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:43.595151</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:46.617119</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:49.646995</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:52.670413</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:55.690824</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:58.713691</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:01.740191</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:04.766394</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:07.786062</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:10.808195</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:13.830364</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:16.852590</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:19.873579</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:22.895295</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:24.851749</td>
+      <td>ERR</td>
+      <td>monit[402]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:25.912833</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:28.935279</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:31.958510</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:34.986020</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:38.009450</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:41.033193</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:44.054711</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:47.077741</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:50.099792</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:53.121091</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:56.144249</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:59.156139</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:02.176167</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:05.198897</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:08.238413</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:11.258872</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:14.280905</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:17.310366</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:20.331597</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:23.355093</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:24.973545</td>
+      <td>ERR</td>
+      <td>monit[402]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:26.391544</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:29.414817</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:32.437969</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:35.462710</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:38.487701</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:41.510840</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:44.522778</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:47.543183</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:50.582897</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:53.605633</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:56.630226</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:59.645432</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:02.668970</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:05.689777</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:08.713215</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>62</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:11.736441</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>63</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:14.750190</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>64</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:17.771907</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:20.798101</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:23.822525</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:25.046455</td>
+      <td>ERR</td>
+      <td>monit[402]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:26.843825</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:29.867569</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>70</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:32.890650</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:35.912768</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>72</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:38.932949</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>73</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:41.948695</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>74</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:44.960660</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:47.980908</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>76</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:51.004979</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>77</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:54.020496</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>78</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:54.182823</td>
+      <td>ERR</td>
+      <td>mgmt-framework#clish[926]</td>
+      <td>Callback <function show_dhcp_snooping at 0x7fef10c8c8c8> exception: argument of type 'NoneType' is not iterable</td>
+    </tr>
+    <tr>
+      <td>79</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:57.050551</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:00.071296</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>81</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:03.094753</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>82</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:06.115599</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>83</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:09.140976</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>84</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:12.162948</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:15.186386</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>86</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:18.208735</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>87</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:21.230700</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>88</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:24.256671</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>89</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:25.104018</td>
+      <td>ERR</td>
+      <td>monit[402]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:27.277315</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>91</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:30.300653</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>92</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:33.320626</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>93</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:36.345758</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>94</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:39.362183</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>95</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:42.379841</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>96</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:45.628513</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>97</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:46.168307</td>
+      <td>ERR</td>
+      <td>mgmt-framework#clish[926]</td>
+      <td>Callback <function show_dhcp_snooping at 0x7fef10c8c8c8> exception: argument of type 'NoneType' is not iterable</td>
+    </tr>
+    <tr>
+      <td>98</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:48.641523</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>99</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:51.663101</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:54.679982</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>101</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:57.695759</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:00.732977</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:03.762287</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>104</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:06.908081</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>105</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:09.943298</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>106</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:12.958664</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>107</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:15.979319</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>108</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:19.022804</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>109</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:22.038938</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>110</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:25.055260</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>111</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:25.162374</td>
+      <td>ERR</td>
+      <td>monit[402]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>112</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:28.076911</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>113</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:31.106771</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>114</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:34.129646</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>115</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:37.152341</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>116</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:02.899163</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>117</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:05.923243</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>118</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:21.033835</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>119</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:24.059068</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>120</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:27.080712</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>121</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:29.951640</td>
+      <td>ERR</td>
+      <td>monit[421]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>122</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:30.100630</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>123</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:33.121402</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>124</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:36.151753</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>125</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:39.175549</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>126</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:42.199166</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>127</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:45.223521</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>128</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:48.247636</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>129</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:51.270932</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>130</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:54.294722</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>131</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:53:57.326553</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>132</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:00.354420</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>133</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:03.375323</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>134</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:06.396710</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>135</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:09.418707</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>136</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:12.442318</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>137</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:15.466151</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>138</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:18.486053</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>139</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:21.506734</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>140</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:24.530128</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>141</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:27.552635</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>142</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:30.024032</td>
+      <td>ERR</td>
+      <td>monit[421]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>143</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:30.570846</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>144</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:33.591999</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>145</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:36.613193</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>146</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:39.635072</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>147</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:42.661729</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>148</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:45.682909</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>149</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:48.712270</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>150</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:51.736013</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>151</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:54.767846</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>152</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:54:57.788953</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>153</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:00.815538</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>154</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:03.871900</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>155</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:06.896347</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>156</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:09.921231</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>157</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:12.945725</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>158</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:15.977692</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>159</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:19.000409</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>160</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:22.024963</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>161</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:25.061733</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>162</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:28.087497</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>163</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:30.108410</td>
+      <td>ERR</td>
+      <td>monit[421]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>164</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:31.117854</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>165</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:34.134133</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>166</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:37.155531</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>167</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:40.175173</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>168</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:43.199841</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>169</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:46.223008</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>170</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:49.245420</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>171</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:52.266960</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>172</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:55.288308</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>173</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:55:58.309658</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>174</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:01.329887</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>175</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:04.350135</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>176</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:07.378917</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>177</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:10.410399</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>178</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:13.433376</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>179</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:16.456399</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>180</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:19.477817</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>181</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:22.498754</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>182</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:25.519490</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>183</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:28.539366</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>184</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:30.227208</td>
+      <td>ERR</td>
+      <td>monit[421]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>185</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:31.558964</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>186</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:34.579076</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>187</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:37.602286</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>188</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:40.623151</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>189</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:43.646048</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>190</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:46.671104</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>191</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:49.691867</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>192</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:52.714131</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>193</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:55.735203</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>194</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:56:58.769477</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>195</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:01.791400</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>196</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:04.813437</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>197</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:07.834906</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>198</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:10.857403</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>199</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:13.888532</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>200</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:16.914978</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:19.938923</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:22.960901</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>203</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:25.987417</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>204</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:29.008980</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>205</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:30.297418</td>
+      <td>ERR</td>
+      <td>monit[421]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>206</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:32.033111</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>207</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:35.055749</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>208</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:38.085318</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>209</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:41.104054</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>210</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:44.124169</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>211</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:47.145258</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>212</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:50.165279</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>213</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:53.188446</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>214</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:56.208094</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>215</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:57:59.227192</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:02.251666</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>217</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:05.269494</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>218</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:08.286527</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>219</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:11.306762</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>220</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:14.326330</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>221</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:17.378581</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>222</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:20.427494</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>223</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:23.447735</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>224</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:26.472893</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>225</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:29.487980</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>226</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:30.370387</td>
+      <td>ERR</td>
+      <td>monit[421]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>227</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:32.512282</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>228</td>
+      <td><a href='results_2025_11_12_12_22_07_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_12_12_22_07_mlog_system_interface_events_testcases_Interface_events1.log'>system/interface_events/testcases_Interface_events1.py</a></td>
+      <td>TestInterfaceEvents.test_interface_admin_state_changes</td>
+      <td>Fail</td>
+      <td>Nov 12 06:58:35.538528</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

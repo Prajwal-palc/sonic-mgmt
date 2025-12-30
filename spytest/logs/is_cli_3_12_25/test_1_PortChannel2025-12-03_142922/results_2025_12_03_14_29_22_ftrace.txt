@@ -1,0 +1,356 @@
+ ____  ____       _____         _   
+/ ___||  _ \ _   |_   _|__  ___| |_ 
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_ 
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/                  
+
+SPYTEST_RANDOM_SEED used = 17180
+
+VERSION: UNKNOWN UNKNOWN UNKNOWN
+
+tcmap verify took 0:00:00
+Tests considered 1 and ignored 0
+=========== no release TC_PORTCHANNEL_REBOOT_001
+tech_cfg_always global = True
+tech_cfg_always system-not-ready = True
+tech_cfg_always portlist-not-ready = True
+tech_cfg_always console_hang = True
+tech_cfg_always port-status = True
+tech_cfg_always port-status-module = True
+tech_cfg_always port-status-function = True
+tech_cfg_always pre-module-prolog = False
+tech_cfg_always post-module-prolog = False
+tech_cfg_always pre-module-epilog = False
+tech_cfg_always post-module-epilog = False
+tech_cfg_always pre-function-prolog = False
+tech_cfg_always post-function-prolog = False
+tech_cfg_always pre-function-epilog = False
+tech_cfg_always post-function-epilog = False
+tech_cfg_always session-epilog = False
+tech_cfg_fail pre-module-prolog = False
+tech_cfg_fail post-module-prolog = True
+tech_cfg_fail pre-module-epilog = False
+tech_cfg_fail post-module-epilog = False
+tech_cfg_fail pre-function-prolog = False
+tech_cfg_fail post-function-prolog = True
+tech_cfg_fail pre-function-epilog = True
+tech_cfg_fail post-function-epilog = True
+tech_cfg_fail function = False
+tech_cfg_fail testcase = False
+tech_cfg_fail post-class-prolog = True
+core_cfg_always global = True
+core_cfg_always system-not-ready = False
+core_cfg_always portlist-not-ready = False
+core_cfg_always console_hang = True
+core_cfg_always port-status = False
+core_cfg_always port-status-module = False
+core_cfg_always port-status-function = False
+core_cfg_always pre-module-prolog = False
+core_cfg_always post-module-prolog = False
+core_cfg_always pre-module-epilog = False
+core_cfg_always post-module-epilog = False
+core_cfg_always pre-function-prolog = False
+core_cfg_always post-function-prolog = False
+core_cfg_always pre-function-epilog = False
+core_cfg_always post-function-epilog = False
+core_cfg_always session-epilog = True
+core_cfg_fail pre-module-prolog = False
+core_cfg_fail post-module-prolog = False
+core_cfg_fail pre-module-epilog = False
+core_cfg_fail post-module-epilog = False
+core_cfg_fail pre-function-prolog = False
+core_cfg_fail post-function-prolog = False
+core_cfg_fail pre-function-epilog = False
+core_cfg_fail post-function-epilog = False
+core_cfg_fail function = False
+core_cfg_fail testcase = False
+sysinfo_cfg global = False
+sysinfo_cfg pre-module-prolog = False
+sysinfo_cfg post-module-prolog = False
+sysinfo_cfg pre-module-epilog = False
+sysinfo_cfg post-module-epilog = False
+sysinfo_cfg pre-function-prolog = False
+sysinfo_cfg post-function-prolog = False
+sysinfo_cfg pre-function-epilog = False
+sysinfo_cfg post-function-epilog = False
+sairedis_cfg global = False
+sairedis_cfg pre-module-prolog = False
+sairedis_cfg post-module-prolog = False
+sairedis_cfg pre-module-epilog = False
+sairedis_cfg post-module-epilog = False
+sairedis_cfg pre-function-prolog = False
+sairedis_cfg post-function-prolog = False
+sairedis_cfg pre-function-epilog = False
+sairedis_cfg post-function-epilog = False
+syslog_cfg global = True
+syslog_cfg pre-module-prolog = True
+syslog_cfg post-module-prolog = True
+syslog_cfg pre-module-epilog = True
+syslog_cfg post-module-epilog = True
+syslog_cfg pre-function-prolog = True
+syslog_cfg post-function-prolog = False
+syslog_cfg pre-function-epilog = False
+syslog_cfg post-function-epilog = True
+config_db_cfg global = False
+config_db_cfg pre-module-prolog = True
+config_db_cfg post-module-prolog = True
+config_db_cfg pre-module-epilog = True
+config_db_cfg post-module-epilog = True
+config_db_cfg pre-function-prolog = False
+config_db_cfg post-function-prolog = False
+config_db_cfg pre-function-epilog = False
+config_db_cfg post-function-epilog = False
+config_db_cfg post-session-prolog = True
+show_run_cfg global = False
+show_run_cfg pre-module-prolog = True
+show_run_cfg post-module-prolog = True
+show_run_cfg pre-module-epilog = True
+show_run_cfg post-module-epilog = True
+show_run_cfg pre-function-prolog = False
+show_run_cfg post-function-prolog = False
+show_run_cfg pre-function-epilog = False
+show_run_cfg post-function-epilog = False
+TEMPLATE USED: show_version.tmpl: show version
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status
+TEMPLATE USED: unix_ifcfg.tmpl: /sbin/ifconfig eth0
+[smic_sonic1] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic1] : SKIP saving running config post-session-prolog session pass
+[smic_sonic2] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic1] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic2] : SKIP saving running config post-session-prolog session pass
+[smic_sonic1] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic2] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic1] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic1] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic2] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic1] : SKIP generating sysinfo post-session-prolog session pass
+[smic_sonic2] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic2] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic2] : SKIP generating sysinfo post-session-prolog session pass
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet124
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+[smic_sonic1] : SKIP saving config_db pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic1] : SKIP saving running config pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic2] : SKIP saving config_db pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic2] : SKIP saving running config pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic1] : SKIP generating tech-support pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic1] : SKIP collect core-files pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic1] : SKIP saving sai_redis pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic1] : SKIP generating sysinfo pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic2] : SKIP generating tech-support pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic2] : SKIP collect core-files pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic2] : SKIP saving sai_redis pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic2] : SKIP generating sysinfo pre-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py 
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP saving config_db post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP saving running config post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP saving syslog post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP generating tech-support post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP collect core-files post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP saving sai_redis post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic2] : SKIP generating sysinfo post-class-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot Pass
+[smic_sonic1] : SKIP saving config_db post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic1] : SKIP saving running config post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic2] : SKIP saving config_db post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic2] : SKIP saving running config post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic2] : SKIP generating tech-support post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic2] : SKIP collect core-files post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic2] : SKIP saving sai_redis post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic1] : SKIP generating tech-support post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic2] : SKIP generating sysinfo post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic1] : SKIP collect core-files post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic1] : SKIP saving sai_redis post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic1] : SKIP generating sysinfo post-module-prolog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+static-wait-debug smic_sonic1 requested COLD shutdown
+/var/log: 378.1 MiB (396513280 bytes) trimmed on /dev/loop1
+/host: 255.2 MiB (267599872 bytes) trimmed on /dev/vda3
+Traceback (most recent call last):
+  File "/usr/local/bin/watchdogutil", line 8, in <module>
+    sys.exit(watchdogutil())
+             ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 764, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 717, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 1134, in invoke
+    Command.invoke(self, ctx)
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 956, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 555, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/watchdogutil/main.py", line 66, in watchdogutil
+    err = load_platform_watchdog()
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/watchdogutil/main.py", line 38, in load_platform_watchdog
+    platform = sonic_platform.platform.Platform()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/sonic_platform/platform.py", line 25, in __init__
+    self.chassis = Chassis()
+                   ^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/sonic_platform/chassis.py", line 26, in __init__
+    self.metadata = self._read_metadata()
+                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/sonic_platform/chassis.py", line 34, in _read_metadata
+    raise FileNotFoundError("Metadata file {} not found".format(self.metadata_file))
+FileNotFoundError: Metadata file /etc/sonic/vs_chassis_metadata.json not found
+Wed Dec 3 09:01:49 AM UTC 2025 Issuing OS-level reboot ...
+admin@sonic:~$ 
+static-wait-debug smic_sonic1 requested COLD shutdown
+/var/log: 3.9 GiB (4135292928 bytes) trimmed on /dev/loop1
+/host: 9.5 GiB (10216828928 bytes) trimmed on /dev/vda3
+Traceback (most recent call last):
+  File "/usr/local/bin/watchdogutil", line 8, in <module>
+    sys.exit(watchdogutil())
+             ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 764, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 717, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 1134, in invoke
+    Command.invoke(self, ctx)
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 956, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/click/core.py", line 555, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/watchdogutil/main.py", line 66, in watchdogutil
+    err = load_platform_watchdog()
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/watchdogutil/main.py", line 38, in load_platform_watchdog
+    platform = sonic_platform.platform.Platform()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/sonic_platform/platform.py", line 25, in __init__
+    self.chassis = Chassis()
+                   ^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/sonic_platform/chassis.py", line 26, in __init__
+    self.metadata = self._read_metadata()
+                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/sonic_platform/chassis.py", line 34, in _read_metadata
+    raise FileNotFoundError("Metadata file {} not found".format(self.metadata_file))
+FileNotFoundError: Metadata file /etc/sonic/vs_chassis_metadata.json not found
+Wed Dec 3 09:09:12 AM UTC 2025 Issuing OS-level reboot ...
+admin@sonic:~$ 
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence Pass
+
+################################################################################
+# yet to be parallized: system/iscli_PortChannel/test_interface_2_iscli_portch #
+# annel_Reboot.py::TestPortChannelConfigurationReboot.test_portchannel_creatio #
+#         n_port_management_ip_addressing_and_dual_reboot_persistence          #
+################################################################################
+
+2025-12-03 09:01:06.701156, do show PortChannel summary, D2, D1
+2025-12-03 09:01:14.040850, do show PortChannel summary, D2, D1
+2025-12-03 09:01:21.517709, do show PortChannel summary, D2, D1
+2025-12-03 09:01:29.148056, do show running-configuration interface PortChannel 10, D2, D1
+2025-12-03 09:01:32.120109, write memory, D2, D1
+2025-12-03 09:08:44.334303, do show running-configuration interface PortChannel 10, D2, D1
+2025-12-03 09:08:52.351796, do show running-configuration interface PortChannel 10, D2, D1
+2025-12-03 09:08:55.472759, write memory, D2, D1
+2025-12-03 09:16:08.345235, do show running-configuration interface PortChannel 10, D2, D1
+2025-12-03 09:16:26.736266, do show PortChannel summary, D2, D1
+
+################################################################################
+
+[smic_sonic1] : SKIP saving config_db post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP saving running config post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP saving config_db post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP saving syslog post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP saving running config post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP generating tech-support post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP saving syslog post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP collect core-files post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP generating tech-support post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP saving sai_redis post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP collect core-files post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP generating sysinfo post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP saving sai_redis post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic2] : SKIP generating sysinfo post-class-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot pass
+[smic_sonic1] : SKIP saving config_db post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic1] : SKIP saving running config post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic2] : SKIP saving config_db post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic2] : SKIP saving running config post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic1] : SKIP generating tech-support post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic1] : SKIP collect core-files post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic1] : SKIP saving sai_redis post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic1] : SKIP generating sysinfo post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic2] : SKIP generating tech-support post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic2] : SKIP collect core-files post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic2] : SKIP saving sai_redis post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic2] : SKIP generating sysinfo post-module-epilog system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py pass
+[smic_sonic1] : SKIP saving config_db session-epilog session pass
+[smic_sonic1] : SKIP saving running config session-epilog session pass
+[smic_sonic1] : SKIP saving syslog session-epilog session pass
+[smic_sonic2] : SKIP saving config_db session-epilog session pass
+[smic_sonic2] : SKIP saving running config session-epilog session pass
+[smic_sonic1] : SKIP generating tech-support session-epilog session pass
+[smic_sonic2] : SKIP saving syslog session-epilog session pass
+[smic_sonic2] : SKIP generating tech-support session-epilog session pass
+[smic_sonic1] : SKIP saving sai_redis session-epilog session pass
+[smic_sonic1] : SKIP generating sysinfo session-epilog session pass
+[smic_sonic2] : SKIP saving sai_redis session-epilog session pass
+[smic_sonic2] : SKIP generating sysinfo session-epilog session pass

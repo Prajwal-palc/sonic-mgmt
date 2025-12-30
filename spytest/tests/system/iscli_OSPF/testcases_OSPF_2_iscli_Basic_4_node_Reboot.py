@@ -619,6 +619,8 @@ class TestOSPFStaticRouting4NodeReboot:
         dut4 = self.data.dut4
         area = self.data.ospf_area
 
+        validation_failures = []
+
         # ===== STEP 1: Configure IP addresses on all interfaces =====
         st.log("\n" + "-" * 80)
         st.log("STEP 1: Configure IP addresses on all interfaces")
@@ -680,12 +682,16 @@ class TestOSPFStaticRouting4NodeReboot:
         # Verify D1 has route to 30.1.1.0/24
         route_output_dut1 = self._get_show_ip_route_output(dut1)
         if not self._verify_static_route_in_routing_table(route_output_dut1, "30.1.1.0/24"):
-            st.report_fail("msg", f"Static route 30.1.1.0/24 not found in routing table on {dut1}")
+            error_msg = f"STEP 4: Static route 30.1.1.0/24 not found in routing table on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D3 has route to 10.1.1.0/24
         route_output_dut3 = self._get_show_ip_route_output(dut3)
         if not self._verify_static_route_in_routing_table(route_output_dut3, "10.1.1.0/24"):
-            st.report_fail("msg", f"Static route 10.1.1.0/24 not found in routing table on {dut3}")
+            error_msg = f"STEP 4: Static route 10.1.1.0/24 not found in routing table on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Static routes verified in routing tables")
 
@@ -727,10 +733,14 @@ class TestOSPFStaticRouting4NodeReboot:
 
         # Verify neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2}")
+            error_msg = f"STEP 6: OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4}")
+            error_msg = f"STEP 6: OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: OSPF neighbors are in Full state")
 
@@ -768,12 +778,16 @@ class TestOSPFStaticRouting4NodeReboot:
         # Ping from D1 to D3's IP (30.1.1.1)
         target_ip_d3 = self.data.dut3_ip.split('/')[0]  # 30.1.1.1
         if not self._verify_ping_success(dut1, target_ip_d3):
-            st.report_fail("msg", f"Ping from {dut1} to {target_ip_d3} failed")
+            error_msg = f"STEP 8: Ping from {dut1} to {target_ip_d3} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Ping from D3 to D1's IP (10.1.1.1)
         target_ip_d1 = self.data.dut1_ip.split('/')[0]  # 10.1.1.1
         if not self._verify_ping_success(dut3, target_ip_d1):
-            st.report_fail("msg", f"Ping from {dut3} to {target_ip_d1} failed")
+            error_msg = f"STEP 8: Ping from {dut3} to {target_ip_d1} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Ping connectivity verified between D1 and D3")
 
@@ -831,12 +845,16 @@ class TestOSPFStaticRouting4NodeReboot:
         # Re-verify D1 has route to 30.1.1.0/24 after reboot
         route_output_dut1 = self._get_show_ip_route_output(dut1)
         if not self._verify_static_route_in_routing_table(route_output_dut1, "30.1.1.0/24"):
-            st.report_fail("msg", f"Config persistence failed: Static route 30.1.1.0/24 not found in routing table on {dut1} after reboot")
+            error_msg = f"STEP 11: Config persistence failed - Static route 30.1.1.0/24 not found in routing table on {dut1} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Re-verify D3 has route to 10.1.1.0/24 after reboot
         route_output_dut3 = self._get_show_ip_route_output(dut3)
         if not self._verify_static_route_in_routing_table(route_output_dut3, "10.1.1.0/24"):
-            st.report_fail("msg", f"Config persistence failed: Static route 10.1.1.0/24 not found in routing table on {dut3} after reboot")
+            error_msg = f"STEP 11: Config persistence failed - Static route 10.1.1.0/24 not found in routing table on {dut3} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Static routes persisted across reboot on D1 and D3")
 
@@ -854,10 +872,14 @@ class TestOSPFStaticRouting4NodeReboot:
 
         # Re-verify neighbors after reboot
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_neighbor_ip, "Full"):
-            st.report_fail("msg", f"Config persistence failed: OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2} after reboot")
+            error_msg = f"STEP 12: Config persistence failed - OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_neighbor_ip, "Full"):
-            st.report_fail("msg", f"Config persistence failed: OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4} after reboot")
+            error_msg = f"STEP 12: Config persistence failed - OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: OSPF neighbors re-established Full state after reboot - config persisted successfully")
 
@@ -892,11 +914,15 @@ class TestOSPFStaticRouting4NodeReboot:
 
         # Re-ping from D1 to D3's IP (30.1.1.1) after reboot
         if not self._verify_ping_success(dut1, target_ip_d3):
-            st.report_fail("msg", f"Config persistence failed: Ping from {dut1} to {target_ip_d3} failed after reboot")
+            error_msg = f"STEP 14: Config persistence failed - Ping from {dut1} to {target_ip_d3} failed after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Re-ping from D3 to D1's IP (10.1.1.1) after reboot
         if not self._verify_ping_success(dut3, target_ip_d1):
-            st.report_fail("msg", f"Config persistence failed: Ping from {dut3} to {target_ip_d1} failed after reboot")
+            error_msg = f"STEP 14: Config persistence failed - Ping from {dut3} to {target_ip_d1} failed after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Ping connectivity persisted after reboot - config verified successfully")
 
@@ -930,10 +956,34 @@ class TestOSPFStaticRouting4NodeReboot:
 
         st.log("PASS: Cleanup completed successfully")
 
-        # ===== TEST COMPLETE =====
+        # ===== FINAL RESULT =====
         st.log("\n" + "=" * 80)
-        st.log("TEST COMPLETE: OSPF with static routing and reboot persistence validated successfully")
-        st.log("Test flow: IP Config → Static Routes → BGP Restart → OSPF Config → Neighbor Full → DR/BDR → Ping → Save → Reboot → Verify Persistence → Cleanup ✓")
+        st.log("TEST RESULT: OSPF with Static Routing and Reboot Persistence")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            for dut in [dut1, dut2, dut3, dut4]:
+                try:
+                    st.generate_tech_support(dut=dut, name="ospf_static_reboot_validation_failure")
+                    st.log(f"Tech support collected from {dut}")
+                except Exception as e:
+                    st.log(f"Warning: Failed to collect tech support from {dut}: {str(e)}")
+
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail("msg", f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}")
+        else:
+            st.log("PASS: All validations passed successfully")
+            st.log("Test flow: IP Config → Static Routes → BGP Restart → OSPF Config → Neighbor Full → DR/BDR → Ping → Save → Reboot → Verify Persistence → Cleanup ✓")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

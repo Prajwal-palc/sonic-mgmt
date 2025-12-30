@@ -1,0 +1,288 @@
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:17.760
+TOTAL HELPER Time = 0:00:15.250
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:04:53,209 T0056: CMD TIME: 1970 D1 = show interfaces status Ethernet124
+2025-11-20 01:04:53,242 T0059: CMD TIME: 1977 D4 = show interfaces status Ethernet124
+2025-11-20 01:04:53,261 T0058: CMD TIME: 2072 D3 = show interfaces status Ethernet124
+2025-11-20 01:04:53,249 T0057: CMD TIME: 2388 D2 = show interfaces status Ethernet124
+2025-11-20 01:04:55,599 T0056: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 01:04:55,647 T0059: CMD TIME: 259 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 01:04:55,759 T0058: CMD TIME: 257 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 01:04:56,065 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 01:04:56,766 T0061: CMD TIME: 1980 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 01:04:56,773 T0064: CMD TIME: 1985 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 01:04:56,779 T0063: CMD TIME: 2029 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 01:04:56,760 T0062: CMD TIME: 2334 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 01:04:59,578 T0065: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp8_path_qualification_limits.py'  
+2025-11-20 01:04:59,586 T0066: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp8_path_qualification_limits.py'  
+2025-11-20 01:04:59,597 T0067: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp8_path_qualification_limits.py'  
+2025-11-20 01:04:59,605 T0068: HELPER TIME: 3809 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp8_path_qualification_limits.py'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.505
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:05:20,010 T0085: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:20,021 T0086: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:20,032 T0087: HELPER TIME: 3818 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:20,041 T0088: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:24,376 T0093: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:24,385 T0094: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:24,394 T0096: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+2025-11-20 01:05:24,401 T0095: HELPER TIME: 3813 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.499
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:05:36,182 T0101: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:36,189 T0102: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:36,201 T0103: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:36,209 T0104: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:40,539 T0109: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:40,547 T0110: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:40,556 T0112: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+2025-11-20 01:05:40,564 T0111: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.546
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:05:49,657 T0118: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:49,650 T0117: HELPER TIME: 3827 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:49,668 T0119: HELPER TIME: 3820 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:49,677 T0120: HELPER TIME: 3813 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:54,028 T0126: HELPER TIME: 3820 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:54,033 T0125: HELPER TIME: 3819 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:54,045 T0127: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+2025-11-20 01:05:54,050 T0128: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.520
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:06:03,327 T0133: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:03,346 T0134: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:03,351 T0136: HELPER TIME: 3817 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:03,360 T0135: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:07,713 T0141: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:07,720 T0142: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:07,730 T0143: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+2025-11-20 01:06:07,735 T0144: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.503
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:06:18,225 T0149: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:18,233 T0150: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:18,243 T0151: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:18,251 T0152: HELPER TIME: 3810 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:22,586 T0157: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:22,594 T0158: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:22,603 T0159: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+2025-11-20 01:06:22,610 T0160: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.494
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:06:31,757 T0166: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:31,769 T0168: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:31,777 T0167: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:31,783 T0165: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:36,113 T0173: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:36,121 T0175: HELPER TIME: 3810 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:36,130 T0174: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+2025-11-20 01:06:36,137 T0176: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.505
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:06:45,209 T0181: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:45,218 T0182: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:45,231 T0183: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:45,236 T0184: HELPER TIME: 3813 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:49,573 T0189: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:49,586 T0192: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:49,594 T0190: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+2025-11-20 01:06:49,602 T0191: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp8_path_qualification_limits.py::TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestEcmpPathQualificationLimits' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp8_path_qualification_limits.py at line 189
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.505
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 01:06:58,636 T0197: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:06:58,643 T0198: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:06:58,655 T0199: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:06:58,660 T0200: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:07:02,990 T0205: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:07:03,000 T0206: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:07:03,010 T0207: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+2025-11-20 01:07:03,017 T0208: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation'  
+=========================================================

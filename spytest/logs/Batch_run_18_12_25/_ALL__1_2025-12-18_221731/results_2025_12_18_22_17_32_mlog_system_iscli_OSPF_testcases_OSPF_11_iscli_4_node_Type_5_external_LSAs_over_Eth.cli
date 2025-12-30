@@ -1,0 +1,163 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,ip address 10.1.1.2/24
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,ip address 20.1.1.1/24
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,network 10.1.1.2/24 area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,network 20.1.1.1/24 area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,do show ip ospf database external
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,do show ip route ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D2,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,ip address 10.1.1.1/24
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,network 10.1.1.1/24 area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,ip route 100.1.1.0/24 10.1.1.2
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,ip route 100.2.2.0/24 10.1.1.2
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,ip route 100.3.3.0/24 10.1.1.2
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,do show ip route static
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,redistribute static
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,do show ip ospf database external
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,do show ip ospf database external self-originate
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,do ping 30.1.1.2 -c 4
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no redistribute static
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no ip route 100.1.1.0/24 10.1.1.2
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no ip route 100.2.2.0/24 10.1.1.2
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no ip route 100.3.3.0/24 10.1.1.2
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D1,mgmt-config,exit
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D3,normal-user,configure terminal
+class-prolog,,,D3,mgmt-config,terminal length 0
+framework,,,D3,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,ip address 30.1.1.2/24
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,network 30.1.1.2/24 area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,do show ip ospf database external
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,do show ip route ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,do ping 10.1.1.1 -c 4
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D3,mgmt-config,exit
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,ip address 20.1.1.2/24
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,ip address 30.1.1.1/24
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,network 20.1.1.2/24 area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,network 30.1.1.1/24 area 0
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,do show ip ospf database external
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,do show ip route ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification,D4,mgmt-config,exit

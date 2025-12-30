@@ -326,6 +326,28 @@ class TestOSPFDRBDRElection:
         return True
 
     @staticmethod
+    def _remove_ospf_priority(dut: str, interface: str) -> bool:
+        """
+        Remove OSPF priority from interface.
+
+        Args:
+            dut: Device handle
+            interface: Interface name (e.g., "Ethernet16")
+
+        Returns:
+            True if successful
+        """
+        st.log(f"Removing OSPF priority from {interface} on {dut}")
+        commands = [
+            "configure terminal",
+            f"interface {interface}",
+            "no ip ospf priority",
+            "exit"
+        ]
+        result = st.config(dut, commands, type=CLI_TYPE)
+        return True
+
+    @staticmethod
     def _remove_ospf_configuration(dut: str) -> bool:
         """
         Remove OSPF configuration.
@@ -569,6 +591,9 @@ class TestOSPFDRBDRElection:
         st.log("TEST: OSPF DR/BDR Election with Priority Modification")
         st.log("=" * 80)
 
+        # Track validation failures - test will continue but report fail at end
+        validation_failures = []
+
         dut2 = self.data.dut2
         dut4 = self.data.dut4
         area = self.data.ospf_area
@@ -590,11 +615,21 @@ class TestOSPFDRBDRElection:
         # Validate IP addresses
         st.log("Validating IP address configuration...")
         if not self._verify_interface_ip(dut2, self.data.dut2_if, self.data.dut2_ip):
-            st.report_fail("msg", f"IP validation failed on {dut2} {self.data.dut2_if}")
-        if not self._verify_interface_ip(dut4, self.data.dut4_if, self.data.dut4_ip):
-            st.report_fail("msg", f"IP validation failed on {dut4} {self.data.dut4_if}")
+            error_msg = f"STEP 1: IP validation failed on {dut2} {self.data.dut2_if}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut2} {self.data.dut2_if}")
 
-        st.log("PASS: IP addresses configured and validated successfully")
+        if not self._verify_interface_ip(dut4, self.data.dut4_if, self.data.dut4_ip):
+            error_msg = f"STEP 1: IP validation failed on {dut4} {self.data.dut4_if}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut4} {self.data.dut4_if}")
+
+        if not validation_failures:
+            st.log("PASS: IP addresses configured and validated successfully")
 
         # ===== STEP 2: Configure OSPF on both routers =====
         st.log("\n" + "-" * 80)
@@ -632,12 +667,21 @@ class TestOSPFDRBDRElection:
 
         # Verify neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2}")
+            error_msg = f"STEP 3: OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip_no_mask} in Full state on {dut2}")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4}")
+            error_msg = f"STEP 3: OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip_no_mask} in Full state on {dut4}")
 
-        st.log("PASS: OSPF neighbors are in Full state")
+        if len([f for f in validation_failures if "STEP 3" in f]) == 0:
+            st.log("PASS: OSPF neighbors are in Full state")
 
         # ===== STEP 4: Check initial DR/BDR election =====
         st.log("\n" + "-" * 80)
@@ -711,21 +755,38 @@ class TestOSPFDRBDRElection:
 
         # Verify neighbors are still in Full state
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2_final, dut4_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after restart")
+            error_msg = f"STEP 7: OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after restart"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip_no_mask} in Full state on {dut2} after restart")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4_final, dut2_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after restart")
+            error_msg = f"STEP 7: OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after restart"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip_no_mask} in Full state on {dut4} after restart")
 
         # Verify DR/BDR roles
         # D4 should be DR (higher priority), so D2 should see D4 as DR
         if not self._verify_dr_bdr_roles(dut2, neighbor_output_dut2_final, dut4_ip_no_mask, "DR"):
-            st.log("WARNING: D4 is not DR (expected due to higher priority)")
+            error_msg = f"STEP 7: D4 is not DR (expected due to higher priority 6)"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: D4 is DR (higher priority 6)")
 
         # D2 should be Backup, so D4 should see D2 as Backup
         if not self._verify_dr_bdr_roles(dut4, neighbor_output_dut4_final, dut2_ip_no_mask, "Backup"):
-            st.log("WARNING: D2 is not Backup (expected due to lower priority)")
+            error_msg = f"STEP 7: D2 is not Backup (expected due to lower priority)"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: D2 is Backup (lower priority)")
 
-        st.log("PASS: DR/BDR roles verified after priority change")
+        if len([f for f in validation_failures if "STEP 7" in f]) == 0:
+            st.log("PASS: DR/BDR roles verified after priority change")
 
         # ===== STEP 8: Additional verification - Set D2 priority to 10 =====
         st.log("\n" + "-" * 80)
@@ -766,21 +827,38 @@ class TestOSPFDRBDRElection:
 
         # Verify neighbors are in Full state
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2_priority10, dut4_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after priority 10 change")
+            error_msg = f"STEP 8: OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after priority 10 change"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip_no_mask} in Full state on {dut2} after priority 10 change")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4_priority10, dut2_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after priority 10 change")
+            error_msg = f"STEP 8: OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after priority 10 change"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip_no_mask} in Full state on {dut4} after priority 10 change")
 
         # Verify DR/BDR roles - Now D2 should be DR (priority 10 > priority 6)
         # D2 should be DR, so D4 should see D2 as DR
         if not self._verify_dr_bdr_roles(dut4, neighbor_output_dut4_priority10, dut2_ip_no_mask, "DR"):
-            st.log("WARNING: D2 is not DR (expected due to highest priority 10)")
+            error_msg = f"STEP 8: D2 is not DR (expected due to highest priority 10)"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: D2 is DR (highest priority 10)")
 
         # D4 should be Backup, so D2 should see D4 as Backup
         if not self._verify_dr_bdr_roles(dut2, neighbor_output_dut2_priority10, dut4_ip_no_mask, "Backup"):
-            st.log("WARNING: D4 is not Backup (expected due to lower priority 6)")
+            error_msg = f"STEP 8: D4 is not Backup (expected due to lower priority 6)"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: D4 is Backup (lower priority 6)")
 
-        st.log("PASS: D2 with priority 10 successfully became DR, D4 with priority 6 became Backup")
+        if len([f for f in validation_failures if "STEP 8" in f]) == 0:
+            st.log("PASS: D2 with priority 10 successfully became DR, D4 with priority 6 became Backup")
 
         # ===== STEP 9: Verify priority values =====
         st.log("\n" + "-" * 80)
@@ -817,6 +895,11 @@ class TestOSPFDRBDRElection:
 
         time.sleep(WAIT_AFTER_OSPF_CONFIG)
 
+        # Remove OSPF priority from interfaces
+        self._remove_ospf_priority(dut2, self.data.dut2_if)
+        self._remove_ospf_priority(dut4, self.data.dut4_if)
+        st.log("OSPF priority removed from interfaces on D2 and D4")
+
         # Remove IP addresses
         self._remove_interface_ip(dut2, self.data.dut2_if)
         self._remove_interface_ip(dut4, self.data.dut4_if)
@@ -839,4 +922,42 @@ class TestOSPFDRBDRElection:
         st.log("  3. D2 with priority 10 becomes DR (D4 priority 6 becomes BDR)")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from DUT2
+            try:
+                st.generate_tech_support(dut=dut2, name="ospf_dr_bdr_election_validation_failure")
+                st.log(f"Tech support collected from {dut2}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut2}: {str(e)}")
+
+            # Collect tech support from DUT4
+            try:
+                st.generate_tech_support(dut=dut4, name="ospf_dr_bdr_election_validation_failure")
+                st.log(f"Tech support collected from {dut4}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut4}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

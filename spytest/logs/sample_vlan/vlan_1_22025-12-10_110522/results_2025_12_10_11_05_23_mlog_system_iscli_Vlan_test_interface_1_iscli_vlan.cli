@@ -1,0 +1,53 @@
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-user,show Vlan
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-user,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no ip address
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no ip address
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,vlan 3
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,no vlan 3
+function-or-epilog,,TestVlanConfiguration.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+framework,,,D3,normal-user,show interfaces status Ethernet124

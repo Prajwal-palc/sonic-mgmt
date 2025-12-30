@@ -1,0 +1,490 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: saving syslog pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: saving syslog pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events9_speed_change.py 
+smic_sonic1: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP saving running config post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP saving running config post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic2: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges Pass
+smic_sonic1: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: SKIP saving running config post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: saving syslog post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: SKIP saving running config post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: saving syslog post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic2: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events9_speed_change.py Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_get_first_operational_interface Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_capture_baseline_speed Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_change_speed_to_10g Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g Fail
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_change_speed_to_10g ignore
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_change_to_10g Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_restore_original_speed Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed Fail
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_restore_original_speed ignore
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_verify_speed_restoration Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceSpeedChanges.test_final_verification 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving config_db pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving running config pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving syslog pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP generating tech-support pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP collect core-files pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving sai_redis pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP generating sysinfo pre-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: saving syslog post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceSpeedChanges.test_final_verification Pass
+smic_sonic1: SKIP saving config_db post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP saving running config post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP saving syslog post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP saving config_db post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP saving running config post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP collect core-files post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP saving syslog post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP collect core-files post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic2: SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges pass
+smic_sonic1: SKIP saving config_db post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: SKIP saving running config post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: saving syslog post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: SKIP saving config_db post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: SKIP saving running config post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: saving syslog post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: SKIP generating tech-support post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: SKIP generating tech-support post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: SKIP collect core-files post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: SKIP collect core-files post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic2: SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events9_speed_change.py fail
+smic_sonic1: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving running config session-epilog session pass
+smic_sonic2: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP saving running config session-epilog session pass
+smic_sonic1: SKIP generating tech-support session-epilog session pass
+smic_sonic1: collect core-files session-epilog session pass
+smic_sonic2: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP generating tech-support session-epilog session pass
+smic_sonic2: collect core-files session-epilog session pass
+smic_sonic2: SKIP saving sai_redis session-epilog session pass
+smic_sonic1: SKIP saving sai_redis session-epilog session pass
+smic_sonic2: SKIP generating sysinfo session-epilog session pass
+smic_sonic1: SKIP generating sysinfo session-epilog session pass

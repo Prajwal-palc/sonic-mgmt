@@ -1,0 +1,428 @@
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_simple_alphanumeric ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.319
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:57:14,528 T0027: CMD TIME: 1929 D1 = show interfaces status Ethernet124
+2025-11-19 11:57:14,535 T0028: CMD TIME: 1973 D2 = show interfaces status Ethernet124
+2025-11-19 11:57:16,878 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 11:57:16,927 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 11:57:17,612 T0031: CMD TIME: 1930 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 11:57:17,619 T0030: CMD TIME: 1977 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 11:57:20,046 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events12_description.py'  
+2025-11-19 11:57:20,052 T0033: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events12_description.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_simple_alphanumeric ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.798
+TOTAL HELPER Time = 0:00:15.411
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:57:36,825 T0043: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_simple_alphanumeric'  
+2025-11-19 11:57:36,820 T0042: HELPER TIME: 3820 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_simple_alphanumeric'  
+2025-11-19 11:57:41,085 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:57:42,007 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:57:42,691 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:57:43,009 T0000: CMD TIME: 1064 D1 = no shutdown
+2025-11-19 11:57:44,082 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:57:44,833 T0047: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_simple_alphanumeric'  
+2025-11-19 11:57:54,470 T0046: HELPER TIME: 3967 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_simple_alphanumeric'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_with_spaces ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_with_spaces ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:30
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.612
+TOTAL HELPER Time = 0:00:15.391
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:58:05,001 T0050: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_with_spaces'  
+2025-11-19 11:58:05,009 T0051: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_with_spaces'  
+2025-11-19 11:58:09,261 T0000: CMD TIME: 1670 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:58:10,945 T0000: CMD TIME: 260 D1 = configure terminal
+2025-11-19 11:58:11,630 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:58:11,949 T0000: CMD TIME: 1116 D1 = no shutdown
+2025-11-19 11:58:13,077 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:58:13,843 T0055: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_with_spaces'  
+2025-11-19 11:58:23,484 T0054: HELPER TIME: 3954 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_with_spaces'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_with_special_characters ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_with_special_characters ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.748
+TOTAL HELPER Time = 0:00:15.394
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:58:32,079 T0058: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_with_special_characters'  
+2025-11-19 11:58:32,088 T0059: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_with_special_characters'  
+2025-11-19 11:58:36,340 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:58:37,262 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:58:37,940 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:58:38,257 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 11:58:39,283 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:58:40,026 T0063: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_with_special_characters'  
+2025-11-19 11:58:49,657 T0062: HELPER TIME: 3956 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_with_special_characters'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_with_numbers ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_with_numbers ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.856
+TOTAL HELPER Time = 0:00:15.429
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:58:58,269 T0066: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_with_numbers'  
+2025-11-19 11:58:58,278 T0067: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_with_numbers'  
+2025-11-19 11:59:02,528 T0000: CMD TIME: 965 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:59:03,503 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:59:04,183 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:59:04,501 T0000: CMD TIME: 1066 D1 = no shutdown
+2025-11-19 11:59:05,576 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:59:06,321 T0071: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_with_numbers'  
+2025-11-19 11:59:16,059 T0070: HELPER TIME: 3994 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_with_numbers'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_mixed_case ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_mixed_case ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.806
+TOTAL HELPER Time = 0:00:15.397
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:59:24,695 T0074: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_mixed_case'  
+2025-11-19 11:59:24,703 T0075: HELPER TIME: 3808 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_mixed_case'  
+2025-11-19 11:59:28,959 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:59:29,881 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:59:30,563 T0000: CMD TIME: 310 D1 = interface Ethernet 0
+2025-11-19 11:59:30,883 T0000: CMD TIME: 1066 D1 = no shutdown
+2025-11-19 11:59:31,960 T0000: CMD TIME: 260 D1 = exit
+2025-11-19 11:59:32,708 T0079: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_mixed_case'  
+2025-11-19 11:59:42,345 T0078: HELPER TIME: 3965 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_mixed_case'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_long_text ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_long_text ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.952
+TOTAL HELPER Time = 0:00:15.420
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:59:50,963 T0082: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_long_text'  
+2025-11-19 11:59:50,971 T0083: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_long_text'  
+2025-11-19 11:59:55,225 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:59:56,198 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:59:56,878 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:59:57,195 T0000: CMD TIME: 1166 D1 = no shutdown
+2025-11-19 11:59:58,370 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:59:59,121 T0087: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_long_text'  
+2025-11-19 12:00:08,766 T0086: HELPER TIME: 3983 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_long_text'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_modify ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_modify ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:28
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.750
+TOTAL HELPER Time = 0:00:15.438
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 12:00:19,095 T0090: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_modify'  
+2025-11-19 12:00:19,091 T0091: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_modify'  
+2025-11-19 12:00:23,355 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 12:00:24,278 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 12:00:24,957 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 12:00:25,274 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-19 12:00:26,297 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 12:00:27,037 T0095: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_modify'  
+2025-11-19 12:00:36,673 T0094: HELPER TIME: 3996 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_modify'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_remove ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_remove ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.699
+TOTAL HELPER Time = 0:00:15.414
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 12:00:45,393 T0098: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_remove'  
+2025-11-19 12:00:45,401 T0099: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_remove'  
+2025-11-19 12:00:49,659 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 12:00:50,581 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 12:00:51,260 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 12:00:51,577 T0000: CMD TIME: 963 D1 = no shutdown
+2025-11-19 12:00:52,549 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 12:00:53,304 T0103: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_remove'  
+2025-11-19 12:01:02,944 T0102: HELPER TIME: 3976 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_remove'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_persistence_through_flap ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_persistence_through_flap ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:29
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.751
+TOTAL HELPER Time = 0:00:15.411
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 12:01:14,213 T0106: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_persistence_through_flap'  
+2025-11-19 12:01:14,218 T0107: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_persistence_through_flap'  
+2025-11-19 12:01:18,484 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 12:01:19,406 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 12:01:20,086 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 12:01:20,403 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-19 12:01:21,426 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 12:01:22,174 T0111: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_persistence_through_flap'  
+2025-11-19 12:01:31,816 T0110: HELPER TIME: 3967 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_persistence_through_flap'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_multiple_interfaces ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_multiple_interfaces ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.746
+TOTAL HELPER Time = 0:00:15.404
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 12:01:40,469 T0114: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_multiple_interfaces'  
+2025-11-19 12:01:40,476 T0115: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_multiple_interfaces'  
+2025-11-19 12:01:44,733 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 12:01:45,653 T0000: CMD TIME: 255 D1 = configure terminal
+2025-11-19 12:01:46,334 T0000: CMD TIME: 307 D1 = interface Ethernet 0
+2025-11-19 12:01:46,650 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-19 12:01:47,673 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 12:01:48,410 T0119: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_multiple_interfaces'  
+2025-11-19 12:01:58,044 T0118: HELPER TIME: 3969 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_multiple_interfaces'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_sequential_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_sequential_changes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.903
+TOTAL HELPER Time = 0:00:15.398
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 12:02:07,208 T0122: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_sequential_changes'  
+2025-11-19 12:02:07,215 T0123: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_sequential_changes'  
+2025-11-19 12:02:11,468 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 12:02:12,392 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 12:02:13,072 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 12:02:13,389 T0000: CMD TIME: 1166 D1 = no shutdown
+2025-11-19 12:02:14,564 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 12:02:15,305 T0127: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_sequential_changes'  
+2025-11-19 12:02:24,946 T0126: HELPER TIME: 3962 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_sequential_changes'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_comprehensive_formats ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions.test_description_comprehensive_formats ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.system.interface' has no attribute 'show_interface_status' in file /tests/system/interface_events/test_interface_events12_description.py at line 121
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.748
+TOTAL HELPER Time = 0:00:15.420
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 12:02:33,733 T0130: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_comprehensive_formats'  
+2025-11-19 12:02:33,738 T0131: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptions.test_description_comprehensive_formats'  
+2025-11-19 12:02:37,995 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 12:02:38,918 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 12:02:39,596 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 12:02:39,913 T0000: CMD TIME: 1013 D1 = no shutdown
+2025-11-19 12:02:40,936 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 12:02:41,683 T0135: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_comprehensive_formats'  
+2025-11-19 12:02:51,323 T0134: HELPER TIME: 3980 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptions.test_description_comprehensive_formats'  
+=========================================================

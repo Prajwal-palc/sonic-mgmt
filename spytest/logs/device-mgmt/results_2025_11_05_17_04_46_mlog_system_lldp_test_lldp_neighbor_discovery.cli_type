@@ -1,0 +1,4 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+lldp.py::lldp_config,klish
+lldp.py::get_lldp_neighbors,click

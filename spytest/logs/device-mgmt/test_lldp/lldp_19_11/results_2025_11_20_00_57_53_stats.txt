@@ -1,0 +1,140 @@
+
+======================= STATS: system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration.test_lldp_cli_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:10.531
+TOTAL HELPER Time = 0:00:07.629
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 19:28:49,119 T0028: CMD TIME: 2175 D2 = show interfaces status Ethernet124
+2025-11-19 19:28:51,713 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 19:28:49,111 T0027: CMD TIME: 3839 D1 = show interfaces status Ethernet124
+2025-11-19 19:28:53,369 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 19:28:54,052 T0031: CMD TIME: 1928 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 19:28:54,058 T0030: CMD TIME: 2079 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 19:28:56,584 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_1_verify_lldp_cli.py'  
+2025-11-19 19:28:56,588 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_1_verify_lldp_cli.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration.test_lldp_cli_configuration ===========================
+RESULT = Fail
+DESCRIPTION = LLDP neighbors output missing 'Interface:' field
+TOTAL Test Time = 0:04:07
+TOTAL Sleep Time = 0:00:23
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:47.014
+TOTAL HELPER Time = 0:03:01.569
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 19:29:13,645 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpCliConfiguration.test_lldp_cli_configuration'  
+2025-11-19 19:29:13,653 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpCliConfiguration.test_lldp_cli_configuration'  
+2025-11-19 19:29:18,307 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:29:19,279 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 19:29:19,960 T0000: CMD TIME: 256 D1 = lldp enable
+2025-11-19 19:29:21,040 T0000: CMD TIME: 1114 D1 = lldp timer 5
+2025-11-19 19:29:22,979 T0000: CMD TIME: 257 D1 = end
+2025-11-19 19:29:24,059 T0000: CMD TIME: 357 D1 = exit
+2025-11-19 19:29:26,056 T0000: CMD TIME: 1017 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:29:27,082 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 19:29:27,759 T0000: CMD TIME: 256 D2 = lldp enable
+2025-11-19 19:29:28,841 T0000: CMD TIME: 1065 D2 = lldp timer 5
+2025-11-19 19:29:30,731 T0000: CMD TIME: 256 D2 = end
+2025-11-19 19:29:31,812 T0000: CMD TIME: 307 D2 = exit
+2025-11-19 19:29:32,940 T0000: WAIT TIME: 3 = static delay
+2025-11-19 19:29:36,765 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:29:37,685 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 19:29:38,362 T0000: CMD TIME: 307 D1 = interface Ethernet 0
+2025-11-19 19:29:39,493 T0000: CMD TIME: 256 D1 = lldp enable
+2025-11-19 19:29:40,573 T0000: CMD TIME: 257 D1 = lldp receive
+2025-11-19 19:29:41,655 T0000: CMD TIME: 257 D1 = lldp transmit
+2025-11-19 19:29:42,737 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 19:29:43,822 T0000: CMD TIME: 912 D1 = end
+2025-11-19 19:29:45,557 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 19:29:47,504 T0000: CMD TIME: 964 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:29:48,477 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 19:29:49,154 T0000: CMD TIME: 308 D2 = interface Ethernet 0
+2025-11-19 19:29:50,286 T0000: CMD TIME: 257 D2 = lldp enable
+2025-11-19 19:29:51,368 T0000: CMD TIME: 257 D2 = lldp receive
+2025-11-19 19:29:52,453 T0000: CMD TIME: 257 D2 = lldp transmit
+2025-11-19 19:29:53,536 T0000: CMD TIME: 257 D2 = exit
+2025-11-19 19:29:54,617 T0000: CMD TIME: 911 D2 = end
+2025-11-19 19:29:56,352 T0000: CMD TIME: 307 D2 = exit
+2025-11-19 19:29:58,299 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:29:59,222 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 19:29:59,897 T0000: CMD TIME: 309 D1 = interface Ethernet 4
+2025-11-19 19:30:01,032 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-19 19:30:02,114 T0000: CMD TIME: 257 D1 = lldp receive
+2025-11-19 19:30:03,196 T0000: CMD TIME: 257 D1 = lldp transmit
+2025-11-19 19:30:04,278 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 19:30:05,358 T0000: CMD TIME: 861 D1 = end
+2025-11-19 19:30:07,043 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 19:30:08,990 T0000: CMD TIME: 1114 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:30:10,112 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 19:30:10,789 T0000: CMD TIME: 307 D2 = interface Ethernet 4
+2025-11-19 19:30:11,921 T0000: CMD TIME: 257 D2 = lldp enable
+2025-11-19 19:30:13,002 T0000: CMD TIME: 257 D2 = lldp receive
+2025-11-19 19:30:14,084 T0000: CMD TIME: 257 D2 = lldp transmit
+2025-11-19 19:30:15,176 T0000: CMD TIME: 256 D2 = exit
+2025-11-19 19:30:16,256 T0000: CMD TIME: 861 D2 = end
+2025-11-19 19:30:17,941 T0000: CMD TIME: 308 D2 = exit
+2025-11-19 19:30:19,889 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:30:20,810 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 19:30:21,487 T0000: CMD TIME: 308 D1 = interface Ethernet 8
+2025-11-19 19:30:22,619 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-19 19:30:23,700 T0000: CMD TIME: 256 D1 = lldp receive
+2025-11-19 19:30:24,780 T0000: CMD TIME: 257 D1 = lldp transmit
+2025-11-19 19:30:25,862 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 19:30:26,942 T0000: CMD TIME: 912 D1 = end
+2025-11-19 19:30:28,679 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 19:30:30,626 T0000: CMD TIME: 913 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:30:31,547 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 19:30:32,223 T0000: CMD TIME: 307 D2 = interface Ethernet 8
+2025-11-19 19:30:33,355 T0000: CMD TIME: 256 D2 = lldp enable
+2025-11-19 19:30:34,436 T0000: CMD TIME: 257 D2 = lldp receive
+2025-11-19 19:30:35,517 T0000: CMD TIME: 257 D2 = lldp transmit
+2025-11-19 19:30:36,598 T0000: CMD TIME: 256 D2 = exit
+2025-11-19 19:30:37,678 T0000: CMD TIME: 911 D2 = end
+2025-11-19 19:30:39,412 T0000: CMD TIME: 307 D2 = exit
+2025-11-19 19:30:41,359 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:30:42,282 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 19:30:42,959 T0000: CMD TIME: 308 D1 = interface Ethernet 12
+2025-11-19 19:30:44,092 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-19 19:30:45,174 T0000: CMD TIME: 257 D1 = lldp receive
+2025-11-19 19:30:46,256 T0000: CMD TIME: 258 D1 = lldp transmit
+2025-11-19 19:30:47,340 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 19:30:48,422 T0000: CMD TIME: 913 D1 = end
+2025-11-19 19:30:50,160 T0000: CMD TIME: 358 D1 = exit
+2025-11-19 19:30:52,159 T0000: CMD TIME: 913 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:30:53,081 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 19:30:53,757 T0000: CMD TIME: 308 D2 = interface Ethernet 12
+2025-11-19 19:30:54,890 T0000: CMD TIME: 257 D2 = lldp enable
+2025-11-19 19:30:55,971 T0000: CMD TIME: 257 D2 = lldp receive
+2025-11-19 19:30:57,054 T0000: CMD TIME: 258 D2 = lldp transmit
+2025-11-19 19:30:58,139 T0000: CMD TIME: 257 D2 = exit
+2025-11-19 19:30:59,220 T0000: CMD TIME: 861 D2 = end
+2025-11-19 19:31:00,904 T0000: CMD TIME: 307 D2 = exit
+2025-11-19 19:31:02,031 T0000: WAIT TIME: 20 = static delay
+2025-11-19 19:31:22,873 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:31:24,205 T0000: CMD TIME: 257 D1 = show lldp neighbors Ethernet4
+2025-11-19 19:31:25,287 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 19:31:27,184 T0000: CMD TIME: 1265 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:31:28,868 T0000: CMD TIME: 257 D1 = show lldp neighbors
+2025-11-19 19:31:29,951 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 19:31:31,848 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 19:31:33,178 T0000: CMD TIME: 775 D1 = show lldp table
+2025-11-19 19:31:34,792 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 19:31:36,331 T0000: CMD TIME: 1869 D1 = show lldp neighbors Ethernet4
+2025-11-19 19:31:38,619 T0000: CMD TIME: 1769 D1 = show lldp neighbors
+2025-11-19 19:31:40,807 T0000: CMD TIME: 1871 D1 = show lldp table
+2025-11-19 19:31:43,130 T0045: HELPER TIME: 79497 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 19:33:03,160 T0045: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_lldp/lldp_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestLldpCliConfiguration.test_lldp_cli_configuration_sonic_dump_D-Link_20251119_193145.tar.gz
+2025-11-19 19:31:43,123 T0044: HELPER TIME: 86713 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 19:33:10,451 T0044: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_lldp/lldp_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestLldpCliConfiguration.test_lldp_cli_configuration_sonic_dump_D-Link_20251119_193145.tar.gz
+2025-11-19 19:33:11,402 T0050: HELPER TIME: 3865 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpCliConfiguration.test_lldp_cli_configuration'  
+2025-11-19 19:33:11,413 T0051: HELPER TIME: 3869 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpCliConfiguration.test_lldp_cli_configuration'  
+=========================================================

@@ -1,0 +1,63 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,normal-user,configure terminal
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,no shutdown
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,exit
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,lldp enable
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,lldp enable
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D2,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,no shutdown
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,lldp enable
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,lldp enable
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4
+function-or-epilog,,TestLldpNeighborDiscovery.test_lldp_neighbor_discovery_with_link_state_changes,D1,normal-user,show lldp neighbors Ethernet4

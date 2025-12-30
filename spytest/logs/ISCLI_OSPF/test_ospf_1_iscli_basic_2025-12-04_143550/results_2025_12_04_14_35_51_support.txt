@@ -1,0 +1,28 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic1: SKIP saving running config pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic1: saving syslog pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: SKIP saving running config pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: saving syslog pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/test_ospf_1_iscli_basic.py 

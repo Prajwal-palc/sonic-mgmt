@@ -1,0 +1,32 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo tail -20 /var/log/syslog
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,cat /proc/uptime
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124

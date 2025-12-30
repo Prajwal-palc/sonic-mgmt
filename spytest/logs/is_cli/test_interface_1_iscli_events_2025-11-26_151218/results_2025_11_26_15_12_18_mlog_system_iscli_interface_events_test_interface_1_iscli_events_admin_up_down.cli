@@ -1,0 +1,88 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 4
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 8
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 12
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,terminal length 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 8
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 12
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 4
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 8
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 12
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-user,terminal length 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 0
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 8
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 12
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 0
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 4
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 8
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,interface Ethernet 12
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceAdminStateChanges.test_interface_admin_state_isolation,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124

@@ -1,0 +1,89 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,ntp enable
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,lldp timer 5
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,ntp server 216.239.35.0 iburst prefer
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,ntp server 216.239.35.4 iburst
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,ntp server 216.239.35.8 iburst
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show ntp
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show clock
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show ntp
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show clock
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show ntp
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show ntp
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show ntp
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,ntp server 216.239.35.0 iburst prefer
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show ntp
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,show clock
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,no ntp server 216.239.35.4
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,no ntp server 216.239.35.8
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,no lldp timer
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,ntp enable
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-config,end
+module-or-class-epilog,,TestNtpFailoverMultipleServers.test_ntp_2_failover_multiple_servers_maintain_sync,D1,mgmt-user,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124

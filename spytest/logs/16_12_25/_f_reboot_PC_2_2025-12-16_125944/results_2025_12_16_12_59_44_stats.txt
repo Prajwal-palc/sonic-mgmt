@@ -1,0 +1,344 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel_Reboot.py::TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:21
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:16.868
+TOTAL HELPER Time = 0:00:15.271
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-16 07:30:28,670 T0059: CMD TIME: 1068 D4 = show interfaces status Ethernet124
+2025-12-16 07:30:28,678 T0056: CMD TIME: 1068 D1 = show interfaces status Ethernet124
+2025-12-16 07:30:28,684 T0058: CMD TIME: 1065 D3 = show interfaces status Ethernet124
+2025-12-16 07:30:28,644 T0057: CMD TIME: 1420 D2 = show interfaces status Ethernet124
+2025-12-16 07:30:30,169 T0059: CMD TIME: 255 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:30:30,191 T0056: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:30:30,196 T0058: CMD TIME: 256 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:30:30,485 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:30:31,182 T0064: CMD TIME: 1072 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-16 07:30:31,169 T0061: CMD TIME: 1122 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-16 07:30:31,175 T0062: CMD TIME: 1119 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-16 07:30:31,190 T0063: CMD TIME: 2489 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-16 07:30:34,156 T0065: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel_Reboot.py'  
+2025-12-16 07:30:34,168 T0066: HELPER TIME: 3825 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel_Reboot.py'  
+2025-12-16 07:30:34,174 T0067: HELPER TIME: 3821 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel_Reboot.py'  
+2025-12-16 07:30:34,183 T0068: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel_Reboot.py'  
+2025-12-16 07:30:38,452 T0000: CMD TIME: 863 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:30:39,334 T0000: CMD TIME: 264 D1 = configure terminal
+2025-12-16 07:30:40,030 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-12-16 07:30:40,707 T0000: CMD TIME: 812 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:30:41,528 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-16 07:30:42,207 T0000: CMD TIME: 258 D2 = terminal length 0
+2025-12-16 07:30:42,885 T0000: CMD TIME: 863 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:30:43,757 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-16 07:30:44,437 T0000: CMD TIME: 258 D3 = terminal length 0
+2025-12-16 07:30:45,114 T0000: CMD TIME: 813 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:30:45,937 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:30:46,617 T0000: CMD TIME: 257 D4 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_4_iscli_Basic_4_node_PortChannel_Reboot.py::TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence ===========================
+RESULT = Timeout
+DESCRIPTION = Testcase max time reached. Exiting.
+TOTAL Test Time = 0:18:22
+TOTAL Sleep Time = 0:16:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:03:03.203
+TOTAL HELPER Time = 0:00:30.524
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-16 07:31:11,683 T0086: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:31:11,705 T0087: HELPER TIME: 3813 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:31:11,712 T0088: HELPER TIME: 3823 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:31:11,718 T0085: HELPER TIME: 3822 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:31:16,013 T0000: CMD TIME: 815 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:31:16,848 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-16 07:31:17,527 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:31:17,793 T0000: CMD TIME: 1166 D1 = interface Ethernet0
+2025-12-16 07:31:18,966 T0000: CMD TIME: 308 D1 = no ip address
+2025-12-16 07:31:19,282 T0000: CMD TIME: 761 D1 = no ipv6 address
+2025-12-16 07:31:20,053 T0000: CMD TIME: 259 D1 = exit
+2025-12-16 07:31:20,732 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-16 07:31:20,998 T0000: CMD TIME: 1520 D1 = interface Ethernet4
+2025-12-16 07:31:22,526 T0000: CMD TIME: 358 D1 = no ip address
+2025-12-16 07:31:22,892 T0000: CMD TIME: 1267 D1 = no ipv6 address
+2025-12-16 07:31:24,167 T0000: CMD TIME: 257 D1 = exit
+2025-12-16 07:31:24,843 T0000: CMD TIME: 863 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:31:25,716 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:31:26,394 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:31:26,659 T0000: CMD TIME: 1165 D2 = interface Ethernet0
+2025-12-16 07:31:27,832 T0000: CMD TIME: 308 D2 = no ip address
+2025-12-16 07:31:28,148 T0000: CMD TIME: 761 D2 = no ipv6 address
+2025-12-16 07:31:28,919 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:31:29,598 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-16 07:31:29,866 T0000: CMD TIME: 1320 D2 = interface Ethernet4
+2025-12-16 07:31:31,197 T0000: CMD TIME: 309 D2 = no ip address
+2025-12-16 07:31:31,516 T0000: CMD TIME: 916 D2 = no ipv6 address
+2025-12-16 07:31:32,449 T0000: CMD TIME: 261 D2 = exit
+2025-12-16 07:31:33,138 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-16 07:31:33,408 T0000: CMD TIME: 1066 D2 = interface Ethernet24
+2025-12-16 07:31:34,483 T0000: CMD TIME: 309 D2 = no ip address
+2025-12-16 07:31:34,800 T0000: CMD TIME: 812 D2 = no ipv6 address
+2025-12-16 07:31:35,620 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:31:36,295 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:31:36,561 T0000: CMD TIME: 1066 D2 = interface Ethernet28
+2025-12-16 07:31:37,635 T0000: CMD TIME: 308 D2 = no ip address
+2025-12-16 07:31:37,950 T0000: CMD TIME: 864 D2 = no ipv6 address
+2025-12-16 07:31:38,823 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:31:39,510 T0000: CMD TIME: 713 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:31:40,232 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-16 07:31:40,911 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-16 07:31:41,182 T0000: CMD TIME: 1119 D3 = interface Ethernet40
+2025-12-16 07:31:42,311 T0000: CMD TIME: 359 D3 = no ip address
+2025-12-16 07:31:42,678 T0000: CMD TIME: 864 D3 = no ipv6 address
+2025-12-16 07:31:43,550 T0000: CMD TIME: 258 D3 = exit
+2025-12-16 07:31:44,227 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-16 07:31:44,493 T0000: CMD TIME: 1168 D3 = interface Ethernet44
+2025-12-16 07:31:45,670 T0000: CMD TIME: 308 D3 = no ip address
+2025-12-16 07:31:45,991 T0000: CMD TIME: 965 D3 = no ipv6 address
+2025-12-16 07:31:46,965 T0000: CMD TIME: 257 D3 = exit
+2025-12-16 07:31:47,641 T0000: CMD TIME: 814 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:31:48,463 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:31:49,141 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:31:49,407 T0000: CMD TIME: 1168 D4 = interface Ethernet24
+2025-12-16 07:31:50,584 T0000: CMD TIME: 308 D4 = no ip address
+2025-12-16 07:31:50,901 T0000: CMD TIME: 1065 D4 = no ipv6 address
+2025-12-16 07:31:51,974 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:31:52,653 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:31:52,920 T0000: CMD TIME: 1217 D4 = interface Ethernet28
+2025-12-16 07:31:54,145 T0000: CMD TIME: 308 D4 = no ip address
+2025-12-16 07:31:54,462 T0000: CMD TIME: 1013 D4 = no ipv6 address
+2025-12-16 07:31:55,484 T0000: CMD TIME: 258 D4 = exit
+2025-12-16 07:31:56,164 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:31:56,431 T0000: CMD TIME: 1167 D4 = interface Ethernet40
+2025-12-16 07:31:57,610 T0000: CMD TIME: 310 D4 = no ip address
+2025-12-16 07:31:57,929 T0000: CMD TIME: 964 D4 = no ipv6 address
+2025-12-16 07:31:58,902 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:31:59,576 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:31:59,841 T0000: CMD TIME: 1115 D4 = interface Ethernet44
+2025-12-16 07:32:00,964 T0000: CMD TIME: 308 D4 = no ip address
+2025-12-16 07:32:01,280 T0000: CMD TIME: 964 D4 = no ipv6 address
+2025-12-16 07:32:02,252 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:05,936 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:32:06,200 T0000: CMD TIME: 306 D1 = interface PortChannel 110
+2025-12-16 07:32:06,511 T0000: CMD TIME: 257 D1 = exit
+2025-12-16 07:32:07,182 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:32:07,447 T0000: CMD TIME: 1064 D1 = interface Ethernet0
+2025-12-16 07:32:08,520 T0000: CMD TIME: 408 D1 = channel-group 110
+2025-12-16 07:32:08,938 T0000: CMD TIME: 257 D1 = exit
+2025-12-16 07:32:09,610 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:32:09,875 T0000: CMD TIME: 1216 D1 = interface Ethernet4
+2025-12-16 07:32:11,099 T0000: CMD TIME: 359 D1 = channel-group 110
+2025-12-16 07:32:11,465 T0000: CMD TIME: 256 D1 = exit
+2025-12-16 07:32:12,141 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:12,406 T0000: CMD TIME: 358 D2 = interface PortChannel 110
+2025-12-16 07:32:12,772 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:32:13,447 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-16 07:32:13,713 T0000: CMD TIME: 1214 D2 = interface Ethernet0
+2025-12-16 07:32:14,935 T0000: CMD TIME: 358 D2 = channel-group 110
+2025-12-16 07:32:15,301 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:32:15,975 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:16,241 T0000: CMD TIME: 1164 D2 = interface Ethernet4
+2025-12-16 07:32:17,413 T0000: CMD TIME: 359 D2 = channel-group 110
+2025-12-16 07:32:17,782 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:32:18,457 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:18,723 T0000: CMD TIME: 358 D2 = interface PortChannel 120
+2025-12-16 07:32:19,090 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:32:19,764 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:20,039 T0000: CMD TIME: 1071 D2 = interface Ethernet24
+2025-12-16 07:32:21,122 T0000: CMD TIME: 360 D2 = channel-group 120
+2025-12-16 07:32:21,491 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:32:22,167 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:22,434 T0000: CMD TIME: 1116 D2 = interface Ethernet28
+2025-12-16 07:32:23,559 T0000: CMD TIME: 359 D2 = channel-group 120
+2025-12-16 07:32:23,929 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:32:24,607 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:32:24,874 T0000: CMD TIME: 359 D4 = interface PortChannel 120
+2025-12-16 07:32:25,244 T0000: CMD TIME: 258 D4 = exit
+2025-12-16 07:32:25,921 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:32:26,188 T0000: CMD TIME: 1169 D4 = interface Ethernet24
+2025-12-16 07:32:27,366 T0000: CMD TIME: 359 D4 = channel-group 120
+2025-12-16 07:32:27,733 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:28,407 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:32:28,672 T0000: CMD TIME: 1115 D4 = interface Ethernet28
+2025-12-16 07:32:29,795 T0000: CMD TIME: 359 D4 = channel-group 120
+2025-12-16 07:32:30,163 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:30,838 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:32:31,103 T0000: CMD TIME: 359 D4 = interface PortChannel 130
+2025-12-16 07:32:31,471 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:32,146 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:32:32,411 T0000: CMD TIME: 1116 D4 = interface Ethernet40
+2025-12-16 07:32:33,535 T0000: CMD TIME: 359 D4 = channel-group 130
+2025-12-16 07:32:33,903 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:34,578 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:32:34,843 T0000: CMD TIME: 1165 D4 = interface Ethernet44
+2025-12-16 07:32:36,016 T0000: CMD TIME: 359 D4 = channel-group 130
+2025-12-16 07:32:36,383 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:37,059 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-16 07:32:37,325 T0000: CMD TIME: 359 D3 = interface PortChannel 130
+2025-12-16 07:32:37,693 T0000: CMD TIME: 258 D3 = exit
+2025-12-16 07:32:38,371 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-16 07:32:38,637 T0000: CMD TIME: 1116 D3 = interface Ethernet40
+2025-12-16 07:32:39,762 T0000: CMD TIME: 360 D3 = channel-group 130
+2025-12-16 07:32:40,131 T0000: CMD TIME: 260 D3 = exit
+2025-12-16 07:32:40,814 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-16 07:32:41,081 T0000: CMD TIME: 1067 D3 = interface Ethernet44
+2025-12-16 07:32:42,156 T0000: CMD TIME: 411 D3 = channel-group 130
+2025-12-16 07:32:42,572 T0000: CMD TIME: 255 D3 = exit
+2025-12-16 07:32:46,251 T0000: CMD TIME: 664 D1 = do show PortChannel summary
+2025-12-16 07:32:47,339 T0000: CMD TIME: 1019 D2 = do show PortChannel summary
+2025-12-16 07:32:48,784 T0000: CMD TIME: 817 D4 = do show PortChannel summary
+2025-12-16 07:32:50,024 T0000: CMD TIME: 612 D3 = do show PortChannel summary
+2025-12-16 07:32:51,059 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:32:51,324 T0000: CMD TIME: 360 D1 = interface PortChannel 110
+2025-12-16 07:32:51,697 T0000: CMD TIME: 260 D1 = no ip address
+2025-12-16 07:32:51,965 T0000: CMD TIME: 309 D1 = ip address 10.1.1.1/24
+2025-12-16 07:32:52,283 T0000: CMD TIME: 257 D1 = exit
+2025-12-16 07:32:52,961 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:53,226 T0000: CMD TIME: 359 D2 = interface PortChannel 110
+2025-12-16 07:32:53,593 T0000: CMD TIME: 259 D2 = no ip address
+2025-12-16 07:32:53,861 T0000: CMD TIME: 308 D2 = ip address 10.1.1.2/24
+2025-12-16 07:32:54,179 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:32:54,853 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:32:55,119 T0000: CMD TIME: 359 D2 = interface PortChannel 120
+2025-12-16 07:32:55,486 T0000: CMD TIME: 261 D2 = no ip address
+2025-12-16 07:32:55,756 T0000: CMD TIME: 258 D2 = ip address 20.1.1.1/24
+2025-12-16 07:32:56,023 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:32:56,699 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:32:56,964 T0000: CMD TIME: 359 D4 = interface PortChannel 120
+2025-12-16 07:32:57,331 T0000: CMD TIME: 259 D4 = no ip address
+2025-12-16 07:32:57,606 T0000: CMD TIME: 314 D4 = ip address 20.1.1.2/24
+2025-12-16 07:32:57,929 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:32:58,609 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-16 07:32:58,874 T0000: CMD TIME: 359 D4 = interface PortChannel 130
+2025-12-16 07:32:59,242 T0000: CMD TIME: 259 D4 = no ip address
+2025-12-16 07:32:59,510 T0000: CMD TIME: 310 D4 = ip address 30.1.1.2/24
+2025-12-16 07:32:59,830 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:33:00,505 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-16 07:33:00,770 T0000: CMD TIME: 360 D3 = interface PortChannel 130
+2025-12-16 07:33:01,139 T0000: CMD TIME: 263 D3 = no ip address
+2025-12-16 07:33:01,418 T0000: CMD TIME: 313 D3 = ip address 30.1.1.1/24
+2025-12-16 07:33:01,741 T0000: CMD TIME: 257 D3 = exit
+2025-12-16 07:33:05,425 T0000: CMD TIME: 463 D1 = do show running-configuration interface PortChannel 110
+2025-12-16 07:33:06,310 T0000: CMD TIME: 511 D2 = do show running-configuration interface PortChannel 110
+2025-12-16 07:33:07,241 T0000: CMD TIME: 460 D2 = do show running-configuration interface PortChannel 120
+2025-12-16 07:33:08,121 T0000: CMD TIME: 460 D4 = do show running-configuration interface PortChannel 120
+2025-12-16 07:33:09,002 T0000: CMD TIME: 460 D4 = do show running-configuration interface PortChannel 130
+2025-12-16 07:33:09,882 T0000: CMD TIME: 460 D3 = do show running-configuration interface PortChannel 130
+2025-12-16 07:33:10,764 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-16 07:33:11,031 T0000: CMD TIME: 308 D1 = ip route 30.1.1.0/24 10.1.1.2
+2025-12-16 07:33:11,756 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-16 07:33:12,020 T0000: CMD TIME: 308 D3 = ip route 10.1.1.0/24 30.1.1.2
+2025-12-16 07:33:15,757 T0000: CMD TIME: 261 D2 = configure terminal
+2025-12-16 07:33:16,025 T0000: CMD TIME: 1419 D2 = router ospf
+2025-12-16 07:33:17,453 T0000: CMD TIME: 307 D2 = area 0
+2025-12-16 07:33:17,769 T0000: CMD TIME: 257 D2 = exit
+2025-12-16 07:33:18,446 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:33:18,711 T0000: CMD TIME: 1268 D2 = router ospf
+2025-12-16 07:33:19,997 T0000: CMD TIME: 1269 D2 = network 20.1.1.1/24 area 0
+2025-12-16 07:33:21,275 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:33:21,956 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-16 07:33:22,223 T0000: CMD TIME: 1318 D2 = router ospf
+2025-12-16 07:33:23,550 T0000: CMD TIME: 1166 D2 = network 10.1.1.2/24 area 0
+2025-12-16 07:33:24,724 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:33:25,402 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:33:25,669 T0000: CMD TIME: 1265 D4 = router ospf
+2025-12-16 07:33:26,943 T0000: CMD TIME: 359 D4 = area 0
+2025-12-16 07:33:27,309 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:33:27,986 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:33:28,259 T0000: CMD TIME: 1218 D4 = router ospf
+2025-12-16 07:33:29,489 T0000: CMD TIME: 1072 D4 = network 20.1.1.2/24 area 0
+2025-12-16 07:33:30,569 T0000: CMD TIME: 257 D4 = exit
+2025-12-16 07:33:31,245 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-16 07:33:31,511 T0000: CMD TIME: 1418 D4 = router ospf
+2025-12-16 07:33:32,938 T0000: CMD TIME: 1116 D4 = network 30.1.1.2/24 area 0
+2025-12-16 07:33:34,062 T0000: CMD TIME: 258 D4 = exit
+2025-12-16 07:35:09,777 T0000: CMD TIME: 511 D2 = do show ip ospf neighbor
+2025-12-16 07:35:10,709 T0000: CMD TIME: 512 D4 = do show ip ospf neighbor
+2025-12-16 07:35:21,655 T0000: CMD TIME: 519 D2 = do show ip ospf interface
+2025-12-16 07:35:22,613 T0000: CMD TIME: 667 D4 = do show ip ospf interface
+2025-12-16 07:35:28,724 T0000: CMD TIME: 258 D1 = exit
+2025-12-16 07:35:28,991 T0000: CMD TIME: 410 D1 = exit
+2025-12-16 07:35:29,825 T0000: CMD TIME: 3343 D1 = sudo -s ping -c 4 30.1.1.1
+2025-12-16 07:35:33,592 T0000: CMD TIME: 257 D3 = exit
+2025-12-16 07:35:33,859 T0000: CMD TIME: 309 D3 = exit
+2025-12-16 07:35:34,590 T0000: CMD TIME: 3285 D3 = sudo -s ping -c 4 10.1.1.1
+2025-12-16 07:35:38,305 T0000: CMD TIME: 1065 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:35:39,378 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:35:40,057 T0000: CMD TIME: 1872 D1 = write memory
+2025-12-16 07:35:42,354 T0000: CMD TIME: 1722 D2 = write memory
+2025-12-16 07:35:44,495 T0000: CMD TIME: 812 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:35:45,317 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-16 07:35:45,995 T0000: CMD TIME: 1721 D3 = write memory
+2025-12-16 07:35:48,136 T0000: CMD TIME: 1568 D4 = write memory
+2025-12-16 07:35:55,135 T0000: CMD TIME: 258 D1 = exit
+2025-12-16 07:35:55,404 T0000: CMD TIME: 309 D1 = exit
+2025-12-16 07:35:56,136 T0000: CMD TIME: 14116 D1 = sudo -s reboot
+2025-12-16 07:36:10,264 T0000: WAIT TIME: 300 = static delay
+2025-12-16 07:41:22,029 T0000: CMD TIME: 311 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:41:22,762 T0000: CMD TIME: 259 D1 = cat /proc/uptime
+2025-12-16 07:41:24,272 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:41:24,954 T0000: CMD TIME: 259 D1 = cat /proc/uptime
+2025-12-16 07:41:25,649 T0000: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:41:27,786 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:41:28,466 T0000: CMD TIME: 262 D1 = cat /proc/uptime
+2025-12-16 07:41:29,154 T0000: CMD TIME: 663 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-16 07:41:30,253 T0000: CMD TIME: 1170 D1 = show interfaces status Ethernet124
+2025-12-16 07:41:31,863 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:41:32,541 T0000: CMD TIME: 309 D1 = sudo -s date --set='Tue Dec 16 07:41:32 2025'
+2025-12-16 07:41:33,275 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:41:39,108 T0000: WAIT TIME: 30 = static delay
+2025-12-16 07:42:15,960 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:42:16,639 T0000: CMD TIME: 259 D1 = cat /proc/uptime
+2025-12-16 07:42:17,322 T0000: CMD TIME: 513 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-16 07:42:18,266 T0000: CMD TIME: 1118 D1 = show interfaces status Ethernet124
+2025-12-16 07:42:19,820 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:42:20,497 T0000: CMD TIME: 309 D1 = sudo -s date --set='Tue Dec 16 07:42:20 2025'
+2025-12-16 07:42:21,229 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:42:21,915 T0000: CMD TIME: 888 D1 = show version
+2025-12-16 07:42:23,306 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:42:23,993 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:42:24,915 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-16 07:42:25,592 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-12-16 07:42:26,270 T0000: CMD TIME: 258 D2 = exit
+2025-12-16 07:42:26,537 T0000: CMD TIME: 308 D2 = exit
+2025-12-16 07:42:27,267 T0000: CMD TIME: 14146 D2 = sudo -s reboot
+2025-12-16 07:42:41,424 T0000: WAIT TIME: 300 = static delay
+2025-12-16 07:47:53,146 T0000: CMD TIME: 262 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:47:53,829 T0000: CMD TIME: 258 D2 = cat /proc/uptime
+2025-12-16 07:47:55,337 T0000: CMD TIME: 260 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:47:56,021 T0000: CMD TIME: 259 D2 = cat /proc/uptime
+2025-12-16 07:47:56,708 T0000: CMD TIME: 259 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:47:58,833 T0000: CMD TIME: 260 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:47:59,524 T0000: CMD TIME: 259 D2 = cat /proc/uptime
+2025-12-16 07:48:00,208 T0000: CMD TIME: 511 D2 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-16 07:48:01,153 T0000: CMD TIME: 1321 D2 = show interfaces status Ethernet124
+2025-12-16 07:48:02,917 T0000: CMD TIME: 259 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:48:03,595 T0000: CMD TIME: 258 D2 = sudo -s date --set='Tue Dec 16 07:48:03 2025'
+2025-12-16 07:48:04,277 T0000: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:48:10,111 T0000: WAIT TIME: 30 = static delay
+2025-12-16 07:48:47,022 T0000: CMD TIME: 258 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:48:47,700 T0000: CMD TIME: 257 D2 = cat /proc/uptime
+2025-12-16 07:48:48,381 T0000: CMD TIME: 461 D2 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-16 07:48:49,273 T0000: CMD TIME: 1066 D2 = show interfaces status Ethernet124
+2025-12-16 07:48:50,775 T0000: CMD TIME: 258 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-16 07:48:51,462 T0000: CMD TIME: 258 D2 = sudo -s date --set='Tue Dec 16 07:48:51 2025'
+2025-12-16 07:48:52,144 T0000: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:48:52,836 T0000: CMD TIME: 843 D2 = show version
+2025-12-16 07:48:54,187 T0000: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-16 07:48:54,875 T0000: CMD TIME: 864 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-16 07:48:55,747 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-16 07:48:56,426 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-12-16 07:48:57,104 T0000: CMD TIME: 258 D3 = exit
+2025-12-16 07:48:57,371 T0000: CMD TIME: 309 D3 = exit
+2025-12-16 07:48:58,102 T0000: CMD TIME: 13084 D3 = sudo -s reboot
+2025-12-16 07:49:11,198 T0000: WAIT TIME: 300 = static delay
+2025-12-16 07:49:13,062 T0107: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:49:24,776 T0105: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:49:24,799 T0106: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+2025-12-16 07:49:24,901 T0108: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRoutingPortChannel4NodeReboot.test_ospf_portchannel_static_routing_4node_reboot_persistence'  
+=========================================================

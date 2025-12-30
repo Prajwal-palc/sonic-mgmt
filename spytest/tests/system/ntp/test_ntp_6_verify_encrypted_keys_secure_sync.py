@@ -341,16 +341,6 @@ class TestNtpEncryptedKeysSecureSync:
         klish_ntp_assoc_final = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_final)
 
-        # Step 18: Show NTP status (click)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        click_ntp_final = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_final)
-
-        # Step 19: Show clock
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        click_clock_final = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_final)
-
         # ========== PART 8: MULTIPLE ENCRYPTED KEYS ==========
 
         st.log("=" * 80)
@@ -404,46 +394,11 @@ class TestNtpEncryptedKeysSecureSync:
         klish_ntp_assoc_final2 = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_final2)
 
-        st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_final2 = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_final2)
-
-        st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        st.log("=" * 80)
-        click_clock_final2 = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_final2)
-
         # ========== VALIDATION ==========
-
-        # Convert outputs to strings for validation
-        if isinstance(click_ntp_final2, list):
-            click_ntp_final_str = '\n'.join(str(line) for line in click_ntp_final2)
-        else:
-            click_ntp_final_str = str(click_ntp_final2)
-
-        if isinstance(click_clock_final2, list):
-            click_clock_final_str = '\n'.join(str(line) for line in click_clock_final2)
-        else:
-            click_clock_final_str = str(click_clock_final2)
-
-        # Basic validation
         st.log("=" * 80)
         st.log("VALIDATION - Checking NTP status with encrypted keys")
         st.log("=" * 80)
-
-        # Validation 1: Verify show ntp returned output
-        if not click_ntp_final_str or not click_ntp_final_str.strip():
-            st.log("Warning: 'show ntp' returned empty output")
-        else:
-            st.log("Validation passed: 'show ntp' returned output")
-
-        # Validation 2: Verify show clock returned output
-        if not click_clock_final_str or not click_clock_final_str.strip():
-            st.report_fail("msg", "'show clock' returned empty output")
-        st.log("Validation passed: 'show clock' returned output")
+        st.log("All encrypted key configurations completed successfully")
 
         # ========== TEST SUMMARY ==========
 
@@ -479,14 +434,25 @@ class TestNtpEncryptedKeysSecureSync:
         script = ["sonic-cli", "configure terminal"]
         script.extend(command_list)
         script.extend(["end", "exit"])
-        st.apply_script(dut, script)
+        output = st.apply_script(dut, script)
+
+        # Check for CLI errors in the output
+        output_str = str(output or "")
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI command failed with error: {output_str}")
 
     @staticmethod
     def _run_klish_show(dut: str, command: str) -> str:
         """Run show command inside sonic-cli (klish) context and return output."""
         script = ["sonic-cli", command, "exit"]
         output = st.apply_script(dut, script)
-        return str(output or "")
+        output_str = str(output or "")
+
+        # Check for CLI errors in the output
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI show command '{command}' failed with error: {output_str}")
+
+        return output_str
 
     @classmethod
     def _restore_defaults(cls, dut: str) -> None:

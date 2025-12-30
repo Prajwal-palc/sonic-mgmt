@@ -1,0 +1,271 @@
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_get_first_operational_interface ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:09.639
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 06:54:40,032 T0027: CMD TIME: 1824 D1 = show interfaces status Ethernet124
+2025-11-21 06:54:40,038 T0028: CMD TIME: 1972 D2 = show interfaces status Ethernet124
+2025-11-21 06:54:42,275 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-21 06:54:42,428 T0028: CMD TIME: 256 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-21 06:54:43,123 T0030: CMD TIME: 1923 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-21 06:54:43,115 T0031: CMD TIME: 1982 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-21 06:54:45,542 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events9_speed_change.py'  
+2025-11-21 06:54:45,547 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events9_speed_change.py'  
+2025-11-21 06:54:49,812 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 06:54:50,734 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 06:54:51,416 T0000: CMD TIME: 257 D1 = terminal length 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_get_first_operational_interface ===========================
+RESULT = Fail
+DESCRIPTION = Command 'show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:48
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.152
+TOTAL HELPER Time = 0:03:08.822
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-21 06:55:20,065 T0042: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+2025-11-21 06:55:20,072 T0043: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+2025-11-21 06:55:24,341 T0000: CMD TIME: 862 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 06:58:47,297 T0000: PROMPT NFOUND: show interface status
+2025-11-21 06:58:56,942 T0000: WAIT TIME: 5 = static delay
+2025-11-21 06:59:19,380 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-21 06:59:20,057 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-21 06:59:21,559 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-21 06:59:22,237 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-21 06:59:22,925 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-21 06:59:25,935 T0048: HELPER TIME: 84311 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-21 07:00:50,888 T0048: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceSpeedChanges.test_get_first_operational_interface_sonic_dump_D-Link_20251121_065928.tar.gz
+2025-11-21 06:59:25,945 T0049: HELPER TIME: 89109 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-21 07:00:55,749 T0049: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceSpeedChanges.test_get_first_operational_interface_sonic_dump_D-Link_20251121_065928.tar.gz
+2025-11-21 07:00:57,128 T0054: HELPER TIME: 3884 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+2025-11-21 07:00:57,136 T0055: HELPER TIME: 3897 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_capture_baseline_speed ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_capture_baseline_speed ===========================
+RESULT = Fail
+DESCRIPTION = Interface Ethernet0 is not operationally up (status: )
+TOTAL Test Time = 0:01:48
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.426
+TOTAL HELPER Time = 0:02:56.693
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-21 07:01:07,542 T0058: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+2025-11-21 07:01:07,548 T0059: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+2025-11-21 07:01:11,804 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 07:01:13,136 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:01:13,836 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:01:14,538 T0063: HELPER TIME: 81900 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-21 07:02:37,006 T0063: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceSpeedChanges.test_capture_baseline_speed_sonic_dump_D-Link_20251121_070116.tar.gz
+2025-11-21 07:01:24,185 T0062: HELPER TIME: 79498 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-21 07:02:44,226 T0062: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceSpeedChanges.test_capture_baseline_speed_sonic_dump_D-Link_20251121_070126.tar.gz
+2025-11-21 07:02:45,144 T0068: HELPER TIME: 3838 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+2025-11-21 07:02:45,152 T0069: HELPER TIME: 3837 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_change_speed_to_10g ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_change_speed_to_10g ===========================
+RESULT = Fail
+DESCRIPTION = Command 'end' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:12
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.992
+TOTAL HELPER Time = 0:02:59.352
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-21 07:02:53,358 T0072: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+2025-11-21 07:02:53,368 T0073: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+2025-11-21 07:02:57,627 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 07:02:58,549 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 07:02:59,226 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 07:02:59,490 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-21 07:02:59,806 T0000: CMD TIME: 257 D1 = speed 10000
+2025-11-21 07:06:21,680 T0000: PROMPT NFOUND: end
+2025-11-21 07:06:24,833 T0077: HELPER TIME: 84301 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-21 07:07:49,723 T0077: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceSpeedChanges.test_change_speed_to_10g_sonic_dump_D-Link_20251121_070626.tar.gz
+2025-11-21 07:06:34,468 T0076: HELPER TIME: 79491 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-21 07:07:54,474 T0076: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceSpeedChanges.test_change_speed_to_10g_sonic_dump_D-Link_20251121_070636.tar.gz
+2025-11-21 07:07:55,838 T0083: HELPER TIME: 3913 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+2025-11-21 07:07:55,831 T0082: HELPER TIME: 4022 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_verify_speed_change_to_10g ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_verify_speed_change_to_10g ===========================
+RESULT = Fail
+DESCRIPTION = Could not extract speed for Ethernet0
+TOTAL Test Time = 0:01:51
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.427
+TOTAL HELPER Time = 0:03:06.304
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-21 07:08:06,438 T0086: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+2025-11-21 07:08:06,446 T0087: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+2025-11-21 07:08:10,709 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 07:08:12,040 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:08:12,733 T0000: CMD TIME: 258 D1 = show interface status Ethernet0
+2025-11-21 07:08:13,429 T0091: HELPER TIME: 89106 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-21 07:09:43,167 T0091: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceSpeedChanges.test_verify_speed_change_to_10g_sonic_dump_D-Link_20251121_070815.tar.gz
+2025-11-21 07:08:23,068 T0090: HELPER TIME: 81895 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-21 07:09:45,455 T0090: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceSpeedChanges.test_verify_speed_change_to_10g_sonic_dump_D-Link_20251121_070825.tar.gz
+2025-11-21 07:09:46,398 T0097: HELPER TIME: 3831 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+2025-11-21 07:09:46,389 T0096: HELPER TIME: 3845 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_restore_original_speed ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_restore_original_speed ===========================
+RESULT = Fail
+DESCRIPTION = Original speed not captured - cannot restore
+TOTAL Test Time = 0:01:41
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:03:06.318
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-21 07:09:54,597 T0100: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+2025-11-21 07:09:54,602 T0101: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+2025-11-21 07:09:58,886 T0104: HELPER TIME: 84301 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-21 07:11:23,802 T0104: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceSpeedChanges.test_restore_original_speed_sonic_dump_D-Link_20251121_071001.tar.gz
+2025-11-21 07:09:58,880 T0105: HELPER TIME: 86711 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-21 07:11:26,176 T0105: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceSpeedChanges.test_restore_original_speed_sonic_dump_D-Link_20251121_071001.tar.gz
+2025-11-21 07:11:27,126 T0110: HELPER TIME: 3841 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+2025-11-21 07:11:27,131 T0111: HELPER TIME: 3837 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_verify_speed_restoration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_verify_speed_restoration ===========================
+RESULT = Fail
+DESCRIPTION = Could not extract speed for Ethernet0
+TOTAL Test Time = 0:01:46
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.426
+TOTAL HELPER Time = 0:02:59.101
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-21 07:11:35,357 T0115: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+2025-11-21 07:11:35,361 T0114: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+2025-11-21 07:11:39,622 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 07:11:40,953 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:11:41,647 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:11:42,340 T0119: HELPER TIME: 84302 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 5  
+2025-11-21 07:13:07,986 T0119: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceSpeedChanges.test_verify_speed_restoration_sonic_dump_D-Link_20251121_071144.tar.gz
+2025-11-21 07:11:51,986 T0118: HELPER TIME: 79494 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 5  
+2025-11-21 07:13:11,998 T0118: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/test_21_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceSpeedChanges.test_verify_speed_restoration_sonic_dump_D-Link_20251121_071154.tar.gz
+2025-11-21 07:13:12,934 T0125: HELPER TIME: 3841 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+2025-11-21 07:13:12,939 T0124: HELPER TIME: 3837 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_final_verification ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change.py::TestInterfaceSpeedChanges.test_final_verification ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'NoneType' object has no attribute 'lower' in file /tests/system/interface_events/test_interface_events9_speed_change.py at line 329
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.426
+TOTAL HELPER Time = 0:00:15.250
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 07:13:22,544 T0128: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+2025-11-21 07:13:22,553 T0129: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+2025-11-21 07:13:26,820 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 07:13:28,151 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:13:28,846 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-21 07:13:29,585 T0133: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+2025-11-21 07:13:39,222 T0132: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+=========================================================

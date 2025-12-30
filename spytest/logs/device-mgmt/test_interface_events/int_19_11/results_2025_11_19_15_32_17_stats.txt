@@ -1,0 +1,387 @@
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.404
+TOTAL HELPER Time = 0:00:07.626
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:03:16,075 T0028: CMD TIME: 1921 D2 = show interfaces status Ethernet124
+2025-11-19 10:03:16,068 T0027: CMD TIME: 2026 D1 = show interfaces status Ethernet124
+2025-11-19 10:03:18,416 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:03:18,513 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:03:19,208 T0031: CMD TIME: 1922 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 10:03:19,194 T0030: CMD TIME: 2025 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 10:03:21,664 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events8_speed_auto_negoation.py'  
+2025-11-19 10:03:21,672 T0033: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events8_speed_auto_negoation.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:20
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.306
+TOTAL HELPER Time = 0:03:04.204
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 10:03:38,481 T0042: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration'  
+2025-11-19 10:03:38,489 T0043: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration'  
+2025-11-19 10:03:42,756 T0000: CMD TIME: 1013 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:03:43,779 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:03:44,465 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 10:03:44,728 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-19 10:03:45,050 T0000: CMD TIME: 1214 D1 = no shutdown
+2025-11-19 10:03:46,273 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:07:08,151 T0000: PROMPT NFOUND: exit
+2025-11-19 10:07:11,328 T0047: HELPER TIME: 81900 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 10:08:33,865 T0047: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration_sonic_dump_D-Link_20251119_100713.tar.gz
+2025-11-19 10:07:20,977 T0046: HELPER TIME: 86707 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 10:08:48,273 T0046: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration_sonic_dump_D-Link_20251119_100723.tar.gz
+2025-11-19 10:08:49,725 T0053: HELPER TIME: 3935 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration'  
+2025-11-19 10:08:49,730 T0052: HELPER TIME: 4032 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check ===========================
+RESULT = Fail
+DESCRIPTION = Command 'show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:40
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.306
+TOTAL HELPER Time = 0:02:56.819
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 10:08:59,823 T0057: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check'  
+2025-11-19 10:08:59,829 T0056: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check'  
+2025-11-19 10:09:04,092 T0000: CMD TIME: 1013 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:12:27,283 T0000: PROMPT NFOUND: show interface status
+2025-11-19 10:12:36,930 T0000: WAIT TIME: 5 = static delay
+2025-11-19 10:12:59,401 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 10:13:00,080 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-19 10:13:01,588 T0000: CMD TIME: 260 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 10:13:02,269 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-19 10:13:02,953 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:13:05,973 T0063: HELPER TIME: 79503 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 10:14:26,085 T0063: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check_sonic_dump_D-Link_20251119_101308.tar.gz
+2025-11-19 10:13:05,978 T0062: HELPER TIME: 81902 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 10:14:28,523 T0062: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check_sonic_dump_D-Link_20251119_101308.tar.gz
+2025-11-19 10:14:29,962 T0068: HELPER TIME: 3891 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check'  
+2025-11-19 10:14:29,957 T0069: HELPER TIME: 3896 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0 ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:18
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.057
+TOTAL HELPER Time = 0:02:56.809
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 10:14:38,516 T0072: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0'  
+2025-11-19 10:14:38,520 T0073: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0'  
+2025-11-19 10:14:42,788 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:14:43,709 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:14:44,384 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 10:14:44,650 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 10:14:44,966 T0000: CMD TIME: 1067 D1 = speed auto
+2025-11-19 10:14:46,042 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 10:18:07,902 T0000: PROMPT NFOUND: exit
+2025-11-19 10:18:11,067 T0077: HELPER TIME: 77095 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 10:19:28,718 T0077: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0_sonic_dump_D-Link_20251119_101813.tar.gz
+2025-11-19 10:18:20,708 T0076: HELPER TIME: 84304 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 10:19:45,627 T0076: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0_sonic_dump_D-Link_20251119_101823.tar.gz
+2025-11-19 10:19:47,080 T0083: HELPER TIME: 3879 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0'  
+2025-11-19 10:19:47,071 T0082: HELPER TIME: 3902 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:27
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.977
+TOTAL HELPER Time = 0:00:15.253
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:19:57,120 T0086: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0'  
+2025-11-19 10:19:57,125 T0087: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0'  
+2025-11-19 10:20:01,388 T0000: CMD TIME: 1720 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:20:03,526 T0000: CMD TIME: 257 D1 = show interface status Ethernet0
+2025-11-19 10:20:04,255 T0093: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0'  
+2025-11-19 10:20:13,886 T0092: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:42
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.291
+TOTAL HELPER Time = 0:00:15.258
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:20:22,060 T0096: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0'  
+2025-11-19 10:20:22,068 T0097: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0'  
+2025-11-19 10:20:41,345 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:20:42,677 T0000: CMD TIME: 258 D1 = show interface status Ethernet0
+2025-11-19 10:20:43,375 T0000: CMD TIME: 2121 D1 = show interface Ethernet0
+2025-11-19 10:20:45,970 T0103: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0'  
+2025-11-19 10:20:55,594 T0102: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4 ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:23
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.109
+TOTAL HELPER Time = 0:03:11.213
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 10:21:04,246 T0107: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4'  
+2025-11-19 10:21:04,251 T0106: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4'  
+2025-11-19 10:21:08,518 T0000: CMD TIME: 915 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:21:09,441 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:21:10,118 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 10:21:10,383 T0000: CMD TIME: 308 D1 = interface Ethernet4
+2025-11-19 10:21:10,700 T0000: CMD TIME: 1115 D1 = speed auto
+2025-11-19 10:21:11,823 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 10:24:33,625 T0000: PROMPT NFOUND: exit
+2025-11-19 10:24:36,782 T0111: HELPER TIME: 86705 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 10:26:03,977 T0111: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4_sonic_dump_D-Link_20251119_102439.tar.gz
+2025-11-19 10:24:46,415 T0110: HELPER TIME: 89104 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 10:26:16,042 T0110: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4_sonic_dump_D-Link_20251119_102449.tar.gz
+2025-11-19 10:26:17,483 T0116: HELPER TIME: 3889 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4'  
+2025-11-19 10:26:17,487 T0117: HELPER TIME: 3886 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:25
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.169
+TOTAL HELPER Time = 0:00:15.251
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:26:25,783 T0120: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4'  
+2025-11-19 10:26:25,790 T0121: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4'  
+2025-11-19 10:26:30,050 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:26:31,381 T0000: CMD TIME: 257 D1 = show interface status Ethernet4
+2025-11-19 10:26:32,103 T0127: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4'  
+2025-11-19 10:26:41,736 T0126: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation ===========================
+RESULT = Fail
+DESCRIPTION = Command 'show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:58
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.204
+TOTAL HELPER Time = 0:03:01.625
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 10:26:49,863 T0130: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation'  
+2025-11-19 10:26:49,870 T0131: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation'  
+2025-11-19 10:27:09,149 T0000: CMD TIME: 915 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:30:32,125 T0000: PROMPT NFOUND: show interface status
+2025-11-19 10:30:43,773 T0000: WAIT TIME: 5 = static delay
+2025-11-19 10:31:06,222 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 10:31:06,900 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-19 10:31:08,402 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 10:31:09,080 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-19 10:31:09,764 T0000: CMD TIME: 257 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:31:12,777 T0136: HELPER TIME: 81905 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-19 10:32:35,217 T0136: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation_sonic_dump_D-Link_20251119_103115.tar.gz
+2025-11-19 10:31:12,785 T0137: HELPER TIME: 84302 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-19 10:32:37,613 T0137: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation_sonic_dump_D-Link_20251119_103115.tar.gz
+2025-11-19 10:32:38,949 T0142: HELPER TIME: 3891 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation'  
+2025-11-19 10:32:38,956 T0143: HELPER TIME: 3901 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:28
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:04.102
+TOTAL HELPER Time = 0:00:15.253
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 10:32:47,476 T0147: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence'  
+2025-11-19 10:32:47,481 T0146: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence'  
+2025-11-19 10:32:51,743 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:32:53,126 T0000: CMD TIME: 2527 D1 = show running-configuration interface Ethernet0
+2025-11-19 10:32:56,102 T0000: CMD TIME: 612 D1 = show running-configuration interface Ethernet4
+2025-11-19 10:32:57,197 T0153: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence'  
+2025-11-19 10:33:06,835 T0152: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification ===========================
+RESULT = Fail
+DESCRIPTION = Command 'show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:41
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.203
+TOTAL HELPER Time = 0:02:59.241
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 10:33:15,379 T0156: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification'  
+2025-11-19 10:33:15,387 T0157: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification'  
+2025-11-19 10:33:19,646 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 10:36:42,635 T0000: PROMPT NFOUND: show interface status
+2025-11-19 10:36:52,281 T0000: WAIT TIME: 5 = static delay
+2025-11-19 10:37:14,702 T0000: CMD TIME: 262 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 10:37:15,383 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-19 10:37:16,884 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 10:37:17,562 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-19 10:37:18,245 T0000: CMD TIME: 257 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 10:37:21,268 T0162: HELPER TIME: 79499 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 5  
+2025-11-19 10:38:41,334 T0162: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification_sonic_dump_D-Link_20251119_103723.tar.gz
+2025-11-19 10:37:21,262 T0163: HELPER TIME: 84306 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 5  
+2025-11-19 10:38:46,036 T0163: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification_sonic_dump_D-Link_20251119_103724.tar.gz
+2025-11-19 10:38:47,444 T0169: HELPER TIME: 3903 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification'  
+2025-11-19 10:38:47,439 T0168: HELPER TIME: 3909 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification'  
+=========================================================

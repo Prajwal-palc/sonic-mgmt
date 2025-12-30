@@ -1,0 +1,700 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: saving syslog pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: saving syslog pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: saving syslog pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: saving syslog pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_2: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_3: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_4: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py 
+vs_sonic_1: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_3: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_2: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_4: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp Pass
+vs_sonic_1: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: saving syslog post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: saving syslog post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: saving syslog post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: saving syslog post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_2: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_3: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_4: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py Pass
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: saving syslog pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ScriptError
+vs_sonic_1: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_4: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_3: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_2: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp pass
+vs_sonic_1: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: saving syslog post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: saving syslog post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: saving syslog post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: saving syslog post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_2: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_3: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_4: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py fail
+vs_sonic_1: SKIP saving config_db session-epilog session pass
+vs_sonic_1: SKIP saving running config session-epilog session pass
+vs_sonic_1: SKIP saving syslog session-epilog session pass
+vs_sonic_3: SKIP saving config_db session-epilog session pass
+vs_sonic_3: SKIP saving running config session-epilog session pass
+vs_sonic_3: SKIP saving syslog session-epilog session pass
+vs_sonic_1: SKIP generating tech-support session-epilog session pass
+vs_sonic_1: collect core-files session-epilog session pass
+vs_sonic_3: SKIP generating tech-support session-epilog session pass
+vs_sonic_3: collect core-files session-epilog session pass
+vs_sonic_2: SKIP saving config_db session-epilog session pass
+vs_sonic_2: SKIP saving running config session-epilog session pass
+vs_sonic_2: SKIP saving syslog session-epilog session pass
+vs_sonic_4: SKIP saving config_db session-epilog session pass
+vs_sonic_2: SKIP generating tech-support session-epilog session pass
+vs_sonic_4: SKIP saving running config session-epilog session pass
+vs_sonic_2: collect core-files session-epilog session pass
+vs_sonic_4: SKIP saving syslog session-epilog session pass
+vs_sonic_4: SKIP generating tech-support session-epilog session pass
+vs_sonic_4: collect core-files session-epilog session pass
+vs_sonic_3: SKIP saving sai_redis session-epilog session pass
+vs_sonic_3: SKIP generating sysinfo session-epilog session pass
+vs_sonic_2: SKIP saving sai_redis session-epilog session pass
+vs_sonic_2: SKIP generating sysinfo session-epilog session pass
+vs_sonic_1: SKIP saving sai_redis session-epilog session pass
+vs_sonic_1: SKIP generating sysinfo session-epilog session pass
+vs_sonic_4: SKIP saving sai_redis session-epilog session pass
+vs_sonic_4: SKIP generating sysinfo session-epilog session pass

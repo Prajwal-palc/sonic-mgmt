@@ -1,0 +1,108 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D1,normal-user,show interfaces status
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface PortChannel10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-any-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,channel-group 10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,do show interface PortChannel
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,no channel-group 10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,no interface PortChannel10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D1,mgmt-config,do show interface PortChannel
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D2,normal-user,show interfaces status
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,normal-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface PortChannel10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-any-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,channel-group 10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,do show interface PortChannel
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,no channel-group 10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,no interface PortChannel10
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceLagEcmp.test_lag_ecmp_propagation_recovery,D2,mgmt-config,do show interface PortChannel

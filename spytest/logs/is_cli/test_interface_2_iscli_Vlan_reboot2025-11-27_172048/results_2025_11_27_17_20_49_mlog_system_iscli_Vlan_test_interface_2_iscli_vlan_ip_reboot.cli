@@ -1,0 +1,94 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,ip address 10.0.0.1/30
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show running-configuration interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,write memory
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo -s reboot
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo vtysh -c 'show running-config | include hostname'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo -s date --set='Thu Nov 27 11:57:57 2025'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo vtysh -c 'show running-config | include hostname'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo -s date --set='Thu Nov 27 11:58:45 2025'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,show version
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show running-configuration interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,no ip address
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show running-configuration interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,ipv6 address 2001:db8:100::1/64
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show running-configuration interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,write memory
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo -s reboot
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo vtysh -c 'show running-config | include hostname'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo -s date --set='Thu Nov 27 12:07:40 2025'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo vtysh -c 'show running-config | include hostname'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sudo -s date --set='Thu Nov 27 12:08:28 2025'
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,show version
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,normal-user,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show running-configuration interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show running-configuration interface Vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,no vlan 3
+function-or-epilog,,TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence,D1,mgmt-config,do show Vlan
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124

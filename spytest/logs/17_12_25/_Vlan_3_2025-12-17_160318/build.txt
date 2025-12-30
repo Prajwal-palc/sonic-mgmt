@@ -1,0 +1,19 @@
+build: SONiC.202505-smci-dev-iscli-2025-12-16T16-05-28
+uitype: click
+Execution Started: 2025-12-17 10:33:19.012630
+Execution Completed: 2025-12-17 11:21:16.785515
+Execution Time: 0:47:58
+DailyRun: 0
+Python: 3.8.10
+Combined Report: 0
+GCOV Run: 0
+Image Build Path: 
+EMail: None
+EMailSubject: Run Report
+Dry Run: 0
+GCOV_POST_RUN_KPI_UPDATE: 0
+GCOV_MERGE_HTML: 0
+Pass Rate: 66.67%
+Suite: 
+Platforms Not Covered: 
+Chips Not Covered: 

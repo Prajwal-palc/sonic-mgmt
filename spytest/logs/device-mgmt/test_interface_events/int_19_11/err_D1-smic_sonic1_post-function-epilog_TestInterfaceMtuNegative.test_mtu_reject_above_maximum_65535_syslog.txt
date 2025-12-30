@@ -1,0 +1,1354 @@
+Nov 19 11:38:09.429703 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:12.466156 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:13.506776 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.506862 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:13.509483 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:13.510988 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.511126 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001887 doesn't exist
+Nov 19 11:38:13.511985 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:13.564468 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.564603 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:13.566431 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:13.567833 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.567970 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001888 doesn't exist
+Nov 19 11:38:13.568350 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:13.617160 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.617296 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:13.619091 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:13.620597 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.620755 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001889 doesn't exist
+Nov 19 11:38:13.621106 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:13.668739 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.668875 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:13.670528 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:13.672380 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.672516 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000188a doesn't exist
+Nov 19 11:38:13.672880 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:13.720600 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.720762 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:13.722516 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:13.723934 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.724068 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000188b doesn't exist
+Nov 19 11:38:13.724415 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:13.778410 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.778545 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:13.780312 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:13.781802 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.781940 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000188c doesn't exist
+Nov 19 11:38:13.782313 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:13.824427 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.824557 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:13.826349 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:13.827776 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.827910 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000188d doesn't exist
+Nov 19 11:38:13.828274 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:13.876596 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.876751 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:13.878459 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:13.879870 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.880014 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000188e doesn't exist
+Nov 19 11:38:13.880352 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:13.928413 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.928540 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:13.930317 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:13.931787 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.931925 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000188f doesn't exist
+Nov 19 11:38:13.932329 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:13.980466 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:13.980591 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:13.984134 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:13.986119 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:13.986254 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001890 doesn't exist
+Nov 19 11:38:13.986624 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:14.034740 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.035130 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:14.036758 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:14.038258 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.038393 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001891 doesn't exist
+Nov 19 11:38:14.038757 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:14.088547 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.088705 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:14.090482 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:14.091971 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.092115 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001892 doesn't exist
+Nov 19 11:38:14.092456 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:14.143500 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.143628 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:14.145451 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:14.147151 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.147285 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001893 doesn't exist
+Nov 19 11:38:14.147631 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:14.195634 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.195791 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:14.197578 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:14.198983 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.199120 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001894 doesn't exist
+Nov 19 11:38:14.199483 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:14.248914 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.249056 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:14.250994 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:14.252369 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.252499 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001895 doesn't exist
+Nov 19 11:38:14.252891 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:14.300523 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.300648 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:14.302535 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:14.303966 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.304108 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001896 doesn't exist
+Nov 19 11:38:14.304448 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:14.348500 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.348856 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:14.350644 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:14.352033 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.352163 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001897 doesn't exist
+Nov 19 11:38:14.352537 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:14.401952 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.402141 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:14.403996 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:14.406428 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.406565 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001898 doesn't exist
+Nov 19 11:38:14.406937 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:14.459880 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.460029 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:14.461727 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:14.463113 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.463250 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001899 doesn't exist
+Nov 19 11:38:14.463620 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:14.516833 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.516909 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:14.519259 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:14.522443 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.522518 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000189a doesn't exist
+Nov 19 11:38:14.522713 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:14.576625 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.576907 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:14.578600 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:14.580020 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.580154 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000189b doesn't exist
+Nov 19 11:38:14.580530 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:14.628672 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.628840 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:14.630567 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:14.632002 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.632165 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000189c doesn't exist
+Nov 19 11:38:14.632532 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:14.684553 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.684708 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:14.686738 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:14.688155 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.688292 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000189d doesn't exist
+Nov 19 11:38:14.688644 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:14.744463 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.744730 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:14.746354 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:14.747785 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.747948 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000189e doesn't exist
+Nov 19 11:38:14.748317 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:14.806351 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.806589 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:14.808257 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:14.809750 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.809889 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000189f doesn't exist
+Nov 19 11:38:14.810483 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:14.857921 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.858066 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:14.860023 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:14.861419 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.861616 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a0 doesn't exist
+Nov 19 11:38:14.861997 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:14.912875 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.913016 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:14.914764 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:14.916383 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.916531 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a1 doesn't exist
+Nov 19 11:38:14.916908 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:14.971244 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:14.971371 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:14.977507 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:14.982468 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:14.982543 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a2 doesn't exist
+Nov 19 11:38:14.982742 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:15.048571 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.048832 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:15.050382 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:15.051893 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.052036 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a3 doesn't exist
+Nov 19 11:38:15.052403 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:15.110964 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.111138 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:15.113175 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:15.114735 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.114875 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a4 doesn't exist
+Nov 19 11:38:15.115245 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:15.180539 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.180673 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:15.182532 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:15.184062 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.184195 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a5 doesn't exist
+Nov 19 11:38:15.184549 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:15.242233 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.242374 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:15.244107 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:15.245694 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.245858 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a6 doesn't exist
+Nov 19 11:38:15.246212 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:15.292490 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.292620 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:15.294486 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:15.295908 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.296043 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a7 doesn't exist
+Nov 19 11:38:15.296401 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:15.344602 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.344886 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:15.346663 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:15.348092 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.348249 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a8 doesn't exist
+Nov 19 11:38:15.348592 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:15.401769 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.402033 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:15.403721 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:15.405141 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.405270 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018a9 doesn't exist
+Nov 19 11:38:15.405645 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:15.458892 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.459150 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:15.460925 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:15.462560 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.462694 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018aa doesn't exist
+Nov 19 11:38:15.463070 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:15.485757 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:15.521518 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.521656 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:15.523284 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:15.524716 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.524855 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ab doesn't exist
+Nov 19 11:38:15.525217 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:15.571072 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.571330 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:15.572947 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:15.574363 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.574500 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ac doesn't exist
+Nov 19 11:38:15.574864 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:15.624444 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.624573 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:15.626333 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:15.627739 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.627876 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ad doesn't exist
+Nov 19 11:38:15.628223 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:15.676517 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.676644 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:15.678410 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:15.679837 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.679975 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ae doesn't exist
+Nov 19 11:38:15.680332 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:15.723879 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.724015 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:15.725788 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:15.727233 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.727368 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018af doesn't exist
+Nov 19 11:38:15.727738 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:15.776466 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.776612 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:15.778358 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:15.779735 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.779871 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b0 doesn't exist
+Nov 19 11:38:15.780223 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:15.824505 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.824634 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:15.826384 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:15.827780 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.827916 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b1 doesn't exist
+Nov 19 11:38:15.828269 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:15.874758 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.874997 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:15.876588 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:15.878093 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.878229 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b2 doesn't exist
+Nov 19 11:38:15.878576 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:15.928505 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.928661 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:15.930665 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:15.932092 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.932227 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b3 doesn't exist
+Nov 19 11:38:15.932575 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:15.984446 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:15.984581 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:15.986445 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:15.987872 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:15.988010 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b4 doesn't exist
+Nov 19 11:38:15.988366 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:16.035908 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.036156 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:16.037978 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:16.039428 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.039565 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b5 doesn't exist
+Nov 19 11:38:16.039938 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:16.091832 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.092112 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:16.093860 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:16.095332 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.095471 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b6 doesn't exist
+Nov 19 11:38:16.095864 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:16.153544 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.153617 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:16.155123 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:16.159669 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.159761 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b7 doesn't exist
+Nov 19 11:38:16.159941 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:16.208419 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.208548 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:16.210424 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:16.211883 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.212021 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b8 doesn't exist
+Nov 19 11:38:16.212402 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:16.260595 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.260739 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:16.262928 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:16.264356 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.264490 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018b9 doesn't exist
+Nov 19 11:38:16.264853 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:16.312035 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.312160 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:16.313911 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:16.315414 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.315571 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ba doesn't exist
+Nov 19 11:38:16.315948 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:16.360413 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.360545 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:16.362319 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:16.363763 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.363898 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018bb doesn't exist
+Nov 19 11:38:16.364251 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:16.412418 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.412567 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:16.414816 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:16.416276 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.416419 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018bc doesn't exist
+Nov 19 11:38:16.416796 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:16.468049 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.468182 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:16.470185 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:16.471714 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.471883 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018bd doesn't exist
+Nov 19 11:38:16.472237 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:16.532552 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.532626 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:16.534340 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:16.535837 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.535910 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018be doesn't exist
+Nov 19 11:38:16.536111 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:16.600092 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.600219 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:16.601973 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:16.603428 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.603572 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018bf doesn't exist
+Nov 19 11:38:16.603940 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:16.656373 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.656502 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:16.658258 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:16.659665 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.659812 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c0 doesn't exist
+Nov 19 11:38:16.660183 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:16.710532 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.710800 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:16.712727 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:16.714217 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.714350 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c1 doesn't exist
+Nov 19 11:38:16.714707 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:16.768367 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.768497 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:16.770519 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:16.771917 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.772049 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c2 doesn't exist
+Nov 19 11:38:16.772415 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:16.822499 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.822641 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:16.824363 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:16.826000 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.826154 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c3 doesn't exist
+Nov 19 11:38:16.826536 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:16.871993 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.872269 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:16.873888 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:16.875297 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.875474 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c4 doesn't exist
+Nov 19 11:38:16.875862 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:16.923009 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.923136 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:16.924990 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:16.926365 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.926497 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c5 doesn't exist
+Nov 19 11:38:16.926873 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:16.978537 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:16.978668 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:16.980319 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:16.981714 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:16.981863 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c6 doesn't exist
+Nov 19 11:38:16.982204 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:17.032361 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.032497 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:17.034536 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:17.035888 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.036022 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c7 doesn't exist
+Nov 19 11:38:17.036442 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:17.080709 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.080882 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:17.082695 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:17.084135 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.084275 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c8 doesn't exist
+Nov 19 11:38:17.084658 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:17.135248 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.135423 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:17.137626 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:17.139080 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.139219 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018c9 doesn't exist
+Nov 19 11:38:17.139587 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:17.188671 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.188970 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:17.190659 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:17.192128 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.192267 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ca doesn't exist
+Nov 19 11:38:17.192615 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:17.246379 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.246552 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:17.248251 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:17.249745 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.249916 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018cb doesn't exist
+Nov 19 11:38:17.250264 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:17.303938 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.304208 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:17.305899 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:17.307314 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.307451 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018cc doesn't exist
+Nov 19 11:38:17.307837 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:17.352529 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.352800 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:17.354441 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:17.355825 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.355962 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018cd doesn't exist
+Nov 19 11:38:17.356308 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:17.404631 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.404790 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:17.406530 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:17.407937 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.408089 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ce doesn't exist
+Nov 19 11:38:17.408475 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:17.456530 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.456675 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:17.458486 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:17.459980 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.460116 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018cf doesn't exist
+Nov 19 11:38:17.460491 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:17.511260 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.511395 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:17.514280 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:17.515802 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.515942 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d0 doesn't exist
+Nov 19 11:38:17.516326 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:17.572683 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.572869 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:17.574643 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:17.576267 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.576420 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d1 doesn't exist
+Nov 19 11:38:17.577097 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:17.636935 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.637237 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:17.638957 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:17.640348 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.640492 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d2 doesn't exist
+Nov 19 11:38:17.640888 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:17.684408 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.684537 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:17.686316 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:17.687644 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.687789 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d3 doesn't exist
+Nov 19 11:38:17.688132 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:17.734392 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.734518 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:17.736302 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:17.737742 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.737905 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d4 doesn't exist
+Nov 19 11:38:17.738277 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:17.779284 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.779412 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:17.781167 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:17.782596 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.782728 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d5 doesn't exist
+Nov 19 11:38:17.783168 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:17.832227 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.832352 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:17.833928 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:17.835260 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.835391 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d6 doesn't exist
+Nov 19 11:38:17.835728 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:17.885173 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.885297 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:17.887442 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:17.888799 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.888959 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d7 doesn't exist
+Nov 19 11:38:17.889332 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:17.958134 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:17.958268 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:17.962625 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:17.964542 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:17.964952 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d8 doesn't exist
+Nov 19 11:38:17.965539 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:18.023113 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.023327 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:18.024842 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:18.026179 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.026312 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018d9 doesn't exist
+Nov 19 11:38:18.026651 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:18.072338 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.072468 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:18.074238 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:18.075678 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.075826 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018da doesn't exist
+Nov 19 11:38:18.076177 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:18.126539 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.126663 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:18.128373 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:18.129836 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.129968 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018db doesn't exist
+Nov 19 11:38:18.130303 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:18.175706 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.175858 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:18.177536 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:18.178931 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.179110 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018dc doesn't exist
+Nov 19 11:38:18.179488 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:18.230966 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.231092 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:18.233014 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:18.234436 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.234581 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018dd doesn't exist
+Nov 19 11:38:18.234941 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:18.282749 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.282893 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:18.284528 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:18.286031 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.286180 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018de doesn't exist
+Nov 19 11:38:18.286547 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:18.332429 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.332557 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:18.334456 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:18.335872 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.336018 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018df doesn't exist
+Nov 19 11:38:18.336407 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:18.379255 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.379394 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:18.381263 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:18.382745 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.382895 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e0 doesn't exist
+Nov 19 11:38:18.383280 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:18.428504 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.428628 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:18.431253 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:18.433658 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.433804 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e1 doesn't exist
+Nov 19 11:38:18.434155 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:18.476373 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.476497 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:18.478674 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:18.480059 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.480190 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e2 doesn't exist
+Nov 19 11:38:18.480540 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:18.509496 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:18.540525 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.540665 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:18.543043 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:18.544443 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.544570 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e3 doesn't exist
+Nov 19 11:38:18.544929 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:18.592893 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.593024 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:18.594587 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:18.596058 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.596198 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e4 doesn't exist
+Nov 19 11:38:18.596558 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:18.640485 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.640621 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:18.642302 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:18.643709 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.643855 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e5 doesn't exist
+Nov 19 11:38:18.644194 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:18.688293 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.688418 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:18.690194 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:18.691607 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.691737 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e6 doesn't exist
+Nov 19 11:38:18.692113 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:18.748405 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.748532 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:18.750231 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:18.751648 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.751780 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e7 doesn't exist
+Nov 19 11:38:18.752177 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:18.796284 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.796413 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:18.798231 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:18.799634 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.799770 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e8 doesn't exist
+Nov 19 11:38:18.800163 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:18.843782 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.843927 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:18.845653 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:18.847012 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.847147 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018e9 doesn't exist
+Nov 19 11:38:18.847534 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:18.890781 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.890933 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:18.892657 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:18.894083 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.894215 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ea doesn't exist
+Nov 19 11:38:18.894556 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:18.938488 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.938616 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:18.940460 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:18.941884 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.942017 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018eb doesn't exist
+Nov 19 11:38:18.942367 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:18.988382 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:18.988616 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:18.990260 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:18.991611 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:18.991740 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ec doesn't exist
+Nov 19 11:38:18.992112 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:19.036287 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.036412 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:19.038226 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:19.039869 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.040001 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ed doesn't exist
+Nov 19 11:38:19.040360 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:19.084638 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.084771 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:19.086547 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:19.087981 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.088112 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ee doesn't exist
+Nov 19 11:38:19.088459 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:19.137724 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.137891 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:19.139646 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:19.141005 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.141134 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ef doesn't exist
+Nov 19 11:38:19.141500 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:19.194312 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.194446 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:19.196223 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:19.197614 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.197746 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f0 doesn't exist
+Nov 19 11:38:19.198104 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:19.256475 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.256603 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:19.258378 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:19.259770 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.259919 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f1 doesn't exist
+Nov 19 11:38:19.260260 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:19.308262 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.308390 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:19.310112 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:19.311458 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.311611 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f2 doesn't exist
+Nov 19 11:38:19.311974 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:19.355923 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.356064 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:19.357751 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:19.359151 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.359300 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f3 doesn't exist
+Nov 19 11:38:19.359652 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:19.404375 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.404499 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:19.406262 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:19.407684 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.407828 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f4 doesn't exist
+Nov 19 11:38:19.408181 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:19.452432 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.452574 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:19.454300 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:19.455630 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.455761 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f5 doesn't exist
+Nov 19 11:38:19.456117 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:19.498796 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.498954 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:19.500603 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:19.502084 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.502218 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f6 doesn't exist
+Nov 19 11:38:19.502587 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:19.560544 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.560687 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:19.562456 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:19.563861 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.563996 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f7 doesn't exist
+Nov 19 11:38:19.564335 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:19.614113 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.614264 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:19.616022 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:19.617581 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.617721 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f8 doesn't exist
+Nov 19 11:38:19.618094 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:19.672501 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.672501 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:19.673671 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:19.675387 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.675520 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018f9 doesn't exist
+Nov 19 11:38:19.675873 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:19.723175 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.723414 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:19.725026 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:19.726521 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.726651 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018fa doesn't exist
+Nov 19 11:38:19.727030 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:19.776341 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.776472 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:19.778200 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:19.779673 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.779802 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018fb doesn't exist
+Nov 19 11:38:19.780170 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:19.824399 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.824528 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:19.826299 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:19.827791 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.827950 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018fc doesn't exist
+Nov 19 11:38:19.828299 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:19.878312 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.878444 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:19.880207 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:19.881683 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.881838 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018fd doesn't exist
+Nov 19 11:38:19.882180 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:19.928355 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.928482 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:19.930372 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:19.931803 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.931962 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018fe doesn't exist
+Nov 19 11:38:19.932302 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:19.976800 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:19.976943 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:19.978637 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:19.980034 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:19.980165 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd0000000018ff doesn't exist
+Nov 19 11:38:19.980510 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:20.023590 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.023727 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:20.025510 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:20.026855 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.026987 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001900 doesn't exist
+Nov 19 11:38:20.027330 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:20.072351 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.072489 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:20.074232 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:20.075590 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.075723 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001901 doesn't exist
+Nov 19 11:38:20.076114 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:20.126544 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.126671 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:20.128265 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:20.129641 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.129772 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001902 doesn't exist
+Nov 19 11:38:20.130125 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:20.179698 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.179841 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:20.181413 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:20.182812 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.182958 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001903 doesn't exist
+Nov 19 11:38:20.183294 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:20.230179 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.230318 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:20.232099 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:20.233668 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.233800 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001904 doesn't exist
+Nov 19 11:38:20.234157 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:20.276331 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.276458 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:20.278174 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:20.279736 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.279893 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001905 doesn't exist
+Nov 19 11:38:20.280234 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:20.326949 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.327076 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:20.328696 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:20.330073 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.330206 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001906 doesn't exist
+Nov 19 11:38:20.330543 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:20.376540 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.376668 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:20.378404 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:20.380039 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.380196 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001907 doesn't exist
+Nov 19 11:38:20.380564 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:20.434424 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.434550 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:20.436264 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:20.437641 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.437774 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001908 doesn't exist
+Nov 19 11:38:20.438170 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:20.486468 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.486595 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:20.488238 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:20.489610 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.489757 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001909 doesn't exist
+Nov 19 11:38:20.490144 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:20.540510 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.540635 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:20.542956 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:20.544325 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.544459 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000190a doesn't exist
+Nov 19 11:38:20.544816 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:20.588230 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.588358 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:20.590143 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:20.591510 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.591646 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000190b doesn't exist
+Nov 19 11:38:20.592018 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:20.636337 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.636462 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:20.638600 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:20.639968 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.640099 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000190c doesn't exist
+Nov 19 11:38:20.640441 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:20.684567 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.684692 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:20.686316 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:20.687669 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.687800 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000190d doesn't exist
+Nov 19 11:38:20.688169 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:20.731642 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.731769 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:20.733430 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:20.734818 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.734964 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000190e doesn't exist
+Nov 19 11:38:20.735307 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:20.782325 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.782454 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:20.784258 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:20.785652 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.785784 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000190f doesn't exist
+Nov 19 11:38:20.786138 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:20.832363 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.832507 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:20.834232 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:20.835623 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.835755 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001910 doesn't exist
+Nov 19 11:38:20.836135 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:20.885628 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.885755 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:20.887792 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:20.889225 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.889383 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001911 doesn't exist
+Nov 19 11:38:20.889798 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:20.934801 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:20.934943 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:20.936647 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:20.938127 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:20.938256 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001912 doesn't exist
+Nov 19 11:38:20.938588 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:21.525597 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:24.545649 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:25.368483 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.368712 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:25.370486 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:25.371843 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.372000 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001913 doesn't exist
+Nov 19 11:38:25.372375 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:25.426183 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.426424 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:25.427983 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:25.429351 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.429506 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001914 doesn't exist
+Nov 19 11:38:25.429851 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:25.475096 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.475224 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:25.476986 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:25.478423 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.478553 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001915 doesn't exist
+Nov 19 11:38:25.478903 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:25.528571 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.528698 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:25.531007 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:25.532330 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.532462 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001916 doesn't exist
+Nov 19 11:38:25.532810 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:25.582896 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.583037 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:25.584767 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:25.586223 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.586368 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001917 doesn't exist
+Nov 19 11:38:25.586721 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:25.636354 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.636494 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:25.638605 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:25.639925 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.640092 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001918 doesn't exist
+Nov 19 11:38:25.640432 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:25.692600 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.692889 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:25.694507 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:25.695895 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.696050 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001919 doesn't exist
+Nov 19 11:38:25.696388 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:25.740385 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.740513 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:25.742258 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:25.743601 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.743750 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000191a doesn't exist
+Nov 19 11:38:25.744105 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:25.792052 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.792284 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:25.793846 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:25.795260 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.795391 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000191b doesn't exist
+Nov 19 11:38:25.795732 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:25.846529 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.846656 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:25.848324 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:25.849730 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.849871 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000191c doesn't exist
+Nov 19 11:38:25.850261 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:25.896471 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.896605 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:25.898862 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:25.900366 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.900497 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000191d doesn't exist
+Nov 19 11:38:25.900828 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:25.947722 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.947953 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:25.949508 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:25.950858 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.951013 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000191e doesn't exist
+Nov 19 11:38:25.951349 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:25.995618 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:25.995745 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:25.997493 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:25.998887 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:25.999034 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000191f doesn't exist
+Nov 19 11:38:25.999381 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:26.048353 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.048586 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:26.050253 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:26.051593 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.051736 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001920 doesn't exist
+Nov 19 11:38:26.052088 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:26.096482 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.096617 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:26.098559 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:26.100008 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.100148 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001921 doesn't exist
+Nov 19 11:38:26.100509 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:26.149165 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.149326 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:26.151134 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:26.152605 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.152749 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001922 doesn't exist
+Nov 19 11:38:26.153132 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:26.200339 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.200475 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:26.202147 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:26.203675 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.203823 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001923 doesn't exist
+Nov 19 11:38:26.204179 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:26.251330 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.251455 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:26.253134 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:26.260337 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.260470 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001924 doesn't exist
+Nov 19 11:38:26.260837 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:26.308557 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.308681 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:26.310478 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:26.311811 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.311958 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001925 doesn't exist
+Nov 19 11:38:26.312330 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:26.355876 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.355949 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:26.358166 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:26.362698 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.362771 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001926 doesn't exist
+Nov 19 11:38:26.362964 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:26.414188 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.414316 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:26.416091 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:26.417448 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.417584 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001927 doesn't exist
+Nov 19 11:38:26.417923 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:26.464305 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.464432 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:26.466365 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:26.467737 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.467871 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001928 doesn't exist
+Nov 19 11:38:26.468281 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:26.515151 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.515303 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:26.516841 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:26.518428 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.518562 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001929 doesn't exist
+Nov 19 11:38:26.518899 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:26.567203 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.567331 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:26.569017 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:26.570480 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.570644 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000192a doesn't exist
+Nov 19 11:38:26.571039 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:26.620466 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.620590 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:26.627020 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:26.629582 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.629713 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000192b doesn't exist
+Nov 19 11:38:26.630090 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:26.685712 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.686232 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:26.687621 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:26.689052 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.689186 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000192c doesn't exist
+Nov 19 11:38:26.693506 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:26.744349 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.744576 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:26.746152 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:26.747462 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.747594 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000192d doesn't exist
+Nov 19 11:38:26.747934 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:26.795518 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.795641 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:26.797294 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:26.798718 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.798848 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000192e doesn't exist
+Nov 19 11:38:26.799246 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:26.857561 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.857688 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:26.859373 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:26.860726 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.860858 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000192f doesn't exist
+Nov 19 11:38:26.861248 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:26.911216 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.911364 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:26.913250 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:26.914740 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.914877 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001930 doesn't exist
+Nov 19 11:38:26.915248 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:26.966752 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:26.966881 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:26.968788 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:26.970363 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:26.970501 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001931 doesn't exist
+Nov 19 11:38:26.970879 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:27.035915 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.036064 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:27.037758 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:27.039138 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.039289 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001932 doesn't exist
+Nov 19 11:38:27.039676 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:27.084395 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.084536 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:27.086319 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:27.087656 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.087789 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001933 doesn't exist
+Nov 19 11:38:27.088152 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:27.133979 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.134125 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:27.135783 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:27.137654 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.137798 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001934 doesn't exist
+Nov 19 11:38:27.138166 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:27.187364 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.187504 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:27.189263 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:27.190811 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.190944 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001935 doesn't exist
+Nov 19 11:38:27.191352 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:27.244316 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.244442 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:27.246138 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:27.247620 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.247760 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001936 doesn't exist
+Nov 19 11:38:27.248181 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:27.296289 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.296417 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:27.298096 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:27.299551 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.299679 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001937 doesn't exist
+Nov 19 11:38:27.300060 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:27.348289 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.348413 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:27.350451 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:27.351877 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.352052 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001938 doesn't exist
+Nov 19 11:38:27.352394 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:27.400373 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.400509 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:27.402266 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:27.403650 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.403793 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001939 doesn't exist
+Nov 19 11:38:27.404194 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:27.451363 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.451595 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:27.453232 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:27.454588 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.454721 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000193a doesn't exist
+Nov 19 11:38:27.455087 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:27.499315 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.499446 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:27.501186 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:27.502572 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.502705 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000193b doesn't exist
+Nov 19 11:38:27.503077 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:27.559119 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.559358 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:27.563246 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:27.565491 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:27.566493 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.566636 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000193c doesn't exist
+Nov 19 11:38:27.566976 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:27.620477 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.620604 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:27.622367 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:27.623761 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.623889 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000193d doesn't exist
+Nov 19 11:38:27.624255 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:27.671304 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.671449 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:27.674751 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:27.677143 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.677307 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000193e doesn't exist
+Nov 19 11:38:27.677692 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:27.724474 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.724600 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:27.726426 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:27.727792 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.727922 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000193f doesn't exist
+Nov 19 11:38:27.728313 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:27.777365 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.777522 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:27.779343 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:27.780743 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.780873 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001940 doesn't exist
+Nov 19 11:38:27.781228 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:27.827124 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.827356 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:27.828983 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:27.830392 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.830525 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001941 doesn't exist
+Nov 19 11:38:27.830864 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:27.882172 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.882299 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:27.883992 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:27.885730 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.885862 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001942 doesn't exist
+Nov 19 11:38:27.886219 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:27.936483 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.936608 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:27.938268 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:27.939674 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.939813 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001943 doesn't exist
+Nov 19 11:38:27.940195 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:27.990763 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:27.990891 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:27.992586 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:27.993951 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:27.994099 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001944 doesn't exist
+Nov 19 11:38:27.994440 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:28.040310 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.040437 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:28.042181 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:28.043597 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.043727 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001945 doesn't exist
+Nov 19 11:38:28.044083 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:28.088424 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.088561 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:28.090317 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:28.091701 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.091832 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001946 doesn't exist
+Nov 19 11:38:28.092189 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:28.138956 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.139110 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:28.140704 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:28.142141 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.142292 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001947 doesn't exist
+Nov 19 11:38:28.142648 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:28.192318 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.192446 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:28.194123 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:28.195510 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.195641 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001948 doesn't exist
+Nov 19 11:38:28.195982 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:28.241854 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.241991 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:28.243750 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:28.245098 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.245229 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001949 doesn't exist
+Nov 19 11:38:28.245617 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:28.292324 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.292451 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:28.294133 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:28.295485 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.295615 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000194a doesn't exist
+Nov 19 11:38:28.295951 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:28.339944 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.340088 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet24
+Nov 19 11:38:28.341791 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e6
+Nov 19 11:38:28.343176 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.343307 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000194b doesn't exist
+Nov 19 11:38:28.343645 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet24
+Nov 19 11:38:28.388846 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.388973 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet28
+Nov 19 11:38:28.390717 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e7
+Nov 19 11:38:28.392096 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.392226 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000194c doesn't exist
+Nov 19 11:38:28.392588 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet28
+Nov 19 11:38:28.439857 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.439985 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet36
+Nov 19 11:38:28.441646 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e8
+Nov 19 11:38:28.443048 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.443181 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000194d doesn't exist
+Nov 19 11:38:28.443547 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet36
+Nov 19 11:38:28.488335 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.488462 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet32
+Nov 19 11:38:28.490191 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000e9
+Nov 19 11:38:28.491593 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.491726 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000194e doesn't exist
+Nov 19 11:38:28.492080 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet32
+Nov 19 11:38:28.536473 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.536606 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet40
+Nov 19 11:38:28.538936 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ea
+Nov 19 11:38:28.540429 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.540560 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000194f doesn't exist
+Nov 19 11:38:28.540918 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet40
+Nov 19 11:38:28.584540 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.584682 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet44
+Nov 19 11:38:28.586658 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000eb
+Nov 19 11:38:28.588093 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.588226 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001950 doesn't exist
+Nov 19 11:38:28.588572 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet44
+Nov 19 11:38:28.632339 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.632465 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet20
+Nov 19 11:38:28.634278 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ec
+Nov 19 11:38:28.635708 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.635863 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001951 doesn't exist
+Nov 19 11:38:28.636228 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet20
+Nov 19 11:38:28.684519 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.684748 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet16
+Nov 19 11:38:28.687157 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ed
+Nov 19 11:38:28.688510 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.688643 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001952 doesn't exist
+Nov 19 11:38:28.688986 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet16
+Nov 19 11:38:28.731877 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.732004 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet52
+Nov 19 11:38:28.733812 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ee
+Nov 19 11:38:28.735218 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.735351 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001953 doesn't exist
+Nov 19 11:38:28.735691 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet52
+Nov 19 11:38:28.780409 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.780536 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet48
+Nov 19 11:38:28.782348 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ef
+Nov 19 11:38:28.783762 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.783900 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001954 doesn't exist
+Nov 19 11:38:28.784307 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet48
+Nov 19 11:38:28.828401 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.828526 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet56
+Nov 19 11:38:28.830339 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f0
+Nov 19 11:38:28.831727 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.831856 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001955 doesn't exist
+Nov 19 11:38:28.832225 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet56
+Nov 19 11:38:28.883485 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.883623 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet60
+Nov 19 11:38:28.885366 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f1
+Nov 19 11:38:28.887449 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.887591 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001956 doesn't exist
+Nov 19 11:38:28.887951 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet60
+Nov 19 11:38:28.936275 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.936413 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet68
+Nov 19 11:38:28.938278 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f2
+Nov 19 11:38:28.939668 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.939796 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001957 doesn't exist
+Nov 19 11:38:28.940159 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet68
+Nov 19 11:38:28.986534 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:28.986687 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet64
+Nov 19 11:38:28.988350 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f3
+Nov 19 11:38:28.989858 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:28.989999 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001958 doesn't exist
+Nov 19 11:38:28.990373 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet64
+Nov 19 11:38:29.035456 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.035583 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet72
+Nov 19 11:38:29.037241 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f4
+Nov 19 11:38:29.038770 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.038904 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001959 doesn't exist
+Nov 19 11:38:29.039261 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet72
+Nov 19 11:38:29.083562 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.083690 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet76
+Nov 19 11:38:29.085454 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f5
+Nov 19 11:38:29.087006 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.087167 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000195a doesn't exist
+Nov 19 11:38:29.087506 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet76
+Nov 19 11:38:29.138937 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.139087 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet104
+Nov 19 11:38:29.140665 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f6
+Nov 19 11:38:29.142145 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.142283 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000195b doesn't exist
+Nov 19 11:38:29.142648 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet104
+Nov 19 11:38:29.190925 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.191067 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet108
+Nov 19 11:38:29.192699 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f7
+Nov 19 11:38:29.194095 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.194228 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000195c doesn't exist
+Nov 19 11:38:29.194563 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet108
+Nov 19 11:38:29.233705 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.233833 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet116
+Nov 19 11:38:29.235495 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f8
+Nov 19 11:38:29.236836 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.236964 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000195d doesn't exist
+Nov 19 11:38:29.237343 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet116
+Nov 19 11:38:29.284367 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.284498 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet112
+Nov 19 11:38:29.286290 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000f9
+Nov 19 11:38:29.287997 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.288159 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000195e doesn't exist
+Nov 19 11:38:29.288502 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet112
+Nov 19 11:38:29.336486 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.336614 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet124
+Nov 19 11:38:29.338350 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fa
+Nov 19 11:38:29.339719 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.339851 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd00000000195f doesn't exist
+Nov 19 11:38:29.340239 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet124
+Nov 19 11:38:29.384317 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.384447 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet120
+Nov 19 11:38:29.386317 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fb
+Nov 19 11:38:29.388632 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.388816 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001960 doesn't exist
+Nov 19 11:38:29.389332 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet120
+Nov 19 11:38:29.441660 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.441836 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet84
+Nov 19 11:38:29.444162 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fc
+Nov 19 11:38:29.446128 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.446308 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001961 doesn't exist
+Nov 19 11:38:29.446786 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet84
+Nov 19 11:38:29.500833 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.501013 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet80
+Nov 19 11:38:29.503346 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fd
+Nov 19 11:38:29.505195 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.505372 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001962 doesn't exist
+Nov 19 11:38:29.505887 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet80
+Nov 19 11:38:29.556306 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.556439 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet88
+Nov 19 11:38:29.558129 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000fe
+Nov 19 11:38:29.559500 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.559656 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001963 doesn't exist
+Nov 19 11:38:29.559995 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet88
+Nov 19 11:38:29.604454 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.604589 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet92
+Nov 19 11:38:29.606303 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:10000000000ff
+Nov 19 11:38:29.607684 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.607830 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001964 doesn't exist
+Nov 19 11:38:29.608186 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet92
+Nov 19 11:38:29.659368 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.659493 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet100
+Nov 19 11:38:29.661161 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000100
+Nov 19 11:38:29.662628 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.662790 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001965 doesn't exist
+Nov 19 11:38:29.663179 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet100
+Nov 19 11:38:29.712484 D-Link ERR swss#orchagent: :- create: create status: SAI_STATUS_FAILURE
+Nov 19 11:38:29.712620 D-Link ERR swss#orchagent: :- addHostIntfs: Failed to create host interface for port Ethernet96
+Nov 19 11:38:29.714591 D-Link ERR swss#orchagent: :- isAutoNegEnabled: Failed to get port AutoNeg status for port pid:1000000000101
+Nov 19 11:38:29.716038 D-Link ERR swss#orchagent: :- initializePort: Failed to get initial port mtu 1492
+Nov 19 11:38:29.716201 D-Link ERR swss#orchagent: :- meta_sai_validate_oid: object key SAI_OBJECT_TYPE_HOSTIF:oid:0xd000000001966 doesn't exist
+Nov 19 11:38:29.716557 D-Link ERR swss#orchagent: :- initPort: Failed to initialize port Ethernet96
+Nov 19 11:38:30.582003 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:33.596491 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s
+Nov 19 11:38:36.609623 D-Link ERR SAG-MAC-check: ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s

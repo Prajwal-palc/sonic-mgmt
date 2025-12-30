@@ -1,0 +1,102 @@
+
+======================= STATS: system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py::TestVlanIPConfiguration.test_vlan_ip_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:11.125
+TOTAL HELPER Time = 0:00:15.262
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-10 06:17:44,996 T0056: CMD TIME: 962 D1 = show interfaces status Ethernet124
+2025-12-10 06:17:45,024 T0057: CMD TIME: 1015 D2 = show interfaces status Ethernet124
+2025-12-10 06:17:45,037 T0058: CMD TIME: 1119 D3 = show interfaces status Ethernet124
+2025-12-10 06:17:45,031 T0059: CMD TIME: 1178 D4 = show interfaces status Ethernet124
+2025-12-10 06:17:46,378 T0056: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 06:17:46,466 T0057: CMD TIME: 256 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 06:17:46,582 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 06:17:46,630 T0059: CMD TIME: 255 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 06:17:47,314 T0062: CMD TIME: 1017 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 06:17:47,340 T0064: CMD TIME: 1082 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 06:17:47,333 T0063: CMD TIME: 1123 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 06:17:47,347 T0061: CMD TIME: 1127 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 06:17:48,967 T0066: HELPER TIME: 3818 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py'  
+2025-12-10 06:17:48,972 T0065: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py'  
+2025-12-10 06:17:48,983 T0068: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py'  
+2025-12-10 06:17:48,988 T0067: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py'  
+2025-12-10 06:17:53,262 T0000: CMD TIME: 965 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-10 06:17:54,237 T0000: CMD TIME: 259 D1 = configure terminal
+2025-12-10 06:17:54,922 T0000: CMD TIME: 257 D1 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py::TestVlanIPConfiguration.test_vlan_ip_configuration ===========================
+RESULT = Fail
+DESCRIPTION = Test completed with 1 validation failure(s). See errors above.
+TOTAL Test Time = 0:02:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:19.914
+TOTAL HELPER Time = 0:05:00.435
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 4
+2025-12-10 06:18:20,354 T0085: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:18:20,362 T0086: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:18:20,377 T0088: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:18:20,370 T0087: HELPER TIME: 3823 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:18:24,662 T0000: CMD TIME: 713 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-10 06:18:25,383 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-10 06:18:26,061 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:18:26,326 T0000: CMD TIME: 1014 D1 = interface Ethernet0
+2025-12-10 06:18:27,348 T0000: CMD TIME: 357 D1 = no ip address
+2025-12-10 06:18:27,714 T0000: CMD TIME: 761 D1 = no ipv6 address
+2025-12-10 06:18:28,482 T0000: CMD TIME: 257 D1 = exit
+2025-12-10 06:18:31,161 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:18:31,426 T0000: CMD TIME: 357 D1 = vlan 3
+2025-12-10 06:18:34,205 T0000: CMD TIME: 409 D1 = do show Vlan
+2025-12-10 06:18:35,036 T0000: CMD TIME: 256 D1 = configure terminal
+2025-12-10 06:18:35,300 T0000: CMD TIME: 1113 D1 = interface Ethernet0
+2025-12-10 06:18:36,422 T0000: CMD TIME: 1666 D1 = switchport trunk allowed vlan 3
+2025-12-10 06:18:38,096 T0000: CMD TIME: 256 D1 = exit
+2025-12-10 06:18:40,774 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:18:41,039 T0000: CMD TIME: 308 D1 = interface Vlan 3
+2025-12-10 06:18:41,354 T0000: CMD TIME: 308 D1 = ip address 10.0.0.1/30
+2025-12-10 06:18:41,670 T0000: CMD TIME: 257 D1 = exit
+2025-12-10 06:18:44,349 T0000: CMD TIME: 460 D1 = do show running-configuration interface Vlan 3
+2025-12-10 06:18:45,230 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:18:45,494 T0000: CMD TIME: 308 D1 = interface Vlan 3
+2025-12-10 06:18:45,810 T0000: CMD TIME: 307 D1 = no ip address
+2025-12-10 06:18:46,125 T0000: CMD TIME: 257 D1 = exit
+2025-12-10 06:18:48,803 T0000: CMD TIME: 459 D1 = do show running-configuration interface Vlan 3
+2025-12-10 06:18:49,684 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:18:49,948 T0000: CMD TIME: 307 D1 = interface Vlan 3
+2025-12-10 06:18:50,263 T0000: CMD TIME: 812 D1 = ipv6 address 2001:db8:100::1/64
+2025-12-10 06:18:51,083 T0000: CMD TIME: 257 D1 = exit
+2025-12-10 06:18:53,762 T0000: CMD TIME: 460 D1 = do show running-configuration interface Vlan 3
+2025-12-10 06:18:54,643 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:18:54,907 T0000: CMD TIME: 308 D1 = interface Vlan 3
+2025-12-10 06:18:55,223 T0000: CMD TIME: 863 D1 = no ipv6 address
+2025-12-10 06:18:56,093 T0000: CMD TIME: 256 D1 = exit
+2025-12-10 06:18:58,770 T0000: CMD TIME: 559 D1 = do show running-configuration interface Vlan 3
+2025-12-10 06:18:59,750 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-10 06:19:00,015 T0000: CMD TIME: 1416 D1 = interface Ethernet0
+2025-12-10 06:19:01,440 T0000: CMD TIME: 1569 D1 = no switchport trunk allowed vlan 3
+2025-12-10 06:19:03,017 T0000: CMD TIME: 256 D1 = exit
+2025-12-10 06:19:05,695 T0000: CMD TIME: 256 D1 = configure terminal
+2025-12-10 06:19:05,959 T0000: CMD TIME: 357 D1 = no vlan 3
+2025-12-10 06:19:08,737 T0000: CMD TIME: 358 D1 = do show Vlan
+2025-12-10 06:19:09,548 T0094: HELPER TIME: 65083 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-10 06:20:14,984 T0094: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/sample_vlan/vlan_batch_12025-12-10_114702/techsupport_D2-vs_sonic_2_pre-function-epilog-TestVlanIPConfiguration.test_vlan_ip_configuration_20251210_061911.tar.gz
+2025-12-10 06:19:09,558 T0096: HELPER TIME: 67482 D4 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-10 06:20:17,478 T0096: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/sample_vlan/vlan_batch_12025-12-10_114702/techsupport_D4-vs_sonic_4_pre-function-epilog-TestVlanIPConfiguration.test_vlan_ip_configuration_20251210_061911.tar.gz
+2025-12-10 06:19:09,539 T0095: HELPER TIME: 69887 D3 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-10 06:20:19,881 T0095: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/sample_vlan/vlan_batch_12025-12-10_114702/techsupport_D3-vs_sonic_3_pre-function-epilog-TestVlanIPConfiguration.test_vlan_ip_configuration_20251210_061911.tar.gz
+2025-12-10 06:19:21,278 T0093: HELPER TIME: 67484 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-10 06:20:29,094 T0093: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/sample_vlan/vlan_batch_12025-12-10_114702/techsupport_D1-vs_sonic_1_pre-function-epilog-TestVlanIPConfiguration.test_vlan_ip_configuration_20251210_061923.tar.gz
+2025-12-10 06:20:30,078 T0105: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:20:30,084 T0106: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:20:30,097 T0108: HELPER TIME: 3813 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+2025-12-10 06:20:30,103 T0107: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanIPConfiguration.test_vlan_ip_configuration'  
+=========================================================

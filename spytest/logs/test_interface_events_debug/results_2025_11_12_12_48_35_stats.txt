@@ -1,0 +1,43 @@
+
+======================= STATS: system/interface_events/testcases_Interface_events1.py::TestInterfaceEvents.test_interface_admin_state_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:12
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.266
+TOTAL HELPER Time = 0:00:07.632
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-12 07:19:27,140 T0028: CMD TIME: 1420 D2 = show interfaces status Ethernet124
+2025-11-12 07:19:27,129 T0027: CMD TIME: 2033 D1 = show interfaces status Ethernet124
+2025-11-12 07:19:28,982 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-12 07:19:29,584 T0027: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-12 07:19:30,271 T0031: CMD TIME: 1421 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-12 07:19:30,277 T0030: CMD TIME: 2881 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-12 07:19:33,611 T0032: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/testcases_Interface_events1.py'  
+2025-11-12 07:19:33,617 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/testcases_Interface_events1.py'  
+=========================================================
+
+======================= STATS: system/interface_events/testcases_Interface_events1.py::TestInterfaceEvents.test_interface_admin_state_changes ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception TypeError 'in <string>' requires string as left operand, not list in file /tests/system/interface_events/testcases_Interface_events1.py at line 157
+TOTAL Test Time = 0:00:33
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.455
+TOTAL HELPER Time = 0:00:15.254
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-12 07:19:49,953 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-12 07:19:49,958 T0043: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-12 07:19:54,224 T0000: CMD TIME: 1066 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-12 07:19:55,299 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-12 07:19:55,986 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-11-12 07:19:56,662 T0000: CMD TIME: 360 D1 = configure terminal; interface ['Ethernet0', 'smic_sonic2', 'Ethernet0']; no shutdown; end
+2025-11-12 07:20:00,446 T0000: CMD TIME: 4514 D1 = do show interface status
+2025-11-12 07:20:05,557 T0047: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-12 07:20:15,193 T0046: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+=========================================================

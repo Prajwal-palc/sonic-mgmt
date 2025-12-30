@@ -1,0 +1,175 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_1_iscli_Basic_2_node_Reboot.py::TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:11.813
+TOTAL HELPER Time = 0:00:15.275
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-05 10:30:24,023 T0057: CMD TIME: 1014 D2 = show interfaces status Ethernet124
+2025-12-05 10:30:24,047 T0059: CMD TIME: 1018 D4 = show interfaces status Ethernet124
+2025-12-05 10:30:24,004 T0056: CMD TIME: 1063 D1 = show interfaces status Ethernet124
+2025-12-05 10:30:24,041 T0058: CMD TIME: 1073 D3 = show interfaces status Ethernet124
+2025-12-05 10:30:25,455 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:30:25,498 T0059: CMD TIME: 262 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:30:25,506 T0056: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:30:25,533 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:30:26,240 T0061: CMD TIME: 979 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 10:30:26,233 T0063: CMD TIME: 1021 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 10:30:26,223 T0062: CMD TIME: 1078 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 10:30:26,244 T0064: CMD TIME: 1076 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 10:30:27,827 T0066: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_1_iscli_Basic_2_node_Reboot.py'  
+2025-12-05 10:30:27,822 T0065: HELPER TIME: 3822 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_1_iscli_Basic_2_node_Reboot.py'  
+2025-12-05 10:30:27,837 T0067: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_1_iscli_Basic_2_node_Reboot.py'  
+2025-12-05 10:30:27,843 T0068: HELPER TIME: 3824 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_1_iscli_Basic_2_node_Reboot.py'  
+2025-12-05 10:30:32,128 T0000: CMD TIME: 714 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:30:32,851 T0000: CMD TIME: 260 D1 = configure terminal
+2025-12-05 10:30:33,550 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-12-05 10:30:34,230 T0000: CMD TIME: 714 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:30:34,953 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-05 10:30:35,632 T0000: CMD TIME: 257 D2 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_1_iscli_Basic_2_node_Reboot.py::TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence ===========================
+RESULT = Timeout
+DESCRIPTION = Testcase max time reached. Exiting.
+TOTAL Test Time = 0:18:30
+TOTAL Sleep Time = 0:17:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:01:20.134
+TOTAL HELPER Time = 0:00:30.555
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-05 10:31:00,593 T0086: HELPER TIME: 3823 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:31:00,600 T0085: HELPER TIME: 3832 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:31:00,610 T0087: HELPER TIME: 3826 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:31:00,623 T0088: HELPER TIME: 3817 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:31:04,922 T0000: CMD TIME: 712 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:31:06,053 T0000: CMD TIME: 560 D1 = show ip ospf
+2025-12-05 10:31:07,035 T0000: CMD TIME: 715 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:31:08,171 T0000: CMD TIME: 560 D2 = show ip ospf
+2025-12-05 10:31:09,153 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-05 10:31:09,833 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-05 10:31:10,098 T0000: CMD TIME: 1468 D1 = router ospf
+2025-12-05 10:31:11,574 T0000: CMD TIME: 358 D1 = area 0
+2025-12-05 10:31:11,941 T0000: CMD TIME: 258 D1 = exit
+2025-12-05 10:31:12,617 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-05 10:31:13,303 T0000: CMD TIME: 260 D2 = configure terminal
+2025-12-05 10:31:13,570 T0000: CMD TIME: 1215 D2 = router ospf
+2025-12-05 10:31:14,794 T0000: CMD TIME: 358 D2 = area 0
+2025-12-05 10:31:15,161 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:31:20,843 T0000: CMD TIME: 463 D1 = do show ip ospf
+2025-12-05 10:31:21,737 T0000: CMD TIME: 514 D2 = do show ip ospf
+2025-12-05 10:31:22,685 T0000: CMD TIME: 259 D1 = configure terminal
+2025-12-05 10:31:22,954 T0000: CMD TIME: 1014 D1 = interface Ethernet0
+2025-12-05 10:31:23,978 T0000: CMD TIME: 358 D1 = no ip address
+2025-12-05 10:31:24,344 T0000: CMD TIME: 358 D1 = ip address 30.1.1.1/24
+2025-12-05 10:31:24,710 T0000: CMD TIME: 257 D1 = exit
+2025-12-05 10:31:25,385 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-05 10:31:25,653 T0000: CMD TIME: 1116 D1 = interface Ethernet4
+2025-12-05 10:31:26,779 T0000: CMD TIME: 358 D1 = no ip address
+2025-12-05 10:31:27,147 T0000: CMD TIME: 360 D1 = ip address 40.1.1.1/24
+2025-12-05 10:31:27,517 T0000: CMD TIME: 258 D1 = exit
+2025-12-05 10:31:28,195 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 10:31:28,460 T0000: CMD TIME: 1015 D2 = interface Ethernet0
+2025-12-05 10:31:29,483 T0000: CMD TIME: 308 D2 = no ip address
+2025-12-05 10:31:29,800 T0000: CMD TIME: 359 D2 = ip address 30.1.1.2/24
+2025-12-05 10:31:30,169 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:31:30,849 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-05 10:31:31,116 T0000: CMD TIME: 1014 D2 = interface Ethernet4
+2025-12-05 10:31:32,138 T0000: CMD TIME: 358 D2 = no ip address
+2025-12-05 10:31:32,505 T0000: CMD TIME: 358 D2 = ip address 40.1.1.2/24
+2025-12-05 10:31:32,871 T0000: CMD TIME: 257 D2 = exit
+2025-12-05 10:31:38,555 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-05 10:31:38,823 T0000: CMD TIME: 1016 D1 = interface Ethernet0
+2025-12-05 10:31:39,848 T0000: CMD TIME: 359 D1 = ip ospf area 0
+2025-12-05 10:31:40,216 T0000: CMD TIME: 257 D1 = exit
+2025-12-05 10:31:40,895 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 10:31:41,160 T0000: CMD TIME: 1216 D2 = interface Ethernet0
+2025-12-05 10:31:42,383 T0000: CMD TIME: 409 D2 = ip ospf area 0
+2025-12-05 10:31:42,810 T0000: CMD TIME: 262 D2 = exit
+2025-12-05 10:31:48,501 T0000: CMD TIME: 259 D1 = configure terminal
+2025-12-05 10:31:48,765 T0000: CMD TIME: 1367 D1 = router ospf
+2025-12-05 10:31:50,142 T0000: CMD TIME: 1066 D1 = network 30.1.1.1/24 area 0
+2025-12-05 10:31:51,217 T0000: CMD TIME: 257 D1 = exit
+2025-12-05 10:31:51,896 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 10:31:52,161 T0000: CMD TIME: 1268 D2 = router ospf
+2025-12-05 10:31:53,438 T0000: CMD TIME: 1065 D2 = network 30.1.1.2/24 area 0
+2025-12-05 10:31:54,511 T0000: CMD TIME: 260 D2 = exit
+2025-12-05 10:32:45,247 T0000: CMD TIME: 511 D1 = do show ip ospf neighbor
+2025-12-05 10:32:46,177 T0000: CMD TIME: 508 D2 = do show ip ospf neighbor
+2025-12-05 10:32:47,108 T0000: CMD TIME: 513 D1 = do show ip ospf interface
+2025-12-05 10:32:48,047 T0000: CMD TIME: 564 D2 = do show ip ospf interface
+2025-12-05 10:32:59,047 T0000: CMD TIME: 512 D1 = do show ip ospf database
+2025-12-05 10:32:59,983 T0000: CMD TIME: 461 D2 = do show ip ospf database
+2025-12-05 10:33:00,876 T0000: CMD TIME: 461 D1 = do show ip ospf route
+2025-12-05 10:33:01,765 T0000: CMD TIME: 512 D2 = do show ip ospf route
+2025-12-05 10:33:02,705 T0000: CMD TIME: 1725 D1 = write memory
+2025-12-05 10:33:04,848 T0000: CMD TIME: 1772 D2 = write memory
+2025-12-05 10:33:12,050 T0000: CMD TIME: 258 D1 = exit
+2025-12-05 10:33:12,315 T0000: CMD TIME: 308 D1 = exit
+2025-12-05 10:33:13,047 T0000: CMD TIME: 13072 D1 = sudo -s reboot
+2025-12-05 10:33:26,130 T0000: WAIT TIME: 300 = static delay
+2025-12-05 10:38:37,810 T0000: CMD TIME: 260 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:38:38,492 T0000: CMD TIME: 259 D1 = cat /proc/uptime
+2025-12-05 10:38:40,014 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:38:40,692 T0000: CMD TIME: 256 D1 = cat /proc/uptime
+2025-12-05 10:38:41,379 T0000: CMD TIME: 260 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:38:43,503 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:38:44,184 T0000: CMD TIME: 260 D1 = cat /proc/uptime
+2025-12-05 10:38:44,875 T0000: CMD TIME: 462 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-05 10:38:45,787 T0000: CMD TIME: 1018 D1 = show interfaces status Ethernet124
+2025-12-05 10:38:47,248 T0000: CMD TIME: 260 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:38:47,930 T0000: CMD TIME: 259 D1 = sudo -s date --set='Fri Dec  5 10:38:47 2025'
+2025-12-05 10:38:48,631 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:38:54,438 T0000: WAIT TIME: 30 = static delay
+2025-12-05 10:39:31,274 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:39:31,953 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-12-05 10:39:32,635 T0000: CMD TIME: 411 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-05 10:39:33,478 T0000: CMD TIME: 1016 D1 = show interfaces status Ethernet124
+2025-12-05 10:39:34,942 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:39:35,625 T0000: CMD TIME: 263 D1 = sudo -s date --set='Fri Dec  5 10:39:35 2025'
+2025-12-05 10:39:36,314 T0000: CMD TIME: 257 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:39:36,998 T0000: CMD TIME: 834 D1 = show version
+2025-12-05 10:39:38,330 T0000: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:39:39,023 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:39:39,290 T0000: CMD TIME: 309 D2 = exit
+2025-12-05 10:39:40,022 T0000: CMD TIME: 13851 D2 = sudo -s reboot
+2025-12-05 10:39:53,885 T0000: WAIT TIME: 300 = static delay
+2025-12-05 10:45:05,513 T0000: CMD TIME: 261 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:45:06,198 T0000: CMD TIME: 262 D2 = cat /proc/uptime
+2025-12-05 10:45:07,707 T0000: CMD TIME: 259 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:45:08,390 T0000: CMD TIME: 258 D2 = cat /proc/uptime
+2025-12-05 10:45:09,077 T0000: CMD TIME: 259 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:45:11,194 T0000: CMD TIME: 259 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:45:11,873 T0000: CMD TIME: 258 D2 = cat /proc/uptime
+2025-12-05 10:45:12,558 T0000: CMD TIME: 511 D2 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-05 10:45:13,504 T0000: CMD TIME: 1068 D2 = show interfaces status Ethernet124
+2025-12-05 10:45:15,013 T0000: CMD TIME: 258 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:45:15,691 T0000: CMD TIME: 258 D2 = sudo -s date --set='Fri Dec  5 10:45:15 2025'
+2025-12-05 10:45:16,373 T0000: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:45:22,216 T0000: WAIT TIME: 30 = static delay
+2025-12-05 10:45:59,117 T0000: CMD TIME: 258 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:45:59,794 T0000: CMD TIME: 257 D2 = cat /proc/uptime
+2025-12-05 10:46:00,480 T0000: CMD TIME: 459 D2 = sudo vtysh -c 'show running-config | include hostname'
+2025-12-05 10:46:01,370 T0000: CMD TIME: 965 D2 = show interfaces status Ethernet124
+2025-12-05 10:46:02,771 T0000: CMD TIME: 268 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-12-05 10:46:03,467 T0000: CMD TIME: 258 D2 = sudo -s date --set='Fri Dec  5 10:46:03 2025'
+2025-12-05 10:46:04,149 T0000: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:46:04,835 T0000: CMD TIME: 784 D2 = show version
+2025-12-05 10:46:06,114 T0000: CMD TIME: 257 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 10:46:06,390 T0000: WAIT TIME: 180 = static delay
+2025-12-05 10:49:06,984 T0000: CMD TIME: 863 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:49:07,855 T0000: CMD TIME: 259 D1 = configure terminal
+2025-12-05 10:49:08,535 T0000: CMD TIME: 255 D1 = terminal length 0
+2025-12-05 10:49:08,800 T0000: WAIT TIME: 180 = static delay
+2025-12-05 10:49:10,138 T0107: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:49:10,147 T0106: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:49:10,153 T0108: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+2025-12-05 10:49:21,862 T0105: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFBasicConfigurationReboot.test_ospf_basic_configuration_neighbor_formation_and_reboot_persistence'  
+=========================================================

@@ -1,0 +1,52 @@
+
+======================= STATS: system/interface_events/testcases_Interface_events1.py::TestInterfaceEvents.test_interface_admin_state_changes ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:11.293
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-12 09:25:39,365 T0028: CMD TIME: 1318 D2 = show interfaces status Ethernet124
+2025-11-12 09:25:41,103 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-12 09:25:39,359 T0027: CMD TIME: 2534 D1 = show interfaces status Ethernet124
+2025-11-12 09:25:42,313 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-12 09:25:42,996 T0030: CMD TIME: 1472 D1 = show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+2025-11-12 09:25:43,001 T0031: CMD TIME: 1671 D2 = show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+2025-11-12 09:25:44,887 T0030: CMD TIME: 1431 D1 = show interfaces status
+2025-11-12 09:25:45,093 T0031: CMD TIME: 2357 D2 = show interfaces status
+2025-11-12 09:25:47,929 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/testcases_Interface_events1.py'  
+2025-11-12 09:25:47,934 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/testcases_Interface_events1.py'  
+=========================================================
+
+======================= STATS: system/interface_events/testcases_Interface_events1.py::TestInterfaceEvents.test_interface_admin_state_changes ===========================
+RESULT = Fail
+DESCRIPTION = Interface fortyGigE0/0 not found in baseline status output
+TOTAL Test Time = 0:01:33
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.471
+TOTAL HELPER Time = 0:02:06.243
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-12 09:26:04,426 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-12 09:26:04,434 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-12 09:26:08,695 T0000: CMD TIME: 1164 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-12 09:26:09,869 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-12 09:26:10,552 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-12 09:26:11,227 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-12 09:26:11,907 T0000: CMD TIME: 259 D1 = interface fortyGigE0/0
+2025-11-12 09:26:12,586 T0000: CMD TIME: 258 D1 = no shutdown
+2025-11-12 09:26:13,262 T0000: CMD TIME: 765 D1 = end
+2025-11-12 09:26:17,450 T0000: CMD TIME: 4254 D1 = show interface status
+2025-11-12 09:26:22,272 T0047: HELPER TIME: 55471 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-12 09:27:18,300 T0047: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/test_final_verification_2025-11-12_145446/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEvents.test_interface_admin_state_changes_sonic_dump_D-Link_20251112_092624.tar.gz
+2025-11-12 09:26:32,010 T0046: HELPER TIME: 55471 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-12 09:27:27,967 T0046: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/test_final_verification_2025-11-12_145446/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEvents.test_interface_admin_state_changes_sonic_dump_D-Link_20251112_092634.tar.gz
+2025-11-12 09:27:29,009 T0053: HELPER TIME: 3840 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+2025-11-12 09:27:29,014 T0052: HELPER TIME: 3836 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEvents.test_interface_admin_state_changes'  
+=========================================================

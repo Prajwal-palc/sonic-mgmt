@@ -1,0 +1,288 @@
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:19.780
+TOTAL HELPER Time = 0:00:15.246
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:21:53,872 T0061: CMD TIME: 2422 D2 = show interfaces status Ethernet124
+2025-11-20 00:21:53,889 T0063: CMD TIME: 2431 D4 = show interfaces status Ethernet124
+2025-11-20 00:21:53,883 T0062: CMD TIME: 2479 D3 = show interfaces status Ethernet124
+2025-11-20 00:21:53,857 T0060: CMD TIME: 2525 D1 = show interfaces status Ethernet124
+2025-11-20 00:21:56,713 T0061: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:21:56,738 T0063: CMD TIME: 256 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:21:56,784 T0062: CMD TIME: 256 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:21:56,801 T0060: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:21:57,491 T0066: CMD TIME: 2042 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:21:57,512 T0068: CMD TIME: 2197 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:21:57,507 T0065: CMD TIME: 2302 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:21:57,498 T0067: CMD TIME: 2360 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:22:00,338 T0069: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp_routing_suite.py'  
+2025-11-20 00:22:00,352 T0071: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp_routing_suite.py'  
+2025-11-20 00:22:00,362 T0072: HELPER TIME: 3813 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp_routing_suite.py'  
+2025-11-20 00:22:00,369 T0070: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp_routing_suite.py'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError module 'apis.routing.ip' has no attribute 'config_static_route' in file /tests/routing/ecmp/test_ecmp_routing_suite.py at line 344
+TOTAL Test Time = 0:00:16
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.532
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:22:22,696 T0090: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:22,701 T0089: HELPER TIME: 3823 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:22,715 T0091: HELPER TIME: 3817 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:22,723 T0092: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:27,089 T0097: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:27,100 T0099: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:27,108 T0098: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+2025-11-20 00:22:27,116 T0100: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_without_traffic_generator'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix ===========================
+RESULT = ScriptError
+DESCRIPTION = test case exited without setting any result
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.515
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:22:36,194 T0105: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:36,214 T0107: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:36,224 T0108: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:36,229 T0106: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:40,532 T0114: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:40,538 T0113: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:40,552 T0115: HELPER TIME: 3819 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+2025-11-20 00:22:40,557 T0116: HELPER TIME: 3819 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_scaling_matrix'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors ===========================
+RESULT = ScriptError
+DESCRIPTION = test case exited without setting any result
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.509
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:22:49,712 T0121: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:49,719 T0123: HELPER TIME: 3810 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:49,730 T0124: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:49,736 T0122: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:54,049 T0130: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:54,062 T0131: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:54,068 T0129: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+2025-11-20 00:22:54,077 T0132: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_static_ecmp_negative_behaviors'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality ===========================
+RESULT = ScriptError
+DESCRIPTION = test case exited without setting any result
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.512
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:23:03,145 T0137: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:03,159 T0138: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:03,170 T0140: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:03,174 T0139: HELPER TIME: 3813 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:07,473 T0145: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:07,484 T0147: HELPER TIME: 3817 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:07,492 T0146: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+2025-11-20 00:23:07,499 T0148: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_basic_functionality'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization ===========================
+RESULT = ScriptError
+DESCRIPTION = test case exited without setting any result
+TOTAL Test Time = 0:00:16
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.517
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:23:19,162 T0153: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:19,170 T0154: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:19,180 T0155: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:19,188 T0156: HELPER TIME: 3809 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:23,502 T0161: HELPER TIME: 3818 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:23,507 T0163: HELPER TIME: 3817 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:23,529 T0164: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+2025-11-20 00:23:23,535 T0162: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_ospf_ecmp_scaling_characterization'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception TypeError config_bgp_neighbor() got an unexpected keyword argument 'local_as' in file /tests/routing/ecmp/test_ecmp_routing_suite.py at line 386
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.518
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:23:32,802 T0170: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:32,811 T0171: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:32,818 T0169: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:32,824 T0172: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:37,177 T0177: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:37,189 T0178: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:37,197 T0180: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+2025-11-20 00:23:37,202 T0179: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_basic_functionality'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization ===========================
+RESULT = ScriptError
+DESCRIPTION = test case exited without setting any result
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.510
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:23:46,406 T0186: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:46,413 T0185: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:46,424 T0188: HELPER TIME: 3813 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:46,429 T0187: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:50,740 T0193: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:50,750 T0195: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:50,756 T0194: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+2025-11-20 00:23:50,765 T0196: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_bgp_ecmp_scaling_characterization'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp_routing_suite.py::TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix ===========================
+RESULT = ScriptError
+DESCRIPTION = test case exited without setting any result
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.515
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:23:59,891 T0201: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:23:59,898 T0204: HELPER TIME: 3810 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:23:59,908 T0203: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:23:59,913 T0202: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:24:04,225 T0210: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:24:04,234 T0209: HELPER TIME: 3819 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:24:04,247 T0212: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+2025-11-20 00:24:04,252 T0211: HELPER TIME: 3813 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestEcmpRoutingSuite.test_dynamic_ecmp_negative_matrix'  
+=========================================================

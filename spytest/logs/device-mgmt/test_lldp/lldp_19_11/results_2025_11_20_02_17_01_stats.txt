@@ -1,0 +1,50 @@
+
+======================= STATS: system/lldp/test_lldp_8_rapide_enable_disable.py::TestLldpRapidToggle.test_lldp_rapid_enable_disable ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:10.387
+TOTAL HELPER Time = 0:00:07.629
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:47:55,988 T0027: CMD TIME: 1981 D1 = show interfaces status Ethernet124
+2025-11-19 20:47:55,995 T0028: CMD TIME: 2182 D2 = show interfaces status Ethernet124
+2025-11-19 20:47:58,392 T0027: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:47:58,597 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:47:59,288 T0031: CMD TIME: 1974 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:47:59,282 T0030: CMD TIME: 3739 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:48:03,471 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_8_rapide_enable_disable.py'  
+2025-11-19 20:48:03,474 T0032: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_8_rapide_enable_disable.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_8_rapide_enable_disable.py::TestLldpRapidToggle.test_lldp_rapid_enable_disable ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'disable' in file /apis/system/lldp.py at line 413
+TOTAL Test Time = 0:00:36
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.657
+TOTAL HELPER Time = 0:00:16.118
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:48:20,181 T0042: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpRapidToggle.test_lldp_rapid_enable_disable'  
+2025-11-19 20:48:20,190 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpRapidToggle.test_lldp_rapid_enable_disable'  
+2025-11-19 20:48:24,464 T0000: CMD TIME: 863 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:48:25,337 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 20:48:26,024 T0000: CMD TIME: 310 D1 = interface Ethernet 4
+2025-11-19 20:48:26,340 T0000: CMD TIME: 960 D1 = no shutdown
+2025-11-19 20:48:27,310 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 20:48:28,010 T0000: CMD TIME: 913 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:48:28,931 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 20:48:29,610 T0000: CMD TIME: 309 D2 = interface Ethernet 4
+2025-11-19 20:48:29,929 T0000: CMD TIME: 1015 D2 = no shutdown
+2025-11-19 20:48:30,954 T0000: CMD TIME: 258 D2 = exit
+2025-11-19 20:48:31,218 T0000: WAIT TIME: 5 = static delay
+2025-11-19 20:48:36,643 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-19 20:48:47,054 T0046: HELPER TIME: 4249 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpRapidToggle.test_lldp_rapid_enable_disable'  
+2025-11-19 20:48:47,062 T0047: HELPER TIME: 4243 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpRapidToggle.test_lldp_rapid_enable_disable'  
+=========================================================

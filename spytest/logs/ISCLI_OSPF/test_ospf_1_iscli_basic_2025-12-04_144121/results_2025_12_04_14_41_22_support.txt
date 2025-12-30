@@ -1,0 +1,7 @@
+vs_sonic_2: SKIP saving config_db function  EnvFail
+vs_sonic_2: SKIP saving running config function  EnvFail
+vs_sonic_2: SKIP saving syslog function  EnvFail
+vs_sonic_2: SKIP generating tech-support function  EnvFail
+vs_sonic_2: SKIP collect core-files function  EnvFail
+vs_sonic_2: SKIP saving sai_redis function  EnvFail
+vs_sonic_2: SKIP generating sysinfo function  EnvFail

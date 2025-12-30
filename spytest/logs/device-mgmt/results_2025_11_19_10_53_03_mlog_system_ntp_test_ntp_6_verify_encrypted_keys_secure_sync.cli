@@ -1,0 +1,148 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp enable
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authenticate
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 1 md5 PlainMD5Secret123
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 1
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 1
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 1
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 2 md5 $1$abcd1234$MD5EncryptedHashSimulated encrypted
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 2
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp server 216.239.35.0 key 2 iburst
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 2
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 2
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 21 sha256 $5$rounds=5000$salt$SHA256EncryptedHashSimulated encrypted
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 21
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp server 216.239.35.0 key 21 iburst prefer
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 21
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 21
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 41 sha512 $6$rounds=5000$salt$SHA512EncryptedHashSimulated encrypted
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 41
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp server 216.239.35.0 key 41 iburst
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,show ntp
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,show clock
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 2 md5 $1$abcd1234$MD5EncryptedHashSimulated encrypted
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 2
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 21 sha256 $5$rounds=5000$salt$SHA256EncryptedHashSimulated encrypted
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 21
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp authentication-key 41 sha512 $6$rounds=5000$salt$SHA512EncryptedHashSimulated encrypted
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp trusted-key 41
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp global
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp server
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,show ntp associations
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,show ntp
+framework,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,show clock
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 1
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 10
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 20
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 2
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 21
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp trusted-key 41
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 1
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 10
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 20
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 2
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 21
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authentication-key 41
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,ntp enable
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-config,end
+module-or-class-epilog,,TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync,D1,mgmt-user,exit

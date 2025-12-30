@@ -1,0 +1,70 @@
+
+======================= STATS: system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py::TestInterfaceIPAddressChanges.test_interface_ip_address_change_cycle ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:04.931
+TOTAL HELPER Time = 0:00:07.626
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-26 10:49:18,357 T0028: CMD TIME: 965 D2 = show interfaces status Ethernet124
+2025-11-26 10:49:18,351 T0027: CMD TIME: 1524 D1 = show interfaces status Ethernet124
+2025-11-26 10:49:19,742 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 10:49:20,293 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 10:49:20,984 T0030: CMD TIME: 863 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-26 10:49:20,978 T0031: CMD TIME: 1069 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-26 10:49:22,499 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py'  
+2025-11-26 10:49:22,507 T0032: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py'  
+=========================================================
+
+======================= STATS: system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py::TestInterfaceIPAddressChanges.test_interface_ip_address_change_cycle ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:55
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.311
+TOTAL HELPER Time = 0:00:15.247
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-26 10:49:37,111 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceIPAddressChanges.test_interface_ip_address_change_cycle'  
+2025-11-26 10:49:37,118 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceIPAddressChanges.test_interface_ip_address_change_cycle'  
+2025-11-26 10:49:41,367 T0000: CMD TIME: 613 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 10:49:41,999 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-26 10:49:42,685 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-26 10:49:42,951 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-26 10:49:43,268 T0000: CMD TIME: 309 D1 = no ip address
+2025-11-26 10:49:43,586 T0000: CMD TIME: 258 D1 = exit
+2025-11-26 10:49:46,286 T0000: CMD TIME: 1320 D1 = do show running-configuration interface Ethernet 0
+2025-11-26 10:49:48,029 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 10:49:48,294 T0000: CMD TIME: 310 D1 = interface Ethernet0
+2025-11-26 10:49:48,611 T0000: CMD TIME: 308 D1 = ip address 10.0.0.2/30
+2025-11-26 10:49:48,928 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 10:49:51,609 T0000: CMD TIME: 1269 D1 = do show running-configuration interface Ethernet 0
+2025-11-26 10:49:53,300 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 10:49:53,565 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-26 10:49:53,881 T0000: CMD TIME: 308 D1 = no ip address
+2025-11-26 10:49:54,197 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 10:49:56,876 T0000: CMD TIME: 1215 D1 = do show running-configuration interface Ethernet 0
+2025-11-26 10:49:58,514 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-26 10:49:58,780 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-26 10:49:59,095 T0000: CMD TIME: 307 D1 = ip address 192.168.1.1/24
+2025-11-26 10:49:59,411 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 10:50:02,090 T0000: CMD TIME: 1367 D1 = do show running-configuration interface Ethernet 0
+2025-11-26 10:50:03,878 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 10:50:04,143 T0000: CMD TIME: 257 D1 = interface Ethernet0
+2025-11-26 10:50:04,408 T0000: CMD TIME: 307 D1 = no ip address
+2025-11-26 10:50:04,723 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 10:50:07,402 T0000: CMD TIME: 1266 D1 = do show running-configuration interface Ethernet 0
+2025-11-26 10:50:09,089 T0000: CMD TIME: 1316 D1 = do show running-configuration interface Ethernet 0
+2025-11-26 10:50:10,842 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-26 10:50:11,116 T0000: CMD TIME: 312 D1 = interface Ethernet0
+2025-11-26 10:50:11,437 T0000: CMD TIME: 257 D1 = no ip address
+2025-11-26 10:50:11,702 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 10:50:12,397 T0049: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceIPAddressChanges.test_interface_ip_address_change_cycle'  
+2025-11-26 10:50:24,141 T0048: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceIPAddressChanges.test_interface_ip_address_change_cycle'  
+=========================================================

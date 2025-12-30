@@ -1,0 +1,24 @@
+
+======================= STATS: system/iscli_Vlan/test_interface_1_iscli_vlan.py::TestVlanConfiguration.test_vlan_creation_and_port_management ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:12
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.472
+TOTAL HELPER Time = 0:00:07.626
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-03 07:02:00,512 T0028: CMD TIME: 969 D2 = show interfaces status Ethernet124
+2025-12-03 07:02:00,520 T0027: CMD TIME: 1519 D1 = show interfaces status Ethernet124
+2025-12-03 07:02:01,902 T0028: CMD TIME: 257 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-03 07:02:02,463 T0027: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-03 07:02:03,155 T0031: CMD TIME: 965 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-12-03 07:02:03,148 T0030: CMD TIME: 1122 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-12-03 07:02:04,714 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_1_iscli_vlan.py'  
+2025-12-03 07:02:04,722 T0033: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_1_iscli_vlan.py'  
+2025-12-03 07:02:09,000 T0000: CMD TIME: 866 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-03 07:02:09,877 T0000: CMD TIME: 259 D1 = configure terminal
+2025-12-03 07:02:10,573 T0000: CMD TIME: 259 D1 = terminal length 0
+=========================================================

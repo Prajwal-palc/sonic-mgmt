@@ -1,0 +1,65 @@
+
+======================= STATS: system/iscli_Hardware/test_interface_2_iscli_events_mtu_change_HW.py::TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.796
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-06 07:14:18,800 T0027: CMD TIME: 1222 D1 = show interfaces status Ethernet513
+2025-12-06 07:14:18,807 T0028: CMD TIME: 1571 D2 = show interfaces status Ethernet128
+2025-12-06 07:14:20,447 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-06 07:14:20,797 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-06 07:14:21,491 T0030: CMD TIME: 917 D1 = show interfaces status Ethernet272
+2025-12-06 07:14:21,485 T0031: CMD TIME: 1576 D2 = show interfaces status Ethernet56
+2025-12-06 07:14:23,504 T0032: HELPER TIME: 3818 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Hardware/test_interface_2_iscli_events_mtu_change_HW.py'  
+2025-12-06 07:14:23,517 T0033: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Hardware/test_interface_2_iscli_events_mtu_change_HW.py'  
+=========================================================
+
+======================= STATS: system/iscli_Hardware/test_interface_2_iscli_events_mtu_change_HW.py::TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:55
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:17.662
+TOTAL HELPER Time = 0:00:15.249
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-06 07:14:39,861 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle'  
+2025-12-06 07:14:39,869 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle'  
+2025-12-06 07:14:44,121 T0000: CMD TIME: 562 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-06 07:14:44,692 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-06 07:14:45,377 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-06 07:14:45,644 T0000: CMD TIME: 814 D1 = interface Ethernet272
+2025-12-06 07:14:46,467 T0000: CMD TIME: 813 D1 = mtu 9100
+2025-12-06 07:14:47,289 T0000: CMD TIME: 258 D1 = exit
+2025-12-06 07:14:49,989 T0000: CMD TIME: 1216 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:14:51,626 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:14:51,891 T0000: CMD TIME: 812 D1 = interface Ethernet272
+2025-12-06 07:14:52,711 T0000: CMD TIME: 812 D1 = mtu 1600
+2025-12-06 07:14:53,532 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:14:56,212 T0000: CMD TIME: 1216 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:14:57,851 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:14:58,117 T0000: CMD TIME: 813 D1 = interface Ethernet272
+2025-12-06 07:14:58,938 T0000: CMD TIME: 813 D1 = mtu 2000
+2025-12-06 07:14:59,759 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:15:02,437 T0000: CMD TIME: 1218 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:15:04,077 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:15:04,342 T0000: CMD TIME: 813 D1 = interface Ethernet272
+2025-12-06 07:15:05,163 T0000: CMD TIME: 813 D1 = mtu 9100
+2025-12-06 07:15:05,984 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:15:08,663 T0000: CMD TIME: 1269 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:15:10,354 T0000: CMD TIME: 1219 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:15:12,013 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:15:12,279 T0000: CMD TIME: 814 D1 = interface Ethernet272
+2025-12-06 07:15:13,102 T0000: CMD TIME: 814 D1 = mtu 9100
+2025-12-06 07:15:13,925 T0000: CMD TIME: 258 D1 = exit
+2025-12-06 07:15:14,616 T0049: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle'  
+2025-12-06 07:15:26,365 T0048: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMTUChangesHW.test_interface_mtu_change_cycle'  
+=========================================================

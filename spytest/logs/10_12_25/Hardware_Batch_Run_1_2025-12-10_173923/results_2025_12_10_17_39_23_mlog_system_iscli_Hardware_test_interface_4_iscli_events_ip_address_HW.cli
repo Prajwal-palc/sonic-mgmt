@@ -1,0 +1,65 @@
+framework,,,D1,normal-user,show interfaces status Ethernet513
+framework,,,D1,normal-user,show interfaces status Ethernet272
+framework,,,D1,normal-user,show interfaces status Ethernet513
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,configure terminal
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,interface Ethernet272
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,no ip address
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,ip address 10.0.0.2/30
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-user,ping -c 3 10.0.0.1
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,no ip address
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,no ip address
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,interface Ethernet272
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,no ip address
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet128
+framework,,,D2,normal-user,show interfaces status Ethernet56
+framework,,,D2,normal-user,show interfaces status Ethernet128
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,normal-user,configure terminal
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,configure terminal
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,interface Ethernet56
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,no ip address
+function-prolog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,do show running-configuration interface Ethernet 56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,interface Ethernet56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,ip address 10.0.0.1/30
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,do show running-configuration interface Ethernet 56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,interface Ethernet56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,no ip address
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,exit
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,do show running-configuration interface Ethernet 56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,do show running-configuration interface Ethernet 56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,interface Ethernet56
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,no ip address
+function-or-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,interface Ethernet56
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,no ip address
+module-or-class-epilog,,TestInterfaceIPAddressHW.test_interface_ip_address_and_connectivity,D2,mgmt-config,exit

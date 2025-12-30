@@ -1,0 +1,182 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: SKIP saving running config pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: saving syslog pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: SKIP saving running config pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: saving syslog pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py 
+smic_sonic1: SKIP saving config_db post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP saving config_db post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP saving running config post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP saving running config post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP saving syslog post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP saving syslog post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP generating tech-support post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP generating tech-support post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP collect core-files post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP collect core-files post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP saving sai_redis post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP saving sai_redis post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic2: SKIP generating sysinfo post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP generating sysinfo post-class-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges Pass
+smic_sonic1: SKIP saving config_db post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: SKIP saving running config post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: saving syslog post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: SKIP saving config_db post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: SKIP saving running config post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: saving syslog post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: SKIP generating tech-support post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: SKIP collect core-files post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: SKIP saving sai_redis post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: SKIP generating sysinfo post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: SKIP generating tech-support post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: SKIP collect core-files post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: SKIP saving sai_redis post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic2: SKIP generating sysinfo post-module-prolog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ScriptError
+smic_sonic1: SKIP saving config_db post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP saving running config post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP saving syslog post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP saving config_db post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP generating tech-support post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP saving running config post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP collect core-files post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP saving syslog post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP generating tech-support post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP saving sai_redis post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP collect core-files post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP generating sysinfo post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP saving sai_redis post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic2: SKIP generating sysinfo post-class-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges pass
+smic_sonic1: SKIP saving config_db post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: SKIP saving running config post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: saving syslog post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: SKIP saving config_db post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: SKIP saving running config post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: saving syslog post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: SKIP generating tech-support post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: SKIP collect core-files post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: SKIP saving sai_redis post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic2: SKIP generating sysinfo post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: SKIP generating tech-support post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: SKIP collect core-files post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: SKIP saving sai_redis post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: SKIP generating sysinfo post-module-epilog system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py fail
+smic_sonic1: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving running config session-epilog session pass
+smic_sonic2: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP saving running config session-epilog session pass
+smic_sonic2: SKIP saving syslog session-epilog session pass
+smic_sonic1: SKIP generating tech-support session-epilog session pass
+smic_sonic1: collect core-files session-epilog session pass
+smic_sonic2: SKIP generating tech-support session-epilog session pass
+smic_sonic2: collect core-files session-epilog session pass
+smic_sonic1: SKIP saving sai_redis session-epilog session pass
+smic_sonic1: SKIP generating sysinfo session-epilog session pass
+smic_sonic2: SKIP saving sai_redis session-epilog session pass
+smic_sonic2: SKIP generating sysinfo session-epilog session pass

@@ -1,0 +1,602 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: saving syslog pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: saving syslog pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events12_description.py 
+smic_sonic1: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP saving running config post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP saving running config post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic2: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions Pass
+smic_sonic1: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: SKIP saving running config post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: saving syslog post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: SKIP saving running config post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: saving syslog post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic2: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events12_description.py Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_simple_alphanumeric Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_simple_alphanumeric ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_with_spaces 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_with_spaces Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_with_spaces ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_with_special_characters 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_with_special_characters Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_with_special_characters ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_with_numbers 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_with_numbers Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_with_numbers ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_mixed_case 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_mixed_case Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_mixed_case ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_long_text 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_long_text Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_long_text ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_modify 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_modify Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_modify ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_remove 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_remove Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_remove ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_persistence_through_flap Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_persistence_through_flap ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_multiple_interfaces Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_multiple_interfaces ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_sequential_changes 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_sequential_changes Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_sequential_changes ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceDescriptions.test_description_comprehensive_formats Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceDescriptions.test_description_comprehensive_formats ScriptError
+smic_sonic1: SKIP saving config_db post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP saving config_db post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP saving running config post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP saving running config post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP saving syslog post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP saving syslog post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP collect core-files post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP collect core-files post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic2: SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events12_description.py::TestInterfaceDescriptions pass
+smic_sonic1: SKIP saving config_db post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: SKIP saving running config post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: saving syslog post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: SKIP saving config_db post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: SKIP saving running config post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: saving syslog post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: SKIP generating tech-support post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: SKIP collect core-files post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic2: SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: SKIP generating tech-support post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: SKIP collect core-files post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events12_description.py fail
+smic_sonic1: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving running config session-epilog session pass
+smic_sonic1: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP saving config_db session-epilog session pass
+smic_sonic2: SKIP saving running config session-epilog session pass
+smic_sonic1: SKIP generating tech-support session-epilog session pass
+smic_sonic2: SKIP saving syslog session-epilog session pass
+smic_sonic1: collect core-files session-epilog session pass
+smic_sonic2: SKIP generating tech-support session-epilog session pass
+smic_sonic2: collect core-files session-epilog session pass
+smic_sonic2: SKIP saving sai_redis session-epilog session pass
+smic_sonic2: SKIP generating sysinfo session-epilog session pass
+smic_sonic1: SKIP saving sai_redis session-epilog session pass
+smic_sonic1: SKIP generating sysinfo session-epilog session pass

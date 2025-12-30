@@ -1,0 +1,124 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D1,normal-user,show interfaces status
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+class-prolog,,,D1,mgmt-config,do show interface status
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo tail -20 /var/log/syslog
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,do show interface status
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sudo grep -i 'Ethernet0' /var/log/syslog | tail -10
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,end
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D2,normal-user,show interfaces status
+framework,,,D2,normal-user,show interfaces status Ethernet124

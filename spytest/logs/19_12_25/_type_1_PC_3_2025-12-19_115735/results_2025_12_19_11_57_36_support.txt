@@ -1,0 +1,308 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: SKIP saving config_db pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: SKIP saving running config pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: saving syslog pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_3: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_2: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: SKIP generating tech-support pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: SKIP collect core-files pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: SKIP saving sai_redis pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_4: SKIP generating sysinfo pre-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py 
+vs_sonic_1: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_4: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP saving config_db post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP saving running config post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP saving syslog post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP generating tech-support post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_2: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP collect core-files post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP saving sai_redis post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_3: SKIP generating sysinfo post-class-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel Pass
+vs_sonic_1: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: SKIP saving config_db post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: SKIP saving running config post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: saving syslog post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_3: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_4: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: SKIP generating tech-support post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: SKIP collect core-files post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: SKIP saving sai_redis post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_2: SKIP generating sysinfo post-module-prolog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py Pass
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: saving syslog pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: saving syslog pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: saving syslog pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: saving syslog pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Pass
+vs_sonic_1: SKIP saving config_db pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: SKIP saving running config pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: SKIP saving syslog pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: generating tech-support pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: SKIP saving config_db pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: SKIP saving running config pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: SKIP saving syslog pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: generating tech-support pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: SKIP saving config_db pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: SKIP saving running config pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: SKIP saving config_db pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: SKIP saving syslog pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: SKIP saving running config pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: generating tech-support pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: SKIP saving syslog pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: generating tech-support pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: SKIP collect core-files pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: SKIP saving sai_redis pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_4: SKIP generating sysinfo pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: SKIP collect core-files pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: SKIP saving sai_redis pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_3: SKIP generating sysinfo pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: SKIP collect core-files pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: SKIP saving sai_redis pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: SKIP generating sysinfo pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: SKIP collect core-files pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: SKIP saving sai_redis pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_2: SKIP generating sysinfo pre-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel Fail
+vs_sonic_1: SKIP saving config_db post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: SKIP saving running config post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: saving syslog post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: SKIP saving config_db post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: SKIP saving running config post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: saving syslog post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: SKIP saving config_db post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: SKIP saving running config post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: saving syslog post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: SKIP saving config_db post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: SKIP saving running config post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: saving syslog post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: SKIP collect core-files post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: SKIP collect core-files post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: SKIP collect core-files post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: SKIP collect core-files post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestOSPFType1LSAs4NodePortChannel.test_ospf_type1_lsa_verification_portchannel ignore
+vs_sonic_1: SKIP saving config_db post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP saving running config post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP saving syslog post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP saving config_db post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP saving running config post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP saving syslog post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP generating tech-support post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP saving config_db post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP saving running config post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP generating tech-support post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP collect core-files post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP saving sai_redis post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_2: SKIP generating sysinfo post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP saving config_db post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP saving running config post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP saving syslog post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP saving syslog post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP collect core-files post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP generating tech-support post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP collect core-files post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP saving sai_redis post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_3: SKIP generating sysinfo post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP generating tech-support post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP collect core-files post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP saving sai_redis post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP saving sai_redis post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_4: SKIP generating sysinfo post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP generating sysinfo post-class-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py::TestOSPFType1LSAs4NodePortChannel pass
+vs_sonic_1: SKIP saving config_db post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: SKIP saving running config post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: saving syslog post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: SKIP saving config_db post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: SKIP saving running config post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: saving syslog post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: SKIP saving config_db post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: SKIP saving running config post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: saving syslog post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: SKIP saving config_db post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: SKIP saving running config post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: saving syslog post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: SKIP generating tech-support post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: SKIP collect core-files post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: SKIP saving sai_redis post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: SKIP generating tech-support post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: SKIP generating sysinfo post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: SKIP collect core-files post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: SKIP saving sai_redis post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_2: SKIP generating sysinfo post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: SKIP generating tech-support post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: SKIP generating tech-support post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: SKIP collect core-files post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: SKIP saving sai_redis post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_4: SKIP generating sysinfo post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: SKIP collect core-files post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: SKIP saving sai_redis post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_3: SKIP generating sysinfo post-module-epilog system/iscli_OSPF/testcases_OSPF_10_iscli_4_node_Type_1_LSAs_over_PC.py fail
+vs_sonic_1: SKIP saving config_db session-epilog session pass
+vs_sonic_2: SKIP saving config_db session-epilog session pass
+vs_sonic_2: SKIP saving running config session-epilog session pass
+vs_sonic_2: SKIP saving syslog session-epilog session pass
+vs_sonic_3: SKIP saving config_db session-epilog session pass
+vs_sonic_3: SKIP saving running config session-epilog session pass
+vs_sonic_3: SKIP saving syslog session-epilog session pass
+vs_sonic_2: SKIP generating tech-support session-epilog session pass
+vs_sonic_2: collect core-files session-epilog session pass
+vs_sonic_3: SKIP generating tech-support session-epilog session pass
+vs_sonic_3: collect core-files session-epilog session pass
+vs_sonic_4: SKIP saving config_db session-epilog session pass
+vs_sonic_4: SKIP saving running config session-epilog session pass
+vs_sonic_4: SKIP saving syslog session-epilog session pass
+vs_sonic_1: SKIP saving running config session-epilog session pass
+vs_sonic_4: SKIP generating tech-support session-epilog session pass
+vs_sonic_4: collect core-files session-epilog session pass
+vs_sonic_1: SKIP saving syslog session-epilog session pass
+vs_sonic_1: SKIP generating tech-support session-epilog session pass
+vs_sonic_1: collect core-files session-epilog session pass
+vs_sonic_3: SKIP saving sai_redis session-epilog session pass
+vs_sonic_3: SKIP generating sysinfo session-epilog session pass
+vs_sonic_2: SKIP saving sai_redis session-epilog session pass
+vs_sonic_2: SKIP generating sysinfo session-epilog session pass
+vs_sonic_4: SKIP saving sai_redis session-epilog session pass
+vs_sonic_4: SKIP generating sysinfo session-epilog session pass
+vs_sonic_1: SKIP saving sai_redis session-epilog session pass
+vs_sonic_1: SKIP generating sysinfo session-epilog session pass

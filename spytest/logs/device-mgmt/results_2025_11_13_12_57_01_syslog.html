@@ -1,0 +1,1751 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Device</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>LogDate</th>
+      <th>LogLevel</th>
+      <th>LogModule</th>
+      <th>LogMessage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:27:57.419890</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:00.440407</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:15.552960</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:18.572933</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:21.595060</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:24.615741</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:27.637175</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:30.669493</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:33.689841</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:36.711508</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:39.731817</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:42.750898</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:45.771561</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:48.796771</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:51.817032</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:53.447992</td>
+      <td>ERR</td>
+      <td>monit[409]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:54.836516</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:57.960360</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:00.990126</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:04.020306</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:07.043307</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:10.069293</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:13.091306</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:16.114323</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:19.131444</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:22.152478</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:25.171924</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:28.192113</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:31.215223</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:34.240148</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:37.286540</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:40.303927</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:43.326767</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:46.349279</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:49.371331</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:52.391640</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:53.588064</td>
+      <td>ERR</td>
+      <td>monit[409]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:55.404363</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:58.432062</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:01.454348</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:04.482399</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:07.511852</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:10.535625</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:13.556008</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:16.576842</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:19.598142</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:22.620415</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:25.641692</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:28.666551</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:31.685578</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:34.706686</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:37.725639</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:40.747502</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:43.770938</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:46.858568</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:49.878234</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:52.896004</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:53.642933</td>
+      <td>ERR</td>
+      <td>monit[409]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:55.915183</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:58.939483</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:01.954987</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>62</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:04.968910</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>63</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:07.989889</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>64</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:11.052402</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:14.077320</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:17.094341</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:20.117916</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:23.139518</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:26.157399</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>70</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:29.174123</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:32.195561</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>72</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:35.219889</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>73</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:27:58.486780</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>74</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:01.505816</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:16.609742</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>76</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:19.629167</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>77</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:22.649130</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>78</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:25.665413</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>79</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:28.686207</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:31.706406</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>81</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:34.751309</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>82</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:37.782569</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>83</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:40.806282</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>84</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:42.104231</td>
+      <td>ERR</td>
+      <td>monit[426]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:43.821819</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>86</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:46.842914</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>87</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:49.870810</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>88</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:52.892573</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>89</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:55.914248</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:28:58.933834</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>91</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:01.955522</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>92</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:04.967798</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>93</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:07.986538</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>94</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:11.005256</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>95</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:14.024647</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>96</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:17.047730</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>97</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:20.068774</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>98</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:23.110671</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>99</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:26.130599</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:29.149978</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>101</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:32.162199</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:35.177410</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:38.208284</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>104</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:41.231412</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>105</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:42.230096</td>
+      <td>ERR</td>
+      <td>monit[426]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>106</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:44.253710</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>107</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:47.276504</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>108</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:50.292342</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>109</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:53.320204</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>110</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:56.353981</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>111</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:29:59.383622</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>112</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:02.444210</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>113</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:05.453816</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>114</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:08.475446</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>115</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:11.499104</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>116</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:14.522407</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>117</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:17.543377</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>118</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:20.557735</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>119</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:23.586766</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>120</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:26.611180</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>121</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:29.641043</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>122</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:32.662354</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>123</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:35.682263</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>124</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:38.705172</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>125</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:41.733902</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>126</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:42.289014</td>
+      <td>ERR</td>
+      <td>monit[426]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>127</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:44.753277</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>128</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:47.770696</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>129</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:50.792261</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>130</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:53.821861</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>131</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:56.836188</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>132</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:30:59.865183</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>133</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:02.890763</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>134</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:05.909844</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>135</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:08.941533</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>136</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:11.956669</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>137</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:14.972183</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>138</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:17.989906</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>139</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:21.004410</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>140</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:24.024390</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>141</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:27.038914</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>142</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:30.053840</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>143</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:33.085163</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>144</td>
+      <td><a href='results_2025_11_13_12_57_01_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_13_12_57_01_mlog_system_lldp_test_lldp_1_verify_lldp_cli.log'>system/lldp/test_lldp_1_verify_lldp_cli.py</a></td>
+      <td>TestLldpCliConfiguration.test_lldp_cli_configuration</td>
+      <td>Fail</td>
+      <td>Nov 13 07:31:36.104355</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

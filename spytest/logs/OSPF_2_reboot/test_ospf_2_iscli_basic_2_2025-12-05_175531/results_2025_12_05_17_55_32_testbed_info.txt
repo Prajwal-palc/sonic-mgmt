@@ -1,0 +1,67 @@
+########## /home/adminuser/Siddu/sonic-mgmt/spytest/./testbeds/testbed_4vs.yaml ##########version: 2.0
+devices:
+  vs_sonic_1:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.142, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: broadcom}
+    properties: {services: default, build: default, config: default, errors: default}
+    
+  vs_sonic_2:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.247, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: broadcom}
+    properties: {services: default, build: default, config: default, errors: default}
+    
+  vs_sonic_3:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.107, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: broadcom}
+    properties: {services: default, build: default, config: default, errors: default}
+    
+  vs_sonic_4:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.95, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: broadcom}
+    properties: {services: default, build: default, config: default, errors: default}
+
+topology:
+  vs_sonic_1:
+    interfaces:
+      Ethernet0: {EndDevice: vs_sonic_2, EndPort: Ethernet0}
+      Ethernet4: {EndDevice: vs_sonic_2, EndPort: Ethernet4}
+      Ethernet8: {EndDevice: vs_sonic_2, EndPort: Ethernet8}
+      Ethernet12: {EndDevice: vs_sonic_2, EndPort: Ethernet12}
+      Ethernet16: {EndDevice: vs_sonic_3, EndPort: Ethernet0}
+      Ethernet20: {EndDevice: vs_sonic_3, EndPort: Ethernet4}
+      Ethernet24: {EndDevice: vs_sonic_3, EndPort: Ethernet8}
+      Ethernet28: {EndDevice: vs_sonic_3, EndPort: Ethernet12}
+      Ethernet32: {EndDevice: vs_sonic_4, EndPort: Ethernet0}
+      Ethernet36: {EndDevice: vs_sonic_4, EndPort: Ethernet4}
+      Ethernet40: {EndDevice: vs_sonic_4, EndPort: Ethernet8}
+      Ethernet44: {EndDevice: vs_sonic_4, EndPort: Ethernet12}
+  
+  vs_sonic_2:
+    interfaces:
+      Ethernet16: {EndDevice: vs_sonic_4, EndPort: Ethernet16}
+      Ethernet20: {EndDevice: vs_sonic_4, EndPort: Ethernet20}
+      Ethernet24: {EndDevice: vs_sonic_4, EndPort: Ethernet24}
+      Ethernet28: {EndDevice: vs_sonic_4, EndPort: Ethernet28}
+      Ethernet32: {EndDevice: vs_sonic_3, EndPort: Ethernet16}
+      Ethernet36: {EndDevice: vs_sonic_3, EndPort: Ethernet20}
+      Ethernet40: {EndDevice: vs_sonic_3, EndPort: Ethernet24}
+      Ethernet44: {EndDevice: vs_sonic_3, EndPort: Ethernet28}
+  
+  vs_sonic_3:
+    interfaces:
+      Ethernet32: {EndDevice: vs_sonic_4, EndPort: Ethernet32}
+      Ethernet36: {EndDevice: vs_sonic_4, EndPort: Ethernet36}
+      Ethernet40: {EndDevice: vs_sonic_4, EndPort: Ethernet40}
+      Ethernet44: {EndDevice: vs_sonic_4, EndPort: Ethernet44}
+  
+      
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}
+###################################

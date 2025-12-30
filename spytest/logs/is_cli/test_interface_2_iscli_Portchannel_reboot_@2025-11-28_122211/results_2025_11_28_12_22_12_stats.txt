@@ -1,0 +1,163 @@
+
+======================= STATS: system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.980
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-28 06:52:50,563 T0028: CMD TIME: 964 D2 = show interfaces status Ethernet124
+2025-11-28 06:52:50,557 T0027: CMD TIME: 1018 D1 = show interfaces status Ethernet124
+2025-11-28 06:52:51,946 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 06:52:51,993 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 06:52:52,679 T0031: CMD TIME: 1014 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-28 06:52:52,674 T0030: CMD TIME: 1069 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-28 06:52:54,192 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py'  
+2025-11-28 06:52:54,197 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py'  
+2025-11-28 06:52:58,465 T0000: CMD TIME: 712 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-28 06:52:59,187 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-28 06:52:59,873 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-11-28 06:53:00,550 T0000: CMD TIME: 662 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-28 06:53:01,221 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-28 06:53:01,901 T0000: CMD TIME: 257 D2 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_PortChannel/test_interface_2_iscli_portchannel_Reboot.py::TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence ===========================
+RESULT = Timeout
+DESCRIPTION = Testcase max time reached. Exiting.
+TOTAL Test Time = 0:20:19
+TOTAL Sleep Time = 0:17:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:01:15.512
+TOTAL HELPER Time = 0:00:15.258
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-28 06:53:26,075 T0042: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence'  
+2025-11-28 06:53:26,083 T0043: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence'  
+2025-11-28 06:53:30,347 T0000: CMD TIME: 660 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-28 06:53:31,427 T0000: CMD TIME: 561 D1 = show PortChannel summary
+2025-11-28 06:53:32,407 T0000: CMD TIME: 660 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-28 06:53:33,486 T0000: CMD TIME: 560 D2 = show PortChannel summary
+2025-11-28 06:53:34,468 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-28 06:53:35,144 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-28 06:53:35,408 T0000: CMD TIME: 308 D1 = interface PortChannel 10
+2025-11-28 06:53:35,724 T0000: CMD TIME: 257 D1 = exit
+2025-11-28 06:53:36,398 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-28 06:53:37,078 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-28 06:53:37,346 T0000: CMD TIME: 312 D2 = interface PortChannel 10
+2025-11-28 06:53:37,667 T0000: CMD TIME: 257 D2 = exit
+2025-11-28 06:53:40,346 T0000: CMD TIME: 564 D1 = do show PortChannel summary
+2025-11-28 06:53:41,329 T0000: CMD TIME: 815 D2 = do show PortChannel summary
+2025-11-28 06:53:42,567 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-28 06:53:42,832 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-28 06:53:43,148 T0000: CMD TIME: 1368 D1 = channel-group 10
+2025-11-28 06:53:44,532 T0000: CMD TIME: 257 D1 = exit
+2025-11-28 06:53:45,207 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-28 06:53:45,472 T0000: CMD TIME: 307 D2 = interface Ethernet0
+2025-11-28 06:53:45,787 T0000: CMD TIME: 1314 D2 = channel-group 10
+2025-11-28 06:53:47,109 T0000: CMD TIME: 257 D2 = exit
+2025-11-28 06:53:49,788 T0000: CMD TIME: 612 D1 = do show PortChannel summary
+2025-11-28 06:53:50,821 T0000: CMD TIME: 664 D2 = do show PortChannel summary
+2025-11-28 06:53:51,909 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-28 06:53:52,173 T0000: CMD TIME: 308 D1 = interface Ethernet4
+2025-11-28 06:53:52,489 T0000: CMD TIME: 1315 D1 = channel-group 10
+2025-11-28 06:53:53,811 T0000: CMD TIME: 256 D1 = exit
+2025-11-28 06:53:54,485 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-28 06:53:54,750 T0000: CMD TIME: 307 D2 = interface Ethernet4
+2025-11-28 06:53:55,066 T0000: CMD TIME: 1164 D2 = channel-group 10
+2025-11-28 06:53:56,238 T0000: CMD TIME: 257 D2 = exit
+2025-11-28 06:53:58,916 T0000: CMD TIME: 612 D1 = do show PortChannel summary
+2025-11-28 06:53:59,948 T0000: CMD TIME: 614 D2 = do show PortChannel summary
+2025-11-28 06:54:00,987 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-28 06:54:01,253 T0000: CMD TIME: 357 D1 = interface PortChannel 10
+2025-11-28 06:54:01,618 T0000: CMD TIME: 309 D1 = ip address 11.1.1.1/30
+2025-11-28 06:54:01,935 T0000: CMD TIME: 256 D1 = exit
+2025-11-28 06:54:02,612 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-28 06:54:02,881 T0000: CMD TIME: 308 D2 = interface PortChannel 10
+2025-11-28 06:54:03,198 T0000: CMD TIME: 359 D2 = ip address 11.1.1.2/30
+2025-11-28 06:54:03,567 T0000: CMD TIME: 257 D2 = exit
+2025-11-28 06:54:06,245 T0000: CMD TIME: 409 D1 = do show running-configuration interface PortChannel 10
+2025-11-28 06:54:07,074 T0000: CMD TIME: 410 D2 = do show running-configuration interface PortChannel 10
+2025-11-28 06:54:07,904 T0000: CMD TIME: 1868 D1 = write memory
+2025-11-28 06:54:10,190 T0000: CMD TIME: 1718 D2 = write memory
+2025-11-28 06:54:14,340 T0000: CMD TIME: 261 D1 = exit
+2025-11-28 06:54:14,611 T0000: CMD TIME: 308 D1 = exit
+2025-11-28 06:54:15,342 T0000: CMD TIME: 13818 D1 = sudo -s reboot
+2025-11-28 06:54:29,189 T0000: WAIT TIME: 300 = static delay
+2025-11-28 06:59:40,923 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 06:59:41,603 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-28 06:59:43,111 T0000: CMD TIME: 260 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 06:59:43,792 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-28 06:59:44,479 T0000: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 06:59:46,598 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 06:59:47,278 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-28 06:59:47,960 T0000: CMD TIME: 461 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-28 06:59:48,856 T0000: CMD TIME: 1118 D1 = show interfaces status Ethernet124
+2025-11-28 06:59:50,412 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 06:59:51,090 T0000: CMD TIME: 309 D1 = sudo -s date --set='Fri Nov 28 06:59:50 2025'
+2025-11-28 06:59:51,822 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 06:59:57,637 T0000: WAIT TIME: 30 = static delay
+2025-11-28 07:00:34,514 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:00:35,190 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-28 07:00:35,871 T0000: CMD TIME: 460 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-28 07:00:36,764 T0000: CMD TIME: 1016 D1 = show interfaces status Ethernet124
+2025-11-28 07:00:38,218 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:00:38,898 T0000: CMD TIME: 258 D1 = sudo -s date --set='Fri Nov 28 07:00:38 2025'
+2025-11-28 07:00:39,580 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 07:00:40,266 T0000: CMD TIME: 887 D1 = show version
+2025-11-28 07:00:41,647 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 07:00:41,923 T0000: WAIT TIME: 180 = static delay
+2025-11-28 07:03:42,526 T0000: CMD TIME: 761 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-28 07:03:43,296 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-28 07:03:43,972 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-28 07:03:44,652 T0000: CMD TIME: 258 D2 = exit
+2025-11-28 07:03:44,921 T0000: CMD TIME: 309 D2 = exit
+2025-11-28 07:03:45,653 T0000: CMD TIME: 13115 D2 = sudo -s reboot
+2025-11-28 07:03:58,798 T0000: WAIT TIME: 300 = static delay
+2025-11-28 07:09:10,505 T0000: CMD TIME: 310 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:09:11,236 T0000: CMD TIME: 258 D2 = cat /proc/uptime
+2025-11-28 07:09:12,747 T0000: CMD TIME: 262 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:09:13,435 T0000: CMD TIME: 259 D2 = cat /proc/uptime
+2025-11-28 07:09:14,122 T0000: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 07:09:16,238 T0000: CMD TIME: 259 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:09:16,919 T0000: CMD TIME: 258 D2 = cat /proc/uptime
+2025-11-28 07:09:17,602 T0000: CMD TIME: 511 D2 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-28 07:09:18,548 T0000: CMD TIME: 1066 D2 = show interfaces status Ethernet124
+2025-11-28 07:09:20,055 T0000: CMD TIME: 258 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:09:20,734 T0000: CMD TIME: 258 D2 = sudo -s date --set='Fri Nov 28 07:09:20 2025'
+2025-11-28 07:09:21,416 T0000: CMD TIME: 260 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 07:09:27,238 T0000: WAIT TIME: 30 = static delay
+2025-11-28 07:10:04,045 T0000: CMD TIME: 258 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:10:04,721 T0000: CMD TIME: 257 D2 = cat /proc/uptime
+2025-11-28 07:10:05,401 T0000: CMD TIME: 712 D2 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-28 07:10:06,544 T0000: CMD TIME: 1014 D2 = show interfaces status Ethernet124
+2025-11-28 07:10:07,996 T0000: CMD TIME: 257 D2 = export TMOUT=0;stty cols 5000;uptime
+2025-11-28 07:10:08,671 T0000: CMD TIME: 258 D2 = sudo -s date --set='Fri Nov 28 07:10:08 2025'
+2025-11-28 07:10:09,352 T0000: CMD TIME: 257 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 07:10:10,036 T0000: CMD TIME: 832 D2 = show version
+2025-11-28 07:10:11,365 T0000: CMD TIME: 257 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-28 07:10:11,641 T0000: WAIT TIME: 180 = static delay
+2025-11-28 07:13:12,243 T0000: CMD TIME: 660 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-28 07:13:12,913 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-28 07:13:13,589 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-11-28 07:13:14,264 T0000: CMD TIME: 459 D1 = do show running-configuration interface PortChannel 10
+2025-11-28 07:13:15,141 T0000: CMD TIME: 409 D2 = do show running-configuration interface PortChannel 10
+2025-11-28 07:13:15,971 T0000: CMD TIME: 662 D1 = do show PortChannel summary
+2025-11-28 07:13:17,054 T0000: CMD TIME: 662 D2 = do show PortChannel summary
+2025-11-28 07:13:18,141 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-28 07:13:18,405 T0000: CMD TIME: 307 D1 = interface PortChannel 10
+2025-11-28 07:13:18,720 T0000: CMD TIME: 307 D1 = no ip address 11.1.1.1/30
+2025-11-28 07:13:19,035 T0000: CMD TIME: 256 D1 = exit
+2025-11-28 07:13:19,709 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-28 07:13:19,973 T0000: CMD TIME: 307 D2 = interface PortChannel 10
+2025-11-28 07:13:20,289 T0000: CMD TIME: 307 D2 = no ip address 11.1.1.2/30
+2025-11-28 07:13:20,604 T0000: CMD TIME: 256 D2 = exit
+2025-11-28 07:13:23,281 T0000: CMD TIME: 409 D1 = do show running-configuration interface PortChannel 10
+2025-11-28 07:13:36,935 T0056: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence'  
+2025-11-28 07:13:36,944 T0057: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestPortChannelConfigurationReboot.test_portchannel_creation_port_management_ip_addressing_and_dual_reboot_persistence'  
+=========================================================

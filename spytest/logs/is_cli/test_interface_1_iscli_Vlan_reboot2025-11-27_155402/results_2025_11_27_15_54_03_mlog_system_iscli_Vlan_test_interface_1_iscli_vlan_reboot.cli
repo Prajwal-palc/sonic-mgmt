@@ -1,0 +1,62 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-user,show Vlan
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-user,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,vlan 3
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,write memory
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sudo -s reboot
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sudo vtysh -c 'show running-config | include hostname'
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sudo -s date --set='Thu Nov 27 10:31:15 2025'
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sudo vtysh -c 'show running-config | include hostname'
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sudo -s date --set='Thu Nov 27 10:32:03 2025'
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,show version
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,normal-user,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,no vlan 3
+function-or-epilog,,TestVlanConfigurationReboot.test_vlan_creation_port_management_and_reboot_persistence,D1,mgmt-config,do show Vlan

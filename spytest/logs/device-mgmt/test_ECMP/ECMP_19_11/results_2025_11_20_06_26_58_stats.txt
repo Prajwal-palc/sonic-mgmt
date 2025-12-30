@@ -1,0 +1,220 @@
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:20.374
+TOTAL HELPER Time = 0:00:15.264
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:57:59,347 T0058: CMD TIME: 2378 D3 = show interfaces status Ethernet124
+2025-11-20 00:57:59,335 T0057: CMD TIME: 2473 D2 = show interfaces status Ethernet124
+2025-11-20 00:57:59,323 T0056: CMD TIME: 2627 D1 = show interfaces status Ethernet124
+2025-11-20 00:57:59,353 T0059: CMD TIME: 2687 D4 = show interfaces status Ethernet124
+2025-11-20 00:58:02,148 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:58:02,227 T0057: CMD TIME: 256 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:58:02,369 T0056: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:58:02,462 T0059: CMD TIME: 255 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:58:03,156 T0063: CMD TIME: 2083 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:58:03,162 T0062: CMD TIME: 2135 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:58:03,174 T0061: CMD TIME: 2479 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:58:03,168 T0064: CMD TIME: 2491 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:58:06,146 T0065: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py'  
+2025-11-20 00:58:06,154 T0066: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py'  
+2025-11-20 00:58:06,169 T0067: HELPER TIME: 3817 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py'  
+2025-11-20 00:58:06,166 T0068: HELPER TIME: 3822 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestLargeScaleBgpEcmp' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py at line 175
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.509
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:58:29,576 T0085: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:29,585 T0087: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:29,595 T0086: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:29,600 T0088: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:33,925 T0093: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:33,932 T0094: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:33,947 T0096: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+2025-11-20 00:58:33,940 T0095: HELPER TIME: 3822 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_01_setup_and_verify_multipath'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestLargeScaleBgpEcmp' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py at line 175
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.499
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:58:42,998 T0101: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:43,018 T0102: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:43,029 T0103: HELPER TIME: 3813 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:43,034 T0104: HELPER TIME: 3810 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:47,357 T0109: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:47,364 T0110: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:47,376 T0112: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+2025-11-20 00:58:47,383 T0111: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_02_verify_route_installation'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestLargeScaleBgpEcmp' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py at line 175
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.497
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:58:56,436 T0117: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:58:56,448 T0118: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:58:56,455 T0120: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:58:56,462 T0119: HELPER TIME: 3810 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:59:00,787 T0125: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:59:00,795 T0126: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:59:00,802 T0128: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+2025-11-20 00:59:00,809 T0127: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_03_monitor_cpu_memory_baseline'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestLargeScaleBgpEcmp' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py at line 175
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.497
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:59:10,014 T0133: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:10,023 T0134: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:10,033 T0136: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:10,044 T0135: HELPER TIME: 3810 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:14,368 T0141: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:14,377 T0143: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:14,386 T0142: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+2025-11-20 00:59:14,394 T0144: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_04_peer_flap_convergence'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestLargeScaleBgpEcmp' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py at line 175
+TOTAL Test Time = 0:00:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.503
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:59:26,177 T0149: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:26,184 T0150: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:26,192 T0152: HELPER TIME: 3813 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:26,199 T0151: HELPER TIME: 3809 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:30,535 T0157: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:30,543 T0158: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:30,552 T0160: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+2025-11-20 00:59:30,560 T0159: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_05_verify_stability'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py::TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception AttributeError 'TestLargeScaleBgpEcmp' object has no attribute '_testMethodName' in file /tests/routing/ecmp/test_ecmp7_large_scale_bgp_ecmp.py at line 175
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:30.500
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:59:39,914 T0165: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:39,928 T0166: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:39,939 T0167: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:39,945 T0168: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:44,270 T0173: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:44,276 T0174: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:44,288 T0176: HELPER TIME: 3817 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+2025-11-20 00:59:44,299 T0175: HELPER TIME: 3810 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLargeScaleBgpEcmp.test_bgp_ecmp_06_final_validation'  
+=========================================================

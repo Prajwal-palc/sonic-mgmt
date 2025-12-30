@@ -1,0 +1,132 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp enable
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp authenticate
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp authentication-key 1 md5 WrongClientPassword
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp trusted-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,show ntp
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp authentication-key 1 sha1 SharedSecret
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp trusted-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,show ntp
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp authentication-key 2 md5 SharedSecret
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp trusted-key 2
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp server 216.239.35.0 key 2 iburst
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,show ntp
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp server 216.239.35.0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 2
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 2
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp authentication-key 1 md5 CorrectServerPassword
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp trusted-key 1
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp server 216.239.35.0 key 1 iburst prefer
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,show ntp
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authenticate
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp authenticate
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp global
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp server
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,show ntp associations
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit
+framework,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,show ntp
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 1
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 1
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 2
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp trusted-key 1
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 1
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 1
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 2
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authentication-key 1
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,ntp enable
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-config,end
+module-or-class-epilog,,TestNtpAuthFailureMismatchedKey.test_ntp_5_verify_sync_fails_mismatched_key,D1,mgmt-user,exit

@@ -679,6 +679,9 @@ class TestOSPFMultiAreaABR:
         st.log("TEST: OSPF Multi-Area Configuration with ABRs")
         st.log("=" * 80)
 
+        # Track validation failures - test will continue but report fail at end
+        validation_failures = []
+
         dut1 = self.data.dut1
         dut2 = self.data.dut2
         dut3 = self.data.dut3
@@ -709,19 +712,49 @@ class TestOSPFMultiAreaABR:
         # Validate IP addresses
         st.log("Validating IP address configuration...")
         if not self._verify_interface_ip(dut1, self.data.dut1_if1, self.data.dut1_ip):
-            st.report_fail("msg", f"IP validation failed on {dut1} {self.data.dut1_if1}")
-        if not self._verify_interface_ip(dut2, self.data.dut2_if1, self.data.dut2_ip1):
-            st.report_fail("msg", f"IP validation failed on {dut2} {self.data.dut2_if1}")
-        if not self._verify_interface_ip(dut2, self.data.dut2_if2, self.data.dut2_ip2):
-            st.report_fail("msg", f"IP validation failed on {dut2} {self.data.dut2_if2}")
-        if not self._verify_interface_ip(dut4, self.data.dut4_if1, self.data.dut4_ip1):
-            st.report_fail("msg", f"IP validation failed on {dut4} {self.data.dut4_if1}")
-        if not self._verify_interface_ip(dut4, self.data.dut4_if2, self.data.dut4_ip2):
-            st.report_fail("msg", f"IP validation failed on {dut4} {self.data.dut4_if2}")
-        if not self._verify_interface_ip(dut3, self.data.dut3_if1, self.data.dut3_ip):
-            st.report_fail("msg", f"IP validation failed on {dut3} {self.data.dut3_if1}")
+            error_msg = f"STEP 1: IP validation failed on {dut1} {self.data.dut1_if1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut1} {self.data.dut1_if1}")
 
-        st.log("PASS: IP addresses configured and validated successfully")
+        if not self._verify_interface_ip(dut2, self.data.dut2_if1, self.data.dut2_ip1):
+            error_msg = f"STEP 1: IP validation failed on {dut2} {self.data.dut2_if1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut2} {self.data.dut2_if1}")
+
+        if not self._verify_interface_ip(dut2, self.data.dut2_if2, self.data.dut2_ip2):
+            error_msg = f"STEP 1: IP validation failed on {dut2} {self.data.dut2_if2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut2} {self.data.dut2_if2}")
+
+        if not self._verify_interface_ip(dut4, self.data.dut4_if1, self.data.dut4_ip1):
+            error_msg = f"STEP 1: IP validation failed on {dut4} {self.data.dut4_if1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut4} {self.data.dut4_if1}")
+
+        if not self._verify_interface_ip(dut4, self.data.dut4_if2, self.data.dut4_ip2):
+            error_msg = f"STEP 1: IP validation failed on {dut4} {self.data.dut4_if2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut4} {self.data.dut4_if2}")
+
+        if not self._verify_interface_ip(dut3, self.data.dut3_if1, self.data.dut3_ip):
+            error_msg = f"STEP 1: IP validation failed on {dut3} {self.data.dut3_if1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut3} {self.data.dut3_if1}")
+
+        if len([f for f in validation_failures if "STEP 1" in f]) == 0:
+            st.log("PASS: IP addresses configured and validated successfully")
 
         # ===== STEP 2: Configure OSPF on D1 (Area 1) =====
         st.log("\n" + "-" * 80)
@@ -801,25 +834,52 @@ class TestOSPFMultiAreaABR:
 
         # Verify D1 sees D2 as neighbor
         if not self._verify_ospf_neighbor_present(neighbor_output_dut1, dut2_ip1_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip1_no_mask} not in Full state on {dut1}")
+            error_msg = f"STEP 6: OSPF neighbor {dut2_ip1_no_mask} not in Full state on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip1_no_mask} in Full state on {dut1}")
 
         # Verify D2 sees D1 and D4 as neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut1_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut1_ip_no_mask} not in Full state on {dut2}")
+            error_msg = f"STEP 6: OSPF neighbor {dut1_ip_no_mask} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut1_ip_no_mask} in Full state on {dut2}")
+
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_ip1_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip1_no_mask} not in Full state on {dut2}")
+            error_msg = f"STEP 6: OSPF neighbor {dut4_ip1_no_mask} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip1_no_mask} in Full state on {dut2}")
 
         # Verify D4 sees D2 and D3 as neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_ip2_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip2_no_mask} not in Full state on {dut4}")
+            error_msg = f"STEP 6: OSPF neighbor {dut2_ip2_no_mask} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip2_no_mask} in Full state on {dut4}")
+
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut3_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut3_ip_no_mask} not in Full state on {dut4}")
+            error_msg = f"STEP 6: OSPF neighbor {dut3_ip_no_mask} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut3_ip_no_mask} in Full state on {dut4}")
 
         # Verify D3 sees D4 as neighbor
         if not self._verify_ospf_neighbor_present(neighbor_output_dut3, dut4_ip2_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip2_no_mask} not in Full state on {dut3}")
+            error_msg = f"STEP 6: OSPF neighbor {dut4_ip2_no_mask} not in Full state on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip2_no_mask} in Full state on {dut3}")
 
-        st.log("PASS: All OSPF neighbors are in Full state")
+        if len([f for f in validation_failures if "STEP 6" in f]) == 0:
+            st.log("PASS: All OSPF neighbors are in Full state")
 
         # ===== STEP 7: Verify ABR status on D2 and D4 =====
         st.log("\n" + "-" * 80)
@@ -840,19 +900,35 @@ class TestOSPFMultiAreaABR:
 
         # Verify D2 is an ABR
         if not self._verify_ospf_abr_status(ospf_output_dut2, expected_abr=True):
-            st.report_fail("msg", f"{dut2} is not configured as ABR")
+            error_msg = f"STEP 7: {dut2} is not configured as ABR"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: {dut2} is configured as ABR")
 
         # Verify D2 has Area 0 and Area 1
         if not self._verify_ospf_areas(ospf_output_dut2, [self.data.ospf_area_0, self.data.ospf_area_1]):
-            st.report_fail("msg", f"{dut2} does not have both Area 0 and Area 1")
+            error_msg = f"STEP 7: {dut2} does not have both Area 0 and Area 1"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: {dut2} has both Area 0 and Area 1")
 
         # Verify D4 is an ABR
         if not self._verify_ospf_abr_status(ospf_output_dut4, expected_abr=True):
-            st.report_fail("msg", f"{dut4} is not configured as ABR")
+            error_msg = f"STEP 7: {dut4} is not configured as ABR"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: {dut4} is configured as ABR")
 
         # Verify D4 has Area 0 and Area 2
         if not self._verify_ospf_areas(ospf_output_dut4, [self.data.ospf_area_0, self.data.ospf_area_2]):
-            st.report_fail("msg", f"{dut4} does not have both Area 0 and Area 2")
+            error_msg = f"STEP 7: {dut4} does not have both Area 0 and Area 2"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: {dut4} has both Area 0 and Area 2")
 
         # Verify D3 is not an ABR
         if not self._verify_ospf_abr_status(ospf_output_dut3, expected_abr=False):
@@ -917,21 +993,38 @@ class TestOSPFMultiAreaABR:
 
         # Ping from D1 to D2
         if not self._verify_ping_success(dut1, dut2_ip1_no_mask):
-            st.report_fail("msg", f"Ping from {dut1} to {dut2_ip1_no_mask} failed")
+            error_msg = f"STEP 10: Ping from {dut1} to {dut2_ip1_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut1} to {dut2_ip1_no_mask} successful")
 
         # Ping from D1 to D3 (across areas through ABRs)
         if not self._verify_ping_success(dut1, dut3_ip_no_mask):
-            st.report_fail("msg", f"Ping from {dut1} to {dut3_ip_no_mask} failed")
+            error_msg = f"STEP 10: Ping from {dut1} to {dut3_ip_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut1} to {dut3_ip_no_mask} successful")
 
         # Ping from D3 to D1 (across areas through ABRs)
         if not self._verify_ping_success(dut3, dut1_ip_no_mask):
-            st.report_fail("msg", f"Ping from {dut3} to {dut1_ip_no_mask} failed")
+            error_msg = f"STEP 10: Ping from {dut3} to {dut1_ip_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut3} to {dut1_ip_no_mask} successful")
 
         # Ping from D2 to D4 (backbone area)
         if not self._verify_ping_success(dut2, dut4_ip1_no_mask):
-            st.report_fail("msg", f"Ping from {dut2} to {dut4_ip1_no_mask} failed")
+            error_msg = f"STEP 10: Ping from {dut2} to {dut4_ip1_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut2} to {dut4_ip1_no_mask} successful")
 
-        st.log("PASS: Ping connectivity verified across all areas")
+        if len([f for f in validation_failures if "STEP 10" in f]) == 0:
+            st.log("PASS: Ping connectivity verified across all areas")
 
         # ===== STEP 11: Verify traceroute through ABRs =====
         st.log("\n" + "-" * 80)
@@ -979,4 +1072,36 @@ class TestOSPFMultiAreaABR:
         st.log("           → Neighbors Full → ABR Verify → Database → Inter-area → Ping → Traceroute → Cleanup ✓")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from all DUTs
+            for dut in [dut1, dut2, dut3, dut4]:
+                try:
+                    st.generate_tech_support(dut=dut, name="ospf_multiarea_abr_validation_failure")
+                    st.log(f"Tech support collected from {dut}")
+                except Exception as e:
+                    st.log(f"Warning: Failed to collect tech support from {dut}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

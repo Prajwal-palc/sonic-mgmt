@@ -1,0 +1,662 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Device</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>LogDate</th>
+      <th>LogLevel</th>
+      <th>LogModule</th>
+      <th>LogMessage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Prolog</td>
+      <td></td>
+      <td>Nov  3 10:08:47.316475</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Prolog</td>
+      <td></td>
+      <td>Nov  3 10:08:50.353051</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Prolog</td>
+      <td></td>
+      <td>Nov  3 10:08:51.507572</td>
+      <td>ERR</td>
+      <td>monit[418]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Prolog</td>
+      <td></td>
+      <td>Nov  3 10:08:46.863932</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Prolog</td>
+      <td></td>
+      <td>Nov  3 10:08:49.889229</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:05.463291</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:08.483229</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:08.801352</td>
+      <td>ERR</td>
+      <td>syncd#syncd</td>
+      <td>:- queryStatsCapability: failed to find switch oid:0x600000001 in switch state map</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:11.510095</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:14.540963</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:17.560625</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:20.584064</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:23.615730</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:26.638520</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:29.674254</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:32.698197</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:35.730093</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:38.757449</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:41.784515</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:44.810337</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:47.838509</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:50.860345</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:51.569713</td>
+      <td>ERR</td>
+      <td>monit[418]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: stp, erp</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:53.888227</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:05.004645</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:08.023952</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:11.049436</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:12.088000</td>
+      <td>ERR</td>
+      <td>syncd#syncd</td>
+      <td>:- queryStatsCapability: failed to find switch oid:0x600000001 in switch state map</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:14.074253</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:17.095799</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:20.128667</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:23.153479</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:26.176794</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:29.197556</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:32.221795</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:35.244194</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:38.277523</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:41.316471</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:44.339739</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:47.370066</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:50.398533</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>test_interface_ipv4_ping_between_vs</td>
+      <td>Pass</td>
+      <td>Nov  3 10:09:53.421228</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D1-smic_sonic1.log'>D1-smic_sonic1</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Epilog</td>
+      <td></td>
+      <td>Nov  3 10:09:56.917747</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Epilog</td>
+      <td></td>
+      <td>Nov  3 10:09:56.449921</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td><a href='results_2025_11_03_15_37_47_dlog-D2-smic_sonic2.log'>D2-smic_sonic2</a></td>
+      <td><a href='results_2025_11_03_15_37_47_mlog_system_test_interface_ip_ping_cli.log'>system/test_interface_ip_ping_cli.py</a></td>
+      <td>Module Epilog</td>
+      <td></td>
+      <td>Nov  3 10:09:57.006473</td>
+      <td>ERR</td>
+      <td>monit[438]</td>
+      <td>'container_checker' status failed (4) -- Unexpected running containers: erp, stp</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

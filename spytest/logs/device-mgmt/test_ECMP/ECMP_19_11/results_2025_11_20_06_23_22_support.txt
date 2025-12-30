@@ -1,0 +1,168 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: saving syslog pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: saving syslog pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: saving syslog pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: saving syslog pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_2: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_3: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_4: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py 
+vs_sonic_1: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_2: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_4: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_3: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes Pass
+vs_sonic_1: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_2: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_4: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_3: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py::TestEcmp6BgpLearnedPrefixes pass
+vs_sonic_1: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: saving syslog post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: saving syslog post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: saving syslog post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: saving syslog post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_4: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_2: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_3: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp6_bgp_learned_prefixes.py fail
+vs_sonic_1: SKIP saving config_db session-epilog session pass
+vs_sonic_2: SKIP saving config_db session-epilog session pass
+vs_sonic_1: SKIP saving running config session-epilog session pass
+vs_sonic_1: SKIP saving syslog session-epilog session pass
+vs_sonic_3: SKIP saving config_db session-epilog session pass
+vs_sonic_3: SKIP saving running config session-epilog session pass
+vs_sonic_3: SKIP saving syslog session-epilog session pass
+vs_sonic_1: SKIP generating tech-support session-epilog session pass
+vs_sonic_1: collect core-files session-epilog session pass
+vs_sonic_2: SKIP saving running config session-epilog session pass
+vs_sonic_2: SKIP saving syslog session-epilog session pass
+vs_sonic_4: SKIP saving config_db session-epilog session pass
+vs_sonic_4: SKIP saving running config session-epilog session pass
+vs_sonic_4: SKIP saving syslog session-epilog session pass
+vs_sonic_2: SKIP generating tech-support session-epilog session pass
+vs_sonic_2: collect core-files session-epilog session pass
+vs_sonic_3: SKIP generating tech-support session-epilog session pass
+vs_sonic_3: collect core-files session-epilog session pass
+vs_sonic_4: SKIP generating tech-support session-epilog session pass
+vs_sonic_4: collect core-files session-epilog session pass
+vs_sonic_1: SKIP saving sai_redis session-epilog session pass
+vs_sonic_1: SKIP generating sysinfo session-epilog session pass
+vs_sonic_3: SKIP saving sai_redis session-epilog session pass
+vs_sonic_3: SKIP generating sysinfo session-epilog session pass
+vs_sonic_2: SKIP saving sai_redis session-epilog session pass
+vs_sonic_2: SKIP generating sysinfo session-epilog session pass
+vs_sonic_4: SKIP saving sai_redis session-epilog session pass
+vs_sonic_4: SKIP generating sysinfo session-epilog session pass

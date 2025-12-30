@@ -1,0 +1,226 @@
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:21.157
+TOTAL HELPER Time = 0:00:15.264
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:37:17,751 T0057: CMD TIME: 2425 D2 = show interfaces status Ethernet124
+2025-11-20 00:37:17,760 T0058: CMD TIME: 2476 D3 = show interfaces status Ethernet124
+2025-11-20 00:37:17,734 T0056: CMD TIME: 2833 D1 = show interfaces status Ethernet124
+2025-11-20 00:37:20,594 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:37:20,655 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:37:20,993 T0056: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:37:17,767 T0059: CMD TIME: 4287 D4 = show interfaces status Ethernet124
+2025-11-20 00:37:22,474 T0059: CMD TIME: 255 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-20 00:37:23,173 T0062: CMD TIME: 1991 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:37:23,180 T0063: CMD TIME: 1992 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:37:23,167 T0061: CMD TIME: 2043 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:37:23,185 T0064: CMD TIME: 2087 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-11-20 00:37:25,751 T0065: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp3_reject_invalid_ecmp.py'  
+2025-11-20 00:37:25,761 T0066: HELPER TIME: 3821 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp3_reject_invalid_ecmp.py'  
+2025-11-20 00:37:25,770 T0067: HELPER TIME: 3818 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp3_reject_invalid_ecmp.py'  
+2025-11-20 00:37:25,778 T0068: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'routing/ecmp/test_ecmp3_reject_invalid_ecmp.py'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:16
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.216
+TOTAL HELPER Time = 0:00:30.516
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:37:43,544 T0085: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:43,562 T0087: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:43,557 T0086: HELPER TIME: 3820 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:43,572 T0088: HELPER TIME: 3810 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:47,827 T0000: CMD TIME: 1216 D1 = show platform summary
+2025-11-20 00:37:49,659 T0093: HELPER TIME: 3819 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:49,669 T0094: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:49,679 T0095: HELPER TIME: 3817 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+2025-11-20 00:37:49,688 T0096: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:16
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.165
+TOTAL HELPER Time = 0:00:30.518
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:37:58,762 T0102: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:37:58,777 T0103: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:37:58,784 T0101: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:37:58,789 T0104: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:38:03,039 T0000: CMD TIME: 1165 D1 = show platform summary
+2025-11-20 00:38:04,803 T0109: HELPER TIME: 3818 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:38:04,812 T0110: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:38:04,824 T0112: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+2025-11-20 00:38:04,829 T0111: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:18
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.518
+TOTAL HELPER Time = 0:00:30.516
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:38:15,828 T0118: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:15,835 T0117: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:15,843 T0119: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:15,851 T0120: HELPER TIME: 3810 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:20,102 T0000: CMD TIME: 1518 D1 = show platform summary
+2025-11-20 00:38:22,247 T0125: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:22,257 T0126: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:22,267 T0128: HELPER TIME: 3818 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+2025-11-20 00:38:22,275 T0127: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:18
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.266
+TOTAL HELPER Time = 0:00:30.521
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:38:33,437 T0133: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:33,445 T0134: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:33,460 T0136: HELPER TIME: 3814 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:33,466 T0135: HELPER TIME: 3812 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:37,721 T0000: CMD TIME: 1266 D1 = show platform summary
+2025-11-20 00:38:39,604 T0142: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:39,600 T0141: HELPER TIME: 3824 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:39,616 T0143: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+2025-11-20 00:38:39,621 T0144: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:16
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.216
+TOTAL HELPER Time = 0:00:30.519
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:38:48,741 T0149: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:48,749 T0150: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:48,759 T0151: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:48,764 T0152: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:53,016 T0000: CMD TIME: 1216 D1 = show platform summary
+2025-11-20 00:38:54,836 T0157: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:54,844 T0158: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:54,853 T0159: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+2025-11-20 00:38:54,861 T0160: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit'  
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'TD4_PLATFORMS' in file /apis/system/basic.py at line 1361
+TOTAL Test Time = 0:00:16
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.317
+TOTAL HELPER Time = 0:00:30.520
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-20 00:39:03,977 T0165: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:03,987 T0166: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:03,997 T0167: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:04,001 T0168: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:08,262 T0000: CMD TIME: 1317 D1 = show platform summary
+2025-11-20 00:39:10,206 T0173: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:10,221 T0174: HELPER TIME: 3818 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:10,233 T0176: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+2025-11-20 00:39:10,238 T0175: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic'  
+=========================================================

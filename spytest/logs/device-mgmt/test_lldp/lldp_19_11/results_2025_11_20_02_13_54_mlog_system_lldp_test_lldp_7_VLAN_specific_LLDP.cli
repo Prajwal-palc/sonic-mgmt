@@ -1,0 +1,17 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D1,normal-user,configure terminal
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D1,mgmt-config,no shutdown
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D1,mgmt-config,exit
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D1,mgmt-config,lldp enable
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D2,normal-user,configure terminal
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D2,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D2,mgmt-config,no shutdown
+function-or-epilog,,TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count,D2,mgmt-config,exit

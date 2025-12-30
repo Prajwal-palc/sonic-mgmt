@@ -1,0 +1,173 @@
+ ____  ____       _____         _   
+/ ___||  _ \ _   |_   _|__  ___| |_ 
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_ 
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/                  
+
+SPYTEST_RANDOM_SEED used = 16579
+
+VERSION: UNKNOWN UNKNOWN UNKNOWN
+
+tcmap verify took 0:00:00
+Tests considered 1 and ignored 0
+=========== no release LLDP_TC1.1.2
+tech_cfg_always global = True
+tech_cfg_always system-not-ready = True
+tech_cfg_always portlist-not-ready = True
+tech_cfg_always console_hang = True
+tech_cfg_always port-status = True
+tech_cfg_always port-status-module = True
+tech_cfg_always port-status-function = True
+tech_cfg_always pre-module-prolog = False
+tech_cfg_always post-module-prolog = False
+tech_cfg_always pre-module-epilog = False
+tech_cfg_always post-module-epilog = False
+tech_cfg_always pre-function-prolog = False
+tech_cfg_always post-function-prolog = False
+tech_cfg_always pre-function-epilog = False
+tech_cfg_always post-function-epilog = False
+tech_cfg_always session-epilog = False
+tech_cfg_fail pre-module-prolog = False
+tech_cfg_fail post-module-prolog = True
+tech_cfg_fail pre-module-epilog = False
+tech_cfg_fail post-module-epilog = False
+tech_cfg_fail pre-function-prolog = False
+tech_cfg_fail post-function-prolog = True
+tech_cfg_fail pre-function-epilog = True
+tech_cfg_fail post-function-epilog = True
+tech_cfg_fail function = False
+tech_cfg_fail testcase = False
+tech_cfg_fail post-class-prolog = True
+core_cfg_always global = True
+core_cfg_always system-not-ready = False
+core_cfg_always portlist-not-ready = False
+core_cfg_always console_hang = True
+core_cfg_always port-status = False
+core_cfg_always port-status-module = False
+core_cfg_always port-status-function = False
+core_cfg_always pre-module-prolog = False
+core_cfg_always post-module-prolog = False
+core_cfg_always pre-module-epilog = False
+core_cfg_always post-module-epilog = False
+core_cfg_always pre-function-prolog = False
+core_cfg_always post-function-prolog = False
+core_cfg_always pre-function-epilog = False
+core_cfg_always post-function-epilog = False
+core_cfg_always session-epilog = True
+core_cfg_fail pre-module-prolog = False
+core_cfg_fail post-module-prolog = False
+core_cfg_fail pre-module-epilog = False
+core_cfg_fail post-module-epilog = False
+core_cfg_fail pre-function-prolog = False
+core_cfg_fail post-function-prolog = False
+core_cfg_fail pre-function-epilog = False
+core_cfg_fail post-function-epilog = False
+core_cfg_fail function = False
+core_cfg_fail testcase = False
+sysinfo_cfg global = False
+sysinfo_cfg pre-module-prolog = False
+sysinfo_cfg post-module-prolog = False
+sysinfo_cfg pre-module-epilog = False
+sysinfo_cfg post-module-epilog = False
+sysinfo_cfg pre-function-prolog = False
+sysinfo_cfg post-function-prolog = False
+sysinfo_cfg pre-function-epilog = False
+sysinfo_cfg post-function-epilog = False
+sairedis_cfg global = False
+sairedis_cfg pre-module-prolog = False
+sairedis_cfg post-module-prolog = False
+sairedis_cfg pre-module-epilog = False
+sairedis_cfg post-module-epilog = False
+sairedis_cfg pre-function-prolog = False
+sairedis_cfg post-function-prolog = False
+sairedis_cfg pre-function-epilog = False
+sairedis_cfg post-function-epilog = False
+syslog_cfg global = True
+syslog_cfg pre-module-prolog = True
+syslog_cfg post-module-prolog = True
+syslog_cfg pre-module-epilog = True
+syslog_cfg post-module-epilog = True
+syslog_cfg pre-function-prolog = True
+syslog_cfg post-function-prolog = False
+syslog_cfg pre-function-epilog = False
+syslog_cfg post-function-epilog = True
+config_db_cfg global = False
+config_db_cfg pre-module-prolog = True
+config_db_cfg post-module-prolog = True
+config_db_cfg pre-module-epilog = True
+config_db_cfg post-module-epilog = True
+config_db_cfg pre-function-prolog = False
+config_db_cfg post-function-prolog = False
+config_db_cfg pre-function-epilog = False
+config_db_cfg post-function-epilog = False
+config_db_cfg post-session-prolog = True
+show_run_cfg global = False
+show_run_cfg pre-module-prolog = True
+show_run_cfg post-module-prolog = True
+show_run_cfg pre-module-epilog = True
+show_run_cfg post-module-epilog = True
+show_run_cfg pre-function-prolog = False
+show_run_cfg post-function-prolog = False
+show_run_cfg pre-function-epilog = False
+show_run_cfg post-function-epilog = False
+TEMPLATE USED: show_version.tmpl: show version
+Traceback (most recent call last):
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/framework.py", line 4827, in _create_work_area2
+    wa = WorkArea(cfg)
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/framework.py", line 911, in __init__
+    self._context = Context(self, cfg)
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/framework.py", line 300, in __init__
+    self._connect()
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/framework.py", line 571, in _connect
+    self.log.error(msg2)
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/logger.py", line 173, in error
+    self.log(logging.ERROR, msg, dut, split_lines, exc_info=exc_info, dst=dst)
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/logger.py", line 246, in log
+    return self._log(dut, msg, lvl, exc_info, dst)
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/logger.py", line 310, in _log
+    self.flush_handlers(self.logger)
+  File "/home/adminuser/Siddu/sonic-mgmt/spytest/spytest/logger.py", line 324, in flush_handlers
+    handler.flush()
+  File "/usr/lib/python3.8/logging/__init__.py", line 1069, in flush
+    self.stream.flush()
+BrokenPipeError: [Errno 32] Broken pip
+StackTraceCallStack:
+[0] spytest/framework.py:4845 _create_work_area wa = _create_work_area2(request.config)
+[1] spytest/framework.py:6019 fixture_callback _create_work_area(request)
+[2] spytest/splugin.py:223 global_session_request stf.fixture_callback(request, "session", False)
+[3] spytest_venv/lib/python3.8/site-packages/_pytest/fixtures.py:891 call_fixture_func fixture_result = next(generator)
+[4] spytest_venv/lib/python3.8/site-packages/_pytest/fixtures.py:1140 pytest_fixture_setup result = call_fixture_func(fixturefunc, request, kwargs)
+[5] spytest_venv/lib/python3.8/site-packages/pluggy/_callers.py:103 _multicall res = hook_impl.function(*args)
+[6] spytest_venv/lib/python3.8/site-packages/pluggy/_manager.py:120 _hookexec return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+[7] spytest_venv/lib/python3.8/site-packages/pluggy/_hooks.py:513 __call__ return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+[8] spytest_venv/lib/python3.8/site-packages/_pytest/fixtures.py:1091 execute result = ihook.pytest_fixture_setup(fixturedef=self, request=request)
+[9] spytest_venv/lib/python3.8/site-packages/_pytest/fixtures.py:617 _get_active_fixturedef fixturedef.execute(request=subrequest)
+[10] spytest_venv/lib/python3.8/site-packages/_pytest/fixtures.py:532 getfixturevalue fixturedef = self._get_active_fixturedef(argname)
+[11] spytest_venv/lib/python3.8/site-packages/_pytest/fixtures.py:697 _fillfixtures item.funcargs[argname] = self.getfixturevalue(argname)
+[12] spytest_venv/lib/python3.8/site-packages/_pytest/python.py:1630 setup self._request._fillfixtures()
+[13] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:514 setup col.setup()
+[14] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:160 pytest_runtest_setup item.session._setupstate.setup(item)
+[15] spytest_venv/lib/python3.8/site-packages/pluggy/_callers.py:103 _multicall res = hook_impl.function(*args)
+[16] spytest_venv/lib/python3.8/site-packages/pluggy/_manager.py:120 _hookexec return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+[17] spytest_venv/lib/python3.8/site-packages/pluggy/_hooks.py:513 __call__ return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+[18] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:242 <lambda> lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+[19] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:341 from_call result: TResult | None = func()
+[20] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:241 call_and_report call = CallInfo.from_call(
+[21] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:126 runtestprotocol rep = call_and_report(item, "setup", log)
+[22] spytest_venv/lib/python3.8/site-packages/_pytest/runner.py:113 pytest_runtest_protocol runtestprotocol(item, nextitem=nextitem)
+[23] spytest_venv/lib/python3.8/site-packages/pluggy/_callers.py:103 _multicall res = hook_impl.function(*args)
+[24] spytest_venv/lib/python3.8/site-packages/pluggy/_manager.py:120 _hookexec return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+[25] spytest_venv/lib/python3.8/site-packages/pluggy/_hooks.py:513 __call__ return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+[26] spytest_venv/lib/python3.8/site-packages/_pytest/main.py:362 pytest_runtestloop item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+[27] spytest_venv/lib/python3.8/site-packages/pluggy/_callers.py:103 _multicall res = hook_impl.function(*args)
+[28] spytest_venv/lib/python3.8/site-packages/pluggy/_manager.py:120 _hookexec return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+[29] spytest_venv/lib/python3.8/site-packages/pluggy/_hooks.py:513 __call__ return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+[30] spytest_venv/lib/python3.8/site-packages/_pytest/main.py:337 _main config.hook.pytest_runtestloop(session=session)
+[31] spytest_venv/lib/python3.8/site-packages/_pytest/main.py:283 wrap_session session.exitstatus = doit(config, session) or 0
+[32] spytest_venv/lib/python3.8/site-packages/_pytest/main.py:330 pytest_cmdline_main return wrap_session(config, _main)
+[33] spytest_venv/lib/python3.8/site-packages/pluggy/_callers.py:103 _multicall res = hook_impl.function(*args)
+[34] spytest_venv/lib/python3.8/site-packages/pluggy/_manager.py:120 _hookexec return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+[35] spytest_venv/lib/python3.8/site-packages/pluggy/_hooks.py:513 __call__ return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+[36] spytest_venv/lib/python3.8/site-packages/_pytest/config/__init__.py:175 main ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+[37] spytest/main.py:288 main retval = pytest.main()

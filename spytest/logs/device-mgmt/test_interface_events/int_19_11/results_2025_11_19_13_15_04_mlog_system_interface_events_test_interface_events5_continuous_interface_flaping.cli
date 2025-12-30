@@ -1,0 +1,91 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_interface_status_check,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_interface_status_check,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_interface_status_check,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_interface_status_check,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_interface_status_check,D1,normal-user,cat /proc/uptime
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_syslog_check,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_syslog_check,D1,mgmt-user,show logging
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_baseline_syslog_check,D1,mgmt-user,show logging | grep Ethernet4
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,mgmt-user,show interface status Ethernet4
+module-or-class-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,mgmt-config,interface Ethernet4
+module-or-class-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceEventsContinuousFlapping.test_final_state_verification,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124

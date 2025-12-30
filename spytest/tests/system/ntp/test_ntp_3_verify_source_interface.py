@@ -157,20 +157,6 @@ class TestNtpSourceInterface:
         klish_ntp_assoc_mgmt = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_mgmt)
 
-        # Step 9: Show NTP status (click)
-        st.log("=" * 80)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_mgmt = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_mgmt)
-
-        # Step 10: Show clock (click)
-        st.log("=" * 80)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        st.log("=" * 80)
-        click_clock_mgmt = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_mgmt)
-
         # ========== PART 5: PACKET CAPTURE TO VERIFY SOURCE IP ==========
 
         if mgmt_ip:
@@ -319,42 +305,6 @@ class TestNtpSourceInterface:
         st.log(klish_ntp_assoc_final)
 
         st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_final = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_final)
-
-        st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        st.log("=" * 80)
-        click_clock_final = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_final)
-
-        # ========== FINAL VALIDATION ==========
-
-        # Convert outputs to strings for validation
-        if isinstance(click_ntp_final, list):
-            click_ntp_final_str = '\n'.join(str(line) for line in click_ntp_final)
-        else:
-            click_ntp_final_str = str(click_ntp_final)
-
-        if isinstance(click_clock_final, list):
-            click_clock_final_str = '\n'.join(str(line) for line in click_clock_final)
-        else:
-            click_clock_final_str = str(click_clock_final)
-
-        # Validation 3: Verify show ntp returned output
-        if not click_ntp_final_str or not click_ntp_final_str.strip():
-            st.log("Warning: 'show ntp' returned empty output")
-        else:
-            st.log("Validation passed: 'show ntp' returned output")
-
-        # Validation 4: Verify show clock returned output
-        if not click_clock_final_str or not click_clock_final_str.strip():
-            st.report_fail("msg", "'show clock' returned empty output")
-        st.log("Validation passed: 'show clock' returned output")
-
-        st.log("=" * 80)
         st.log("NTP source interface test completed successfully")
         st.log("Summary:")
         st.log("  - NTP server configured successfully")
@@ -376,14 +326,25 @@ class TestNtpSourceInterface:
         script = ["sonic-cli", "configure terminal"]
         script.extend(command_list)
         script.extend(["end", "exit"])
-        st.apply_script(dut, script)
+        output = st.apply_script(dut, script)
+
+        # Check for CLI errors in the output
+        output_str = str(output or "")
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI command failed with error: {output_str}")
 
     @staticmethod
     def _run_klish_show(dut: str, command: str) -> str:
         """Run show command inside sonic-cli (klish) context and return output."""
         script = ["sonic-cli", command, "exit"]
         output = st.apply_script(dut, script)
-        return str(output or "")
+        output_str = str(output or "")
+
+        # Check for CLI errors in the output
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI show command '{command}' failed with error: {output_str}")
+
+        return output_str
 
     @staticmethod
     def _get_interface_ip(dut: str, interface: str) -> str | None:

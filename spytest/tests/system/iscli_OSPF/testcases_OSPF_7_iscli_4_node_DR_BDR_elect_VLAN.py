@@ -218,6 +218,8 @@ class TestOSPFDRBDRElectionVLAN:
         """
         Create VLAN using klish commands.
 
+        IMPORTANT: Does NOT use exit - stays in config mode after VLAN creation.
+
         Args:
             dut: Device handle
             vlan_id: VLAN ID (e.g., "20")
@@ -228,8 +230,8 @@ class TestOSPFDRBDRElectionVLAN:
         st.log(f"Creating VLAN {vlan_id} on {dut}")
         commands = [
             "configure terminal",
-            f"vlan {vlan_id}",
-            "exit"
+            f"vlan {vlan_id}"
+            # NO exit - stay in config mode
         ]
         result = st.config(dut, commands, type=CLI_TYPE)
         return True
@@ -464,6 +466,28 @@ class TestOSPFDRBDRElectionVLAN:
         return True
 
     @staticmethod
+    def _remove_ospf_priority(dut: str, vlan_id: str) -> bool:
+        """
+        Remove OSPF priority from VLAN interface.
+
+        Args:
+            dut: Device handle
+            vlan_id: VLAN ID (e.g., "20")
+
+        Returns:
+            True if successful
+        """
+        st.log(f"Removing OSPF priority from Vlan{vlan_id} on {dut}")
+        commands = [
+            "configure terminal",
+            f"interface Vlan {vlan_id}",
+            "no ip ospf priority",
+            "exit"
+        ]
+        result = st.config(dut, commands, type=CLI_TYPE)
+        return True
+
+    @staticmethod
     def _remove_ospf_configuration(dut: str) -> bool:
         """
         Remove OSPF configuration.
@@ -669,6 +693,9 @@ class TestOSPFDRBDRElectionVLAN:
         st.log("TEST: OSPF DR/BDR Election with Priority Modification (VLAN)")
         st.log("=" * 80)
 
+        # Track validation failures - test will continue but report fail at end
+        validation_failures = []
+
         dut2 = self.data.dut2
         dut4 = self.data.dut4
         area = self.data.ospf_area
@@ -725,11 +752,21 @@ class TestOSPFDRBDRElectionVLAN:
         # Validate IP addresses
         st.log("Validating IP address configuration...")
         if not self._verify_vlan_ip(dut2, vlan_id, self.data.dut2_ip):
-            st.report_fail("msg", f"IP validation failed on {dut2} Vlan{vlan_id}")
-        if not self._verify_vlan_ip(dut4, vlan_id, self.data.dut4_ip):
-            st.report_fail("msg", f"IP validation failed on {dut4} Vlan{vlan_id}")
+            error_msg = f"STEP 3: IP validation failed on {dut2} Vlan{vlan_id}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut2} Vlan{vlan_id}")
 
-        st.log("PASS: IP addresses configured and validated successfully")
+        if not self._verify_vlan_ip(dut4, vlan_id, self.data.dut4_ip):
+            error_msg = f"STEP 3: IP validation failed on {dut4} Vlan{vlan_id}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut4} Vlan{vlan_id}")
+
+        if len([f for f in validation_failures if "STEP 3" in f]) == 0:
+            st.log("PASS: IP addresses configured and validated successfully")
 
         # ===== STEP 4: Configure OSPF on both routers =====
         st.log("\n" + "-" * 80)
@@ -767,12 +804,21 @@ class TestOSPFDRBDRElectionVLAN:
 
         # Verify neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2}")
+            error_msg = f"STEP 5: OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip_no_mask} in Full state on {dut2}")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4}")
+            error_msg = f"STEP 5: OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip_no_mask} in Full state on {dut4}")
 
-        st.log("PASS: OSPF neighbors are in Full state")
+        if len([f for f in validation_failures if "STEP 5" in f]) == 0:
+            st.log("PASS: OSPF neighbors are in Full state")
 
         # ===== STEP 6: Check initial DR/BDR election =====
         st.log("\n" + "-" * 80)
@@ -932,6 +978,11 @@ class TestOSPFDRBDRElectionVLAN:
 
         time.sleep(WAIT_AFTER_OSPF_CONFIG)
 
+        # Remove OSPF priority from VLAN interfaces
+        self._remove_ospf_priority(dut2, vlan_id)
+        self._remove_ospf_priority(dut4, vlan_id)
+        st.log("OSPF priority removed from VLAN interfaces on all DUTs")
+
         # Remove IP addresses from VLAN interfaces
         self._remove_vlan_ip(dut2, vlan_id)
         self._remove_vlan_ip(dut4, vlan_id)
@@ -960,4 +1011,42 @@ class TestOSPFDRBDRElectionVLAN:
         st.log("           → D2 Priority 10 → DR Re-election (D2=DR, D4=BDR) → Cleanup ✓")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from DUT2
+            try:
+                st.generate_tech_support(dut=dut2, name="ospf_dr_bdr_election_vlan_validation_failure")
+                st.log(f"Tech support collected from {dut2}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut2}: {str(e)}")
+
+            # Collect tech support from DUT4
+            try:
+                st.generate_tech_support(dut=dut4, name="ospf_dr_bdr_election_vlan_validation_failure")
+                st.log(f"Tech support collected from {dut4}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut4}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

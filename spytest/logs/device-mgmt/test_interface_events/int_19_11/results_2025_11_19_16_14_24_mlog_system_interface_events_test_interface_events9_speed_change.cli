@@ -1,0 +1,67 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_auto,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_auto,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_auto,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_auto,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_auto,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_10g,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_10g,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_10g,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_10g,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_10g,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_1g,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_1g,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_1g,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_1g,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_1g,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_100m,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_100m,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_100m,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_100m,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_speed_change_to_100m,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_rapid_speed_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_rapid_speed_changes,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_rapid_speed_changes,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_rapid_speed_changes,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_rapid_speed_changes,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_speed_persistence_through_flap,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_persistence_through_flap,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_speed_persistence_through_flap,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_persistence_through_flap,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_speed_persistence_through_flap,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_sequential_speed_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_sequential_speed_changes,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_sequential_speed_changes,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_sequential_speed_changes,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_sequential_speed_changes,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_invalid_speed_value_handling,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_invalid_speed_value_handling,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_invalid_speed_value_handling,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_invalid_speed_value_handling,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_invalid_speed_value_handling,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceSpeedChanges.test_speed_changes_on_multiple_interfaces,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124

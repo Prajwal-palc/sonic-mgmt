@@ -1,0 +1,41 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py::TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:20
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.830
+TOTAL HELPER Time = 0:00:15.280
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-17 11:23:58,048 T0056: CMD TIME: 1114 D1 = show interfaces status Ethernet124
+2025-12-17 11:23:58,070 T0059: CMD TIME: 1172 D4 = show interfaces status Ethernet124
+2025-12-17 11:23:58,086 T0058: CMD TIME: 1265 D3 = show interfaces status Ethernet124
+2025-12-17 11:23:58,077 T0057: CMD TIME: 1376 D2 = show interfaces status Ethernet124
+2025-12-17 11:23:59,583 T0056: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 11:23:59,685 T0059: CMD TIME: 257 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 11:23:59,784 T0058: CMD TIME: 256 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 11:23:59,898 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 11:24:00,604 T0061: CMD TIME: 1026 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 11:24:00,610 T0064: CMD TIME: 1027 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 11:24:00,588 T0062: CMD TIME: 1078 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 11:24:00,597 T0063: CMD TIME: 1379 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 11:24:02,458 T0065: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py'  
+2025-12-17 11:24:02,467 T0066: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py'  
+2025-12-17 11:24:02,482 T0067: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py'  
+2025-12-17 11:24:02,478 T0068: HELPER TIME: 3831 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py'  
+2025-12-17 11:24:06,763 T0000: CMD TIME: 812 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 11:24:07,584 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-17 11:24:08,268 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-12-17 11:24:08,947 T0000: CMD TIME: 815 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 11:24:09,774 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-17 11:24:10,454 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-12-17 11:24:11,130 T0000: CMD TIME: 863 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 11:24:12,004 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-17 11:24:12,685 T0000: CMD TIME: 258 D3 = terminal length 0
+2025-12-17 11:24:13,364 T0000: CMD TIME: 815 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 11:24:14,190 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-17 11:24:14,871 T0000: CMD TIME: 258 D4 = terminal length 0
+=========================================================

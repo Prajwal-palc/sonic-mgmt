@@ -1,0 +1,142 @@
+
+======================= STATS: system/iscli_Vlan/test_interface_2_iscli_vlan_ip_reboot.py::TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.722
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-27 11:51:27,518 T0027: CMD TIME: 973 D1 = show interfaces status Ethernet124
+2025-11-27 11:51:27,525 T0028: CMD TIME: 1071 D2 = show interfaces status Ethernet124
+2025-11-27 11:51:28,916 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 11:51:29,016 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 11:51:29,699 T0030: CMD TIME: 969 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-27 11:51:29,705 T0031: CMD TIME: 967 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-27 11:51:31,131 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_2_iscli_vlan_ip_reboot.py'  
+2025-11-27 11:51:31,136 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Vlan/test_interface_2_iscli_vlan_ip_reboot.py'  
+2025-11-27 11:51:35,405 T0000: CMD TIME: 714 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-27 11:51:36,129 T0000: CMD TIME: 260 D1 = configure terminal
+2025-11-27 11:51:36,816 T0000: CMD TIME: 258 D1 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_Vlan/test_interface_2_iscli_vlan_ip_reboot.py::TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence ===========================
+RESULT = Fail
+DESCRIPTION = VLAN deletion failed: VLANs are still configured
+TOTAL Test Time = 0:21:23
+TOTAL Sleep Time = 0:17:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:01:02.968
+TOTAL HELPER Time = 0:02:37.441
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-27 11:52:00,721 T0043: HELPER TIME: 3818 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence'  
+2025-11-27 11:52:00,728 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence'  
+2025-11-27 11:52:04,997 T0000: CMD TIME: 661 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-27 11:52:05,668 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 11:52:06,345 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 11:52:06,611 T0000: CMD TIME: 308 D1 = vlan 3
+2025-11-27 11:52:09,342 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-27 11:52:09,611 T0000: CMD TIME: 314 D1 = interface Ethernet0
+2025-11-27 11:52:09,937 T0000: CMD TIME: 1321 D1 = switchport trunk allowed vlan 3
+2025-11-27 11:52:11,269 T0000: CMD TIME: 259 D1 = exit
+2025-11-27 11:52:13,954 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 11:52:14,220 T0000: CMD TIME: 308 D1 = interface Vlan 3
+2025-11-27 11:52:14,536 T0000: CMD TIME: 258 D1 = ip address 10.0.0.1/30
+2025-11-27 11:52:14,803 T0000: CMD TIME: 257 D1 = exit
+2025-11-27 11:52:17,484 T0000: CMD TIME: 410 D1 = do show running-configuration interface Vlan 3
+2025-11-27 11:52:18,318 T0000: CMD TIME: 1471 D1 = write memory
+2025-11-27 11:52:22,217 T0000: CMD TIME: 258 D1 = exit
+2025-11-27 11:52:22,484 T0000: CMD TIME: 258 D1 = exit
+2025-11-27 11:52:23,165 T0000: CMD TIME: 13109 D1 = sudo -s reboot
+2025-11-27 11:52:36,299 T0000: WAIT TIME: 300 = static delay
+2025-11-27 11:57:48,062 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 11:57:48,743 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-27 11:57:50,252 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 11:57:50,935 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-27 11:57:51,625 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 11:57:53,747 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 11:57:54,428 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-27 11:57:55,112 T0000: CMD TIME: 410 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-27 11:57:55,961 T0000: CMD TIME: 1067 D1 = show interfaces status Ethernet124
+2025-11-27 11:57:57,473 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 11:57:58,155 T0000: CMD TIME: 259 D1 = sudo -s date --set='Thu Nov 27 11:57:57 2025'
+2025-11-27 11:57:58,838 T0000: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 11:58:04,677 T0000: WAIT TIME: 30 = static delay
+2025-11-27 11:58:41,553 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 11:58:42,230 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-27 11:58:42,911 T0000: CMD TIME: 461 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-27 11:58:43,805 T0000: CMD TIME: 915 D1 = show interfaces status Ethernet124
+2025-11-27 11:58:45,156 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 11:58:45,834 T0000: CMD TIME: 258 D1 = sudo -s date --set='Thu Nov 27 11:58:45 2025'
+2025-11-27 11:58:46,514 T0000: CMD TIME: 257 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 11:58:47,199 T0000: CMD TIME: 731 D1 = show version
+2025-11-27 11:58:48,421 T0000: CMD TIME: 257 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 11:58:48,697 T0000: WAIT TIME: 180 = static delay
+2025-11-27 12:01:49,301 T0000: CMD TIME: 662 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-27 12:01:49,972 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-27 12:01:50,653 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-11-27 12:01:51,334 T0000: CMD TIME: 463 D1 = do show running-configuration interface Vlan 3
+2025-11-27 12:01:52,220 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 12:01:52,485 T0000: CMD TIME: 257 D1 = interface Vlan 3
+2025-11-27 12:01:52,751 T0000: CMD TIME: 308 D1 = no ip address
+2025-11-27 12:01:53,068 T0000: CMD TIME: 257 D1 = exit
+2025-11-27 12:01:55,748 T0000: CMD TIME: 511 D1 = do show running-configuration interface Vlan 3
+2025-11-27 12:01:56,681 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-27 12:01:56,945 T0000: CMD TIME: 307 D1 = interface Vlan 3
+2025-11-27 12:01:57,261 T0000: CMD TIME: 815 D1 = ipv6 address 2001:db8:100::1/64
+2025-11-27 12:01:58,081 T0000: CMD TIME: 256 D1 = exit
+2025-11-27 12:02:00,762 T0000: CMD TIME: 410 D1 = do show running-configuration interface Vlan 3
+2025-11-27 12:02:01,595 T0000: CMD TIME: 1572 D1 = write memory
+2025-11-27 12:02:05,593 T0000: CMD TIME: 258 D1 = exit
+2025-11-27 12:02:05,861 T0000: CMD TIME: 309 D1 = exit
+2025-11-27 12:02:06,591 T0000: CMD TIME: 12692 D1 = sudo -s reboot
+2025-11-27 12:02:19,309 T0000: WAIT TIME: 300 = static delay
+2025-11-27 12:07:30,998 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 12:07:31,686 T0000: CMD TIME: 263 D1 = cat /proc/uptime
+2025-11-27 12:07:33,207 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 12:07:33,889 T0000: CMD TIME: 259 D1 = cat /proc/uptime
+2025-11-27 12:07:34,580 T0000: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 12:07:36,710 T0000: CMD TIME: 262 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 12:07:37,394 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-27 12:07:38,078 T0000: CMD TIME: 461 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-27 12:07:38,975 T0000: CMD TIME: 1068 D1 = show interfaces status Ethernet124
+2025-11-27 12:07:40,482 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 12:07:41,161 T0000: CMD TIME: 310 D1 = sudo -s date --set='Thu Nov 27 12:07:40 2025'
+2025-11-27 12:07:41,895 T0000: CMD TIME: 259 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 12:07:47,717 T0000: WAIT TIME: 30 = static delay
+2025-11-27 12:08:24,581 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 12:08:25,258 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-27 12:08:25,939 T0000: CMD TIME: 460 D1 = sudo vtysh -c 'show running-config | include hostname'
+2025-11-27 12:08:26,831 T0000: CMD TIME: 965 D1 = show interfaces status Ethernet124
+2025-11-27 12:08:28,236 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-27 12:08:28,913 T0000: CMD TIME: 258 D1 = sudo -s date --set='Thu Nov 27 12:08:28 2025'
+2025-11-27 12:08:29,594 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 12:08:30,280 T0000: CMD TIME: 834 D1 = show version
+2025-11-27 12:08:31,609 T0000: CMD TIME: 257 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-27 12:08:31,885 T0000: WAIT TIME: 180 = static delay
+2025-11-27 12:11:32,492 T0000: CMD TIME: 660 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-27 12:11:33,162 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-27 12:11:33,841 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-27 12:11:34,515 T0000: CMD TIME: 410 D1 = do show running-configuration interface Vlan 3
+2025-11-27 12:11:35,347 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 12:11:35,612 T0000: CMD TIME: 308 D1 = interface Vlan 3
+2025-11-27 12:11:35,928 T0000: CMD TIME: 862 D1 = no ipv6 address
+2025-11-27 12:11:36,799 T0000: CMD TIME: 257 D1 = exit
+2025-11-27 12:11:39,478 T0000: CMD TIME: 410 D1 = do show running-configuration interface Vlan 3
+2025-11-27 12:11:40,308 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 12:11:40,574 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-27 12:11:40,890 T0000: CMD TIME: 1469 D1 = no switchport trunk allowed vlan 3
+2025-11-27 12:11:42,368 T0000: CMD TIME: 257 D1 = exit
+2025-11-27 12:11:45,046 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-27 12:11:45,312 T0000: CMD TIME: 308 D1 = no vlan 3
+2025-11-27 12:11:48,041 T0000: CMD TIME: 409 D1 = do show Vlan
+2025-11-27 12:11:48,894 T0055: HELPER TIME: 67484 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-27 12:12:00,640 T0054: HELPER TIME: 74692 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-27 12:13:16,421 T0057: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence'  
+2025-11-27 12:13:16,426 T0056: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestVlanIPConfigurationReboot.test_vlan_ip_configuration_and_dual_reboot_persistence'  
+=========================================================

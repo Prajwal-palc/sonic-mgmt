@@ -1,0 +1,36 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_configure_and_verify,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_basic_connectivity,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_ping_source_selection,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_static_routes,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_permit_enforcement,D1,normal-user,show platform summary
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,normal-user,show platform summary
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,normal-user,configure terminal
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; interface Ethernet0; no ip access-group TEST_ACL in; exit; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; interface Ethernet0; no ip access-group TEST_ACL_DENY in; exit; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; no ip access-list TEST_ACL; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; no ip access-list TEST_ACL_DENY; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; no ip route 20.20.20.1/32 10.10.10.2; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; interface Ethernet0; no ip unnumbered Loopback0; exit; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D1,mgmt-config,configure terminal; interface Loopback0; no ip address 10.10.10.1/32; exit; exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D2,normal-user,configure terminal
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D2,mgmt-config,configure terminal; no ip route 10.10.10.1/32 10.10.10.1; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D2,mgmt-config,configure terminal; interface Ethernet0; no ip address 10.10.10.2/30; exit; exit
+module-or-class-epilog,,TestIPv4UnnumberedL2L3ACL.test_ipv4_unnumbered_l2_l3_acl_deny_enforcement,D2,mgmt-config,configure terminal; interface Loopback0; no ip address 20.20.20.1/32; exit; exit

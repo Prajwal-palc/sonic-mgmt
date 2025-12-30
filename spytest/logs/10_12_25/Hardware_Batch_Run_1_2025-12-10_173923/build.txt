@@ -1,0 +1,19 @@
+build: SONiC-OS-4.4.0-Enterprise_Base
+uitype: click
+Execution Started: 2025-12-10 12:09:24.229078
+Execution Completed: 2025-12-10 12:34:54.472548
+Execution Time: 0:25:31
+DailyRun: 0
+Python: 3.8.10
+Combined Report: 0
+GCOV Run: 0
+Image Build Path: 
+EMail: None
+EMailSubject: Run Report
+Dry Run: 0
+GCOV_POST_RUN_KPI_UPDATE: 0
+GCOV_MERGE_HTML: 0
+Pass Rate: 87.50%
+Suite: 
+Platforms Not Covered: 
+Chips Not Covered: 

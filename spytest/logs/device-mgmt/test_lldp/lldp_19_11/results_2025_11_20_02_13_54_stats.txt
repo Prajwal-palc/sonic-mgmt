@@ -1,0 +1,50 @@
+
+======================= STATS: system/lldp/test_lldp_7_VLAN_specific_LLDP.py::TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:09.913
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:44:47,747 T0027: CMD TIME: 1925 D1 = show interfaces status Ethernet124
+2025-11-19 20:44:50,092 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:44:47,754 T0028: CMD TIME: 3282 D2 = show interfaces status Ethernet124
+2025-11-19 20:44:51,455 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:44:52,143 T0030: CMD TIME: 1868 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:44:52,137 T0031: CMD TIME: 2328 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:44:54,910 T0032: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_7_VLAN_specific_LLDP.py'  
+2025-11-19 20:44:54,918 T0033: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_7_VLAN_specific_LLDP.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_7_VLAN_specific_LLDP.py::TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'disable' in file /apis/system/lldp.py at line 413
+TOTAL Test Time = 0:00:37
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.945
+TOTAL HELPER Time = 0:00:16.111
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:45:11,707 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count'  
+2025-11-19 20:45:11,715 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count'  
+2025-11-19 20:45:15,988 T0000: CMD TIME: 1013 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:45:17,010 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 20:45:17,692 T0000: CMD TIME: 307 D1 = interface Ethernet 4
+2025-11-19 20:45:18,008 T0000: CMD TIME: 1062 D1 = no shutdown
+2025-11-19 20:45:19,078 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 20:45:19,762 T0000: CMD TIME: 912 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:45:20,683 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 20:45:21,359 T0000: CMD TIME: 307 D2 = interface Ethernet 4
+2025-11-19 20:45:21,675 T0000: CMD TIME: 1062 D2 = no shutdown
+2025-11-19 20:45:22,745 T0000: CMD TIME: 256 D2 = exit
+2025-11-19 20:45:23,008 T0000: WAIT TIME: 5 = static delay
+2025-11-19 20:45:28,433 T0000: CMD TIME: 256 D1 = lldp enable
+2025-11-19 20:45:38,853 T0047: HELPER TIME: 4244 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count'  
+2025-11-19 20:45:38,857 T0046: HELPER TIME: 4241 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpVlanTlv.test_lldp_vlan_name_tlv_allowlist_and_max_count'  
+=========================================================

@@ -1,0 +1,145 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py::TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.432
+TOTAL HELPER Time = 0:00:15.271
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-18 06:08:50,179 T0061: CMD TIME: 1071 D4 = show interfaces status Ethernet124
+2025-12-18 06:08:50,194 T0059: CMD TIME: 1069 D2 = show interfaces status Ethernet124
+2025-12-18 06:08:50,203 T0060: CMD TIME: 1169 D3 = show interfaces status Ethernet124
+2025-12-18 06:08:50,187 T0058: CMD TIME: 1221 D1 = show interfaces status Ethernet124
+2025-12-18 06:08:51,681 T0061: CMD TIME: 254 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-18 06:08:51,690 T0059: CMD TIME: 258 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-18 06:08:51,800 T0060: CMD TIME: 257 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-18 06:08:51,826 T0058: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-18 06:08:52,516 T0063: CMD TIME: 1027 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-18 06:08:52,530 T0064: CMD TIME: 1078 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-18 06:08:52,536 T0066: CMD TIME: 1073 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-18 06:08:52,524 T0065: CMD TIME: 1228 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-18 06:08:54,234 T0068: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py'  
+2025-12-18 06:08:54,244 T0069: HELPER TIME: 3824 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py'  
+2025-12-18 06:08:54,257 T0067: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py'  
+2025-12-18 06:08:54,262 T0070: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py'  
+2025-12-18 06:08:58,537 T0000: CMD TIME: 965 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:08:59,512 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-18 06:09:00,197 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-12-18 06:09:00,873 T0000: CMD TIME: 712 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:01,594 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-18 06:09:02,274 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-12-18 06:09:02,957 T0000: CMD TIME: 870 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:03,842 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-18 06:09:04,521 T0000: CMD TIME: 257 D3 = terminal length 0
+2025-12-18 06:09:05,198 T0000: CMD TIME: 864 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:06,068 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-18 06:09:06,747 T0000: CMD TIME: 258 D4 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_11_iscli_4_node_Type_5_external_LSAs_over_Eth.py::TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:06:57
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:42.391
+TOTAL HELPER Time = 0:05:41.314
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 4
+2025-12-18 06:09:32,547 T0088: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:09:32,542 T0087: HELPER TIME: 3826 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:09:32,563 T0090: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:09:32,567 T0089: HELPER TIME: 3814 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:09:36,854 T0000: CMD TIME: 813 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:37,677 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-18 06:09:38,354 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-18 06:09:38,619 T0000: CMD TIME: 1116 D1 = interface Ethernet0
+2025-12-18 06:09:39,743 T0000: CMD TIME: 358 D1 = no ip address
+2025-12-18 06:09:40,109 T0000: CMD TIME: 358 D1 = ip address 10.1.1.1/24
+2025-12-18 06:09:40,476 T0000: CMD TIME: 257 D1 = exit
+2025-12-18 06:09:41,151 T0000: CMD TIME: 763 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:41,925 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-18 06:09:42,611 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-18 06:09:42,875 T0000: CMD TIME: 1116 D2 = interface Ethernet0
+2025-12-18 06:09:44,001 T0000: CMD TIME: 360 D2 = no ip address
+2025-12-18 06:09:44,369 T0000: CMD TIME: 359 D2 = ip address 10.1.1.2/24
+2025-12-18 06:09:44,741 T0000: CMD TIME: 261 D2 = exit
+2025-12-18 06:09:45,421 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-18 06:09:45,690 T0000: CMD TIME: 1267 D2 = interface Ethernet16
+2025-12-18 06:09:46,966 T0000: CMD TIME: 358 D2 = no ip address
+2025-12-18 06:09:47,332 T0000: CMD TIME: 359 D2 = ip address 20.1.1.1/24
+2025-12-18 06:09:47,700 T0000: CMD TIME: 257 D2 = exit
+2025-12-18 06:09:48,375 T0000: CMD TIME: 913 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:49,297 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-18 06:09:49,973 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-18 06:09:50,239 T0000: CMD TIME: 1268 D4 = interface Ethernet16
+2025-12-18 06:09:51,515 T0000: CMD TIME: 460 D4 = no ip address
+2025-12-18 06:09:51,984 T0000: CMD TIME: 359 D4 = ip address 20.1.1.2/24
+2025-12-18 06:09:52,351 T0000: CMD TIME: 257 D4 = exit
+2025-12-18 06:09:53,025 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-18 06:09:53,291 T0000: CMD TIME: 1067 D4 = interface Ethernet32
+2025-12-18 06:09:54,371 T0000: CMD TIME: 359 D4 = no ip address
+2025-12-18 06:09:54,739 T0000: CMD TIME: 359 D4 = ip address 30.1.1.1/24
+2025-12-18 06:09:55,106 T0000: CMD TIME: 258 D4 = exit
+2025-12-18 06:09:55,784 T0000: CMD TIME: 864 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-18 06:09:56,657 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-18 06:09:57,337 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-18 06:09:57,602 T0000: CMD TIME: 1217 D3 = interface Ethernet32
+2025-12-18 06:09:58,828 T0000: CMD TIME: 409 D3 = no ip address
+2025-12-18 06:09:59,247 T0000: CMD TIME: 360 D3 = ip address 30.1.1.2/24
+2025-12-18 06:09:59,614 T0000: CMD TIME: 257 D3 = exit
+2025-12-18 06:10:03,300 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-18 06:10:03,567 T0000: CMD TIME: 1265 D1 = router ospf
+2025-12-18 06:10:04,848 T0000: CMD TIME: 311 D1 = area 0
+2025-12-18 06:10:05,168 T0000: CMD TIME: 1316 D1 = network 10.1.1.1/24 area 0
+2025-12-18 06:10:06,493 T0000: CMD TIME: 257 D1 = exit
+2025-12-18 06:10:07,168 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-18 06:10:07,432 T0000: CMD TIME: 1368 D2 = router ospf
+2025-12-18 06:10:08,810 T0000: CMD TIME: 358 D2 = area 0
+2025-12-18 06:10:09,176 T0000: CMD TIME: 1317 D2 = network 10.1.1.2/24 area 0
+2025-12-18 06:10:10,507 T0000: CMD TIME: 258 D2 = exit
+2025-12-18 06:10:11,184 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-18 06:10:11,449 T0000: CMD TIME: 1315 D2 = router ospf
+2025-12-18 06:10:12,773 T0000: CMD TIME: 358 D2 = area 0
+2025-12-18 06:10:13,140 T0000: CMD TIME: 1266 D2 = network 20.1.1.1/24 area 0
+2025-12-18 06:10:14,413 T0000: CMD TIME: 257 D2 = exit
+2025-12-18 06:10:15,087 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-18 06:10:15,355 T0000: CMD TIME: 1272 D4 = router ospf
+2025-12-18 06:10:16,636 T0000: CMD TIME: 359 D4 = area 0
+2025-12-18 06:10:17,004 T0000: CMD TIME: 1165 D4 = network 20.1.1.2/24 area 0
+2025-12-18 06:10:18,177 T0000: CMD TIME: 257 D4 = exit
+2025-12-18 06:10:18,855 T0000: CMD TIME: 261 D4 = configure terminal
+2025-12-18 06:10:19,125 T0000: CMD TIME: 1215 D4 = router ospf
+2025-12-18 06:10:20,349 T0000: CMD TIME: 360 D4 = area 0
+2025-12-18 06:10:20,717 T0000: CMD TIME: 1266 D4 = network 30.1.1.1/24 area 0
+2025-12-18 06:10:21,991 T0000: CMD TIME: 258 D4 = exit
+2025-12-18 06:10:22,675 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-18 06:10:22,940 T0000: CMD TIME: 1418 D3 = router ospf
+2025-12-18 06:10:24,367 T0000: CMD TIME: 359 D3 = area 0
+2025-12-18 06:10:24,734 T0000: CMD TIME: 1367 D3 = network 30.1.1.2/24 area 0
+2025-12-18 06:10:26,110 T0000: CMD TIME: 257 D3 = exit
+2025-12-18 06:11:16,837 T0000: CMD TIME: 511 D1 = do show ip ospf neighbor
+2025-12-18 06:11:17,767 T0000: CMD TIME: 561 D2 = do show ip ospf neighbor
+2025-12-18 06:11:18,748 T0000: CMD TIME: 511 D3 = do show ip ospf neighbor
+2025-12-18 06:11:19,678 T0000: CMD TIME: 511 D4 = do show ip ospf neighbor
+2025-12-18 06:11:20,615 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-18 06:11:20,879 T0000: CMD TIME: 307 D1 = ip route 100.1.1.0/24 10.1.1.2
+2025-12-18 06:14:43,158 T0000: PROMPT NFOUND: exit
+2025-12-18 06:14:58,075 T0097: HELPER TIME: 74698 D3 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-18 06:14:58,081 T0096: HELPER TIME: 74693 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-18 06:16:13,153 T0097: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/18_12_25/_type_5__1_2025-12-18_113800/techsupport_D3-vs_sonic_3_pre-function-epilog-TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification_20251218_061500.tar.gz
+2025-12-18 06:16:13,232 T0096: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/18_12_25/_type_5__1_2025-12-18_113800/techsupport_D2-vs_sonic_2_pre-function-epilog-TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification_20251218_061500.tar.gz
+2025-12-18 06:14:58,093 T0098: HELPER TIME: 79499 D4 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-18 06:14:55,985 T0095: HELPER TIME: 81903 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-18 06:16:18,059 T0098: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/18_12_25/_type_5__1_2025-12-18_113800/techsupport_D4-vs_sonic_4_pre-function-epilog-TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification_20251218_061500.tar.gz
+2025-12-18 06:16:18,365 T0095: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/18_12_25/_type_5__1_2025-12-18_113800/techsupport_D1-vs_sonic_1_pre-function-epilog-TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification_20251218_061458.tar.gz
+2025-12-18 06:16:19,801 T0108: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:16:19,808 T0109: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:16:19,820 T0107: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+2025-12-18 06:16:19,826 T0110: HELPER TIME: 3811 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFType5ExternalLSAs4Node.test_ospf_type5_external_lsa_verification'  
+=========================================================

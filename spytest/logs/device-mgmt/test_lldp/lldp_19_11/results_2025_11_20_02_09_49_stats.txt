@@ -1,0 +1,50 @@
+
+======================= STATS: system/lldp/test_lldp_6_system_name_description_TLV_advertised.py::TestLldpTlvAdvertisement.test_lldp_tlv_advertisement ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.155
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:40:43,581 T0027: CMD TIME: 1820 D1 = show interfaces status Ethernet124
+2025-11-19 20:40:43,574 T0028: CMD TIME: 1876 D2 = show interfaces status Ethernet124
+2025-11-19 20:40:45,822 T0027: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:40:45,866 T0028: CMD TIME: 254 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:40:46,550 T0030: CMD TIME: 1876 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:40:46,556 T0031: CMD TIME: 2075 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:40:49,079 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_6_system_name_description_TLV_advertised.py'  
+2025-11-19 20:40:49,084 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_6_system_name_description_TLV_advertised.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_6_system_name_description_TLV_advertised.py::TestLldpTlvAdvertisement.test_lldp_tlv_advertisement ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'disable' in file /apis/system/lldp.py at line 413
+TOTAL Test Time = 0:00:38
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.800
+TOTAL HELPER Time = 0:00:16.189
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:41:09,504 T0042: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpTlvAdvertisement.test_lldp_tlv_advertisement'  
+2025-11-19 20:41:09,512 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpTlvAdvertisement.test_lldp_tlv_advertisement'  
+2025-11-19 20:41:13,781 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:41:14,703 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 20:41:15,385 T0000: CMD TIME: 307 D1 = interface Ethernet 4
+2025-11-19 20:41:15,700 T0000: CMD TIME: 1063 D1 = no shutdown
+2025-11-19 20:41:16,772 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 20:41:17,464 T0000: CMD TIME: 912 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:41:18,385 T0000: CMD TIME: 257 D2 = configure terminal
+2025-11-19 20:41:19,063 T0000: CMD TIME: 309 D2 = interface Ethernet 4
+2025-11-19 20:41:19,382 T0000: CMD TIME: 1012 D2 = no shutdown
+2025-11-19 20:41:20,402 T0000: CMD TIME: 257 D2 = exit
+2025-11-19 20:41:20,664 T0000: WAIT TIME: 5 = static delay
+2025-11-19 20:41:26,088 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-19 20:41:36,518 T0047: HELPER TIME: 4275 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpTlvAdvertisement.test_lldp_tlv_advertisement'  
+2025-11-19 20:41:36,505 T0046: HELPER TIME: 4290 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpTlvAdvertisement.test_lldp_tlv_advertisement'  
+=========================================================

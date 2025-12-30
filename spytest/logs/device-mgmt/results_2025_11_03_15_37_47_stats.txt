@@ -1,0 +1,81 @@
+
+======================= STATS: system/test_interface_ip_ping_cli.py::test_interface_ipv4_ping_between_vs ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.187
+TOTAL HELPER Time = 0:00:07.620
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-03 10:08:41,719 T0031: CMD TIME: 1374 D1 = show interfaces status Ethernet124
+2025-11-03 10:08:41,727 T0032: CMD TIME: 1420 D2 = show interfaces status Ethernet124
+2025-11-03 10:08:43,506 T0031: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-03 10:08:43,566 T0032: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-03 10:08:44,257 T0034: CMD TIME: 1314 D1 = show interfaces status Ethernet4
+2025-11-03 10:08:44,251 T0035: CMD TIME: 1570 D2 = show interfaces status Ethernet4
+2025-11-03 10:08:46,267 T0037: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/test_interface_ip_ping_cli.py'  
+2025-11-03 10:08:46,275 T0036: HELPER TIME: 3808 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/test_interface_ip_ping_cli.py'  
+=========================================================
+
+======================= STATS: system/test_interface_ip_ping_cli.py::test_interface_ipv4_ping_between_vs ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:58
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:23.192
+TOTAL HELPER Time = 0:00:15.268
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-03 10:09:02,552 T0045: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'test_interface_ipv4_ping_between_vs'  
+2025-11-03 10:09:02,560 T0044: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'test_interface_ipv4_ping_between_vs'  
+2025-11-03 10:09:06,830 T0000: CMD TIME: 1116 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-03 10:09:07,953 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-03 10:09:08,630 T0000: CMD TIME: 356 D1 = interface Ethernet 4
+2025-11-03 10:09:08,991 T0000: CMD TIME: 306 D1 = ip address 20.1.1.2/24
+2025-11-03 10:09:09,302 T0000: CMD TIME: 254 D1 = exit
+2025-11-03 10:09:09,968 T0000: CMD TIME: 1062 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-03 10:09:11,041 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-03 10:09:11,725 T0000: CMD TIME: 360 D2 = interface Ethernet 4
+2025-11-03 10:09:12,094 T0000: CMD TIME: 311 D2 = ip address 20.1.1.3/24
+2025-11-03 10:09:12,415 T0000: CMD TIME: 258 D2 = exit
+2025-11-03 10:09:13,096 T0000: CMD TIME: 259 D1 = exit
+2025-11-03 10:09:13,365 T0000: CMD TIME: 310 D1 = exit
+2025-11-03 10:09:14,099 T0000: CMD TIME: 816 D1 = sudo sonic_installer list
+2025-11-03 10:09:15,354 T0000: CMD TIME: 965 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-03 10:09:16,745 T0000: CMD TIME: 765 D1 = show ip interface
+2025-11-03 10:09:17,966 T0000: CMD TIME: 259 D1 = show ip interface
+2025-11-03 10:09:18,662 T0000: CMD TIME: 258 D2 = exit
+2025-11-03 10:09:18,932 T0000: CMD TIME: 309 D2 = exit
+2025-11-03 10:09:19,663 T0000: CMD TIME: 763 D2 = sudo sonic_installer list
+2025-11-03 10:09:20,858 T0000: CMD TIME: 1013 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-03 10:09:22,292 T0000: CMD TIME: 813 D2 = show ip interface
+2025-11-03 10:09:23,543 T0000: CMD TIME: 310 D2 = show ip interface
+2025-11-03 10:09:24,281 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-03 10:09:24,961 T0000: CMD TIME: 2728 D1 = ping 20.1.1.3 -c 3 -W 4
+2025-11-03 10:09:28,143 T0000: CMD TIME: 257 D1 = exit
+2025-11-03 10:09:28,409 T0000: CMD TIME: 309 D1 = exit
+2025-11-03 10:09:29,138 T0000: CMD TIME: 812 D1 = sudo sonic_installer list
+2025-11-03 10:09:30,382 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-03 10:09:31,767 T0000: CMD TIME: 712 D1 = show ip interface
+2025-11-03 10:09:32,911 T0000: CMD TIME: 309 D1 = show ip interface
+2025-11-03 10:09:33,646 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-03 10:09:34,325 T0000: CMD TIME: 309 D1 = interface Ethernet 4
+2025-11-03 10:09:34,644 T0000: CMD TIME: 308 D1 = no ip address
+2025-11-03 10:09:34,963 T0000: CMD TIME: 258 D1 = exit
+2025-11-03 10:09:35,644 T0000: CMD TIME: 308 D2 = exit
+2025-11-03 10:09:36,373 T0000: CMD TIME: 762 D2 = sudo sonic_installer list
+2025-11-03 10:09:37,574 T0000: CMD TIME: 964 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-03 10:09:38,963 T0000: CMD TIME: 813 D2 = show ip interface
+2025-11-03 10:09:40,217 T0000: CMD TIME: 307 D2 = show ip interface
+2025-11-03 10:09:40,955 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-03 10:09:41,637 T0000: CMD TIME: 359 D2 = interface Ethernet 4
+2025-11-03 10:09:42,006 T0000: CMD TIME: 308 D2 = no ip address
+2025-11-03 10:09:42,322 T0000: CMD TIME: 256 D2 = exit
+2025-11-03 10:09:52,666 T0051: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'test_interface_ipv4_ping_between_vs'  
+2025-11-03 10:09:52,674 T0050: HELPER TIME: 3824 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'test_interface_ipv4_ping_between_vs'  
+=========================================================

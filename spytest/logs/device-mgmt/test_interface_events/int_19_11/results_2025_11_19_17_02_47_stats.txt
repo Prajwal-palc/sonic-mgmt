@@ -1,0 +1,744 @@
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.356
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:33:42,021 T0027: CMD TIME: 1925 D1 = show interfaces status Ethernet124
+2025-11-19 11:33:42,027 T0028: CMD TIME: 2023 D2 = show interfaces status Ethernet124
+2025-11-19 11:33:44,368 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 11:33:44,472 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 11:33:45,151 T0030: CMD TIME: 1925 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 11:33:45,157 T0031: CMD TIME: 1973 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 11:33:47,582 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events11_mtu_negative.py'  
+2025-11-19 11:33:47,587 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events11_mtu_negative.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:41
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.875
+TOTAL HELPER Time = 0:00:15.249
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:34:07,002 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311'  
+2025-11-19 11:34:07,010 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311'  
+2025-11-19 11:34:11,260 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:34:12,233 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-19 11:34:12,918 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:34:13,235 T0000: CMD TIME: 1216 D1 = mtu 9100
+2025-11-19 11:34:14,460 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:15,144 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:34:15,512 T0000: CMD TIME: 358 D1 = no shutdown
+2025-11-19 11:34:15,880 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:16,559 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:34:16,927 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:34:17,295 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:34:17,979 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:34:18,347 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:34:18,715 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:25,435 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:34:25,751 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:34:26,117 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:26,795 T0000: CMD TIME: 411 D1 = interface Ethernet 4
+2025-11-19 11:34:27,215 T0000: CMD TIME: 357 D1 = mtu 9100
+2025-11-19 11:34:27,580 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:34:28,271 T0049: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311'  
+2025-11-19 11:34:37,908 T0048: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:41
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.165
+TOTAL HELPER Time = 0:00:15.247
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:34:47,246 T0054: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000'  
+2025-11-19 11:34:47,253 T0055: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000'  
+2025-11-19 11:34:51,500 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:34:52,423 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:34:53,101 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:34:53,418 T0000: CMD TIME: 1012 D1 = mtu 9100
+2025-11-19 11:34:54,440 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:55,123 T0000: CMD TIME: 408 D1 = interface Ethernet 0
+2025-11-19 11:34:55,540 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:34:55,908 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:56,588 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:34:56,955 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:34:57,322 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:34:58,005 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:34:58,372 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:34:58,740 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:35:05,457 T0000: CMD TIME: 408 D1 = interface Ethernet 0
+2025-11-19 11:35:05,873 T0000: CMD TIME: 509 D1 = mtu 9100
+2025-11-19 11:35:06,390 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:35:07,067 T0000: CMD TIME: 559 D1 = interface Ethernet 4
+2025-11-19 11:35:07,634 T0000: CMD TIME: 458 D1 = mtu 9100
+2025-11-19 11:35:08,100 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:35:08,787 T0061: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000'  
+2025-11-19 11:35:18,421 T0060: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.665
+TOTAL HELPER Time = 0:00:15.247
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:35:27,369 T0066: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576'  
+2025-11-19 11:35:27,376 T0067: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576'  
+2025-11-19 11:35:31,633 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:35:32,605 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:35:33,284 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:35:33,601 T0000: CMD TIME: 1012 D1 = mtu 9100
+2025-11-19 11:35:34,623 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:35:35,307 T0000: CMD TIME: 358 D1 = interface Ethernet 0
+2025-11-19 11:35:35,675 T0000: CMD TIME: 358 D1 = no shutdown
+2025-11-19 11:35:36,043 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:35:36,724 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:35:37,091 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:35:37,459 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:35:38,143 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:35:38,511 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:35:38,879 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:35:45,599 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:35:45,915 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:35:46,281 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:35:46,959 T0000: CMD TIME: 408 D1 = interface Ethernet 4
+2025-11-19 11:35:47,377 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:35:47,742 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:35:48,428 T0073: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576'  
+2025-11-19 11:35:58,060 T0072: HELPER TIME: 3809 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_zero ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_zero ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.734
+TOTAL HELPER Time = 0:00:15.251
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:36:07,340 T0078: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_zero'  
+2025-11-19 11:36:07,346 T0079: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_zero'  
+2025-11-19 11:36:11,599 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:36:12,520 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:36:13,202 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:36:13,521 T0000: CMD TIME: 1116 D1 = mtu 9100
+2025-11-19 11:36:14,645 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:36:15,334 T0000: CMD TIME: 362 D1 = interface Ethernet 0
+2025-11-19 11:36:15,708 T0000: CMD TIME: 361 D1 = no shutdown
+2025-11-19 11:36:16,080 T0000: CMD TIME: 259 D1 = exit
+2025-11-19 11:36:16,761 T0000: CMD TIME: 361 D1 = interface Ethernet 4
+2025-11-19 11:36:17,133 T0000: CMD TIME: 360 D1 = mtu 9100
+2025-11-19 11:36:17,504 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:36:18,194 T0000: CMD TIME: 411 D1 = interface Ethernet 4
+2025-11-19 11:36:18,617 T0000: CMD TIME: 360 D1 = no shutdown
+2025-11-19 11:36:18,986 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:36:25,704 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:36:26,019 T0000: CMD TIME: 357 D1 = mtu 9100
+2025-11-19 11:36:26,384 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:36:27,061 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:36:27,427 T0000: CMD TIME: 357 D1 = mtu 9100
+2025-11-19 11:36:27,793 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:36:28,484 T0085: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_zero'  
+2025-11-19 11:36:38,121 T0084: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_zero'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:41
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.170
+TOTAL HELPER Time = 0:00:15.246
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:36:47,225 T0090: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217'  
+2025-11-19 11:36:47,232 T0091: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217'  
+2025-11-19 11:36:51,482 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:36:52,405 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:36:53,083 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:36:53,400 T0000: CMD TIME: 1012 D1 = mtu 9100
+2025-11-19 11:36:54,422 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:36:55,105 T0000: CMD TIME: 409 D1 = interface Ethernet 0
+2025-11-19 11:36:55,523 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:36:55,890 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:36:56,570 T0000: CMD TIME: 409 D1 = interface Ethernet 4
+2025-11-19 11:36:56,987 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:36:57,354 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:36:58,037 T0000: CMD TIME: 408 D1 = interface Ethernet 4
+2025-11-19 11:36:58,454 T0000: CMD TIME: 358 D1 = no shutdown
+2025-11-19 11:36:58,821 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:37:05,540 T0000: CMD TIME: 409 D1 = interface Ethernet 0
+2025-11-19 11:37:05,957 T0000: CMD TIME: 459 D1 = mtu 9100
+2025-11-19 11:37:06,426 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:37:07,106 T0000: CMD TIME: 508 D1 = interface Ethernet 4
+2025-11-19 11:37:07,624 T0000: CMD TIME: 460 D1 = mtu 9100
+2025-11-19 11:37:08,095 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:37:08,779 T0097: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217'  
+2025-11-19 11:37:18,414 T0096: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.633
+TOTAL HELPER Time = 0:00:15.251
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:37:27,331 T0103: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000'  
+2025-11-19 11:37:27,336 T0102: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000'  
+2025-11-19 11:37:31,597 T0000: CMD TIME: 969 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:37:32,575 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:37:33,254 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:37:33,573 T0000: CMD TIME: 1016 D1 = mtu 9100
+2025-11-19 11:37:34,597 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:37:35,281 T0000: CMD TIME: 358 D1 = interface Ethernet 0
+2025-11-19 11:37:35,649 T0000: CMD TIME: 358 D1 = no shutdown
+2025-11-19 11:37:36,016 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:37:36,697 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:37:37,064 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:37:37,431 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:37:38,115 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:37:38,483 T0000: CMD TIME: 360 D1 = no shutdown
+2025-11-19 11:37:38,853 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:37:45,573 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:37:45,891 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:37:46,258 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:37:46,938 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:37:47,310 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:37:47,677 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:37:48,365 T0109: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000'  
+2025-11-19 11:37:58,002 T0108: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.781
+TOTAL HELPER Time = 0:00:15.248
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:38:06,931 T0115: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535'  
+2025-11-19 11:38:06,937 T0114: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535'  
+2025-11-19 11:38:11,190 T0000: CMD TIME: 915 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:38:12,115 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:38:12,796 T0000: CMD TIME: 360 D1 = interface Ethernet 0
+2025-11-19 11:38:13,165 T0000: CMD TIME: 965 D1 = mtu 9100
+2025-11-19 11:38:14,138 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:38:14,823 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:38:15,191 T0000: CMD TIME: 612 D1 = no shutdown
+2025-11-19 11:38:15,812 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:38:16,493 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:38:16,860 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:38:17,230 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:38:17,915 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:38:18,283 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:38:18,651 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:38:25,373 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:38:25,689 T0000: CMD TIME: 307 D1 = mtu 9100
+2025-11-19 11:38:26,004 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:38:26,682 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:38:27,050 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:38:27,417 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:38:28,108 T0121: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535'  
+2025-11-19 11:38:37,744 T0120: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ===========================
+RESULT = Fail
+DESCRIPTION = MTU not set to minimum 1312
+TOTAL Test Time = 0:02:25
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:10.278
+TOTAL HELPER Time = 0:03:03.868
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 11:38:46,509 T0126: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_below_minimum'  
+2025-11-19 11:38:46,518 T0127: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_below_minimum'  
+2025-11-19 11:38:50,780 T0000: CMD TIME: 864 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:38:51,650 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:38:52,334 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:38:52,652 T0000: CMD TIME: 963 D1 = mtu 9100
+2025-11-19 11:38:53,628 T0000: CMD TIME: 260 D1 = exit
+2025-11-19 11:38:54,319 T0000: CMD TIME: 360 D1 = interface Ethernet 0
+2025-11-19 11:38:54,690 T0000: CMD TIME: 361 D1 = no shutdown
+2025-11-19 11:38:55,062 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:38:55,743 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:38:56,110 T0000: CMD TIME: 409 D1 = mtu 9100
+2025-11-19 11:38:56,527 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:38:57,217 T0000: CMD TIME: 360 D1 = interface Ethernet 4
+2025-11-19 11:38:57,588 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:38:57,959 T0000: CMD TIME: 259 D1 = exit
+2025-11-19 11:39:04,668 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:39:04,986 T0000: CMD TIME: 358 D1 = mtu 1312
+2025-11-19 11:39:05,352 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:39:09,048 T0131: HELPER TIME: 81902 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 11:40:31,600 T0131: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_boundary_below_minimum_sonic_dump_D-Link_20251119_113911.tar.gz
+2025-11-19 11:39:18,686 T0130: HELPER TIME: 86702 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 11:40:46,034 T0130: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_boundary_below_minimum_sonic_dump_D-Link_20251119_113921.tar.gz
+2025-11-19 11:40:46,984 T0000: CMD TIME: 962 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:40:47,955 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:40:48,632 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:40:48,948 T0000: CMD TIME: 962 D1 = mtu 9100
+2025-11-19 11:40:49,918 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:40:50,594 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:40:50,961 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:40:51,326 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:40:52,012 T0137: HELPER TIME: 3825 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_below_minimum'  
+2025-11-19 11:41:01,646 T0136: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_below_minimum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ===========================
+RESULT = Fail
+DESCRIPTION = MTU not set to maximum 9216
+TOTAL Test Time = 0:02:20
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:11.272
+TOTAL HELPER Time = 0:02:54.261
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 11:41:12,343 T0142: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_above_maximum'  
+2025-11-19 11:41:12,348 T0143: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_above_maximum'  
+2025-11-19 11:41:16,600 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:41:17,525 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:41:18,205 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:41:18,523 T0000: CMD TIME: 964 D1 = mtu 9100
+2025-11-19 11:41:19,495 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:41:20,180 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:41:20,548 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:41:20,916 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:41:21,596 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:41:21,963 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:41:22,330 T0000: CMD TIME: 259 D1 = exit
+2025-11-19 11:41:23,017 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:41:23,385 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:41:23,753 T0000: CMD TIME: 259 D1 = exit
+2025-11-19 11:41:30,461 T0000: CMD TIME: 307 D1 = interface Ethernet 0
+2025-11-19 11:41:30,776 T0000: CMD TIME: 357 D1 = mtu 9216
+2025-11-19 11:41:31,141 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:41:34,835 T0147: HELPER TIME: 79500 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 11:42:54,956 T0147: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_boundary_above_maximum_sonic_dump_D-Link_20251119_114136.tar.gz
+2025-11-19 11:41:44,470 T0146: HELPER TIME: 79496 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 11:43:04,605 T0146: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_boundary_above_maximum_sonic_dump_D-Link_20251119_114147.tar.gz
+2025-11-19 11:43:05,549 T0000: CMD TIME: 1164 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:43:06,721 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:43:07,398 T0000: CMD TIME: 358 D1 = interface Ethernet 0
+2025-11-19 11:43:07,763 T0000: CMD TIME: 1616 D1 = mtu 9100
+2025-11-19 11:43:09,387 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:43:10,065 T0000: CMD TIME: 459 D1 = interface Ethernet 4
+2025-11-19 11:43:10,531 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:43:10,897 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:43:11,583 T0153: HELPER TIME: 3826 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_above_maximum'  
+2025-11-19 11:43:21,216 T0152: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_boundary_above_maximum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ===========================
+RESULT = Fail
+DESCRIPTION = Interface not operational after rapid invalid attempts
+TOTAL Test Time = 0:02:25
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:09.490
+TOTAL HELPER Time = 0:03:08.683
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 11:43:30,221 T0159: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts'  
+2025-11-19 11:43:30,226 T0158: HELPER TIME: 3812 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts'  
+2025-11-19 11:43:34,478 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:43:35,400 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:43:36,078 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:43:36,394 T0000: CMD TIME: 964 D1 = mtu 9100
+2025-11-19 11:43:37,367 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:43:38,051 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:43:38,419 T0000: CMD TIME: 358 D1 = no shutdown
+2025-11-19 11:43:38,786 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:43:39,467 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:43:39,835 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:43:40,202 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:43:40,886 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:43:41,254 T0000: CMD TIME: 358 D1 = no shutdown
+2025-11-19 11:43:41,621 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:43:53,357 T0163: HELPER TIME: 86709 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 11:45:20,652 T0163: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts_sonic_dump_D-Link_20251119_114355.tar.gz
+2025-11-19 11:44:02,997 T0162: HELPER TIME: 86707 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 11:45:30,405 T0162: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts_sonic_dump_D-Link_20251119_114407.tar.gz
+2025-11-19 11:45:31,265 T0000: CMD TIME: 1063 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:45:32,337 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:45:33,013 T0000: CMD TIME: 307 D1 = interface Ethernet 0
+2025-11-19 11:45:33,328 T0000: CMD TIME: 1013 D1 = mtu 9100
+2025-11-19 11:45:34,348 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:45:35,026 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:45:35,393 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:45:35,760 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:45:36,448 T0169: HELPER TIME: 3831 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts'  
+2025-11-19 11:45:46,084 T0168: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:49
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.837
+TOTAL HELPER Time = 0:00:15.250
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:45:55,104 T0175: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces'  
+2025-11-19 11:45:55,112 T0174: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces'  
+2025-11-19 11:45:59,361 T0000: CMD TIME: 965 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:46:00,336 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:46:01,016 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:46:01,334 T0000: CMD TIME: 1066 D1 = mtu 9100
+2025-11-19 11:46:02,409 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:03,093 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:46:03,461 T0000: CMD TIME: 410 D1 = no shutdown
+2025-11-19 11:46:03,880 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:04,562 T0000: CMD TIME: 362 D1 = interface Ethernet 4
+2025-11-19 11:46:04,936 T0000: CMD TIME: 360 D1 = mtu 9100
+2025-11-19 11:46:05,307 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:05,993 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:46:06,361 T0000: CMD TIME: 460 D1 = no shutdown
+2025-11-19 11:46:06,830 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:22,576 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:46:22,892 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:46:23,259 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:46:23,938 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:46:24,305 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:46:24,672 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:46:25,362 T0181: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces'  
+2025-11-19 11:46:34,999 T0180: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ===========================
+RESULT = Fail
+DESCRIPTION = MTU changed after interface flap (should remain 9100)
+TOTAL Test Time = 0:02:30
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:11.651
+TOTAL HELPER Time = 0:02:59.065
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 11:46:43,927 T0187: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap'  
+2025-11-19 11:46:43,932 T0186: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap'  
+2025-11-19 11:46:48,185 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:46:49,108 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 11:46:49,788 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:46:50,105 T0000: CMD TIME: 1167 D1 = mtu 9100
+2025-11-19 11:46:51,281 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:51,965 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:46:52,333 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:46:52,701 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:53,382 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:46:53,751 T0000: CMD TIME: 359 D1 = mtu 9100
+2025-11-19 11:46:54,119 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:46:54,804 T0000: CMD TIME: 360 D1 = interface Ethernet 4
+2025-11-19 11:46:55,173 T0000: CMD TIME: 360 D1 = no shutdown
+2025-11-19 11:46:55,541 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:47:02,253 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-19 11:47:02,569 T0000: CMD TIME: 359 D1 = shutdown
+2025-11-19 11:47:02,938 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:47:06,624 T0000: CMD TIME: 409 D1 = interface Ethernet 0
+2025-11-19 11:47:07,041 T0000: CMD TIME: 409 D1 = no shutdown
+2025-11-19 11:47:07,458 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:47:16,160 T0191: HELPER TIME: 81902 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 11:48:38,643 T0191: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap_sonic_dump_D-Link_20251119_114718.tar.gz
+2025-11-19 11:47:25,800 T0190: HELPER TIME: 81898 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 11:48:48,347 T0190: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap_sonic_dump_D-Link_20251119_114728.tar.gz
+2025-11-19 11:48:49,278 T0000: CMD TIME: 962 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:48:50,249 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 11:48:50,925 T0000: CMD TIME: 307 D1 = interface Ethernet 0
+2025-11-19 11:48:51,240 T0000: CMD TIME: 1063 D1 = mtu 9100
+2025-11-19 11:48:52,311 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:48:52,987 T0000: CMD TIME: 358 D1 = interface Ethernet 4
+2025-11-19 11:48:53,354 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:48:53,720 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:48:54,411 T0197: HELPER TIME: 3826 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap'  
+2025-11-19 11:49:04,046 T0196: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:47
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.639
+TOTAL HELPER Time = 0:00:15.252
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:49:13,874 T0203: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum'  
+2025-11-19 11:49:13,880 T0202: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum'  
+2025-11-19 11:49:18,131 T0000: CMD TIME: 915 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:49:19,055 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-19 11:49:19,736 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:49:20,054 T0000: CMD TIME: 1016 D1 = mtu 9100
+2025-11-19 11:49:21,078 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:49:21,763 T0000: CMD TIME: 359 D1 = interface Ethernet 0
+2025-11-19 11:49:22,131 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:49:22,499 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:49:23,180 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:49:23,548 T0000: CMD TIME: 358 D1 = mtu 9100
+2025-11-19 11:49:23,916 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:49:24,602 T0000: CMD TIME: 359 D1 = interface Ethernet 4
+2025-11-19 11:49:24,969 T0000: CMD TIME: 359 D1 = no shutdown
+2025-11-19 11:49:25,337 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:49:39,079 T0000: CMD TIME: 360 D1 = interface Ethernet 0
+2025-11-19 11:49:39,448 T0000: CMD TIME: 360 D1 = mtu 9100
+2025-11-19 11:49:39,818 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:49:40,501 T0000: CMD TIME: 360 D1 = interface Ethernet 4
+2025-11-19 11:49:40,875 T0000: CMD TIME: 360 D1 = mtu 9100
+2025-11-19 11:49:41,246 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:49:41,937 T0209: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum'  
+2025-11-19 11:49:51,569 T0208: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:46
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:09.157
+TOTAL HELPER Time = 0:00:15.250
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 11:50:00,505 T0214: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum'  
+2025-11-19 11:50:00,514 T0215: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum'  
+2025-11-19 11:50:04,775 T0000: CMD TIME: 1118 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 11:50:05,902 T0000: CMD TIME: 259 D1 = configure terminal
+2025-11-19 11:50:06,588 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:50:06,907 T0000: CMD TIME: 1822 D1 = mtu 9100
+2025-11-19 11:50:08,736 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 11:50:09,420 T0000: CMD TIME: 461 D1 = interface Ethernet 0
+2025-11-19 11:50:09,887 T0000: CMD TIME: 459 D1 = no shutdown
+2025-11-19 11:50:10,360 T0000: CMD TIME: 259 D1 = exit
+2025-11-19 11:50:11,044 T0000: CMD TIME: 460 D1 = interface Ethernet 4
+2025-11-19 11:50:11,513 T0000: CMD TIME: 409 D1 = mtu 9100
+2025-11-19 11:50:11,932 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:50:12,617 T0000: CMD TIME: 460 D1 = interface Ethernet 4
+2025-11-19 11:50:13,086 T0000: CMD TIME: 460 D1 = no shutdown
+2025-11-19 11:50:13,555 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:50:25,293 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-19 11:50:25,614 T0000: CMD TIME: 360 D1 = mtu 9100
+2025-11-19 11:50:25,987 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 11:50:26,672 T0000: CMD TIME: 362 D1 = interface Ethernet 4
+2025-11-19 11:50:27,048 T0000: CMD TIME: 363 D1 = mtu 9100
+2025-11-19 11:50:27,420 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 11:50:28,111 T0221: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum'  
+2025-11-19 11:50:37,744 T0220: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum'  
+=========================================================

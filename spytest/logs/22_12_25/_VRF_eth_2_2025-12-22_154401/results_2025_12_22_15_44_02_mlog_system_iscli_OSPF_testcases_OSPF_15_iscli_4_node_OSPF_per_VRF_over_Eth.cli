@@ -1,0 +1,472 @@
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 16
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 30.1.1.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 20
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 30.1.2.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 40.1.1.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 28
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 40.1.2.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 32
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 50.1.1.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 36
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 50.1.2.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 40
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 60.1.1.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 44
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ip address 60.1.2.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip vrf
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ospf router-id 4.4.4.1
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 30.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 30.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 50.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 50.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,ospf router-id 4.4.4.2
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 40.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 40.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 60.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,network 60.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf neighbor vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf neighbor vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf interface vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf interface vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf database vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip ospf database vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip route vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,do show ip route vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 16
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 20
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 28
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 32
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 36
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 40
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,interface Ethernet 44
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D4,mgmt-config,no ip vrf Vrf-BLUE
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip address 10.1.1.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip address 10.1.2.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 8
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip address 10.2.1.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 12
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ip address 10.2.2.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip vrf
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ospf router-id 1.1.1.1
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,network 10.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,network 10.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,ospf router-id 1.1.1.2
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,network 10.2.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,network 10.2.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf neighbor vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf neighbor vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf interface vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf interface vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf database vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip ospf database vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip route vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do show ip route vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do ping vrf Vrf-RED 50.1.1.2 -c 5
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,do ping vrf Vrf-BLUE 60.1.1.2 -c 5
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 8
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,interface Ethernet 12
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D1,mgmt-config,no ip vrf Vrf-BLUE
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 10.1.1.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 10.1.2.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 8
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 10.2.1.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 12
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 10.2.2.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 16
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 30.1.1.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 20
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 30.1.2.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 40.1.1.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 28
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ip address 40.1.2.1/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip vrf
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ospf router-id 2.2.2.1
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 10.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 10.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 30.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 30.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,ospf router-id 2.2.2.2
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 10.2.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 10.2.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 40.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,network 40.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf neighbor vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf neighbor vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf interface vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf interface vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf database vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip ospf database vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip route vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,do show ip route vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 4
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 8
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 12
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 16
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 20
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,interface Ethernet 28
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D2,mgmt-config,no ip vrf Vrf-BLUE
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D3,normal-user,configure terminal
+class-prolog,,,D3,mgmt-config,terminal length 0
+framework,,,D3,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 32
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip address 50.1.1.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 36
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip vrf forwarding Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip address 50.1.2.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 40
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip address 60.1.1.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 44
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip vrf forwarding Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ip address 60.1.2.2/24
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip vrf
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ospf router-id 3.3.3.1
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,network 50.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,network 50.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,ospf router-id 3.3.3.2
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,network 60.1.1.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,network 60.1.2.0/24 area 0
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf neighbor vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf neighbor vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf interface vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf interface vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf database vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip ospf database vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip route vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do show ip route vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do ping vrf Vrf-RED 10.1.1.1 -c 5
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,do ping vrf Vrf-BLUE 10.2.1.1 -c 5
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no router ospf vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no router ospf vrf Vrf-BLUE
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 32
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 36
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 40
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,interface Ethernet 44
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip vrf forwarding
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip vrf Vrf-RED
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFPerVRF4Node.test_ospf_per_vrf_over_ethernet_4_node,D3,mgmt-config,no ip vrf Vrf-BLUE

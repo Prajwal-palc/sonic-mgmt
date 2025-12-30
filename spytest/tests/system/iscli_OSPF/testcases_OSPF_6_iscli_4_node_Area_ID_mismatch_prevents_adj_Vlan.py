@@ -226,6 +226,8 @@ class TestOSPFAreaMismatchVLAN:
         """
         Create VLAN using klish commands.
 
+        IMPORTANT: Does NOT use exit - stays in config mode after VLAN creation.
+
         Args:
             dut: Device handle
             vlan_id: VLAN ID (e.g., "20")
@@ -236,8 +238,8 @@ class TestOSPFAreaMismatchVLAN:
         st.log(f"Creating VLAN {vlan_id} on {dut}")
         commands = [
             "configure terminal",
-            f"vlan {vlan_id}",
-            "exit"
+            f"vlan {vlan_id}"
+            # NO exit - stay in config mode
         ]
         result = st.config(dut, commands, type=CLI_TYPE)
         return True
@@ -246,6 +248,8 @@ class TestOSPFAreaMismatchVLAN:
     def _delete_vlan(dut: str, vlan_id: str) -> bool:
         """
         Delete VLAN using klish commands.
+
+        IMPORTANT: Does NOT use exit - stays in config mode.
 
         Args:
             dut: Device handle
@@ -258,6 +262,7 @@ class TestOSPFAreaMismatchVLAN:
         commands = [
             "configure terminal",
             f"no vlan {vlan_id}"
+            # NO exit - stay in config mode
         ]
         result = st.config(dut, commands, type=CLI_TYPE)
         return True
@@ -704,6 +709,9 @@ class TestOSPFAreaMismatchVLAN:
         st.log("TEST: OSPF Area ID Mismatch Prevents Adjacency (VLAN)")
         st.log("=" * 80)
 
+        # Track validation failures - test will continue but report fail at end
+        validation_failures = []
+
         dut2 = self.data.dut2
         dut4 = self.data.dut4
         vlan_id = self.data.vlan_id
@@ -759,11 +767,21 @@ class TestOSPFAreaMismatchVLAN:
         # Validate IP addresses
         st.log("Validating IP address configuration...")
         if not self._verify_vlan_ip(dut2, vlan_id, self.data.dut2_ip):
-            st.report_fail("msg", f"IP validation failed on {dut2} Vlan{vlan_id}")
-        if not self._verify_vlan_ip(dut4, vlan_id, self.data.dut4_ip):
-            st.report_fail("msg", f"IP validation failed on {dut4} Vlan{vlan_id}")
+            error_msg = f"STEP 3: IP validation failed on {dut2} Vlan{vlan_id}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut2} Vlan{vlan_id}")
 
-        st.log("PASS: IP addresses configured and validated successfully")
+        if not self._verify_vlan_ip(dut4, vlan_id, self.data.dut4_ip):
+            error_msg = f"STEP 3: IP validation failed on {dut4} Vlan{vlan_id}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut4} Vlan{vlan_id}")
+
+        if not validation_failures:
+            st.log("PASS: IP addresses configured and validated successfully")
 
         # ===== STEP 4: Verify ping connectivity =====
         st.log("\n" + "-" * 80)
@@ -778,13 +796,22 @@ class TestOSPFAreaMismatchVLAN:
 
         # Ping from D2 to D4
         if not self._verify_ping_success(dut2, dut4_ip_no_mask):
-            st.report_fail("msg", f"Ping from {dut2} to {dut4_ip_no_mask} failed")
+            error_msg = f"STEP 4: Ping from {dut2} to {dut4_ip_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut2} to {dut4_ip_no_mask} successful")
 
         # Ping from D4 to D2
         if not self._verify_ping_success(dut4, dut2_ip_no_mask):
-            st.report_fail("msg", f"Ping from {dut4} to {dut2_ip_no_mask} failed")
+            error_msg = f"STEP 4: Ping from {dut4} to {dut2_ip_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut4} to {dut2_ip_no_mask} successful")
 
-        st.log("PASS: Ping connectivity verified")
+        if len([f for f in validation_failures if "STEP 4" in f]) == 0:
+            st.log("PASS: Ping connectivity verified")
 
         # ===== STEP 5: Configure OSPF on D2 with Area 0 =====
         st.log("\n" + "-" * 80)
@@ -800,9 +827,11 @@ class TestOSPFAreaMismatchVLAN:
         # Verify OSPF configuration on D2
         ospf_output_dut2 = self._get_show_ip_ospf_output(dut2)
         if not self._verify_ospf_area_configured(ospf_output_dut2, self.data.ospf_area_0):
-            st.report_fail("msg", f"OSPF Area 0 not configured on {dut2}")
-
-        st.log("PASS: OSPF configuration completed on D2")
+            error_msg = f"STEP 5: OSPF Area 0 not configured on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log("PASS: OSPF configuration completed on D2")
 
         # ===== STEP 6: Configure OSPF on D4 with Area 1 (MISMATCH) =====
         st.log("\n" + "-" * 80)
@@ -818,9 +847,11 @@ class TestOSPFAreaMismatchVLAN:
         # Verify OSPF configuration on D4
         ospf_output_dut4 = self._get_show_ip_ospf_output(dut4)
         if not self._verify_ospf_area_configured(ospf_output_dut4, self.data.ospf_area_1):
-            st.report_fail("msg", f"OSPF Area 1 not configured on {dut4}")
-
-        st.log("PASS: OSPF configuration completed on D4 with Area 1")
+            error_msg = f"STEP 6: OSPF Area 1 not configured on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log("PASS: OSPF configuration completed on D4 with Area 1")
 
         # ===== STEP 7: Wait for OSPF to attempt adjacency =====
         st.log("\n" + "-" * 80)
@@ -842,13 +873,22 @@ class TestOSPFAreaMismatchVLAN:
 
         # Verify no neighbors on D2
         if not self._verify_no_neighbors(neighbor_output_dut2):
-            st.report_fail("msg", f"OSPF neighbors found on {dut2} when none expected (area mismatch)")
+            error_msg = f"STEP 8: OSPF neighbors found on {dut2} when none expected (area mismatch)"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: No OSPF neighbors found on {dut2} (area mismatch prevents adjacency)")
 
         # Verify no neighbors on D4
         if not self._verify_no_neighbors(neighbor_output_dut4):
-            st.report_fail("msg", f"OSPF neighbors found on {dut4} when none expected (area mismatch)")
+            error_msg = f"STEP 8: OSPF neighbors found on {dut4} when none expected (area mismatch)"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: No OSPF neighbors found on {dut4} (area mismatch prevents adjacency)")
 
-        st.log("PASS: No OSPF neighbors found on both routers (area mismatch prevents adjacency)")
+        if len([f for f in validation_failures if "STEP 8" in f]) == 0:
+            st.log("PASS: No OSPF neighbors found on both routers (area mismatch prevents adjacency)")
 
         # ===== STEP 9: Verify zero adjacent neighbors in show ip ospf =====
         st.log("\n" + "-" * 80)
@@ -901,13 +941,22 @@ class TestOSPFAreaMismatchVLAN:
 
         # Verify D2 sees D4 as neighbor in Full state
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2_final, dut4_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after fix")
+            error_msg = f"STEP 11: OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after fix"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip_no_mask} in Full state on {dut2}")
 
         # Verify D4 sees D2 as neighbor in Full state
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4_final, dut2_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after fix")
+            error_msg = f"STEP 11: OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after fix"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip_no_mask} in Full state on {dut4}")
 
-        st.log("PASS: OSPF adjacency established successfully after fixing area mismatch")
+        if len([f for f in validation_failures if "STEP 11" in f]) == 0:
+            st.log("PASS: OSPF adjacency established successfully after fixing area mismatch")
 
         # ===== STEP 12: Cleanup - Remove all configurations =====
         st.log("\n" + "-" * 80)
@@ -954,4 +1003,42 @@ class TestOSPFAreaMismatchVLAN:
         st.log("  4. OSPF adjacency SUCCEEDS after fixing mismatch (both Area0)")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from DUT2
+            try:
+                st.generate_tech_support(dut=dut2, name="ospf_area_mismatch_vlan_validation_failure")
+                st.log(f"Tech support collected from {dut2}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut2}: {str(e)}")
+
+            # Collect tech support from DUT4
+            try:
+                st.generate_tech_support(dut=dut4, name="ospf_area_mismatch_vlan_validation_failure")
+                st.log(f"Tech support collected from {dut4}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut4}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

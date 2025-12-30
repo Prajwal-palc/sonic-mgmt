@@ -1,0 +1,81 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: SKIP saving running config port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: generating tech-support port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: SKIP saving running config port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: generating tech-support port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: SKIP saving running config port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: SKIP saving running config port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: generating tech-support port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: generating tech-support port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: SKIP collect core-files port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: SKIP saving sai_redis port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_2: SKIP generating sysinfo port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: SKIP collect core-files port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: SKIP saving sai_redis port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: SKIP generating sysinfo port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: SKIP collect core-files port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: SKIP saving sai_redis port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_3: SKIP generating sysinfo port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: SKIP collect core-files port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: SKIP saving sai_redis port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_4: SKIP generating sysinfo port-status-module mlog_system_iscli_OSPF_testcases_OSPF_8_iscli_4_node_cost_attribute_affects_path_select_over_Eth fail
+vs_sonic_1: SKIP saving config_db post-module-prolog  Fail
+vs_sonic_1: SKIP saving running config post-module-prolog  Fail
+vs_sonic_1: saving syslog post-module-prolog  Fail
+vs_sonic_2: SKIP saving config_db post-module-prolog  Fail
+vs_sonic_2: SKIP saving running config post-module-prolog  Fail
+vs_sonic_2: saving syslog post-module-prolog  Fail
+vs_sonic_3: SKIP saving config_db post-module-prolog  Fail
+vs_sonic_4: SKIP saving config_db post-module-prolog  Fail
+vs_sonic_4: SKIP saving running config post-module-prolog  Fail
+vs_sonic_4: saving syslog post-module-prolog  Fail
+vs_sonic_3: SKIP saving running config post-module-prolog  Fail
+vs_sonic_3: saving syslog post-module-prolog  Fail
+vs_sonic_1: generating tech-support post-module-prolog  Fail
+vs_sonic_2: generating tech-support post-module-prolog  Fail
+vs_sonic_4: generating tech-support post-module-prolog  Fail
+vs_sonic_3: generating tech-support post-module-prolog  Fail
+vs_sonic_2: SKIP collect core-files post-module-prolog  Fail
+vs_sonic_2: SKIP saving sai_redis post-module-prolog  Fail
+vs_sonic_2: SKIP generating sysinfo post-module-prolog  Fail
+vs_sonic_4: SKIP collect core-files post-module-prolog  Fail
+vs_sonic_4: SKIP saving sai_redis post-module-prolog  Fail
+vs_sonic_4: SKIP generating sysinfo post-module-prolog  Fail
+vs_sonic_3: SKIP collect core-files post-module-prolog  Fail
+vs_sonic_3: SKIP saving sai_redis post-module-prolog  Fail
+vs_sonic_3: SKIP generating sysinfo post-module-prolog  Fail

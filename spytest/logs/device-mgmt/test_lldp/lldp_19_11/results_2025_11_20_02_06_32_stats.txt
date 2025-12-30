@@ -1,0 +1,50 @@
+
+======================= STATS: system/lldp/test_lldp_5_timers_multipliers.py::TestLldpTimersAndMultiplier.test_lldp_timers_and_multiplier ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.502
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:37:29,079 T0027: CMD TIME: 1975 D1 = show interfaces status Ethernet124
+2025-11-19 20:37:29,086 T0028: CMD TIME: 2070 D2 = show interfaces status Ethernet124
+2025-11-19 20:37:31,474 T0027: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:37:31,574 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:37:32,261 T0031: CMD TIME: 1921 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:37:32,255 T0030: CMD TIME: 2027 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:37:34,725 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_5_timers_multipliers.py'  
+2025-11-19 20:37:34,734 T0033: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_5_timers_multipliers.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_5_timers_multipliers.py::TestLldpTimersAndMultiplier.test_lldp_timers_and_multiplier ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'disable' in file /apis/system/lldp.py at line 413
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.462
+TOTAL HELPER Time = 0:00:16.036
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:37:53,985 T0042: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpTimersAndMultiplier.test_lldp_timers_and_multiplier'  
+2025-11-19 20:37:53,995 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpTimersAndMultiplier.test_lldp_timers_and_multiplier'  
+2025-11-19 20:37:58,277 T0000: CMD TIME: 1569 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:37:59,856 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 20:38:00,540 T0000: CMD TIME: 308 D1 = interface Ethernet 4
+2025-11-19 20:38:00,858 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-19 20:38:01,881 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 20:38:02,571 T0000: CMD TIME: 914 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:38:03,496 T0000: CMD TIME: 258 D2 = configure terminal
+2025-11-19 20:38:04,176 T0000: CMD TIME: 308 D2 = interface Ethernet 4
+2025-11-19 20:38:04,494 T0000: CMD TIME: 1066 D2 = no shutdown
+2025-11-19 20:38:05,569 T0000: CMD TIME: 257 D2 = exit
+2025-11-19 20:38:05,833 T0000: WAIT TIME: 5 = static delay
+2025-11-19 20:38:11,261 T0000: CMD TIME: 256 D1 = lldp enable
+2025-11-19 20:38:21,682 T0047: HELPER TIME: 4164 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpTimersAndMultiplier.test_lldp_timers_and_multiplier'  
+2025-11-19 20:38:21,674 T0046: HELPER TIME: 4244 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpTimersAndMultiplier.test_lldp_timers_and_multiplier'  
+=========================================================

@@ -1,0 +1,761 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Device</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>LogDate</th>
+      <th>LogLevel</th>
+      <th>LogModule</th>
+      <th>LogMessage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:01.519475</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:23.082095</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:00.433394</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:03.449440</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:21.997904</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:04:59.467866</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:02.487287</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:21.362672</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:24.381594</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:04:58.022934</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:01.040739</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:04.064660</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_01_setup_interfaces</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:22.764680</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:38.293680</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:37.888847</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:40.904134</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:39.459609</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:38.098501</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_02_ospf_different_metrics</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:41.114477</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:50.526078</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:53.541495</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:50.512206</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:53.527681</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:51.736614</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:54.751439</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:50.484951</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_03_bgp_different_aspath_lengths</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:05:53.499694</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:05.610100</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:05.588362</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:07.168120</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_04_maximum_paths_limit</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:05.560656</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:20.730085</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:20.861904</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:19.569661</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:22.585628</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_05_route_flapping</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:20.833256</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:33.145166</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:36.162081</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:33.427718</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:36.445901</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:34.647683</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:33.226771</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_06_verify_no_loops</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:36.242627</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:48.227313</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:48.829913</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:46.990794</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:50.009597</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_07_verify_error_logs</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:06:48.308670</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:07:00.390094</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D1-vs_sonic_1.log'>D1-vs_sonic_1</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:07:03.406091</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D2-vs_sonic_2.log'>D2-vs_sonic_2</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:07:00.901915</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D3-vs_sonic_3.log'>D3-vs_sonic_3</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:07:02.076156</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:07:00.458144</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td><a href='results_2025_11_20_06_33_48_dlog-D4-vs_sonic_4.log'>D4-vs_sonic_4</a></td>
+      <td><a href='results_2025_11_20_06_33_48_mlog_routing_ecmp_test_ecmp8_path_qualification_limits.log'>routing/ecmp/test_ecmp8_path_qualification_limits.py</a></td>
+      <td>TestEcmpPathQualificationLimits.test_ecmp8_08_final_validation</td>
+      <td>ScriptError</td>
+      <td>Nov 20 01:07:03.472664</td>
+      <td>ERR</td>
+      <td>SAG-MAC-check</td>
+      <td>ERROR Redis error: Invalid input of type: 'NoneType'. Convert to a bytes, string, int or float first.; reconnecting in 3s</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

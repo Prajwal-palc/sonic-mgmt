@@ -1,0 +1,904 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,switchport trunk allowed vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show Vlan
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 10.0.1.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 10.0.2.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 10.0.3.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 10.0.4.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 20.0.1.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 20.0.2.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 20.0.3.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip address 20.0.4.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show running-configuration interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 10.0.1.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 10.0.2.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 10.0.3.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 10.0.4.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 20.0.1.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 20.0.2.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 20.0.3.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,network 20.0.4.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show ip ospf interface Vlan10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show ip ospf interface Vlan110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no switchport trunk allowed vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D2,mgmt-config,no vlan 140
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,switchport trunk allowed vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,switchport trunk allowed vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,switchport trunk allowed vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,switchport trunk allowed vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip address 10.0.1.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip address 10.0.2.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip address 10.0.3.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip address 10.0.4.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show running-configuration interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show running-configuration interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show running-configuration interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show running-configuration interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,network 10.0.1.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,network 10.0.2.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,network 10.0.3.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,network 10.0.4.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show ip ospf interface Vlan10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show ip route ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf message-digest-key 1 md5 WRONGKEY
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,ip ospf message-digest-key 1 md5 sonic123
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no switchport trunk allowed vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no switchport trunk allowed vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no switchport trunk allowed vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no switchport trunk allowed vlan 40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no vlan 10
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no vlan 20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no vlan 30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D1,mgmt-config,no vlan 40
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,switchport trunk allowed vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show Vlan
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 20.0.1.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 20.0.2.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 20.0.3.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 20.0.4.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 30.0.1.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 30.0.2.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 30.0.3.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip address 30.0.4.1/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show running-configuration interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 20.0.1.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 20.0.2.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 20.0.3.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 20.0.4.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 30.0.1.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 30.0.2.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 30.0.3.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,network 30.0.4.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic456
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show ip ospf interface Vlan110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show ip ospf interface Vlan60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no switchport trunk allowed vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 110
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 120
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 130
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 140
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D4,mgmt-config,no vlan 90
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D3,normal-user,configure terminal
+class-prolog,,,D3,mgmt-config,terminal length 0
+framework,,,D3,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ipv6 address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,switchport trunk allowed vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,switchport trunk allowed vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,switchport trunk allowed vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,switchport trunk allowed vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show Vlan
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip address 30.0.1.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip address 30.0.2.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip address 30.0.3.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip address 30.0.4.2/30
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show running-configuration interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show running-configuration interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show running-configuration interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show running-configuration interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,network 30.0.1.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,network 30.0.2.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,network 30.0.3.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,network 30.0.4.0/30 area 0
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf authentication message-digest
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,ip ospf message-digest-key 1 md5 sonic789
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show ip ospf interface Vlan60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show ip route ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no switchport trunk allowed vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no switchport trunk allowed vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no switchport trunk allowed vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no switchport trunk allowed vlan 90
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no vlan 60
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no vlan 70
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no vlan 80
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan,D3,mgmt-config,no vlan 90

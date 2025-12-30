@@ -1,0 +1,50 @@
+
+======================= STATS: system/lldp/test_lldp_9_rapide_link_failure.py::TestLldpRapidLinkFailure.test_lldp_rapid_link_failure ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:07.951
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:51:12,860 T0027: CMD TIME: 1821 D1 = show interfaces status Ethernet124
+2025-11-19 20:51:12,867 T0028: CMD TIME: 1868 D2 = show interfaces status Ethernet124
+2025-11-19 20:51:15,100 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:51:15,154 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 20:51:15,838 T0030: CMD TIME: 1877 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:51:15,844 T0031: CMD TIME: 1875 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 20:51:18,175 T0032: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_9_rapide_link_failure.py'  
+2025-11-19 20:51:18,185 T0033: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/lldp/test_lldp_9_rapide_link_failure.py'  
+=========================================================
+
+======================= STATS: system/lldp/test_lldp_9_rapide_link_failure.py::TestLldpRapidLinkFailure.test_lldp_rapid_link_failure ===========================
+RESULT = ScriptError
+DESCRIPTION = Exception KeyError 'disable' in file /apis/system/lldp.py at line 413
+TOTAL Test Time = 0:00:36
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.662
+TOTAL HELPER Time = 0:00:15.650
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 20:51:34,968 T0042: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpRapidLinkFailure.test_lldp_rapid_link_failure'  
+2025-11-19 20:51:34,977 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestLldpRapidLinkFailure.test_lldp_rapid_link_failure'  
+2025-11-19 20:51:39,250 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:51:40,172 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 20:51:40,860 T0000: CMD TIME: 307 D1 = interface Ethernet 4
+2025-11-19 20:51:41,177 T0000: CMD TIME: 963 D1 = no shutdown
+2025-11-19 20:51:42,150 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 20:51:42,848 T0000: CMD TIME: 914 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 20:51:43,781 T0000: CMD TIME: 261 D2 = configure terminal
+2025-11-19 20:51:44,466 T0000: CMD TIME: 312 D2 = interface Ethernet 4
+2025-11-19 20:51:44,793 T0000: CMD TIME: 964 D2 = no shutdown
+2025-11-19 20:51:45,766 T0000: CMD TIME: 256 D2 = exit
+2025-11-19 20:51:46,027 T0000: WAIT TIME: 5 = static delay
+2025-11-19 20:51:51,451 T0000: CMD TIME: 257 D1 = lldp enable
+2025-11-19 20:52:01,869 T0047: HELPER TIME: 3984 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpRapidLinkFailure.test_lldp_rapid_link_failure'  
+2025-11-19 20:52:01,966 T0046: HELPER TIME: 4039 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestLldpRapidLinkFailure.test_lldp_rapid_link_failure'  
+=========================================================

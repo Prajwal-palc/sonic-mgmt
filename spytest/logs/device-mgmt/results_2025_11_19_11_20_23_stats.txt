@@ -1,0 +1,134 @@
+
+======================= STATS: system/ntp/test_ntp_7_verify_ntp_detects_corrects_clock_drift.py::TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:10:43
+TOTAL Sleep Time = 0:10:10
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:18.369
+TOTAL HELPER Time = 0:00:07.628
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 05:51:21,185 T0028: CMD TIME: 2072 D2 = show interfaces status Ethernet124
+2025-11-19 05:51:21,179 T0027: CMD TIME: 2279 D1 = show interfaces status Ethernet124
+2025-11-19 05:51:23,676 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 05:51:23,878 T0027: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 05:51:24,558 T0031: CMD TIME: 1928 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 05:51:24,564 T0030: CMD TIME: 2228 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 05:51:27,243 T0033: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/ntp/test_ntp_7_verify_ntp_detects_corrects_clock_drift.py'  
+2025-11-19 05:51:27,248 T0032: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/ntp/test_ntp_7_verify_ntp_detects_corrects_clock_drift.py'  
+2025-11-19 05:51:31,924 T0000: CMD TIME: 1014 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:51:32,947 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:51:33,630 T0000: CMD TIME: 258 D1 = ntp server 216.239.35.0 iburst
+2025-11-19 05:51:34,714 T0000: CMD TIME: 257 D1 = ntp enable
+2025-11-19 05:51:35,799 T0000: CMD TIME: 913 D1 = end
+2025-11-19 05:51:37,538 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:51:38,617 T0000: WAIT TIME: 10 = static delay
+2025-11-19 05:51:48,628 T0000: WAIT TIME: 600 = static delay
+2025-11-19 06:01:50,063 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:01:51,397 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 06:01:52,481 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 06:01:53,972 T0000: CMD TIME: 2274 D1 = show ntp
+2025-11-19 06:01:56,666 T0000: CMD TIME: 1265 D1 = show clock
+2025-11-19 06:01:58,758 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:02:00,093 T0000: CMD TIME: 259 D1 = show ntp associations
+2025-11-19 06:02:01,193 T0000: CMD TIME: 258 D1 = exit
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_7_verify_ntp_detects_corrects_clock_drift.py::TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction ===========================
+RESULT = Fail
+DESCRIPTION = NTP failed to detect or correct forward clock drift within expected timeframe
+TOTAL Test Time = 0:08:16
+TOTAL Sleep Time = 0:06:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:17.486
+TOTAL HELPER Time = 0:03:08.907
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 06:02:17,870 T0042: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction'  
+2025-11-19 06:02:17,878 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction'  
+2025-11-19 06:02:22,121 T0000: CMD TIME: 1265 D1 = show clock
+2025-11-19 06:02:23,803 T0000: CMD TIME: 257 D1 = sudo -s date -s "+5 minutes"
+2025-11-19 06:02:26,480 T0000: CMD TIME: 1265 D1 = show clock
+2025-11-19 06:02:27,751 T0000: WAIT TIME: 120 = static delay
+2025-11-19 06:04:28,704 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:04:30,037 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 06:04:31,119 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 06:04:32,608 T0000: CMD TIME: 2172 D1 = show ntp
+2025-11-19 06:04:35,199 T0000: CMD TIME: 1215 D1 = show clock
+2025-11-19 06:04:36,420 T0000: WAIT TIME: 120 = static delay
+2025-11-19 06:06:37,373 T0000: CMD TIME: 969 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:06:38,771 T0000: CMD TIME: 259 D1 = show ntp associations
+2025-11-19 06:06:39,860 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 06:06:41,352 T0000: CMD TIME: 2274 D1 = show ntp
+2025-11-19 06:06:44,045 T0000: CMD TIME: 1266 D1 = show clock
+2025-11-19 06:06:45,317 T0000: WAIT TIME: 120 = static delay
+2025-11-19 06:08:46,264 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:08:47,596 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 06:08:48,678 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 06:08:50,167 T0000: CMD TIME: 2170 D1 = show ntp
+2025-11-19 06:08:52,755 T0000: CMD TIME: 1264 D1 = show clock
+2025-11-19 06:08:54,472 T0045: HELPER TIME: 84305 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 06:10:20,015 T0045: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/techsupport_D2-smic_sonic2_pre-function-epilog-TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction_sonic_dump_D-Link_20251119_060857.tar.gz
+2025-11-19 06:08:54,466 T0044: HELPER TIME: 89117 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 06:10:24,121 T0044: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/techsupport_D1-smic_sonic1_pre-function-epilog-TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction_sonic_dump_D-Link_20251119_061357.tar.gz
+2025-11-19 06:10:25,143 T0050: HELPER TIME: 3924 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction'  
+2025-11-19 06:10:25,152 T0051: HELPER TIME: 3937 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction'  
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_7_verify_ntp_detects_corrects_clock_drift.py::TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:10:43
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_7_verify_ntp_detects_corrects_clock_drift.py::TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction ===========================
+RESULT = Fail
+DESCRIPTION = NTP failed to detect or correct backward clock drift within expected timeframe
+TOTAL Test Time = 0:08:18
+TOTAL Sleep Time = 0:06:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:19.138
+TOTAL HELPER Time = 0:03:08.901
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 06:10:33,654 T0054: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction'  
+2025-11-19 06:10:33,660 T0055: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction'  
+2025-11-19 06:10:37,907 T0000: CMD TIME: 1318 D1 = show clock
+2025-11-19 06:10:39,644 T0000: CMD TIME: 308 D1 = sudo -s date -s "-5 minutes"
+2025-11-19 06:10:42,372 T0000: CMD TIME: 1268 D1 = show clock
+2025-11-19 06:10:43,648 T0000: WAIT TIME: 120 = static delay
+2025-11-19 06:12:44,594 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:12:45,977 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 06:12:47,061 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 06:12:48,550 T0000: CMD TIME: 2221 D1 = show ntp
+2025-11-19 06:12:51,189 T0000: CMD TIME: 1214 D1 = show clock
+2025-11-19 06:12:52,411 T0000: WAIT TIME: 120 = static delay
+2025-11-19 06:14:53,353 T0000: CMD TIME: 911 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:14:54,683 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 06:14:55,764 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 06:14:57,253 T0000: CMD TIME: 2170 D1 = show ntp
+2025-11-19 06:14:59,841 T0000: CMD TIME: 1214 D1 = show clock
+2025-11-19 06:15:01,061 T0000: WAIT TIME: 120 = static delay
+2025-11-19 06:17:02,007 T0000: CMD TIME: 1062 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 06:17:03,488 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 06:17:04,570 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 06:17:06,057 T0000: CMD TIME: 2325 D1 = show ntp
+2025-11-19 06:17:08,801 T0000: CMD TIME: 2623 D1 = show clock
+2025-11-19 06:17:11,886 T0056: HELPER TIME: 84301 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 06:18:36,732 T0056: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/techsupport_D1-smic_sonic1_pre-function-epilog-TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction_sonic_dump_D-Link_20251119_061714.tar.gz
+2025-11-19 06:17:11,877 T0057: HELPER TIME: 89114 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 06:18:41,506 T0057: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/techsupport_D2-smic_sonic2_pre-function-epilog-TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction_sonic_dump_D-Link_20251119_061714.tar.gz
+2025-11-19 06:18:42,432 T0063: HELPER TIME: 3932 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction'  
+2025-11-19 06:18:42,438 T0062: HELPER TIME: 3928 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction'  
+=========================================================

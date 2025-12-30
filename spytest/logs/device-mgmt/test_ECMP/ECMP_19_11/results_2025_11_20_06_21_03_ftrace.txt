@@ -1,0 +1,14 @@
+ ____  ____       _____         _   
+/ ___||  _ \ _   |_   _|__  ___| |_ 
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_ 
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/                  
+
+SPYTEST_RANDOM_SEED used = 14650
+
+VERSION: UNKNOWN UNKNOWN UNKNOWN
+
+tcmap verify took 0:00:00
+Tests considered 0 and ignored 0
+Failed to collect routing/ecmp/test_ecmp5_scalability_ospf_ecmp.py

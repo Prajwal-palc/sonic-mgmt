@@ -1,0 +1,7 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+interface.py::interface_noshutdown,klish
+interface.py::interface_operation,klish
+port.py::set_status,klish
+lldp.py::lldp_config,klish
+lldp.py::get_lldp_neighbors,click

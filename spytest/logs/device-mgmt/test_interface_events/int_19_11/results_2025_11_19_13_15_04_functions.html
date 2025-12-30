@@ -1,0 +1,348 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>TimeTaken</th>
+      <th>ExecutedOn</th>
+      <th>Syslogs</th>
+      <th>FCLI</th>
+      <th>TSSH</th>
+      <th>DCNT</th>
+      <th>Description</th>
+      <th>Devices</th>
+      <th>KnownIssue</th>
+      <th>Doc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_initial_interface_configuration</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:20</td>
+      <td>2025-11-19 07:51:43</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>1001</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_01: Bring interface to UP state. Test Steps: 1. Configure no shutdown on Ethernet4 2. Verify interface is administratively up 3. Verify operational status using 'show interface status' Expected Result: - Interface shows admin status as 'up' - Interface shows oper status as 'up' - Command output is captured and validated</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_baseline_interface_status_check</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:39</td>
+      <td>2025-11-19 07:57:21</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>225</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'show interface status' failed to give prompt, recovered using CTRL+C</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_02: Capture baseline interface status. Test Steps: 1. Execute 'show interface status' 2. Store baseline output 3. Verify interface is in expected state Expected Result: - Command executes successfully - Output is captured and stored - Interface shows admin=up, oper=up</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_baseline_syslog_check</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Pass</a></td>
+      <td>0:00:26</td>
+      <td>2025-11-19 07:57:47</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>8</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Test case passed</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_03: Capture baseline system logs. Test Steps: 1. Execute 'show logging' 2. Optionally filter for interface-related logs 3. Store baseline logs Expected Result: - Command executes successfully (if supported) - Baseline logs captured for comparison</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_single_interface_shutdown</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:15</td>
+      <td>2025-11-19 08:03:02</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>992</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_04: Verify single interface shutdown. Test Steps: 1. Execute shutdown command on interface 2. Verify interface admin status is down 3. Verify interface oper status is down 4. Check syslog for shutdown event Expected Result: - Shutdown command executes successfully - Admin status = down - Oper status = down - Syslog contains shutdown event (if logging functional)</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_single_interface_no_shutdown</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:16</td>
+      <td>2025-11-19 08:08:17</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>992</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_05: Verify single interface no shutdown (recovery). Test Steps: 1. Execute no shutdown command on interface 2. Verify interface admin status is up 3. Verify interface oper status is up 4. Check syslog for interface up event Expected Result: - No shutdown command executes successfully - Admin status = up - Oper status = up - Syslog contains interface up event (if logging functional)</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_continuous_flapping_10_cycles</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:19</td>
+      <td>2025-11-19 08:13:35</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>995</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_06: Continuous flapping - Iteration 1 (10 cycles). Test Steps: 1. Perform 10 shutdown/no shutdown cycles 2. Verify each state transition 3. Validate final state is up 4. Check syslog for all events Expected Result: - All 10 cycles complete successfully - Each state transition is accurate - Final state is up - System remains stable</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_continuous_flapping_25_cycles</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:17</td>
+      <td>2025-11-19 08:18:51</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>992</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_07: Continuous flapping - Iteration 2 (25 cycles). Test Steps: 1. Perform 25 shutdown/no shutdown cycles 2. Verify state transitions 3. Validate final state is up 4. Check system stability Expected Result: - All 25 cycles complete successfully - System remains stable - No CLI degradation - Final state is up</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_continuous_flapping_50_cycles</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:18</td>
+      <td>2025-11-19 08:24:09</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>994</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_08: Continuous flapping - Iteration 3 (50 cycles). Test Steps: 1. Perform 50 shutdown/no shutdown cycles 2. Monitor system resources 3. Validate final state is up 4. Check for resource exhaustion Expected Result: - All 50 cycles complete successfully - System handles sustained flapping - No memory leaks - Final state is up</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_continuous_flapping_100_cycles</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:18</td>
+      <td>2025-11-19 08:29:26</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>994</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_09: Continuous flapping - Iteration 4 (100 cycles). Test Steps: 1. Perform 100 shutdown/no shutdown cycles 2. Monitor system stability 3. Validate final state is up 4. Check system resources Expected Result: - System demonstrates robustness - All 100 cycles complete successfully - No system instability - Final state is up</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_rapid_flapping_stress_test</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:05:23</td>
+      <td>2025-11-19 08:34:48</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>998</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Command 'exit' failed to give required prompt, recovered using CR</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_10: Rapid flapping without delay (stress test). Test Steps: 1. Perform rapid shutdown/no shutdown without delays 2. Verify system handles rapid commands 3. Validate final state is deterministic (up) 4. Check system stability Expected Result: - System handles rapid commands without errors - Final state is up - No command queue overflows - CLI remains responsive</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>system/interface_events/test_interface_events5_continuous_interface_flaping.py</a></td>
+      <td>TestInterfaceEventsContinuousFlapping.test_final_state_verification</td>
+      <td><a href='results_2025_11_19_13_15_04_mlog_system_interface_events_test_interface_events5_continuous_interface_flaping.log'>Fail</a></td>
+      <td>0:01:51</td>
+      <td>2025-11-19 08:36:38</td>
+      <td><a href='results_2025_11_19_13_15_04_syslog.html'>68</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Final verification failed - interface admin status not up</td>
+      <td>smic_sonic1, smic_sonic2</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_005_11: Final state verification after all tests. Test Steps: 1. Verify interface is in up state 2. Check overall system status 3. Verify no error conditions 4. Check system resources Expected Result: - Interface is in up state - No residual error conditions - System resources at normal levels - All CLI commands responsive</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

@@ -1,0 +1,268 @@
+# IPv4 Unnumbered Interface - Persistence and Stability Test Variables
+# Test ID: TC_IPv4_Unnumbered_1.2.1
+# Purpose: Variables for testing IPv4 unnumbered persistence across reboots and donor dependency
+
+defaults:
+  cli_type: klish  # Use klish CLI exclusively as per requirement
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"  # Single DUT required
+
+# Interface Configuration
+interfaces:
+  donor:
+    name: "Loopback0"
+    ip: "10.10.10.1/32"
+    ip_addr: "10.10.10.1"
+    netmask: "32"
+    type: "loopback"
+    description: "Donor interface for IP unnumbered"
+
+  target:
+    name: "Ethernet0"
+    type: "physical"
+    description: "Target unnumbered interface"
+    borrows_from: "Loopback0"
+
+# Reboot Configuration
+reboot:
+  warm:
+    enabled: true
+    max_wait_time: 600  # 10 minutes
+    description: "Warm reboot - graceful restart"
+
+  fast:
+    enabled: true
+    max_wait_time: 480  # 8 minutes
+    description: "Fast reboot - quick restart"
+
+  cold:
+    enabled: true
+    max_wait_time: 900  # 15 minutes
+    description: "Cold reboot - full power cycle"
+
+  post_reboot_stabilize: 60  # 1 minute stabilization after reboot
+
+# Test Cases Configuration
+testcases:
+  "1.2.1.1":
+    title: "Configure IPv4 unnumbered baseline"
+    description: "Configure Loopback0 as donor, Ethernet0 as unnumbered interface"
+    steps:
+      - "Configure Loopback0 with IP 10.10.10.1/32"
+      - "Configure Ethernet0 with ip unnumbered Loopback0"
+      - "Verify running-config shows unnumbered configuration"
+      - "Verify Ethernet0 borrows IP from Loopback0"
+      - "Save configuration"
+    validation:
+      - running_config_has_unnumbered: true
+      - target_has_borrowed_ip: true
+      - donor_has_ip: true
+      - interfaces_operational: true
+
+  "1.2.1.2":
+    title: "Warm reboot persistence"
+    description: "Verify configuration persists across warm reboot"
+    reboot_type: "warm"
+    max_reboot_time: 600  # seconds
+    validation:
+      - config_persists: true
+      - unnumbered_functional: true
+      - target_has_borrowed_ip: true
+      - system_stable: true
+
+  "1.2.1.3":
+    title: "Fast reboot persistence"
+    description: "Verify configuration persists across fast reboot"
+    reboot_type: "fast"
+    max_reboot_time: 480  # seconds
+    validation:
+      - config_persists: true
+      - unnumbered_functional: true
+      - target_has_borrowed_ip: true
+      - system_stable: true
+
+  "1.2.1.4":
+    title: "Cold reboot persistence"
+    description: "Verify configuration persists across cold reboot (full power cycle)"
+    reboot_type: "cold"
+    max_reboot_time: 900  # seconds
+    validation:
+      - config_persists: true
+      - unnumbered_functional: true
+      - target_has_borrowed_ip: true
+      - system_stable: true
+      - platform_healthy: true
+
+  "1.2.1.5":
+    title: "Remove donor IP - dependent failure"
+    description: "Verify dependent interface fails when donor IP is removed"
+    steps:
+      - "Remove IP from Loopback0"
+      - "Verify Ethernet0 has no IP (dependent failure)"
+      - "Verify unnumbered config still in running-config"
+      - "Verify system remains stable"
+    validation:
+      - donor_has_no_ip: true
+      - target_has_no_ip: true  # Dependent failure
+      - unnumbered_config_present: true  # Config persists
+      - system_stable: true  # No crash
+
+  "1.2.1.6":
+    title: "Restore donor IP - automatic recovery"
+    description: "Verify automatic recovery when donor IP is restored"
+    steps:
+      - "Restore IP to Loopback0"
+      - "Verify Ethernet0 automatically recovers borrowed IP"
+      - "Verify no manual intervention required"
+      - "Save configuration"
+    validation:
+      - donor_has_ip: true
+      - target_automatically_recovered: true
+      - target_has_borrowed_ip: true
+      - no_manual_config_needed: true
+      - system_stable: true
+
+# Validation Commands (klish mode via sonic-cli)
+validation_commands:
+  running_config:
+    - "show running-config interface Loopback0"
+    - "show running-config interface Ethernet0"
+    - "show running-config"
+
+  startup_config:
+    - "show startup-config interface Loopback0"
+    - "show startup-config interface Ethernet0"
+
+  ip_interface:
+    - "show ip interface Loopback0"
+    - "show ip interface Ethernet0"
+    - "show ip interface brief"
+
+  interface_status:
+    - "show interface status Loopback0"
+    - "show interface status Ethernet0"
+    - "show interface status"
+
+  system_health:
+    - "show version"
+    - "show platform summary"
+    - "show system uptime"
+    - "show processes"
+    - "show system memory"
+
+  logging:
+    - "show logging | grep -i unnumbered"
+    - "show logging | grep -i loopback"
+    - "show logging | grep -i error"
+    - "show reboot-cause"
+
+# Expected Results
+expected_results:
+  baseline_config:
+    donor_interface: "Loopback0"
+    donor_ip: "10.10.10.1/32"
+    target_interface: "Ethernet0"
+    unnumbered_config: "ip unnumbered Loopback0"
+    target_borrowed_ip: "10.10.10.1/32"
+    interfaces_up: true
+
+  after_warm_reboot:
+    config_persisted: true
+    reboot_time_max: 600  # seconds
+    unnumbered_functional: true
+    target_has_ip: true
+
+  after_fast_reboot:
+    config_persisted: true
+    reboot_time_max: 480  # seconds
+    unnumbered_functional: true
+    target_has_ip: true
+
+  after_cold_reboot:
+    config_persisted: true
+    reboot_time_max: 900  # seconds
+    unnumbered_functional: true
+    target_has_ip: true
+    platform_healthy: true
+
+  donor_ip_removed:
+    donor_has_no_ip: true
+    target_has_no_ip: true  # Dependent failure expected
+    unnumbered_config_present: true  # Config should remain
+    system_stable: true  # No crash
+
+  donor_ip_restored:
+    donor_has_ip: true
+    target_has_ip: true  # Automatic recovery
+    recovery_time_max: 10  # seconds
+    no_manual_intervention: true
+
+# Performance Criteria
+performance:
+  reboot_times:
+    warm_max: 600  # 10 minutes
+    fast_max: 480  # 8 minutes
+    cold_max: 900  # 15 minutes
+
+  recovery_times:
+    donor_ip_restore_max: 10  # seconds for auto-recovery
+
+  system_resources:
+    cpu_usage_max: 50  # percent
+    memory_usage_max: 80  # percent
+
+# Error Messages and Patterns
+error_patterns:
+  unnumbered_failure:
+    - "unnumbered.*fail"
+    - "donor.*not.*configured"
+    - "loopback.*no.*ip"
+
+  reboot_failure:
+    - "reboot.*fail"
+    - "system.*crash"
+    - "panic"
+
+# Configuration Commands (klish mode)
+config_commands:
+  configure_donor:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "ip address 10.10.10.1/32"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  configure_unnumbered:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no shutdown"
+    - "ip unnumbered Loopback0"
+    - "exit"
+    - "exit"
+
+  remove_donor_ip:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "no ip address 10.10.10.1/32"
+    - "exit"
+    - "exit"
+
+  restore_donor_ip:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "ip address 10.10.10.1/32"
+    - "exit"
+    - "exit"
+
+  save_config:
+    - "write memory"
+
+  remove_unnumbered:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no ip unnumbered Loopback0"
+    - "exit"
+    - "exit"

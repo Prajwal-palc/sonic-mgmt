@@ -1,0 +1,29 @@
+
+======================= STATS: system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py::TestInterfaceIPv6AddressAndConnectivity.test_interface_ipv6_address_and_connectivity ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:12
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:10.922
+TOTAL HELPER Time = 0:00:15.262
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-10 10:23:11,122 T0057: CMD TIME: 967 D2 = show interfaces status Ethernet124
+2025-12-10 10:23:11,100 T0059: CMD TIME: 1063 D4 = show interfaces status Ethernet124
+2025-12-10 10:23:11,114 T0058: CMD TIME: 1126 D3 = show interfaces status Ethernet124
+2025-12-10 10:23:12,509 T0057: CMD TIME: 254 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 10:23:12,583 T0059: CMD TIME: 256 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 10:23:11,088 T0056: CMD TIME: 1825 D1 = show interfaces status Ethernet124
+2025-12-10 10:23:12,660 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 10:23:13,342 T0056: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-10 10:23:14,034 T0061: CMD TIME: 1032 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 10:23:14,056 T0064: CMD TIME: 1119 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 10:23:14,051 T0063: CMD TIME: 1134 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 10:23:14,042 T0062: CMD TIME: 1636 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-10 10:23:16,171 T0066: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py'  
+2025-12-10 10:23:16,181 T0067: HELPER TIME: 3818 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py'  
+2025-12-10 10:23:16,190 T0065: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py'  
+2025-12-10 10:23:16,199 T0068: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py'  
+=========================================================

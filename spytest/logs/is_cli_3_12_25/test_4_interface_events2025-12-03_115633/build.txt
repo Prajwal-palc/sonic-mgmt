@@ -1,0 +1,19 @@
+build: SONiC.HEAD.0-dirty-20251202.171434
+uitype: click
+Execution Started: 2025-12-03 06:26:34.449170
+Execution Completed: 2025-12-03 06:29:14.241275
+Execution Time: 0:02:40
+DailyRun: 0
+Python: 3.8.10
+Combined Report: 0
+GCOV Run: 0
+Image Build Path: 
+EMail: None
+EMailSubject: Run Report
+Dry Run: 0
+GCOV_POST_RUN_KPI_UPDATE: 0
+GCOV_MERGE_HTML: 0
+Pass Rate: 100.00%
+Suite: 
+Platforms Not Covered: 
+Chips Not Covered: 

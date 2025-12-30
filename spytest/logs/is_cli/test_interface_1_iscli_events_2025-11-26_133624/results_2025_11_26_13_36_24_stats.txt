@@ -1,0 +1,146 @@
+
+======================= STATS: system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.402
+TOTAL HELPER Time = 0:00:07.629
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-26 08:07:04,015 T0028: CMD TIME: 1065 D2 = show interfaces status Ethernet124
+2025-11-26 08:07:04,008 T0027: CMD TIME: 1729 D1 = show interfaces status Ethernet124
+2025-11-26 08:07:05,501 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 08:07:06,157 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 08:07:06,846 T0031: CMD TIME: 970 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-26 08:07:06,840 T0030: CMD TIME: 1128 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-26 08:07:08,417 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py'  
+2025-11-26 08:07:08,422 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py'  
+=========================================================
+
+======================= STATS: system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle ===========================
+RESULT = Fail
+DESCRIPTION = Command 'do show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:54
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.197
+TOTAL HELPER Time = 0:02:30.238
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-26 08:07:24,264 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle'  
+2025-11-26 08:07:24,271 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle'  
+2025-11-26 08:07:28,529 T0000: CMD TIME: 662 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 08:07:29,200 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-26 08:07:29,885 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-26 08:07:30,203 T0000: CMD TIME: 1014 D1 = no shutdown
+2025-11-26 08:07:31,226 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:07:31,912 T0000: CMD TIME: 308 D1 = interface Ethernet 4
+2025-11-26 08:07:32,229 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-26 08:07:33,251 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:07:33,937 T0000: CMD TIME: 308 D1 = interface Ethernet 8
+2025-11-26 08:07:34,255 T0000: CMD TIME: 963 D1 = no shutdown
+2025-11-26 08:07:35,228 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:07:35,914 T0000: CMD TIME: 308 D1 = interface Ethernet 12
+2025-11-26 08:07:36,232 T0000: CMD TIME: 962 D1 = no shutdown
+2025-11-26 08:07:37,204 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:11:03,069 T0000: PROMPT NFOUND: do show interface status
+2025-11-26 08:11:17,666 T0000: WAIT TIME: 5 = static delay
+2025-11-26 08:11:29,534 T0000: CMD TIME: 260 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-26 08:11:30,214 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-26 08:11:31,717 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-26 08:11:32,396 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-26 08:11:33,080 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 08:11:36,105 T0048: HELPER TIME: 62688 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-26 08:12:39,241 T0048: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/is_cli/test_interface_1_iscli_events_2025-11-26_133624/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle_20251126_081137.tar.gz
+2025-11-26 08:11:36,111 T0049: HELPER TIME: 72295 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-26 08:12:48,782 T0049: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/is_cli/test_interface_1_iscli_events_2025-11-26_133624/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle_20251126_081137.tar.gz
+2025-11-26 08:12:50,133 T0000: CMD TIME: 609 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 08:12:50,751 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-26 08:12:51,433 T0000: CMD TIME: 307 D1 = interface Ethernet 0
+2025-11-26 08:12:51,748 T0000: CMD TIME: 914 D1 = no shutdown
+2025-11-26 08:12:52,670 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:12:53,352 T0000: CMD TIME: 307 D1 = interface Ethernet 4
+2025-11-26 08:12:53,667 T0000: CMD TIME: 962 D1 = no shutdown
+2025-11-26 08:12:54,638 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:12:55,318 T0000: CMD TIME: 308 D1 = interface Ethernet 8
+2025-11-26 08:12:55,634 T0000: CMD TIME: 862 D1 = no shutdown
+2025-11-26 08:12:56,504 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:12:57,186 T0000: CMD TIME: 307 D1 = interface Ethernet 12
+2025-11-26 08:12:57,502 T0000: CMD TIME: 912 D1 = no shutdown
+2025-11-26 08:12:58,423 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:12:59,111 T0055: HELPER TIME: 3818 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle'  
+2025-11-26 08:13:10,850 T0054: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle'  
+=========================================================
+
+======================= STATS: system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py::TestInterfaceAdminStateChanges.test_interface_admin_state_isolation ===========================
+RESULT = Fail
+DESCRIPTION = Command 'do show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:48
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.772
+TOTAL HELPER Time = 0:02:23.022
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-26 08:13:18,120 T0059: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_isolation'  
+2025-11-26 08:13:18,125 T0058: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_isolation'  
+2025-11-26 08:13:22,380 T0000: CMD TIME: 661 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 08:13:23,050 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-26 08:13:23,730 T0000: CMD TIME: 308 D1 = interface Ethernet 0
+2025-11-26 08:13:24,047 T0000: CMD TIME: 862 D1 = no shutdown
+2025-11-26 08:13:24,919 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:13:25,603 T0000: CMD TIME: 308 D1 = interface Ethernet 4
+2025-11-26 08:13:25,920 T0000: CMD TIME: 862 D1 = no shutdown
+2025-11-26 08:13:26,791 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:13:27,475 T0000: CMD TIME: 309 D1 = interface Ethernet 8
+2025-11-26 08:13:27,793 T0000: CMD TIME: 965 D1 = no shutdown
+2025-11-26 08:13:28,767 T0000: CMD TIME: 258 D1 = exit
+2025-11-26 08:13:29,452 T0000: CMD TIME: 309 D1 = interface Ethernet 12
+2025-11-26 08:13:29,770 T0000: CMD TIME: 914 D1 = no shutdown
+2025-11-26 08:13:30,694 T0000: CMD TIME: 258 D1 = exit
+2025-11-26 08:16:56,712 T0000: PROMPT NFOUND: do show interface status
+2025-11-26 08:17:11,328 T0000: WAIT TIME: 5 = static delay
+2025-11-26 08:17:23,265 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-26 08:17:23,942 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-26 08:17:25,442 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-26 08:17:26,119 T0000: CMD TIME: 257 D1 = cat /proc/uptime
+2025-11-26 08:17:26,802 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-26 08:17:29,837 T0065: HELPER TIME: 62679 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-26 08:18:32,929 T0065: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/is_cli/test_interface_1_iscli_events_2025-11-26_133624/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceAdminStateChanges.test_interface_admin_state_isolation_20251126_081731.tar.gz
+2025-11-26 08:17:29,827 T0064: HELPER TIME: 65095 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-26 08:18:35,341 T0064: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/is_cli/test_interface_1_iscli_events_2025-11-26_133624/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceAdminStateChanges.test_interface_admin_state_isolation_20251126_081731.tar.gz
+2025-11-26 08:18:36,672 T0000: CMD TIME: 711 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-26 08:18:37,396 T0000: CMD TIME: 263 D1 = configure terminal
+2025-11-26 08:18:38,083 T0000: CMD TIME: 309 D1 = interface Ethernet 0
+2025-11-26 08:18:38,403 T0000: CMD TIME: 1016 D1 = no shutdown
+2025-11-26 08:18:39,430 T0000: CMD TIME: 258 D1 = exit
+2025-11-26 08:18:40,114 T0000: CMD TIME: 308 D1 = interface Ethernet 4
+2025-11-26 08:18:40,430 T0000: CMD TIME: 963 D1 = no shutdown
+2025-11-26 08:18:41,401 T0000: CMD TIME: 256 D1 = exit
+2025-11-26 08:18:42,081 T0000: CMD TIME: 359 D1 = interface Ethernet 8
+2025-11-26 08:18:42,449 T0000: CMD TIME: 1066 D1 = no shutdown
+2025-11-26 08:18:43,522 T0000: CMD TIME: 255 D1 = exit
+2025-11-26 08:18:44,202 T0000: CMD TIME: 360 D1 = interface Ethernet 12
+2025-11-26 08:18:44,572 T0000: CMD TIME: 1317 D1 = no shutdown
+2025-11-26 08:18:45,897 T0000: CMD TIME: 257 D1 = exit
+2025-11-26 08:18:46,595 T0071: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_isolation'  
+2025-11-26 08:18:58,336 T0070: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceAdminStateChanges.test_interface_admin_state_isolation'  
+=========================================================

@@ -1,0 +1,233 @@
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.262
+TOTAL HELPER Time = 0:00:07.635
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 08:56:17,995 T0027: CMD TIME: 1926 D1 = show interfaces status Ethernet124
+2025-11-19 08:56:18,005 T0028: CMD TIME: 1923 D2 = show interfaces status Ethernet124
+2025-11-19 08:56:20,356 T0027: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 08:56:20,363 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 08:56:21,051 T0030: CMD TIME: 1922 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 08:56:21,046 T0031: CMD TIME: 1978 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 08:56:23,477 T0033: HELPER TIME: 3819 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py'  
+2025-11-19 08:56:23,486 T0032: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:20
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.005
+TOTAL HELPER Time = 0:03:06.607
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 08:56:42,605 T0042: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration'  
+2025-11-19 08:56:42,613 T0043: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration'  
+2025-11-19 08:56:46,891 T0000: CMD TIME: 915 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 08:56:47,815 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 08:56:48,497 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 08:56:48,762 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 08:56:49,079 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-19 08:56:50,100 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 09:00:11,916 T0000: PROMPT NFOUND: exit
+2025-11-19 09:00:15,090 T0047: HELPER TIME: 86708 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 09:01:42,399 T0047: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration_sonic_dump_D-Link_20251119_090017.tar.gz
+2025-11-19 09:00:24,736 T0046: HELPER TIME: 84303 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 09:01:49,619 T0046: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration_sonic_dump_D-Link_20251119_090028.tar.gz
+2025-11-19 09:01:51,083 T0053: HELPER TIME: 3928 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration'  
+2025-11-19 09:01:51,075 T0052: HELPER TIME: 4038 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_initial_member_interface_configuration'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:04.695
+TOTAL HELPER Time = 0:03:04.026
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 09:01:59,870 T0056: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel'  
+2025-11-19 09:01:59,875 T0057: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel'  
+2025-11-19 09:02:04,142 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 09:02:05,113 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 09:02:05,790 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 09:02:06,055 T0000: CMD TIME: 307 D1 = interface PortChannel10
+2025-11-19 09:02:06,371 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-19 09:02:07,393 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 09:02:07,658 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 09:02:07,974 T0000: CMD TIME: 257 D1 = channel-group 10 mode active
+2025-11-19 09:02:08,241 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 09:02:08,505 T0000: CMD TIME: 307 D1 = interface Ethernet4
+2025-11-19 09:02:08,820 T0000: CMD TIME: 257 D1 = channel-group 10 mode active
+2025-11-19 09:02:09,086 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 09:05:30,932 T0000: PROMPT NFOUND: exit
+2025-11-19 09:05:34,098 T0061: HELPER TIME: 86708 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 09:07:01,415 T0061: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel_sonic_dump_D-Link_20251119_090537.tar.gz
+2025-11-19 09:05:43,741 T0060: HELPER TIME: 81899 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 09:07:06,137 T0060: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel_sonic_dump_D-Link_20251119_090545.tar.gz
+2025-11-19 09:07:07,576 T0066: HELPER TIME: 3893 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel'  
+2025-11-19 09:07:07,571 T0067: HELPER TIME: 3898 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_create_and_configure_portchannel'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.197
+TOTAL HELPER Time = 0:02:59.210
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 09:07:16,069 T0070: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address'  
+2025-11-19 09:07:16,076 T0071: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address'  
+2025-11-19 09:07:20,337 T0000: CMD TIME: 862 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 09:07:21,208 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 09:07:21,884 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 09:07:22,149 T0000: CMD TIME: 307 D1 = interface PortChannel10
+2025-11-19 09:07:22,464 T0000: CMD TIME: 257 D1 = ip address 10.0.10.1/24
+2025-11-19 09:07:22,729 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 09:10:44,665 T0000: PROMPT NFOUND: exit
+2025-11-19 09:10:47,825 T0075: HELPER TIME: 81898 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 09:12:10,337 T0075: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address_sonic_dump_D-Link_20251119_091050.tar.gz
+2025-11-19 09:10:57,470 T0074: HELPER TIME: 81901 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 09:12:19,929 T0074: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address_sonic_dump_D-Link_20251119_091059.tar.gz
+2025-11-19 09:12:21,394 T0081: HELPER TIME: 3896 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address'  
+2025-11-19 09:12:21,402 T0080: HELPER TIME: 3889 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_configure_portchannel_ip_address'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_baseline_status_check ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_baseline_status_check ===========================
+RESULT = Fail
+DESCRIPTION = Command 'show interface status' failed to give prompt, recovered using CTRL+C
+TOTAL Test Time = 0:05:43
+TOTAL Sleep Time = 0:00:05
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.203
+TOTAL HELPER Time = 0:02:59.241
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 09:12:29,793 T0084: HELPER TIME: 3818 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_baseline_status_check'  
+2025-11-19 09:12:29,804 T0085: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_baseline_status_check'  
+2025-11-19 09:12:34,071 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 09:15:57,228 T0000: PROMPT NFOUND: show interface status
+2025-11-19 09:16:08,877 T0000: WAIT TIME: 5 = static delay
+2025-11-19 09:16:31,318 T0000: CMD TIME: 259 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 09:16:31,997 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-19 09:16:33,500 T0000: CMD TIME: 258 D1 = export TMOUT=0;stty cols 5000;uptime
+2025-11-19 09:16:34,178 T0000: CMD TIME: 258 D1 = cat /proc/uptime
+2025-11-19 09:16:34,863 T0000: CMD TIME: 258 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 09:16:37,880 T0091: HELPER TIME: 79504 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 09:17:58,016 T0091: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_baseline_status_check_sonic_dump_D-Link_20251119_091640.tar.gz
+2025-11-19 09:16:37,886 T0090: HELPER TIME: 84304 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 09:18:02,725 T0090: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_baseline_status_check_sonic_dump_D-Link_20251119_091640.tar.gz
+2025-11-19 09:18:04,125 T0097: HELPER TIME: 3904 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_baseline_status_check'  
+2025-11-19 09:18:04,129 T0096: HELPER TIME: 3901 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_baseline_status_check'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:15
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.257
+TOTAL HELPER Time = 0:03:01.597
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 09:18:12,541 T0100: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown'  
+2025-11-19 09:18:12,546 T0101: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown'  
+2025-11-19 09:18:16,813 T0000: CMD TIME: 1064 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 09:18:17,887 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 09:18:18,570 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 09:18:18,836 T0000: CMD TIME: 358 D1 = interface PortChannel10
+2025-11-19 09:18:19,204 T0000: CMD TIME: 1064 D1 = shutdown
+2025-11-19 09:18:20,276 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 09:21:42,191 T0000: PROMPT NFOUND: exit
+2025-11-19 09:21:45,354 T0105: HELPER TIME: 84304 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-19 09:23:10,258 T0105: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown_sonic_dump_D-Link_20251119_092147.tar.gz
+2025-11-19 09:21:54,993 T0104: HELPER TIME: 81900 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-19 09:23:17,419 T0104: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown_sonic_dump_D-Link_20251119_092157.tar.gz
+2025-11-19 09:23:18,770 T0111: HELPER TIME: 3881 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown'  
+2025-11-19 09:23:18,775 T0110: HELPER TIME: 3888 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLAGFlapping.test_single_portchannel_shutdown'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events6_continuous_lag_interface_flaping.py::TestInterfaceEventsLAGFlapping.test_single_portchannel_no_shutdown ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================

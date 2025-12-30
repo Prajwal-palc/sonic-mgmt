@@ -1,0 +1,174 @@
+
+======================= STATS: system/ntp/test_ntp_6_verify_encrypted_keys_secure_sync.py::TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.308
+TOTAL HELPER Time = 0:00:07.625
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 05:23:57,965 T0028: CMD TIME: 1922 D2 = show interfaces status Ethernet124
+2025-11-19 05:23:57,959 T0027: CMD TIME: 2080 D1 = show interfaces status Ethernet124
+2025-11-19 05:24:00,307 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 05:24:00,458 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 05:24:01,145 T0031: CMD TIME: 1820 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 05:24:01,139 T0030: CMD TIME: 1976 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 05:24:03,559 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/ntp/test_ntp_6_verify_encrypted_keys_secure_sync.py'  
+2025-11-19 05:24:03,567 T0033: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/ntp/test_ntp_6_verify_encrypted_keys_secure_sync.py'  
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_6_verify_encrypted_keys_secure_sync.py::TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:05:12
+TOTAL Sleep Time = 0:02:11
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:01:06.265
+TOTAL HELPER Time = 0:00:15.409
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 05:24:24,027 T0042: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync'  
+2025-11-19 05:24:24,034 T0043: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync'  
+2025-11-19 05:24:28,687 T0000: CMD TIME: 1015 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:24:29,710 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 05:24:30,393 T0000: CMD TIME: 257 D1 = ntp enable
+2025-11-19 05:24:31,476 T0000: CMD TIME: 913 D1 = end
+2025-11-19 05:24:33,215 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 05:24:34,347 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:24:38,182 T0000: CMD TIME: 1017 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:24:39,210 T0000: CMD TIME: 260 D1 = configure terminal
+2025-11-19 05:24:39,900 T0000: CMD TIME: 258 D1 = ntp authenticate
+2025-11-19 05:24:40,992 T0000: CMD TIME: 915 D1 = end
+2025-11-19 05:24:42,740 T0000: CMD TIME: 311 D1 = exit
+2025-11-19 05:24:43,873 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:24:47,700 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:24:48,674 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 05:24:49,351 T0000: CMD TIME: 257 D1 = ntp authentication-key 1 md5 PlainMD5Secret123
+2025-11-19 05:24:50,434 T0000: CMD TIME: 257 D1 = ntp trusted-key 1
+2025-11-19 05:24:51,516 T0000: CMD TIME: 862 D1 = end
+2025-11-19 05:24:53,203 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:24:54,280 T0000: WAIT TIME: 10 = static delay
+2025-11-19 05:25:05,112 T0000: CMD TIME: 1721 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:25:06,842 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:25:07,518 T0000: CMD TIME: 257 D1 = ntp server 216.239.35.0 key 1 iburst
+2025-11-19 05:25:08,601 T0000: CMD TIME: 963 D1 = end
+2025-11-19 05:25:10,388 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:25:11,464 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:25:15,290 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:25:16,673 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 05:25:17,756 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 05:25:19,653 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:25:20,985 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 05:25:22,067 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:25:23,966 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:25:24,937 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:25:25,614 T0000: CMD TIME: 257 D1 = no ntp server 216.239.35.0
+2025-11-19 05:25:26,696 T0000: CMD TIME: 257 D1 = no ntp trusted-key 1
+2025-11-19 05:25:27,778 T0000: CMD TIME: 257 D1 = no ntp authentication-key 1
+2025-11-19 05:25:28,860 T0000: CMD TIME: 912 D1 = end
+2025-11-19 05:25:30,596 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:25:31,672 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:25:35,498 T0000: CMD TIME: 965 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:25:36,471 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:25:37,149 T0000: CMD TIME: 258 D1 = ntp authentication-key 2 md5 $1$abcd1234$MD5EncryptedHashSimulated encrypted
+2025-11-19 05:25:38,234 T0000: CMD TIME: 258 D1 = ntp trusted-key 2
+2025-11-19 05:25:39,321 T0000: CMD TIME: 914 D1 = end
+2025-11-19 05:25:41,063 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 05:25:42,143 T0000: WAIT TIME: 10 = static delay
+2025-11-19 05:25:52,975 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:25:53,897 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:25:54,576 T0000: CMD TIME: 257 D1 = ntp server 216.239.35.0 key 2 iburst
+2025-11-19 05:25:55,658 T0000: CMD TIME: 913 D1 = end
+2025-11-19 05:25:57,402 T0000: CMD TIME: 262 D1 = exit
+2025-11-19 05:25:58,486 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:26:02,314 T0000: CMD TIME: 967 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:03,704 T0000: CMD TIME: 259 D1 = show ntp global
+2025-11-19 05:26:04,787 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 05:26:06,735 T0000: CMD TIME: 1166 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:08,322 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 05:26:09,403 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 05:26:11,299 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:12,632 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 05:26:13,716 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 05:26:15,619 T0000: CMD TIME: 969 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:16,603 T0000: CMD TIME: 262 D1 = configure terminal
+2025-11-19 05:26:17,288 T0000: CMD TIME: 258 D1 = no ntp server 216.239.35.0
+2025-11-19 05:26:18,380 T0000: CMD TIME: 261 D1 = no ntp trusted-key 2
+2025-11-19 05:26:19,471 T0000: CMD TIME: 259 D1 = no ntp authentication-key 2
+2025-11-19 05:26:20,557 T0000: CMD TIME: 964 D1 = end
+2025-11-19 05:26:22,346 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 05:26:23,420 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:26:27,244 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:28,166 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:26:28,842 T0000: CMD TIME: 308 D1 = ntp authentication-key 21 sha256 $5$rounds=5000$salt$SHA256EncryptedHashSimulated encrypted
+2025-11-19 05:26:29,973 T0000: CMD TIME: 257 D1 = ntp trusted-key 21
+2025-11-19 05:26:31,054 T0000: CMD TIME: 257 D1 = ntp server 216.239.35.0 key 21 iburst prefer
+2025-11-19 05:26:32,137 T0000: CMD TIME: 861 D1 = end
+2025-11-19 05:26:33,822 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:26:34,899 T0000: WAIT TIME: 10 = static delay
+2025-11-19 05:26:45,732 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:47,064 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 05:26:48,146 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:26:50,042 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:51,374 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 05:26:52,458 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:26:54,357 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:26:55,280 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:26:55,956 T0000: CMD TIME: 257 D1 = no ntp server 216.239.35.0
+2025-11-19 05:26:57,040 T0000: CMD TIME: 257 D1 = no ntp trusted-key 21
+2025-11-19 05:26:58,123 T0000: CMD TIME: 257 D1 = no ntp authentication-key 21
+2025-11-19 05:26:59,205 T0000: CMD TIME: 912 D1 = end
+2025-11-19 05:27:00,941 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:27:02,017 T0000: WAIT TIME: 3 = static delay
+2025-11-19 05:27:05,843 T0000: CMD TIME: 1570 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:27:07,421 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:27:08,098 T0000: CMD TIME: 308 D1 = ntp authentication-key 41 sha512 $6$rounds=5000$salt$SHA512EncryptedHashSimulated encrypted
+2025-11-19 05:27:09,232 T0000: CMD TIME: 257 D1 = ntp trusted-key 41
+2025-11-19 05:27:10,316 T0000: CMD TIME: 258 D1 = ntp server 216.239.35.0 key 41 iburst
+2025-11-19 05:27:11,399 T0000: CMD TIME: 861 D1 = end
+2025-11-19 05:27:13,085 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 05:27:14,160 T0000: WAIT TIME: 10 = static delay
+2025-11-19 05:27:24,993 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:27:26,324 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 05:27:27,406 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 05:27:29,301 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:27:30,633 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 05:27:31,714 T0000: CMD TIME: 307 D1 = exit
+2025-11-19 05:27:32,843 T0000: WAIT TIME: 60 = static delay
+2025-11-19 05:28:33,725 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:28:35,058 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 05:28:36,141 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:28:37,630 T0000: CMD TIME: 2325 D1 = show ntp
+2025-11-19 05:28:40,375 T0000: CMD TIME: 1418 D1 = show clock
+2025-11-19 05:28:42,625 T0000: CMD TIME: 1014 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:28:43,647 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 05:28:44,326 T0000: CMD TIME: 258 D1 = ntp authentication-key 2 md5 $1$abcd1234$MD5EncryptedHashSimulated encrypted
+2025-11-19 05:28:45,410 T0000: CMD TIME: 257 D1 = ntp trusted-key 2
+2025-11-19 05:28:46,493 T0000: CMD TIME: 308 D1 = ntp authentication-key 21 sha256 $5$rounds=5000$salt$SHA256EncryptedHashSimulated encrypted
+2025-11-19 05:28:47,625 T0000: CMD TIME: 257 D1 = ntp trusted-key 21
+2025-11-19 05:28:48,707 T0000: CMD TIME: 308 D1 = ntp authentication-key 41 sha512 $6$rounds=5000$salt$SHA512EncryptedHashSimulated encrypted
+2025-11-19 05:28:49,840 T0000: CMD TIME: 257 D1 = ntp trusted-key 41
+2025-11-19 05:28:50,923 T0000: CMD TIME: 912 D1 = end
+2025-11-19 05:28:52,659 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:28:53,734 T0000: WAIT TIME: 10 = static delay
+2025-11-19 05:29:04,567 T0000: CMD TIME: 1619 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:29:06,606 T0000: CMD TIME: 258 D1 = show ntp global
+2025-11-19 05:29:07,689 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 05:29:09,585 T0000: CMD TIME: 1013 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:29:11,027 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 05:29:12,108 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:29:14,005 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:29:15,338 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 05:29:16,422 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:29:18,320 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 05:29:19,654 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 05:29:20,737 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 05:29:22,228 T0000: CMD TIME: 2172 D1 = show ntp
+2025-11-19 05:29:24,821 T0000: CMD TIME: 1316 D1 = show clock
+2025-11-19 05:29:26,588 T0046: HELPER TIME: 3896 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync'  
+2025-11-19 05:29:26,595 T0047: HELPER TIME: 3890 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpEncryptedKeysSecureSync.test_ntp_6_verify_encrypted_keys_secure_sync'  
+=========================================================

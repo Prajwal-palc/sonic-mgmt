@@ -1,0 +1,43 @@
+framework,,,D1,normal-user,show interfaces status Ethernet513
+framework,,,D1,normal-user,show interfaces status Ethernet272
+framework,,,D1,normal-user,show interfaces status Ethernet513
+function-prolog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 272
+function-prolog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,terminal length 0
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 272
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,terminal length 0
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 272
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,exit
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,terminal length 0
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,show interface status
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 272
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,interface Ethernet 272
+module-or-class-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceAdminStateChangesHW.test_interface_admin_state_up_down_up_cycle,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet128
+framework,,,D2,normal-user,show interfaces status Ethernet56
+framework,,,D2,normal-user,show interfaces status Ethernet128

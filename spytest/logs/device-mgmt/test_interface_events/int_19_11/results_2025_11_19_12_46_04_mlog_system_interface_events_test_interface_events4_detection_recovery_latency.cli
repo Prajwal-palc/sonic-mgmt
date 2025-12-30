@@ -1,0 +1,56 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsLatency.test_initial_interface_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsLatency.test_initial_interface_configuration,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_initial_interface_configuration,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_initial_interface_configuration,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEventsLatency.test_initial_interface_configuration,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceEventsLatency.test_initial_interface_configuration,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,router ospf
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,router-id 1.1.1.1
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,ip ospf area 0.0.0.0
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,ip ospf network point-to-point
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,ip ospf area 0.0.0.0
+function-or-epilog,,TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency,D1,mgmt-user,show ip ospf neighbor
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,mgmt-user,show ip ospf neighbor
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsLatency.test_link_flap_recovery_latency,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-user,show ip ospf neighbor
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,shutdown
+function-or-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,interface Ethernet0
+module-or-class-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency,D1,mgmt-config,exit

@@ -1,0 +1,913 @@
+ ____  ____       _____         _   
+/ ___||  _ \ _   |_   _|__  ___| |_ 
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_ 
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/                  
+
+SPYTEST_RANDOM_SEED used = 15731
+
+VERSION: UNKNOWN UNKNOWN UNKNOWN
+
+tcmap verify took 0:00:00
+Tests considered 14 and ignored 0
+=========== no release TC_INTF_EVENTS_011_01
+=========== no release TC_INTF_EVENTS_011_02
+=========== no release TC_INTF_EVENTS_011_03
+=========== no release TC_INTF_EVENTS_011_04
+=========== no release TC_INTF_EVENTS_011_05
+=========== no release TC_INTF_EVENTS_011_06
+=========== no release TC_INTF_EVENTS_011_07
+=========== no release TC_INTF_EVENTS_011_08
+=========== no release TC_INTF_EVENTS_011_09
+=========== no release TC_INTF_EVENTS_011_10
+=========== no release TC_INTF_EVENTS_011_11
+=========== no release TC_INTF_EVENTS_011_12
+=========== no release TC_INTF_EVENTS_011_13
+=========== no release TC_INTF_EVENTS_011_14
+tech_cfg_always global = True
+tech_cfg_always system-not-ready = True
+tech_cfg_always portlist-not-ready = True
+tech_cfg_always console_hang = True
+tech_cfg_always port-status = True
+tech_cfg_always port-status-module = True
+tech_cfg_always port-status-function = True
+tech_cfg_always pre-module-prolog = False
+tech_cfg_always post-module-prolog = False
+tech_cfg_always pre-module-epilog = False
+tech_cfg_always post-module-epilog = False
+tech_cfg_always pre-function-prolog = False
+tech_cfg_always post-function-prolog = False
+tech_cfg_always pre-function-epilog = False
+tech_cfg_always post-function-epilog = False
+tech_cfg_always session-epilog = False
+tech_cfg_fail pre-module-prolog = False
+tech_cfg_fail post-module-prolog = True
+tech_cfg_fail pre-module-epilog = False
+tech_cfg_fail post-module-epilog = False
+tech_cfg_fail pre-function-prolog = False
+tech_cfg_fail post-function-prolog = True
+tech_cfg_fail pre-function-epilog = True
+tech_cfg_fail post-function-epilog = True
+tech_cfg_fail function = False
+tech_cfg_fail testcase = False
+tech_cfg_fail post-class-prolog = True
+core_cfg_always global = True
+core_cfg_always system-not-ready = False
+core_cfg_always portlist-not-ready = False
+core_cfg_always console_hang = True
+core_cfg_always port-status = False
+core_cfg_always port-status-module = False
+core_cfg_always port-status-function = False
+core_cfg_always pre-module-prolog = False
+core_cfg_always post-module-prolog = False
+core_cfg_always pre-module-epilog = False
+core_cfg_always post-module-epilog = False
+core_cfg_always pre-function-prolog = False
+core_cfg_always post-function-prolog = False
+core_cfg_always pre-function-epilog = False
+core_cfg_always post-function-epilog = False
+core_cfg_always session-epilog = True
+core_cfg_fail pre-module-prolog = False
+core_cfg_fail post-module-prolog = False
+core_cfg_fail pre-module-epilog = False
+core_cfg_fail post-module-epilog = False
+core_cfg_fail pre-function-prolog = False
+core_cfg_fail post-function-prolog = False
+core_cfg_fail pre-function-epilog = False
+core_cfg_fail post-function-epilog = False
+core_cfg_fail function = False
+core_cfg_fail testcase = False
+sysinfo_cfg global = False
+sysinfo_cfg pre-module-prolog = False
+sysinfo_cfg post-module-prolog = False
+sysinfo_cfg pre-module-epilog = False
+sysinfo_cfg post-module-epilog = False
+sysinfo_cfg pre-function-prolog = False
+sysinfo_cfg post-function-prolog = False
+sysinfo_cfg pre-function-epilog = False
+sysinfo_cfg post-function-epilog = False
+sairedis_cfg global = False
+sairedis_cfg pre-module-prolog = False
+sairedis_cfg post-module-prolog = False
+sairedis_cfg pre-module-epilog = False
+sairedis_cfg post-module-epilog = False
+sairedis_cfg pre-function-prolog = False
+sairedis_cfg post-function-prolog = False
+sairedis_cfg pre-function-epilog = False
+sairedis_cfg post-function-epilog = False
+syslog_cfg global = True
+syslog_cfg pre-module-prolog = True
+syslog_cfg post-module-prolog = True
+syslog_cfg pre-module-epilog = True
+syslog_cfg post-module-epilog = True
+syslog_cfg pre-function-prolog = True
+syslog_cfg post-function-prolog = False
+syslog_cfg pre-function-epilog = False
+syslog_cfg post-function-epilog = True
+config_db_cfg global = False
+config_db_cfg pre-module-prolog = True
+config_db_cfg post-module-prolog = True
+config_db_cfg pre-module-epilog = True
+config_db_cfg post-module-epilog = True
+config_db_cfg pre-function-prolog = False
+config_db_cfg post-function-prolog = False
+config_db_cfg pre-function-epilog = False
+config_db_cfg post-function-epilog = False
+config_db_cfg post-session-prolog = True
+show_run_cfg global = False
+show_run_cfg pre-module-prolog = True
+show_run_cfg post-module-prolog = True
+show_run_cfg pre-module-epilog = True
+show_run_cfg post-module-epilog = True
+show_run_cfg pre-function-prolog = False
+show_run_cfg post-function-prolog = False
+show_run_cfg pre-function-epilog = False
+show_run_cfg post-function-epilog = False
+TEMPLATE USED: show_version.tmpl: show version
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status
+TEMPLATE USED: unix_ifcfg.tmpl: /sbin/ifconfig eth0
+[smic_sonic1] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic1] : SKIP saving running config post-session-prolog session pass
+[smic_sonic1] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic2] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic1] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic2] : SKIP saving running config post-session-prolog session pass
+[smic_sonic2] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic1] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic1] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic2] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic1] : SKIP generating sysinfo post-session-prolog session pass
+[smic_sonic2] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic2] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic2] : SKIP generating sysinfo post-session-prolog session pass
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet124
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+[smic_sonic1] : SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic2] : SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic1] : SKIP saving running config pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic2] : SKIP saving running config pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic2] : SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic2] : SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic2] : SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic2] : SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic1] : SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic1] : SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic1] : SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic1] : SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events11_mtu_negative.py 
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP saving config_db post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP saving running config post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP saving syslog post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP collect core-files post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic2] : SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative Pass
+[smic_sonic1] : SKIP saving config_db post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic1] : SKIP saving running config post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic2] : SKIP saving config_db post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic2] : SKIP saving running config post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic1] : SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic1] : SKIP collect core-files post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic1] : SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic1] : SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic2] : SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic2] : SKIP collect core-files post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic2] : SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic2] : SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events11_mtu_negative.py Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1311 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_1000 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_below_minimum_576 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_zero Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_9217 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_10000 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_reject_above_maximum_65535 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_below_minimum ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_boundary_above_maximum ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_rapid_invalid_attempts ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_multiple_interfaces Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_invalid_with_interface_flap ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_below_minimum Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving config_db post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving running config post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving syslog post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP generating tech-support post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP generating tech-support pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP collect core-files pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving config_db post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving running config post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic2] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestInterfaceMtuNegative.test_mtu_all_invalid_above_maximum Pass
+[smic_sonic1] : SKIP saving config_db post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP saving running config post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP saving config_db post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP saving syslog post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP saving running config post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP saving syslog post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP collect core-files post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP collect core-files post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic2] : SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events11_mtu_negative.py::TestInterfaceMtuNegative pass
+[smic_sonic1] : SKIP saving config_db post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic1] : SKIP saving running config post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic2] : SKIP saving config_db post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic2] : SKIP saving running config post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic2] : SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic2] : SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic1] : SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic1] : SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events11_mtu_negative.py fail
+[smic_sonic1] : SKIP saving config_db session-epilog session pass
+[smic_sonic1] : SKIP saving running config session-epilog session pass
+[smic_sonic2] : SKIP saving config_db session-epilog session pass
+[smic_sonic1] : SKIP saving syslog session-epilog session pass
+[smic_sonic2] : SKIP saving running config session-epilog session pass
+[smic_sonic2] : SKIP saving syslog session-epilog session pass
+[smic_sonic1] : SKIP generating tech-support session-epilog session pass
+[smic_sonic2] : SKIP generating tech-support session-epilog session pass
+[smic_sonic1] : SKIP saving sai_redis session-epilog session pass
+[smic_sonic1] : SKIP generating sysinfo session-epilog session pass
+[smic_sonic2] : SKIP saving sai_redis session-epilog session pass
+[smic_sonic2] : SKIP generating sysinfo session-epilog session pass

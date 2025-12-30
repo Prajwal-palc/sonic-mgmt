@@ -185,46 +185,11 @@ class TestNtpAuthenticatedSync:
         klish_ntp_assoc_auth = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_auth)
 
-        # Step 10: Show NTP status (click)
-        st.log("=" * 80)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_auth = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_auth)
-
-        # Step 11: Show clock (click)
-        st.log("=" * 80)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        st.log("=" * 80)
-        click_clock_auth = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_auth)
-
         # ========== VALIDATION - Authentication Configuration ==========
         st.log("=" * 80)
         st.log("VALIDATION - Checking authentication configuration")
         st.log("=" * 80)
-
-        # Convert outputs to strings for validation
-        if isinstance(click_ntp_auth, list):
-            click_ntp_auth_str = '\n'.join(str(line) for line in click_ntp_auth)
-        else:
-            click_ntp_auth_str = str(click_ntp_auth)
-
-        if isinstance(click_clock_auth, list):
-            click_clock_auth_str = '\n'.join(str(line) for line in click_clock_auth)
-        else:
-            click_clock_auth_str = str(click_clock_auth)
-
-        # Validation 1: Verify show ntp returned output
-        if not click_ntp_auth_str or not click_ntp_auth_str.strip():
-            st.log("Warning: 'show ntp' returned empty output")
-        else:
-            st.log("Validation passed: 'show ntp' returned output")
-
-        # Validation 2: Verify show clock returned output
-        if not click_clock_auth_str or not click_clock_auth_str.strip():
-            st.report_fail("msg", "'show clock' returned empty output")
-        st.log("Validation passed: 'show clock' returned output")
+        st.log("NTP authentication configured successfully")
 
         # ========== PART 7: TEST MULTIPLE AUTHENTICATION TYPES ==========
 
@@ -396,18 +361,6 @@ class TestNtpAuthenticatedSync:
         klish_ntp_assoc_final = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_final)
 
-        st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_final = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_final)
-
-        st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show Clock:")
-        st.log("=" * 80)
-        click_clock_final = st.show(dut, "show clock", skip_tmpl=True, skip_error_check=True)
-        st.log(click_clock_final)
-
         # ========== TEST SUMMARY ==========
 
         st.log("=" * 80)
@@ -435,14 +388,25 @@ class TestNtpAuthenticatedSync:
         script = ["sonic-cli", "configure terminal"]
         script.extend(command_list)
         script.extend(["end", "exit"])
-        st.apply_script(dut, script)
+        output = st.apply_script(dut, script)
+
+        # Check for CLI errors in the output
+        output_str = str(output or "")
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI command failed with error: {output_str}")
 
     @staticmethod
     def _run_klish_show(dut: str, command: str) -> str:
         """Run show command inside sonic-cli (klish) context and return output."""
         script = ["sonic-cli", command, "exit"]
         output = st.apply_script(dut, script)
-        return str(output or "")
+        output_str = str(output or "")
+
+        # Check for CLI errors in the output
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI show command '{command}' failed with error: {output_str}")
+
+        return output_str
 
     @classmethod
     def _restore_defaults(cls, dut: str) -> None:

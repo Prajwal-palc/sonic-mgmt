@@ -1,0 +1,127 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp enable
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp server 216.239.35.0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp server
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp associations
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,show ntp
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,show clock
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp server 216.239.35.4 iburst prefer
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp server 216.239.35.8 version 4
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp server
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp authenticate
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp authentication-key 10 md5 MySecretKey123
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp authentication-key 20 sha1 AnotherSecret456
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp trusted-key 10
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp trusted-key 20
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp source-interface Management 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp vrf mgmt
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp enable
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp enable
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp trusted-key 10
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp trusted-key 20
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp authentication-key 10
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp authentication-key 20
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp authenticate
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp source-interface
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp vrf
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp global
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp server
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,show ntp associations
+framework,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp server 216.239.35.4
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp server 216.239.35.8
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp trusted-key 10
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp trusted-key 20
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp authentication-key 10
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp authentication-key 20
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp source-interface
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,no ntp vrf
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,ntp enable
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-config,end
+module-or-class-epilog,,TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status,D1,mgmt-user,exit

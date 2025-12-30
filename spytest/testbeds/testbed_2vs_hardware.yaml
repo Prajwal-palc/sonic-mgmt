@@ -1,0 +1,24 @@
+version: 2.0
+devices:
+  smic_sonic1:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.250, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+  smic_sonic2:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.140, port: 22}
+    credentials: {username: admin, password: broadcom, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+ 
+topology:
+  smic_sonic1:
+    interfaces:
+      Ethernet272: {EndDevice: smic_sonic2, EndPort: Ethernet56}
+
+ 
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}

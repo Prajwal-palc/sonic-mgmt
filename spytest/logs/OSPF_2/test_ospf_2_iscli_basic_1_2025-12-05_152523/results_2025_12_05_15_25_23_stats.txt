@@ -1,0 +1,182 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py::TestOSPFStaticRouting4Node.test_ospf_static_routing_4node ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:14.063
+TOTAL HELPER Time = 0:00:15.268
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-05 09:56:07,525 T0057: CMD TIME: 963 D2 = show interfaces status Ethernet124
+2025-12-05 09:56:07,539 T0056: CMD TIME: 1014 D1 = show interfaces status Ethernet124
+2025-12-05 09:56:07,550 T0058: CMD TIME: 1018 D3 = show interfaces status Ethernet124
+2025-12-05 09:56:07,557 T0059: CMD TIME: 1019 D4 = show interfaces status Ethernet124
+2025-12-05 09:56:08,911 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 09:56:08,977 T0056: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 09:56:08,994 T0058: CMD TIME: 254 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 09:56:09,004 T0059: CMD TIME: 255 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-05 09:56:09,717 T0062: CMD TIME: 973 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 09:56:09,695 T0061: CMD TIME: 1024 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 09:56:09,703 T0064: CMD TIME: 1036 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 09:56:09,709 T0063: CMD TIME: 1033 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-05 09:56:11,249 T0066: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py'  
+2025-12-05 09:56:11,242 T0065: HELPER TIME: 3820 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py'  
+2025-12-05 09:56:11,266 T0068: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py'  
+2025-12-05 09:56:11,258 T0067: HELPER TIME: 3823 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py'  
+2025-12-05 09:56:15,541 T0000: CMD TIME: 714 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:56:16,266 T0000: CMD TIME: 260 D1 = configure terminal
+2025-12-05 09:56:16,958 T0000: CMD TIME: 258 D1 = terminal length 0
+2025-12-05 09:56:17,636 T0000: CMD TIME: 713 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:56:18,358 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-05 09:56:19,040 T0000: CMD TIME: 257 D2 = terminal length 0
+2025-12-05 09:56:19,716 T0000: CMD TIME: 711 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:56:20,438 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-05 09:56:21,117 T0000: CMD TIME: 257 D3 = terminal length 0
+2025-12-05 09:56:21,793 T0000: CMD TIME: 762 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:56:22,565 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-05 09:56:23,244 T0000: CMD TIME: 257 D4 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_2_iscli_Basic_4_node.py::TestOSPFStaticRouting4Node.test_ospf_static_routing_4node ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:06:33
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:01:28.926
+TOTAL HELPER Time = 0:00:30.502
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-05 09:56:48,234 T0085: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 09:56:48,243 T0086: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 09:56:48,256 T0088: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 09:56:48,261 T0087: HELPER TIME: 3813 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 09:56:52,541 T0000: CMD TIME: 762 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:56:53,313 T0000: CMD TIME: 259 D1 = configure terminal
+2025-12-05 09:56:53,993 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-05 09:56:54,259 T0000: CMD TIME: 1116 D1 = interface Ethernet0
+2025-12-05 09:56:55,384 T0000: CMD TIME: 359 D1 = no ip address
+2025-12-05 09:56:55,756 T0000: CMD TIME: 359 D1 = ip address 10.1.1.1/24
+2025-12-05 09:56:56,123 T0000: CMD TIME: 257 D1 = exit
+2025-12-05 09:56:56,798 T0000: CMD TIME: 813 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:56:57,621 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 09:56:58,299 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 09:56:58,565 T0000: CMD TIME: 1065 D2 = interface Ethernet0
+2025-12-05 09:56:59,639 T0000: CMD TIME: 359 D2 = no ip address
+2025-12-05 09:57:00,007 T0000: CMD TIME: 359 D2 = ip address 10.1.1.2/24
+2025-12-05 09:57:00,375 T0000: CMD TIME: 257 D2 = exit
+2025-12-05 09:57:01,052 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 09:57:01,318 T0000: CMD TIME: 1013 D2 = interface Ethernet16
+2025-12-05 09:57:02,339 T0000: CMD TIME: 358 D2 = no ip address
+2025-12-05 09:57:02,713 T0000: CMD TIME: 362 D2 = ip address 20.1.1.1/24
+2025-12-05 09:57:03,085 T0000: CMD TIME: 257 D2 = exit
+2025-12-05 09:57:03,760 T0000: CMD TIME: 713 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:57:04,481 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-05 09:57:05,159 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-05 09:57:05,425 T0000: CMD TIME: 1065 D4 = interface Ethernet16
+2025-12-05 09:57:06,500 T0000: CMD TIME: 359 D4 = no ip address
+2025-12-05 09:57:06,867 T0000: CMD TIME: 359 D4 = ip address 20.1.1.2/24
+2025-12-05 09:57:07,235 T0000: CMD TIME: 258 D4 = exit
+2025-12-05 09:57:07,912 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-05 09:57:08,180 T0000: CMD TIME: 1015 D4 = interface Ethernet32
+2025-12-05 09:57:09,204 T0000: CMD TIME: 359 D4 = no ip address
+2025-12-05 09:57:09,572 T0000: CMD TIME: 359 D4 = ip address 30.1.1.2/24
+2025-12-05 09:57:09,940 T0000: CMD TIME: 257 D4 = exit
+2025-12-05 09:57:10,616 T0000: CMD TIME: 863 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 09:57:11,487 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-05 09:57:12,165 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-05 09:57:12,429 T0000: CMD TIME: 1064 D3 = interface Ethernet32
+2025-12-05 09:57:13,503 T0000: CMD TIME: 358 D3 = no ip address
+2025-12-05 09:57:13,869 T0000: CMD TIME: 358 D3 = ip address 30.1.1.1/24
+2025-12-05 09:57:14,236 T0000: CMD TIME: 260 D3 = exit
+2025-12-05 09:57:17,921 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-05 09:57:18,187 T0000: CMD TIME: 308 D1 = ip route 30.1.1.0/24 10.1.1.2
+2025-12-05 09:57:18,925 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-05 09:57:19,192 T0000: CMD TIME: 308 D3 = ip route 10.1.1.0/24 30.1.1.2
+2025-12-05 09:57:22,926 T0000: CMD TIME: 257 D1 = exit
+2025-12-05 09:57:23,199 T0000: CMD TIME: 261 D1 = exit
+2025-12-05 09:57:23,892 T0000: CMD TIME: 10396 D1 = sudo -s docker restart bgp
+2025-12-05 09:57:34,707 T0000: CMD TIME: 257 D3 = exit
+2025-12-05 09:57:34,974 T0000: CMD TIME: 308 D3 = exit
+2025-12-05 09:57:35,702 T0000: CMD TIME: 10599 D3 = sudo -s docker restart bgp
+2025-12-05 10:00:46,823 T0000: CMD TIME: 764 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:00:48,009 T0000: CMD TIME: 1182 D1 = show ip route
+2025-12-05 10:00:49,639 T0000: CMD TIME: 1015 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:00:51,075 T0000: CMD TIME: 1128 D3 = show ip route
+2025-12-05 10:00:52,650 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-05 10:00:52,918 T0000: CMD TIME: 1218 D2 = router ospf
+2025-12-05 10:00:54,147 T0000: CMD TIME: 360 D2 = area 0
+2025-12-05 10:00:54,516 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:00:55,196 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-05 10:00:55,464 T0000: CMD TIME: 1220 D2 = router ospf
+2025-12-05 10:00:56,694 T0000: CMD TIME: 1068 D2 = network 20.1.1.1/24 area 0
+2025-12-05 10:00:57,772 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:00:58,450 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-05 10:00:58,718 T0000: CMD TIME: 1269 D2 = router ospf
+2025-12-05 10:00:59,996 T0000: CMD TIME: 1268 D2 = network 10.1.1.2/24 area 0
+2025-12-05 10:01:01,273 T0000: CMD TIME: 257 D2 = exit
+2025-12-05 10:01:01,953 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-05 10:01:02,221 T0000: CMD TIME: 1414 D4 = router ospf
+2025-12-05 10:01:03,645 T0000: CMD TIME: 308 D4 = area 0
+2025-12-05 10:01:03,962 T0000: CMD TIME: 257 D4 = exit
+2025-12-05 10:01:04,637 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-05 10:01:04,903 T0000: CMD TIME: 1215 D4 = router ospf
+2025-12-05 10:01:06,126 T0000: CMD TIME: 1113 D4 = network 20.1.1.2/24 area 0
+2025-12-05 10:01:07,244 T0000: CMD TIME: 255 D4 = exit
+2025-12-05 10:01:07,916 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-05 10:01:08,181 T0000: CMD TIME: 1214 D4 = router ospf
+2025-12-05 10:01:09,404 T0000: CMD TIME: 1566 D4 = network 30.1.1.2/24 area 0
+2025-12-05 10:01:10,978 T0000: CMD TIME: 257 D4 = exit
+2025-12-05 10:02:01,686 T0000: CMD TIME: 562 D2 = do show ip ospf neighbor
+2025-12-05 10:02:02,668 T0000: CMD TIME: 460 D4 = do show ip ospf neighbor
+2025-12-05 10:02:13,558 T0000: CMD TIME: 465 D2 = do show ip ospf interface
+2025-12-05 10:02:14,457 T0000: CMD TIME: 466 D4 = do show ip ospf interface
+2025-12-05 10:02:20,367 T0000: CMD TIME: 308 D1 = exit
+2025-12-05 10:02:21,094 T0000: CMD TIME: 3281 D1 = sudo -s ping -c 4 30.1.1.1
+2025-12-05 10:02:24,803 T0000: CMD TIME: 310 D3 = exit
+2025-12-05 10:02:25,545 T0000: CMD TIME: 3334 D3 = sudo -s ping -c 4 10.1.1.1
+2025-12-05 10:02:29,309 T0000: CMD TIME: 762 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:02:30,082 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-05 10:02:30,763 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-05 10:02:31,031 T0000: CMD TIME: 310 D1 = no ip route 30.1.1.0/24 10.1.1.2
+2025-12-05 10:02:31,763 T0000: CMD TIME: 662 D3 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-05 10:02:32,435 T0000: CMD TIME: 258 D3 = configure terminal
+2025-12-05 10:02:33,114 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-05 10:02:33,381 T0000: CMD TIME: 310 D3 = no ip route 10.1.1.0/24 30.1.1.2
+2025-12-05 10:02:34,110 T0000: CMD TIME: 258 D2 = configure terminal
+2025-12-05 10:02:34,379 T0000: CMD TIME: 1366 D2 = no router ospf
+2025-12-05 10:02:36,166 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-05 10:02:36,434 T0000: CMD TIME: 1214 D4 = no router ospf
+2025-12-05 10:02:43,074 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-05 10:02:43,340 T0000: CMD TIME: 1013 D1 = interface Ethernet0
+2025-12-05 10:02:44,361 T0000: CMD TIME: 359 D1 = no ip address
+2025-12-05 10:02:44,728 T0000: CMD TIME: 257 D1 = exit
+2025-12-05 10:02:45,403 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 10:02:45,669 T0000: CMD TIME: 1621 D2 = interface Ethernet0
+2025-12-05 10:02:47,299 T0000: CMD TIME: 511 D2 = no ip address
+2025-12-05 10:02:47,819 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:02:48,507 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-05 10:02:48,777 T0000: CMD TIME: 965 D2 = interface Ethernet16
+2025-12-05 10:02:49,751 T0000: CMD TIME: 359 D2 = no ip address
+2025-12-05 10:02:50,119 T0000: CMD TIME: 258 D2 = exit
+2025-12-05 10:02:50,796 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-05 10:02:51,063 T0000: CMD TIME: 965 D4 = interface Ethernet16
+2025-12-05 10:02:52,037 T0000: CMD TIME: 359 D4 = no ip address
+2025-12-05 10:02:52,404 T0000: CMD TIME: 257 D4 = exit
+2025-12-05 10:02:53,079 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-05 10:02:53,348 T0000: CMD TIME: 1014 D4 = interface Ethernet32
+2025-12-05 10:02:54,370 T0000: CMD TIME: 408 D4 = no ip address
+2025-12-05 10:02:54,787 T0000: CMD TIME: 257 D4 = exit
+2025-12-05 10:02:55,463 T0000: CMD TIME: 257 D3 = configure terminal
+2025-12-05 10:02:55,729 T0000: CMD TIME: 1015 D3 = interface Ethernet32
+2025-12-05 10:02:56,752 T0000: CMD TIME: 358 D3 = no ip address
+2025-12-05 10:02:57,119 T0000: CMD TIME: 257 D3 = exit
+2025-12-05 10:03:12,582 T0097: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 10:03:12,596 T0098: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 10:03:12,606 T0099: HELPER TIME: 3811 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+2025-12-05 10:03:12,699 T0100: HELPER TIME: 3810 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFStaticRouting4Node.test_ospf_static_routing_4node'  
+=========================================================

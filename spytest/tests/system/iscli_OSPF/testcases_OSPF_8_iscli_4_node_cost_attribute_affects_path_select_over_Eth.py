@@ -1041,14 +1041,36 @@ class TestOSPFCostPathSelection4Node:
         st.log("  ✓ End-to-end connectivity verified")
         st.log("=" * 80)
 
-        # ===== FINAL VALIDATION REPORT =====
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
         if validation_failures:
             st.log("\n" + "!" * 80)
-            st.log("VALIDATION FAILURES DETECTED:")
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from all DUTs
+            for dut in [dut1, dut2, dut3, dut4]:
+                try:
+                    st.generate_tech_support(dut=dut, name="ospf_cost_path_selection_validation_failure")
+                    st.log(f"Tech support collected from {dut}")
+                except Exception as e:
+                    st.log(f"Warning: Failed to collect tech support from {dut}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
             for idx, failure in enumerate(validation_failures, 1):
                 st.error(f"{idx}. {failure}")
             st.log("!" * 80)
-            st.report_fail("msg", f"Test completed with {len(validation_failures)} validation failure(s). See errors above.")
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
         else:
-            st.log("All validations passed successfully")
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
             st.report_pass("test_case_passed")

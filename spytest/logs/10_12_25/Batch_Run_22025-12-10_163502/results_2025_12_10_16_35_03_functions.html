@@ -1,0 +1,316 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'left'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Module</th>
+      <th>TestFunction</th>
+      <th>Result</th>
+      <th>TimeTaken</th>
+      <th>ExecutedOn</th>
+      <th>Syslogs</th>
+      <th>FCLI</th>
+      <th>TSSH</th>
+      <th>DCNT</th>
+      <th>Description</th>
+      <th>Devices</th>
+      <th>KnownIssue</th>
+      <th>Doc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_Vlan_test_interface_1_iscli_vlan.log'>system/iscli_Vlan/test_interface_1_iscli_vlan.py</a></td>
+      <td>TestVlanConfiguration.test_vlan_creation_and_port_management</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_Vlan_test_interface_1_iscli_vlan.log'>Fail</a></td>
+      <td>0:02:18</td>
+      <td>2025-12-10 11:08:34</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 1 validation failure(s). See errors above.</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_VLAN_001: Validate CLI for VLAN creation and port management. Test Procedure: 1. Verify baseline (no VLANs configured) 2. Remove IP addresses (IPv4 and IPv6) from all testbed interfaces 3. Create VLAN 3 4. Verify VLAN 3 exists 4.1. Verify VLAN 3 status is Down (no active member ports) 5. Add Ethernet0 to VLAN 3 6. Add Ethernet4 to VLAN 3 7. Verify both ports are members of VLAN 3 8. Remove Ethernet0 from VLAN 3 9. Verify Ethernet0 is not in VLAN 3, Ethernet4 is still in VLAN 3 10. Remove Ethernet4 from VLAN 3 11. Verify VLAN 3 exists but has no ports 12. Delete VLAN 3 13. Verify no VLANs configured Expected Result: - IP addresses can be removed from interfaces - VLAN can be created successfully - VLAN status is Down when no active member ports are configured - Ports can be added to VLAN as tagged members - Ports can be removed from VLAN - VLAN can be deleted successfully - All changes are reflected accurately in 'show Vlan' output</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_2_iscli_events_mtu_change.log'>system/iscli_interface_events/test_interface_2_iscli_events_mtu_change.py</a></td>
+      <td>TestInterfaceMTUChanges.test_interface_mtu_change_cycle</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_2_iscli_events_mtu_change.log'>Pass</a></td>
+      <td>0:01:01</td>
+      <td>2025-12-10 11:10:04</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_MTU_001: Validate CLI for MTU configuration changes. Test Procedure: 1. Verify baseline MTU (9100) 2. Change MTU to 1600 3. Verify MTU = 1600 in running-config 4. Change MTU to 2000 5. Verify MTU = 2000 in running-config 6. Restore MTU to 9100 7. Verify MTU = 9100 in running-config 8. Final validation Expected Result: - MTU changes are reflected accurately in running-configuration - MTU can be successfully changed: 9100   1600   2000   9100 - System remains stable after all MTU changes</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_PortChannel_test_interface_1_iscli_portchannel.log'>system/iscli_PortChannel/test_interface_1_iscli_portchannel.py</a></td>
+      <td>TestPortChannelConfiguration.test_portchannel_creation_port_management_and_ip_addressing</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_PortChannel_test_interface_1_iscli_portchannel.log'>Fail</a></td>
+      <td>0:02:37</td>
+      <td>2025-12-10 11:13:43</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>IPv4 removal failed on vs_sonic_1: 11.1.1.1/30 still configured</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_PORTCHANNEL_001: Validate CLI for PortChannel creation, port management, and IP addressing on both devices. Test Procedure (performed on BOTH DUT1 and DUT2): 1. Verify baseline (no PortChannels configured) 2. Remove IP addresses (IPv4 and IPv6) from all testbed interfaces 3. Create PortChannel 10 4. Verify PortChannel 10 exists with no member ports 5. Add Ethernet0 to PortChannel 10 5a. Verify PortChannel 10 status is Down '(D)' on DUT1 (after adding on DUT1, before DUT2) 6. Verify Ethernet0 is member of PortChannel 10 7. Add Ethernet4 to PortChannel 10 8. Verify both Ethernet0 and Ethernet4 are members of PortChannel 10 9. Configure IPv4 address on PortChannel 10 (different IPs on each device) 10. Verify IPv4 address is configured 11. Remove IPv4 address from PortChannel 10 (using "no ip address") 12. Verify IPv4 address is removed 13. Configure IPv6 address on PortChannel 10 (different IPs on each device) 14. Verify IPv6 address is configured 15. Remove IPv6 address from PortChannel 10 (using "no ipv6 address") 16. Verify IPv6 address is removed 17. Remove Ethernet0 from PortChannel 10 18. Remove Ethernet4 from PortChannel 10 19. Delete PortChannel 10 20. Verify no PortChannels configured Expected Result: - IP addresses can be removed from interfaces on both devices - PortChannel can be created successfully on both devices - Ports can be added to PortChannel as members on both devices - IPv4 addresses can be configured and removed on both devices - IPv6 addresses can be configured and removed on both devices - Ports can be removed from PortChannel on both devices - PortChannel can be deleted successfully on both devices - All changes are reflected accurately in show commands on both devices</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_3_iscli_events_description.log'>system/iscli_interface_events/test_interface_3_iscli_events_description.py</a></td>
+      <td>TestInterfaceDescriptionChanges.test_interface_description_change_cycle</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_3_iscli_events_description.log'>Pass</a></td>
+      <td>0:01:09</td>
+      <td>2025-12-10 11:15:19</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_DESCRIPTION_001: Validate CLI for description configuration changes. Test Procedure: 1. Verify baseline (no description) 2. Add description "sonic" 3. Verify description = "sonic" in running-config 4. Remove description (no description) 5. Verify no description in running-config 6. Add description "test_interface" 7. Verify description = "test_interface" in running-config 8. Remove description 9. Verify no description in running-config 10. Final validation Expected Result: - Description changes are reflected accurately in running-configuration - Description can be successfully added and removed multiple times - System remains stable after all description changes</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_5_iscli_events_ipv6_address.log'>system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py</a></td>
+      <td>TestInterfaceIPv6AddressAndConnectivity.test_interface_ipv6_address_and_connectivity</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_5_iscli_events_ipv6_address.log'>Pass</a></td>
+      <td>0:01:30</td>
+      <td>2025-12-10 11:17:36</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_IPV6_001: Validate CLI for IPv6 address configuration and connectivity. Test Procedure: 1. Verify baseline (no IPv6 addresses on both DUTs) 2. Configure IPv6 addresses on both DUTs: - DUT1: 2001:db8::2/64 - DUT2: 2001:db8::1/64 3. Wait for configuration to apply 4. Verify IPv6 addresses in running-config on both DUTs 5. Test ping6 connectivity from DUT1 to DUT2 6. Remove IPv6 addresses from both DUTs 7. Verify no IPv6 addresses on both DUTs 8. Final validation Expected Result: - IPv6 address configuration is successful on both DUTs - IPv6 addresses are reflected accurately in running-configuration - Ping6 connectivity test executes (may fail in virtual environment) - Test continues even if ping6 fails - IPv6 addresses can be successfully removed - System remains stable after all changes</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_up_down_up_cycle</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>Pass</a></td>
+      <td>0:01:44</td>
+      <td>2025-12-10 11:20:10</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_CLI_001: Validate CLI for admin/link state changes. Test Procedure: 1. Bring all testbed interfaces to admin UP state 2. Verify baseline - all interfaces show Admin = "up" 3. Shutdown primary test interface (Ethernet0) 4. Verify Ethernet0 shows Admin = "down" 5. Verify other interfaces remain Admin = "up" 6. Bring Ethernet0 back up (no shutdown) 7. Verify Ethernet0 shows Admin = "up" 8. Verify complete state cycle: up   down   up Expected Result: - Admin state changes are reflected accurately in CLI - Only target interface state changes - State transitions complete within seconds - CLI output is consistent and accurate</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>system/iscli_interface_events/test_interface_1_iscli_events_admin_up_down.py</a></td>
+      <td>TestInterfaceAdminStateChanges.test_interface_admin_state_isolation</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_1_iscli_events_admin_up_down.log'>Pass</a></td>
+      <td>0:01:44</td>
+      <td>2025-12-10 11:21:54</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>Validate that admin state changes on one interface do not affect other interfaces. Test Procedure: 1. Verify all interfaces are admin UP 2. Shutdown Ethernet0 3. Verify Ethernet4, Ethernet8, Ethernet12 remain UP 4. Bring Ethernet0 back UP 5. Verify all interfaces are UP Expected Result: - Interface admin state changes are isolated - Only target interface changes state - Other interfaces unaffected</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_4_iscli_events_ip_address.log'>system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py</a></td>
+      <td>TestInterfaceIPAddressAndConnectivity.test_interface_ip_address_and_connectivity</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_interface_events_test_interface_4_iscli_events_ip_address.log'>Pass</a></td>
+      <td>0:01:22</td>
+      <td>2025-12-10 11:24:14</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test case passed</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_INTF_EVENTS_IP_001: Validate CLI for IP address configuration and connectivity. Test Procedure: 1. Verify baseline (no IP address on both DUTs) 2. Configure IP address "10.0.0.2/30" on DUT1 3. Configure IP address "10.0.0.1/30" on DUT2 4. Verify IP addresses in running-config on both DUTs 5. Test ping from DUT1 to DUT2 (continue even if it fails) 6. Remove IP addresses from both DUTs 7. Verify no IP addresses on both DUTs 8. Final validation Expected Result: - IP addresses are configured successfully on both DUTs - IP addresses are reflected accurately in running-configuration - Ping test is attempted (may fail, test continues) - IP addresses are removed successfully - System remains stable</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_Vlan_test_interface_2_iscli_vlan_ip.log'>system/iscli_Vlan/test_interface_2_iscli_vlan_ip.py</a></td>
+      <td>TestVlanIPConfiguration.test_vlan_ip_configuration</td>
+      <td><a href='results_2025_12_10_16_35_03_mlog_system_iscli_Vlan_test_interface_2_iscli_vlan_ip.log'>Fail</a></td>
+      <td>0:02:17</td>
+      <td>2025-12-10 11:27:35</td>
+      <td><a href='results_2025_12_10_16_35_03_syslog.html'>0</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Test completed with 1 validation failure(s). See errors above.</td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+      <td>TC_VLAN_IP_001: Validate CLI for VLAN creation, port management, and IP address assignment. Test Procedure: 1. Remove IP addresses (IPv4 and IPv6) from all testbed interfaces 2. Create VLAN 3 3. Add Ethernet0 to VLAN 3 4. Configure IPv4 address on VLAN 3 interface 5. Verify IPv4 address in running-config 6. Remove IPv4 address 7. Verify no IPv4 address in running-config 8. Configure IPv6 address on VLAN 3 interface 9. Verify IPv6 address in running-config 10. Remove IPv6 address 11. Verify no IPv6 address in running-config 12. Remove port from VLAN 13. Delete VLAN 3 14. Verify no VLANs configured Expected Result: - IP addresses can be removed from interfaces - VLAN can be created successfully - Ports can be added to VLAN - IPv4 address can be configured and removed from VLAN interface - IPv6 address can be configured and removed from VLAN interface - All changes are reflected accurately in running-configuration</td>
+    </tr>
+  </tbody>
+  </table>
+</body>

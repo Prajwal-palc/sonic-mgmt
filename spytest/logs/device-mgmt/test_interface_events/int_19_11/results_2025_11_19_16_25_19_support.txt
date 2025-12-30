@@ -1,0 +1,602 @@
+smic_sonic1: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving running config post-session-prolog session pass
+smic_sonic2: SKIP saving config_db post-session-prolog session pass
+smic_sonic1: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP saving running config post-session-prolog session pass
+smic_sonic2: SKIP saving syslog post-session-prolog session pass
+smic_sonic1: SKIP collect core-files post-session-prolog session pass
+smic_sonic2: SKIP generating tech-support post-session-prolog session pass
+smic_sonic2: SKIP collect core-files post-session-prolog session pass
+smic_sonic1: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic2: SKIP saving sai_redis post-session-prolog session pass
+smic_sonic1: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic2: SKIP generating sysinfo post-session-prolog session pass
+smic_sonic1: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: saving syslog pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: SKIP saving config_db pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: SKIP saving running config pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: saving syslog pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: SKIP generating tech-support pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: SKIP collect core-files pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: SKIP saving sai_redis pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic2: SKIP generating sysinfo pre-module-prolog system/interface_events/test_interface_events10_mtu.py 
+smic_sonic1: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP saving running config post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP saving config_db post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP saving running config post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP saving syslog post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP generating tech-support post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP collect core-files post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP saving sai_redis post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic2: SKIP generating sysinfo post-class-prolog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges Pass
+smic_sonic1: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: SKIP saving running config post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: saving syslog post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: SKIP saving config_db post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: SKIP saving running config post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: saving syslog post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic2: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: SKIP generating tech-support post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: SKIP collect core-files post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: SKIP saving sai_redis post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: SKIP generating sysinfo post-module-prolog system/interface_events/test_interface_events10_mtu.py Pass
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_minimum Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_minimum ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_maximum Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_maximum ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_standard Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_standard ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_jumbo Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_jumbo ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_change_to_mid_range Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_change_to_mid_range ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_rapid_mtu_changes Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_rapid_mtu_changes ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_persistence_through_flap Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_persistence_through_flap ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_sequential_mtu_changes Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_sequential_mtu_changes ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_below_minimum ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_above_maximum ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_invalid_mtu_way_above_maximum ScriptError
+smic_sonic1: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: SKIP saving config_db pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: SKIP saving running config pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: saving syslog pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: SKIP generating tech-support pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: SKIP collect core-files pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: SKIP saving sai_redis pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic2: SKIP generating sysinfo pre-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces 
+smic_sonic1: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP saving config_db post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP saving running config post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP saving syslog post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP generating tech-support post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP collect core-files post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP saving sai_redis post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic2: SKIP generating sysinfo post-function-prolog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces Pass
+smic_sonic1: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: SKIP saving config_db post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: SKIP saving running config post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: saving syslog post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic2: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: SKIP generating tech-support post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: SKIP collect core-files post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: SKIP saving sai_redis post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: SKIP generating sysinfo post-function-epilog TestInterfaceMtuChanges.test_mtu_changes_on_multiple_interfaces ScriptError
+smic_sonic1: SKIP saving config_db post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP saving running config post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP saving syslog post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP saving config_db post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP saving running config post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP collect core-files post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP saving syslog post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP generating tech-support post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP collect core-files post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP saving sai_redis post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic2: SKIP generating sysinfo post-class-epilog system/interface_events/test_interface_events10_mtu.py::TestInterfaceMtuChanges pass
+smic_sonic1: SKIP saving config_db post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: SKIP saving running config post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: saving syslog post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: SKIP saving config_db post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: SKIP saving running config post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: saving syslog post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: SKIP generating tech-support post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: SKIP generating tech-support post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: SKIP collect core-files post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: SKIP collect core-files post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: SKIP saving sai_redis post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic2: SKIP generating sysinfo post-module-epilog system/interface_events/test_interface_events10_mtu.py fail
+smic_sonic1: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving running config session-epilog session pass
+smic_sonic2: SKIP saving config_db session-epilog session pass
+smic_sonic1: SKIP saving syslog session-epilog session pass
+smic_sonic2: SKIP saving running config session-epilog session pass
+smic_sonic2: SKIP saving syslog session-epilog session pass
+smic_sonic1: SKIP generating tech-support session-epilog session pass
+smic_sonic2: SKIP generating tech-support session-epilog session pass
+smic_sonic1: collect core-files session-epilog session pass
+smic_sonic2: collect core-files session-epilog session pass
+smic_sonic1: SKIP saving sai_redis session-epilog session pass
+smic_sonic1: SKIP generating sysinfo session-epilog session pass
+smic_sonic2: SKIP saving sai_redis session-epilog session pass
+smic_sonic2: SKIP generating sysinfo session-epilog session pass

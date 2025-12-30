@@ -1,0 +1,481 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D2,normal-user,configure terminal
+class-prolog,,,D2,mgmt-config,terminal length 0
+framework,,,D2,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,normal-user,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 10.0.1.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 10.0.2.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 10.0.3.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 10.0.4.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 20.0.1.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 20.0.2.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 20.0.3.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip address 20.0.4.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show running-configuration interface Ethernet 28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 10.0.1.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 10.0.2.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 10.0.3.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 10.0.4.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 20.0.1.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 20.0.2.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 20.0.3.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,network 20.0.4.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 100
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 200
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 100
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,ip ospf cost 200
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D2,mgmt-config,exit
+framework,,,D3,normal-user,show interfaces status Ethernet124
+framework,,,D3,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D3,normal-user,configure terminal
+class-prolog,,,D3,mgmt-config,terminal length 0
+framework,,,D3,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,normal-user,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip address 30.0.1.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip address 30.0.2.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip address 30.0.3.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip address 30.0.4.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,do show running-configuration interface Ethernet 32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,do show running-configuration interface Ethernet 36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,do show running-configuration interface Ethernet 40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,do show running-configuration interface Ethernet 44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,network 30.0.1.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,network 30.0.2.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,network 30.0.3.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,network 30.0.4.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip ospf cost 100
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,ip ospf cost 200
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,do ping 10.0.1.1 -c 5
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D3,mgmt-config,exit
+framework,,,D4,normal-user,show interfaces status Ethernet124
+framework,,,D4,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D4,normal-user,configure terminal
+class-prolog,,,D4,mgmt-config,terminal length 0
+framework,,,D4,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,normal-user,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 20.0.1.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 20.0.2.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 20.0.3.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 20.0.4.2/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 30.0.1.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 30.0.2.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 30.0.3.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip address 30.0.4.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show running-configuration interface Ethernet 44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 20.0.1.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 20.0.2.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 20.0.3.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 20.0.4.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 30.0.1.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 30.0.2.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 30.0.3.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,network 30.0.4.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 100
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 200
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 100
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,ip ospf cost 200
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet16
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet20
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet24
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet28
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet32
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet36
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet40
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,interface Ethernet44
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D4,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,terminal length 0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,normal-user,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip address 10.0.1.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip address 10.0.2.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip address 10.0.3.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip address 10.0.4.1/30
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show running-configuration interface Ethernet 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show running-configuration interface Ethernet 4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show running-configuration interface Ethernet 8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show running-configuration interface Ethernet 12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,network 10.0.1.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,network 10.0.2.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,network 10.0.3.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,network 10.0.4.0/30 area 0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 100
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 200
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip ospf interface
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip route 30.0.1.0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 500
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip route 30.0.1.0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip route 30.0.1.0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip route 30.0.1.0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do ping 30.0.1.2 -c 3
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no shutdown
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip ospf neighbor
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip route 30.0.1.0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 10
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip route 30.0.1.0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,ip ospf cost 50
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do ping 30.0.1.2 -c 5
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,do show ip ospf database
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no router ospf
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet8
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,configure terminal
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,interface Ethernet12
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,no ip address
+function-or-epilog,,TestOSPFCostPathSelection4Node.test_ospf_cost_path_selection,D1,mgmt-config,exit

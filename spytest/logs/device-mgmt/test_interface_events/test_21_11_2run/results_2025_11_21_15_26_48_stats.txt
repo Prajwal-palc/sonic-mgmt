@@ -1,0 +1,258 @@
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_get_first_operational_interface ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:09.631
+TOTAL HELPER Time = 0:00:07.622
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 09:57:45,497 T0028: CMD TIME: 1870 D2 = show interfaces status Ethernet124
+2025-11-21 09:57:45,490 T0027: CMD TIME: 1925 D1 = show interfaces status Ethernet124
+2025-11-21 09:57:47,786 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-21 09:57:47,833 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-21 09:57:48,515 T0030: CMD TIME: 1926 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-21 09:57:48,520 T0031: CMD TIME: 1924 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-21 09:57:50,906 T0032: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events9_speed_change_second_APPRO.py'  
+2025-11-21 09:57:50,910 T0033: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events9_speed_change_second_APPRO.py'  
+2025-11-21 09:57:55,176 T0000: CMD TIME: 962 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 09:57:56,148 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 09:57:56,832 T0000: CMD TIME: 257 D1 = terminal length 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_get_first_operational_interface ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:43
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:16.778
+TOTAL HELPER Time = 0:00:15.253
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 09:58:23,163 T0042: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+2025-11-21 09:58:23,171 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+2025-11-21 09:58:27,434 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 09:58:28,407 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 09:58:29,083 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-21 09:58:29,758 T0000: CMD TIME: 9233 D1 = do show interface status
+2025-11-21 09:58:39,540 T0000: CMD TIME: 6067 D1 = do show interface status
+2025-11-21 09:58:46,078 T0049: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+2025-11-21 09:58:55,714 T0048: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_get_first_operational_interface'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_capture_baseline_speed ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_capture_baseline_speed ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:39
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:14.653
+TOTAL HELPER Time = 0:00:15.251
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 09:59:04,050 T0052: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+2025-11-21 09:59:04,058 T0053: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+2025-11-21 09:59:08,315 T0000: CMD TIME: 911 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 09:59:09,235 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 09:59:09,911 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-21 09:59:10,590 T0000: CMD TIME: 7168 D1 = do show interface status
+2025-11-21 09:59:18,309 T0000: CMD TIME: 6061 D1 = do show interface status
+2025-11-21 09:59:24,834 T0059: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+2025-11-21 09:59:34,568 T0058: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_capture_baseline_speed'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_change_speed_to_10g ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_change_speed_to_10g ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:33
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.297
+TOTAL HELPER Time = 0:00:15.399
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 09:59:42,755 T0062: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+2025-11-21 09:59:42,763 T0063: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+2025-11-21 09:59:47,026 T0000: CMD TIME: 962 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 09:59:47,997 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 09:59:48,674 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 09:59:48,939 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-21 09:59:49,254 T0000: CMD TIME: 257 D1 = speed 10000
+2025-11-21 09:59:49,519 T0000: CMD TIME: 257 D1 = exit
+2025-11-21 09:59:55,226 T0069: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+2025-11-21 10:00:06,959 T0068: HELPER TIME: 3964 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_change_speed_to_10g'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_verify_speed_change_to_10g ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_verify_speed_change_to_10g ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.770
+TOTAL HELPER Time = 0:00:15.254
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 10:00:15,756 T0072: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+2025-11-21 10:00:15,764 T0073: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+2025-11-21 10:00:20,025 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 10:00:20,943 T0000: CMD TIME: 255 D1 = configure terminal
+2025-11-21 10:00:21,617 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-21 10:00:22,291 T0000: CMD TIME: 6719 D1 = do show interface status
+2025-11-21 10:00:29,564 T0000: CMD TIME: 7627 D1 = do show interface status
+2025-11-21 10:00:37,659 T0079: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+2025-11-21 10:00:47,289 T0078: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_change_to_10g'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_restore_original_speed ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_restore_original_speed ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:33
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.245
+TOTAL HELPER Time = 0:00:15.401
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 10:00:55,434 T0082: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+2025-11-21 10:00:55,441 T0083: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+2025-11-21 10:00:59,701 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 10:01:00,622 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 10:01:01,298 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-21 10:01:01,563 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-21 10:01:01,878 T0000: CMD TIME: 257 D1 = speed 40000
+2025-11-21 10:01:02,143 T0000: CMD TIME: 256 D1 = exit
+2025-11-21 10:01:07,850 T0089: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+2025-11-21 10:01:19,582 T0088: HELPER TIME: 3965 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_restore_original_speed'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_verify_speed_restoration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_verify_speed_restoration ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:40
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.109
+TOTAL HELPER Time = 0:00:15.252
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 10:01:28,204 T0092: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+2025-11-21 10:01:28,213 T0093: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+2025-11-21 10:01:32,469 T0000: CMD TIME: 1616 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 10:01:34,094 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-21 10:01:34,770 T0000: CMD TIME: 257 D1 = terminal length 0
+2025-11-21 10:01:35,444 T0000: CMD TIME: 6917 D1 = do show interface status
+2025-11-21 10:01:42,915 T0000: CMD TIME: 6062 D1 = do show interface status
+2025-11-21 10:01:49,447 T0099: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+2025-11-21 10:01:59,086 T0098: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_verify_speed_restoration'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_final_verification ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events9_speed_change_second_APPRO.py::TestInterfaceSpeedChanges.test_final_verification ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:39
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:14.249
+TOTAL HELPER Time = 0:00:15.251
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-21 10:02:07,225 T0102: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+2025-11-21 10:02:07,235 T0103: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+2025-11-21 10:02:11,500 T0000: CMD TIME: 911 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-21 10:02:12,419 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-21 10:02:13,094 T0000: CMD TIME: 256 D1 = terminal length 0
+2025-11-21 10:02:13,770 T0000: CMD TIME: 6764 D1 = do show interface status
+2025-11-21 10:02:21,085 T0000: CMD TIME: 6062 D1 = do show interface status
+2025-11-21 10:02:27,612 T0109: HELPER TIME: 3813 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+2025-11-21 10:02:37,345 T0108: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceSpeedChanges.test_final_verification'  
+=========================================================

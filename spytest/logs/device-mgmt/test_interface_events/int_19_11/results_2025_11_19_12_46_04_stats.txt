@@ -1,0 +1,218 @@
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_initial_interface_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.556
+TOTAL HELPER Time = 0:00:07.630
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 07:16:59,553 T0028: CMD TIME: 1978 D2 = show interfaces status Ethernet124
+2025-11-19 07:16:59,560 T0027: CMD TIME: 1973 D1 = show interfaces status Ethernet124
+2025-11-19 07:17:01,962 T0028: CMD TIME: 254 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 07:17:01,967 T0027: CMD TIME: 254 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 07:17:02,652 T0031: CMD TIME: 2021 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 07:17:02,646 T0030: CMD TIME: 2076 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 07:17:05,172 T0032: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events4_detection_recovery_latency.py'  
+2025-11-19 07:17:05,178 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events4_detection_recovery_latency.py'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_initial_interface_configuration ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:23
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:02.999
+TOTAL HELPER Time = 0:03:09.005
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 07:17:24,577 T0042: HELPER TIME: 3814 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_initial_interface_configuration'  
+2025-11-19 07:17:24,584 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_initial_interface_configuration'  
+2025-11-19 07:17:28,849 T0000: CMD TIME: 911 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:17:29,769 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:17:30,451 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 07:17:30,715 T0000: CMD TIME: 307 D1 = interface Ethernet0
+2025-11-19 07:17:31,030 T0000: CMD TIME: 1012 D1 = no shutdown
+2025-11-19 07:17:32,051 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 07:20:53,837 T0000: PROMPT NFOUND: exit
+2025-11-19 07:20:56,998 T0047: HELPER TIME: 84303 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 07:22:22,024 T0047: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLatency.test_initial_interface_configuration_sonic_dump_D-Link_20251119_072059.tar.gz
+2025-11-19 07:21:06,637 T0046: HELPER TIME: 89110 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-11-19 07:22:36,357 T0046: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLatency.test_initial_interface_configuration_sonic_dump_D-Link_20251119_072109.tar.gz
+2025-11-19 07:22:37,698 T0053: HELPER TIME: 3895 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_initial_interface_configuration'  
+2025-11-19 07:22:37,706 T0052: HELPER TIME: 4072 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_initial_interface_configuration'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:06.525
+TOTAL HELPER Time = 0:03:01.614
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 07:22:46,522 T0056: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment'  
+2025-11-19 07:22:46,529 T0057: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment'  
+2025-11-19 07:22:50,790 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:22:51,761 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:22:52,437 T0000: CMD TIME: 256 D1 = configure terminal
+2025-11-19 07:22:52,701 T0000: CMD TIME: 2280 D1 = router ospf
+2025-11-19 07:22:54,988 T0000: CMD TIME: 257 D1 = router-id 1.1.1.1
+2025-11-19 07:22:55,254 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 07:22:55,519 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:22:55,835 T0000: CMD TIME: 257 D1 = ip ospf network point-to-point
+2025-11-19 07:22:56,101 T0000: CMD TIME: 308 D1 = ip ospf area 0.0.0.0
+2025-11-19 07:22:56,416 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 07:22:56,681 T0000: CMD TIME: 307 D1 = interface Ethernet4
+2025-11-19 07:22:56,995 T0000: CMD TIME: 256 D1 = ip ospf network point-to-point
+2025-11-19 07:22:57,259 T0000: CMD TIME: 307 D1 = ip ospf area 0.0.0.0
+2025-11-19 07:22:57,574 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 07:26:19,410 T0000: PROMPT NFOUND: exit
+2025-11-19 07:26:22,569 T0061: HELPER TIME: 84304 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 07:27:47,496 T0061: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment_sonic_dump_D-Link_20251119_072626.tar.gz
+2025-11-19 07:26:32,207 T0060: HELPER TIME: 81898 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 1  
+2025-11-19 07:27:54,737 T0060: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment_sonic_dump_D-Link_20251119_072634.tar.gz
+2025-11-19 07:27:56,156 T0066: HELPER TIME: 3885 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment'  
+2025-11-19 07:27:56,159 T0067: HELPER TIME: 3901 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_ospf_configuration_and_neighbor_establishment'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency ===========================
+RESULT = Fail
+DESCRIPTION = Baseline check failed - OSPF neighbor not in Full state
+TOTAL Test Time = 0:01:51
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.523
+TOTAL HELPER Time = 0:03:08.717
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 2
+2025-11-19 07:28:04,567 T0070: HELPER TIME: 3819 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency'  
+2025-11-19 07:28:04,579 T0071: HELPER TIME: 3810 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency'  
+2025-11-19 07:28:08,833 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:28:10,164 T0000: CMD TIME: 611 D1 = show ip ospf neighbor
+2025-11-19 07:28:11,242 T0075: HELPER TIME: 89110 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 07:29:40,933 T0075: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency_sonic_dump_D-Link_20251119_072813.tar.gz
+2025-11-19 07:28:20,882 T0074: HELPER TIME: 84301 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 2  
+2025-11-19 07:29:45,810 T0074: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency_sonic_dump_D-Link_20251119_072823.tar.gz
+2025-11-19 07:29:46,744 T0080: HELPER TIME: 3838 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency'  
+2025-11-19 07:29:46,749 T0081: HELPER TIME: 3839 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_admin_shutdown_no_shutdown_latency'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_link_flap_recovery_latency ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_link_flap_recovery_latency ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:22
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.663
+TOTAL HELPER Time = 0:03:09.008
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 07:29:55,040 T0084: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_link_flap_recovery_latency'  
+2025-11-19 07:29:55,045 T0085: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_link_flap_recovery_latency'  
+2025-11-19 07:29:59,311 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:30:00,643 T0000: CMD TIME: 661 D1 = show ip ospf neighbor
+2025-11-19 07:30:01,752 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:30:02,429 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 07:30:02,694 T0000: CMD TIME: 307 D1 = interface Ethernet4
+2025-11-19 07:30:03,010 T0000: CMD TIME: 1013 D1 = shutdown
+2025-11-19 07:30:04,032 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 07:33:25,864 T0000: PROMPT NFOUND: exit
+2025-11-19 07:33:29,023 T0089: HELPER TIME: 86708 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 07:34:56,537 T0089: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLatency.test_link_flap_recovery_latency_sonic_dump_D-Link_20251119_073332.tar.gz
+2025-11-19 07:33:38,656 T0088: HELPER TIME: 86697 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 3  
+2025-11-19 07:35:06,011 T0088: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLatency.test_link_flap_recovery_latency_sonic_dump_D-Link_20251119_073341.tar.gz
+2025-11-19 07:35:07,565 T0095: HELPER TIME: 3930 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_link_flap_recovery_latency'  
+2025-11-19 07:35:07,557 T0094: HELPER TIME: 4040 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_link_flap_recovery_latency'  
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/interface_events/test_interface_events4_detection_recovery_latency.py::TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:19
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:03.667
+TOTAL HELPER Time = 0:03:04.203
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 2
+2025-11-19 07:35:16,222 T0098: HELPER TIME: 3813 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency'  
+2025-11-19 07:35:16,229 T0099: HELPER TIME: 3809 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency'  
+2025-11-19 07:35:20,494 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 07:35:21,877 T0000: CMD TIME: 611 D1 = show ip ospf neighbor
+2025-11-19 07:35:22,939 T0000: CMD TIME: 260 D1 = configure terminal
+2025-11-19 07:35:23,621 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 07:35:23,886 T0000: CMD TIME: 308 D1 = interface Ethernet0
+2025-11-19 07:35:24,203 T0000: CMD TIME: 1012 D1 = shutdown
+2025-11-19 07:35:25,224 T0000: CMD TIME: 255 D1 = exit
+2025-11-19 07:38:47,095 T0000: PROMPT NFOUND: exit
+2025-11-19 07:38:50,257 T0103: HELPER TIME: 84304 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-19 07:40:15,204 T0103: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D2-smic_sonic2_pre-function-epilog-TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency_sonic_dump_D-Link_20251119_073852.tar.gz
+2025-11-19 07:38:59,997 T0102: HELPER TIME: 84304 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 4  
+2025-11-19 07:40:24,860 T0102: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/device-mgmt/test_interface_events/int_19_11/techsupport_D1-smic_sonic1_pre-function-epilog-TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency_sonic_dump_D-Link_20251119_073902.tar.gz
+2025-11-19 07:40:26,182 T0109: HELPER TIME: 3937 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency'  
+2025-11-19 07:40:26,186 T0108: HELPER TIME: 4036 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceEventsLatency.test_multi_link_flap_recovery_latency'  
+=========================================================

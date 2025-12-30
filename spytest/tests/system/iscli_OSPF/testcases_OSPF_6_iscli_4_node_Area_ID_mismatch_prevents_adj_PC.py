@@ -643,6 +643,9 @@ class TestOSPFAreaMismatchPortChannel:
         st.log("TEST: OSPF Area ID Mismatch Prevents Adjacency (PortChannel)")
         st.log("=" * 80)
 
+        # Track validation failures - test will continue but report fail at end
+        validation_failures = []
+
         dut2 = self.data.dut2
         dut4 = self.data.dut4
         portchannel_id = self.data.portchannel_id
@@ -698,11 +701,21 @@ class TestOSPFAreaMismatchPortChannel:
         # Validate IP addresses
         st.log("Validating IP address configuration...")
         if not self._verify_portchannel_ip(dut2, portchannel_id, self.data.dut2_ip):
-            st.report_fail("msg", f"IP validation failed on {dut2} PortChannel{portchannel_id}")
-        if not self._verify_portchannel_ip(dut4, portchannel_id, self.data.dut4_ip):
-            st.report_fail("msg", f"IP validation failed on {dut4} PortChannel{portchannel_id}")
+            error_msg = f"STEP 3: IP validation failed on {dut2} PortChannel{portchannel_id}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut2} PortChannel{portchannel_id}")
 
-        st.log("PASS: IP addresses configured and validated successfully")
+        if not self._verify_portchannel_ip(dut4, portchannel_id, self.data.dut4_ip):
+            error_msg = f"STEP 3: IP validation failed on {dut4} PortChannel{portchannel_id}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: IP address validated on {dut4} PortChannel{portchannel_id}")
+
+        if not validation_failures:
+            st.log("PASS: IP addresses configured and validated successfully")
 
         # ===== STEP 4: Verify ping connectivity =====
         st.log("\n" + "-" * 80)
@@ -717,13 +730,22 @@ class TestOSPFAreaMismatchPortChannel:
 
         # Ping from D2 to D4
         if not self._verify_ping_success(dut2, dut4_ip_no_mask):
-            st.report_fail("msg", f"Ping from {dut2} to {dut4_ip_no_mask} failed")
+            error_msg = f"STEP 4: Ping from {dut2} to {dut4_ip_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut2} to {dut4_ip_no_mask} successful")
 
         # Ping from D4 to D2
         if not self._verify_ping_success(dut4, dut2_ip_no_mask):
-            st.report_fail("msg", f"Ping from {dut4} to {dut2_ip_no_mask} failed")
+            error_msg = f"STEP 4: Ping from {dut4} to {dut2_ip_no_mask} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: Ping from {dut4} to {dut2_ip_no_mask} successful")
 
-        st.log("PASS: Ping connectivity verified")
+        if len([f for f in validation_failures if "STEP 4" in f]) == 0:
+            st.log("PASS: Ping connectivity verified")
 
         # ===== STEP 5: Configure OSPF on D2 with Area 0 =====
         st.log("\n" + "-" * 80)
@@ -739,9 +761,11 @@ class TestOSPFAreaMismatchPortChannel:
         # Verify OSPF configuration on D2
         ospf_output_dut2 = self._get_show_ip_ospf_output(dut2)
         if not self._verify_ospf_area_configured(ospf_output_dut2, self.data.ospf_area_0):
-            st.report_fail("msg", f"OSPF Area 0 not configured on {dut2}")
-
-        st.log("PASS: OSPF configuration completed on D2")
+            error_msg = f"STEP 5: OSPF Area 0 not configured on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log("PASS: OSPF configuration completed on D2")
 
         # ===== STEP 6: Configure OSPF on D4 with Area 1 (MISMATCH) =====
         st.log("\n" + "-" * 80)
@@ -757,9 +781,11 @@ class TestOSPFAreaMismatchPortChannel:
         # Verify OSPF configuration on D4
         ospf_output_dut4 = self._get_show_ip_ospf_output(dut4)
         if not self._verify_ospf_area_configured(ospf_output_dut4, self.data.ospf_area_1):
-            st.report_fail("msg", f"OSPF Area 1 not configured on {dut4}")
-
-        st.log("PASS: OSPF configuration completed on D4 with Area 1")
+            error_msg = f"STEP 6: OSPF Area 1 not configured on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log("PASS: OSPF configuration completed on D4 with Area 1")
 
         # ===== STEP 7: Wait for OSPF adjacency attempt =====
         st.log("\n" + "-" * 80)
@@ -782,13 +808,22 @@ class TestOSPFAreaMismatchPortChannel:
 
         # Verify no neighbors on D2
         if not self._verify_no_neighbors(neighbor_output_dut2):
-            st.report_fail("msg", f"Expected no neighbors on {dut2} due to area mismatch, but neighbors found")
+            error_msg = f"STEP 8: Expected no neighbors on {dut2} due to area mismatch, but neighbors found"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: No OSPF neighbors found on {dut2} (area mismatch prevents adjacency)")
 
         # Verify no neighbors on D4
         if not self._verify_no_neighbors(neighbor_output_dut4):
-            st.report_fail("msg", f"Expected no neighbors on {dut4} due to area mismatch, but neighbors found")
+            error_msg = f"STEP 8: Expected no neighbors on {dut4} due to area mismatch, but neighbors found"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: No OSPF neighbors found on {dut4} (area mismatch prevents adjacency)")
 
-        st.log("PASS: No OSPF neighbors found (as expected due to area mismatch)")
+        if len([f for f in validation_failures if "STEP 8" in f]) == 0:
+            st.log("PASS: No OSPF neighbors found (as expected due to area mismatch)")
 
         # ===== STEP 9: Verify number of fully adjacent neighbors is 0 =====
         st.log("\n" + "-" * 80)
@@ -834,12 +869,21 @@ class TestOSPFAreaMismatchPortChannel:
 
         # Verify neighbors are now present in Full state
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after fixing area mismatch")
+            error_msg = f"STEP 11: OSPF neighbor {dut4_ip_no_mask} not in Full state on {dut2} after fixing area mismatch"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut4_ip_no_mask} in Full state on {dut2}")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_ip_no_mask, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after fixing area mismatch")
+            error_msg = f"STEP 11: OSPF neighbor {dut2_ip_no_mask} not in Full state on {dut4} after fixing area mismatch"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_ip_no_mask} in Full state on {dut4}")
 
-        st.log("PASS: OSPF adjacency succeeded after fixing area mismatch")
+        if len([f for f in validation_failures if "STEP 11" in f]) == 0:
+            st.log("PASS: OSPF adjacency succeeded after fixing area mismatch")
 
         # ===== STEP 12: Cleanup =====
         st.log("\n" + "-" * 80)
@@ -880,4 +924,42 @@ class TestOSPFAreaMismatchPortChannel:
         st.log("           → No Adjacency ✓ → Fix Mismatch → Adjacency Full ✓ → Cleanup ✓")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from DUT2
+            try:
+                st.generate_tech_support(dut=dut2, name="ospf_area_mismatch_pc_validation_failure")
+                st.log(f"Tech support collected from {dut2}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut2}: {str(e)}")
+
+            # Collect tech support from DUT4
+            try:
+                st.generate_tech_support(dut=dut4, name="ospf_area_mismatch_pc_validation_failure")
+                st.log(f"Tech support collected from {dut4}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut4}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

@@ -1,0 +1,22 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D1,normal-user,show interfaces status
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,terminal length 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface fortyGigE0/0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,end
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,show interface status
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface fortyGigE0/0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,end
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status fortyGigE0/0,fortyGigE0/4,fortyGigE0/8,fortyGigE0/12
+framework,,,D2,normal-user,show interfaces status
+framework,,,D2,normal-user,show interfaces status Ethernet124

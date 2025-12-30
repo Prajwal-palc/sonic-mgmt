@@ -1,0 +1,30 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet4
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,lldp enable
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-user,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,lldp enable
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,exit
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,cat /proc/uptime
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-config,interface Ethernet4
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,no shutdown
+module-or-class-epilog,,TestInterfaceEvents.test_interface_admin_state_changes,D1,mgmt-intf-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet4
+framework,,,D2,normal-user,show interfaces status Ethernet124

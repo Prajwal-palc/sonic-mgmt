@@ -705,6 +705,9 @@ class TestOSPFBasicConfigurationReboot:
         st.log("TEST: OSPF Basic Configuration, Neighbor Formation, and Reboot Persistence")
         st.log("=" * 80)
 
+        # Track validation failures - test will continue but report fail at end
+        validation_failures = []
+
         dut1 = self.data.dut1
         dut2 = self.data.dut2
         interface1 = self.data.interface1
@@ -748,12 +751,21 @@ class TestOSPFBasicConfigurationReboot:
         output_dut2 = self._get_show_ip_ospf_output(dut2)
 
         if not self._verify_ospf_configured(output_dut1):
-            st.report_fail("msg", f"OSPF configuration failed on {dut1}")
+            error_msg = f"STEP 2: OSPF configuration failed on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF configured on {dut1}")
 
         if not self._verify_ospf_configured(output_dut2):
-            st.report_fail("msg", f"OSPF configuration failed on {dut2}")
+            error_msg = f"STEP 2: OSPF configuration failed on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF configured on {dut2}")
 
-        st.log("PASS: OSPF process configured on both DUTs")
+        if len([f for f in validation_failures if "STEP 2" in f]) == 0:
+            st.log("PASS: OSPF process configured on both DUTs")
 
         # ===== STEP 3: Configure IP addresses on interfaces =====
         st.log("\n" + "-" * 80)
@@ -821,14 +833,23 @@ class TestOSPFBasicConfigurationReboot:
         dut2_neighbor_ip = self.data.dut2_if1_ip.split('/')[0]
         dut1_neighbor_ip = self.data.dut1_if1_ip.split('/')[0]
 
-        # Verify neighbors
+        # Verify neighbors - continue even if fails
         if not self._verify_ospf_neighbor_present(neighbor_output_dut1, dut2_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut1}")
+            error_msg = f"STEP 6: OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_neighbor_ip} in Full state on {dut1}")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut1_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut1_neighbor_ip} not in Full state on {dut2}")
+            error_msg = f"STEP 6: OSPF neighbor {dut1_neighbor_ip} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut1_neighbor_ip} in Full state on {dut2}")
 
-        st.log("PASS: OSPF neighbors are in Full state on both DUTs")
+        if len([f for f in validation_failures if "STEP 6" in f]) == 0:
+            st.log("PASS: OSPF neighbors are in Full state on both DUTs")
 
         # ===== STEP 7: Verify OSPF interface configuration =====
         st.log("\n" + "-" * 80)
@@ -838,25 +859,34 @@ class TestOSPFBasicConfigurationReboot:
         interface_output_dut1 = self._get_show_ip_ospf_interface_output(dut1)
         interface_output_dut2 = self._get_show_ip_ospf_interface_output(dut2)
 
-        # Verify DUT1 interface
+        # Verify DUT1 interface - continue even if fails
         if not self._verify_ospf_interface_configured(
             interface_output_dut1,
             interface1,
             self.data.dut1_if1_ip,
             "0.0.0.0"
         ):
-            st.report_fail("msg", f"OSPF interface {interface1} not configured correctly on {dut1}")
+            error_msg = f"STEP 7: OSPF interface {interface1} not configured correctly on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF interface {interface1} configured on {dut1}")
 
-        # Verify DUT2 interface
+        # Verify DUT2 interface - continue even if fails
         if not self._verify_ospf_interface_configured(
             interface_output_dut2,
             interface1,
             self.data.dut2_if1_ip,
             "0.0.0.0"
         ):
-            st.report_fail("msg", f"OSPF interface {interface1} not configured correctly on {dut2}")
+            error_msg = f"STEP 7: OSPF interface {interface1} not configured correctly on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF interface {interface1} configured on {dut2}")
 
-        st.log("PASS: OSPF interface configuration verified on both DUTs")
+        if len([f for f in validation_failures if "STEP 7" in f]) == 0:
+            st.log("PASS: OSPF interface configuration verified on both DUTs")
 
         # ===== STEP 8: Verify DR/BDR election =====
         st.log("\n" + "-" * 80)
@@ -887,12 +917,21 @@ class TestOSPFBasicConfigurationReboot:
         database_output_dut2 = self._get_show_ip_ospf_database_output(dut2)
 
         if not self._verify_ospf_database_has_lsas(database_output_dut1):
-            st.report_fail("msg", f"OSPF database is empty on {dut1}")
+            error_msg = f"STEP 9: OSPF database is empty on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF database has LSAs on {dut1}")
 
         if not self._verify_ospf_database_has_lsas(database_output_dut2):
-            st.report_fail("msg", f"OSPF database is empty on {dut2}")
+            error_msg = f"STEP 9: OSPF database is empty on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF database has LSAs on {dut2}")
 
-        st.log("PASS: OSPF database has LSAs on both DUTs")
+        if len([f for f in validation_failures if "STEP 9" in f]) == 0:
+            st.log("PASS: OSPF database has LSAs on both DUTs")
 
         # ===== STEP 10: Verify OSPF routes are present =====
         st.log("\n" + "-" * 80)
@@ -959,14 +998,23 @@ class TestOSPFBasicConfigurationReboot:
         neighbor_output_dut1 = self._get_show_ip_ospf_neighbor_output(dut1)
         neighbor_output_dut2 = self._get_show_ip_ospf_neighbor_output(dut2)
 
-        # Verify neighbors after reboot
+        # Verify neighbors after reboot - continue even if fails
         if not self._verify_ospf_neighbor_present(neighbor_output_dut1, dut2_neighbor_ip, "Full"):
-            st.report_fail("msg", f"Config persistence failed: OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut1} after reboot")
+            error_msg = f"STEP 13: Config persistence failed - OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut1} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut2_neighbor_ip} in Full state on {dut1} after reboot")
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut1_neighbor_ip, "Full"):
-            st.report_fail("msg", f"Config persistence failed: OSPF neighbor {dut1_neighbor_ip} not in Full state on {dut2} after reboot")
+            error_msg = f"STEP 13: Config persistence failed - OSPF neighbor {dut1_neighbor_ip} not in Full state on {dut2} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF neighbor {dut1_neighbor_ip} in Full state on {dut2} after reboot")
 
-        st.log("PASS: OSPF neighbors re-established Full state after reboot - config persisted successfully")
+        if len([f for f in validation_failures if "STEP 13" in f]) == 0:
+            st.log("PASS: OSPF neighbors re-established Full state after reboot - config persisted successfully")
 
         # ===== STEP 14: Re-verify OSPF interface configuration after reboot =====
         st.log("\n" + "-" * 80)
@@ -976,25 +1024,34 @@ class TestOSPFBasicConfigurationReboot:
         interface_output_dut1 = self._get_show_ip_ospf_interface_output(dut1)
         interface_output_dut2 = self._get_show_ip_ospf_interface_output(dut2)
 
-        # Verify DUT1 interface after reboot
+        # Verify DUT1 interface after reboot - continue even if fails
         if not self._verify_ospf_interface_configured(
             interface_output_dut1,
             interface1,
             self.data.dut1_if1_ip,
             "0.0.0.0"
         ):
-            st.report_fail("msg", f"Config persistence failed: OSPF interface {interface1} not configured correctly on {dut1} after reboot")
+            error_msg = f"STEP 14: Config persistence failed - OSPF interface {interface1} not configured correctly on {dut1} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF interface {interface1} configured on {dut1} after reboot")
 
-        # Verify DUT2 interface after reboot
+        # Verify DUT2 interface after reboot - continue even if fails
         if not self._verify_ospf_interface_configured(
             interface_output_dut2,
             interface1,
             self.data.dut2_if1_ip,
             "0.0.0.0"
         ):
-            st.report_fail("msg", f"Config persistence failed: OSPF interface {interface1} not configured correctly on {dut2} after reboot")
+            error_msg = f"STEP 14: Config persistence failed - OSPF interface {interface1} not configured correctly on {dut2} after reboot"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
+        else:
+            st.log(f"PASS: OSPF interface {interface1} configured on {dut2} after reboot")
 
-        st.log("PASS: OSPF interface configuration persisted after reboot on both DUTs")
+        if len([f for f in validation_failures if "STEP 14" in f]) == 0:
+            st.log("PASS: OSPF interface configuration persisted after reboot on both DUTs")
 
         # ===== STEP 15: Re-verify DR/BDR election after reboot =====
         st.log("\n" + "-" * 80)
@@ -1053,4 +1110,42 @@ class TestOSPFBasicConfigurationReboot:
         st.log("OSPF lifecycle: Process configured → Interfaces configured → Neighbors formed (Full) → DR/BDR elected → Database populated → Routes learned → Saved → Rebooted → Config persisted → Neighbors re-established → Cleanup ✓")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        # ===== COLLECT TECH SUPPORT AND REPORT FAILURES =====
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            # Collect tech support from DUT1
+            try:
+                st.generate_tech_support(dut=dut1, name="ospf_basic_2node_reboot_validation_failure")
+                st.log(f"Tech support collected from {dut1}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut1}: {str(e)}")
+
+            # Collect tech support from DUT2
+            try:
+                st.generate_tech_support(dut=dut2, name="ospf_basic_2node_reboot_validation_failure")
+                st.log(f"Tech support collected from {dut2}")
+            except Exception as e:
+                st.log(f"Warning: Failed to collect tech support from {dut2}: {str(e)}")
+
+            # Report all validation failures
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            # Create detailed failure summary
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail(
+                "msg",
+                f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}"
+            )
+        else:
+            st.log("\n" + "=" * 80)
+            st.log("ALL VALIDATIONS PASSED SUCCESSFULLY")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

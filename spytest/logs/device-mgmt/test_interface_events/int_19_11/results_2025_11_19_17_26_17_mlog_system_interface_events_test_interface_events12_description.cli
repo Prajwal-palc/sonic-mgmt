@@ -1,0 +1,96 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_simple_alphanumeric,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_simple_alphanumeric,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_simple_alphanumeric,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_simple_alphanumeric,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_simple_alphanumeric,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_with_spaces,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_with_spaces,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_with_spaces,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_with_spaces,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_with_spaces,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_with_special_characters,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_with_special_characters,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_with_special_characters,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_with_special_characters,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_with_special_characters,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_with_numbers,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_with_numbers,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_with_numbers,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_with_numbers,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_with_numbers,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_mixed_case,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_mixed_case,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_mixed_case,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_mixed_case,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_mixed_case,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_long_text,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_long_text,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_long_text,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_long_text,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_long_text,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_modify,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_modify,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_modify,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_modify,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_modify,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_remove,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_remove,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_remove,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_remove,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_remove,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_persistence_through_flap,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_persistence_through_flap,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_persistence_through_flap,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_persistence_through_flap,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_persistence_through_flap,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_multiple_interfaces,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_multiple_interfaces,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_multiple_interfaces,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_multiple_interfaces,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_multiple_interfaces,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_sequential_changes,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_sequential_changes,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_sequential_changes,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_sequential_changes,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_sequential_changes,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,interface Ethernet 0
+function-prolog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,no shutdown
+function-prolog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,interface Ethernet 0
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,interface Ethernet 4
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceDescriptions.test_description_comprehensive_formats,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124

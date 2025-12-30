@@ -1,0 +1,73 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration,D1,mgmt-config,no shutdown
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_baseline_interface_status_check,D1,normal-user,cat /proc/uptime
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0,D1,mgmt-config,interface Ethernet0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0,D1,mgmt-config,speed auto
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet0,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet0,D1,mgmt-user,show interface status Ethernet0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0,D1,mgmt-user,show interface status Ethernet0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_link_negotiation_ethernet0,D1,mgmt-user,show interface Ethernet0
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4,D1,normal-user,configure terminal
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4,D1,mgmt-config,interface Ethernet4
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4,D1,mgmt-config,speed auto
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configure_speed_auto_ethernet4,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_speed_auto_ethernet4,D1,mgmt-user,show interface status Ethernet4
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_verify_multiple_interfaces_auto_negotiation,D1,normal-user,cat /proc/uptime
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence,D1,mgmt-user,show running-configuration interface Ethernet0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_configuration_persistence,D1,mgmt-user,show running-configuration interface Ethernet4
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,cat /proc/uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,export TMOUT=0;stty cols 5000;uptime
+function-or-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,cat /proc/uptime
+module-or-class-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,mgmt-config,interface Ethernet0
+module-or-class-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,mgmt-config,no shutdown
+module-or-class-epilog,,TestInterfaceEventsSpeedAutoNegotiation.test_final_state_verification,D1,mgmt-config,exit

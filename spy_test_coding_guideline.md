@@ -82,8 +82,6 @@ Pre‑requisites:
 ```python
 """
 STATIC IPV4 ROUTING
-Author: Athira
-© 2024, copyrights@SuperMicro
 
 How to run:
   ./bin/spytest  --tryssh 1  \

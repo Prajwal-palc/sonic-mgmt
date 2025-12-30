@@ -1,0 +1,21 @@
+
+======================= STATS: system/interface_events/test_interface_events8_speed_auto_negoation.py::TestInterfaceEventsSpeedAutoNegotiation.test_initial_interface_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:11
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.363
+TOTAL HELPER Time = 0:00:07.629
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 09:29:15,398 T0028: CMD TIME: 1869 D2 = show interfaces status Ethernet124
+2025-11-19 09:29:15,390 T0027: CMD TIME: 2078 D1 = show interfaces status Ethernet124
+2025-11-19 09:29:17,686 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 09:29:17,886 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 09:29:18,567 T0031: CMD TIME: 1929 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 09:29:18,572 T0030: CMD TIME: 1977 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 09:29:21,002 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events8_speed_auto_negoation.py'  
+2025-11-19 09:29:21,007 T0033: HELPER TIME: 3814 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/interface_events/test_interface_events8_speed_auto_negoation.py'  
+=========================================================

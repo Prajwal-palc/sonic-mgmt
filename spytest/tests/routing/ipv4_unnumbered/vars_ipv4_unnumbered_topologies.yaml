@@ -1,0 +1,502 @@
+# IPv4 Unnumbered Interface - Across Topologies Test Variables
+# Test ID: TC_IPv4_Unnumbered_1.2.3
+# Purpose: Variables for testing IPv4 unnumbered across multiple topologies
+
+defaults:
+  cli_type: klish  # Use klish CLI exclusively as per requirement
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2D3"  # Three DUTs required
+
+# DUT1 Configuration (Multiple Unnumbered Sharing Single Donor)
+dut1:
+  interfaces:
+    donor:
+      name: "Loopback0"
+      ip: "10.10.10.1/32"
+      ip_addr: "10.10.10.1"
+      netmask: "32"
+      type: "loopback"
+      description: "Single donor shared by all unnumbered interfaces"
+
+    ethernet0:
+      name: "Ethernet0"
+      type: "physical"
+      description: "P2P to DUT2 - unnumbered"
+      borrows_from: "Loopback0"
+      connected_to: "DUT2:Ethernet0"
+      unnumbered: true
+
+    ethernet4:
+      name: "Ethernet4"
+      type: "physical"
+      description: "P2P to DUT3 - unnumbered"
+      borrows_from: "Loopback0"
+      connected_to: "DUT3:Ethernet0"
+      unnumbered: true
+
+    portchannel1:
+      name: "PortChannel1"
+      type: "lag"
+      description: "LAG to DUT2 - unnumbered"
+      borrows_from: "Loopback0"
+      connected_to: "DUT2:PortChannel1"
+      members:
+        - "Ethernet8"
+        - "Ethernet12"
+      lag_mode: "active"
+      unnumbered: true
+
+# DUT2 Configuration (Numbered Interfaces)
+dut2:
+  interfaces:
+    ethernet0:
+      name: "Ethernet0"
+      ip: "10.10.10.2/30"
+      ip_addr: "10.10.10.2"
+      netmask: "30"
+      type: "physical"
+      description: "P2P to DUT1 Ethernet0"
+      connected_to: "DUT1:Ethernet0"
+      subnet: "10.10.10.0/30"
+
+    ethernet4:
+      name: "Ethernet4"
+      ip: "10.10.20.1/30"
+      ip_addr: "10.10.20.1"
+      netmask: "30"
+      type: "physical"
+      description: "P2P to DUT3 - multi-hop path"
+      connected_to: "DUT3:Ethernet4"
+      subnet: "10.10.20.0/30"
+
+    portchannel1:
+      name: "PortChannel1"
+      ip: "10.10.12.2/30"
+      ip_addr: "10.10.12.2"
+      netmask: "30"
+      type: "lag"
+      description: "LAG to DUT1"
+      connected_to: "DUT1:PortChannel1"
+      members:
+        - "Ethernet8"
+        - "Ethernet12"
+      lag_mode: "active"
+      subnet: "10.10.12.0/30"
+
+    loopback0:
+      name: "Loopback0"
+      ip: "20.20.20.1/32"
+      ip_addr: "20.20.20.1"
+      netmask: "32"
+      type: "loopback"
+      description: "Reachability testing destination"
+
+# DUT3 Configuration (Numbered Interfaces)
+dut3:
+  interfaces:
+    ethernet0:
+      name: "Ethernet0"
+      ip: "10.10.11.2/30"
+      ip_addr: "10.10.11.2"
+      netmask: "30"
+      type: "physical"
+      description: "P2P to DUT1 Ethernet4"
+      connected_to: "DUT1:Ethernet4"
+      subnet: "10.10.11.0/30"
+
+    ethernet4:
+      name: "Ethernet4"
+      ip: "10.10.20.2/30"
+      ip_addr: "10.10.20.2"
+      netmask: "30"
+      type: "physical"
+      description: "P2P to DUT2 - multi-hop path"
+      connected_to: "DUT2:Ethernet4"
+      subnet: "10.10.20.0/30"
+
+    loopback0:
+      name: "Loopback0"
+      ip: "30.30.30.1/32"
+      ip_addr: "30.30.30.1"
+      netmask: "32"
+      type: "loopback"
+      description: "Reachability testing destination"
+
+# Static Routes Configuration
+static_routes:
+  dut1:
+    - destination: "20.20.20.1/32"
+      nexthop: "10.10.10.2"
+      interface: "Ethernet0"
+      description: "Route to DUT2 Loopback0 via Ethernet0"
+    - destination: "30.30.30.1/32"
+      nexthop: "10.10.11.2"
+      interface: "Ethernet4"
+      description: "Route to DUT3 Loopback0 via Ethernet4"
+
+  dut2:
+    - destination: "10.10.10.1/32"
+      nexthop: "10.10.10.1"
+      interface: "Ethernet0"
+      description: "Route to DUT1 Loopback0"
+    - destination: "30.30.30.1/32"
+      nexthop: "10.10.20.2"
+      interface: "Ethernet4"
+      description: "Route to DUT3 Loopback0"
+
+  dut3:
+    - destination: "10.10.10.1/32"
+      nexthop: "10.10.11.1"
+      interface: "Ethernet0"
+      description: "Route to DUT1 Loopback0"
+    - destination: "20.20.20.1/32"
+      nexthop: "10.10.20.1"
+      interface: "Ethernet4"
+      description: "Route to DUT2 Loopback0"
+
+# Test Cases Configuration
+testcases:
+  "1.2.3.1":
+    title: "Configure multiple unnumbered sharing donor"
+    description: "Configure DUT1 with single donor (Loopback0) shared by multiple unnumbered interfaces"
+    steps:
+      - "Configure DUT1 Loopback0 as donor (10.10.10.1/32)"
+      - "Configure DUT1 Ethernet0 as unnumbered"
+      - "Configure DUT1 Ethernet4 as unnumbered"
+      - "Configure DUT2 numbered interfaces"
+      - "Configure DUT3 numbered interfaces"
+      - "Verify all configurations"
+      - "Save configuration on all DUTs"
+    validation:
+      - single_donor_shared: true
+      - multiple_unnumbered_configured: true
+      - all_share_same_ip: true
+      - dut2_dut3_numbered: true
+
+  "1.2.3.2":
+    title: "Test P2P connectivity"
+    description: "Test point-to-point connectivity on both unnumbered links"
+    validation:
+      - p2p_dut1_to_dut2: true
+      - p2p_dut1_to_dut3: true
+      - packet_loss: 0.0
+      - arp_resolution_both_links: true
+
+  "1.2.3.3":
+    title: "Test multi-hop routing"
+    description: "Configure static routes and test multi-hop reachability"
+    validation:
+      - static_routes_installed: true
+      - dut1_to_dut2_loopback: true
+      - dut1_to_dut3_loopback: true
+      - bidirectional_reachability: true
+      - packet_loss: 0.0
+
+  "1.2.3.4":
+    title: "Configure and test LAG"
+    description: "Create LAG with unnumbered configuration on DUT1"
+    validation:
+      - lag_created: true
+      - lag_members_added: true
+      - dut1_lag_unnumbered: true
+      - dut2_lag_numbered: true
+      - lag_connectivity: true
+      - packet_loss: 0.0
+
+  "1.2.3.5":
+    title: "Test LAG resilience"
+    description: "Verify LAG continues to function with one member down"
+    validation:
+      - lag_with_2_members: true
+      - lag_with_1_member: true
+      - connectivity_maintained: true
+      - lag_restored: true
+      - packet_loss: 0.0
+
+  "1.2.3.6":
+    title: "Comprehensive validation"
+    description: "Validate ARP, routing, and forwarding across all topologies"
+    validation:
+      - show_ip_interface_verified: true
+      - arp_entries_present: true
+      - routing_tables_correct: true
+      - p2p_forwarding: true
+      - lag_forwarding: true
+      - multihop_forwarding: true
+      - no_reachability_issues: true
+
+# Validation Commands (klish mode via sonic-cli)
+validation_commands:
+  primary:
+    - "show ip interface"  # PRIMARY VALIDATION COMMAND
+
+  running_config:
+    - "show running-config"
+    - "show running-config interface Loopback0"
+    - "show running-config interface Ethernet0"
+    - "show running-config interface Ethernet4"
+    - "show running-config interface PortChannel1"
+
+  ip_interface:
+    - "show ip interface"
+    - "show ip interface brief"
+    - "show ip interface Loopback0"
+    - "show ip interface Ethernet0"
+    - "show ip interface Ethernet4"
+    - "show ip interface PortChannel1"
+
+  routing:
+    - "show ip route"
+    - "show ip route summary"
+    - "show ip route 20.20.20.1"
+    - "show ip route 30.30.30.1"
+
+  arp:
+    - "show arp"
+    - "show ip arp"
+    - "show arp interface Ethernet0"
+    - "show arp interface Ethernet4"
+    - "show arp interface PortChannel1"
+
+  lag:
+    - "show interfaces PortChannel"
+    - "show interface PortChannel1"
+    - "show interface status | grep -E 'Ethernet8|Ethernet12|PortChannel1'"
+
+  interface_status:
+    - "show interface status"
+    - "show interface counters"
+    - "show interface counters errors"
+
+# Expected Results
+expected_results:
+  baseline_config:
+    dut1:
+      donor_interface: "Loopback0"
+      donor_ip: "10.10.10.1/32"
+      ethernet0_unnumbered: true
+      ethernet4_unnumbered: true
+      all_share_donor_ip: true
+
+    dut2:
+      ethernet0_ip: "10.10.10.2/30"
+      ethernet4_ip: "10.10.20.1/30"
+      loopback0_ip: "20.20.20.1/32"
+
+    dut3:
+      ethernet0_ip: "10.10.11.2/30"
+      ethernet4_ip: "10.10.20.2/30"
+      loopback0_ip: "30.30.30.1/32"
+
+  p2p_connectivity:
+    dut1_to_dut2:
+      destination: "10.10.10.2"
+      packet_loss: 0.0
+      arp_resolved: true
+    dut1_to_dut3:
+      destination: "10.10.11.2"
+      packet_loss: 0.0
+      arp_resolved: true
+
+  multihop_routing:
+    dut1_to_dut2_loopback:
+      destination: "20.20.20.1"
+      packet_loss: 0.0
+      route_via: "10.10.10.2"
+    dut1_to_dut3_loopback:
+      destination: "30.30.30.1"
+      packet_loss: 0.0
+      route_via: "10.10.11.2"
+    bidirectional: true
+
+  lag_configuration:
+    dut1:
+      portchannel: "PortChannel1"
+      unnumbered: true
+      members:
+        - "Ethernet8"
+        - "Ethernet12"
+    dut2:
+      portchannel: "PortChannel1"
+      ip: "10.10.12.2/30"
+      members:
+        - "Ethernet8"
+        - "Ethernet12"
+    connectivity:
+      destination: "10.10.12.2"
+      packet_loss: 0.0
+
+  lag_resilience:
+    with_2_members:
+      packet_loss: 0.0
+    with_1_member:
+      packet_loss: 0.0
+    restored:
+      packet_loss: 0.0
+
+  comprehensive:
+    show_ip_interface:
+      loopback0_ip: "10.10.10.1/32"
+      ethernet0_unnumbered: true
+      ethernet4_unnumbered: true
+      portchannel1_unnumbered: true
+    arp_entries:
+      - "10.10.10.2"
+      - "10.10.11.2"
+      - "10.10.12.2"
+    routing_table:
+      - "20.20.20.1/32"
+      - "30.30.30.1/32"
+    forwarding:
+      all_paths_functional: true
+      no_packet_loss: true
+
+# Performance Criteria
+performance:
+  ping_rtt:
+    max_acceptable: 10  # milliseconds
+    typical: 1  # millisecond
+
+  lag_convergence:
+    member_down: 5  # seconds
+    member_up: 5  # seconds
+
+  route_convergence:
+    max_time: 5  # seconds
+
+# Configuration Commands (klish mode)
+config_commands:
+  dut1_configure_donor:
+    - "configure terminal"
+    - "interface Loopback0"
+    - "ip address 10.10.10.1/32"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  dut1_configure_ethernet0_unnumbered:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "no shutdown"
+    - "ip unnumbered Loopback0"
+    - "exit"
+    - "exit"
+
+  dut1_configure_ethernet4_unnumbered:
+    - "configure terminal"
+    - "interface Ethernet4"
+    - "no shutdown"
+    - "ip unnumbered Loopback0"
+    - "exit"
+    - "exit"
+
+  dut1_configure_lag:
+    - "configure terminal"
+    - "interface PortChannel1"
+    - "no shutdown"
+    - "exit"
+    - "interface Ethernet8"
+    - "channel-group 1 mode active"
+    - "no shutdown"
+    - "exit"
+    - "interface Ethernet12"
+    - "channel-group 1 mode active"
+    - "no shutdown"
+    - "exit"
+    - "interface PortChannel1"
+    - "ip unnumbered Loopback0"
+    - "exit"
+    - "exit"
+
+  dut1_static_routes:
+    - "configure terminal"
+    - "ip route 20.20.20.1/32 10.10.10.2"
+    - "ip route 30.30.30.1/32 10.10.11.2"
+    - "exit"
+
+  dut2_configure_interfaces:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "ip address 10.10.10.2/30"
+    - "no shutdown"
+    - "exit"
+    - "interface Ethernet4"
+    - "ip address 10.10.20.1/30"
+    - "no shutdown"
+    - "exit"
+    - "interface Loopback0"
+    - "ip address 20.20.20.1/32"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  dut2_configure_lag:
+    - "configure terminal"
+    - "interface PortChannel1"
+    - "no shutdown"
+    - "exit"
+    - "interface Ethernet8"
+    - "channel-group 1 mode active"
+    - "no shutdown"
+    - "exit"
+    - "interface Ethernet12"
+    - "channel-group 1 mode active"
+    - "no shutdown"
+    - "exit"
+    - "interface PortChannel1"
+    - "ip address 10.10.12.2/30"
+    - "exit"
+    - "exit"
+
+  dut2_static_routes:
+    - "configure terminal"
+    - "ip route 10.10.10.1/32 10.10.10.1"
+    - "ip route 30.30.30.1/32 10.10.20.2"
+    - "exit"
+
+  dut3_configure_interfaces:
+    - "configure terminal"
+    - "interface Ethernet0"
+    - "ip address 10.10.11.2/30"
+    - "no shutdown"
+    - "exit"
+    - "interface Ethernet4"
+    - "ip address 10.10.20.2/30"
+    - "no shutdown"
+    - "exit"
+    - "interface Loopback0"
+    - "ip address 30.30.30.1/32"
+    - "no shutdown"
+    - "exit"
+    - "exit"
+
+  dut3_static_routes:
+    - "configure terminal"
+    - "ip route 10.10.10.1/32 10.10.11.1"
+    - "ip route 20.20.20.1/32 10.10.20.1"
+    - "exit"
+
+  save_config:
+    - "write memory"
+
+# Error Patterns
+error_patterns:
+  unnumbered_failure:
+    - "unnumbered.*fail"
+    - "donor.*not.*configured"
+    - "loopback.*no.*ip"
+
+  lag_failure:
+    - "channel-group.*fail"
+    - "portchannel.*error"
+    - "lag.*not.*formed"
+
+  routing_failure:
+    - "route.*not.*installed"
+    - "nexthop.*unreachable"
+
+  arp_failure:
+    - "arp.*resolution.*fail"
+    - "neighbor.*unreachable"

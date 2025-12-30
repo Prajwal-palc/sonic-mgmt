@@ -1,0 +1,44 @@
+framework,,,D1,normal-user,show interfaces status Ethernet513
+framework,,,D1,normal-user,show interfaces status Ethernet272
+framework,,,D1,normal-user,show interfaces status Ethernet513
+function-prolog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,normal-user,configure terminal
+function-prolog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+function-prolog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+function-prolog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,no description
+function-prolog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,description sonic
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,no description
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,description test_interface
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,no description
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,do show running-configuration interface Ethernet 272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,no description
+function-or-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+module-or-class-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,normal-user,configure terminal
+module-or-class-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,interface Ethernet272
+module-or-class-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,no description
+module-or-class-epilog,,TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle,D1,mgmt-config,exit
+framework,,,D2,normal-user,show interfaces status Ethernet128
+framework,,,D2,normal-user,show interfaces status Ethernet56
+framework,,,D2,normal-user,show interfaces status Ethernet128

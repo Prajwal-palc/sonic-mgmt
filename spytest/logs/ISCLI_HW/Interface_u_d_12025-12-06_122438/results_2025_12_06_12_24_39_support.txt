@@ -1,0 +1,7 @@
+smic_sonic1: SKIP saving config_db function  EnvFail
+smic_sonic1: SKIP saving running config function  EnvFail
+smic_sonic1: SKIP saving syslog function  EnvFail
+smic_sonic1: SKIP generating tech-support function  EnvFail
+smic_sonic1: SKIP collect core-files function  EnvFail
+smic_sonic1: SKIP saving sai_redis function  EnvFail
+smic_sonic1: SKIP generating sysinfo function  EnvFail

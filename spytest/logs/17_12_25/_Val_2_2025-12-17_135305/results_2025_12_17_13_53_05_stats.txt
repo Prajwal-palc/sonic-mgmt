@@ -1,0 +1,81 @@
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py::TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:15.094
+TOTAL HELPER Time = 0:00:15.260
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-17 08:23:50,694 T0059: CMD TIME: 1067 D4 = show interfaces status Ethernet124
+2025-12-17 08:23:50,665 T0056: CMD TIME: 1166 D1 = show interfaces status Ethernet124
+2025-12-17 08:23:50,688 T0058: CMD TIME: 1277 D3 = show interfaces status Ethernet124
+2025-12-17 08:23:50,677 T0057: CMD TIME: 1721 D2 = show interfaces status Ethernet124
+2025-12-17 08:23:52,183 T0059: CMD TIME: 256 D4 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 08:23:52,253 T0056: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 08:23:52,386 T0058: CMD TIME: 255 D3 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 08:23:52,820 T0057: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-17 08:23:53,537 T0064: CMD TIME: 1175 D4 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 08:23:53,529 T0063: CMD TIME: 1223 D3 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 08:23:53,512 T0061: CMD TIME: 1296 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 08:23:53,519 T0062: CMD TIME: 2235 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28,Ethernet32,Ethernet36,Ethernet40,Ethernet44
+2025-12-17 08:23:56,231 T0065: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py'  
+2025-12-17 08:23:56,245 T0068: HELPER TIME: 3816 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py'  
+2025-12-17 08:23:56,254 T0067: HELPER TIME: 3818 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py'  
+2025-12-17 08:23:56,262 T0066: HELPER TIME: 3815 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py'  
+2025-12-17 08:24:00,530 T0000: CMD TIME: 815 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 08:24:01,356 T0000: CMD TIME: 259 D2 = configure terminal
+2025-12-17 08:24:02,043 T0000: CMD TIME: 258 D2 = terminal length 0
+2025-12-17 08:24:02,720 T0000: CMD TIME: 1065 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 08:24:03,795 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-17 08:24:04,475 T0000: CMD TIME: 257 D4 = terminal length 0
+=========================================================
+
+======================= STATS: system/iscli_OSPF/testcases_OSPF_6_iscli_4_node_Area_ID_mismatch_prevents_adj_Vlan.py::TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan ===========================
+RESULT = Fail
+DESCRIPTION = Command 'exit' failed to give required prompt, recovered using CR
+TOTAL Test Time = 0:05:17
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:08.049
+TOTAL HELPER Time = 0:05:34.112
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 1
+TOTAL TECH SUPPORT = 4
+2025-12-17 08:24:29,507 T0085: HELPER TIME: 3810 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:24:29,518 T0086: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:24:29,527 T0087: HELPER TIME: 3816 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:24:29,534 T0088: HELPER TIME: 3812 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:24:33,813 T0000: CMD TIME: 761 D2 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 08:24:34,580 T0000: CMD TIME: 256 D2 = configure terminal
+2025-12-17 08:24:35,257 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-17 08:24:35,524 T0000: CMD TIME: 1014 D2 = interface Ethernet16
+2025-12-17 08:24:36,545 T0000: CMD TIME: 307 D2 = no ip address
+2025-12-17 08:24:36,861 T0000: CMD TIME: 811 D2 = no ipv6 address
+2025-12-17 08:24:37,680 T0000: CMD TIME: 257 D2 = exit
+2025-12-17 08:24:38,356 T0000: CMD TIME: 816 D4 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-17 08:24:39,181 T0000: CMD TIME: 257 D4 = configure terminal
+2025-12-17 08:24:39,859 T0000: CMD TIME: 258 D4 = configure terminal
+2025-12-17 08:24:40,126 T0000: CMD TIME: 1114 D4 = interface Ethernet16
+2025-12-17 08:24:41,248 T0000: CMD TIME: 307 D4 = no ip address
+2025-12-17 08:24:41,563 T0000: CMD TIME: 812 D4 = no ipv6 address
+2025-12-17 08:24:42,383 T0000: CMD TIME: 258 D4 = exit
+2025-12-17 08:24:46,063 T0000: CMD TIME: 257 D2 = configure terminal
+2025-12-17 08:24:46,329 T0000: CMD TIME: 307 D2 = vlan 20
+2025-12-17 08:28:08,693 T0000: PROMPT NFOUND: exit
+2025-12-17 08:28:11,889 T0093: HELPER TIME: 79499 D1 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-17 08:28:21,503 T0094: HELPER TIME: 69887 D2 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-17 08:29:31,889 T0093: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/17_12_25/_Val_2_2025-12-17_135305/techsupport_D1-vs_sonic_1_pre-function-epilog-TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan_20251217_082813.tar.gz
+2025-12-17 08:29:31,927 T0094: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/17_12_25/_Val_2_2025-12-17_135305/techsupport_D2-vs_sonic_2_pre-function-epilog-TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan_20251217_082824.tar.gz
+2025-12-17 08:28:11,873 T0095: HELPER TIME: 81917 D3 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-17 08:29:34,258 T0095: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/17_12_25/_Val_2_2025-12-17_135305/techsupport_D3-vs_sonic_3_pre-function-epilog-TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan_20251217_082813.tar.gz
+2025-12-17 08:28:23,636 T0096: HELPER TIME: 72292 D4 = sudo python /etc/spytest/remote/spytest-helper.py --get-tech-support 0  
+2025-12-17 08:29:36,369 T0096: TECH SUPPORT: /home/adminuser/Siddu/sonic-mgmt/spytest/./logs/17_12_25/_Val_2_2025-12-17_135305/techsupport_D4-vs_sonic_4_pre-function-epilog-TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan_20251217_082825.tar.gz
+2025-12-17 08:29:37,943 T0106: HELPER TIME: 3816 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:29:37,952 T0108: HELPER TIME: 3815 D4 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:29:37,960 T0105: HELPER TIME: 3817 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+2025-12-17 08:29:37,965 T0107: HELPER TIME: 3815 D3 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestOSPFAreaMismatchVLAN.test_ospf_area_mismatch_prevents_adjacency_vlan'  
+=========================================================

@@ -1,0 +1,4 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+interface.py::interface_operation,klish
+port.py::set_status,klish

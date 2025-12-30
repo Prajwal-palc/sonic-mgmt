@@ -892,6 +892,8 @@ class TestOSPFStaticRoutingPortChannel4Node:
         dut4 = self.data.dut4
         area = self.data.ospf_area
 
+        validation_failures = []
+
         # ===== STEP 1: Remove IP addresses from Ethernet interfaces =====
         st.log("\n" + "-" * 80)
         st.log("STEP 1: Remove IP addresses from all Ethernet interfaces")
@@ -943,7 +945,9 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Verify D1: PortChannel 110 with Ethernet0, Ethernet4
         pc_output_dut1 = self._get_show_portchannel_summary(dut1)
         if not self._verify_portchannel_exists(pc_output_dut1, self.data.pc110):
-            st.report_fail("msg", f"PortChannel {self.data.pc110} does not exist on {dut1}")
+            error_msg = f"STEP 2: PortChannel {self.data.pc110} does not exist on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         # Commented out member port validation due to multi-line output format in show PortChannel summary
         # for port in self.data.dut1_pc110_ports:
         #     if not self._verify_port_in_portchannel(pc_output_dut1, self.data.pc110, port):
@@ -952,13 +956,17 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Verify D2: PortChannel 110 and PortChannel 120
         pc_output_dut2 = self._get_show_portchannel_summary(dut2)
         if not self._verify_portchannel_exists(pc_output_dut2, self.data.pc110):
-            st.report_fail("msg", f"PortChannel {self.data.pc110} does not exist on {dut2}")
+            error_msg = f"STEP 2: PortChannel {self.data.pc110} does not exist on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         # Commented out member port validation due to multi-line output format in show PortChannel summary
         # for port in self.data.dut2_pc110_ports:
         #     if not self._verify_port_in_portchannel(pc_output_dut2, self.data.pc110, port):
         #         st.report_fail("msg", f"Port {port} is not in PortChannel {self.data.pc110} on {dut2}")
         if not self._verify_portchannel_exists(pc_output_dut2, self.data.pc120):
-            st.report_fail("msg", f"PortChannel {self.data.pc120} does not exist on {dut2}")
+            error_msg = f"STEP 2: PortChannel {self.data.pc120} does not exist on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         # Commented out member port validation due to multi-line output format in show PortChannel summary
         # for port in self.data.dut2_pc120_ports:
         #     if not self._verify_port_in_portchannel(pc_output_dut2, self.data.pc120, port):
@@ -967,13 +975,17 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Verify D4: PortChannel 120 and PortChannel 130
         pc_output_dut4 = self._get_show_portchannel_summary(dut4)
         if not self._verify_portchannel_exists(pc_output_dut4, self.data.pc120):
-            st.report_fail("msg", f"PortChannel {self.data.pc120} does not exist on {dut4}")
+            error_msg = f"STEP 2: PortChannel {self.data.pc120} does not exist on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         # Commented out member port validation due to multi-line output format in show PortChannel summary
         # for port in self.data.dut4_pc120_ports:
         #     if not self._verify_port_in_portchannel(pc_output_dut4, self.data.pc120, port):
         #         st.report_fail("msg", f"Port {port} is not in PortChannel {self.data.pc120} on {dut4}")
         if not self._verify_portchannel_exists(pc_output_dut4, self.data.pc130):
-            st.report_fail("msg", f"PortChannel {self.data.pc130} does not exist on {dut4}")
+            error_msg = f"STEP 2: PortChannel {self.data.pc130} does not exist on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         # Commented out member port validation due to multi-line output format in show PortChannel summary
         # for port in self.data.dut4_pc130_ports:
         #     if not self._verify_port_in_portchannel(pc_output_dut4, self.data.pc130, port):
@@ -982,7 +994,9 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Verify D3: PortChannel 130
         pc_output_dut3 = self._get_show_portchannel_summary(dut3)
         if not self._verify_portchannel_exists(pc_output_dut3, self.data.pc130):
-            st.report_fail("msg", f"PortChannel {self.data.pc130} does not exist on {dut3}")
+            error_msg = f"STEP 2: PortChannel {self.data.pc130} does not exist on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         # Commented out member port validation due to multi-line output format in show PortChannel summary
         # for port in self.data.dut3_pc130_ports:
         #     if not self._verify_port_in_portchannel(pc_output_dut3, self.data.pc130, port):
@@ -1018,28 +1032,40 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Verify D1: PortChannel110 IP
         config_output = self._get_running_config_portchannel_interface(dut1, self.data.pc110)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut1_pc110_ip):
-            st.report_fail("msg", f"IP address verification failed for PortChannel{self.data.pc110} on {dut1}")
+            error_msg = f"STEP 3: IP address verification failed for PortChannel{self.data.pc110} on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D2: PortChannel110 and PortChannel120 IPs
         config_output = self._get_running_config_portchannel_interface(dut2, self.data.pc110)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut2_pc110_ip):
-            st.report_fail("msg", f"IP address verification failed for PortChannel{self.data.pc110} on {dut2}")
+            error_msg = f"STEP 3: IP address verification failed for PortChannel{self.data.pc110} on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         config_output = self._get_running_config_portchannel_interface(dut2, self.data.pc120)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut2_pc120_ip):
-            st.report_fail("msg", f"IP address verification failed for PortChannel{self.data.pc120} on {dut2}")
+            error_msg = f"STEP 3: IP address verification failed for PortChannel{self.data.pc120} on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D4: PortChannel120 and PortChannel130 IPs
         config_output = self._get_running_config_portchannel_interface(dut4, self.data.pc120)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut4_pc120_ip):
-            st.report_fail("msg", f"IP address verification failed for PortChannel{self.data.pc120} on {dut4}")
+            error_msg = f"STEP 3: IP address verification failed for PortChannel{self.data.pc120} on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
         config_output = self._get_running_config_portchannel_interface(dut4, self.data.pc130)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut4_pc130_ip):
-            st.report_fail("msg", f"IP address verification failed for PortChannel{self.data.pc130} on {dut4}")
+            error_msg = f"STEP 3: IP address verification failed for PortChannel{self.data.pc130} on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D3: PortChannel130 IP
         config_output = self._get_running_config_portchannel_interface(dut3, self.data.pc130)
         if not self._verify_ipv4_in_running_config(config_output, self.data.dut3_pc130_ip):
-            st.report_fail("msg", f"IP address verification failed for PortChannel{self.data.pc130} on {dut3}")
+            error_msg = f"STEP 3: IP address verification failed for PortChannel{self.data.pc130} on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: IP addresses configured successfully, all verified")
 
@@ -1080,12 +1106,16 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Verify D1 has route to 30.1.1.0/24
         route_output_dut1 = self._get_show_ip_route_output(dut1)
         if not self._verify_static_route_in_routing_table(route_output_dut1, "30.1.1.0/24"):
-            st.report_fail("msg", f"Static route 30.1.1.0/24 not found in routing table on {dut1}")
+            error_msg = f"STEP 6: Static route 30.1.1.0/24 not found in routing table on {dut1}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Verify D3 has route to 10.1.1.0/24
         route_output_dut3 = self._get_show_ip_route_output(dut3)
         if not self._verify_static_route_in_routing_table(route_output_dut3, "10.1.1.0/24"):
-            st.report_fail("msg", f"Static route 10.1.1.0/24 not found in routing table on {dut3}")
+            error_msg = f"STEP 6: Static route 10.1.1.0/24 not found in routing table on {dut3}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Static routes verified in routing tables")
 
@@ -1127,10 +1157,14 @@ class TestOSPFStaticRoutingPortChannel4Node:
 
         # Verify neighbors
         if not self._verify_ospf_neighbor_present(neighbor_output_dut2, dut4_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2}")
+            error_msg = f"STEP 8: OSPF neighbor {dut4_neighbor_ip} not in Full state on {dut2}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         if not self._verify_ospf_neighbor_present(neighbor_output_dut4, dut2_neighbor_ip, "Full"):
-            st.report_fail("msg", f"OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4}")
+            error_msg = f"STEP 8: OSPF neighbor {dut2_neighbor_ip} not in Full state on {dut4}"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: OSPF neighbors are in Full state")
 
@@ -1168,12 +1202,16 @@ class TestOSPFStaticRoutingPortChannel4Node:
         # Ping from D1 to D3's IP (30.1.1.1)
         target_ip_d3 = self.data.dut3_pc130_ip.split('/')[0]  # 30.1.1.1
         if not self._verify_ping_success(dut1, target_ip_d3):
-            st.report_fail("msg", f"Ping from {dut1} to {target_ip_d3} failed")
+            error_msg = f"STEP 10: Ping from {dut1} to {target_ip_d3} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         # Ping from D3 to D1's IP (10.1.1.1)
         target_ip_d1 = self.data.dut1_pc110_ip.split('/')[0]  # 10.1.1.1
         if not self._verify_ping_success(dut3, target_ip_d1):
-            st.report_fail("msg", f"Ping from {dut3} to {target_ip_d1} failed")
+            error_msg = f"STEP 10: Ping from {dut3} to {target_ip_d1} failed"
+            st.error(error_msg)
+            validation_failures.append(error_msg)
 
         st.log("PASS: Ping connectivity verified between D1 and D3")
 
@@ -1229,10 +1267,34 @@ class TestOSPFStaticRoutingPortChannel4Node:
 
         st.log("PASS: Cleanup completed successfully")
 
-        # ===== TEST COMPLETE =====
+        # ===== FINAL RESULT =====
         st.log("\n" + "=" * 80)
-        st.log("TEST COMPLETE: OSPF with PortChannel and static routing validated successfully")
-        st.log("Test flow: Remove IPs → PortChannel Config → IP Config → Static Routes → BGP Restart → OSPF Config → Neighbor Full → DR/BDR → Ping → Cleanup ✓")
+        st.log("TEST RESULT: OSPF with PortChannel and Static Routing - 4-Node Topology")
         st.log("=" * 80)
 
-        st.report_pass("test_case_passed")
+        if validation_failures:
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES DETECTED - Collecting tech support from all DUTs...")
+            st.log("!" * 80)
+
+            for dut in [dut1, dut2, dut3, dut4]:
+                try:
+                    st.generate_tech_support(dut=dut, name="ospf_pc_static_4node_validation_failure")
+                    st.log(f"Tech support collected from {dut}")
+                except Exception as e:
+                    st.log(f"Warning: Failed to collect tech support from {dut}: {str(e)}")
+
+            st.log("\n" + "!" * 80)
+            st.log("VALIDATION FAILURES SUMMARY:")
+            st.log("!" * 80)
+            for idx, failure in enumerate(validation_failures, 1):
+                st.error(f"{idx}. {failure}")
+            st.log("!" * 80)
+
+            failure_summary = "\n".join([f"  - {failure}" for failure in validation_failures])
+            st.report_fail("msg", f"Test completed with {len(validation_failures)} validation failure(s):\n{failure_summary}")
+        else:
+            st.log("PASS: All validations passed successfully")
+            st.log("Test flow: Remove IPs → PortChannel Config → IP Config → Static Routes → BGP Restart → OSPF Config → Neighbor Full → DR/BDR → Ping → Cleanup ✓")
+            st.log("=" * 80)
+            st.report_pass("test_case_passed")

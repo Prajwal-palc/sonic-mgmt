@@ -1,0 +1,700 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: saving syslog pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: saving syslog pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: saving syslog pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: SKIP saving config_db pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: SKIP saving running config pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: saving syslog pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_2: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_3: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: SKIP generating tech-support pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: SKIP collect core-files pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: SKIP saving sai_redis pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_4: SKIP generating sysinfo pre-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py 
+vs_sonic_1: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_2: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP saving config_db post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP saving running config post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP saving syslog post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP generating tech-support post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP collect core-files post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP saving sai_redis post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_3: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_4: SKIP generating sysinfo post-class-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig Pass
+vs_sonic_1: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: saving syslog post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: saving syslog post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: saving syslog post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: SKIP saving config_db post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: SKIP saving running config post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: saving syslog post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_2: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_3: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: SKIP generating tech-support post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: SKIP collect core-files post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: SKIP saving sai_redis post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_4: SKIP generating sysinfo post-module-prolog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py Pass
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_duplicate_nexthop ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_reject_unreachable_nexthop ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_delete_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_readd_nexthop_recovery ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_exceed_max_nexthop_limit ScriptError
+vs_sonic_1: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: SKIP saving config_db pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: SKIP saving running config pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: saving syslog pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_2: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_3: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: SKIP generating tech-support pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: SKIP collect core-files pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: SKIP saving sai_redis pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_4: SKIP generating sysinfo pre-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic 
+vs_sonic_1: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_3: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving config_db post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving running config post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving syslog post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP generating tech-support post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP collect core-files post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP saving sai_redis post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_2: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_4: SKIP generating sysinfo post-function-prolog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic Pass
+vs_sonic_1: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP saving config_db post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP saving running config post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: saving syslog post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_2: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP generating tech-support post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_4: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP collect core-files post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP saving sai_redis post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_3: SKIP generating sysinfo post-function-epilog TestECMP3RejectInvalidConfig.test_ecmp3_invalid_nexthop_during_traffic ScriptError
+vs_sonic_1: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_1: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_1: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_1: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_1: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_1: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_1: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_4: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP saving config_db post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP saving running config post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP saving syslog post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP generating tech-support post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP collect core-files post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_3: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP saving sai_redis post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP generating sysinfo post-class-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py::TestECMP3RejectInvalidConfig pass
+vs_sonic_2: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_2: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_2: saving syslog post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: saving syslog post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: saving syslog post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: SKIP saving config_db post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: SKIP saving running config post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: saving syslog post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_2: SKIP generating tech-support post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_3: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_4: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_2: SKIP collect core-files post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_2: SKIP saving sai_redis post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_2: SKIP generating sysinfo post-module-epilog routing/ecmp/test_ecmp3_reject_invalid_ecmp.py fail
+vs_sonic_1: SKIP saving config_db session-epilog session pass
+vs_sonic_1: SKIP saving running config session-epilog session pass
+vs_sonic_1: SKIP saving syslog session-epilog session pass
+vs_sonic_2: SKIP saving config_db session-epilog session pass
+vs_sonic_2: SKIP saving running config session-epilog session pass
+vs_sonic_2: SKIP saving syslog session-epilog session pass
+vs_sonic_1: SKIP generating tech-support session-epilog session pass
+vs_sonic_1: collect core-files session-epilog session pass
+vs_sonic_2: SKIP generating tech-support session-epilog session pass
+vs_sonic_2: collect core-files session-epilog session pass
+vs_sonic_4: SKIP saving config_db session-epilog session pass
+vs_sonic_4: SKIP saving running config session-epilog session pass
+vs_sonic_4: SKIP saving syslog session-epilog session pass
+vs_sonic_3: SKIP saving config_db session-epilog session pass
+vs_sonic_3: SKIP saving running config session-epilog session pass
+vs_sonic_3: SKIP saving syslog session-epilog session pass
+vs_sonic_4: SKIP generating tech-support session-epilog session pass
+vs_sonic_4: collect core-files session-epilog session pass
+vs_sonic_3: SKIP generating tech-support session-epilog session pass
+vs_sonic_3: collect core-files session-epilog session pass
+vs_sonic_1: SKIP saving sai_redis session-epilog session pass
+vs_sonic_1: SKIP generating sysinfo session-epilog session pass
+vs_sonic_2: SKIP saving sai_redis session-epilog session pass
+vs_sonic_2: SKIP generating sysinfo session-epilog session pass
+vs_sonic_4: SKIP saving sai_redis session-epilog session pass
+vs_sonic_4: SKIP generating sysinfo session-epilog session pass
+vs_sonic_3: SKIP saving sai_redis session-epilog session pass
+vs_sonic_3: SKIP generating sysinfo session-epilog session pass

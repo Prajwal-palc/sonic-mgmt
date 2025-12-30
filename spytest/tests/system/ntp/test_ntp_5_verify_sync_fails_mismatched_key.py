@@ -181,17 +181,6 @@ class TestNtpAuthFailureMismatchedKey:
         klish_ntp_assoc_fail1 = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_fail1)
 
-        # Show NTP (click)
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        click_ntp_fail1 = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_fail1)
-
-        # Convert to string for analysis
-        if isinstance(click_ntp_fail1, list):
-            click_ntp_fail1_str = '\n'.join(str(line) for line in click_ntp_fail1)
-        else:
-            click_ntp_fail1_str = str(click_ntp_fail1)
-
         # Analyze for failure indicators
         st.log("=" * 80)
         st.log("ANALYSIS - Looking for authentication failure indicators:")
@@ -201,12 +190,12 @@ class TestNtpAuthFailureMismatchedKey:
         st.log("  - No * marker (not synchronized)")
         st.log("=" * 80)
 
-        if ".AUTH." in click_ntp_fail1_str or ".AUTH." in klish_ntp_assoc_fail1:
+        if ".AUTH." in klish_ntp_assoc_fail1:
             st.log("✅ Found .AUTH. indicator - authentication failure detected")
         else:
             st.log("⚠ Note: .AUTH. not found (may vary by implementation)")
 
-        if "000" in click_ntp_fail1_str or "000" in klish_ntp_assoc_fail1:
+        if "000" in klish_ntp_assoc_fail1:
             st.log("✅ Found reach 000 - no successful polls")
         else:
             st.log("⚠ Note: reach 000 not found in output")
@@ -253,10 +242,6 @@ class TestNtpAuthFailureMismatchedKey:
         klish_ntp_assoc_fail2 = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_fail2)
 
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP (Type Mismatch):")
-        click_ntp_fail2 = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_fail2)
-
         # ========== PART 4: SCENARIO 3 - KEY ID MISMATCH ==========
 
         st.log("=" * 80)
@@ -299,10 +284,6 @@ class TestNtpAuthFailureMismatchedKey:
         klish_ntp_assoc_fail3 = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_fail3)
 
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP (Key ID Mismatch):")
-        click_ntp_fail3 = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_fail3)
-
         # ========== PART 5: POSITIVE VERIFICATION (FIX THE KEY) ==========
 
         st.log("=" * 80)
@@ -344,10 +325,6 @@ class TestNtpAuthFailureMismatchedKey:
         st.log("INSIDE SONIC-CLI (KLISH) - Show NTP Associations (Correct Key):")
         klish_ntp_assoc_success = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_success)
-
-        st.log("OUTSIDE SONIC-CLI (CLICK) - Show NTP (Correct Key):")
-        click_ntp_success = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_success)
 
         # ========== PART 6: TEST AUTHENTICATION TOGGLE ==========
 
@@ -394,30 +371,6 @@ class TestNtpAuthFailureMismatchedKey:
         klish_ntp_assoc_final = self._run_klish_show(dut, "show ntp associations")
         st.log(klish_ntp_assoc_final)
 
-        st.log("=" * 80)
-        st.log("FINAL - OUTSIDE SONIC-CLI (CLICK) - Show NTP:")
-        st.log("=" * 80)
-        click_ntp_final = st.show(dut, "show ntp", skip_tmpl=True, skip_error_check=True)
-        st.log(click_ntp_final)
-
-        # ========== VALIDATION ==========
-
-        # Convert final outputs to strings
-        if isinstance(click_ntp_final, list):
-            click_ntp_final_str = '\n'.join(str(line) for line in click_ntp_final)
-        else:
-            click_ntp_final_str = str(click_ntp_final)
-
-        # Basic validation
-        st.log("=" * 80)
-        st.log("VALIDATION - Checking final NTP status")
-        st.log("=" * 80)
-
-        if not click_ntp_final_str or not click_ntp_final_str.strip():
-            st.log("Warning: 'show ntp' returned empty output")
-        else:
-            st.log("Validation passed: 'show ntp' returned output")
-
         # ========== TEST SUMMARY ==========
 
         st.log("=" * 80)
@@ -451,14 +404,25 @@ class TestNtpAuthFailureMismatchedKey:
         script = ["sonic-cli", "configure terminal"]
         script.extend(command_list)
         script.extend(["end", "exit"])
-        st.apply_script(dut, script)
+        output = st.apply_script(dut, script)
+
+        # Check for CLI errors in the output
+        output_str = str(output or "")
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI command failed with error: {output_str}")
 
     @staticmethod
     def _run_klish_show(dut: str, command: str) -> str:
         """Run show command inside sonic-cli (klish) context and return output."""
         script = ["sonic-cli", command, "exit"]
         output = st.apply_script(dut, script)
-        return str(output or "")
+        output_str = str(output or "")
+
+        # Check for CLI errors in the output
+        if "% Error:" in output_str or "Error:" in output_str or "Invalid" in output_str:
+            st.report_fail("msg", f"CLI show command '{command}' failed with error: {output_str}")
+
+        return output_str
 
     @classmethod
     def _restore_defaults(cls, dut: str) -> None:

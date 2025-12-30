@@ -1,0 +1,236 @@
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/fh-3.2.4/datatables.min.js"></script>
+  <style>
+    table.dataTable thead th {text-align:center; padding:0px 15px 0px 5px; font-weight:bold;}
+    table.dataTable tbody td {text-align:center; padding:0px 5px 0px 5px}
+    table.dataTable tfoot td {text-align:center; padding:0px 5px 0px 5px}
+    .dt-button-collection .dt-button.buttons-columnVisibility {
+        background: none !important; background-color: transparent !important;
+        box-shadow: none !important; border: none !important; padding: 0.25em 1em !important;
+        margin: 0 !important; text-align: left !important;
+    }
+    .dt-button-collection .buttons-columnVisibility:before,
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        display:block; position:absolute; top:1.2em; left:0;
+        width:12px; height:12px; box-sizing:border-box;
+    }
+    .dt-button-collection .buttons-columnVisibility:before {
+        content:' '; margin-top:-8px; margin-left:10px; border:1px solid black; border-radius:3px;
+    }
+    .dt-button-collection .buttons-columnVisibility.active span:before {
+        font-family: 'Arial' !important; content:'\\2714'; margin-top: -15px; margin-left: 12px;
+        text-align: center; text-shadow: 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+    .dt-button-collection .buttons-columnVisibility span { margin-left:17px; }
+  </style>
+  <script>
+    $(function () {
+      var url = new URL(window.location); var search_params = url.searchParams;
+      if (parseInt(search_params.get("nocache")|0, 0) != 0) {
+        search_params.set('timestamp', Date.now()/1000|0);
+        search_params.delete('nocache'); window.location = url.toString();
+      }
+      function selectedColumn(idx, data, node) {
+        oldSearchInput = $('table').parents('.dataTables_wrapper').find('select');
+        let columnIndex = columnScopeSelect.prop('selectedIndex');
+        return ((columnIndex <= 0) || (idx == columnIndex - 1));
+      }
+      function get_uniq(data, obj) {
+        return data.split('\\n').filter((item, i, allItems) => {return i === allItems.indexOf(item);}).join('\\n');
+      }
+      buttons = [{ extend: 'colvis', className: 'btn btn-primary', collectionLayout: 'two-column' },
+                 { extend: 'copy', className: 'btn btn-primary', title: '',
+                   text: 'Copy Column', header: false, customize: get_uniq,
+                   exportOptions: { columns: selectedColumn }
+                 }];
+      function parseTimeStamp(ts) {
+        var parts = ts.split(":"), total = 0, multiplier=1;
+        for(var i = parts.length; i>0; i--) {
+          total = total + parseInt(parts[i-1])*multiplier;
+          multiplier=multiplier*60;
+        }
+        return total;
+      }
+      jQuery.fn.dataTableExt.aTypes.unshift(function (sData) {
+        return /^(\d+):(\d+):(\d+)/i.test(sData) ? 'duration' : null
+      });
+      jQuery.fn.dataTableExt.oSort['duration-asc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+      };
+      jQuery.fn.dataTableExt.oSort['duration-desc'] = function (a, b) {
+        var ordA = parseTimeStamp(a), ordB = parseTimeStamp(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+      };
+      dataTable = $('table').DataTable({dom: 'Bfrtip', buttons: buttons,
+        stateSave: true, iDisplayLength: 100, paging: false, order: [],
+        fixedHeader: true, stateDuration: 60 * 60 * 24
+      });
+      col_css = [{'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}, {'align': 'center'}, {'align': 'center'}, {'align': 'left'}, {'align': 'left'}, {'align': 'left'}, {'align': 'left'}, {'align': 'center'}]
+      $('table.dataTable tr').filter(function() {
+         return this.parentNode !== "thead";
+        }).each(function(tr_idx,tr) {
+        $(tr).children('td').each(function(td_idx, td) {
+          $(td).css("text-align", col_css[td_idx]["align"])
+        });
+      });
+      // support for search by
+      oldSearchInput = $('table').parents('.dataTables_wrapper').find('input[type=search]')
+      searchInput = $(document.createElement('input')).attr({type: 'search'});
+      columnScopeLabel = $(document.createElement('span')).text('Column Scope:').attr({style: "padding-right:5"})
+      searchLabel = $(document.createElement('span')).text('Search:').attr({style: "padding-left:5"})
+      negateLabel = $(document.createElement('span')).text('Negate Results:').attr({style: "padding-left:2"})
+      negateCheckbox = $(document.createElement('input')).attr({type: 'checkbox', style: "padding-left:0"})
+      mainLabel = $(document.createElement('label'))
+      columnScopeSelect = $(document.createElement('select'))
+      var select = '<option/>';
+      $("table thead tr:last-child th").each(function(){
+        select += '<option>' + this.innerHTML + '</option>';
+      })
+      columnScopeSelect.html(select);
+      mainLabel.append(columnScopeLabel)
+      mainLabel.append(columnScopeSelect)
+      mainLabel.append(searchLabel)
+      mainLabel.append(searchInput)
+      mainLabel.append(negateLabel)
+      mainLabel.append(negateCheckbox)
+      mainLabel.insertBefore(oldSearchInput.parent());
+      oldSearchInput.parent().css("display", "none")
+      let query = undefined;
+      function hanleInputEvent() {
+        query = searchInput.val().toLowerCase();
+        if (query === '') { query = undefined; }
+        dataTable.draw();
+      }
+      searchInput.on('keyup', hanleInputEvent)
+      searchInput.on('search', hanleInputEvent)
+      negateCheckbox.on('click', hanleInputEvent)
+      search_val = search_params.get("search")|0
+      if (search_val != 0) {
+        searchInput.val(search_val)
+        setTimeout(function(){searchInput.trigger('keyup')}, 1);
+      }
+      function matchit(value) {
+        if (query.trim() === "") {
+          found = (value === "");
+        } else if (typeof value === 'undefined') {
+          found = false;
+        } else {
+          found = (value.toLowerCase().indexOf(query) !== -1);
+        }
+        if (negateCheckbox.is(":checked")) {
+          return !found;
+        }
+        return found;
+      }
+      function filterDataTable(settings, data, dataIndex) {
+        if (query === undefined) { return true; }
+        let columnIndex = columnScopeSelect.prop('selectedIndex')
+        if (columnIndex > 0) {
+          return matchit(data[columnIndex-1])
+        }
+        for (var i = 0; i < data.length; i++) {
+          if (matchit(data[i])) {
+            return true;
+          }
+        }
+        return false
+      }
+      $.fn.dataTable.ext.search.push(filterDataTable);
+    });
+  </script>
+</head>
+<body>
+  <table border='1'>
+  <thead>
+    
+    <tr>
+      <th>#</th>
+      <th>Feature</th>
+      <th>TestCase</th>
+      <th>Result</th>
+      <th>ResultType</th>
+      <th>ExecutedOn</th>
+      <th>Description</th>
+      <th>Function</th>
+      <th>Module</th>
+      <th>Devices</th>
+      <th>KnownIssue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>==UNKNOWN==</td>
+      <td>TestOSPFMD5Authentication4Node.test_ospf_md5_authentication</td>
+      <td><a href='results_2025_12_17_17_18_46_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.log'>Pass</a></td>
+      <td>NotMapped</td>
+      <td>2025-12-17 11:58:50</td>
+      <td>OSPF MD5 authentication test completed successfully</td>
+      <td>TestOSPFMD5Authentication4Node.test_ospf_md5_authentication</td>
+      <td><a href='results_2025_12_17_17_18_46_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Eth.py</a></td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>==UNKNOWN==</td>
+      <td>TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan</td>
+      <td><a href='results_2025_12_17_17_18_46_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.log'>Fail</a></td>
+      <td>NotMapped</td>
+      <td>2025-12-17 12:18:47</td>
+      <td>Test completed with 19 validation failure(s):
+  - STEP 8: Expected 4 OSPF neighbors on vs_sonic_1
+  - STEP 8: Neighbor 10.0.1.2 on vs_sonic_1 Vlan10 not in Full state
+  - STEP 8: Neighbor 10.0.2.2 on vs_sonic_1 Vlan20 not in Full state
+  - STEP 8: Neighbor 10.0.3.2 on vs_sonic_1 Vlan30 not in Full state
+  - STEP 8: Neighbor 10.0.4.2 on vs_sonic_1 Vlan40 not in Full state
+  - STEP 8: Expected 8 OSPF neighbors on vs_sonic_2
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_1 Vlan10
+  - STEP 9: MD5 algorithm not shown on vs_sonic_1 Vlan10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 Vlan10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 Vlan110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 Vlan110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 Vlan60
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_3 Vlan60
+  - STEP 10: OSPF route 20.0.1.0/30 not found on vs_sonic_1
+  - STEP 10: OSPF route 30.0.1.0/30 not found on vs_sonic_1
+  - STEP 11: Router Link States not found in vs_sonic_1 OSPF database
+  - STEP 13: Expected 3 OSPF neighbors on vs_sonic_1 (Vlan10 down)
+  - STEP 15: Neighbor 10.0.1.2 on Vlan10 did not come back up
+  - STEP 15: Expected 4 OSPF neighbors on vs_sonic_1 after restore</td>
+      <td>TestOSPFMD5AuthenticationVLAN4Node.test_ospf_md5_authentication_vlan</td>
+      <td><a href='results_2025_12_17_17_18_46_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_Vlan.py</a></td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>==UNKNOWN==</td>
+      <td>TestOSPFMD5AuthenticationPortChannel4Node.test_ospf_md5_authentication_portchannel</td>
+      <td><a href='results_2025_12_17_17_18_46_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.log'>Fail</a></td>
+      <td>NotMapped</td>
+      <td>2025-12-17 12:38:16</td>
+      <td>Test completed with 9 validation failure(s):
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_1 PortChannel10
+  - STEP 9: MD5 algorithm not shown on vs_sonic_1 PortChannel10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 PortChannel10
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_2 PortChannel110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 PortChannel110
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_4 PortChannel60
+  - STEP 9: Cryptographic auth not enabled on vs_sonic_3 PortChannel60
+  - STEP 13: Neighbor 10.0.1.2 on PortChannel10 still present after auth failure
+  - STEP 13: Expected 3 OSPF neighbors on vs_sonic_1 (PortChannel10 down)</td>
+      <td>TestOSPFMD5AuthenticationPortChannel4Node.test_ospf_md5_authentication_portchannel</td>
+      <td><a href='results_2025_12_17_17_18_46_mlog_system_iscli_OSPF_testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.log'>system/iscli_OSPF/testcases_OSPF_9_iscli_4_node_MD5_authentication_over_PC.py</a></td>
+      <td>vs_sonic_1, vs_sonic_2, vs_sonic_3, vs_sonic_4</td>
+      <td></td>
+    </tr>
+  </tbody>
+  </table>
+</body>

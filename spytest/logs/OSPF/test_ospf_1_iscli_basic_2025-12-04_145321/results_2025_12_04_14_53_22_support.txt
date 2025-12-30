@@ -1,0 +1,44 @@
+vs_sonic_1: SKIP saving config_db post-session-prolog session pass
+vs_sonic_1: SKIP saving running config post-session-prolog session pass
+vs_sonic_1: SKIP saving syslog post-session-prolog session pass
+vs_sonic_3: SKIP saving config_db post-session-prolog session pass
+vs_sonic_3: SKIP saving running config post-session-prolog session pass
+vs_sonic_3: SKIP saving syslog post-session-prolog session pass
+vs_sonic_2: SKIP saving config_db post-session-prolog session pass
+vs_sonic_2: SKIP saving running config post-session-prolog session pass
+vs_sonic_2: SKIP saving syslog post-session-prolog session pass
+vs_sonic_3: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_3: SKIP collect core-files post-session-prolog session pass
+vs_sonic_3: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_2: SKIP collect core-files post-session-prolog session pass
+vs_sonic_2: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_2: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_3: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_1: SKIP collect core-files post-session-prolog session pass
+vs_sonic_1: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_1: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_4: SKIP saving config_db post-session-prolog session pass
+vs_sonic_4: SKIP saving running config post-session-prolog session pass
+vs_sonic_4: SKIP saving syslog post-session-prolog session pass
+vs_sonic_4: SKIP generating tech-support post-session-prolog session pass
+vs_sonic_4: SKIP collect core-files post-session-prolog session pass
+vs_sonic_4: SKIP saving sai_redis post-session-prolog session pass
+vs_sonic_4: SKIP generating sysinfo post-session-prolog session pass
+vs_sonic_1: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_1: SKIP saving running config port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_1: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_2: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_1: generating tech-support port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_2: SKIP saving running config port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_2: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_2: generating tech-support port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_4: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_4: SKIP saving running config port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_3: SKIP saving config_db port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_4: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_4: generating tech-support port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_3: SKIP saving running config port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_3: SKIP saving syslog port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail
+vs_sonic_3: generating tech-support port-status-module mlog_system_iscli_OSPF_test_ospf_1_iscli_basic fail

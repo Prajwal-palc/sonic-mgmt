@@ -1,0 +1,157 @@
+
+======================= STATS: system/ntp/test_ntp_1_verify_ntp_server_sync_and_status.py::TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:14
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:12.616
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 04:03:03,761 T0028: CMD TIME: 3082 D2 = show interfaces status Ethernet124
+2025-11-19 04:03:03,754 T0027: CMD TIME: 3694 D1 = show interfaces status Ethernet124
+2025-11-19 04:03:07,266 T0028: CMD TIME: 256 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 04:03:07,868 T0027: CMD TIME: 255 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-11-19 04:03:08,566 T0030: CMD TIME: 2034 D1 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 04:03:08,557 T0031: CMD TIME: 3295 D2 = show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+2025-11-19 04:03:12,295 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/ntp/test_ntp_1_verify_ntp_server_sync_and_status.py'  
+2025-11-19 04:03:12,304 T0033: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/ntp/test_ntp_1_verify_ntp_server_sync_and_status.py'  
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_1_verify_ntp_server_sync_and_status.py::TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:04:12
+TOTAL Sleep Time = 0:01:36
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:55.494
+TOTAL HELPER Time = 0:00:15.380
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-11-19 04:03:29,118 T0042: HELPER TIME: 3816 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status'  
+2025-11-19 04:03:29,127 T0043: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status'  
+2025-11-19 04:03:33,788 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:03:34,763 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 04:03:35,449 T0000: CMD TIME: 258 D1 = ntp enable
+2025-11-19 04:03:36,540 T0000: CMD TIME: 911 D1 = end
+2025-11-19 04:03:38,281 T0000: CMD TIME: 261 D1 = exit
+2025-11-19 04:03:39,363 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:03:43,191 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:03:44,113 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 04:03:44,791 T0000: CMD TIME: 257 D1 = ntp server 216.239.35.0
+2025-11-19 04:03:45,874 T0000: CMD TIME: 911 D1 = end
+2025-11-19 04:03:47,611 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 04:03:48,688 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:03:51,693 T0000: WAIT TIME: 60 = static delay
+2025-11-19 04:04:52,574 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:04:53,956 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 04:04:55,038 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 04:04:56,936 T0000: CMD TIME: 1618 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:04:58,973 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 04:05:00,055 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 04:05:01,952 T0000: CMD TIME: 964 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:03,335 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 04:05:04,419 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 04:05:05,908 T0000: CMD TIME: 2275 D1 = show ntp
+2025-11-19 04:05:08,604 T0000: CMD TIME: 1316 D1 = show clock
+2025-11-19 04:05:10,749 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:11,721 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 04:05:12,397 T0000: CMD TIME: 257 D1 = ntp server 216.239.35.4 iburst prefer
+2025-11-19 04:05:13,479 T0000: CMD TIME: 257 D1 = ntp server 216.239.35.8 version 4
+2025-11-19 04:05:14,562 T0000: CMD TIME: 911 D1 = end
+2025-11-19 04:05:16,297 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:05:17,372 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:05:21,198 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:22,530 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 04:05:23,612 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:05:25,509 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:26,430 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 04:05:27,106 T0000: CMD TIME: 257 D1 = ntp authenticate
+2025-11-19 04:05:28,188 T0000: CMD TIME: 911 D1 = end
+2025-11-19 04:05:29,924 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:05:31,000 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:05:34,825 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:35,797 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 04:05:36,476 T0000: CMD TIME: 258 D1 = ntp authentication-key 10 md5 MySecretKey123
+2025-11-19 04:05:37,560 T0000: CMD TIME: 258 D1 = ntp authentication-key 20 sha1 AnotherSecret456
+2025-11-19 04:05:38,643 T0000: CMD TIME: 913 D1 = end
+2025-11-19 04:05:40,381 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:05:41,459 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:05:45,285 T0000: CMD TIME: 963 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:46,258 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 04:05:46,938 T0000: CMD TIME: 258 D1 = ntp trusted-key 10
+2025-11-19 04:05:48,022 T0000: CMD TIME: 258 D1 = ntp trusted-key 20
+2025-11-19 04:05:49,106 T0000: CMD TIME: 912 D1 = end
+2025-11-19 04:05:50,843 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:05:51,920 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:05:55,747 T0000: CMD TIME: 1265 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:05:57,433 T0000: CMD TIME: 258 D1 = show ntp global
+2025-11-19 04:05:58,516 T0000: CMD TIME: 308 D1 = exit
+2025-11-19 04:06:00,467 T0000: CMD TIME: 1013 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:01,490 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 04:06:02,169 T0000: CMD TIME: 258 D1 = ntp source-interface Management 0
+2025-11-19 04:06:03,255 T0000: CMD TIME: 912 D1 = end
+2025-11-19 04:06:04,992 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:06:06,070 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:06:09,896 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:11,231 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 04:06:12,315 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:06:14,212 T0000: CMD TIME: 962 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:15,182 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 04:06:15,859 T0000: CMD TIME: 257 D1 = ntp vrf mgmt
+2025-11-19 04:06:16,940 T0000: CMD TIME: 861 D1 = end
+2025-11-19 04:06:18,631 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 04:06:19,709 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:06:23,535 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:24,868 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 04:06:25,951 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:06:27,848 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:28,769 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 04:06:29,446 T0000: CMD TIME: 257 D1 = no ntp enable
+2025-11-19 04:06:30,529 T0000: CMD TIME: 911 D1 = end
+2025-11-19 04:06:32,266 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:06:33,342 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:06:37,167 T0000: CMD TIME: 911 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:38,497 T0000: CMD TIME: 257 D1 = show ntp global
+2025-11-19 04:06:39,579 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 04:06:41,476 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:42,396 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 04:06:43,073 T0000: CMD TIME: 257 D1 = ntp enable
+2025-11-19 04:06:44,157 T0000: CMD TIME: 912 D1 = end
+2025-11-19 04:06:45,892 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:06:46,968 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:06:50,793 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:52,126 T0000: CMD TIME: 258 D1 = show ntp global
+2025-11-19 04:06:53,208 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:06:55,106 T0000: CMD TIME: 962 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:06:56,076 T0000: CMD TIME: 257 D1 = configure terminal
+2025-11-19 04:06:56,753 T0000: CMD TIME: 257 D1 = no ntp trusted-key 10
+2025-11-19 04:06:57,836 T0000: CMD TIME: 257 D1 = no ntp trusted-key 20
+2025-11-19 04:06:58,918 T0000: CMD TIME: 257 D1 = no ntp authentication-key 10
+2025-11-19 04:07:00,001 T0000: CMD TIME: 258 D1 = no ntp authentication-key 20
+2025-11-19 04:07:01,085 T0000: CMD TIME: 257 D1 = no ntp authenticate
+2025-11-19 04:07:02,174 T0000: CMD TIME: 916 D1 = end
+2025-11-19 04:07:03,918 T0000: CMD TIME: 258 D1 = exit
+2025-11-19 04:07:04,999 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:07:08,828 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:07:09,751 T0000: CMD TIME: 258 D1 = configure terminal
+2025-11-19 04:07:10,431 T0000: CMD TIME: 257 D1 = no ntp source-interface
+2025-11-19 04:07:11,516 T0000: CMD TIME: 257 D1 = no ntp vrf
+2025-11-19 04:07:12,599 T0000: CMD TIME: 913 D1 = end
+2025-11-19 04:07:14,338 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:07:15,415 T0000: WAIT TIME: 3 = static delay
+2025-11-19 04:07:19,246 T0000: CMD TIME: 912 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:07:20,583 T0000: CMD TIME: 258 D1 = show ntp global
+2025-11-19 04:07:21,670 T0000: CMD TIME: 257 D1 = exit
+2025-11-19 04:07:23,576 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:07:24,911 T0000: CMD TIME: 257 D1 = show ntp server
+2025-11-19 04:07:25,997 T0000: CMD TIME: 262 D1 = exit
+2025-11-19 04:07:27,904 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-11-19 04:07:29,239 T0000: CMD TIME: 257 D1 = show ntp associations
+2025-11-19 04:07:30,321 T0000: CMD TIME: 256 D1 = exit
+2025-11-19 04:07:31,837 T0046: HELPER TIME: 3873 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status'  
+2025-11-19 04:07:31,843 T0047: HELPER TIME: 3880 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestNtpServerSyncAndStatus.test_ntp_1_verify_ntp_server_sync_and_status'  
+=========================================================

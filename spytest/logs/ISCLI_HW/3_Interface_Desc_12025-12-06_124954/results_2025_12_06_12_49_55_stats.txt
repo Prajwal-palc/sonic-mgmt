@@ -1,0 +1,70 @@
+
+======================= STATS: system/iscli_Hardware/test_interface_3_iscli_events_description_HW.py::TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:10
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:05.977
+TOTAL HELPER Time = 0:00:07.627
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-06 07:20:43,373 T0027: CMD TIME: 1215 D1 = show interfaces status Ethernet513
+2025-12-06 07:20:43,379 T0028: CMD TIME: 1665 D2 = show interfaces status Ethernet128
+2025-12-06 07:20:45,010 T0027: CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-06 07:20:45,464 T0028: CMD TIME: 255 D2 = date -u +'%Y-%m-%d %H:%M:%S'
+2025-12-06 07:20:46,144 T0030: CMD TIME: 967 D1 = show interfaces status Ethernet272
+2025-12-06 07:20:46,150 T0031: CMD TIME: 1619 D2 = show interfaces status Ethernet56
+2025-12-06 07:20:48,214 T0032: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Hardware/test_interface_3_iscli_events_description_HW.py'  
+2025-12-06 07:20:48,221 T0033: HELPER TIME: 3812 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-module-prolog --identity 'system/iscli_Hardware/test_interface_3_iscli_events_description_HW.py'  
+=========================================================
+
+======================= STATS: system/iscli_Hardware/test_interface_3_iscli_events_description_HW.py::TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:01:01
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:21.210
+TOTAL HELPER Time = 0:00:15.254
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2025-12-06 07:21:04,555 T0043: HELPER TIME: 3817 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle'  
+2025-12-06 07:21:04,560 T0042: HELPER TIME: 3815 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check none --phase pre-function-prolog --identity 'TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle'  
+2025-12-06 07:21:08,815 T0000: CMD TIME: 612 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2025-12-06 07:21:09,436 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-06 07:21:10,120 T0000: CMD TIME: 258 D1 = configure terminal
+2025-12-06 07:21:10,387 T0000: CMD TIME: 813 D1 = interface Ethernet272
+2025-12-06 07:21:11,209 T0000: CMD TIME: 864 D1 = no description
+2025-12-06 07:21:12,082 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:21:14,778 T0000: CMD TIME: 1219 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:21:16,419 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:21:16,684 T0000: CMD TIME: 816 D1 = interface Ethernet272
+2025-12-06 07:21:17,508 T0000: CMD TIME: 813 D1 = description sonic
+2025-12-06 07:21:18,329 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:21:21,009 T0000: CMD TIME: 1216 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:21:22,647 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:21:22,913 T0000: CMD TIME: 813 D1 = interface Ethernet272
+2025-12-06 07:21:23,738 T0000: CMD TIME: 812 D1 = no description
+2025-12-06 07:21:24,558 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:21:27,238 T0000: CMD TIME: 1217 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:21:28,877 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:21:29,149 T0000: CMD TIME: 817 D1 = interface Ethernet272
+2025-12-06 07:21:29,974 T0000: CMD TIME: 862 D1 = description test_interface
+2025-12-06 07:21:30,844 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:21:33,525 T0000: CMD TIME: 1216 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:21:35,163 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:21:35,429 T0000: CMD TIME: 812 D1 = interface Ethernet272
+2025-12-06 07:21:36,249 T0000: CMD TIME: 862 D1 = no description
+2025-12-06 07:21:37,118 T0000: CMD TIME: 256 D1 = exit
+2025-12-06 07:21:39,798 T0000: CMD TIME: 1216 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:21:41,451 T0000: CMD TIME: 1214 D1 = do show running-configuration interface Ethernet 272
+2025-12-06 07:21:43,102 T0000: CMD TIME: 257 D1 = configure terminal
+2025-12-06 07:21:43,368 T0000: CMD TIME: 812 D1 = interface Ethernet272
+2025-12-06 07:21:44,188 T0000: CMD TIME: 862 D1 = no description
+2025-12-06 07:21:45,059 T0000: CMD TIME: 257 D1 = exit
+2025-12-06 07:21:45,746 T0049: HELPER TIME: 3811 D2 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle'  
+2025-12-06 07:21:57,482 T0048: HELPER TIME: 3811 D1 = sudo python /etc/spytest/remote/spytest-helper.py --syslog-check err --phase post-function-epilog --identity 'TestInterfaceDescriptionChangesHW.test_interface_description_change_cycle'  
+=========================================================

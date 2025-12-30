@@ -1,0 +1,193 @@
+ ____  ____       _____         _   
+/ ___||  _ \ _   |_   _|__  ___| |_ 
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_ 
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/                  
+
+SPYTEST_RANDOM_SEED used = 14215
+
+VERSION: UNKNOWN UNKNOWN UNKNOWN
+
+tcmap verify took 0:00:00
+Tests considered 1 and ignored 0
+tech_cfg_always global = True
+tech_cfg_always system-not-ready = True
+tech_cfg_always portlist-not-ready = True
+tech_cfg_always console_hang = True
+tech_cfg_always port-status = True
+tech_cfg_always port-status-module = True
+tech_cfg_always port-status-function = True
+tech_cfg_always pre-module-prolog = False
+tech_cfg_always post-module-prolog = False
+tech_cfg_always pre-module-epilog = False
+tech_cfg_always post-module-epilog = False
+tech_cfg_always pre-function-prolog = False
+tech_cfg_always post-function-prolog = False
+tech_cfg_always pre-function-epilog = False
+tech_cfg_always post-function-epilog = False
+tech_cfg_always session-epilog = False
+tech_cfg_fail pre-module-prolog = False
+tech_cfg_fail post-module-prolog = True
+tech_cfg_fail pre-module-epilog = False
+tech_cfg_fail post-module-epilog = False
+tech_cfg_fail pre-function-prolog = False
+tech_cfg_fail post-function-prolog = True
+tech_cfg_fail pre-function-epilog = True
+tech_cfg_fail post-function-epilog = True
+tech_cfg_fail function = False
+tech_cfg_fail testcase = False
+tech_cfg_fail post-class-prolog = True
+core_cfg_always global = True
+core_cfg_always system-not-ready = False
+core_cfg_always portlist-not-ready = False
+core_cfg_always console_hang = True
+core_cfg_always port-status = False
+core_cfg_always port-status-module = False
+core_cfg_always port-status-function = False
+core_cfg_always pre-module-prolog = False
+core_cfg_always post-module-prolog = False
+core_cfg_always pre-module-epilog = False
+core_cfg_always post-module-epilog = False
+core_cfg_always pre-function-prolog = False
+core_cfg_always post-function-prolog = False
+core_cfg_always pre-function-epilog = False
+core_cfg_always post-function-epilog = False
+core_cfg_always session-epilog = True
+core_cfg_fail pre-module-prolog = False
+core_cfg_fail post-module-prolog = False
+core_cfg_fail pre-module-epilog = False
+core_cfg_fail post-module-epilog = False
+core_cfg_fail pre-function-prolog = False
+core_cfg_fail post-function-prolog = False
+core_cfg_fail pre-function-epilog = False
+core_cfg_fail post-function-epilog = False
+core_cfg_fail function = False
+core_cfg_fail testcase = False
+sysinfo_cfg global = False
+sysinfo_cfg pre-module-prolog = False
+sysinfo_cfg post-module-prolog = False
+sysinfo_cfg pre-module-epilog = False
+sysinfo_cfg post-module-epilog = False
+sysinfo_cfg pre-function-prolog = False
+sysinfo_cfg post-function-prolog = False
+sysinfo_cfg pre-function-epilog = False
+sysinfo_cfg post-function-epilog = False
+sairedis_cfg global = False
+sairedis_cfg pre-module-prolog = False
+sairedis_cfg post-module-prolog = False
+sairedis_cfg pre-module-epilog = False
+sairedis_cfg post-module-epilog = False
+sairedis_cfg pre-function-prolog = False
+sairedis_cfg post-function-prolog = False
+sairedis_cfg pre-function-epilog = False
+sairedis_cfg post-function-epilog = False
+syslog_cfg global = True
+syslog_cfg pre-module-prolog = True
+syslog_cfg post-module-prolog = True
+syslog_cfg pre-module-epilog = True
+syslog_cfg post-module-epilog = True
+syslog_cfg pre-function-prolog = True
+syslog_cfg post-function-prolog = False
+syslog_cfg pre-function-epilog = False
+syslog_cfg post-function-epilog = True
+config_db_cfg global = False
+config_db_cfg pre-module-prolog = True
+config_db_cfg post-module-prolog = True
+config_db_cfg pre-module-epilog = True
+config_db_cfg post-module-epilog = True
+config_db_cfg pre-function-prolog = False
+config_db_cfg post-function-prolog = False
+config_db_cfg pre-function-epilog = False
+config_db_cfg post-function-epilog = False
+config_db_cfg post-session-prolog = True
+show_run_cfg global = False
+show_run_cfg pre-module-prolog = True
+show_run_cfg post-module-prolog = True
+show_run_cfg pre-module-epilog = True
+show_run_cfg post-module-epilog = True
+show_run_cfg pre-function-prolog = False
+show_run_cfg post-function-prolog = False
+show_run_cfg pre-function-epilog = False
+show_run_cfg post-function-epilog = False
+TEMPLATE USED: show_version.tmpl: show version
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status
+TEMPLATE USED: unix_ifcfg.tmpl: /sbin/ifconfig eth0
+[smic_sonic1] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic2] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic1] : SKIP saving running config post-session-prolog session pass
+[smic_sonic2] : SKIP saving running config post-session-prolog session pass
+[smic_sonic1] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic2] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic1] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic2] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic2] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic1] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic2] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic1] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic2] : SKIP generating sysinfo post-session-prolog session pass
+[smic_sonic1] : SKIP generating sysinfo post-session-prolog session pass
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet124
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+[smic_sonic1] : SKIP saving config_db pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic1] : SKIP saving running config pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic2] : SKIP saving config_db pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic2] : SKIP saving running config pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic1] : SKIP generating tech-support pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic1] : SKIP collect core-files pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic1] : SKIP saving sai_redis pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic1] : SKIP generating sysinfo pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic2] : SKIP generating tech-support pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic2] : SKIP collect core-files pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic2] : SKIP saving sai_redis pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+[smic_sonic2] : SKIP generating sysinfo pre-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py 
+ensure_min_topology, , D1D2:1
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP saving config_db post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP saving running config post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP saving syslog post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP generating tech-support post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP collect core-files post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP saving sai_redis post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic2] : SKIP generating sysinfo post-class-prolog system/lldp/test_lldp_1_verify_lldp_cli.py::TestLldpCliConfiguration Pass
+[smic_sonic1] : SKIP saving config_db post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic1] : SKIP saving running config post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic2] : SKIP saving config_db post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic2] : SKIP saving running config post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic2] : SKIP generating tech-support post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic2] : SKIP collect core-files post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic2] : SKIP saving sai_redis post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic2] : SKIP generating sysinfo post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic1] : SKIP generating tech-support post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic1] : SKIP collect core-files post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic1] : SKIP saving sai_redis post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic1] : SKIP generating sysinfo post-module-prolog system/lldp/test_lldp_1_verify_lldp_cli.py Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic2] : SKIP saving config_db pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic2] : SKIP saving running config pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic2] : SKIP generating tech-support pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic2] : SKIP collect core-files pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic2] : SKIP saving sai_redis pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic2] : SKIP generating sysinfo pre-function-prolog TestLldpCliConfiguration.test_lldp_cli_configuration 
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic2] : SKIP saving config_db pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic2] : SKIP saving running config pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic2] : SKIP saving syslog pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic2] : SKIP saving sai_redis pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+[smic_sonic2] : SKIP generating sysinfo pre-function-epilog TestLldpCliConfiguration.test_lldp_cli_configuration Fail
+ shutting down - signal 2

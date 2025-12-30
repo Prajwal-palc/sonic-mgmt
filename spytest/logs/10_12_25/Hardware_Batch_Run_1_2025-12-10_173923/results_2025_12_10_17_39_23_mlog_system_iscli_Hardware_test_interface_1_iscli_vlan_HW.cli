@@ -1,0 +1,40 @@
+framework,,,D1,normal-user,show interfaces status Ethernet513
+framework,,,D1,normal-user,show interfaces status Ethernet272
+framework,,,D1,normal-user,show interfaces status Ethernet513
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-user,show Vlan
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-user,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no ip address
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no ipv6 address
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,vlan 3
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no vlan 3
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,do show Vlan
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,interface Ethernet272
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no switchport trunk allowed vlan 3
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,exit
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+function-or-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no vlan 3
+module-or-class-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,normal-user,configure terminal
+module-or-class-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,configure terminal
+module-or-class-epilog,,TestVlanConfigurationHW.test_vlan_creation_and_port_management,D1,mgmt-config,no vlan 3
+framework,,,D2,normal-user,show interfaces status Ethernet128
+framework,,,D2,normal-user,show interfaces status Ethernet56
+framework,,,D2,normal-user,show interfaces status Ethernet128

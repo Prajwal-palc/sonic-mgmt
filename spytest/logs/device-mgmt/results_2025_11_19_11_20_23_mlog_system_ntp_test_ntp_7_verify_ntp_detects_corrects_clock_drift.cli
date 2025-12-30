@@ -1,0 +1,70 @@
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D2,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet0,Ethernet4,Ethernet8,Ethernet12
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,normal-user,configure terminal
+class-prolog,,,D1,mgmt-config,ntp server 216.239.35.0 iburst
+class-prolog,,,D1,mgmt-config,ntp enable
+class-prolog,,,D1,mgmt-config,end
+class-prolog,,,D1,mgmt-user,exit
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,mgmt-user,show ntp associations
+class-prolog,,,D1,mgmt-user,exit
+class-prolog,,,D1,normal-user,show ntp
+class-prolog,,,D1,normal-user,show clock
+class-prolog,,,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+class-prolog,,,D1,mgmt-user,show ntp associations
+class-prolog,,,D1,mgmt-user,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,sudo -s date -s "+5 minutes"
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,mgmt-user,show ntp associations
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,mgmt-user,exit
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show ntp
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,mgmt-user,show ntp associations
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,mgmt-user,exit
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show ntp
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,mgmt-user,show ntp associations
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,mgmt-user,exit
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show ntp
+framework,,TestNtpClockDriftCorrection.test_ntp_7_forward_drift_correction,D1,normal-user,show clock
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sudo -s date -s "-5 minutes"
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,show ntp associations
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,exit
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show ntp
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,show ntp associations
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,exit
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show ntp
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show clock
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,show ntp associations
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,exit
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show ntp
+framework,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,show clock
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,show ntp global
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,exit
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,show ntp associations
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,exit
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-config,no ntp enable
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-config,end
+module-or-class-epilog,,TestNtpClockDriftCorrection.test_ntp_7_backward_drift_correction,D1,mgmt-user,exit
