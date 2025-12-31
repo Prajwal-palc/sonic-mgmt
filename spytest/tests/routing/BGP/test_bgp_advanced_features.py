@@ -38,10 +38,9 @@ Pre-requisites:
   - Required test variables (YAML): tests/routing/BGP/vars_bgp_advanced_features.yaml
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 from typing import Any, Dict, List, Mapping
+import re
 
 import pytest
 import yaml
@@ -356,7 +355,6 @@ class TestBGPAdvancedFeatures:
                         # Parse the State/PfxRcd column
                         # Format: Neighbor V AS MsgRcvd MsgSent TblVer InQ OutQ Up/Down State/PfxRcd NeighborName
                         # Split by whitespace and check if State/PfxRcd (index -2) is an integer
-                        import re
                         fields = stripped_line.split()
                         if len(fields) >= 10:
                             # State/PfxRcd is the 2nd to last field (before NeighborName)
@@ -387,7 +385,6 @@ class TestBGPAdvancedFeatures:
                             st.log(f"BGP session established with {neighbor_ip} (found 'Established' in klish output)")
                             return True
                         # Parse the State/PfxRcd column
-                        import re
                         fields = stripped_line.split()
                         if len(fields) >= 10:
                             # State/PfxRcd is the 2nd to last field
@@ -414,21 +411,26 @@ class TestBGPAdvancedFeatures:
         """
         st.log(f"Extracting link-local IPv6 address from {dut} {interface}")
 
-        # Run show ipv6 interface command in klish mode
-        cmd = f"show ipv6 interface {interface}"
-        output = st.show(dut, cmd, type="klish", skip_tmpl=True)
+        # Run show ipv6 interfaces command in click mode (note: "interfaces" is plural)
+        cmd = "show ipv6 interfaces"
+        output = st.show(dut, cmd, type="click", skip_tmpl=True)
 
         if isinstance(output, str):
-            # Parse output looking for link-local address
-            # Example line: "  inet6 fe80::5054:ff:fe12:3456/64 scope link"
-            import re
+            # Parse output looking for lines with the target interface
+            # Example output:
+            # Ethernet4              fe80::1%Ethernet4/64                      up/up         N/A             N/A
+            #                        fe80::20ea:7fff:fe40:b639%Ethernet4/64                  N/A             N/A
+
             for line in output.splitlines():
-                # Match lines with "inet6 fe80:"
-                match = re.search(r'inet6\s+(fe80:[0-9a-f:]+)', line, re.IGNORECASE)
-                if match:
-                    linklocal = match.group(1)
-                    st.log(f"Found link-local address: {linklocal}")
-                    return linklocal
+                # Check if this line contains the interface name
+                if interface in line:
+                    # Extract link-local address (fe80:...)
+                    # Match pattern: fe80::<hex digits and colons>%InterfaceName/prefix
+                    match = re.search(r'(fe80:[0-9a-f:]+)%' + re.escape(interface), line, re.IGNORECASE)
+                    if match:
+                        linklocal = match.group(1)
+                        st.log(f"Found link-local address: {linklocal} on {interface}")
+                        return linklocal
 
         st.log(f"No link-local address found on {dut} {interface}")
         return ""
