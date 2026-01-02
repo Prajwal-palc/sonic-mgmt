@@ -1,0 +1,233 @@
+═══════════════════════════════════════════════════════════════════════════
+IS-CLI DROP 1 - COMPREHENSIVE TEST SUITE
+═══════════════════════════════════════════════════════════════════════════
+
+Test File: test_iscli_comprehensive.py
+Total Tests: 50+ comprehensive tests
+DUT1: 192.168.100.73 (admin/jira@123)
+DUT2: 192.168.100.103 (admin/jira@123)
+
+═══════════════════════════════════════════════════════════════════════════
+QUICK START
+═══════════════════════════════════════════════════════════════════════════
+
+cd ~/draksha/sonic-mgmt/spytest
+
+# Run ALL comprehensive tests (50+ tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py \
+  --logs-path ./logs/iscli_comprehensive_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug \
+  --skip-init-config \
+  --ifname-type native
+
+═══════════════════════════════════════════════════════════════════════════
+RUN TESTS BY CATEGORY
+═══════════════════════════════════════════════════════════════════════════
+
+# Platform Identification Tests (5 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformIdentification \
+  --logs-path ./logs/iscli_platform_id_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Hardware Monitoring Tests (20 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring \
+  --logs-path ./logs/iscli_hw_monitor_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Firmware Management Tests (5 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformFirmware \
+  --logs-path ./logs/iscli_firmware_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Error Handling Tests (4 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformErrorHandling \
+  --logs-path ./logs/iscli_errors_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# ZTP Tests (2 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIZTP \
+  --logs-path ./logs/iscli_ztp_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# NTP Tests (4 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLINTP \
+  --logs-path ./logs/iscli_ntp_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Clear ARP/ND Tests (4 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIClearARPND \
+  --logs-path ./logs/iscli_cleararp_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+═══════════════════════════════════════════════════════════════════════════
+RUN INDIVIDUAL TESTS (Sample Commands)
+═══════════════════════════════════════════════════════════════════════════
+
+# Platform Identification Tests:
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformIdentification::test_platform_summary_basic \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformIdentification::test_platform_syseeprom_basic \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+# Hardware Monitoring - PSU Tests:
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_psustatus_basic \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_psustatus_index \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+# Hardware Monitoring - SSD Tests:
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_ssdhealth_basic \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_ssdhealth_vendor \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+# Hardware Monitoring - PCIe Tests:
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_pcieinfo_basic \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+# Hardware Monitoring - Environmental Tests:
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_fan \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+./bin/spytest --tryssh 1 --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring::test_platform_temperature \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) --log-level debug --skip-init-config --ifname-type native
+
+═══════════════════════════════════════════════════════════════════════════
+TEST BREAKDOWN
+═══════════════════════════════════════════════════════════════════════════
+
+TestISCLIPlatformIdentification (5 tests):
+  ✓ test_platform_summary_basic
+  ✓ test_platform_summary_json (BUG VALIDATION)
+  ✓ test_platform_syseeprom_basic
+  ✓ test_platform_syseeprom_verbose
+  ✓ test_platform_help
+
+TestISCLIPlatformHardwareMonitoring (20 tests):
+  PSU Tests (5):
+    ✓ test_platform_psustatus_basic
+    ✓ test_platform_psustatus_index
+    ✓ test_platform_psustatus_json (BUG VALIDATION)
+    ✓ test_platform_psustatus_verbose
+    ✓ test_platform_psustatus_combined_flags
+
+  SSD Tests (5):
+    ✓ test_platform_ssdhealth_basic
+    ✓ test_platform_ssdhealth_verbose
+    ✓ test_platform_ssdhealth_vendor
+    ✓ test_platform_ssdhealth_verbose_vendor
+    ✓ test_platform_ssdhealth_device
+
+  PCIe Tests (4):
+    ✓ test_platform_pcieinfo_basic
+    ✓ test_platform_pcieinfo_check
+    ✓ test_platform_pcieinfo_verbose
+    ✓ test_platform_pcieinfo_check_verbose
+
+  Environmental Tests (4):
+    ✓ test_platform_fan
+    ✓ test_platform_temperature
+    ✓ test_platform_voltage
+    ✓ test_platform_current
+
+TestISCLIPlatformFirmware (5 tests):
+  ✓ test_platform_firmware_help
+  ✓ test_platform_firmware_status
+  ✓ test_platform_firmware_version
+  ✓ test_platform_firmware_updates
+  ✓ test_platform_firmware_update_all_status
+
+TestISCLIPlatformErrorHandling (4 tests):
+  ✓ test_platform_invalid_command
+  ✓ test_platform_summary_invalid_option
+  ✓ test_platform_psustatus_invalid_index
+  ✓ test_platform_ssdhealth_nonexistent_device (REQUIRES HARDWARE)
+
+TestISCLIZTP (2 tests):
+  ✓ test_show_ztp_status
+  ✓ test_ztp_enable_disable
+
+TestISCLINTP (4 tests):
+  ✓ test_show_ntp_ambiguous (BUG VALIDATION)
+  ✓ test_show_ntp_server
+  ✓ test_ntp_add_delete_server
+  ✓ test_chronyc_tracking
+
+TestISCLIClearARPND (4 tests):
+  ✓ test_view_arp
+  ✓ test_clear_arp
+  ✓ test_clear_ndp
+  ✓ test_show_arp_iscli_fail (BUG VALIDATION)
+
+═══════════════════════════════════════════════════════════════════════════
+TOTAL: 44 TESTS
+═══════════════════════════════════════════════════════════════════════════
+
+Platform Identification:     5 tests
+Hardware Monitoring:        20 tests
+Firmware Management:         5 tests
+Error Handling:              4 tests
+ZTP:                         2 tests
+NTP:                         4 tests
+Clear ARP/ND:                4 tests
+
+═══════════════════════════════════════════════════════════════════════════
+BUGS IDENTIFIED AND VALIDATED:
+═══════════════════════════════════════════════════════════════════════════
+
+1. HIGH: IS-CLI flags not supported (--json, --verbose)
+   Tests: test_platform_summary_json, test_platform_psustatus_json
+
+2. HIGH: show ntp command ambiguous
+   Test: test_show_ntp_ambiguous
+
+3. MEDIUM: show arp/ndp not available in IS-CLI
+   Test: test_show_arp_iscli_fail
+
+4. MEDIUM: Firmware commands may be ambiguous
+   Test: test_platform_firmware_status
+
+═══════════════════════════════════════════════════════════════════════════
+NOTES:
+═══════════════════════════════════════════════════════════════════════════
+
+• Some tests require HARDWARE (PSU, SSD, Environmental sensors)
+• Tests marked with skip_error_check=True will pass even if command fails
+• Virtual Switch (VS) may not support all hardware features
+• Error handling tests intentionally use invalid commands/parameters
+• All tests log detailed output for debugging
+
+═══════════════════════════════════════════════════════════════════════════

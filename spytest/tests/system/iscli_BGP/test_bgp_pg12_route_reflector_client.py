@@ -1,7 +1,7 @@
 """
-BGP PEER-GROUP TEST - PG-08: Peer-Group Maximum-Prefix Defaults and Enforcement
+BGP PEER-GROUP TEST - PG-12: Peer-Group Route-Reflector Client Defaults via Peer-Group
 
-Test Case ID: PG-08
+Test Case ID: PG-12
 Author: Automated from Manual Validation
 Copyright (C) 2024, SuperMicro
 
@@ -10,17 +10,17 @@ How to run:
 
   ./bin/spytest --tryssh 1 \
     --testbed ./testbeds/testbed_bgp_custom.yaml \
-    tests/system/iscli_BGP/test_bgp_pg08_maximum_prefix.py \
-    --logs-path ./logs/bgp_pg08_$(date +%Y%m%d_%H%M%S) \
+    tests/system/iscli_BGP/test_bgp_pg12_route_reflector_client.py \
+    --logs-path ./logs/bgp_pg12_$(date +%Y%m%d_%H%M%S) \
     --log-level debug --skip-init-config --ifname-type native
 
 Description:
-  Test validates peer-group maximum-prefix configuration and inheritance:
-  - Configure peer-group with maximum-prefix limit at AF level
-  - DUT1: Attach neighbor (inherits maximum-prefix from peer-group)
-  - DUT2: Attach neighbor with override (different limit and threshold)
-  - Verify maximum-prefix appears in running config
-  - Verify neighbor inheritance and override behavior
+  Test validates peer-group route-reflector-client configuration and inheritance:
+  - Configure peer-group with route-reflector-client at AF level
+  - DUT1: Route Reflector with neighbors inheriting route-reflector-client
+  - DUT2: Also configured with route-reflector-client setting
+  - Verify route-reflector-client appears in running config
+  - Verify neighbor inheritance behavior
 
 Pre-requisites:
   - 2 SONiC devices connected via Ethernet4
@@ -29,10 +29,10 @@ Pre-requisites:
   - Credentials: admin/test@123
 
 Note:
-  - Maximum-prefix syntax: maximum-prefix <limit> [threshold]
-  - Default threshold: 0 (if not specified)
-  - DUT1 neighbor inherits: maximum-prefix 100 0
-  - DUT2 neighbor overrides: maximum-prefix 200 90
+  - Route-reflector-client: Marks neighbors as route-reflector clients
+  - Configured at peer-group address-family level
+  - All neighbors in peer-group inherit route-reflector-client setting
+  - Used in iBGP route-reflection topology
 """
 
 from __future__ import annotations
@@ -58,11 +58,9 @@ CONFIG = SpyTestDict({
     "dut2_router_id": "2.2.2.2",
     "peer_group": "1",
 
-    # Maximum-prefix configuration
-    "pg_max_prefix": "100",      # Peer-group maximum-prefix limit
-    "pg_threshold": "0",         # Peer-group threshold (default)
-    "neighbor_max_prefix": "200", # DUT2 neighbor override limit
-    "neighbor_threshold": "90",   # DUT2 neighbor override threshold
+    # Neighbor descriptions
+    "dut1_neighbor_desc": "RR Client 1",
+    "dut2_neighbor_desc": "RR Client 1",
 
     # Test parameters
     "bgp_wait_time": 60,
@@ -70,11 +68,11 @@ CONFIG = SpyTestDict({
 
 
 @pytest.fixture(scope="module", autouse=True)
-def bgp_pg08_module_hooks(request):
+def bgp_pg12_module_hooks(request):
     """Module-level setup and teardown."""
     global vars, data
 
-    st.banner("MODULE PROLOGUE: PG-08 Setup")
+    st.banner("MODULE PROLOGUE: PG-12 Setup")
 
     # Get testbed topology
     vars = st.ensure_min_topology("D1D2:1")
@@ -136,29 +134,26 @@ def configure_ip_bgp_basic(dut: str, ip_address: str, router_id: str) -> bool:
         return False
 
 
-def configure_peer_group_with_max_prefix(dut: str, pg_name: str,
-                                          max_prefix: str, threshold: str = "0") -> bool:
+def configure_peer_group_with_rr_client(dut: str, pg_name: str) -> bool:
     """
-    Configure peer-group with maximum-prefix at address-family level.
+    Configure peer-group with route-reflector-client at address-family level.
 
-    The maximum-prefix limit is configured in the peer-group's address-family
+    The route-reflector-client setting is configured in the peer-group's address-family
     and will be inherited by all neighbors that join this peer-group.
 
-    Syntax: maximum-prefix <limit> [threshold]
-    - limit: Maximum number of prefixes allowed
-    - threshold: Percentage of limit that triggers warning (default: 0)
+    This marks all neighbors in this peer-group as route-reflector clients.
     """
-    st.log(f"Configuring peer-group '{pg_name}' with maximum-prefix {max_prefix} on {dut}")
+    st.log(f"Configuring peer-group '{pg_name}' with route-reflector-client on {dut}")
 
     # Note: Skip AF activation on peer-group (causes CLI error)
-    # Apply maximum-prefix at peer-group AF level
+    # Apply route-reflector-client at peer-group AF level
     commands = [
         f"router bgp {CONFIG.asn}",
         f"peer-group {pg_name}",
         f"remote-as {CONFIG.asn}",
         "address-family ipv4 unicast",
         # "activate",  # Skip - causes error
-        f"maximum-prefix {max_prefix} {threshold}",
+        "route-reflector-client",
         "exit",  # Exit AF sub-mode
         "exit",  # Exit peer-group sub-mode
         "exit"   # Exit router-bgp
@@ -166,20 +161,21 @@ def configure_peer_group_with_max_prefix(dut: str, pg_name: str,
 
     try:
         st.config(dut, commands, type=data.cli_type)
-        st.log(f"✓ Peer-group '{pg_name}' with maximum-prefix {max_prefix} {threshold} configured")
+        st.log(f"✓ Peer-group '{pg_name}' with route-reflector-client configured")
         return True
     except Exception as e:
         st.error(f"Failed to create peer-group on {dut}: {str(e)}")
         return False
 
 
-def attach_neighbor_inherit_max_prefix(dut: str, neighbor_ip: str, pg_name: str) -> bool:
+def attach_neighbor_with_description(dut: str, neighbor_ip: str, pg_name: str,
+                                      description: str) -> bool:
     """
-    Attach neighbor to peer-group WITHOUT overriding maximum-prefix.
+    Attach neighbor to peer-group with description.
 
-    The neighbor will inherit the maximum-prefix configuration from the peer-group.
+    The neighbor will inherit the route-reflector-client setting from the peer-group.
     """
-    st.log(f"Attaching neighbor {neighbor_ip} to peer-group '{pg_name}' (inherit max-prefix) on {dut}")
+    st.log(f"Attaching neighbor {neighbor_ip} to peer-group '{pg_name}' with description on {dut}")
 
     # Step 1: Delete existing neighbor (if exists)
     st.log(f"Step 1: Deleting existing neighbor {neighbor_ip}")
@@ -197,62 +193,15 @@ def attach_neighbor_inherit_max_prefix(dut: str, neighbor_ip: str, pg_name: str)
 
     st.wait(2, "Waiting for neighbor deletion to apply")
 
-    # Step 2: Create neighbor with peer-group (inherits maximum-prefix)
-    st.log(f"Step 2: Creating neighbor {neighbor_ip} with peer-group '{pg_name}' (inherits max-prefix)")
-    create_commands = [
-        f"router bgp {CONFIG.asn}",
-        f"neighbor {neighbor_ip} remote-as {CONFIG.asn}",
-        f"peer-group {pg_name}",
-        "address-family ipv4 unicast",
-        "activate",
-        "exit",  # Exit AF sub-mode
-        "exit",  # Exit neighbor sub-mode
-        "exit"   # Exit router-bgp
-    ]
-
-    try:
-        st.config(dut, create_commands, type=data.cli_type)
-        st.log(f"✓ Neighbor {neighbor_ip} attached (inherits maximum-prefix from peer-group)")
-        return True
-    except Exception as e:
-        st.error(f"Failed to attach neighbor on {dut}: {str(e)}")
-        return False
-
-
-def attach_neighbor_override_max_prefix(dut: str, neighbor_ip: str, pg_name: str,
-                                         max_prefix: str, threshold: str) -> bool:
-    """
-    Attach neighbor to peer-group WITH maximum-prefix override.
-
-    The neighbor explicitly overrides the peer-group maximum-prefix with different values.
-    """
-    st.log(f"Attaching neighbor {neighbor_ip} to peer-group '{pg_name}' (override max-prefix {max_prefix} {threshold}) on {dut}")
-
-    # Step 1: Delete existing neighbor (if exists)
-    st.log(f"Step 1: Deleting existing neighbor {neighbor_ip}")
-    delete_commands = [
-        f"router bgp {CONFIG.asn}",
-        f"no neighbor {neighbor_ip}",
-        "exit"
-    ]
-
-    try:
-        st.config(dut, delete_commands, type=data.cli_type, skip_error_check=True)
-        st.log(f"✓ Deleted existing neighbor {neighbor_ip}")
-    except Exception as e:
-        st.log(f"Warning: Could not delete neighbor (might not exist): {str(e)}")
-
-    st.wait(2, "Waiting for neighbor deletion to apply")
-
-    # Step 2: Create neighbor with peer-group
+    # Step 2: Create neighbor with peer-group, description, and AF activation
     st.log(f"Step 2: Creating neighbor {neighbor_ip} with peer-group '{pg_name}'")
     create_commands = [
         f"router bgp {CONFIG.asn}",
         f"neighbor {neighbor_ip} remote-as {CONFIG.asn}",
         f"peer-group {pg_name}",
+        f"description {description}",
         "address-family ipv4 unicast",
         "activate",
-        f"maximum-prefix {max_prefix} {threshold}",  # Override!
         "exit",  # Exit AF sub-mode
         "exit",  # Exit neighbor sub-mode
         "exit"   # Exit router-bgp
@@ -260,22 +209,20 @@ def attach_neighbor_override_max_prefix(dut: str, neighbor_ip: str, pg_name: str
 
     try:
         st.config(dut, create_commands, type=data.cli_type)
-        st.log(f"✓ Neighbor {neighbor_ip} attached with maximum-prefix override ({max_prefix} {threshold})")
+        st.log(f"✓ Neighbor {neighbor_ip} attached (inherits route-reflector-client from peer-group)")
         return True
     except Exception as e:
         st.error(f"Failed to attach neighbor on {dut}: {str(e)}")
         return False
 
 
-def verify_max_prefix_in_config(dut: str, expected_values: list) -> bool:
+def verify_rr_client_in_config(dut: str) -> bool:
     """
-    Verify maximum-prefix appears in BGP running config.
+    Verify route-reflector-client appears in BGP running config.
 
-    Args:
-        expected_values: List of tuples (context, limit, threshold)
-                        e.g., [("peer-group", "100", "0"), ("neighbor", "200", "90")]
+    The route-reflector-client should appear in the peer-group address-family section.
     """
-    st.log(f"Verifying maximum-prefix configuration on {dut}")
+    st.log(f"Verifying route-reflector-client configuration on {dut}")
 
     show_cmd = "show running-configuration bgp"
     try:
@@ -283,22 +230,18 @@ def verify_max_prefix_in_config(dut: str, expected_values: list) -> bool:
         if output:
             st.log(f"BGP config excerpt:\n{output[:1000] if output else 'No output'}")
 
-            # Check for expected maximum-prefix values
-            all_found = True
-            for context, limit, threshold in expected_values:
-                expected = f"maximum-prefix {limit} {threshold}"
-                if expected in str(output):
-                    st.log(f"✓ Found '{expected}' in {context} config")
-                else:
-                    st.log(f"⚠ '{expected}' not found in {context} config")
-                    all_found = False
-
-            return all_found
+            # Check for route-reflector-client in config
+            if "route-reflector-client" in str(output):
+                st.log(f"✓ Found 'route-reflector-client' in config")
+                return True
+            else:
+                st.log(f"⚠ 'route-reflector-client' not found in config")
+                return False
         else:
             st.log(f"⚠ No BGP config output")
             return False
     except Exception as e:
-        st.error(f"Failed to verify maximum-prefix in config: {str(e)}")
+        st.error(f"Failed to verify route-reflector-client in config: {str(e)}")
         return False
 
 
@@ -324,16 +267,16 @@ def verify_bgp_session(dut: str, neighbor_ip: str) -> bool:
         return False
 
 
-def test_bgp_pg08_maximum_prefix():
+def test_bgp_pg12_route_reflector_client():
     """
-    PG-08: Peer-Group Maximum-Prefix Defaults and Enforcement
+    PG-12: Peer-Group Route-Reflector Client Defaults via Peer-Group
 
     Test Flow:
     1. Configure IP and BGP on both DUTs
-    2. Create peer-groups with maximum-prefix at AF level
-    3. DUT1: Attach neighbor (inherits maximum-prefix 100 0)
-    4. DUT2: Attach neighbor with override (maximum-prefix 200 90)
-    5. Verify maximum-prefix appears in running config
+    2. Create peer-groups with route-reflector-client at AF level
+    3. DUT1: Attach neighbor (inherits route-reflector-client)
+    4. DUT2: Attach neighbor (inherits route-reflector-client)
+    5. Verify route-reflector-client appears in running config
     6. Verify BGP sessions establish
     7. Show configurations and BGP summary
     """
@@ -351,55 +294,47 @@ def test_bgp_pg08_maximum_prefix():
 
     st.log("✓ IP and BGP configured on both DUTs")
 
-    # Step 2: Create peer-groups with maximum-prefix
-    st.banner("STEP 2: Create Peer-Groups with Maximum-Prefix")
+    # Step 2: Create peer-groups with route-reflector-client
+    st.banner("STEP 2: Create Peer-Groups with Route-Reflector-Client")
 
-    st.log(f"DUT1: Creating peer-group with maximum-prefix {CONFIG.pg_max_prefix} {CONFIG.pg_threshold}")
-    if not configure_peer_group_with_max_prefix(vars.D1, CONFIG.peer_group,
-                                                 CONFIG.pg_max_prefix, CONFIG.pg_threshold):
+    st.log(f"DUT1: Creating peer-group with route-reflector-client")
+    if not configure_peer_group_with_rr_client(vars.D1, CONFIG.peer_group):
         st.report_fail("msg", f"Failed to create peer-group on {vars.D1}")
 
-    st.log(f"DUT2: Creating peer-group with maximum-prefix {CONFIG.pg_max_prefix} {CONFIG.pg_threshold}")
-    if not configure_peer_group_with_max_prefix(vars.D2, CONFIG.peer_group,
-                                                 CONFIG.pg_max_prefix, CONFIG.pg_threshold):
+    st.log(f"DUT2: Creating peer-group with route-reflector-client")
+    if not configure_peer_group_with_rr_client(vars.D2, CONFIG.peer_group):
         st.report_fail("msg", f"Failed to create peer-group on {vars.D2}")
 
-    st.log(f"✓ Peer-groups with maximum-prefix configured on both DUTs")
+    st.log("✓ Peer-groups with route-reflector-client configured on both DUTs")
 
-    # Step 3: DUT1 - Attach neighbor (inherit maximum-prefix)
-    st.banner("STEP 3: DUT1 - Attach Neighbor (Inherit Maximum-Prefix)")
+    # Step 3: DUT1 - Attach neighbor
+    st.banner("STEP 3: DUT1 - Attach Neighbor (Inherit Route-Reflector-Client)")
 
-    st.log(f"DUT1: Attaching neighbor {CONFIG.dut2_ip} (inherits maximum-prefix)")
-    if not attach_neighbor_inherit_max_prefix(vars.D1, CONFIG.dut2_ip, CONFIG.peer_group):
+    st.log(f"DUT1: Attaching neighbor {CONFIG.dut2_ip}")
+    if not attach_neighbor_with_description(vars.D1, CONFIG.dut2_ip, CONFIG.peer_group,
+                                             CONFIG.dut1_neighbor_desc):
         st.report_fail("msg", f"Failed to attach neighbor on {vars.D1}")
 
-    st.log(f"✓ DUT1 neighbor attached (inherits maximum-prefix {CONFIG.pg_max_prefix} {CONFIG.pg_threshold})")
+    st.log(f"✓ DUT1 neighbor attached (inherits route-reflector-client from peer-group)")
 
-    # Step 4: DUT2 - Attach neighbor (override maximum-prefix)
-    st.banner("STEP 4: DUT2 - Attach Neighbor (Override Maximum-Prefix)")
+    # Step 4: DUT2 - Attach neighbor
+    st.banner("STEP 4: DUT2 - Attach Neighbor (Inherit Route-Reflector-Client)")
 
-    st.log(f"DUT2: Attaching neighbor {CONFIG.dut1_ip} with maximum-prefix override")
-    if not attach_neighbor_override_max_prefix(vars.D2, CONFIG.dut1_ip, CONFIG.peer_group,
-                                                CONFIG.neighbor_max_prefix, CONFIG.neighbor_threshold):
+    st.log(f"DUT2: Attaching neighbor {CONFIG.dut1_ip}")
+    if not attach_neighbor_with_description(vars.D2, CONFIG.dut1_ip, CONFIG.peer_group,
+                                             CONFIG.dut2_neighbor_desc):
         st.report_fail("msg", f"Failed to attach neighbor on {vars.D2}")
 
-    st.log(f"✓ DUT2 neighbor attached with maximum-prefix override ({CONFIG.neighbor_max_prefix} {CONFIG.neighbor_threshold})")
+    st.log(f"✓ DUT2 neighbor attached (inherits route-reflector-client from peer-group)")
 
-    # Step 5: Verify maximum-prefix in running config
-    st.banner("STEP 5: Verify Maximum-Prefix Configuration")
+    # Step 5: Verify route-reflector-client in running config
+    st.banner("STEP 5: Verify Route-Reflector-Client Configuration")
 
-    st.log(f"Verifying maximum-prefix on {vars.D1}")
-    dut1_expected = [
-        ("peer-group", CONFIG.pg_max_prefix, CONFIG.pg_threshold),
-    ]
-    verify_max_prefix_in_config(vars.D1, dut1_expected)
+    st.log(f"Verifying route-reflector-client on {vars.D1}")
+    verify_rr_client_in_config(vars.D1)
 
-    st.log(f"Verifying maximum-prefix on {vars.D2}")
-    dut2_expected = [
-        ("peer-group", CONFIG.pg_max_prefix, CONFIG.pg_threshold),
-        ("neighbor", CONFIG.neighbor_max_prefix, CONFIG.neighbor_threshold),
-    ]
-    verify_max_prefix_in_config(vars.D2, dut2_expected)
+    st.log(f"Verifying route-reflector-client on {vars.D2}")
+    verify_rr_client_in_config(vars.D2)
 
     # Step 6: Verify BGP sessions
     st.banner("STEP 6: Verify BGP Session Establishment")

@@ -126,88 +126,124 @@ def configure_ip_bgp_basic(dut: str, ip_address: str, router_id: str) -> bool:
     """Configure IP and BGP router."""
     st.log(f"Configuring IP and BGP on {dut}")
 
-    # Configure IP
+    # Configure IP - pass IP and subnet separately
     if not ipapi.config_ip_addr_interface(dut, CONFIG.interface,
-                                          f"{ip_address}/{CONFIG.subnet_mask}",
+                                          ip_address,  # Pass IP without subnet
+                                          subnet=CONFIG.subnet_mask,  # Pass subnet separately
                                           family="ipv4", cli_type=data.cli_type):
         st.error(f"Failed to configure IP on {dut}")
         return False
 
-    # Configure BGP router
-    if not bgpapi.config_bgp(dut=dut, local_as=CONFIG.asn,
-                            router_id=router_id, config='yes',
-                            cli_type=data.cli_type):
-        st.error(f"Failed to configure BGP on {dut}")
-        return False
+    # Configure BGP router with router-id using direct CLI commands
+    # This is more reliable than using the API
+    st.log("Configure BGP")
+    bgp_commands = [
+        f"router bgp {CONFIG.asn}",
+        f"router-id {router_id}",
+        f"timers 60 180",  # Default timers (to be overridden by peer-group)
+        "exit"
+    ]
 
-    return True
+    try:
+        st.config(dut, bgp_commands, type=data.cli_type)
+        st.log(f"✓ BGP router configured on {dut}")
+        return True
+    except Exception as e:
+        st.error(f"Failed to configure BGP on {dut}: {str(e)}")
+        return False
 
 
 def configure_peer_group_with_timers(dut: str, pg_name: str) -> bool:
     """
     Configure peer-group with timers.
 
-    Manual commands:
-      peer-group 1
-        remote-as 65001
-        timers 30 90
-        address-family ipv4 unicast
-          activate
+    Working commands (from PG01 logs):
+      router bgp 65001
+        peer-group 1
+          remote-as 65001
+          timers 30 90
+        exit
+      exit
+
+    NOTE: Do NOT activate address-family on peer-group!
+    Activation happens on the neighbor, not on the peer-group.
     """
     st.log(f"Configuring peer-group '{pg_name}' with timers on {dut}")
 
-    # Create peer-group
-    if not bgpapi.config_bgp(dut=dut, local_as=CONFIG.asn,
-                            neighbor=pg_name, remote_as=CONFIG.asn,
-                            config='yes', config_type_list=["peer_group"],
-                            cli_type=data.cli_type):
-        st.error(f"Failed to create peer-group on {dut}")
-        return False
+    # Use direct CLI commands for reliable configuration
+    commands = [
+        f"router bgp {CONFIG.asn}",
+        f"peer-group {pg_name}",
+        f"remote-as {CONFIG.asn}",
+        f"timers {CONFIG.keepalive} {CONFIG.holdtime}",
+        "exit",  # Exit peer-group sub-mode
+        "exit"   # Exit router-bgp
+    ]
 
-    # Configure timers
-    if not bgpapi.config_bgp(dut=dut, local_as=CONFIG.asn,
-                            neighbor=pg_name, config='yes',
-                            config_type_list=["keepalive", "holdtime"],
-                            keepalive=CONFIG.keepalive,
-                            holdtime=CONFIG.holdtime,
-                            cli_type=data.cli_type):
-        st.error(f"Failed to configure timers on {dut}")
+    try:
+        st.config(dut, commands, type=data.cli_type)
+        st.log(f"✓ Peer-group '{pg_name}' with timers configured on {dut}")
+        return True
+    except Exception as e:
+        st.error(f"Failed to create peer-group on {dut}: {str(e)}")
         return False
-
-    # Activate IPv4 unicast
-    if not bgpapi.config_bgp(dut=dut, local_as=CONFIG.asn,
-                            neighbor=pg_name, addr_family="ipv4",
-                            config='yes', config_type_list=["activate"],
-                            cli_type=data.cli_type):
-        st.error(f"Failed to activate AF on {dut}")
-        return False
-
-    st.log(f"Peer-group with timers configured on {dut}")
-    return True
 
 
 def attach_neighbor_to_peergroup(dut: str, neighbor_ip: str, pg_name: str) -> bool:
-    """Attach neighbor to peer-group."""
+    """
+    Attach neighbor to peer-group.
+
+    CRITICAL: Must DELETE existing neighbor and recreate with peer-group!
+    You cannot attach an existing neighbor to a peer-group in SONiC.
+
+    Working commands (from PG01):
+      router bgp 65001
+        neighbor 10.1.1.2 remote-as 65001  # Creates neighbor, enters sub-mode
+        peer-group 1                        # Attach to peer-group (in neighbor sub-mode)
+        address-family ipv4 unicast         # Enter AF sub-mode
+        activate                             # Activate IPv4
+        exit                                 # Exit AF sub-mode
+        exit                                 # Exit neighbor sub-mode
+        exit                                 # Exit router-bgp
+    """
     st.log(f"Attaching neighbor {neighbor_ip} to peer-group '{pg_name}' on {dut}")
 
-    # Configure neighbor with peer-group
-    if not bgpapi.config_bgp(dut=dut, local_as=CONFIG.asn,
-                            neighbor=neighbor_ip, remote_as=CONFIG.asn,
-                            peergroup=pg_name, config='yes',
-                            cli_type=data.cli_type):
-        st.error(f"Failed to attach neighbor on {dut}")
-        return False
+    # Step 1: Delete existing neighbor (if exists)
+    st.log(f"Step 1: Deleting existing neighbor {neighbor_ip}")
+    delete_commands = [
+        f"router bgp {CONFIG.asn}",
+        f"no neighbor {neighbor_ip}",
+        "exit"
+    ]
 
-    # Activate IPv4 unicast
-    if not bgpapi.config_bgp(dut=dut, local_as=CONFIG.asn,
-                            neighbor=neighbor_ip, addr_family="ipv4",
-                            config='yes', config_type_list=["activate"],
-                            cli_type=data.cli_type):
-        st.error(f"Failed to activate AF on {dut}")
-        return False
+    try:
+        st.config(dut, delete_commands, type=data.cli_type, skip_error_check=True)
+        st.log(f"✓ Deleted existing neighbor {neighbor_ip}")
+    except Exception as e:
+        st.log(f"Warning: Could not delete neighbor (might not exist): {str(e)}")
 
-    st.log(f"Neighbor attached to peer-group on {dut}")
-    return True
+    st.wait(2, "Waiting for neighbor deletion to apply")
+
+    # Step 2: Create neighbor with peer-group and activate
+    st.log(f"Step 2: Creating neighbor {neighbor_ip} with peer-group '{pg_name}'")
+    create_commands = [
+        f"router bgp {CONFIG.asn}",
+        f"neighbor {neighbor_ip} remote-as {CONFIG.asn}",  # Creates neighbor, enters sub-mode
+        f"peer-group {pg_name}",                            # Attach to peer-group
+        "address-family ipv4 unicast",                      # Enter AF sub-mode
+        "activate",                                          # Activate IPv4
+        "exit",                                              # Exit AF sub-mode
+        "exit",                                              # Exit neighbor sub-mode
+        "exit"                                               # Exit router-bgp
+    ]
+
+    try:
+        st.config(dut, create_commands, type=data.cli_type)
+        st.log(f"✓ Neighbor {neighbor_ip} attached to peer-group '{pg_name}'")
+        return True
+    except Exception as e:
+        st.error(f"Failed to attach neighbor on {dut}: {str(e)}")
+        return False
 
 
 def verify_bgp_session(dut: str, neighbor_ip: str) -> bool:
