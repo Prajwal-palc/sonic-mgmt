@@ -92,7 +92,10 @@ def bgp_pg01_module_hooks(request):
     st.banner("=" * 80)
     st.banner("BGP PG-01 MODULE CLEANUP - START")
     st.banner("=" * 80)
-    bgp_pre_config_cleanup()
+    try:
+        bgp_pre_config_cleanup()
+    except Exception as e:
+        st.log(f"Cleanup error (non-critical): {str(e)}")
 
 
 def bgp_pre_config():
@@ -108,9 +111,10 @@ def bgp_pre_config():
     vlanapi.clear_vlan_configuration(dut_list)
 
     # Clear any existing BGP configuration
+    # Use klish for BGP operations (sonic-cli)
     for dut in dut_list:
         try:
-            bgpapi.cleanup_router_bgp(dut, cli_type=data.cli_type)
+            bgpapi.cleanup_router_bgp(dut, cli_type='klish')
         except Exception as e:
             st.log(f"BGP cleanup warning on {dut}: {str(e)}")
 
@@ -124,9 +128,10 @@ def bgp_pre_config_cleanup():
     dut_list = [vars.D1, vars.D2]
 
     # Remove BGP configuration
+    # Use klish for BGP operations (sonic-cli)
     for dut in dut_list:
         try:
-            bgpapi.cleanup_router_bgp(dut, cli_type=data.cli_type)
+            bgpapi.cleanup_router_bgp(dut, cli_type='klish')
         except Exception as e:
             st.log(f"BGP cleanup warning on {dut}: {str(e)}")
 
@@ -143,7 +148,8 @@ def configure_ip_on_interface(dut: str, interface: str, ip_address: str) -> bool
     result = ipapi.config_ip_addr_interface(
         dut,
         interface,
-        f"{ip_address}/{CONFIG.subnet_mask}",
+        ip_address,
+        subnet=CONFIG.subnet_mask,
         family="ipv4",
         cli_type=data.cli_type
     )
@@ -157,15 +163,20 @@ def configure_ip_on_interface(dut: str, interface: str, ip_address: str) -> bool
 
 
 def configure_bgp_router(dut: str, asn: str, router_id: str) -> bool:
-    """Configure BGP router with ASN and router-id."""
+    """
+    Configure BGP router with ASN and router-id.
+
+    Uses sonic-cli (klish) for BGP configuration.
+    """
     st.log(f"Configuring BGP on {dut}: AS {asn}, Router-ID {router_id}")
 
-    result = bgpapi.config_bgp(
+    # Use klish for BGP configuration (sonic-cli)
+    result = bgpapi.config_bgp_router(
         dut=dut,
-        local_as=asn,
+        local_asn=asn,
         router_id=router_id,
         config='yes',
-        cli_type=data.cli_type
+        cli_type='klish'
     )
 
     if not result:
@@ -184,168 +195,220 @@ def configure_bgp_neighbor(dut: str, asn: str, neighbor_ip: str, remote_as: str)
       neighbor 10.1.1.X remote-as 65001
       address-family ipv4 unicast
         activate
+
+    Uses sonic-cli (klish) for BGP configuration.
+    Bypasses broken bgpapi.config_bgp_neighbor() and uses st.config() directly.
     """
     st.log(f"Configuring BGP neighbor {neighbor_ip} on {dut}")
 
-    # Configure neighbor
-    result = bgpapi.config_bgp(
-        dut=dut,
-        local_as=asn,
-        neighbor=neighbor_ip,
-        remote_as=remote_as,
-        config='yes',
-        cli_type=data.cli_type
-    )
+    # Build correct klish commands matching manual configuration
+    commands = [
+        "router bgp {}".format(asn),
+        "neighbor {} remote-as {}".format(neighbor_ip, remote_as),
+        "address-family ipv4 unicast",
+        "neighbor {} activate".format(neighbor_ip),
+        "exit",
+        "exit"
+    ]
 
-    if not result:
-        st.error(f"Failed to configure neighbor on {dut}")
+    try:
+        st.config(dut, commands, type='klish')
+        st.log(f"BGP neighbor {neighbor_ip} configured and activated on {dut}")
+        return True
+    except Exception as e:
+        st.error(f"Failed to configure neighbor {neighbor_ip} on {dut}: {str(e)}")
         return False
-
-    # Activate in IPv4 unicast
-    result = bgpapi.config_bgp(
-        dut=dut,
-        local_as=asn,
-        neighbor=neighbor_ip,
-        addr_family="ipv4",
-        config='yes',
-        config_type_list=["activate"],
-        cli_type=data.cli_type
-    )
-
-    st.log(f"BGP neighbor {neighbor_ip} configured and activated on {dut}")
-    return True
 
 
 def configure_peer_group(dut: str, asn: str, pg_name: str, remote_as: str) -> bool:
     """
-    Configure peer-group with remote-as and activate IPv4 unicast.
+    Configure peer-group with remote-as.
 
     Matches manual commands:
       peer-group 1
         remote-as 65001
-        address-family ipv4 unicast
-          activate
+
+    NOTE: Do NOT use 'activate' in peer-group - that's only for neighbors!
     """
     st.log(f"Configuring peer-group '{pg_name}' on {dut}")
 
-    # Create peer-group with remote-as
-    result = bgpapi.config_bgp(
-        dut=dut,
-        local_as=asn,
-        neighbor=pg_name,
-        remote_as=remote_as,
-        config='yes',
-        config_type_list=["peer_group"],
-        cli_type=data.cli_type
-    )
+    # Build correct klish commands
+    # NOTE: activate is NOT used for peer-group, only for neighbors
+    commands = [
+        "router bgp {}".format(asn),
+        "peer-group {}".format(pg_name),
+        "remote-as {}".format(remote_as),
+        "exit",
+        "exit"
+    ]
 
-    if not result:
-        st.error(f"Failed to configure peer-group on {dut}")
+    try:
+        st.config(dut, commands, type='klish')
+        st.log(f"✓ Peer-group '{pg_name}' configured on {dut}")
+        return True
+    except Exception as e:
+        st.error(f"Failed to configure peer-group on {dut}: {str(e)}")
+        import traceback
+        st.error(traceback.format_exc())
         return False
-
-    # Activate IPv4 unicast for peer-group
-    result = bgpapi.config_bgp(
-        dut=dut,
-        local_as=asn,
-        neighbor=pg_name,
-        addr_family="ipv4",
-        config='yes',
-        config_type_list=["activate"],
-        cli_type=data.cli_type
-    )
-
-    st.log(f"Peer-group '{pg_name}' configured on {dut}")
-    return True
 
 
 def attach_neighbor_to_peergroup(dut: str, asn: str, neighbor_ip: str, pg_name: str) -> bool:
     """
     Attach neighbor to peer-group.
 
-    Matches manual commands:
-      neighbor 10.1.1.X remote-as 65001
-        peer-group 1
-        address-family ipv4 unicast
-          activate
+    CRITICAL: Must DELETE existing neighbor and recreate with peer-group!
+    You cannot attach an existing neighbor to a peer-group in SONiC.
     """
     st.log(f"Attaching neighbor {neighbor_ip} to peer-group '{pg_name}' on {dut}")
 
-    # Configure neighbor with peer-group
-    result = bgpapi.config_bgp(
-        dut=dut,
-        local_as=asn,
-        neighbor=neighbor_ip,
-        remote_as=CONFIG.asn,
-        peergroup=pg_name,
-        config='yes',
-        config_type_list=["peergroup"],
-        cli_type=data.cli_type
-    )
+    # Step 1: Delete existing neighbor
+    st.log(f"Step 1: Deleting existing neighbor {neighbor_ip}")
+    delete_commands = [
+        "router bgp {}".format(asn),
+        "no neighbor {}".format(neighbor_ip),
+        "exit"
+    ]
 
-    if not result:
-        st.error(f"Failed to attach neighbor to peer-group on {dut}")
+    try:
+        st.config(dut, delete_commands, type='klish', skip_error_check=True)
+        st.log(f"✓ Deleted existing neighbor {neighbor_ip}")
+    except Exception as e:
+        st.log(f"Warning: Could not delete neighbor (might not exist): {str(e)}")
+
+    st.wait(2, "Waiting for neighbor deletion to apply")
+
+    # Step 2: Recreate neighbor with peer-group using CORRECT sub-mode syntax
+    st.log(f"Step 2: Creating neighbor {neighbor_ip} with peer-group '{pg_name}'")
+    # IMPORTANT: "neighbor X.X.X.X remote-as NNNN" enters neighbor sub-mode automatically
+    create_commands = [
+        "router bgp {}".format(asn),
+        "neighbor {} remote-as {}".format(neighbor_ip, asn),  # Creates neighbor, enters sub-mode
+        "peer-group {}".format(pg_name),                       # Set peer-group (already in sub-mode)
+        "address-family ipv4 unicast",                         # Enter AF sub-mode
+        "activate",                                             # Activate IPv4
+        "exit",                                                 # Exit AF sub-mode
+        "exit",                                                 # Exit neighbor sub-mode
+        "exit"                                                  # Exit router-bgp
+    ]
+
+    st.log(f"Commands to execute:\n{create_commands}")
+
+    try:
+        result = st.config(dut, create_commands, type='klish')
+        st.log(f"Config result: {result}")
+        st.log(f"✓ Neighbor {neighbor_ip} created with peer-group '{pg_name}'")
+
+        # Verify immediately after attachment
+        st.wait(5, "Waiting for BGP session to re-establish")
+
+        # Show BGP config
+        verify_cmd = "show running-configuration bgp"
+        verify_output = st.show(dut, verify_cmd, type='klish', skip_tmpl=True, skip_error_check=True)
+        st.log(f"BGP config after attachment:\n{verify_output[:800] if verify_output else 'No output'}")
+
+        return True
+    except Exception as e:
+        st.error(f"Failed to attach neighbor to peer-group on {dut}: {str(e)}")
+        import traceback
+        st.error(traceback.format_exc())
         return False
-
-    # Activate IPv4 unicast for neighbor
-    result = bgpapi.config_bgp(
-        dut=dut,
-        local_as=asn,
-        neighbor=neighbor_ip,
-        addr_family="ipv4",
-        config='yes',
-        config_type_list=["activate"],
-        cli_type=data.cli_type
-    )
-
-    st.log(f"Neighbor {neighbor_ip} attached to peer-group '{pg_name}'")
-    return True
 
 
 def verify_bgp_session(dut: str, neighbor_ip: str, state: str = 'Established') -> bool:
-    """Verify BGP neighbor session state."""
+    """
+    Verify BGP neighbor session state.
+
+    Uses sonic-cli (klish) for BGP verification.
+    NOTE: When BGP is established, state field shows prefix count (number), not "Established"
+    """
     st.log(f"Verifying BGP session: {dut} <-> {neighbor_ip}, expected state: {state}")
 
-    result = st.poll_wait(
-        bgpapi.verify_bgp_summary,
-        CONFIG.bgp_wait_time,
-        dut,
-        family='ipv4',
-        neighbor=neighbor_ip,
-        state=state,
-        shell=data.cli_type
-    )
+    # Get BGP summary and manually check
+    # When session is established, 'state' field contains a number (prefix count), not "Established"
+    output = bgpapi.show_bgp_ipv4_summary(dut, cli_type='klish')
 
-    if result:
-        st.log(f"BGP session {dut} <-> {neighbor_ip} is {state}")
-        return True
-    else:
-        st.error(f"BGP session {dut} <-> {neighbor_ip} did not reach {state} state")
+    if not output:
+        st.error(f"No BGP summary output from {dut}")
         return False
+
+    st.log(f"BGP Summary output: {output}")
+
+    # Find the neighbor in the output
+    for entry in output:
+        if entry.get('neighbor') == neighbor_ip:
+            neighbor_state = entry.get('state', '')
+            st.log(f"Neighbor {neighbor_ip} state field: '{neighbor_state}'")
+
+            # In BGP summary, when session is ESTABLISHED:
+            # - state field contains a NUMBER (prefix count like '0', '5', '100')
+            # When session is NOT established:
+            # - state field contains a STRING (like 'Idle', 'Active', 'Connect')
+
+            # Check if state is numeric (means established) or contains digits
+            if neighbor_state.isdigit() or neighbor_state == '0':
+                st.log(f"BGP session {dut} <-> {neighbor_ip} is Established (prefix count: {neighbor_state})")
+                return True
+            else:
+                st.log(f"BGP session {dut} <-> {neighbor_ip} state: {neighbor_state} (not established)")
+                return False
+
+    st.error(f"Neighbor {neighbor_ip} not found in BGP summary on {dut}")
+    return False
 
 
 def verify_peer_group_membership(dut: str, neighbor_ip: str, pg_name: str) -> bool:
-    """Verify peer-group membership in neighbor output."""
+    """
+    Verify peer-group membership in neighbor output.
+
+    Gets RAW output (skip TextFSM parsing) because templates are broken.
+    """
     st.log(f"Verifying peer-group membership for {neighbor_ip} on {dut}")
 
-    output = bgpapi.show_bgp_neighbor(dut, neighbor_ip, cli_type=data.cli_type)
-    st.log(f"BGP Neighbor Output:\n{output}")
+    # Get RAW output by using st.show() with skip_tmpl=True
+    # TextFSM templates are broken and return empty [], so get raw text instead
+    try:
+        command = f"show bgp ipv4 unicast neighbor {neighbor_ip}"
+        output = st.show(dut, command, type='klish', skip_tmpl=True)
 
-    output_str = str(output)
+        # Output should be a string when skip_tmpl=True
+        output_str = str(output) if output else ""
 
-    # Check for peer-group membership
-    expected_patterns = [
-        f"Member of peer-group {pg_name}",
-        f"peer-group {pg_name}",
-        f"peergroup {pg_name}"
-    ]
+        st.log(f"BGP Neighbor Raw Output Length: {len(output_str)} characters")
+        st.log(f"First 300 chars: {output_str[:300]}")
 
-    for pattern in expected_patterns:
-        if pattern in output_str or pattern.upper() in output_str.upper():
-            st.log(f"SUCCESS: Neighbor {neighbor_ip} is member of peer-group '{pg_name}'")
-            return True
+        if not output_str or len(output_str) < 50:
+            st.error(f"No meaningful output received from show command")
+            return False
 
-    st.error(f"FAILED: Peer-group membership not verified for {neighbor_ip}")
-    return False
+        # Check for peer-group membership patterns (case-insensitive)
+        output_lower = output_str.lower()
+
+        peer_group_patterns = [
+            f"member of peer-group {pg_name}",
+            f"peer-group {pg_name}",
+            f"peergroup {pg_name}",
+        ]
+
+        for pattern in peer_group_patterns:
+            if pattern.lower() in output_lower:
+                st.log(f"✓ SUCCESS: Found '{pattern}' in neighbor output")
+                st.log(f"✓ Neighbor {neighbor_ip} is member of peer-group '{pg_name}'")
+                return True
+
+        # If not found, log for debugging
+        st.log(f"Peer-group membership NOT found in output")
+        st.log(f"Expected patterns: {peer_group_patterns}")
+        st.log(f"Actual output (first 1000 chars):\n{output_str[:1000]}")
+
+        st.error(f"FAILED: Peer-group membership not verified for {neighbor_ip}")
+        return False
+
+    except Exception as e:
+        st.error(f"Exception while verifying peer-group membership: {str(e)}")
+        import traceback
+        st.error(traceback.format_exc())
+        return False
 
 
 def ping_test(src_dut: str, dst_ip: str, count: int = 5) -> bool:
@@ -409,12 +472,12 @@ def test_bgp_pg01_peergroup_creation():
     st.banner("STEP 3: Configure BGP Routers with Router-ID")
 
     if not configure_bgp_router(vars.D1, CONFIG.asn, CONFIG.dut1_router_id):
-        st.report_tc_fail(TC_IDS.pg01_basic_bgp, "bgp_router_id_failed", vars.D1)
-        st.report_fail("bgp_router_id_failed", vars.D1)
+        st.report_tc_fail(TC_IDS.pg01_basic_bgp, "msg", f"Failed to configure BGP router on {vars.D1}")
+        st.report_fail("msg", f"Failed to configure BGP router on {vars.D1}")
 
     if not configure_bgp_router(vars.D2, CONFIG.asn, CONFIG.dut2_router_id):
-        st.report_tc_fail(TC_IDS.pg01_basic_bgp, "bgp_router_id_failed", vars.D2)
-        st.report_fail("bgp_router_id_failed", vars.D2)
+        st.report_tc_fail(TC_IDS.pg01_basic_bgp, "msg", f"Failed to configure BGP router on {vars.D2}")
+        st.report_fail("msg", f"Failed to configure BGP router on {vars.D2}")
 
     # ==================================================================
     # STEP 4: Configure BGP Neighbors

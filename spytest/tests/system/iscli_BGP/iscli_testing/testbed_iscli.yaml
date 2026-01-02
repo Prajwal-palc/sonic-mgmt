@@ -1,0 +1,169 @@
+# Spytest Testbed Configuration for IS-CLI Testing
+# File: testbed_iscli.yaml
+# Purpose: Configure hardware devices for IS-CLI Drop 1 testing
+# Date: 30-Dec-2025
+
+# Testbed Parameters
+params:
+  name: "ISCLI_DROP1_TESTBED"
+  topology: "standalone"
+
+# Device Under Test (DUT) Configuration
+devices:
+  # Primary DUT
+  DUT1:
+    alias: "sonic_dut1"
+    type: "sonic"
+
+    # Connection details
+    connections:
+      cli:
+        protocol: "ssh"
+        ip: "192.168.100.87"
+        port: 22
+        username: "admin"
+        password: "jira@123"
+        timeout: 30
+
+    # Device properties
+    properties:
+      platform: "x86_64-kvm_x86_64-r0"  # Update with actual hardware platform
+      hwsku: "Force10-S6000"             # Update with actual HW SKU
+      sonic_version: "202505-smci-dev-iscli-2025-12-30T02-57-47"
+
+    # Features to test
+    features:
+      - platform_components
+      - ztp
+      - ntp
+      - clear_arp_nd
+
+  # Secondary DUT (Optional for parallel testing)
+  DUT2:
+    alias: "sonic_dut2"
+    type: "sonic"
+
+    connections:
+      cli:
+        protocol: "ssh"
+        ip: "192.168.100.175"
+        port: 22
+        username: "admin"
+        password: "jira@123"
+        timeout: 30
+
+    properties:
+      platform: "x86_64-kvm_x86_64-r0"
+      hwsku: "Force10-S6000"
+      sonic_version: "202505-smci-dev-iscli-2025-12-30T02-57-47"
+
+    features:
+      - platform_components
+      - ztp
+      - ntp
+      - clear_arp_nd
+
+# Test execution parameters
+execution:
+  # Test suite selection
+  test_suites:
+    - "test_iscli_platform"
+    - "test_iscli_ztp"
+    - "test_iscli_ntp"
+    - "test_iscli_clear_arp_nd"
+
+  # Execution mode
+  mode: "sequential"  # Options: sequential, parallel
+
+  # Timeouts
+  timeouts:
+    test_timeout: 300        # 5 minutes per test
+    suite_timeout: 1800      # 30 minutes per suite
+    session_timeout: 7200    # 2 hours total
+
+  # Retry configuration
+  retry:
+    enabled: true
+    max_retries: 2
+    retry_on_failure: true
+
+  # Logging
+  logging:
+    level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+    console: true
+    file: true
+    report_dir: "./reports/iscli_tests"
+
+# Test-specific parameters
+test_params:
+  # Platform component tests
+  platform:
+    test_virtual_switch: true
+    skip_hardware_tests: false  # Set to true for VS
+
+  # ZTP tests
+  ztp:
+    test_enable_disable: true
+    test_persistence: true
+    wait_time: 5  # seconds between enable/disable
+
+  # NTP tests
+  ntp:
+    test_servers:
+      - "216.239.35.12"
+      - "time.google.com"
+    test_pools:
+      - "1.pool.ntp.org"
+      - "2.pool.ntp.org"
+    vrf_name: "mgmt"
+    ping_target: "8.8.8.8"
+
+  # Clear ARP/ND tests
+  clear_arp_nd:
+    test_repopulation: true
+    test_stability: true
+    stability_iterations: 3
+    ping_target: "192.168.100.1"
+
+# Reporting configuration
+reporting:
+  formats:
+    - "html"
+    - "json"
+    - "xml"
+
+  include:
+    screenshots: false
+    logs: true
+    command_outputs: true
+
+  output_dir: "./test_reports"
+
+# Email notification (optional)
+notifications:
+  enabled: false
+  email:
+    to:
+      - "anuradha@example.com"
+    smtp_server: "smtp.example.com"
+    smtp_port: 587
+    from: "spytest@example.com"
+
+# Build information
+build_info:
+  build_id: "202505-smci-dev-iscli-2025-12-30T02-57-47"
+  build_date: "2025-12-30"
+  branch: "master"
+  features_tested:
+    - name: "Platform Components"
+      id: "SM_ISCLI_DROP1_FEATURE1"
+      status: "in_progress"
+    - name: "ZTP"
+      id: "SM_ISCLI_DROP1_FEATURE2"
+      status: "in_progress"
+    - name: "NTP"
+      id: "SM_ISCLI_DROP1_FEATURE7"
+      status: "in_progress"
+    - name: "Clear ARP/ND"
+      id: "SM_ISCLI_DROP1_FEATURE8"
+      status: "in_progress"
