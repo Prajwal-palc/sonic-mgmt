@@ -1343,10 +1343,12 @@ def advertise_bgp_network(dut, local_asn, network, route_map='', config='yes', f
         st.config(dut, command, type=cli_type, skip_error_check=skip_error_check)
     elif cli_type == "klish":
         commands = list()
-        if network_import_check:
-            commands.append("no network import-check")
-        else:
-            commands.append("network import-check")
+        # NOTE: 'network import-check' command is not supported in klish mode
+        # Commenting out to avoid CLI errors
+        # if network_import_check:
+        #     commands.append("no network import-check")
+        # else:
+        #     commands.append("network import-check")
         commands.append("address-family {} unicast".format(family))
         if route_map.lower() == '':
             commands.append("{} network {}".format(mode, network))
@@ -1386,8 +1388,10 @@ def config_bgp_network_advertise(dut, local_asn, network, route_map='', addr_fam
         return True
     elif cli_type == "klish":
         commands = list()
-        if network_import_check:
-            commands.append("no network import-check")
+        # NOTE: 'network import-check' command is not supported in klish mode
+        # Commenting out to avoid CLI errors
+        # if network_import_check:
+        #     commands.append("no network import-check")
         commands.append("address-family {} {}".format(addr_family, "unicast"))
         cmd = "route-map {}".format(route_map) if route_map else ""
         commands.append("{} network {} {}".format(cfgmode, network, cmd).strip())
@@ -5099,8 +5103,10 @@ def config_bgp(dut, **kwargs):
                 commands.append(my_cmd)
                 commands.append("exit")
             elif type1 == 'import-check':
-                my_cmd = '{} network import-check'.format(config_cmd)
-                commands.append(my_cmd)
+                # NOTE: 'network import-check' command is not supported in klish mode
+                # Skipping to avoid CLI errors
+                st.log("'network import-check' command is not supported in klish mode, skipping")
+                pass
             elif type1 == 'import_vrf':
                 my_cmd = 'address-family {} unicast\n'.format(addr_family)
                 commands.append(my_cmd)

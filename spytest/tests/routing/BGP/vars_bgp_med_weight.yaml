@@ -1,0 +1,198 @@
+# BGP MED and Weight Attribute Test Variables
+# Test cases: BGP-34, BGP-35
+# Covers MED attribute propagation and weight attribute priority in path selection
+
+defaults:
+  # CLI type: klish required for BGP configuration
+  cli_type: klish
+
+  # Verification timeout in seconds
+  verify_timeout: 60
+
+  # Enable cleanup after tests
+  cleanup: true
+
+  # Minimum topology requirement: 3 nodes with 2 links (linear topology)
+  # D1 <-> D2 <-> D3
+  min_topology:
+    - "D1D2:1"
+    - "D2D3:1"
+
+  # AS numbers for DUTs
+  # NOTE: DUT1 DUT2 DUT3 must be in SAME AS for MED comparison
+  d1_as: 65001
+  d2_as: 65001
+  d3_as: 65001
+
+  # Router IDs
+  d1_router_id: "1.1.1.1"
+  d2_router_id: "2.2.2.2"
+  d3_router_id: "3.3.3.3"
+
+  # D1-D2 link IPv4 addresses
+  d1d2_ipv4: "10.10.1.1/24"
+  d2d1_ipv4: "10.10.1.2/24"
+
+  # D2-D3 link IPv4 addresses
+  d2d3_ipv4: "10.10.2.1/24"
+  d3d2_ipv4: "10.10.2.2/24"
+
+testcases:
+  "BGP-34":
+    title: "Verify MED Attribute Propagation"
+    description: |
+      Verify that the BGP Multi-Exit Discriminator (MED) attribute is correctly
+      propagated between BGP peers and influences route selection when choosing
+      between multiple paths to the same destination from the same neighboring AS.
+
+      CRITICAL: DUT1 and DUT3 must be in the SAME AS (65001) for MED to be compared.
+      DUT2 (AS 65002) receives routes from both and selects based on MED.
+      Lower MED value is preferred in path selection.
+
+    # AS numbers override for MED test (SAME AS for D1 and D3)
+    d1_as: 65001
+    d2_as: 65001
+    d3_as: 65001  # CRITICAL: Same AS as D1 for MED comparison
+
+    # Test network to be advertised from both D1 and D3
+    # NOTE: Must match loopback network in routing table
+    test_network: "10.1.0.0/24"
+
+    # Loopback configurations on D1 and D3
+    # Using /24 so the network appears in routing table for BGP advertisement
+    d1_loopback: "Loopback10"
+    d1_loopback_ip: "10.1.0.1/24"
+
+    d3_loopback: "Loopback10"
+    d3_loopback_ip: "10.1.0.100/24"
+
+    # MED values to set via route-map
+    d1_med: 100
+    d3_med: 50
+
+    # Route-map names
+    d1_route_map: "SET_MED_100"
+    d3_route_map: "SET_MED_50"
+
+    # Expected best path selection
+    expected_best_path_via: "d3"  # DUT3 has lower MED (50)
+    expected_best_path_med: 50
+
+    verification:
+      - BGP sessions established between D1-D2 and D2-D3
+      - Network 10.1.0.0/24 advertised from both D1 and D3
+      - D2 receives routes with MED 100 (from D1) and MED 50 (from D3)
+      - D2 selects path via D3 (lower MED)
+      - Route 10.1.0.0/24 present in D2 BGP table with next-hop via D3
+      - Route 10.1.0.0/24 installed in D2 RIB via D3
+
+    notes: |
+      MED is a non-transitive optional attribute used to influence inbound
+      traffic from neighboring AS. MED comparison only occurs when routes
+      are from the same neighboring AS.
+
+  "BGP-35":
+    title: "Verify Weight Attribute Priority in Inbound Selection (iBGP)"
+    description: |
+      Verify that the BGP weight attribute takes highest priority in route
+      selection for inbound routes, overriding other attributes including
+      MED and LOCAL_PREF.
+
+      Higher weight value is preferred (0-65535).
+
+      NOTE: This test uses iBGP topology due to SONiC FRR 10.x limitation where
+      eBGP export policy prevents advertisement of non-interface-connected routes.
+      Weight is a local-only attribute, so iBGP is appropriate for this test.
+
+    # AS numbers override for weight test (SAME AS for iBGP topology)
+    d1_as: 65001
+    d2_as: 65001  # CHANGED: Same AS for iBGP
+    d3_as: 65001  # CHANGED: Same AS for iBGP
+
+    # Test network to be advertised from both D1 and D3
+    # NOTE: Must match loopback network in routing table
+    test_network: "10.2.0.0/24"
+
+    # Loopback configurations on D1 and D3
+    # Using /24 so the network appears in routing table for BGP advertisement
+    d1_loopback: "Loopback20"
+    d1_loopback_ip: "10.2.0.1/24"
+
+    d3_loopback: "Loopback20"
+    d3_loopback_ip: "10.2.0.100/24"
+
+    # Weight values to configure on D2 for neighbors
+    d1_weight: 100
+    d3_weight: 200
+
+    # Expected best path selection
+    expected_best_path_via: "d3"  # DUT3 has higher weight (200)
+    expected_best_path_weight: 200
+
+    verification:
+      - BGP iBGP sessions established between D1-D2 and D2-D3
+      - Network 10.2.0.0/24 advertised from both D1 and D3
+      - D2 receives routes with weight 100 (from D1) and weight 200 (from D3)
+      - D2 selects path via D3 (higher weight)
+      - Route 10.2.0.0/24 present in D2 BGP table with next-hop via D3
+      - Weight takes precedence over other attributes in path selection
+
+    notes: |
+      Weight is a Cisco-proprietary attribute (local significance only).
+      It is the first criterion in BGP best path selection algorithm.
+      Range: 0-65535, higher values preferred.
+      Not advertised to any neighbors.
+
+      This test uses iBGP topology to avoid SONiC FRR 10.x eBGP export policy
+      restrictions on loopback/non-interface-connected routes.
+
+# Additional test variants (optional)
+test_variants:
+  "BGP-34-VARIANT":
+    title: "MED with Different AS Numbers"
+    description: |
+      Verify that MED is NOT compared when routes are from different AS numbers.
+      This validates RFC 4271 compliance for MED comparison scope.
+    enabled: false
+
+  "BGP-35-VARIANT-1":
+    title: "Weight vs LOCAL_PREF"
+    description: |
+      Configure different LOCAL_PREF values and verify weight still takes priority.
+    enabled: false
+
+  "BGP-35-VARIANT-2":
+    title: "Weight vs MED"
+    description: |
+      Configure different MED values and verify weight still takes priority.
+    enabled: false
+
+# Cleanup utilities
+cleanup:
+  bgp:
+    # Commands to clear BGP configuration (klish)
+    - "configure terminal"
+    - "no router bgp <AS>"
+    - "exit"
+    - "clear bgp all"
+
+  interfaces:
+    # Commands to remove IP address from interface (klish)
+    - "configure terminal"
+    - "interface <INTERFACE>"
+    - "no ip address"
+    - "no ipv6 address"
+    - "exit"
+    - "exit"
+
+  loopback:
+    # Commands to remove loopback interface (klish)
+    - "configure terminal"
+    - "no interface <LOOPBACK>"
+    - "exit"
+
+  route_map:
+    # Commands to remove route-map (klish)
+    - "configure terminal"
+    - "no route-map <ROUTE_MAP_NAME>"
+    - "exit"
