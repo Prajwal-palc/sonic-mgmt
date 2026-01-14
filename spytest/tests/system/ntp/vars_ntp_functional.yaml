@@ -1,0 +1,43 @@
+# NTP Functional Test Variables
+# This file contains test configuration and parameters for NTP functional test suite
+# Location: spytest/tests/system/ntp/vars_ntp_test.yaml
+
+defaults:
+  # CLI type for configuration commands
+  cli_type: klish
+
+  # Timeout for general verification operations (seconds)
+  verify_timeout: 120
+
+  # Timeout for NTP synchronization (seconds)
+  # NTP typically needs 2-5 minutes for initial synchronization
+  sync_timeout: 300
+
+  # Management VRF name
+  mgmt_vrf: mgmt
+
+  # Minimum topology requirement
+  # Single device needed for NTP tests
+  min_topology:
+    - "D1"
+
+  # Default NTP server list (can be overridden in individual testcases)
+  # Using hostnames - if DNS issues occur, use IP addresses instead:
+  # time.google.com = 216.239.35.0, time.cloudflare.com = 162.159.200.1
+  ntp_servers:
+    - "216.239.35.0"
+    - "162.159.200.1"
+
+testcases:
+  NTP-01:
+    title: "Basic NTP Synchronization"
+    description: "Verify device synchronizes with a single NTP server and achieves time synchronization"
+    servers:
+      - "time.google.com"
+    expected_behavior:
+      - "NTP server configured successfully using 'config ntp add server <ip>'"
+      - "NTP configuration verified using 'show ntp' command"
+      - "NTP associations verified using 'show ntp associations' command"
+      - "System clock displayed using 'show clock' command"
+      - "Chrony tracking shows normal leap status"
+      - "At least one active time source is present"
