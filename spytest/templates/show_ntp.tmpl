@@ -1,15 +1,15 @@
+Value ms (\S+)
 Value remote (\S+)
-Value refid (\S+)
-Value st (\d+)
-Value t (\S+)
-Value when (\S+)
-Value poll (\S+)
-Value reach (\S+)
-Value delay (\S+)
-Value offset (\S+)
-Value jitter (\S+)
+Value stratum (\d+)
+Value poll (\d+)
+Value reach (\d+)
+Value lastrx (\S+)
+Value last_sample (.*)
 
 Start
-  ^\s*remote\s+refid\s+st\s+t\s+when\s+poll\s+reach\s+delay\s+offset\s+jitter\s*$$
+  # Match header line: MS Name/IP address         Stratum Poll Reach LastRx Last sample
+  ^\s*MS\s+Name/IP\s+address\s+Stratum\s+Poll\s+Reach\s+LastRx\s+Last\s+sample\s*$$
+  # Skip separator line
   ^(=+\s*)*$$
-  ^\s*${remote}\s+${refid}\s+${st}\s+${t}\s+${when}\s+${poll}\s+${reach}\s+${delay}\s+${offset}\s+${jitter}\s*$$ -> Record
+  # Match data line: ^? 1.1.1.1                       0   8     0     -     +0ns[   +0ns] +/-    0ns
+  ^\s*${ms}\s+${remote}\s+${stratum}\s+${poll}\s+${reach}\s+${lastrx}\s+${last_sample}\s*$$ -> Record
