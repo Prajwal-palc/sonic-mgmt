@@ -1,0 +1,14 @@
+# REST API URL mappings for SONiC features
+# This file provides a centralized location for REST API endpoint URLs
+# used in test automation for configuration verification
+
+# Datastore name must match the requested name 'rest_urls'
+rest_urls:
+  default:
+    - ntp_endpoints
+
+# NTP REST API endpoints section
+ntp_endpoints:
+  ntp_server_config: '/restconf/data/sonic-ntp:sonic-ntp/NTP_SERVER'
+  ntp_global_config: '/restconf/data/sonic-ntp:sonic-ntp/NTP'
+  ntp_auth_keys_config: '/restconf/data/sonic-ntp:sonic-ntp/NTP_KEY'
