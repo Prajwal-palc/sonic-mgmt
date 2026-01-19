@@ -1,0 +1,220 @@
+---
+# Variable file for IPv4 BGP Route Reflector Test
+# Test: test_ipv4_bgp_route_reflector.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "3-node"
+  description: "Three SONiC devices with Route Reflector topology"
+  role:
+    dut1: "Route Reflector Client"
+    dut2: "Route Reflector Server"
+    dut3: "Route Reflector Client"
+
+# IPv4 Configuration
+ipv4:
+  dut1_dut2_link:
+    dut1_address: "10.1.12.2"
+    dut2_address: "10.1.12.4"
+    prefix_length: "24"
+  dut2_dut3_link:
+    dut2_address: "10.1.14.2"
+    dut3_address: "10.1.14.3"
+    prefix_length: "24"
+  address_family: "ipv4"
+
+# iBGP Configuration (All devices in same AS)
+bgp:
+  type: "ibgp"
+  asn: "65001"  # Same AS number for all DUTs
+  dut1:
+    router_id: "1.1.1.1"
+    role: "client"
+    network: "10.1.12.2/24"
+  dut2:
+    router_id: "2.2.2.2"
+    role: "server"  # Route Reflector Server
+    networks:
+      - "10.1.12.4/24"
+      - "10.1.14.2/24"
+  dut3:
+    router_id: "3.3.3.3"
+    role: "client"
+    network: "10.1.14.3/24"
+  wait_time: 90
+  convergence_timeout: 90
+
+# Route Reflector Configuration
+route_reflector:
+  server: "dut2"
+  clients:
+    - "dut1"
+    - "dut3"
+  description: "DUT2 reflects routes between DUT1 and DUT3"
+  configuration:
+    - "neighbor <client-ip> route-reflector-client"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+  description: "Check and remove existing IPv4 addresses before configuration"
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  interface_wait_time: 5
+
+# Expected BGP States (for validation)
+bgp_states:
+  valid_states:
+    - "Established"
+    - "(Policy)"
+    - "0"
+    - "1"
+  description: "BGP session is considered established if state is 'Established', '(Policy)', or numeric"
+
+# Route Reflection Behavior
+route_reflection:
+  description: "Routes learned from RR clients are reflected to other RR clients"
+  expected_behavior:
+    - "DUT1 advertises routes to DUT2"
+    - "DUT2 reflects DUT1 routes to DUT3"
+    - "DUT3 advertises routes to DUT2"
+    - "DUT2 reflects DUT3 routes to DUT1"
+    - "DUT1 and DUT3 do NOT have direct BGP session"
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv4 unicast neighbors"
+  bgp_neighbor_routes: "show bgp ipv4 unicast neighbors <neighbor-ip> routes"
+  bgp_neighbor_detail: "show bgp ipv4 unicast neighbors <neighbor-ip>"
+  ipv6_interfaces: "show ip interfaces"
+  ipv6_route: "show ip route"
+  verify_rr_client: "show bgp ipv4 unicast neighbors <neighbor-ip> (check for 'Route-Reflector Client' line)"
+
+# Test Scenarios
+scenarios:
+  route_reflector_config:
+    description: "BGP Route Reflector configuration and verification"
+    steps:
+      - "Check and remove existing IPv4 addresses"
+      - "Configure IPv4 addresses on all interfaces"
+      - "Verify IPv4 connectivity between neighbors"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure iBGP with same ASN (65001) on all DUTs"
+      - "Configure DUT2 as Route Reflector Server"
+      - "Mark DUT1 and DUT3 as route-reflector-client on DUT2"
+      - "Verify BGP sessions establish"
+      - "Verify Route-Reflector Client configuration on DUT2"
+      - "Verify routes from DUT1 are reflected to DUT3"
+      - "Verify routes from DUT3 are reflected to DUT1"
+
+  save_reboot:
+    description: "Route Reflector persistence after save and reboot"
+    steps:
+      - "Verify BGP sessions before reboot"
+      - "Save configuration using 'write memory'"
+      - "Reboot all DUTs"
+      - "Verify BGP sessions after reboot"
+      - "Verify route reflection still works"
+
+# Configuration Examples
+config_examples:
+  dut1_client:
+    - "router bgp 65001"
+    - "router-id 1.1.1.1"
+    - "address-family ipv4 unicast"
+    - "  network 10.1.12.2/24"
+    - "  exit"
+    - "neighbor 10.1.12.4 remote-as 65001"
+    - "  address-family ipv4 unicast"
+    - "    activate"
+    - "    exit"
+    - "  exit"
+
+  dut2_server:
+    - "router bgp 65001"
+    - "router-id 2.2.2.2"
+    - "address-family ipv4 unicast"
+    - "  network 10.1.12.4/24"
+    - "  network 10.1.14.2/24"
+    - "  exit"
+    - "neighbor 10.1.12.2 remote-as 65001"
+    - "  address-family ipv4 unicast"
+    - "    activate"
+    - "    route-reflector-client"
+    - "    exit"
+    - "  exit"
+    - "neighbor 10.1.14.3 remote-as 65001"
+    - "  address-family ipv4 unicast"
+    - "    activate"
+    - "    route-reflector-client"
+    - "    exit"
+    - "  exit"
+
+  dut3_client:
+    - "router bgp 65001"
+    - "router-id 3.3.3.3"
+    - "address-family ipv4 unicast"
+    - "  network 10.1.14.3/24"
+    - "  exit"
+    - "neighbor 10.1.14.2 remote-as 65001"
+    - "  address-family ipv4 unicast"
+    - "    activate"
+    - "    exit"
+    - "  exit"
+
+# Expected Route Output
+# On DUT3, from DUT2 (should see DUT1's routes):
+# sonic# show bgp ipv4 unicast neighbors 10.1.14.2 routes
+# *  i 10.1.12.2/24 fe80::xxxx    (from DUT1, reflected by DUT2)
+#
+# On DUT1, from DUT2 (should see DUT3's routes):
+# sonic# show bgp ipv4 unicast neighbors 10.1.12.4 routes
+# *  i 10.1.14.3/24 fe80::xxxx    (from DUT3, reflected by DUT2)
+
+# Notes
+notes:
+  - "This test uses iBGP with same AS number (65001) on all DUTs"
+  - "DUT2 acts as Route Reflector Server"
+  - "DUT1 and DUT3 are Route Reflector Clients"
+  - "Routes are reflected between clients through the RR server"
+  - "DUT1 and DUT3 do NOT have direct BGP peering"
+  - "Route Reflector eliminates need for full mesh iBGP"
+  - "Test includes IPv4 address cleanup before configuration"
+  - "Test removes existing BGP config using 'no router bgp' before configuring"
+  - "Configuration persistence tested through save and reboot"
+  - "Enhanced BGP validation accepts (Policy) state"
+
+# Expected Behavior
+expected:
+  bgp_sessions: 4  # DUT1<->DUT2, DUT2<->DUT1, DUT2<->DUT3, DUT3<->DUT2
+  bgp_session_state: "Established or (Policy)"
+  route_reflection: "enabled"
+  dut1_learns_dut3_routes: true
+  dut3_learns_dut1_routes: true
+  direct_dut1_dut3_session: false
+  post_reboot_behavior: "All BGP sessions and route reflection restored"
+
+# Verification Points
+verification:
+  - "BGP sessions established on all DUTs"
+  - "DUT2 has route-reflector-client configured for both neighbors"
+  - "Route-Reflector Client line present in 'show bgp ipv4 unicast neighbors' output on DUT2"
+  - "Verification checks for 'Route-Reflector Client' or 'route-reflector-client' in neighbor details"
+  - "DUT1 receives routes from DUT3 via DUT2"
+  - "DUT3 receives routes from DUT1 via DUT2"
+  - "Configuration persists after reboot"
+  - "IPv4 connectivity verified between neighbors"

@@ -1,0 +1,52 @@
+# Variables file for IPv6 BGP Interface test
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+defaults:
+  cli_type: klish
+  min_topology:
+    - "D1D2:1"
+  verify_timeout: 90
+  reboot_wait_time: 60
+  cleanup: true
+
+# DUT1 Configuration
+dut1:
+  ipv6_address: "2001:db8:1::1"
+  ipv6_mask: "64"
+  interface: "Ethernet32"
+  mtu: 9100
+  speed: 40000
+  bgp_asn: 65001
+  router_id: "192.168.100.57"
+
+# DUT2 Configuration
+dut2:
+  ipv6_address: "2001:db8:1::2"
+  ipv6_mask: "64"
+  interface: "Ethernet32"
+  mtu: 9100
+  speed: 40000
+  bgp_asn: 65001
+  router_id: "192.168.100.172"
+
+# BGP Configuration
+bgp:
+  asn: 65001
+  neighbor_wait_time: 90
+  keepalive: 60
+  holdtime: 180
+  address_family: "ipv6 unicast"
+
+# IPv6 Configuration
+ipv6:
+  subnet: "2001:db8:1::/64"
+  ping_count: 5
+  ping_timeout: 10
+
+# Test Parameters
+test_params:
+  bgp_convergence_time: 90
+  reboot_wait_time: 60
+  config_save_wait: 5
+  interface_up_wait: 10

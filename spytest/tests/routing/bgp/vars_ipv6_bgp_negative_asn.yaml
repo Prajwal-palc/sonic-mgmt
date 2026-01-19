@@ -1,0 +1,237 @@
+---
+# Variable file for IPv6 BGP Negative Test - Wrong ASN
+# Test: test_ipv6_bgp_negative_asn.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "2-node"
+  description: "Two SONiC devices with eBGP peering - Negative test with wrong ASN"
+  peering_type: "eBGP (different AS numbers)"
+
+# IPv6 Configuration
+ipv6:
+  dut1_address: "2001:db8:1::1"
+  dut2_address: "2001:db8:1::2"
+  prefix_length: "64"
+  address_family: "ipv6"
+
+# eBGP Configuration
+bgp:
+  type: "ebgp"
+  dut1:
+    asn: "65001"
+    router_id: "1.1.1.1"
+  dut2:
+    asn: "65002"
+    router_id: "2.2.2.2"
+  wait_time: 90
+  convergence_timeout: 90
+
+# Negative Test Configuration
+negative_test:
+  wrong_asn: "65003"
+  description: "DUT1 will configure neighbor with wrong ASN (65003 instead of 65002)"
+  expected_behavior: "BGP session should NOT establish"
+  valid_non_established_states:
+    - "Active"
+    - "Connect"
+    - "Idle"
+    - "OpenSent"
+    - "OpenConfirm"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  negative_test_wait: 90
+  interface_wait_time: 5
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv6 unicast neighbors"
+  bgp_neighbor_detail: "show bgp ipv6 unicast neighbors <neighbor-ip>"
+  ipv6_interfaces: "show ipv6 interfaces"
+  ipv6_route: "show ipv6 route"
+
+# Test Scenarios
+scenarios:
+  wrong_asn_no_establish:
+    description: "Verify BGP session does NOT establish with wrong ASN"
+    steps:
+      - "Check and remove existing IPv6 addresses"
+      - "Configure IPv6 addresses on interfaces"
+      - "Verify IPv6 connectivity"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure BGP on DUT1 with AS 65001"
+      - "Configure BGP on DUT2 with AS 65002"
+      - "Configure DUT1 neighbor with WRONG remote-as 65003"
+      - "Configure DUT2 neighbor with correct remote-as 65001"
+      - "Wait 90 seconds for any potential establishment"
+      - "Verify BGP session does NOT establish (negative validation)"
+      - "Verify DUT1-DUT2 session in non-established state (Active/Connect/Idle)"
+
+  correct_asn_after_fix:
+    description: "Verify BGP session establishes after fixing ASN"
+    steps:
+      - "Remove incorrect neighbor configuration on DUT1"
+      - "Reconfigure DUT1 neighbor with CORRECT remote-as 65002"
+      - "Wait for BGP convergence"
+      - "Verify BGP session establishes successfully"
+      - "Verify session state is Established"
+
+  save_reboot:
+    description: "Verify configuration persistence after save and reboot"
+    steps:
+      - "Save configuration using 'write memory'"
+      - "Reboot both DUTs"
+      - "Verify BGP sessions establish after reboot with correct config"
+
+# Configuration Examples
+config_examples:
+  dut1_wrong_asn:
+    - "router bgp 65001"
+    - "router-id 1.1.1.1"
+    - "neighbor 2001:db8:1::2 remote-as 65003"  # WRONG - should be 65002
+    - "address-family ipv6 unicast"
+    - "  neighbor 2001:db8:1::2 activate"
+    - "  exit"
+    - "exit"
+
+  dut1_correct_asn:
+    - "router bgp 65001"
+    - "no neighbor 2001:db8:1::2"  # Remove wrong config
+    - "neighbor 2001:db8:1::2 remote-as 65002"  # CORRECT
+    - "address-family ipv6 unicast"
+    - "  neighbor 2001:db8:1::2 activate"
+    - "  exit"
+    - "exit"
+
+  dut2:
+    - "router bgp 65002"
+    - "router-id 2.2.2.2"
+    - "neighbor 2001:db8:1::1 remote-as 65001"  # Correct from DUT2 side
+    - "address-family ipv6 unicast"
+    - "  neighbor 2001:db8:1::1 activate"
+    - "  exit"
+    - "exit"
+
+# Notes
+notes:
+  - "This is a NEGATIVE test - failure to establish is the expected behavior"
+  - "DUT1 is configured with AS 65001, DUT2 with AS 65002 (eBGP)"
+  - "DUT1 neighbor is configured with wrong remote-as 65003 instead of 65002"
+  - "BGP session should remain in non-established state (Active/Connect/Idle)"
+  - "Second test case fixes ASN and verifies session establishes correctly"
+  - "This validates BGP's ASN validation mechanism"
+  - "Prevents accidental BGP peering with wrong AS numbers"
+  - "Common production scenario: typo in AS number during configuration"
+  - "Test includes IPv6 address cleanup before configuration"
+  - "Test removes existing BGP config using 'no router bgp'"
+
+# Expected Behavior
+expected:
+  wrong_asn_test:
+    bgp_sessions_established: 0
+    bgp_session_state: "Active, Connect, Idle, or other non-Established state"
+    dut1_dut2_session: "NOT established"
+    reason: "ASN mismatch (configured 65003, actual 65002)"
+
+  correct_asn_test:
+    bgp_sessions_established: 2  # DUT1<->DUT2, DUT2<->DUT1
+    bgp_session_state: "Established or (Policy)"
+    dut1_dut2_session: "established"
+    reason: "ASN now matches (configured 65002, actual 65002)"
+
+  post_reboot_behavior: "BGP sessions remain in correct state after reboot"
+
+# Verification Points
+verification:
+  negative_test:
+    - "IPv6 connectivity verified between DUTs"
+    - "BGP configured on both DUTs"
+    - "DUT1 neighbor configured with wrong ASN (65003)"
+    - "BGP session does NOT reach Established state"
+    - "BGP session remains in Active/Connect/Idle state"
+    - "Negative validation passes (session failure is success)"
+
+  positive_test:
+    - "Wrong neighbor configuration removed from DUT1"
+    - "Correct ASN (65002) configured on DUT1"
+    - "BGP session successfully establishes"
+    - "BGP state is Established"
+    - "Proves that ASN mismatch was the root cause"
+
+  persistence:
+    - "Configuration persists after reboot"
+    - "BGP sessions restore correctly after reboot"
+
+# BGP State Machine Reference
+bgp_states_reference:
+  Idle: "Initial state, no connection attempt"
+  Connect: "Waiting for TCP connection to complete"
+  Active: "Trying to establish TCP connection"
+  OpenSent: "TCP connection established, OPEN message sent"
+  OpenConfirm: "OPEN message received, waiting for KEEPALIVE"
+  Established: "BGP session fully established"
+
+# Common BGP Session Failure Reasons
+common_failures:
+  - reason: "ASN mismatch"
+    description: "Configured remote-as doesn't match actual remote AS"
+    expected_state: "Active or Connect"
+    tested_in: "test_ipv6_bgp_wrong_asn_no_establish"
+
+  - reason: "IP connectivity issue"
+    description: "No IP reachability between neighbors"
+    expected_state: "Active or Connect"
+
+  - reason: "Firewall blocking TCP 179"
+    description: "BGP port blocked by firewall"
+    expected_state: "Active or Connect"
+
+  - reason: "Router ID conflict"
+    description: "Same router ID on both sides"
+    expected_state: "Various"
+
+# Why This Test is Important
+importance:
+  - "Validates BGP's ASN validation mechanism works correctly"
+  - "Prevents configuration errors in production"
+  - "Common mistake: typo in AS number during configuration"
+  - "Security: Prevents peering with unauthorized AS numbers"
+  - "Troubleshooting: Confirms ASN mismatch is detected correctly"
+  - "Best practice: Always verify remote AS before peering"
+
+# Troubleshooting Commands
+troubleshooting:
+  verify_asn:
+    - "show bgp summary"
+    - "show bgp ipv6 unicast neighbors <neighbor-ip>"
+    - "show running-config | grep 'remote-as'"
+
+  verify_connectivity:
+    - "ping6 <neighbor-ip>"
+    - "show ipv6 interface brief"
+
+  verify_tcp_connection:
+    - "show tcp brief | grep 179"
+    - "netstat -an | grep 179"
+
+  bgp_logs:
+    - "show logging | grep BGP"
+    - "show logging | grep NOTIFICATION"

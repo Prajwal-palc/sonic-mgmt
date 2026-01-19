@@ -1,0 +1,314 @@
+---
+# Variable file for IPv4 BGP Negative Test - Next-Hop Unreachable
+# Test: test_ipv4_bgp_negative_nexthop.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "2-node"
+  description: "Two SONiC devices with iBGP - Negative test with unreachable next-hop"
+  peering_type: "iBGP (same AS number)"
+
+# IPv4 Configuration
+ipv4:
+  physical:
+    dut1_address: "10.1.1.1"
+    dut2_address: "10.1.1.2"
+    prefix_length: "24"
+  loopback:
+    dut1_loopback: "10.0.0.1"
+    prefix_length: "32"
+  advertised_network:
+    network: "192.168.100.0/24"
+    prefix: "192.168.100.0"
+    mask: "64"
+
+# iBGP Configuration
+bgp:
+  type: "ibgp"
+  asn: "65001"
+  router_id:
+    dut1: "1.1.1.1"
+    dut2: "2.2.2.2"
+  wait_time: 90
+  negative_test_wait: 60
+  convergence_timeout: 90
+
+# Next-Hop Configuration
+nexthop:
+  unreachable_ip: "10.0.0.1"
+  description: "DUT1 Loopback IP - unreachable from DUT2 initially"
+  static_route_to_fix: "10.0.0.1/32 via 10.1.1.1"
+
+# Negative Test Configuration
+negative_test:
+  scenario: "Next-hop unreachable"
+  description: "DUT1 advertises network with next-hop set to its Loopback IP"
+  expected_behavior: "DUT2 receives BGP route but does NOT install in routing table"
+  reason: "Next-hop IP (Loopback) is unreachable from DUT2"
+  fix: "Add static route on DUT2 to reach the next-hop"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Loopback Interface
+loopback:
+  interface_name: "Loopback0"
+  description: "Used as unreachable next-hop"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  negative_test_wait_time: 60
+  interface_wait_time: 2
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv4 unicast neighbors"
+  bgp_routes: "show bgp ipv4 unicast"
+  ipv6_route: "show ip route"
+  ipv6_route_bgp: "show ip route bgp"
+  ipv6_interfaces: "show ip interfaces"
+
+# Test Scenarios
+scenarios:
+  nexthop_unreachable:
+    description: "Verify route NOT installed when next-hop is unreachable"
+    steps:
+      - "Check and remove existing IPv4 addresses"
+      - "Configure interface MTU and speed"
+      - "Configure IPv4 addresses on physical interfaces"
+      - "Verify IPv4 connectivity"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure Loopback0 on DUT1 (10.0.0.1/32)"
+      - "Configure BGP with router IDs"
+      - "Configure BGP neighbors (iBGP)"
+      - "DUT1: Create route-map to set next-hop to Loopback IP"
+      - "DUT1: Advertise network 192.168.100.0/24"
+      - "DUT1: Apply route-map to neighbor (sets next-hop to Loopback)"
+      - "Verify BGP sessions establish"
+      - "Verify DUT2 does NOT install route (next-hop unreachable)"
+
+  nexthop_reachable_after_fix:
+    description: "Verify route installed after making next-hop reachable"
+    steps:
+      - "Add static route on DUT2: 10.0.0.1/32 via 10.1.1.1"
+      - "Verify DUT2 now has route to next-hop"
+      - "Verify DUT2 installs BGP route in routing table"
+      - "Route is now usable for forwarding"
+
+# Configuration Examples
+config_examples:
+  physical_interface:
+    - "interface Ethernet32"
+    - "ip address 10.1.1.1/24"
+    - "no shutdown"
+    - "exit"
+
+  loopback_interface:
+    - "interface Loopback0"
+    - "ip address 10.0.0.1/32"
+    - "exit"
+
+  bgp_router:
+    - "router bgp 65001"
+    - "router-id 1.1.1.1"
+    - "exit"
+
+  bgp_neighbor:
+    - "router bgp 65001"
+    - "neighbor 10.1.1.2 remote-as 65001"
+    - "address-family ipv4 unicast"
+    - "activate"
+    - "exit"
+    - "exit"
+
+  route_map_set_nexthop:
+    - "route-map SET_NEXTHOP permit 10"
+    - "set ip next-hop 10.0.0.1"
+    - "exit"
+
+  advertise_network_with_routemap:
+    - "router bgp 65001"
+    - "address-family ipv4 unicast"
+    - "network 192.168.100.0/24"
+    - "neighbor 10.1.1.2 route-map SET_NEXTHOP out"
+    - "exit"
+    - "exit"
+
+  static_route_to_nexthop:
+    - "ip route 10.0.0.1/32 10.1.1.1"
+
+# Notes
+notes:
+  - "This is a NEGATIVE test - route installation failure is the expected behavior"
+  - "DUT1 has Loopback0 with IP 10.0.0.1/32"
+  - "DUT2 has NO route to DUT1's Loopback initially"
+  - "DUT1 advertises network 192.168.100.0/24 with next-hop set to 10.0.0.1"
+  - "BGP session establishes successfully (peering over physical interface)"
+  - "DUT2 receives the BGP route but cannot install it (next-hop unreachable)"
+  - "After adding static route to next-hop, DUT2 installs the route"
+  - "This validates BGP's next-hop reachability check mechanism"
+  - "Prevents routing black holes by not installing unreachable routes"
+
+# Expected Behavior
+expected:
+  bgp_sessions:
+    dut1_dut2: "Established"
+    dut2_dut1: "Established"
+    reason: "BGP peering over physical interfaces works fine"
+
+  without_static_route:
+    route_in_bgp_table: "Yes (DUT2 receives route via BGP)"
+    route_in_routing_table: "No (next-hop unreachable)"
+    reason: "BGP receives route but doesn't install (next-hop 10.0.0.1 unreachable)"
+
+  with_static_route:
+    route_in_bgp_table: "Yes"
+    route_in_routing_table: "Yes (next-hop now reachable)"
+    reason: "Static route makes next-hop reachable, BGP installs route"
+
+# Verification Points
+verification:
+  negative_test:
+    - "Physical IPv4 connectivity verified between DUTs"
+    - "Loopback0 configured on DUT1 (10.0.0.1)"
+    - "BGP sessions establish successfully"
+    - "DUT1 advertises network 192.168.100.0/24"
+    - "Route-map sets next-hop to 10.0.0.1"
+    - "DUT2 receives BGP route (visible in 'show bgp ipv4 unicast')"
+    - "DUT2 does NOT install route in routing table (next-hop unreachable)"
+    - "'show ip route' on DUT2 does NOT show 192.168.100.0/24"
+    - "Negative validation passes (route not installed is success)"
+
+  positive_test_after_fix:
+    - "Static route added on DUT2: 10.0.0.1/32 via 10.1.1.1"
+    - "DUT2 now has route to reach next-hop"
+    - "BGP installs route in routing table"
+    - "'show ip route' on DUT2 now shows 192.168.100.0/24"
+    - "Route is usable for forwarding traffic"
+    - "Proves that next-hop unreachability was the root cause"
+
+# BGP Next-Hop Behavior
+bgp_nexthop_behavior:
+  ebgp:
+    default: "Next-hop is changed to peer's IP address"
+    description: "eBGP changes next-hop by default"
+
+  ibgp:
+    default: "Next-hop is preserved from originating router"
+    description: "iBGP does NOT change next-hop by default"
+    issue: "If originating router's IP is unreachable, route won't install"
+    solution: "Use 'next-hop-self' or ensure next-hop reachability"
+
+  next_hop_self:
+    command: "neighbor <ip> next-hop-self"
+    effect: "Changes next-hop to local router's IP"
+    use_case: "iBGP scenarios to ensure next-hop reachability"
+
+  route_map:
+    command: "set ip next-hop <ip>"
+    effect: "Manually sets next-hop to specific IP"
+    use_case: "Testing, load balancing, or specific routing policies"
+
+# Next-Hop Reachability Check
+nexthop_reachability:
+  requirement: "Next-hop IP must be reachable via routing table"
+  check: "BGP performs recursive lookup for next-hop in routing table"
+  if_reachable: "Route is installed and used for forwarding"
+  if_unreachable: "Route is received but NOT installed in routing table"
+  show_command: "show bgp ipv4 unicast <prefix> (shows next-hop and reachability)"
+
+# Common Next-Hop Issues
+common_issues:
+  - issue: "iBGP next-hop unreachable"
+    cause: "Next-hop is IP from originating router, not directly connected"
+    solution: "Configure 'next-hop-self' or add IGP/static route to next-hop"
+    tested_in: "test_ipv4_bgp_nexthop_unreachable"
+
+  - issue: "Next-hop points to down interface"
+    cause: "Interface to next-hop is administratively or operationally down"
+    solution: "Bring up interface or use alternate path"
+
+  - issue: "No route to next-hop"
+    cause: "Missing IGP or static route to reach next-hop"
+    solution: "Add routing protocol or static route"
+
+  - issue: "Next-hop is local router"
+    cause: "Misconfiguration setting next-hop to own IP"
+    solution: "Correct next-hop configuration"
+
+# Why This Test is Important
+importance:
+  - "Validates BGP next-hop reachability check works correctly"
+  - "Prevents routing black holes (traffic destined to unreachable next-hop)"
+  - "Common production issue in iBGP deployments"
+  - "Critical for network reliability and traffic delivery"
+  - "Helps troubleshoot route installation issues"
+  - "Best practice: Always ensure next-hop reachability in iBGP"
+
+# Troubleshooting Commands
+troubleshooting:
+  check_bgp_routes:
+    - "show bgp ipv4 unicast"
+    - "show bgp ipv4 unicast summary"
+    - "show bgp ipv4 unicast neighbors <neighbor-ip> advertised-routes"
+    - "show bgp ipv4 unicast neighbors <neighbor-ip> received-routes"
+
+  check_specific_route:
+    - "show bgp ipv4 unicast 192.168.100.0/24"
+    - "This shows next-hop and whether it's reachable"
+
+  check_routing_table:
+    - "show ip route"
+    - "show ip route bgp"
+    - "show ip route 192.168.100.0/24"
+
+  check_nexthop_reachability:
+    - "show ip route 10.0.0.1"
+    - "ping6 10.0.0.1"
+
+  bgp_logs:
+    - "show logging | grep BGP"
+    - "show logging | grep next-hop"
+
+# How to Fix Next-Hop Unreachable
+fix_procedure:
+  step1: "Identify the issue"
+  command1: "show bgp ipv4 unicast <prefix> (check next-hop IP)"
+  step2: "Check if next-hop is reachable"
+  command2: "show ip route <next-hop-ip>"
+  step3_option_a: "Add static route to next-hop"
+  command3a: "ip route <next-hop-ip> <via-ip>"
+  step3_option_b: "Configure next-hop-self on advertising router"
+  command3b: "router bgp <asn> ; address-family ipv4 unicast ; neighbor <ip> next-hop-self"
+  step4: "Verify route is now installed"
+  command4: "show ip route <prefix>"
+
+# Best Practices
+best_practices:
+  - "In iBGP: Configure 'next-hop-self' on edge routers"
+  - "Ensure IGP (OSPF/ISIS) covers all next-hop addresses"
+  - "Use loopback interfaces for BGP peering (more stable)"
+  - "Monitor next-hop reachability in production"
+  - "Document next-hop resolution paths"
+  - "Test next-hop reachability before deploying routes"
+
+# Related Test Cases
+related_tests:
+  - "test_ipv4_bgp_negative_asn.py - Negative test with wrong ASN"
+  - "test_ipv4_bgp_negative_password.py - Negative test with wrong password"
+  - "test_ipv4_bgp_loopback_negative_updatesource.py - Negative test with wrong update-source"
+  - "test_ipv4_bgp_loopback.py - Positive test with loopback peering"

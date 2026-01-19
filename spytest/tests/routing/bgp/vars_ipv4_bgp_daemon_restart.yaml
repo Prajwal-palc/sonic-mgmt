@@ -1,0 +1,64 @@
+---
+# Variable file for IPv4 BGP Daemon Restart Test
+# Test: test_ipv4_bgp_daemon_restart.py
+
+# Test description
+test_name: "IPv4 BGP Daemon Restart Recovery Test"
+test_type: "daemon_restart"
+protocol: "BGP"
+address_family: "IPv4"
+
+# Topology
+topology_type: "2-node"
+supported_platforms:
+  - "HW"
+  - "Virtual"
+
+# Interface configuration
+interfaces:
+  dut1_ipv4: "10.1.1.1"
+  dut2_ipv4: "10.1.1.2"
+  ipv4_mask: "24"
+  mtu: "9100"
+  speed: "40000"
+
+# BGP configuration
+bgp:
+  asn: "65001"
+  router_id_dut1: "1.1.1.1"
+  router_id_dut2: "2.2.2.2"
+  address_family: "ipv4"
+  session_type: "iBGP"
+  bgp_wait_time: 90
+
+# Daemon restart configuration
+daemon_restart:
+  daemon_name: "bgp"
+  restart_command: "sudo systemctl restart bgp"
+  restart_wait_time: 120
+  recovery_wait_time: 90
+
+# Test configuration
+test_config:
+  cli_type: "klish"
+  ping_count: 5
+
+# Test network (advertised from DUT1)
+test_network:
+  network: "192.168.10.0/24"
+  network_prefix: "192.168.10.0"
+  network_mask: "24"
+  description: "Network advertised from DUT1 to verify BGP route learning and recovery"
+
+# Expected results
+expected_results:
+  pre_restart:
+    bgp_session_established: true
+    route_learned_on_dut2: true
+    connectivity_working: true
+
+  post_restart:
+    bgp_session_recovered: true
+    route_relearned_on_dut2: true
+    connectivity_restored: true
+    daemon_running: true

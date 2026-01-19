@@ -1,0 +1,33 @@
+# Variables for PortChannel IPv6 BGP Test
+
+# PortChannel Configuration
+portchannel: "PortChannel10"
+portchannel_id: "10"
+
+# IPv6 Configuration
+dut1_ipv6: "2001:db8:20::1"
+dut2_ipv6: "2001:db8:20::2"
+ipv6_mask: "64"
+ipv6_network: "2001:db8:20::/64"
+
+# BGP Configuration
+bgp_asn: "65001"
+router_id_dut1: "1.1.1.1"
+router_id_dut2: "2.2.2.2"
+af_ipv6: "ipv6"
+
+# Interface Configuration
+mtu: "9100"
+
+# CLI Configuration
+cli_type: "klish"
+
+# Timing Configuration
+bgp_wait: 90  # Wait time for BGP session establishment (seconds)
+reboot_wait: 60  # Wait time after reboot (seconds)
+ping_count: 5  # Number of ping packets
+
+# Test Topology
+# DUT1 (smic_sonic1) <--> DUT2 (smic_sonic2)
+# PortChannel10 (2001:db8:20::1/64) <--> PortChannel10 (2001:db8:20::2/64)
+#   └─ Ethernet32 <--> Ethernet32

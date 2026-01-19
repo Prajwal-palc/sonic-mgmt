@@ -1,0 +1,329 @@
+---
+# Variable file for IPv6 BGP Loopback Negative Test - Wrong Update-Source
+# Test: test_ipv6_bgp_loopback_negative_updatesource.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "2-node"
+  description: "Two SONiC devices with iBGP peering over Loopback - Negative test with wrong update-source"
+  peering_type: "iBGP (same AS number)"
+
+# IPv6 Configuration
+ipv6:
+  underlay:
+    description: "Physical interface addresses for underlay connectivity"
+    dut1_address: "2001:db8:1::1"
+    dut2_address: "2001:db8:1::2"
+    prefix_length: "64"
+  overlay:
+    description: "Loopback interface addresses for BGP peering"
+    dut1_loopback: "2001:db8::1"
+    dut2_loopback: "2001:db8::2"
+    prefix_length: "128"
+
+# iBGP Configuration
+bgp:
+  type: "ibgp"
+  asn: "65001"
+  router_id:
+    dut1: "1.1.1.1"
+    dut2: "2.2.2.2"
+  wait_time: 90
+  negative_test_wait: 90
+  convergence_timeout: 90
+  ebgp_multihop: 2
+
+# Negative Test Configuration
+negative_test:
+  wrong_update_source: "Loopback1"
+  correct_update_source: "Loopback0"
+  description: "DUT1 will be configured with wrong update-source (Loopback1 instead of Loopback0)"
+  expected_behavior: "BGP session should NOT establish with wrong update-source"
+  reason: "Loopback1 does not exist, so BGP cannot use it as source"
+
+# Static Routes Configuration
+static_routes:
+  description: "Static routes for loopback reachability"
+  dut1:
+    destination: "2001:db8::2/128"
+    nexthop: "2001:db8:1::2"
+  dut2:
+    destination: "2001:db8::1/128"
+    nexthop: "2001:db8:1::1"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Loopback Interface
+loopback:
+  interface_name: "Loopback0"
+  wrong_interface: "Loopback1"
+  description: "Loopback0 exists, Loopback1 does not"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  negative_test_wait_time: 90
+  interface_wait_time: 2
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv6 unicast neighbors"
+  bgp_neighbor_detail: "show bgp ipv6 unicast neighbors <neighbor-ip>"
+  ipv6_interfaces: "show ipv6 interfaces"
+  ipv6_route: "show ipv6 route"
+  loopback_status: "show interface Loopback0"
+  interface_list: "show interface status"
+
+# Test Scenarios
+scenarios:
+  wrong_updatesource_no_establish:
+    description: "Verify BGP session does NOT establish with wrong update-source"
+    steps:
+      - "Check and remove existing IPv6 addresses"
+      - "Configure interface MTU and speed"
+      - "Configure IPv6 addresses on physical interfaces (underlay)"
+      - "Verify IPv6 connectivity between physical interfaces"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure Loopback0 interfaces on both DUTs"
+      - "Configure static routes for loopback reachability"
+      - "Configure BGP with router IDs"
+      - "Configure DUT1 neighbor with WRONG update-source (Loopback1)"
+      - "Configure DUT2 neighbor with correct update-source (Loopback0)"
+      - "Wait 90 seconds for any potential establishment"
+      - "Verify BGP session does NOT establish on DUT1 (negative validation)"
+
+  correct_updatesource_after_fix:
+    description: "Verify BGP session establishes after fixing update-source"
+    steps:
+      - "Remove incorrect neighbor configuration on DUT1"
+      - "Reconfigure DUT1 neighbor with CORRECT update-source (Loopback0)"
+      - "Wait for BGP convergence"
+      - "Verify BGP sessions establish successfully on both DUTs"
+      - "Verify session state is Established"
+
+# Configuration Examples
+config_examples:
+  physical_interface:
+    - "interface Ethernet32"
+    - "mtu 9100"
+    - "speed 40000"
+    - "ipv6 address 2001:db8:1::1/64"
+    - "no shutdown"
+    - "exit"
+
+  loopback_interface:
+    - "interface Loopback0"
+    - "ipv6 address 2001:db8::1/128"
+    - "exit"
+
+  static_route:
+    - "ipv6 route 2001:db8::2/128 2001:db8:1::2"
+
+  bgp_router:
+    - "router bgp 65001"
+    - "router-id 1.1.1.1"
+    - "exit"
+
+  bgp_neighbor_wrong_updatesource:
+    - "router bgp 65001"
+    - "neighbor 2001:db8::2 remote-as 65001"
+    - "neighbor 2001:db8::2 update-source Loopback1"  # WRONG - Loopback1 doesn't exist
+    - "neighbor 2001:db8::2 ebgp-multihop 2"
+    - "address-family ipv6 unicast"
+    - "neighbor 2001:db8::2 activate"
+    - "exit"
+    - "exit"
+
+  bgp_neighbor_correct_updatesource:
+    - "router bgp 65001"
+    - "no neighbor 2001:db8::2"  # Remove wrong config
+    - "neighbor 2001:db8::2 remote-as 65001"
+    - "neighbor 2001:db8::2 update-source Loopback0"  # CORRECT
+    - "neighbor 2001:db8::2 ebgp-multihop 2"
+    - "address-family ipv6 unicast"
+    - "neighbor 2001:db8::2 activate"
+    - "exit"
+    - "exit"
+
+# Notes
+notes:
+  - "This is a NEGATIVE test - failure to establish is the expected behavior"
+  - "DUT1 is configured with wrong update-source (Loopback1 instead of Loopback0)"
+  - "Loopback1 does not exist on the device"
+  - "BGP cannot use non-existent interface as update-source"
+  - "BGP session should remain in non-established state"
+  - "Second part of test fixes update-source and verifies session establishes"
+  - "This validates BGP's update-source validation mechanism"
+  - "Common production scenario: typo in update-source interface name"
+  - "Test includes IPv6 address cleanup before configuration"
+  - "Test removes existing BGP config using 'no router bgp'"
+
+# Expected Behavior
+expected:
+  wrong_updatesource_test:
+    bgp_session_dut1: "NOT established"
+    bgp_session_dut2: "NOT established (or Active/Connect state)"
+    reason: "DUT1 using non-existent Loopback1 as update-source"
+    bgp_state_dut1: "Active, Connect, Idle, or other non-Established state"
+    tcp_connection: "Cannot establish from non-existent source"
+
+  correct_updatesource_test:
+    bgp_session_dut1: "Established"
+    bgp_session_dut2: "Established"
+    reason: "Both DUTs now using correct Loopback0 as update-source"
+    bgp_state: "Established or (Policy)"
+
+# Verification Points
+verification:
+  negative_test:
+    - "Physical IPv6 connectivity verified between DUTs"
+    - "Loopback0 configured on both DUTs"
+    - "Static routes for loopback reachability configured"
+    - "BGP configured on both DUTs"
+    - "DUT1 neighbor configured with wrong update-source (Loopback1)"
+    - "DUT2 neighbor configured with correct update-source (Loopback0)"
+    - "BGP session does NOT reach Established state"
+    - "BGP session remains in non-established state (Active/Connect/Idle)"
+    - "Negative validation passes (session failure is success)"
+
+  positive_test:
+    - "Wrong update-source configuration removed from DUT1"
+    - "Correct update-source (Loopback0) configured on DUT1"
+    - "BGP sessions successfully establish on both DUTs"
+    - "BGP state is Established"
+    - "Proves that wrong update-source was the root cause"
+
+# BGP Update-Source Behavior
+update_source_behavior:
+  purpose: "Specifies which interface's IP to use as source for BGP TCP connection"
+  requirement: "Interface specified in update-source must exist and have IP configured"
+  when_wrong:
+    - "BGP cannot establish TCP connection"
+    - "BGP remains in Active or Connect state"
+    - "No BGP session establishment"
+  when_correct:
+    - "BGP uses specified interface's IP as source"
+    - "TCP connection establishes successfully"
+    - "BGP session reaches Established state"
+
+# Common Update-Source Issues
+common_issues:
+  - issue: "Update-source interface doesn't exist"
+    example: "update-source Loopback1 (but Loopback1 not configured)"
+    result: "BGP cannot establish - no source IP"
+    tested_in: "test_ipv6_bgp_loopback_wrong_updatesource"
+
+  - issue: "Update-source interface has no IP"
+    example: "update-source Loopback0 (but no IP configured on Loopback0)"
+    result: "BGP cannot establish - no source IP"
+
+  - issue: "Update-source IP not reachable"
+    example: "update-source Loopback0 (but no route to peer's loopback)"
+    result: "BGP Active state - connectivity issue"
+
+  - issue: "Typo in interface name"
+    example: "update-source Loopback (missing number)"
+    result: "Configuration error or BGP failure"
+
+# BGP State Machine Reference
+bgp_states_reference:
+  Idle: "Initial state, no connection attempt"
+  Connect: "Waiting for TCP connection to complete"
+  Active: "Trying to establish TCP connection"
+  OpenSent: "TCP connection established, OPEN message sent"
+  OpenConfirm: "OPEN message received, waiting for KEEPALIVE"
+  Established: "BGP session fully established"
+
+# Why This Test is Important
+importance:
+  - "Validates BGP's update-source validation mechanism works correctly"
+  - "Prevents configuration errors in production"
+  - "Common mistake: typo in interface name during configuration"
+  - "Helps troubleshoot update-source related BGP issues"
+  - "Confirms BGP detects non-existent update-source interfaces"
+  - "Best practice: Always verify update-source interface exists before configuring"
+  - "Educational: Shows impact of wrong update-source on BGP session"
+
+# Troubleshooting Commands
+troubleshooting:
+  verify_update_source:
+    - "show bgp ipv6 unicast neighbors <neighbor-ip>"
+    - "show running-config | grep 'update-source'"
+    - "show interface Loopback0"
+    - "show interface status | grep Loopback"
+
+  verify_interfaces:
+    - "show interface status"
+    - "show ipv6 interface brief"
+    - "show interface Loopback0"
+
+  verify_connectivity:
+    - "ping6 <loopback-ip>"
+    - "show ipv6 route"
+    - "show ipv6 route <loopback-ip>"
+
+  verify_bgp:
+    - "show bgp summary"
+    - "show bgp ipv6 unicast neighbors"
+    - "show bgp ipv6 unicast neighbors <neighbor-ip> | grep -i update"
+
+  bgp_logs:
+    - "show logging | grep BGP"
+    - "show logging | grep -i update-source"
+
+# How to Fix Wrong Update-Source
+fix_procedure:
+  step1: "Identify the issue"
+  command1: "show bgp ipv6 unicast neighbors <neighbor-ip>"
+  step2: "Check if update-source interface exists"
+  command2: "show interface status | grep Loopback"
+  step3: "Remove incorrect neighbor configuration"
+  command3: "router bgp <asn> ; no neighbor <ip>"
+  step4: "Reconfigure neighbor with correct update-source"
+  command4: "neighbor <ip> remote-as <asn> ; neighbor <ip> update-source Loopback0"
+  step5: "Verify BGP session establishes"
+  command5: "show bgp summary"
+
+# Update-Source Best Practices
+best_practices:
+  - "Always verify interface exists before using in update-source"
+  - "Ensure update-source interface has IP address configured"
+  - "Verify reachability to peer's update-source IP (static routes or IGP)"
+  - "Use consistent interface naming (e.g., always Loopback0 for BGP)"
+  - "Document update-source configuration in network diagrams"
+  - "Test configuration in lab before production deployment"
+  - "Use 'show' commands to verify before and after configuration changes"
+
+# Related Test Cases
+related_tests:
+  - "test_ipv6_bgp_loopback.py - Positive test with correct update-source"
+  - "test_ipv6_bgp_loopback_broadcom.py - Broadcom SONiC specific format"
+  - "test_ipv6_bgp_negative_asn.py - Negative test with wrong ASN"
+  - "test_ipv6_bgp_interface_physical.py - BGP over physical interfaces (no update-source)"
+
+# Comparison: Update-Source vs No Update-Source
+comparison:
+  without_update_source:
+    source_ip: "Uses outgoing interface's IP as source"
+    use_case: "BGP over directly connected physical interfaces"
+    example: "BGP between Ethernet32 neighbors"
+
+  with_update_source:
+    source_ip: "Uses specified interface's IP as source"
+    use_case: "BGP over loopback or multi-hop scenarios"
+    example: "BGP between Loopback0 addresses"
+    requirement: "Needs reachability to peer's update-source IP"

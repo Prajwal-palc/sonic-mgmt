@@ -1,0 +1,321 @@
+---
+# Variable file for IPv6 BGP Link Flap Test
+# Test: test_ipv6_bgp_link_flap.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "2-node"
+  description: "Two SONiC devices with iBGP - Link flap storm test"
+  peering_type: "iBGP (same AS number)"
+
+# IPv6 Configuration
+ipv6:
+  dut1_address: "2001:db8:1::1"
+  dut2_address: "2001:db8:1::2"
+  prefix_length: "64"
+  advertised_network:
+    network: "2001:db8:10::/64"
+    prefix: "2001:db8:10::"
+    mask: "64"
+
+# iBGP Configuration
+bgp:
+  type: "ibgp"
+  asn: "65001"
+  router_id:
+    dut1: "1.1.1.1"
+    dut2: "2.2.2.2"
+  wait_time: 90
+  convergence_timeout: 90
+
+# Link Flap Configuration
+link_flap:
+  flap_count: 5
+  flap_interval: 2
+  description: "Simulate 5 rapid interface shutdown/no shutdown cycles"
+  interval_description: "2 seconds between each shutdown and no shutdown"
+  total_flap_time: "~20 seconds (5 flaps x 4 seconds per cycle)"
+
+# Recovery Configuration
+recovery:
+  wait_time: 120
+  description: "Wait for BGP to fully recover after flap storm"
+  expected_behavior: "BGP session should re-establish and routes should be restored"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  recovery_wait_time: 120
+  flap_count: 5
+  flap_interval: 2
+  interface_wait_time: 2
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv6 unicast neighbors"
+  bgp_routes: "show bgp ipv6 unicast"
+  ipv6_route: "show ipv6 route"
+  ipv6_route_bgp: "show ipv6 route bgp"
+  interface_status: "show interface status"
+  interface_counters: "show interfaces counters"
+
+# Test Scenarios
+scenarios:
+  initial_setup:
+    description: "Configure BGP and verify initial state"
+    steps:
+      - "Check and remove existing IPv6 addresses"
+      - "Configure interface MTU and speed"
+      - "Configure IPv6 addresses on physical interfaces"
+      - "Verify IPv6 connectivity"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure BGP with router IDs"
+      - "Configure BGP neighbors (iBGP)"
+      - "DUT1: Advertise network 2001:db8:10::/64"
+      - "Verify BGP sessions establish"
+      - "Verify route is installed on DUT2"
+
+  link_flap_storm:
+    description: "Simulate link flap storm and monitor BGP"
+    steps:
+      - "Perform 5 rapid interface flaps on DUT1"
+      - "Each flap: shutdown, wait 2s, no shutdown, wait 2s"
+      - "Total flap duration: ~20 seconds"
+      - "Monitor BGP session state during flaps"
+
+  recovery_verification:
+    description: "Verify BGP recovery after flap storm"
+    steps:
+      - "Wait 120 seconds for BGP to fully recover"
+      - "Verify BGP sessions re-establish"
+      - "Verify routes are re-installed"
+      - "Verify connectivity is restored"
+
+# Configuration Examples
+config_examples:
+  interface:
+    - "interface Ethernet32"
+    - "mtu 9100"
+    - "speed 40000"
+    - "ipv6 address 2001:db8:1::1/64"
+    - "no shutdown"
+    - "exit"
+
+  bgp_router:
+    - "router bgp 65001"
+    - "router-id 1.1.1.1"
+    - "exit"
+
+  bgp_neighbor:
+    - "router bgp 65001"
+    - "neighbor 2001:db8:1::2 remote-as 65001"
+    - "address-family ipv6 unicast"
+    - "activate"
+    - "exit"
+    - "exit"
+
+  advertise_network:
+    - "router bgp 65001"
+    - "address-family ipv6 unicast"
+    - "network 2001:db8:10::/64"
+    - "exit"
+    - "exit"
+
+  link_flap_commands:
+    - "# Shutdown interface"
+    - "interface Ethernet32"
+    - "shutdown"
+    - "exit"
+    - "# Wait 2 seconds"
+    - "# Bring up interface"
+    - "interface Ethernet32"
+    - "no shutdown"
+    - "exit"
+    - "# Repeat 5 times"
+
+# Notes
+notes:
+  - "This test simulates link flap storm (rapid interface up/down events)"
+  - "Link flaps can occur due to cable issues, switch port problems, or hardware faults"
+  - "BGP should gracefully handle flaps and recover after they stop"
+  - "BGP hold timer is typically 180 seconds (default)"
+  - "BGP keepalive is typically 60 seconds (default)"
+  - "Multiple rapid flaps within hold timer may cause BGP session to drop"
+  - "After flaps stop, BGP should re-establish and restore routes"
+  - "Test validates BGP resilience during physical layer instability"
+
+# Expected Behavior
+expected:
+  initial_state:
+    bgp_sessions: "Established on both DUTs"
+    routes_installed: "Yes - DUT2 has route to 2001:db8:10::/64"
+    connectivity: "Full connectivity between DUTs"
+
+  during_flaps:
+    interface_state: "Oscillating between up and down"
+    bgp_session: "May drop if flaps exceed hold timer"
+    routes: "May be withdrawn during flaps"
+
+  after_recovery:
+    interface_state: "Up and stable"
+    bgp_sessions: "Re-established on both DUTs"
+    routes_installed: "Yes - Routes restored"
+    connectivity: "Full connectivity restored"
+
+# Verification Points
+verification:
+  before_flaps:
+    - "Physical IPv6 connectivity verified between DUTs"
+    - "BGP configured on both DUTs"
+    - "BGP sessions in Established state"
+    - "DUT1 advertises network 2001:db8:10::/64"
+    - "DUT2 has route in routing table"
+
+  during_flaps:
+    - "Interface goes down/up 5 times"
+    - "Each cycle takes ~4 seconds (2s down + 2s up)"
+    - "Total flap duration ~20 seconds"
+
+  after_recovery:
+    - "Interface remains stable (no shutdown)"
+    - "BGP sessions re-establish within 120 seconds"
+    - "Routes are re-installed on DUT2"
+    - "show bgp summary shows Established state"
+    - "show ipv6 route shows BGP routes"
+
+# Link Flap Storm Simulation
+link_flap_simulation:
+  method: "Administrative shutdown/no shutdown"
+  command_sequence:
+    cycle_1:
+      - "shutdown (interface down)"
+      - "wait 2 seconds"
+      - "no shutdown (interface up)"
+      - "wait 2 seconds"
+    cycle_2_to_5: "Repeat same sequence"
+  total_cycles: 5
+  total_duration: "~20 seconds"
+  impact:
+    physical_layer: "Interface operationally down during shutdown"
+    bgp_session: "TCP connection drops when interface is down"
+    routes: "BGP withdraws routes when session drops"
+
+# BGP Behavior During Flaps
+bgp_behavior:
+  when_interface_down:
+    - "TCP connection to neighbor breaks"
+    - "BGP session transitions to Idle state"
+    - "Routes from that neighbor are withdrawn"
+    - "Routing table entries removed"
+
+  when_interface_up:
+    - "TCP connection re-establishes"
+    - "BGP session goes through state machine (Connect, OpenSent, OpenConfirm)"
+    - "BGP reaches Established state"
+    - "Routes are re-advertised and re-installed"
+
+  with_rapid_flaps:
+    - "If flaps occur faster than hold timer, session may not fully recover between flaps"
+    - "BGP may enter dampening (if configured)"
+    - "After flaps stop, BGP should stabilize and recover"
+
+# BGP Timers
+bgp_timers:
+  keepalive: "60 seconds (default)"
+  hold_time: "180 seconds (default)"
+  connect_retry: "120 seconds (default)"
+  note: "These affect how quickly BGP detects and recovers from failures"
+
+# Why This Test is Important
+importance:
+  - "Validates BGP resilience during physical layer instability"
+  - "Tests real-world scenario of faulty cables or ports"
+  - "Ensures BGP can recover after flap storm subsides"
+  - "Important for network availability and reliability"
+  - "Helps understand BGP behavior during failures"
+  - "Tests BGP state machine robustness"
+
+# Common Link Flap Causes
+common_causes:
+  - cause: "Faulty cable"
+    symptom: "Intermittent link down/up events"
+    solution: "Replace cable"
+
+  - cause: "Bad SFP/transceiver"
+    symptom: "Random link flaps"
+    solution: "Replace SFP module"
+
+  - cause: "Switch port issue"
+    symptom: "Port going up/down"
+    solution: "Replace switch or use different port"
+
+  - cause: "Auto-negotiation problems"
+    symptom: "Link flapping during negotiation"
+    solution: "Hard-code speed/duplex or fix auto-neg"
+
+  - cause: "Power issue"
+    symptom: "Intermittent power loss to port"
+    solution: "Check power supply"
+
+# Troubleshooting Commands
+troubleshooting:
+  check_interface:
+    - "show interface status"
+    - "show interface Ethernet32"
+    - "show interfaces counters"
+    - "show interfaces counters errors"
+
+  check_bgp:
+    - "show bgp summary"
+    - "show bgp ipv6 unicast neighbors"
+    - "show bgp ipv6 unicast neighbors <neighbor-ip>"
+
+  check_routes:
+    - "show ipv6 route"
+    - "show ipv6 route bgp"
+    - "show ipv6 route 2001:db8:10::/64"
+
+  check_logs:
+    - "show logging | grep -i bgp"
+    - "show logging | grep -i interface"
+    - "show logging | grep -i link"
+
+# BGP Recovery Best Practices
+best_practices:
+  - "Use BFD (Bidirectional Forwarding Detection) for faster failure detection"
+  - "Configure BGP dampening to suppress flapping routes (if needed)"
+  - "Monitor interface status and error counters"
+  - "Use redundant links (LAG/port-channel) for resilience"
+  - "Configure BGP authentication to prevent unauthorized peering"
+  - "Tune BGP timers based on network requirements"
+  - "Implement proper cable management to prevent physical issues"
+
+# Related Test Cases
+related_tests:
+  - "test_ipv6_bgp_negative_asn.py - Negative test with wrong ASN"
+  - "test_ipv6_bgp_negative_password.py - Negative test with wrong password"
+  - "test_ipv6_bgp_negative_nexthop.py - Negative test with unreachable next-hop"
+  - "test_ipv6_bgp_interface_physical.py - Positive test without flaps"
+
+# Performance Metrics
+performance:
+  link_flap_duration: "~20 seconds (5 flaps x 4 seconds)"
+  recovery_time: "< 120 seconds (typically 60-90 seconds)"
+  total_test_duration: "~5-7 minutes"
+  bgp_convergence_time: "Depends on timers (typically 60-180 seconds)"

@@ -1,0 +1,120 @@
+---
+# Variable file for IPv4 BGP Negative Prefix-List Test
+# Test: test_ipv4_bgp_negative_prefix_list.py
+
+# Test description
+test_name: "IPv4 BGP Negative Prefix-List and Masks Test"
+test_type: "negative"
+protocol: "BGP"
+address_family: "IPv4"
+
+# Topology
+topology_type: "2-node"
+supported_platforms:
+  - "HW"
+  - "Virtual"
+
+# Interface configuration
+interfaces:
+  dut1_ipv4: "10.1.1.1"
+  dut2_ipv4: "10.1.1.2"
+  ipv4_mask: "24"
+  mtu: "9100"
+  speed: "40000"
+
+# BGP configuration
+bgp:
+  asn: "65001"
+  router_id_dut1: "1.1.1.1"
+  router_id_dut2: "2.2.2.2"
+  address_family: "ipv4"
+  session_type: "iBGP"
+  bgp_wait_time: 90
+
+# Test configuration
+test_config:
+  cli_type: "klish"
+  ping_count: 5
+
+# Prefix-list names
+prefix_lists:
+  valid_prefix_list: "VALID_PREFIX_LIST"
+  invalid_prefix_list: "INVALID_PREFIX_LIST"
+
+# Test networks
+test_networks:
+  # Valid baseline test
+  valid:
+    network: "192.168.10.0/24"
+    seq: 10
+    action: "permit"
+    description: "Valid IPv4 network with /24 mask"
+
+  # Valid with ge/le (baseline)
+  valid_with_ge_le:
+    network: "1.1.1.0/24"
+    seq: 5
+    action: "deny"
+    ge: 25
+    le: 28
+    description: "Valid: 1.1.1.0/24 ge 25 le 28 (from SONiC docs)"
+
+  # Negative test 1: Invalid prefix length
+  invalid_prefix_length:
+    network: "192.168.20.0/33"
+    seq: 20
+    action: "permit"
+    description: "Invalid: IPv4 max prefix length is /32"
+    expected_result: "rejected"
+
+  # Negative test 2: Invalid IP format
+  invalid_ip_format:
+    network: "256.1.1.0/24"
+    seq: 30
+    action: "permit"
+    description: "Invalid: IP octet 256 is out of range (0-255)"
+    expected_result: "rejected"
+
+  # Negative test 3: ge less than prefix-length (Rule violation: ge must be >= prefix-length)
+  invalid_ge_less_than_prefix:
+    network: "10.1.1.0/24"
+    seq: 40
+    action: "permit"
+    ge: 20
+    description: "Invalid: ge 20 < prefix-length 24 (violates ge >= prefix-length)"
+    expected_result: "rejected"
+
+  # Negative test 4: le less than ge (Rule violation: le must be >= ge)
+  invalid_le_less_than_ge:
+    network: "10.2.2.0/24"
+    seq: 50
+    action: "permit"
+    ge: 28
+    le: 26
+    description: "Invalid: le 26 < ge 28 (violates le >= ge)"
+    expected_result: "rejected"
+
+  # Negative test 5: ge out of range (> 32 for IPv4)
+  invalid_ge_out_of_range:
+    network: "10.3.3.0/24"
+    seq: 60
+    action: "permit"
+    ge: 33
+    description: "Invalid: ge 33 exceeds maximum 32 for IPv4"
+    expected_result: "rejected"
+
+  # Negative test 6: le out of range (> 32 for IPv4)
+  invalid_le_out_of_range:
+    network: "10.4.4.0/24"
+    seq: 70
+    action: "permit"
+    ge: 25
+    le: 35
+    description: "Invalid: le 35 exceeds maximum 32 for IPv4"
+    expected_result: "rejected"
+
+# Expected results
+expected_results:
+  valid_prefix_list_accepted: true
+  invalid_prefix_lists_rejected: true
+  only_valid_exists: true

@@ -1,0 +1,44 @@
+---
+# Variable file for IPv6 eBGP Interface Test
+# Test: test_ipv6_bgp_interface_ebgp.py
+# Description: eBGP peering over IPv6 physical interfaces
+
+# DUT1 Configuration
+dut1:
+  ipv6_address: "2001:db8:1::1"
+  bgp_asn: "65001"
+  router_id: "1.1.1.1"
+
+# DUT2 Configuration
+dut2:
+  ipv6_address: "2001:db8:1::2"
+  bgp_asn: "65002"
+  router_id: "2.2.2.2"
+
+# Network Configuration
+network:
+  ipv6_subnet: "2001:db8:1::/64"
+  ipv6_mask: "64"
+  mtu: "9100"
+  speed: "40000"
+
+# BGP Configuration
+bgp:
+  type: "ebgp"  # External BGP
+  address_family: "ipv6"
+  asn_dut1: "65001"
+  asn_dut2: "65002"
+  wait_time: 90  # Time to wait for BGP session establishment
+
+# Test Parameters
+test:
+  cli_type: "klish"
+  ping_count: 5
+  reboot_wait_time: 60
+
+# Timeouts
+timeouts:
+  bgp_session: 90
+  interface_up: 10
+  ping_timeout: 10
+  reboot_wait: 60

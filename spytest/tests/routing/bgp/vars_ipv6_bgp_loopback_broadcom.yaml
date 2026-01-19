@@ -1,0 +1,290 @@
+---
+# Variable file for IPv6 BGP Loopback Test - Broadcom SONiC
+# Test: test_ipv6_bgp_loopback_broadcom.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "2-node"
+  description: "Two SONiC devices with iBGP peering over Loopback interfaces"
+  peering_type: "iBGP (same AS number)"
+  special_note: "DUT2 uses Broadcom SONiC specific command format"
+
+# IPv6 Configuration
+ipv6:
+  underlay:
+    description: "Physical interface addresses for underlay connectivity"
+    dut1_address: "2001:db8:1::1"
+    dut2_address: "2001:db8:1::2"
+    prefix_length: "64"
+  overlay:
+    description: "Loopback interface addresses for BGP peering"
+    dut1_loopback: "2001:db8::1"
+    dut2_loopback: "2001:db8::2"
+    prefix_length: "128"
+
+# iBGP Configuration
+bgp:
+  type: "ibgp"
+  asn: "65001"
+  router_id:
+    dut1: "1.1.1.1"
+    dut2: "2.2.2.2"
+  wait_time: 90
+  convergence_timeout: 90
+  ebgp_multihop: 2
+  peering:
+    method: "loopback"
+    update_source: "Loopback0"
+
+# Static Routes Configuration
+static_routes:
+  description: "Static routes for loopback reachability (underlay routing)"
+  dut1:
+    destination: "2001:db8::2/128"
+    nexthop: "2001:db8:1::2"
+    description: "Route from DUT1 to DUT2's loopback via physical interface"
+  dut2:
+    destination: "2001:db8::1/128"
+    nexthop: "2001:db8:1::1"
+    description: "Route from DUT2 to DUT1's loopback via physical interface"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Loopback Interface
+loopback:
+  interface_name: "Loopback0"
+  description: "Loopback interface for BGP peering"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  interface_wait_time: 2
+
+# Broadcom SONiC Specific Configuration
+broadcom_sonic:
+  dut2_config_format: "single_line"
+  neighbor_config_syntax: "neighbor <ipv6> remote-as <asn> update-source interface Loopback0"
+  description: "DUT2 requires update-source on same line as remote-as command"
+  note: "This is specific to Broadcom SONiC implementation"
+
+# DUT1 Configuration Format (Standard)
+dut1_config:
+  format: "neighbor_submode"
+  commands:
+    - "router bgp 65001"
+    - "neighbor 2001:db8::2"
+    - "remote-as 65001"
+    - "update-source interface Loopback0"
+    - "ebgp-multihop 2"
+    - "address-family ipv6 unicast"
+    - "activate"
+
+# DUT2 Configuration Format (Broadcom SONiC)
+dut2_config:
+  format: "single_line_remote_as_update_source"
+  commands:
+    - "router bgp 65001"
+    - "neighbor 2001:db8::1 remote-as 65001 update-source interface Loopback0"
+    - "neighbor 2001:db8::1 ebgp-multihop 2"
+    - "address-family ipv6 unicast"
+    - "neighbor 2001:db8::1 activate"
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv6 unicast neighbors"
+  ipv6_interfaces: "show ipv6 interfaces"
+  ipv6_route: "show ipv6 route"
+  loopback_status: "show interface Loopback0"
+
+# Test Scenarios
+scenarios:
+  loopback_ibgp:
+    description: "Configure iBGP over Loopback with different CLI formats"
+    steps:
+      - "Check and remove existing IPv6 addresses"
+      - "Configure interface MTU and speed"
+      - "Configure IPv6 addresses on physical interfaces (underlay)"
+      - "Verify IPv6 connectivity between physical interfaces"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure Loopback0 interfaces on both DUTs"
+      - "Configure static routes for loopback reachability"
+      - "Configure BGP with router IDs"
+      - "Configure DUT1 neighbor using standard format"
+      - "Configure DUT2 neighbor using Broadcom format"
+      - "Verify BGP sessions establish over Loopback"
+      - "Save configuration"
+      - "Reboot both DUTs"
+      - "Verify BGP sessions persist after reboot"
+
+# Configuration Examples
+config_examples:
+  physical_interface:
+    - "interface Ethernet32"
+    - "ipv6 address 2001:db8:1::1/64"
+    - "no shutdown"
+    - "exit"
+
+  loopback_interface:
+    - "interface Loopback0"
+    - "ipv6 address 2001:db8::1/128"
+    - "exit"
+
+  static_route:
+    - "ipv6 route 2001:db8::2/128 2001:db8:1::2"
+
+  bgp_router:
+    - "router bgp 65001"
+    - "router-id 1.1.1.1"
+    - "exit"
+
+  bgp_neighbor_dut1_standard:
+    - "router bgp 65001"
+    - "neighbor 2001:db8::2"
+    - "remote-as 65001"
+    - "update-source interface Loopback0"
+    - "ebgp-multihop 2"
+    - "address-family ipv6 unicast"
+    - "activate"
+    - "exit"
+    - "exit"
+    - "exit"
+
+  bgp_neighbor_dut2_broadcom:
+    - "router bgp 65001"
+    - "neighbor 2001:db8::1 remote-as 65001 update-source interface Loopback0"
+    - "neighbor 2001:db8::1 ebgp-multihop 2"
+    - "address-family ipv6 unicast"
+    - "neighbor 2001:db8::1 activate"
+    - "exit"
+    - "exit"
+
+# Notes
+notes:
+  - "This test uses iBGP (same AS 65001 on both DUTs)"
+  - "Physical interfaces provide underlay connectivity"
+  - "Loopback interfaces are used for BGP peering (overlay)"
+  - "Static routes enable loopback-to-loopback reachability"
+  - "DUT1 uses standard neighbor submode configuration"
+  - "DUT2 uses Broadcom SONiC single-line format"
+  - "update-source MUST be on same line as remote-as for Broadcom SONiC (DUT2)"
+  - "ebgp-multihop is used even for iBGP when peering over loopbacks"
+  - "Configuration persists after reboot (saved with 'write memory')"
+  - "Test validates both configuration formats work correctly"
+
+# Expected Behavior
+expected:
+  physical_connectivity:
+    ping_success: true
+    ipv6_addresses_configured: true
+
+  loopback_configuration:
+    loopback0_created: true
+    ipv6_addresses_assigned: true
+
+  static_routes:
+    routes_installed: true
+    loopback_reachability: true
+
+  bgp_sessions:
+    dut1_dut2_session: "Established"
+    dut2_dut1_session: "Established"
+    session_state_after_reboot: "Established"
+
+# Verification Points
+verification:
+  underlay:
+    - "Physical interfaces have IPv6 addresses configured"
+    - "IPv6 connectivity verified via ping"
+    - "MTU and speed configured correctly"
+
+  overlay:
+    - "Loopback0 interfaces created on both DUTs"
+    - "Loopback IPv6 addresses configured (/128)"
+    - "Static routes for loopback reachability installed"
+
+  bgp:
+    - "BGP routers configured with correct AS and router-id"
+    - "DUT1 neighbor configured using standard format"
+    - "DUT2 neighbor configured using Broadcom format"
+    - "BGP sessions establish successfully"
+    - "BGP uses loopback as source (update-source)"
+
+  persistence:
+    - "Configuration saved with 'write memory'"
+    - "Configuration persists after reboot"
+    - "BGP sessions re-establish after reboot"
+
+# Troubleshooting
+troubleshooting:
+  bgp_not_establishing:
+    - "Check loopback interfaces are up"
+    - "Verify static routes are installed"
+    - "Ping loopback addresses to verify reachability"
+    - "Check BGP configuration syntax"
+    - "Verify update-source is configured correctly"
+    - "For DUT2: Ensure remote-as and update-source are on same line"
+
+  commands:
+    check_loopback: "show interface Loopback0"
+    check_routes: "show ipv6 route"
+    check_bgp: "show bgp summary"
+    check_neighbor: "show bgp ipv6 unicast neighbors <loopback-ip>"
+    check_config: "show running-config | grep -A 20 'router bgp'"
+
+# Why Two Different Configuration Formats?
+configuration_differences:
+  reason: "Different SONiC implementations have different CLI parsers"
+  dut1_parser: "Standard SONiC CLI - allows neighbor submode"
+  dut2_parser: "Broadcom SONiC CLI - requires single-line format for certain commands"
+  impact: "update-source must be on same line as remote-as for Broadcom SONiC"
+  solution: "Use different configuration functions for different DUT types"
+
+# Loopback BGP Benefits
+loopback_bgp_advantages:
+  - "BGP session survives physical interface failures"
+  - "BGP session independent of specific physical interface"
+  - "Allows load balancing across multiple physical paths"
+  - "Simplifies BGP configuration in multi-path scenarios"
+  - "Router ID can match loopback address"
+  - "More stable BGP peering (loopback never goes down)"
+
+# BGP State Machine
+bgp_states:
+  Idle: "Initial state"
+  Connect: "Waiting for TCP connection"
+  Active: "Trying to establish TCP connection"
+  OpenSent: "OPEN message sent"
+  OpenConfirm: "OPEN message received"
+  Established: "BGP session fully established"
+
+# Common Issues
+common_issues:
+  - issue: "BGP session stuck in Active state"
+    cause: "No reachability to loopback address"
+    solution: "Verify static routes and ping loopback"
+
+  - issue: "BGP session not establishing on DUT2"
+    cause: "Incorrect command format for Broadcom SONiC"
+    solution: "Use single-line format: neighbor <ip> remote-as <asn> update-source interface Loopback0"
+
+  - issue: "BGP session establishes but drops after reboot"
+    cause: "Configuration not saved"
+    solution: "Use 'write memory' to save config"
+
+  - issue: "Loopback ping fails"
+    cause: "Missing or incorrect static routes"
+    solution: "Configure static routes for loopback reachability"

@@ -1,0 +1,86 @@
+---
+# Variable file for IPv6 VLAN eBGP Interface Test
+# Test: test_ipv6_vlan_bgp_interface_ebgp.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# VLAN Configuration
+vlan:
+  vlan_id: "100"
+  vlan_name: "Vlan100"
+
+# IPv6 Configuration
+ipv6:
+  dut1_address: "2001:db8:100::1"
+  dut2_address: "2001:db8:100::2"
+  prefix_length: "64"
+  address_family: "ipv6"
+
+# eBGP Configuration (External BGP - Different AS Numbers)
+bgp:
+  type: "ebgp"  # External BGP
+  dut1:
+    asn: "65001"
+    router_id: "1.1.1.1"
+  dut2:
+    asn: "65002"
+    router_id: "2.2.2.2"
+  wait_time: 90
+  convergence_timeout: 90
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  interface_wait_time: 5
+
+# Expected BGP States (for validation)
+bgp_states:
+  valid_states:
+    - "Established"
+    - "(Policy)"  # Session established but policies are applied
+    - "0"  # Numeric state indicating established
+    - "1"
+  description: "BGP session is considered established if state is 'Established', '(Policy)', or a numeric value"
+
+# Topology Information
+topology:
+  type: "2-node"
+  description: "Two SONiC devices connected via VLAN 100"
+  dut1_port: "Ethernet32"  # Will be overridden by testbed
+  dut2_port: "Ethernet32"  # Will be overridden by testbed
+
+# Test Scenarios
+scenarios:
+  basic_config:
+    description: "Basic eBGP configuration and verification over VLAN"
+    steps:
+      - "Create VLAN 100"
+      - "Configure switchport access"
+      - "Configure IPv6 addresses"
+      - "Configure eBGP with different ASN"
+      - "Verify BGP session (Established or Policy)"
+      - "Test IPv6 connectivity"
+
+  save_reboot:
+    description: "Configuration persistence after save and reboot"
+    steps:
+      - "Verify eBGP session"
+      - "Save configuration"
+      - "Reboot DUTs"
+      - "Verify eBGP session after reboot"
+      - "Verify IPv6 connectivity after reboot"
+
+# Notes
+notes:
+  - "This test uses eBGP (External BGP) with different AS numbers (65001 and 65002)"
+  - "BGP validation accepts (Policy) state as valid established state"
+  - "Route policies may filter prefixes, resulting in (Policy) state"
+  - "Test uses Klish CLI for configuration and validation"
+  - "IPv6 connectivity tested using click CLI ping"

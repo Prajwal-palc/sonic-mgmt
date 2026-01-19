@@ -1,0 +1,64 @@
+---
+# Variable file for IPv6 BGP Daemon Restart Test
+# Test: test_ipv6_bgp_daemon_restart.py
+
+# Test description
+test_name: "IPv6 BGP Daemon Restart Recovery Test"
+test_type: "daemon_restart"
+protocol: "BGP"
+address_family: "IPv6"
+
+# Topology
+topology_type: "2-node"
+supported_platforms:
+  - "HW"
+  - "Virtual"
+
+# Interface configuration
+interfaces:
+  dut1_ipv6: "2001:db8:1::1"
+  dut2_ipv6: "2001:db8:1::2"
+  ipv6_mask: "64"
+  mtu: "9100"
+  speed: "40000"
+
+# BGP configuration
+bgp:
+  asn: "65001"
+  router_id_dut1: "1.1.1.1"
+  router_id_dut2: "2.2.2.2"
+  address_family: "ipv6"
+  session_type: "iBGP"
+  bgp_wait_time: 90
+
+# Daemon restart configuration
+daemon_restart:
+  daemon_name: "bgp"
+  restart_command: "sudo systemctl restart bgp"
+  restart_wait_time: 120
+  recovery_wait_time: 90
+
+# Test configuration
+test_config:
+  cli_type: "klish"
+  ping_count: 5
+
+# Test network (advertised from DUT1)
+test_network:
+  network: "2001:db8:100::/48"
+  network_prefix: "2001:db8:100::"
+  network_mask: "48"
+  description: "IPv6 network advertised from DUT1 to verify BGP route learning and recovery"
+
+# Expected results
+expected_results:
+  pre_restart:
+    bgp_session_established: true
+    route_learned_on_dut2: true
+    connectivity_working: true
+
+  post_restart:
+    bgp_session_recovered: true
+    route_relearned_on_dut2: true
+    connectivity_restored: true
+    daemon_running: true

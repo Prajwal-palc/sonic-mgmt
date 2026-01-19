@@ -1,0 +1,197 @@
+---
+# Variable file for IPv6 BGP over Loopback Test
+# Test: test_ipv6_bgp_loopback.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# Topology Configuration
+topology:
+  type: "2-node"
+  description: "Two SONiC devices with iBGP peering over Loopback interfaces"
+  peering_type: "Loopback-based BGP"
+
+# IPv6 Configuration
+ipv6:
+  underlay:
+    description: "Physical interfaces for underlay connectivity"
+    dut1_address: "2001:db8:1::1"
+    dut2_address: "2001:db8:1::2"
+    prefix_length: "64"
+  overlay:
+    description: "Loopback interfaces for BGP peering"
+    dut1_loopback: "2001:db8::1"
+    dut2_loopback: "2001:db8::2"
+    prefix_length: "128"
+  address_family: "ipv6"
+
+# iBGP Configuration (Same AS)
+bgp:
+  type: "ibgp"
+  asn: "65001"
+  dut1:
+    router_id: "1.1.1.1"
+    loopback: "2001:db8::1/128"
+  dut2:
+    router_id: "2.2.2.2"
+    loopback: "2001:db8::2/128"
+  peering:
+    method: "loopback"
+    update_source: "Loopback0"
+    ebgp_multihop: 2
+  wait_time: 90
+  convergence_timeout: 90
+
+# Static Routes (for Loopback Reachability)
+static_routes:
+  dut1:
+    destination: "2001:db8::2/128"
+    nexthop: "2001:db8:1::2"
+    description: "Route to DUT2 loopback via DUT2 physical interface"
+  dut2:
+    destination: "2001:db8::1/128"
+    nexthop: "2001:db8:1::1"
+    description: "Route to DUT1 loopback via DUT1 physical interface"
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Interface Configuration
+interface:
+  loopback: "Loopback0"
+  mtu: "9100"
+  speed: "40000"
+  cleanup_before_config: true
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  interface_wait_time: 5
+
+# Expected BGP States
+bgp_states:
+  valid_states:
+    - "Established"
+    - "(Policy)"
+    - "0"
+    - "1"
+  description: "BGP session is established if state is 'Established', '(Policy)', or numeric"
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv6 unicast neighbors"
+  bgp_neighbor_detail: "show bgp ipv6 unicast neighbors <neighbor-ip>"
+  ipv6_interfaces: "show ipv6 interfaces"
+  ipv6_route: "show ipv6 route"
+  loopback_interface: "show ipv6 interface Loopback0"
+
+# Test Scenarios
+scenarios:
+  loopback_bgp_config:
+    description: "iBGP peering over Loopback interfaces"
+    steps:
+      - "Check and remove existing IPv6 addresses"
+      - "Configure physical interfaces with IPv6 (underlay)"
+      - "Verify underlay connectivity"
+      - "Configure Loopback0 interfaces"
+      - "Configure static routes for loopback reachability"
+      - "Verify loopback reachability"
+      - "Remove existing BGP configuration (no router bgp)"
+      - "Configure iBGP with same ASN (65001)"
+      - "Configure BGP neighbors with update-source Loopback0"
+      - "Configure ebgp-multihop 2"
+      - "Verify BGP sessions establish over Loopback"
+
+  save_reboot:
+    description: "Loopback BGP persistence after save and reboot"
+    steps:
+      - "Verify BGP sessions before reboot"
+      - "Save configuration using 'write memory'"
+      - "Reboot DUTs"
+      - "Verify BGP sessions after reboot"
+
+# Configuration Examples
+config_examples:
+  dut1:
+    loopback:
+      - "interface Loopback0"
+      - "ipv6 address 2001:db8::1/128"
+      - "exit"
+    static_route:
+      - "ipv6 route 2001:db8::2/128 2001:db8:1::2"
+    bgp:
+      - "router bgp 65001"
+      - "router-id 1.1.1.1"
+      - "neighbor 2001:db8::2 remote-as 65001"
+      - "neighbor 2001:db8::2 update-source Loopback0"
+      - "neighbor 2001:db8::2 ebgp-multihop 2"
+      - "address-family ipv6 unicast"
+      - "  neighbor 2001:db8::2 activate"
+      - "  exit"
+      - "exit"
+
+  dut2:
+    loopback:
+      - "interface Loopback0"
+      - "ipv6 address 2001:db8::2/128"
+      - "exit"
+    static_route:
+      - "ipv6 route 2001:db8::1/128 2001:db8:1::1"
+    bgp:
+      - "router bgp 65001"
+      - "router-id 2.2.2.2"
+      - "neighbor 2001:db8::1 remote-as 65001"
+      - "neighbor 2001:db8::1 update-source Loopback0"
+      - "neighbor 2001:db8::1 ebgp-multihop 2"
+      - "address-family ipv6 unicast"
+      - "  neighbor 2001:db8::1 activate"
+      - "  exit"
+      - "exit"
+
+# Notes
+notes:
+  - "This test uses iBGP with same AS number (65001) on both DUTs"
+  - "BGP peering is established over Loopback interfaces"
+  - "Physical interfaces provide underlay connectivity"
+  - "Static routes enable loopback-to-loopback reachability"
+  - "update-source Loopback0 forces BGP to use loopback as source"
+  - "ebgp-multihop 2 allows multi-hop BGP session (even for iBGP)"
+  - "Test includes IPv6 address cleanup before configuration"
+  - "Test removes existing BGP config using 'no router bgp'"
+  - "Configuration persistence tested through save and reboot"
+  - "Enhanced BGP validation accepts (Policy) state"
+  - "No route advertisement or route reflection in this test"
+
+# Expected Behavior
+expected:
+  bgp_sessions: 2  # DUT1<->DUT2 (loopback), DUT2<->DUT1 (loopback)
+  bgp_session_state: "Established or (Policy)"
+  bgp_neighbor_ip: "Loopback addresses (not physical)"
+  underlay_connectivity: "required"
+  loopback_reachability: "via static routes"
+  post_reboot_behavior: "All BGP sessions restored automatically"
+
+# Verification Points
+verification:
+  - "Physical interfaces configured with IPv6 (underlay)"
+  - "Loopback0 interfaces configured with /128 addresses"
+  - "Static routes configured for loopback reachability"
+  - "Loopback-to-loopback ping succeeds"
+  - "BGP sessions established over loopback addresses"
+  - "BGP neighbors show loopback IPs (not physical IPs)"
+  - "update-source Loopback0 configured"
+  - "ebgp-multihop 2 configured"
+  - "Configuration persists after reboot"
+
+# Key Differences from Physical Interface BGP
+differences:
+  - "BGP peers using loopback IPs instead of physical IPs"
+  - "Requires static routes for loopback reachability"
+  - "Uses update-source Loopback0"
+  - "Requires ebgp-multihop even for iBGP"
+  - "More stable - loopback doesn't go down if one link fails"
+  - "Common in production for iBGP/MPLS/EVPN deployments"
