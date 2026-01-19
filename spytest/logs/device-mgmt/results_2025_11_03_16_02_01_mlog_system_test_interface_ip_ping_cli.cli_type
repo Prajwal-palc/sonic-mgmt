@@ -1,5 +1,0 @@
-port.py::get_interface_status,click
-port.py::get_status,click
-ip.py::verify_interface_ip_address,klish
-boot_up.py::sonic_installer_list,click
-ip.py::ping,klish

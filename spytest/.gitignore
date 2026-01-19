@@ -99,3 +99,5 @@ docs/source/api*.rst
 docs/source/modules*
 docs/source/spytest*
 
+logs/
+.logs/
