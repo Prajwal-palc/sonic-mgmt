@@ -1,0 +1,97 @@
+═══════════════════════════════════════════════════════════════════════════
+COPY THIS ENTIRE BLOCK TO VM1 (192.168.100.87) AND RUN IT
+═══════════════════════════════════════════════════════════════════════════
+
+This will create:
+  • Testbed file with DUT1: 192.168.100.73, DUT2: 192.168.100.103
+  • Comprehensive test file with 44 tests covering ALL platform commands
+  • Quick reference guide
+
+═══════════════════════════════════════════════════════════════════════════
+
+mkdir -p ~/draksha/sonic-mgmt/spytest/testbeds
+mkdir -p ~/draksha/sonic-mgmt/spytest/tests/system/iscli_BGP/iscli_testing
+
+cat > ~/draksha/sonic-mgmt/spytest/testbeds/testbed_iscli_custom.yaml << 'EOF'
+topology:
+  DUT1:
+    type: sonic
+    device_type: sonic
+
+devices:
+  DUT1:
+    device_type: sonic
+    alias: sonic_dut1
+    managementip: 192.168.100.73
+    username: admin
+    password: jira@123
+    protocol: ssh
+    port: 22
+    hwsku: Force10-S6000
+    platform: x86_64-kvm_x86_64-r0
+    ifname_type: native
+
+  DUT2:
+    device_type: sonic
+    alias: sonic_dut2
+    managementip: 192.168.100.103
+    username: admin
+    password: jira@123
+    protocol: ssh
+    port: 22
+    hwsku: Force10-S6000
+    platform: x86_64-kvm_x86_64-r0
+    ifname_type: native
+EOF
+
+echo "✅ Testbed created with DUT1: 192.168.100.73, DUT2: 192.168.100.103"
+
+# Note: The comprehensive test file is too large for a single heredoc
+# Please copy it separately or use scp from the local machine
+
+cat > ~/draksha/sonic-mgmt/spytest/tests/system/iscli_BGP/iscli_testing/QUICK_RUN.txt << 'EOF'
+═══════════════════════════════════════════════════════════════════════════
+QUICK START - IS-CLI COMPREHENSIVE TESTING
+═══════════════════════════════════════════════════════════════════════════
+
+cd ~/draksha/sonic-mgmt/spytest
+
+# Run ALL 44 comprehensive tests
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py \
+  --logs-path ./logs/iscli_all_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Run just Platform tests (25 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformIdentification \
+  --logs-path ./logs/platform_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Run Hardware Monitoring tests (20 tests)
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformHardwareMonitoring \
+  --logs-path ./logs/hw_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+# Run single test
+./bin/spytest --tryssh 1 \
+  --testbed ./testbeds/testbed_iscli_custom.yaml \
+  tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py::TestISCLIPlatformIdentification::test_platform_summary_basic \
+  --logs-path ./logs/test_$(date +%Y%m%d_%H%M%S) \
+  --log-level debug --skip-init-config --ifname-type native
+
+═══════════════════════════════════════════════════════════════════════════
+EOF
+
+echo "✅ Quick reference created"
+echo ""
+echo "Next: Copy test_iscli_comprehensive.py to VM1"
+echo "  From local machine:"
+echo "    scp /home/hp/draksha/sonic-mgmt/spytest/tests/system/iscli_BGP/iscli_testing/test_iscli_comprehensive.py \\"
+echo "      adminuser@192.168.100.87:~/draksha/sonic-mgmt/spytest/tests/system/iscli_BGP/iscli_testing/"
+
+═══════════════════════════════════════════════════════════════════════════

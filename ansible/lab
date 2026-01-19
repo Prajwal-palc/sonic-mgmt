@@ -11,6 +11,7 @@ all:
             sonic_s6000:
             sonic_s6100:
             sonic_a7260:
+            sonic_supermicro_sse_t8196:
             sonic_multi_asic:
             sonic_multi_asic_2:
             sonic_msft_sup:
@@ -25,6 +26,110 @@ all:
             str-msn2700-02:
               ansible_host: 10.251.0.235
               os: sonic
+            dut2-fanout:
+              ansible_host: 172.31.56.235
+              os: sonic
+              platform: x86_64-supermicro_sse_t8196-r0
+              fanout_connections:
+                - fanout_port: Ethernet512
+                  peer_device: server_hw4_group
+                  peer_port: ens2f1np1
+                - fanout_port: Ethernet256
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet256
+                - fanout_port: Ethernet260
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet260
+                - fanout_port: Ethernet264
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet264
+                - fanout_port: Ethernet268
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet268
+                - fanout_port: Ethernet272
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet272
+                - fanout_port: Ethernet276
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet276
+                - fanout_port: Ethernet280
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet280
+                - fanout_port: Ethernet284
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet284
+                - fanout_port: Ethernet288
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet288
+                - fanout_port: Ethernet292
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet292
+                - fanout_port: Ethernet296
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet296
+                - fanout_port: Ethernet300
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet300
+                - fanout_port: Ethernet304
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet304
+                - fanout_port: Ethernet308
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet308
+                - fanout_port: Ethernet312
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet312
+                - fanout_port: Ethernet316
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet316
+                - fanout_port: Ethernet320
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet320
+                - fanout_port: Ethernet324
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet324
+                - fanout_port: Ethernet328
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet328
+                - fanout_port: Ethernet332
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet332
+                - fanout_port: Ethernet336
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet336
+                - fanout_port: Ethernet340
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet340
+                - fanout_port: Ethernet344
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet344
+                - fanout_port: Ethernet348
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet348
+                - fanout_port: Ethernet352
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet352
+                - fanout_port: Ethernet356
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet356
+                - fanout_port: Ethernet360
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet360
+                - fanout_port: Ethernet364
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet364
+                - fanout_port: Ethernet368
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet368
+                - fanout_port: Ethernet372
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet372
+                - fanout_port: Ethernet376
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet376
+                - fanout_port: Ethernet380
+                  peer_device: dut-sse-t8196
+                  peer_port: Ethernet380
         mgmt:
           hosts:
             console-1:
@@ -40,6 +145,9 @@ all:
             server_1:
               ansible_host: 10.254.0.1
               ansible_hostv6: 2001:db7:1::1/64
+            server_hw4_group:
+              ansible_host: 172.31.56.2
+              external_port: ens2f1np1
         pdu:
           hosts:
             pdu-1:
@@ -64,6 +172,8 @@ all:
           ansible_host: 10.255.0.180
         ptf_vms5-1:
           ansible_host: 10.255.0.183
+        ptf_hw4_physical:
+          ansible_host: 10.255.0.200
 
 sonic_sn2700_40:
   vars:
@@ -163,6 +273,16 @@ sonic_a7260:
         "0x28": "x86_64-arista_7260cx3_64"
         "0x2d": "Arista Networks"
         "0x2e": "Aboot-norcal7-7.2.3-pcie2x4-12345678"
+
+sonic_supermicro_sse_t8196:
+  vars:
+    hwsku: Supermicro_sse_t8196
+    iface_speed: 25000
+  hosts:
+    dut-sse-t8196:
+      ansible_host: 172.31.59.240
+      model: SSE-T8196S
+      serial: SST96AN15400025
 
 sonic_nokia_multi_asic_lc:
   vars:

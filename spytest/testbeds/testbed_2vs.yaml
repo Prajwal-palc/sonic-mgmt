@@ -1,0 +1,46 @@
+version: 2.0
+devices:
+  # D1 - 192.168.100.203 (DUT1 - Primary device)
+  smic_sonic1:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.203, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+
+  # D2 - 192.168.100.196 (DUT2 - Secondary device)
+  smic_sonic2:
+    device_type: sonic
+    access: {protocol: ssh, ip: 192.168.100.196, port: 22}
+    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    properties: {services: default, build: default, config: default, errors: default}
+
+topology:
+  # D1 (smic_sonic1) connections
+  smic_sonic1:
+    interfaces:
+      # D1 ↔ D2 VLAN10 untagged (access port)
+      Ethernet0: {EndDevice: smic_sonic2, EndPort: Ethernet0}
+      # D1 ↔ D2 VLAN20 tagged (trunk port)
+      Ethernet4: {EndDevice: smic_sonic2, EndPort: Ethernet4}
+      # D1 ↔ D2 LAG50 member 1
+      Ethernet8: {EndDevice: smic_sonic2, EndPort: Ethernet24}
+      # D1 ↔ D2 LAG50 member 2
+      Ethernet12: {EndDevice: smic_sonic2, EndPort: Ethernet28}
+
+  # D2 (smic_sonic2) connections
+  smic_sonic2:
+    interfaces:
+      # D2 ↔ D1 VLAN10 untagged (access port)
+      Ethernet0: {EndDevice: smic_sonic1, EndPort: Ethernet0}
+      # D2 ↔ D1 VLAN20 tagged (trunk port)
+      Ethernet4: {EndDevice: smic_sonic1, EndPort: Ethernet4}
+      # D2 ↔ D1 LAG50 member 1
+      Ethernet24: {EndDevice: smic_sonic1, EndPort: Ethernet8}
+      # D2 ↔ D1 LAG50 member 2
+      Ethernet28: {EndDevice: smic_sonic1, EndPort: Ethernet12}
+
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}

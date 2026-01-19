@@ -1,0 +1,40 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  source_dut: "D1"
+  peer_dut: "D2"
+
+interfaces:
+  D1:
+    transit:
+      name: "Ethernet32"
+      prefix: "20.1.1.3/24"
+  D2:
+    transit:
+      name: "Ethernet32"
+      prefix: "20.1.1.4/24"
+    edge:
+      name: "Ethernet36"
+      prefix: "30.1.1.3/24"
+
+routes:
+  primary:
+    dut: "D1"
+    destination: "30.1.1.0/24"
+    next_hop: "20.1.1.4"
+    vrf: null
+    verify:
+      ip_address: "30.1.1.0/24"
+      type: "S"
+      nexthop: "20.1.1.4"
+
+pings:
+  edge:
+    dut: "D1"
+    target: "30.1.1.3"
+    count: 4
+    family: ipv4
+

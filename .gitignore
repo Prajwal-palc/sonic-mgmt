@@ -1,29 +1,55 @@
-# Compiled Python files
-*.pyc
-**/__pycache__/
-**/.pytest_cache/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# Ansible files
-.ansible
-ansible.log
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
 
-# Test generated files
-tests/logs
-tests/_cache
-tests/metadata
-ansible/plugins/*/*.pyc
-# Temporary trimmed inventory file
-ansible/*_tmp
+# Pytest
+.pytest_cache/
+.cache/
 
-# Dev tools
+# Logs
+*.log
+logs/
+*.json
+*.html
+
+# IDE
 .vscode/
 .idea/
-**/.venv/
+*.swp
+*.swo
+*~
 
-.python-version
+# OS
+.DS_Store
+Thumbs.db
 
-sonic-dump/
-**/common/sai_validation/generated/
-**/common/sai_validation/github.com/
-tests/pfc_headroom_test_params/*.json
-tests/priority/*.json
+# Test results and reports
+results/
+reports/
+test_execution.log
+test_final.log

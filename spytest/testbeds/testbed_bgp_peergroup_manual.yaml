@@ -1,0 +1,48 @@
+# Testbed Configuration for BGP Peer-Group Tests
+# Devices: 192.168.100.196 (DUT1) and 192.168.100.82 (DUT2)
+# Topology: 2-device with direct connection
+
+version: 2.0
+
+devices:
+  smic_sonic1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.196
+      port: 22
+    credentials:
+      username: admin
+      password: YourPaSsWoRd
+      altpassword: YourPaSsWoRd
+
+  smic_sonic2:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.82
+      port: 22
+    credentials:
+      username: admin
+      password: YourPaSsWoRd
+      altpassword: YourPaSsWoRd
+
+topology:
+  smic_sonic1:
+    interfaces:
+      # Link 1: Connection to smic_sonic2
+      Ethernet4:
+        EndDevice: smic_sonic2
+        EndPort: Ethernet4
+
+  smic_sonic2:
+    interfaces:
+      # Link 1: Connection to smic_sonic1
+      Ethernet4:
+        EndDevice: smic_sonic1
+        EndPort: Ethernet4
+
+# Device mapping (SPyTest standard naming)
+# D1 = smic_sonic1 (192.168.100.196)
+# D2 = smic_sonic2 (192.168.100.82)
+# D1D2P1 = Ethernet4 on D1 connected to Ethernet4 on D2

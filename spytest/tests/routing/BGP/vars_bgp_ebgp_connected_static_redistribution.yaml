@@ -1,0 +1,272 @@
+# BGP eBGP Route Redistribution Test Configuration
+# Combined: Configuration from _1, Verification from original
+# This file contains test variables for BGP eBGP redistribution tests
+
+# ============================================================================
+# TOPOLOGY REQUIREMENTS
+# ============================================================================
+# Test requires 4 devices (2 routers, 2 hosts) with 3 physical links:
+#
+#  Physical Topology:
+#  ┌────────────────────────────────────────────────────────┐
+#  │                                                        │
+#  │  H1 (vs_sonic_3)              R1 (smic_sonic1)        │
+#  │  IP: 192.0.2.10/24            LAN: 192.0.2.1/24       │
+#  │  Ethernet0 ─────────────────  Ethernet16              │
+#  │  Default GW: 192.0.2.1                                │
+#  │                               WAN: 10.1.1.1/24         │
+#  │                               Ethernet4                │
+#  │                                    │                   │
+#  │                                    │ BGP eBGP Session  │
+#  │                                    │ AS 65001 ↔ 65002  │
+#  │                                    │                   │
+#  │                               WAN: 10.1.1.2/24         │
+#  │                               Ethernet4                │
+#  │  H2 (vs_sonic_4)              R2 (smic_sonic2)        │
+#  │  IP: 198.51.100.10/24         LAN: 198.51.100.1/24    │
+#  │  Ethernet16 ────────────────  Ethernet16              │
+#  │  Default GW: 198.51.100.1                             │
+#  │                                                        │
+#  └────────────────────────────────────────────────────────┘
+#
+# Required Device Interfaces:
+#
+# R1 (D1 / smic_sonic1) - 2 interfaces:
+#   - Ethernet4 (WAN):  10.1.1.1/24 - Connected to R2 Ethernet4
+#   - Ethernet16 (LAN): 192.0.2.1/24 - Connected to H1 Ethernet0
+#
+# R2 (D2 / smic_sonic2) - 2 interfaces:
+#   - Ethernet4 (WAN):  10.1.1.2/24 - Connected to R1 Ethernet4
+#   - Ethernet16 (LAN): 198.51.100.1/24 - Connected to H2 Ethernet16
+#
+# H1 (D3 / vs_sonic_3) - 1 interface:
+#   - Ethernet0: 192.0.2.10/24 - Connected to R1 Ethernet16
+#
+# H2 (D4 / vs_sonic_4) - 1 interface:
+#   - Ethernet16: 198.51.100.10/24 - Connected to R2 Ethernet16
+#
+# ============================================================================
+
+defaults:
+  # CLI types: klish for both configuration and show commands
+  config_cli_type: klish
+  show_cli_type: klish
+
+  # Timeout for BGP session and route verification (seconds)
+  verify_timeout: 90
+
+  # Enable cleanup after test execution
+  cleanup: true
+
+  # Minimum topology requirement: 4 devices with 3 links
+  # D1 = R1, D2 = R2, D3 = H1, D4 = H2
+  min_topology:
+    - "D1D2:1"   # R1-R2 WAN link (Ethernet4 ↔ Ethernet4)
+    - "D1D3:1"   # R1-H1 LAN link (Ethernet16 ↔ Ethernet0)
+    - "D2D4:1"   # R2-H2 LAN link (Ethernet16 ↔ Ethernet16)
+
+# Test cases configuration
+testcases:
+  # Test Case 001: BGP eBGP Base Configuration
+  "001":
+    title: "BGP eBGP base session establishment with RFC 8212 route-maps"
+    description: |
+      Establish base eBGP session between R1 (AS 65001) and R2 (AS 65002).
+      Configure route-maps for RFC 8212 compliance (bgp ebgp-requires-policy).
+      Session persists for use by tests 002 and 003.
+
+    # Router 1 configuration (AS 65001)
+    router1:
+      wan_interface: "Ethernet4"
+      wan_ip: "10.1.1.1"
+      wan_subnet: "24"
+      bgp_asn: 65001
+      router_id: "1.1.1.1"
+      neighbor_ip: "10.1.1.2"
+      remote_asn: 65002  # eBGP: different AS
+
+    # Router 2 configuration (AS 65002)
+    router2:
+      wan_interface: "Ethernet4"
+      wan_ip: "10.1.1.2"
+      wan_subnet: "24"
+      bgp_asn: 65002  # eBGP: different AS
+      router_id: "2.2.2.2"
+      neighbor_ip: "10.1.1.1"
+      remote_asn: 65001  # eBGP: different AS
+
+    # Expected verification results (from original file)
+    verification:
+      bgp_session_state: "Established"
+      address_family: "ipv4"
+      neighbor_count: 1
+
+  # Test Case 002: Connected Route Redistribution
+  "002":
+    title: "BGP eBGP connected route redistribution with host-to-host traffic validation"
+    description: |
+      Validates redistribution of connected routes (LAN interfaces and loopbacks)
+      into eBGP with bidirectional host-to-host traffic verification using ping.
+
+      Test extends test 001 configuration by adding:
+      - LAN interfaces on R1 and R2
+      - Loopback interfaces on R1 and R2
+      - Host devices H1 and H2 with default gateways
+      - Connected route redistribution into BGP
+      - End-to-end traffic validation (H1 ↔ H2)
+
+    # Router 1 configuration (extends test 001)
+    router1:
+      # LAN interface connecting to Host1
+      lan_interface: "Ethernet16"
+      lan_ip: "192.0.2.1"
+      lan_subnet: "24"
+      lan_network: "192.0.2.0/24"  # Network to redistribute via BGP
+
+      # Loopback interface
+      loopback_interface: "Loopback0"
+      loopback_ip: "1.1.1.1"
+      loopback_subnet: "32"
+
+      # WAN interface from test 001
+      wan_interface: "Ethernet4"
+      wan_ip: "10.1.1.1"
+      wan_subnet: "24"
+
+      # BGP configuration from test 001
+      bgp_asn: 65001
+      router_id: "1.1.1.1"
+      neighbor_ip: "10.1.1.2"
+      remote_asn: 65002
+
+    # Router 2 configuration (extends test 001)
+    router2:
+      # LAN interface connecting to Host2
+      lan_interface: "Ethernet16"
+      lan_ip: "198.51.100.1"
+      lan_subnet: "24"
+      lan_network: "198.51.100.0/24"  # Network to redistribute via BGP
+
+      # Loopback interface
+      loopback_interface: "Loopback0"
+      loopback_ip: "2.2.2.2"
+      loopback_subnet: "32"
+
+      # WAN interface from test 001
+      wan_interface: "Ethernet4"
+      wan_ip: "10.1.1.2"
+      wan_subnet: "24"
+
+      # BGP configuration from test 001
+      bgp_asn: 65002
+      router_id: "2.2.2.2"
+      neighbor_ip: "10.1.1.1"
+      remote_asn: 65001
+
+    # Host 1 configuration (NEW for test 002)
+    host1:
+      device: "vs_sonic_3"
+      interface: "Ethernet0"       # Connected to R1 Ethernet16
+      ip: "192.0.2.10"
+      subnet: "24"
+      gateway: "192.0.2.1"         # Router1 LAN IP
+
+    # Host 2 configuration (NEW for test 002)
+    host2:
+      device: "vs_sonic_4"
+      interface: "Ethernet16"      # Connected to R2 Ethernet16
+      ip: "198.51.100.10"
+      subnet: "24"
+      gateway: "198.51.100.1"      # Router2 LAN IP
+
+    # Traffic configuration for host-to-host testing
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 100              # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "icmp"          # Traffic type: icmp for end-to-end testing
+
+    # Expected verification results (from original file)
+    verification:
+      # BGP route verification
+      bgp_routes_expected: 1        # Each router should learn 1 route from peer (LAN network only)
+      route_protocol: "B"           # BGP routes marked with "B" in routing table
+
+      # Routes R1 should learn from R2
+      router1_learned_routes:
+        - "198.51.100.0/24"  # R2 LAN network
+
+      # Routes R2 should learn from R1
+      router2_learned_routes:
+        - "192.0.2.0/24"     # R1 LAN network
+
+      # Routing table verification
+      next_hop_r1: "10.1.1.2"                  # Next hop for R1 (using test 001 WAN IP)
+      next_hop_r2: "10.1.1.1"                  # Next hop for R2 (using test 001 WAN IP)
+
+      # Host-to-host connectivity
+      host1_ping_host2: "198.51.100.10"        # H1 should ping H2
+      host2_ping_host1: "192.0.2.10"           # H2 should ping H1
+
+      # Traffic verification
+      min_packets_expected: 4       # Minimum packets for ping validation (5 pings, 80% success)
+
+  # Test Case 003: Static Route Redistribution
+  "003":
+    title: "BGP eBGP static route redistribution with routing table validation"
+    description: |
+      Validates redistribution of statically configured routes into eBGP
+      with routing table verification.
+
+      Test extends tests 001 and 002 by adding:
+      - Static routes on R1 and R2 (pointing to Null0)
+      - Static route redistribution into BGP
+      - BGP table and IP routing table verification
+
+    # Router 1 configuration (extends test 002)
+    router1:
+      # Static route to redistribute
+      static_route:
+        network: "203.0.113.0/24"
+        next_hop: "blackhole"
+
+      # BGP configuration from test 001
+      bgp_asn: 65001
+      router_id: "1.1.1.1"
+      neighbor_ip: "10.1.1.2"
+      remote_asn: 65002
+
+    # Router 2 configuration (extends test 002)
+    router2:
+      # Static route to redistribute
+      static_route:
+        network: "192.0.2.128/25"
+        next_hop: "blackhole"
+
+      # BGP configuration from test 001
+      bgp_asn: 65002
+      router_id: "2.2.2.2"
+      neighbor_ip: "10.1.1.1"
+      remote_asn: 65001
+
+    # Traffic configuration
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 100              # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "udp"           # Traffic type: udp for static route testing
+
+    # Expected verification results (from original file)
+    verification:
+      # Routes R1 should learn from R2
+      router1_learned_static: "192.0.2.128/25"  # R2 static route
+
+      # Routes R2 should learn from R1
+      router2_learned_static: "203.0.113.0/24"  # R1 static route
+
+      # Route protocol marker
+      route_protocol: "B"  # BGP routes marked with "B" in routing table
+
+      # Next hop verification
+      next_hop_r1: "10.1.1.2"  # R1 learns routes via R2 WAN IP
+      next_hop_r2: "10.1.1.1"  # R2 learns routes via R1 WAN IP

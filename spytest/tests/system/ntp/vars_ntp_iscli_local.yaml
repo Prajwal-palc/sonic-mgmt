@@ -1,0 +1,123 @@
+# NTP IS-CLI Test Variables - With Local NTP Server
+# This configuration uses a local NTP server for realistic testing
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+
+  # Local NTP Server Configuration
+  local_ntp_server: 192.168.100.175  # Test machine acting as NTP server
+
+  # Test server IPs (using local server)
+  test_servers:
+    primary: 192.168.100.175
+    secondary: time.google.com  # Fallback to public server
+    pool: pool.ntp.org
+
+# Category 3: Authentication Keys (matching keys in chrony.keys)
+# These MUST be at root level, not under testcases
+auth_keys:
+    # Named key definitions for individual tests
+    md5_key:
+      key_id: 1
+      auth_type: md5
+      password: TestKey123
+
+    sha1_key:
+      key_id: 20
+      auth_type: sha1
+      password: SimpleKey
+
+    sha256_key:
+      key_id: 10
+      auth_type: sha256
+      password: CompleteKey
+
+    sha384_key:
+      key_id: 25
+      auth_type: sha384
+      password: SecureKey456
+
+    sha512_key:
+      key_id: 30
+      auth_type: sha512
+      password: VerySecureKey789
+
+    # Additional keys for various tests
+    delete_key:
+      key_id: 15
+      auth_type: sha256
+      password: TestAuthKey
+
+# Category 4: Trusted Keys
+# These MUST be at root level, not under testcases
+trusted_keys:
+  - 1
+  - 10
+  - 15
+  - 99
+
+# Category 5: NTP Server Configuration (using local server)
+# These MUST be at root level, not under testcases
+ntp_servers:
+  primary_server:
+    address: 192.168.100.175
+    version: 4
+    prefer: true
+    iburst: true
+
+  secondary_server:
+    address: 192.168.100.175
+    version: 4
+    iburst: true
+
+  hostname_server:
+    address: time.google.com
+    association: pool
+    iburst: true
+
+  test_servers:
+    - 192.168.100.175
+    - 192.168.100.175
+    - 192.168.100.175
+
+# Category 6: Source Interface
+# These MUST be at root level, not under testcases
+source_interface:
+  ethernet: Ethernet0
+  loopback: Loopback0
+
+# Category 7: VRF Configuration
+# These MUST be at root level, not under testcases
+vrf:
+  - name: default
+    enabled: true
+  - name: mgmt
+    enabled: false  # May not be available in all setups
+
+# Category 8: Complex Scenarios
+# These MUST be at root level, not under testcases
+complex_scenarios:
+  complete_setup:
+    server: 192.168.100.175
+    version: 4
+    prefer: true
+    key_id: 10
+    iburst: true
+    auth_enabled: true
+    ntp_enabled: true
+
+  time_drift:
+    server: 192.168.100.175
+    verify_sync: true
+    max_offset_ms: 1000  # 1 second tolerance
+
+# Category 9: Test-specific flags and configurations
+# This section remains for test case specific overrides
+testcases:
+  ntp_global:
+    enable_ntp: true
+
+  ntp_status:
+    verify_sync: false  # May not sync immediately in test environment

@@ -260,8 +260,11 @@ def get_syslog_from_remote_server(dut, severity=None, filter_list=None, lines=No
 
 
 def sonic_clear(dut, skip_error_check=True, **kwargs):
+    st.log("Command not found in this cli")
+    '''
     if st.is_feature_supported("sonic-clear-logging-command", dut):
         st.config(dut, "sonic-clear logging", skip_error_check=skip_error_check, **kwargs)
+    '''
 
 
 def check_for_logs_after_reboot(dut, severity=None, log_severity=[], except_logs=[]):

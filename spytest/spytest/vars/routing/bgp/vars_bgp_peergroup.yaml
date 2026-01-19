@@ -1,0 +1,222 @@
+# Variable file for BGP Peer Group Test
+# Test: test_bgp_peergroup.py
+# Author: Athira
+# © 2025, copyrights@SuperMicro
+
+# IPv4 Configuration
+ipv4:
+  dut1_address: "10.1.1.1"
+  dut2_address: "10.1.1.2"
+  prefix_length: "24"
+  address_family: "ipv4"
+
+# iBGP Configuration (Internal BGP - Same AS Number)
+bgp:
+  type: "ibgp"  # Internal BGP - same AS on both devices
+  dut1:
+    asn: "65001"
+    router_id: "1.1.1.1"
+    network: "10.1.1.0/24"
+    advertise_networks:
+      - "20.1.1.0/24"
+      - "30.1.1.0/24"
+  dut2:
+    asn: "65001"
+    router_id: "2.2.2.2"
+    network: "10.1.1.0/24"
+    advertise_networks:
+      - "40.1.1.0/24"
+      - "50.1.1.0/24"
+  wait_time: 90
+  convergence_timeout: 90
+  redistribute_connected: true
+
+# Peer Group Configuration
+peer_group:
+  dut1:
+    name: "PGROUP1"
+    remote_asn: "65001"
+    description: "iBGP peer group for AS 65001"
+    timers:
+      keepalive: "30"
+      holdtime: "90"
+    update_source: "Ethernet4"
+    policies:
+      next_hop_self: false  # Not needed for iBGP on directly connected peers
+      activate_ipv4: true
+      activate_ipv6: false
+      activate_evpn: false
+  dut2:
+    name: "PGROUP1"
+    remote_asn: "65001"
+    description: "iBGP peer group for AS 65001"
+    timers:
+      keepalive: "30"
+      holdtime: "90"
+    update_source: "Ethernet4"
+    policies:
+      next_hop_self: false  # Not needed for iBGP on directly connected peers
+      activate_ipv4: true
+      activate_ipv6: false
+      activate_evpn: false
+
+# CLI Configuration
+cli:
+  type: "klish"
+  shell: "vtysh"
+
+# Interface Configuration
+interface:
+  mtu: "9100"
+  speed: "40000"
+
+# Test Parameters
+test:
+  ping_count: 5
+  reboot_wait_time: 60
+  bgp_wait_time: 90
+  interface_wait_time: 5
+
+# Expected BGP States (for validation)
+bgp_states:
+  valid_states:
+    - "Established"
+    - "(Policy)"  # Session established but policies are applied
+    - "0"  # Numeric state indicating established
+    - "1"
+    - "2"
+    - "3"
+    - "4"
+  description: "BGP session is considered established if state is 'Established', '(Policy)', or a numeric value indicating active peering"
+
+# Route Advertisement
+routes:
+  advertise_networks: true
+  redistribute_connected: true
+  min_routes_expected: 1
+  description: "Each DUT advertises networks and redistributes connected routes"
+
+# Static Routes for Testing
+static_routes:
+  dut1:
+    - destination: "30.1.1.0/24"
+      nexthop: "10.1.1.2"
+  dut2:
+    - destination: "60.1.1.0/24"
+      nexthop: "10.1.1.1"
+
+# Topology Information
+topology:
+  type: "2-node"
+  description: "Two SONiC devices connected via physical Ethernet interfaces"
+  min_topology: ["D1D2:1"]
+  dut1_port: "Ethernet32"  # Will be overridden by testbed
+  dut2_port: "Ethernet32"  # Will be overridden by testbed
+
+# Test Scenarios
+scenarios:
+  peer_group_basic:
+    tc_id: "PG-01"
+    description: "Create peer-group and apply to neighbors"
+    steps:
+      - "Configure IPv4 addresses on Ethernet interfaces"
+      - "Configure eBGP with different ASNs (DUT1: AS 100, DUT2: AS 200)"
+      - "Create peer group on DUT1 (PG_EXTERNAL)"
+      - "Configure peer group parameters (remote-as, policies)"
+      - "Apply peer group to neighbor"
+      - "Configure address families (IPv4 unicast, IPv6 unicast, L2VPN EVPN)"
+      - "Activate neighbors in address families"
+      - "Advertise networks using 'network' command"
+      - "Enable 'redistribute connected'"
+      - "Verify BGP session establishment"
+      - "Verify routes received using 'show bgp ipv4 unicast neighbors X routes'"
+      - "Verify routes in routing table using 'show ip route'"
+      - "Test IPv4 connectivity"
+
+  peer_group_save_reboot:
+    tc_id: "PG-02"
+    description: "Peer group persistence after save and reboot"
+    steps:
+      - "Verify BGP session and peer group configuration before reboot"
+      - "Save configuration using 'write memory'"
+      - "Reboot DUTs"
+      - "Verify peer group configuration after reboot"
+      - "Verify BGP session after reboot"
+      - "Verify routes still received after reboot"
+      - "Verify IPv4 connectivity after reboot"
+
+# Show Commands Used
+show_commands:
+  bgp_summary: "show bgp summary"
+  bgp_neighbors: "show bgp ipv4 unicast neighbors"
+  bgp_neighbor_routes: "show bgp ipv4 unicast neighbors <neighbor-ip> routes"
+  bgp_peer_group: "show bgp peer-group"
+  bgp_peer_group_detail: "show bgp peer-group <name>"
+  ip_interfaces: "show ip interfaces"
+  ip_route: "show ip route"
+  running_config: "show running-configuration"
+
+# BGP Commands for Configuration
+config_commands:
+  bgp_router: "router bgp <asn>"
+  address_family_ipv4: "address-family ipv4 unicast"
+  address_family_ipv6: "address-family ipv6 unicast"
+  address_family_evpn: "address-family l2vpn evpn"
+  peer_group_create: "neighbor <name> peer-group"
+  peer_group_remote_as: "neighbor <name> remote-as <asn>"
+  neighbor_peer_group: "neighbor <ip> peer-group <name>"
+  neighbor_remote_as: "neighbor <ip> remote-as <asn>"
+  activate: "activate"
+  next_hop_self: "next-hop-self"
+  network: "network <prefix>"
+  redistribute: "redistribute connected"
+
+# Expected Route Output Format
+# Example output from 'show bgp ipv4 unicast neighbors 10.1.1.2 routes':
+# BGP table version is 4, local router ID is 1.1.1.1, vrf id 0
+# Default local pref 100, local AS 100
+# Status codes: s suppressed, d damped, h history, * valid, > best, = multipath,
+#               i internal, r RIB-failure, S Stale, R Removed
+# Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+# Origin codes: i - IGP, e - EGP, ? - incomplete
+#
+#    Network           Next Hop            Metric LocPrf Weight Path
+# *> 40.1.1.0/24       10.1.1.2                 0             0 200 i
+# *> 50.1.1.0/24       10.1.1.2                 0             0 200 i
+#
+# Displayed 2 routes and 2 total paths
+
+# Notes
+notes:
+  - "This test uses eBGP (External BGP) with different AS numbers (100 and 200)"
+  - "Peer groups simplify BGP configuration for multiple neighbors with same policies"
+  - "Peer group PG_EXTERNAL created on DUT1 with remote-as 200"
+  - "Neighbor 10.1.1.2 inherits configuration from peer group PG_EXTERNAL"
+  - "Routes are advertised using both 'network' command and 'redistribute connected'"
+  - "Multiple address families tested: IPv4 unicast, IPv6 unicast, L2VPN EVPN"
+  - "Route verification uses 'show bgp ipv4 unicast neighbors X routes' command"
+  - "Routes from eBGP peers show AS path (e.g., '200 i')"
+  - "Test validates peer group creation, application, and route exchange"
+  - "Configuration persistence tested through save and reboot cycle"
+  - "BGP validation accepts (Policy) state as valid established state"
+
+# Expected Behavior
+expected:
+  bgp_session_state: "Established or (Policy)"
+  min_routes_received: 1
+  peer_group_applied: true
+  routes_in_rib: true
+  ipv4_ping: "success"
+  post_reboot_behavior: "All BGP routes and peer group config restored automatically"
+
+# Address Families
+address_families:
+  - name: "ipv4_unicast"
+    enabled: true
+    description: "IPv4 Unicast - primary testing focus"
+  - name: "ipv6_unicast"
+    enabled: false
+    description: "IPv6 Unicast - configured but not activated"
+  - name: "l2vpn_evpn"
+    enabled: false
+    description: "L2VPN EVPN - configured but not activated"

@@ -1,0 +1,128 @@
+## 1. Prerequisites
+
+Before starting, ensure Git is installed and configured with your identity, and that the remote repository is added and authenticated.
+
+```bash
+# Install Git if it is not already available
+sudo apt update && sudo apt install git
+
+# Configure your author information (only needs to be done once per machine)
+git config --global user.name "Draksha-1277-palc"
+git config --global user.email "draksha.a@palcnetworks.com"
+
+# Add the remote repository (only needed once per repo clone)
+git remote add origin master
+```
+
+> **Tip:** Authenticate with the remote using SSH keys or a personal access token (PAT) depending on your hosting provider's requirements.
+
+## 2. Review Current Repository Status
+
+Checking status is the CLI equivalent of viewing the changes tab in a GUI.
+
+```bash
+git status
+```
+
+## 3. Stage Files
+
+Staging files lets you choose which changes belong in the next commit.
+
+```bash
+
+# Or stage specific files which codex recently edited
+git add file_path
+
+```
+
+## 4. Review Staged Changes
+
+Examine what will be committed, similar to previewing diffs in a GUI.
+
+```bash
+git diff --cached
+```
+
+## 5. Commit the Changes
+
+Write a clear, concise message summarizing what the commit introduces.
+
+```bash
+git commit -m "Short, descriptive commit message"
+```
+
+## 6. Sync with the Remote Base Branch
+
+Update your branch with the latest changes from the remote `main` (or other base) branch.
+
+```bash
+# Fetch remote updates
+git fetch origin
+
+# Rebase to maintain a linear history
+git rebase origin/main
+
+# Alternatively, merge if preferred
+git merge origin/main
+```
+
+## 7. Push Your Branch to the Remote
+
+Publish the branch with "test_(what testcase has codex written)" so it can be reviewed.
+
+```bash
+git push -u origin <the branch>
+```
+
+## 8. Create a Pull Request from the Command Line
+
+Install and authenticate the GitHub CLI (`gh`) to open a PR without leaving the terminal. Adjust for other providers as needed.
+
+```bash
+# Install GitHub CLI on Debian/Ubuntu
+sudo apt update
+sudo apt install gh
+
+# Authenticate the CLI with your GitHub account
+gh auth login
+
+# Create the PR
+gh pr create --base main --head <your-branch-name> \
+  --title "PR title" --body "Detailed description of the changes"
+```
+
+- Add `--draft` to submit a draft PR.
+- Omit `--title` and `--body` to be prompted for interactive entry.
+
+## 9. Review and Manage Pull Requests
+
+Use the CLI to monitor your PR, similar to navigating PR views in a GUI.
+
+```bash
+# List open PRs
+gh pr list
+
+# View PR details in the browser
+gh pr view --web
+
+# View PR details in the terminal
+gh pr view --details
+```
+
+## 10. Address Review Feedback
+
+Make the requested changes locally, repeat the staging and committing steps, and push again.
+
+```bash
+# After editing files
+git status
+
+# Stage and commit follow-up changes
+git add <updated-files>
+git commit -m "Address review feedback"
+
+# Push the updates
+git push
+```
+
+Following these steps provides a smooth, GUI-like workflow using the Linux command line for Git operations and pull request management.

@@ -1,0 +1,94 @@
+# BGP IPv4 Route Reflector Test Configuration
+# This file contains configuration variables for IPv4 BGP Route Reflector testing
+
+# Topology configuration
+topology:
+  type: "3-node"
+  description: "BGP Route Reflector topology with 1 RR server and 2 RR clients"
+  role:
+    dut1: "Route Reflector Client"
+    dut2: "Route Reflector Server"
+    dut3: "Route Reflector Client"
+
+# Minimum topology requirement
+min_topology:
+  - "D1D2:1"  # DUT1 to DUT2, 1 link required
+  - "D2D3:1"  # DUT2 to DUT3, 1 link required
+
+# IPv4 addressing configuration
+ipv4:
+  # DUT1 <-> DUT2 link addressing
+  dut1_dut2_link:
+    dut1_address: "10.1.12.1"      # DUT1 interface IP
+    dut2_address: "10.1.12.2"      # DUT2 interface IP (facing DUT1)
+    prefix_length: "24"
+    subnet: "10.1.12.0/24"
+
+  # DUT2 <-> DUT3 link addressing
+  dut2_dut3_link:
+    dut2_address: "10.2.23.2"      # DUT2 interface IP (facing DUT3)
+    dut3_address: "10.2.23.3"      # DUT3 interface IP
+    prefix_length: "24"
+    subnet: "10.2.23.0/24"
+
+# BGP configuration
+bgp:
+  type: "ibgp"
+  asn: "65001"                     # Same AS number for all DUTs (iBGP)
+
+  # DUT1 BGP configuration (Route Reflector Client)
+  dut1:
+    router_id: "1.1.1.1"
+    role: "client"
+    neighbor:
+      ip: "10.1.12.2"              # DUT2 address
+      remote_asn: "65001"
+    networks:
+      - "10.1.12.0/24"             # Connected link network advertised by DUT1
+
+  # DUT2 BGP configuration (Route Reflector Server)
+  dut2:
+    router_id: "2.2.2.2"
+    role: "server"
+    neighbors:
+      - ip: "10.1.12.1"            # DUT1 address
+        remote_asn: "65001"
+        route_reflector_client: true
+      - ip: "10.2.23.3"            # DUT3 address
+        remote_asn: "65001"
+        route_reflector_client: true
+    networks: []                   # RR server doesn't need to advertise networks
+
+  # DUT3 BGP configuration (Route Reflector Client)
+  dut3:
+    router_id: "3.3.3.3"
+    role: "client"
+    neighbor:
+      ip: "10.2.23.2"              # DUT2 address
+      remote_asn: "65001"
+    networks:
+      - "10.2.23.0/24"             # Connected link network advertised by DUT3
+
+# Test parameters
+test_params:
+  bgp_session_timeout: 90          # Seconds to wait for BGP session establishment
+  route_learning_timeout: 60       # Seconds to wait for routes to be learned
+  post_reboot_timeout: 120         # Seconds to wait after reboot for BGP to stabilize
+  cli_type: "klish"                # CLI type to use for configuration
+
+# Expected test results
+expected_results:
+  # DUT1 should learn DUT3's advertised network via DUT2 (RR)
+  dut1_learned_routes:
+    - network: "10.2.23.0/24"      # DUT2-DUT3 link network advertised by DUT3
+    - next_hop: "10.2.23.3"        # DUT3 address Via DUT2 (RR server)
+
+  # DUT3 should learn DUT1's advertised network via DUT2 (RR)
+  dut3_learned_routes:
+    - network: "10.1.12.0/24"      # DUT1-DUT2 link network advertised by DUT1
+    - next_hop: "10.1.12.1"        # DUT1 address Via DUT2 (RR server)
+
+  # DUT2 should have route-reflector-client configured for both neighbors
+  dut2_rr_clients:
+    - "10.1.12.1"                  # DUT1
+    - "10.2.23.3"                  # DUT3

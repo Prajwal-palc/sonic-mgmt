@@ -1,0 +1,213 @@
+================================================================================
+4-DEVICE VLAN TOPOLOGY - QUICK START GUIDE
+================================================================================
+
+DEVICE IPs:
+  D1: 192.168.100.217
+  D2: 192.168.100.142
+  D3: 192.168.100.105
+  D4: 192.168.100.54
+  Credentials: admin/YourPaSsWoRd
+
+================================================================================
+STEP 1: RUN SPYTEST CONFIGURATION TESTS
+================================================================================
+
+cd /home/adminuser/draksha/sonic-mgmt/spytest
+
+./bin/spytest --testbed ./testbeds/testbed_4d.yaml \
+  tests/system/iscli_Vlan/test_4device_vlan_topology.py \
+  --logs-path ./logs/vlan_topo_$(date +%F_%H%M%S) \
+  --log-level debug \
+  --skip-init-config \
+  --ifname-type native
+
+================================================================================
+STEP 2: RUN ALL TRAFFIC TESTS (ORCHESTRATED)
+================================================================================
+
+cd tests/system/iscli_Vlan
+
+# Full test suite
+sudo python3 run_all_traffic_tests.py --interface eth0 --scenario all
+
+# Quick test (reduced counts)
+sudo python3 run_all_traffic_tests.py --interface eth0 --quick-test
+
+# Specific scenarios
+sudo python3 run_all_traffic_tests.py --interface eth0 --scenario vlan10_only
+sudo python3 run_all_traffic_tests.py --interface eth0 --scenario vlan20_only
+sudo python3 run_all_traffic_tests.py --interface eth0 --scenario portchannel_only
+
+================================================================================
+STEP 3: RUN INDIVIDUAL TRAFFIC TESTS
+================================================================================
+
+# VLAN10 Untagged Unicast
+sudo python3 traffic_vlan10_untagged.py \
+  --iface eth0 \
+  --mode unicast \
+  --dst-mac 00:11:22:33:44:02 \
+  --count 100
+
+# VLAN10 Untagged Broadcast
+sudo python3 traffic_vlan10_untagged.py \
+  --iface eth0 \
+  --mode broadcast \
+  --count 50
+
+# VLAN20 Tagged Unicast
+sudo python3 traffic_vlan20_tagged.py \
+  --iface eth0 \
+  --mode unicast \
+  --vlan 20 \
+  --dst-mac 00:11:22:33:55:02 \
+  --count 100
+
+# VLAN20 Tagged Broadcast
+sudo python3 traffic_vlan20_tagged.py \
+  --iface eth0 \
+  --mode broadcast \
+  --vlan 20 \
+  --count 50
+
+# Port-Channel Unicast
+sudo python3 traffic_portchannel.py \
+  --iface eth0 \
+  --mode unicast \
+  --dst-mac 00:11:22:33:55:02 \
+  --count 200
+
+# Port-Channel Load Balance (500 flows)
+sudo python3 traffic_portchannel.py \
+  --iface eth0 \
+  --mode load-balance \
+  --dst-mac 00:11:22:33:55:02 \
+  --count 500
+
+================================================================================
+VERIFICATION COMMANDS (on SONiC devices)
+================================================================================
+
+# Show VLAN configuration
+show vlan config
+show vlan brief
+
+# Show Port-Channel status
+show interfaces portchannel
+show interfaces portchannel 50
+
+# Show MAC address table
+show mac
+
+# Show interface counters
+show interfaces counters
+
+# Show interface counters for specific interface
+show interfaces counters Ethernet0
+
+# Clear counters (before test)
+sonic-clear counters
+
+================================================================================
+FILE LOCATIONS
+================================================================================
+
+Test Script:
+  /home/adminuser/draksha/sonic-mgmt/spytest/tests/system/iscli_Vlan/test_4device_vlan_topology.py
+
+Configuration:
+  /home/adminuser/draksha/sonic-mgmt/spytest/vars/system/iscli_Vlan/vars_4device_vlan_topology.yaml
+
+Traffic Generators:
+  traffic_vlan10_untagged.py   - VLAN10 untagged traffic
+  traffic_vlan20_tagged.py     - VLAN20 tagged traffic
+  traffic_portchannel.py       - Port-Channel traffic
+
+Orchestrator:
+  run_all_traffic_tests.py     - Run all traffic tests
+
+Documentation:
+  README_4DEVICE_VLAN_TOPOLOGY.md
+
+================================================================================
+TOPOLOGY SUMMARY
+================================================================================
+
+D1 (.217) <---> D2 (.142)
+   |               |
+   |               |
+   |            D4 (.54)
+   |               |
+   |               |
+D3 (.105) <---------+
+
+VLANs:
+  - VLAN 10: Untagged/Access ports
+  - VLAN 20: Tagged/Trunk ports
+
+Port-Channels:
+  - LAG50 between D1-D2 (Eth8,12 - Eth24,28)
+  - LAG50 between D3-D4 (Eth40,44 - Eth24,28)
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+1. Permission denied error:
+   Run with sudo: sudo python3 script.py ...
+
+2. Module not found (scapy):
+   pip install scapy
+
+3. Interface not found:
+   List interfaces: ip link show
+   Use correct interface name
+
+4. No traffic seen on device:
+   - Check interface is up: ip link show eth0
+   - Verify MAC addresses match device MACs
+   - Check VLAN membership on device
+   - Check interface counters on device
+
+5. View logs:
+   SPyTest logs: logs/vlan_topo_<timestamp>/
+   Traffic results: traffic_test_results_<timestamp>.yaml
+
+================================================================================
+EXPECTED RESULTS
+================================================================================
+
+SPyTest Tests: All 5 tests should PASS
+  ✓ test_vlan10_untagged_traffic
+  ✓ test_vlan20_tagged_traffic
+  ✓ test_portchannel_traffic
+  ✓ test_end_to_end_vlan10_traffic
+  ✓ test_end_to_end_vlan20_traffic
+
+Traffic Tests: All scenarios should complete successfully
+  ✓ VLAN10 Untagged Unicast
+  ✓ VLAN10 Untagged Broadcast
+  ✓ VLAN20 Tagged Unicast
+  ✓ VLAN20 Tagged Broadcast
+  ✓ Port-Channel Unicast
+  ✓ Port-Channel Broadcast
+  ✓ Port-Channel Load Balance
+
+Device Counters: Should increment after traffic
+  show interfaces counters  (before and after)
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Run configuration tests first to set up topology
+2. Verify VLANs and Port-Channels are configured
+3. Run traffic tests to validate forwarding
+4. Check device counters to confirm traffic received
+5. Review logs for any errors or failures
+
+For detailed documentation, see:
+  README_4DEVICE_VLAN_TOPOLOGY.md
+
+================================================================================

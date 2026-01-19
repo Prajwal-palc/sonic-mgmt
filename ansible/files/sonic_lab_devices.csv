@@ -3,6 +3,9 @@ str-msn2700-01,10.251.0.188/23,Mellanox-2700,DevSonic,,sonic
 str-7260-10,10.251.0.13/23,Arista-7260QX-64,FanoutLeaf,,sonic
 str-7260-11,10.251.0.234/23,Arista-7260QX-64,FanoutRoot,,eos
 str-acs-serv-01,10.251.0.245/23,TestServ,Server,,ubuntu
+dut-sse-t8196,172.31.59.240/16,Supermicro_sse_t8196,DevSonic,,sonic
+dut2-fanout,172.31.56.235/16,Supermicro_sse_t8196,FanoutLeaf,,sonic
+server_hw4_group,172.31.56.2/16,TestServ,Server,,ubuntu
 pdu-1,192.168.9.2,Apc,Pdu,snmp,
 pdu-2,192.168.9.3,Sentry,Pdu,snmp,
 console-1,192.168.10.1/23,Cisco,ConsoleServer,ssh,sonic

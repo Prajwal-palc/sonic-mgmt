@@ -1,0 +1,58 @@
+# Device Configuration for Interface CLI Testing
+# This file contains configurable parameters for test devices
+
+devices:
+  device1:
+    host: "192.168.100.97"
+    port: 22
+    username: "admin"
+    password: "YourPaSsWoRd"
+    cli_mode: "sonic-cli"
+    name: "Device-1"
+
+  device2:
+    host: "192.168.100.142"
+    port: 22
+    username: "admin"
+    password: "YourPaSsWoRd"
+    cli_mode: "sonic-cli"
+    name: "Device-2"
+
+# Test Configuration
+test_config:
+  timeout: 30
+  retry_count: 3
+  log_level: "INFO"
+  capture_db_snapshot: true
+  terminal_length: 0  # Disable pagination
+
+# Interface Configuration
+test_interfaces:
+  - "Ethernet0"
+  - "Ethernet4"
+  - "Ethernet8"
+  - "Ethernet12"
+
+# MTU Test Values
+mtu_values:
+  minimum: 1280
+  standard: 1500
+  jumbo: 9100
+  maximum: 9216
+  default: 9100
+  invalid_low: 500
+  invalid_high: 20000
+
+# Logging Configuration
+logging:
+  log_dir: "/home/adminuser/draksha/cli/interface/logs"
+  log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  max_log_size: 10485760  # 10MB
+  backup_count: 5
+
+# Report Configuration
+reporting:
+  results_dir: "/home/adminuser/draksha/cli/interface/results"
+  html_report: true
+  markdown_report: true
+  json_report: true

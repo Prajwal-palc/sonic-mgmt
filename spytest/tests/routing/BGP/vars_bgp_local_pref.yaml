@@ -1,0 +1,1158 @@
+# BGP LOCAL_PREF Preference Test Variables - Test ID 3.1.1
+# ================================================================
+# This file contains test case definitions for BGP LOCAL_PREF attribute
+# behavior testing covering best-path selection, propagation, and interaction
+# with other BGP attributes.
+#
+# Topology: testbed_vs_2node.yaml (2 DUTs connected via Ethernet4)
+# Configuration CLI: klish (sonic-cli)
+# Verification CLI: click (show commands)
+#
+# Test Coverage:
+# - 3.1.1.1: Basic LOCAL_PREF preference (two iBGP peers)
+# - 3.1.1.2: LOCAL_PREF tie-breaker with AS-PATH and IGP metric
+# - 3.1.1.3: LOCAL_PREF propagation across iBGP (RR vs full-mesh)
+# - 3.1.1.4: LOCAL_PREF precedence vs MED (LOCAL_PREF should win)
+# - 3.1.1.5: LOCAL_PREF IPv6 behavior
+# - 3.1.1.6: LOCAL_PREF change impact and convergence time
+# - 3.1.1.7: LOCAL_PREF set via community (automation of policy)
+# - 3.1.1.8: Negative: invalid LOCAL_PREF values and policy rejection
+# - 3.1.1.9: Persistence: LOCAL_PREF across config save and reload
+# ================================================================
+
+defaults:
+  config_cli_type: klish
+  show_cli_type: click
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  bgp_convergence_time: 30
+
+testcases:
+  # ================================================================
+  # Test 3.1.1.1: Basic LOCAL_PREF Preference (Two iBGP Peers)
+  # ================================================================
+  "3.1.1.1":
+    title: "Basic LOCAL_PREF preference (two iBGP peers)"
+    description: |
+      Advertise identical prefix from two external peers into the AS; set
+      LOCAL_PREF differing values on import and verify best path selection.
+
+    setup:
+      # Configure interfaces on D1
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      # Configure interfaces on D2
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure loopbacks for iBGP
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Static routes for loopback reachability
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers - iBGP session
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors (same AS)
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Create route-map on D1 to set LOCAL_PREF=200
+      - type: route_map
+        dut: D1
+        route_map: SET_LPREF_200
+        sequence: 10
+        action: permit
+        set_local_pref: 200
+
+      # Create route-map on D2 to set LOCAL_PREF=100
+      - type: route_map
+        dut: D2
+        route_map: SET_LPREF_100
+        sequence: 10
+        action: permit
+        set_local_pref: 100
+
+      # Advertise test prefix 198.51.100.0/24 from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.100.0/24
+        family: ipv4
+
+      # Advertise same prefix 198.51.100.0/24 from D2
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 198.51.100.0/24
+        family: ipv4
+
+      # Apply route-map to neighbor on D1 (for routes received)
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: SET_LPREF_200
+        direction: in
+
+      # Apply route-map to neighbor on D2 (for routes received)
+      - type: route_map_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        route_map: SET_LPREF_100
+        direction: in
+
+    verify:
+      # Verify iBGP sessions established
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify LOCAL_PREF values
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 198.51.100.0/24
+        expected_local_pref: 200
+        family: ipv4
+
+      - type: bgp_local_pref
+        dut: D2
+        prefix: 198.51.100.0/24
+        expected_local_pref: 100
+        family: ipv4
+
+      # Verify best path selection (higher LOCAL_PREF wins)
+      - type: bgp_best_path
+        dut: D1
+        prefix: 198.51.100.0/24
+        expected_nexthop: 2.2.2.2
+        family: ipv4
+
+      # Verify route in RIB
+      - type: route_in_rib
+        dut: D1
+        prefix: 198.51.100.0/24
+        should_exist: true
+        family: ipv4
+
+  # ================================================================
+  # Test 3.1.1.2: LOCAL_PREF Tie-breaker with AS-PATH
+  # ================================================================
+  "3.1.1.2":
+    title: "LOCAL_PREF tie-breaker with AS-PATH and IGP metric"
+    description: |
+      When LOCAL_PREF equal, verify selection falls back to AS-PATH length
+      then IGP metric as per best-path order.
+
+    setup:
+      # Configure interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Static routes for loopback reachability
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers - iBGP
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Create route-maps with SAME LOCAL_PREF=100
+      - type: route_map
+        dut: D1
+        route_map: SET_LPREF_100
+        sequence: 10
+        action: permit
+        set_local_pref: 100
+
+      - type: route_map
+        dut: D2
+        route_map: SET_LPREF_100_PREPEND
+        sequence: 10
+        action: permit
+        set_local_pref: 100
+        set_as_path_prepend: "65001 65001"
+
+      # Advertise prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.101.0/24
+        family: ipv4
+
+      # Advertise same prefix from D2
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 198.51.101.0/24
+        family: ipv4
+
+      # Apply route-maps
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: SET_LPREF_100
+        direction: in
+
+      - type: route_map_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        route_map: SET_LPREF_100_PREPEND
+        direction: in
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Both should have LOCAL_PREF=100
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 198.51.101.0/24
+        expected_local_pref: 100
+        family: ipv4
+
+      # Verify best path selection (shorter AS-PATH wins when LOCAL_PREF equal)
+      - type: bgp_best_path
+        dut: D1
+        prefix: 198.51.101.0/24
+        family: ipv4
+
+      - type: route_in_rib
+        dut: D1
+        prefix: 198.51.101.0/24
+        should_exist: true
+        family: ipv4
+
+  # ================================================================
+  # Test 3.1.1.3: LOCAL_PREF Propagation Across iBGP
+  # ================================================================
+  "3.1.1.3":
+    title: "LOCAL_PREF propagation across iBGP (RR vs full-mesh)"
+    description: |
+      Verify LOCAL_PREF set on route-reflector client is honored by
+      non-client iBGP peers after reflection.
+
+    setup:
+      # Configure interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Static routes
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Create route-map with LOCAL_PREF=250
+      - type: route_map
+        dut: D1
+        route_map: SET_LPREF_250
+        sequence: 10
+        action: permit
+        set_local_pref: 250
+
+      # Advertise prefix from D1
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.102.0/24
+        family: ipv4
+
+      # Apply route-map on D1 for routes sent to D2
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: SET_LPREF_250
+        direction: out
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify D2 sees LOCAL_PREF=250
+      - type: bgp_local_pref
+        dut: D2
+        prefix: 198.51.102.0/24
+        expected_local_pref: 250
+        family: ipv4
+
+      - type: route_in_rib
+        dut: D2
+        prefix: 198.51.102.0/24
+        should_exist: true
+        family: ipv4
+
+  # ================================================================
+  # Test 3.1.1.4: LOCAL_PREF Precedence vs MED
+  # ================================================================
+  "3.1.1.4":
+    title: "LOCAL_PREF precedence vs MED (LOCAL_PREF should win)"
+    description: |
+      Demonstrate that LOCAL_PREF takes precedence over MED when
+      selecting best-path.
+
+    setup:
+      # Configure interfaces
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      # Configure loopbacks
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      # Static routes
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure iBGP neighbors
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Route-map A: LOCAL_PREF=300, MED=2000
+      - type: route_map
+        dut: D1
+        route_map: LPREF_HIGH_MED_HIGH
+        sequence: 10
+        action: permit
+        set_local_pref: 300
+        set_med: 2000
+
+      # Route-map B: LOCAL_PREF=100, MED=100
+      - type: route_map
+        dut: D2
+        route_map: LPREF_LOW_MED_LOW
+        sequence: 10
+        action: permit
+        set_local_pref: 100
+        set_med: 100
+
+      # Advertise prefix from both
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.103.0/24
+        family: ipv4
+
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 198.51.103.0/24
+        family: ipv4
+
+      # Apply route-maps
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: LPREF_HIGH_MED_HIGH
+        direction: in
+
+      - type: route_map_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        route_map: LPREF_LOW_MED_LOW
+        direction: in
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 1.1.1.1
+        expected_state: Established
+
+      # Verify D1 prefers path with LOCAL_PREF=300 despite higher MED
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 198.51.103.0/24
+        expected_local_pref: 300
+        family: ipv4
+
+      - type: bgp_best_path
+        dut: D1
+        prefix: 198.51.103.0/24
+        expected_nexthop: 2.2.2.2
+        family: ipv4
+
+  # ================================================================
+  # Test 3.1.1.5: LOCAL_PREF IPv6 Behavior
+  # ================================================================
+  "3.1.1.5":
+    title: "LOCAL_PREF IPv6 behavior"
+    description: |
+      Verify LOCAL_PREF semantics for IPv6 routes (same preference
+      behavior as IPv4).
+
+    setup:
+      # Configure interfaces with IPv6
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 2001:db8:100::1
+        prefix_length: 64
+        family: ipv6
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 2001:db8:100::2
+        prefix_length: 64
+        family: ipv6
+
+      # Configure loopbacks with IPv6
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 2001:db8:1::1
+        prefix_length: 128
+        family: ipv6
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2001:db8:2::1
+        prefix_length: 128
+        family: ipv6
+
+      # Static routes for IPv6 loopback reachability
+      - type: static_route
+        dut: D1
+        prefix: 2001:db8:2::1/128
+        next_hop: 2001:db8:100::2
+        family: ipv6
+
+      - type: static_route
+        dut: D2
+        prefix: 2001:db8:1::1/128
+        next_hop: 2001:db8:100::1
+        family: ipv6
+
+      # Configure BGP routers
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      # Configure IPv6 iBGP neighbors
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2001:db8:2::1
+        remote_asn: 65001
+        family: ipv6
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 2001:db8:1::1
+        remote_asn: 65001
+        family: ipv6
+
+      # Route-maps for IPv6
+      - type: route_map
+        dut: D1
+        route_map: SET_LPREF_300_V6
+        sequence: 10
+        action: permit
+        set_local_pref: 300
+
+      - type: route_map
+        dut: D2
+        route_map: SET_LPREF_100_V6
+        sequence: 10
+        action: permit
+        set_local_pref: 100
+
+      # Advertise IPv6 prefix
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 2001:db8:200::/64
+        family: ipv6
+
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 2001:db8:200::/64
+        family: ipv6
+
+      # Apply route-maps
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2001:db8:2::1
+        route_map: SET_LPREF_300_V6
+        direction: in
+
+      - type: route_map_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 2001:db8:1::1
+        route_map: SET_LPREF_100_V6
+        direction: in
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2001:db8:2::1
+        expected_state: Established
+
+      - type: bgp_session
+        dut: D2
+        neighbor: 2001:db8:1::1
+        expected_state: Established
+
+      # Verify IPv6 route with LOCAL_PREF=300 is preferred
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 2001:db8:200::/64
+        expected_local_pref: 300
+        family: ipv6
+
+      - type: bgp_best_path
+        dut: D1
+        prefix: 2001:db8:200::/64
+        expected_nexthop: 2001:db8:2::1
+        family: ipv6
+
+  # ================================================================
+  # Test 3.1.1.6: LOCAL_PREF Convergence Time
+  # ================================================================
+  "3.1.1.6":
+    title: "LOCAL_PREF change impact and convergence time"
+    description: |
+      Change LOCAL_PREF dynamically and measure how quickly best-path
+      changes (convergence).
+
+    setup:
+      # Configure basic iBGP topology
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Initially set LOCAL_PREF=300 on D1
+      - type: route_map
+        dut: D1
+        route_map: SET_LPREF_INITIAL
+        sequence: 10
+        action: permit
+        set_local_pref: 300
+
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.104.0/24
+        family: ipv4
+
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 198.51.104.0/24
+        family: ipv4
+
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: SET_LPREF_INITIAL
+        direction: in
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      # Verify initial LOCAL_PREF=300
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 198.51.104.0/24
+        expected_local_pref: 300
+        family: ipv4
+
+      # Note: Actual convergence timing test would require
+      # dynamic route-map modification and timing measurements
+      # which are implemented in the test code
+
+  # ================================================================
+  # Test 3.1.1.7: LOCAL_PREF Set via Community
+  # ================================================================
+  "3.1.1.7":
+    title: "LOCAL_PREF set via community (automation of policy)"
+    description: |
+      Validate that an imported community triggers LOCAL_PREF assignment
+      via a route-map/policy.
+
+    setup:
+      # Basic iBGP topology
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      # Create community list
+      - type: community_list
+        dut: D1
+        name: COMM_HIGH_PREF
+        community: "65000:100"
+
+      # Route-map to match community and set LOCAL_PREF
+      - type: route_map
+        dut: D1
+        route_map: MATCH_COMM_SET_LPREF
+        sequence: 10
+        action: permit
+        match_community: COMM_HIGH_PREF
+        set_local_pref: 400
+
+      # Advertise prefix with community from D2
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 198.51.105.0/24
+        family: ipv4
+
+      # Apply route-map on D1
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: MATCH_COMM_SET_LPREF
+        direction: in
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      # Verify LOCAL_PREF=400 is set based on community match
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 198.51.105.0/24
+        expected_local_pref: 400
+        family: ipv4
+
+  # ================================================================
+  # Test 3.1.1.8: Invalid LOCAL_PREF Values (Negative Test)
+  # ================================================================
+  "3.1.1.8":
+    title: "Negative: invalid LOCAL_PREF values and policy rejection"
+    description: |
+      Ensure invalid LOCAL_PREF values are rejected by CLI/policy engine
+      or clamped to allowable range; no undefined behavior.
+
+    setup:
+      # Minimal BGP setup for negative testing
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      # Attempt to create route-map with invalid LOCAL_PREF
+      # This should be rejected or handled safely
+      # The test code will attempt invalid values like -10, 4294967296, etc.
+
+    verify:
+      # Verification in test code checks for proper error handling
+      # or value clamping behavior
+
+  # ================================================================
+  # Test 3.1.1.9: LOCAL_PREF Persistence After Reload
+  # ================================================================
+  "3.1.1.9":
+    title: "Persistence: LOCAL_PREF across config save and reload"
+    description: |
+      Verify LOCAL_PREF values and route selection persist across
+      config save and device reload (warm/cold where possible).
+
+    setup:
+      # Full iBGP topology with LOCAL_PREF configuration
+      - type: interface
+        dut: D1
+        interface: Ethernet4
+        ip_address: 192.168.100.1
+        prefix_length: 30
+        family: ipv4
+
+      - type: interface
+        dut: D2
+        interface: Ethernet4
+        ip_address: 192.168.100.2
+        prefix_length: 30
+        family: ipv4
+
+      - type: loopback
+        dut: D1
+        loopback: Loopback0
+        ip_address: 1.1.1.1
+        prefix_length: 32
+        family: ipv4
+
+      - type: loopback
+        dut: D2
+        loopback: Loopback0
+        ip_address: 2.2.2.2
+        prefix_length: 32
+        family: ipv4
+
+      - type: static_route
+        dut: D1
+        prefix: 2.2.2.2/32
+        next_hop: 192.168.100.2
+        family: ipv4
+
+      - type: static_route
+        dut: D2
+        prefix: 1.1.1.1/32
+        next_hop: 192.168.100.1
+        family: ipv4
+
+      - type: bgp_router
+        dut: D1
+        local_asn: 65001
+        router_id: 1.1.1.1
+
+      - type: bgp_router
+        dut: D2
+        local_asn: 65001
+        router_id: 2.2.2.2
+
+      - type: bgp_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        remote_asn: 65001
+        family: ipv4
+
+      - type: bgp_neighbor
+        dut: D2
+        local_asn: 65001
+        neighbor_ip: 1.1.1.1
+        remote_asn: 65001
+        family: ipv4
+
+      - type: route_map
+        dut: D1
+        route_map: PERSIST_LPREF_200
+        sequence: 10
+        action: permit
+        set_local_pref: 200
+
+      - type: bgp_network
+        dut: D1
+        local_asn: 65001
+        prefix: 198.51.106.0/24
+        family: ipv4
+
+      - type: bgp_network
+        dut: D2
+        local_asn: 65001
+        prefix: 198.51.106.0/24
+        family: ipv4
+
+      - type: route_map_neighbor
+        dut: D1
+        local_asn: 65001
+        neighbor_ip: 2.2.2.2
+        route_map: PERSIST_LPREF_200
+        direction: in
+
+    verify:
+      - type: bgp_session
+        dut: D1
+        neighbor: 2.2.2.2
+        expected_state: Established
+
+      # Verify LOCAL_PREF before reload
+      - type: bgp_local_pref
+        dut: D1
+        prefix: 198.51.106.0/24
+        expected_local_pref: 200
+        family: ipv4
+
+      # Note: Actual reload and post-reload verification
+      # would be performed in test code
+      # Test saves config, performs reload, and verifies
+      # LOCAL_PREF settings persist

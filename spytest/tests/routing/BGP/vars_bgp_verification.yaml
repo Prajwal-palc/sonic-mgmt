@@ -1,0 +1,35 @@
+# BGP Verification Test Configuration
+# Date: 2025-11-27
+
+# Topology requirements
+min_topology:
+  - "D1D2:1"  # Requires 2 devices with 1 link between them
+
+# CLI type to use
+cli_type: "klish"
+
+# Verification timeout (seconds)
+verify_timeout: 90
+
+# BGP AS numbers
+d1_local_asn: 65001
+d2_local_asn: 65001  # iBGP configuration
+
+# Interface IP addresses
+d1_ip: "10.1.1.1/24"
+d2_ip: "10.1.1.2/24"
+
+# Static routes to advertise via BGP
+# D1 will advertise these routes
+d1_static_routes:
+  - "192.168.1.0/24"
+  - "192.168.2.0/24"
+
+# D2 will advertise these routes
+d2_static_routes:
+  - "172.16.1.0/24"
+  - "172.16.2.0/24"
+
+# Expected test results
+expected_d1_received_routes: 2  # Should receive D2's static routes
+expected_d2_received_routes: 2  # Should receive D1's static routes

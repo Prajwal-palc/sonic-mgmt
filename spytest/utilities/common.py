@@ -1661,7 +1661,10 @@ def dump_connections(msg=""):
     try:
         import psutil
         p = psutil.Process()
-        for line in p.connections(kind='inet'):
+        get_connections = getattr(p, "net_connections", None)
+        if not get_connections:
+            get_connections = p.connections
+        for line in get_connections(kind='inet'):
             msg_line = "{}{}".format(msg, line)
             lines.append(msg_line)
     except Exception:

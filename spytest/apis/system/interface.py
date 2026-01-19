@@ -31,7 +31,7 @@ get_phy_port = lambda intf: re.search(r"(\S+)\.\d+", intf).group(1) if re.search
 
 
 def force_cli_type_to_klish(cli_type):
-    cli_type = "klish" if cli_type in get_supported_ui_type_list() else cli_type
+    cli_type = "click" if cli_type in get_supported_ui_type_list() else cli_type
     return cli_type
 
 
@@ -1571,15 +1571,46 @@ def config_ifname_type(dut, config='yes', cli_type="", ifname_type="alias", **kw
     faster_cli = kwargs.pop('faster_cli', True)
     skip_error = kwargs.pop('skip_error', False)
     skip_error = kwargs.pop('skip_error_check', skip_error)
-    cli_type = st.get_ui_type(dut, cli_type=cli_type)
-    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+    requested_cli_type = st.get_ui_type(dut, cli_type=cli_type)
+
+    def _is_cli_error(resp):
+        if isinstance(resp, str):
+            error_tokens = ["% Error", "Error:", "Invalid input"]
+            return any(token in resp for token in error_tokens)
+        return False
+
+    def _click_mode():
+        if config == 'yes' and ifname_type in ["alias", "std-ext"]:
+            return 'alias'
+        if config == 'no' or ifname_type in ["native", None, ""]:
+            return 'default'
+        st.error("Unsupported interface naming mode '{}' for click CLI".format(ifname_type))
+        return None
+
+    def _configure_via_click():
+        mode = _click_mode()
+        if not mode:
+            return False
+        command = "sudo config interface_naming_mode {}".format(mode)
+        output = st.config(dut, command, type='click', faster_cli=faster_cli,
+                           skip_error_check=skip_error, **kwargs)
+        if skip_error and _is_cli_error(output):
+            st.error('test_step_failed: click: {}onfigure INTERFACE NAMING'.format(op_msg))
+            return False
+        return True
+
+    effective_cli_type = requested_cli_type if requested_cli_type == 'click' else \
+        force_cli_type_to_klish(cli_type=requested_cli_type)
     st.log('config_ifname_type: {}'.format(locals()))
     op_msg = "C" if config == "yes" else "Unc"
 
-    if cli_type in ['click', 'vtysh']:
-        st.warn("interface-naming command not available in {}".format(cli_type), dut=dut)
+    if effective_cli_type == 'click':
+        if not _configure_via_click():
+            return False
+    elif effective_cli_type in ['vtysh']:
+        st.warn("interface-naming command not available in {}".format(effective_cli_type), dut=dut)
         return False
-    elif cli_type in get_supported_ui_type_list():
+    elif requested_cli_type in get_supported_ui_type_list():
         if ifname_type == "alias":
             ifname_mode = "STANDARD"
         elif ifname_type == "std-ext":
@@ -1588,23 +1619,27 @@ def config_ifname_type(dut, config='yes', cli_type="", ifname_type="alias", **kw
             ifname_mode = "NATIVE"
         sys_obj = umf_sys.System()
         setattr(sys_obj, 'IntfNamingMode', ifname_mode)
-        cli_type_msg = "GNMI" if cli_type in ["gnmi", "gnmi-get", "gnmi-set"] else "REST"
-        result = sys_obj.configure(dut, cli_type=cli_type)
+        cli_type_msg = "GNMI" if requested_cli_type in ["gnmi", "gnmi-get", "gnmi-set"] else "REST"
+        result = sys_obj.configure(dut, cli_type=requested_cli_type)
         if not result.ok():
             st.error('test_step_failed: {}: {}onfigure INTERFACE NAMING at interface: {}'.format(cli_type_msg, op_msg, result.data))
             return False
-    elif cli_type == 'klish':
+    elif effective_cli_type == 'klish':
         config = '' if config == 'yes' else 'no'
         ifname_cmd = "standard extended" if ifname_type == "std-ext" else "standard"
         if config == 'no':
             ifname_cmd = 'standard'
-        command = "{} interface-naming {}".format(config, ifname_cmd)
-        output = st.config(dut, command, type='klish', faster_cli=faster_cli, skip_error_check=skip_error, **kwargs)
-        if skip_error and "Error:" in output:
-            st.error('test_step_failed: {}: {}onfigure INTERFACE NAMING'.format(cli_type, op_msg))
-            return False
+        command = "sudo config interface_naming_mode default"
+        output = st.config(dut, command, type='click', faster_cli=faster_cli, skip_error_check=skip_error, **kwargs)
+        if skip_error and _is_cli_error(output):
+            if requested_cli_type != 'klish':
+                st.warn("interface-naming command failed in klish; retrying with {}".format(requested_cli_type), dut=dut)
+            fallback_status = _configure_via_click()
+            if not fallback_status:
+                st.error('test_step_failed: {}: {}onfigure INTERFACE NAMING'.format(effective_cli_type, op_msg))
+                return False
     else:
-        st.error("Provided invalid CLI type-{}".format(cli_type))
+        st.error("Provided invalid CLI type-{}".format(effective_cli_type))
         return False
 
     reboot_needed = False
@@ -1635,6 +1670,8 @@ def show_ifname_type(dut, **kwargs):
     :param cli_type:
     :return:
     """
+    st.log("This is not usable in this cli")
+    '''
     cli_type = kwargs.pop('cli_type', "klish") or "klish"
     cli_type = force_cli_type_to_klish(cli_type=cli_type)
     command = 'show interface-naming'
@@ -1646,7 +1683,7 @@ def show_ifname_type(dut, **kwargs):
     else:
         st.error("Provided invalid CLI type-{}".format(cli_type))
         return False
-
+    '''
     return output or None
 
 

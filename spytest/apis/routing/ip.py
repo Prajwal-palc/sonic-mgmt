@@ -1,6 +1,7 @@
 # This file contains the list of API's which performs IP,Ping related operations.
 # Author : Prudvi Mangadu (prudvi.mangadu@broadcom.com)
 
+import json
 import re
 import time
 import ipaddress
@@ -321,8 +322,12 @@ def config_ip_addr_interface(dut, interface_name='', ip_address='', subnet='', f
                         command = command + "\n" + "ip address {}/{} gwaddr {}".format(ip_address, subnet, gw_addr)
                 else:
                     intf = get_interface_number_from_name(interface_name)
-                    zero_or_more_space = get_random_space_string()
-                    command = "interface {}{}{}".format(intf['type'], zero_or_more_space, intf['number'])
+                    # Ethernet interfaces need space: "Ethernet 4", others don't: "Loopback0"
+                    if intf['type'] == 'Ethernet':
+                        zero_or_more_space = get_random_space_string()
+                        command = "interface {}{} {}".format(intf['type'], zero_or_more_space, intf['number'])
+                    else:
+                        command = "interface {}{}".format(intf['type'], intf['number'])
                     fam = "ip" if family == 'ipv4' else 'ipv6'
                     command = command + "\n" + "{} address {}/{}".format(fam, ip_address, subnet)
                     if is_secondary_ip == 'yes':
@@ -473,6 +478,14 @@ def delete_ip_interface(dut, interface_name, ip_address, subnet="32", family="ip
         st.config(dut, command, skip_error_check=skip_error)
         return True
     elif cli_type == 'klish':
+        # Handle case where ip_address already contains prefix (e.g., "192.0.2.10/24")
+        if '/' in str(ip_address):
+            ip_addr_only = str(ip_address).split('/')[0]
+            prefix_len = str(ip_address).split('/')[1]
+        else:
+            ip_addr_only = ip_address
+            prefix_len = subnet
+
         fam = "ip" if family == 'ipv4' else 'ipv6'
         interface_name = [interface_name] if isinstance(interface_name, str) else interface_name
         port_hash_list = segregate_intf_list_type(intf=interface_name, range_format=True)
@@ -484,12 +497,12 @@ def delete_ip_interface(dut, interface_name, ip_address, subnet="32", family="ip
                 command.append("no {} address".format(fam))
             elif ifname == 'eth0':
                 command.append("interface Management 0")
-                command.append("no {} address {}/{}".format(fam, ip_address, subnet))
+                command.append("no {} address {}/{}".format(fam, ip_addr_only, prefix_len))
             else:
                 intf = get_interface_number_from_name(ifname)
                 zero_or_more_space = get_random_space_string()
                 command.append("interface {}{}{}".format(intf['type'], zero_or_more_space, intf['number']))
-                sub_cmd = "no {} address {}/{}".format(fam, ip_address, subnet)
+                sub_cmd = "no {} address {}/{}".format(fam, ip_addr_only, prefix_len)
                 if is_secondary_ip == 'yes':
                     sub_cmd += ' secondary'
                 command.append(sub_cmd)
@@ -557,10 +570,89 @@ def get_interface_ip_address(dut, interface_name=None, family="ipv4", cli_type='
             command = "show ipv6 interface"
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
+        if cli_type == 'klish' and not result:
+            st.log("No entries returned from '{}' using klish CLI. Falling back to click CLI for compatibility".format(command))
+            cli_type = 'click'
+            output = st.show(dut, command, type=cli_type)
+            result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
         if interface_name:
             match = {"interface": interface_name}
             output = utils.filter_and_select(result, None, match)
         return output
+
+
+def _normalize_show_ip_interface_entries(payload):
+    entries = []
+    if not isinstance(payload, dict):
+        return entries
+
+    for key, value in payload.items():
+        if not (isinstance(key, str) and key.endswith('INTERFACE_IPADDR_LIST') and isinstance(value, list)):
+            continue
+        for item in value:
+            if not isinstance(item, dict):
+                continue
+            interface = item.get('portname') or item.get('interface') or item.get('name')
+            ip_addr = item.get('ip_prefix') or item.get('ipaddr') or item.get('ip-address') or item.get('ip_address')
+            if not (interface and ip_addr):
+                continue
+            vrf_name = item.get('vrfname') or item.get('vrf') or item.get('master') or ''
+            admin = item.get('admin_status') or item.get('admin') or ''
+            oper = item.get('oper_status') or item.get('oper') or ''
+            status_parts = [str(part) for part in [admin, oper] if part]
+            status = '/'.join(status_parts) if status_parts else ''
+            flags = item.get('flags') or ''
+            neighbor = item.get('neighbor') or item.get('bgp_neighbor') or ''
+            neighbor_ip = item.get('neighbor_ip') or item.get('neighborip') or ''
+
+            entry = {
+                'interface': 'Management0' if interface == 'eth0' else interface,
+                'ipaddr': ip_addr,
+                'vrf': vrf_name,
+                'status': status,
+                'flags': flags
+            }
+            if neighbor:
+                entry['neighbor'] = neighbor
+            if neighbor_ip:
+                entry['neighborip'] = neighbor_ip
+            entries.append(entry)
+    return entries
+
+
+def _parse_klish_show_ip_interface_json(raw_output):
+    entries = []
+    if not raw_output:
+        return entries
+
+    if isinstance(raw_output, dict):
+        return _normalize_show_ip_interface_entries(raw_output)
+
+    normalized_dict_entries = []
+    string_parts = []
+    if isinstance(raw_output, (list, tuple)):
+        for item in raw_output:
+            if isinstance(item, dict):
+                normalized_dict_entries.extend(_normalize_show_ip_interface_entries(item))
+            elif item is not None:
+                string_parts.append(str(item))
+        if normalized_dict_entries:
+            return normalized_dict_entries
+        raw_output = "\n".join(string_parts)
+
+    if not isinstance(raw_output, str):
+        return entries
+
+    match = re.search(r'(\{.*\})', raw_output, re.DOTALL)
+    if not match:
+        return entries
+    try:
+        payload = json.loads(match.group(1))
+    except (TypeError, ValueError):
+        return entries
+
+    entries.extend(_normalize_show_ip_interface_entries(payload))
+    return entries
 
 
 def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", vrfname='', flags='', cli_type='', **kwargs):
@@ -692,6 +784,17 @@ def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", 
             command = "show ipv6 interface"
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
+        if cli_type == 'klish' and not result:
+            raw_output = st.show(dut, command, type=cli_type, skip_tmpl=True)
+            parsed_entries = _parse_klish_show_ip_interface_json(raw_output)
+            if parsed_entries:
+                st.debug("Parsed {} entries from JSON output of '{}'".format(len(parsed_entries), command))
+                result = parsed_entries
+            else:
+                st.log("No entries returned from '{}' using klish CLI. Falling back to click CLI for compatibility".format(command))
+                cli_type = 'click'
+                output = st.show(dut, command, type=cli_type)
+                result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
 
     for intf, ip_addr, vrf_name in zip(interfaces, ip_addrs, vrfs):
         if cli_type == 'click':
@@ -1740,12 +1843,14 @@ def config_route_map(dut, route_map, config='yes', **kwargs):
         cmd += "\n"
         cmd += "exit\n"
         st.config(dut, cmd, type=cli_type)
+        return True
     else:
         cmd = "no route-map {}".format(route_map)
         if 'sequence' in kwargs:
             cmd += " permit {}".format(kwargs['sequence'])
         cmd += "\n"
         st.config(dut, cmd, type=cli_type)
+        return True
 
 
 def config_route_map_global_nexthop(dut, route_map='route_map_next_hop_global', sequence='10', config='yes', **kwargs):

@@ -1,0 +1,365 @@
+# BGP IPv4 over SVI (VLAN Interface) Test Variables
+# Test ID: BGP-SVI-001
+# Reference: Doc/bgp_svi.md
+
+defaults:
+  cli_type: "klish"  # Configuration via sonic-cli (klish)
+  verify_cli_type: "klish"  # Show commands use klish CLI
+  verify_timeout: 300  # Seconds to wait for BGP session establishment (increased for SVI)
+  svi_wait_time: 30  # Seconds to wait after SVI configuration before BGP
+  cleanup: true  # Cleanup configuration after each test
+  min_topology:
+    - "D1D2:1"  # Minimum topology: 2 DUTs with 1 link
+  keepalive: 60  # BGP keepalive timer (seconds)
+  hold: 180  # BGP hold timer (seconds)
+
+# ============================================================================
+# Test Case BGP-SVI-001.1: BGP over SVI Configuration and Session Establishment
+# ============================================================================
+testcases:
+  "BGP-SVI-001.1":
+    title: "BGP over SVI Configuration and Session Establishment"
+    description: "Verify iBGP IPv4 neighbor session establishment over VLAN interface (SVI)"
+
+    # VLAN Configuration
+    vlans:
+      - dut: "D1"
+        vlan_id: 100
+        vlan_name: "Vlan100"
+      - dut: "D2"
+        vlan_id: 100
+        vlan_name: "Vlan100"
+
+    # Physical Interface to VLAN Assignment
+    vlan_members:
+      - dut: "D1"
+        vlan_id: 100
+        interface: "{{D1D2P1}}"
+        tagging_mode: "untagged"  # Access mode
+      - dut: "D2"
+        vlan_id: 100
+        interface: "{{D2D1P1}}"
+        tagging_mode: "untagged"  # Access mode
+
+    # SVI (VLAN Interface) IP Configuration
+    svi_interfaces:
+      - dut: "D1"
+        interface: "Vlan100"
+        ip_address: "10.10.10.1"
+        prefix_length: 24
+        admin_status: "up"
+      - dut: "D2"
+        interface: "Vlan100"
+        ip_address: "10.10.10.2"
+        prefix_length: 24
+        admin_status: "up"
+
+    # Physical Interface Configuration
+    interfaces:
+      - dut: "D1"
+        interface: "{{D1D2P1}}"
+        admin_status: "up"
+      - dut: "D2"
+        interface: "{{D2D1P1}}"
+        admin_status: "up"
+
+    # BGP Router Configuration
+    bgp_routers:
+      - dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+        vrf: "default"
+      - dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+        vrf: "default"
+
+    # BGP Neighbor Configuration
+    bgp_neighbors:
+      - dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.10.10.2"
+        remote_asn: "65001"  # iBGP (same AS)
+        vrf: "default"
+        family: "ipv4"
+        activate: true
+        update_source: "Vlan100"  # Use SVI as update source for iBGP
+      - dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "10.10.10.1"
+        remote_asn: "65001"  # iBGP (same AS)
+        vrf: "default"
+        family: "ipv4"
+        activate: true
+        update_source: "Vlan100"  # Use SVI as update source for iBGP
+
+    # Verification Checks
+    verification:
+      # VLAN verification
+      vlan_checks:
+        - dut: "D1"
+          vlan_id: 100
+          expected_state: "active"
+        - dut: "D2"
+          vlan_id: 100
+          expected_state: "active"
+
+      # Interface verification
+      interface_checks:
+        - dut: "D1"
+          interface: "{{D1D2P1}}"
+          expected_status: "up"
+        - dut: "D2"
+          interface: "{{D2D1P1}}"
+          expected_status: "up"
+        - dut: "D1"
+          interface: "Vlan100"
+          expected_status: "up"
+          ip_address: "10.10.10.1/24"
+        - dut: "D2"
+          interface: "Vlan100"
+          expected_status: "up"
+          ip_address: "10.10.10.2/24"
+
+      # IP route verification
+      route_checks:
+        - dut: "D1"
+          ip_address: "10.10.10.0/24"
+          route_type: "C"  # Connected
+          interface: "Vlan100"
+        - dut: "D2"
+          ip_address: "10.10.10.0/24"
+          route_type: "C"  # Connected
+          interface: "Vlan100"
+
+      # BGP session verification
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.10.10.2"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.10.10.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Test Case BGP-SVI-001.2: ICMP Reachability over SVI (Ping Test)
+# ============================================================================
+  "BGP-SVI-001.2":
+    title: "ICMP Reachability over SVI"
+    description: "Verify Layer 3 connectivity over VLAN interface using ICMP ping"
+
+    # Note: This test is expected to fail as ping is not currently supported in sonic-cli
+    # Once ping support is added to sonic-cli, this test will pass
+    expected_failure: true
+    failure_reason: "ping command not supported in sonic-cli (klish) - SONiC limitation"
+
+    # Ping Tests
+    ping_tests:
+      - source_dut: "D1"
+        destination_ip: "10.10.10.2"
+        source_interface: "Vlan100"
+        count: 5
+        timeout: 5
+        expected_loss: 0  # 0% packet loss expected (when ping works)
+      - source_dut: "D2"
+        destination_ip: "10.10.10.1"
+        source_interface: "Vlan100"
+        count: 5
+        timeout: 5
+        expected_loss: 0  # 0% packet loss expected (when ping works)
+
+# ============================================================================
+# Test Case BGP-SVI-002: BGP over SVI Traffic Validation
+# ============================================================================
+  "BGP-SVI-002":
+    title: "BGP over SVI Traffic Validation using Scapy"
+    description: |
+      Extends test BGP-SVI-001.1 by validating bidirectional traffic forwarding
+      using Scapy-generated packets over the established BGP session on SVI.
+      Reuses the existing BGP session from test 001.
+
+    # Traffic configuration
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 1000             # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "udp"           # Traffic type: udp, icmp, or tcp
+
+    # Expected verification results
+    verification:
+      min_packets_expected: 9000  # Minimum packets to send (duration * pps * 0.9)
+
+      # BGP session verification (reuse from test 001)
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.10.10.2"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.10.10.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Test Case BGP-SVI-003: BGP Route Advertisement over SVI with Real Hosts
+# ============================================================================
+  "BGP-SVI-003":
+    title: "BGP route advertisement and host-to-host routing validation over SVI"
+    description: |
+      Extends test BGP-SVI-001.1 by adding LAN interfaces on routers, real host devices,
+      and advertising LAN networks via the existing iBGP session over SVI.
+
+      Topology: Host1 ---- Eth16 ---- R1 ---- Vlan100(iBGP from test 001) ---- R2 ---- Eth16 ---- Host2
+                  H1            R1-LAN         R1-R2 iBGP link (SVI)          R2-LAN          H2
+
+      Test BGP-SVI-001.1 already configured:
+      - R1 Vlan100: 10.10.10.1/24, R2 Vlan100: 10.10.10.2/24 (iBGP link over SVI)
+      - iBGP session between R1 and R2 (AS 65001) over Vlan100
+
+      Test BGP-SVI-003 adds:
+      - R1 LAN interface (Eth16) for Host1
+      - R2 LAN interface (Eth16) for Host2
+      - Host devices with static default routes
+      - BGP network advertisements for LAN subnets
+
+    # Router 1 (D1) configuration - extends test 001 config
+    router1:
+      # SVI interface already configured in test 001
+      svi_interface: "Vlan100"    # Already has 10.10.10.1/24 from test 001
+      svi_ip: "10.10.10.1"        # From test 001
+      svi_subnet: "24"            # From test 001
+
+      # LAN interface connecting to Host1 (NEW for test 003)
+      lan_interface: "Ethernet16"  # Connected to vs_sonic_3 Ethernet0
+      lan_ip: "192.0.2.1"
+      lan_subnet: "24"
+      lan_network: "192.0.2.0/24"  # Network to advertise via BGP
+
+      # BGP configuration from test 001
+      bgp_asn: 65001              # From test 001
+      router_id: "1.1.1.1"        # From test 001
+      neighbor_ip: "10.10.10.2"   # From test 001
+      remote_asn: 65001           # From test 001
+
+    # Router 2 (D2) configuration - extends test 001 config
+    router2:
+      # SVI interface already configured in test 001
+      svi_interface: "Vlan100"    # Already has 10.10.10.2/24 from test 001
+      svi_ip: "10.10.10.2"        # From test 001
+      svi_subnet: "24"            # From test 001
+
+      # LAN interface connecting to Host2 (NEW for test 003)
+      lan_interface: "Ethernet16"  # Connected to vs_sonic_4 Ethernet16
+      lan_ip: "198.51.100.1"
+      lan_subnet: "24"
+      lan_network: "198.51.100.0/24"  # Network to advertise via BGP
+
+      # BGP configuration from test 001
+      bgp_asn: 65001              # From test 001
+      router_id: "2.2.2.2"        # From test 001
+      neighbor_ip: "10.10.10.1"   # From test 001
+      remote_asn: 65001           # From test 001
+
+    # Host 1 (vs_sonic_3) configuration (NEW for test 003)
+    host1:
+      device: "vs_sonic_3"
+      interface: "Ethernet0"       # Connected to D1 Ethernet16
+      ip: "192.0.2.10"
+      subnet: "24"
+      gateway: "192.0.2.1"         # Router1 LAN IP
+
+    # Host 2 (vs_sonic_4) configuration (NEW for test 003)
+    host2:
+      device: "vs_sonic_4"
+      interface: "Ethernet16"      # Connected to D2 Ethernet16
+      ip: "198.51.100.10"
+      subnet: "24"
+      gateway: "198.51.100.1"      # Router2 LAN IP
+
+    # Traffic configuration for host-to-host testing
+    traffic:
+      duration: 10          # Traffic duration in seconds
+      pps: 100              # Packets per second
+      payload_size: 200     # Payload size in bytes
+      type: "icmp"          # Traffic type: icmp for end-to-end testing
+
+    # Expected verification results
+    verification:
+      # BGP route verification
+      bgp_routes_expected: 1        # Each router should learn 1 route from peer
+      route_protocol: "B"           # BGP routes marked with "B" in routing table
+
+      # Routing table verification
+      router1_should_learn: "198.51.100.0/24"  # R1 should learn R2's LAN network
+      router2_should_learn: "192.0.2.0/24"     # R2 should learn R1's LAN network
+      next_hop_r1: "10.10.10.2"                # Next hop for R1 (using test 001 SVI IP)
+      next_hop_r2: "10.10.10.1"                # Next hop for R2 (using test 001 SVI IP)
+
+      # Host-to-host connectivity
+      host1_ping_host2: "198.51.100.10"        # H1 should ping H2
+      host2_ping_host1: "192.0.2.10"           # H2 should ping H1
+
+      # Traffic verification
+      min_packets_expected: 900     # Minimum packets for traffic validation (90%)
+
+      # BGP session verification (reuse from test 001)
+      bgp_session_checks:
+        - dut: "D1"
+          neighbor_ip: "10.10.10.2"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+        - dut: "D2"
+          neighbor_ip: "10.10.10.1"
+          expected_state: "Established"
+          remote_asn: 65001
+          address_family: "ipv4"
+
+# ============================================================================
+# Cleanup Configuration
+# ============================================================================
+cleanup:
+  # Remove BGP neighbors first
+  bgp_neighbors:
+    - dut: "D1"
+      local_asn: 65001
+      neighbor_ip: "10.10.10.2"
+    - dut: "D2"
+      local_asn: 65001
+      neighbor_ip: "10.10.10.1"
+
+  # Remove BGP router instance
+  bgp_routers:
+    - dut: "D1"
+      local_asn: 65001
+    - dut: "D2"
+      local_asn: 65001
+
+  # Remove SVI IP addresses
+  svi_interfaces:
+    - dut: "D1"
+      interface: "Vlan100"
+    - dut: "D2"
+      interface: "Vlan100"
+
+  # Remove VLAN member interfaces
+  vlan_members:
+    - dut: "D1"
+      vlan_id: 100
+      interface: "{{D1D2P1}}"
+    - dut: "D2"
+      vlan_id: 100
+      interface: "{{D2D1P1}}"
+
+  # Remove VLANs
+  vlans:
+    - dut: "D1"
+      vlan_id: 100
+    - dut: "D2"
+      vlan_id: 100

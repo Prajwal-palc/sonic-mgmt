@@ -1,0 +1,1635 @@
+# BGP IPv4 Route Advertisement Test Variables - Test ID 3.2.1
+# Variables for testcases validating IPv4 unicast route advertisement to BGP neighbors
+# Reference topology: testbeds/testbed_vs_2node.yaml
+
+defaults:
+  cli_type: klish
+  verify_timeout: 120
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  keepalive: 60
+  hold: 180
+
+# ============================================================================
+# Test ID 3.2.1.1: Basic IPv4 Network Advertisement via network command
+# ============================================================================
+testcases:
+  "3.2.1.1":
+    title: "Basic IPv4 Network Advertisement via network command"
+    description: "Verify basic IPv4 network advertisement from R1 to R2 using network command"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.2: Multiple IPv4 Networks Advertisement
+  # ============================================================================
+  "3.2.1.2":
+    title: "Multiple IPv4 Networks Advertisement"
+    description: "Verify advertisement of multiple IPv4 networks from R1 to R2"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "192.168.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "192.168.3.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.2.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.3.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 3
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.2.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.3.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.3: IPv4 Advertisement with Specific Prefix Length
+  # ============================================================================
+  "3.2.1.3":
+    title: "IPv4 Advertisement with Specific Prefix Length"
+    description: "Verify advertisement of IPv4 networks with various prefix lengths (/32, /30, /24, /16)"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "172.16.0.1"
+        prefix_length: 16
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "192.168.10.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "10.1.1.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback4"
+        ip_address: "1.1.1.1"
+        prefix_length: 32
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "172.16.0.0/16"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.10.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "10.1.1.0/30"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "1.1.1.1/32"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 4
+      - dut: "D2"
+        check_route: "172.16.0.0/16"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.10.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "10.1.1.0/30"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "1.1.1.1/32"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.4: IPv4 Connected Route Redistribution
+  # ============================================================================
+  "3.2.1.4":
+    title: "IPv4 Connected Route Redistribution"
+    description: "Verify advertisement of connected routes via BGP redistribution"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "192.168.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_redistribute"
+        dut: "D1"
+        local_asn: 65001
+        protocol: "connected"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 2
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.2.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.5: IPv4 Static Route Redistribution
+  # ============================================================================
+  "3.2.1.5":
+    title: "IPv4 Static Route Redistribution"
+    description: "Verify advertisement of static routes via BGP redistribution"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "static_route"
+        dut: "D1"
+        destination: "203.0.113.0/24"
+        next_hop: "Null0"
+        family: "ipv4"
+      - type: "static_route"
+        dut: "D1"
+        destination: "198.51.100.0/24"
+        next_hop: "Null0"
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_redistribute"
+        dut: "D1"
+        local_asn: 65001
+        protocol: "static"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 2
+      - dut: "D2"
+        check_route: "203.0.113.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "198.51.100.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.6: iBGP IPv4 Route Advertisement (Same AS)
+  # ============================================================================
+  "3.2.1.6":
+    title: "iBGP IPv4 Route Advertisement (Same AS)"
+    description: "Verify IPv4 route advertisement in iBGP scenario with same AS numbers"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.7: IPv4 Advertisement with BGP Attributes (MED, Local Pref)
+  # ============================================================================
+  "3.2.1.7":
+    title: "IPv4 Advertisement with BGP Attributes (MED, Local Pref)"
+    description: "Verify IPv4 routes advertised with modified BGP attributes using route-map"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "route_map"
+        dut: "D1"
+        name: "SET_MED"
+        action: "permit"
+        sequence: 10
+        set_metric: 100
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+        route_map_out: "SET_MED"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.8: IPv4 Advertisement with AS-PATH Prepending
+  # ============================================================================
+  "3.2.1.8":
+    title: "IPv4 Advertisement with AS-PATH Prepending"
+    description: "Verify IPv4 routes advertised with AS-PATH prepending for path manipulation"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "route_map"
+        dut: "D1"
+        name: "PREPEND_AS"
+        action: "permit"
+        sequence: 10
+        set_as_path_prepend: "65001 65001 65001"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+        route_map_out: "PREPEND_AS"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.9: IPv4 Advertisement with Community Attributes
+  # ============================================================================
+  "3.2.1.9":
+    title: "IPv4 Advertisement with Community Attributes"
+    description: "Verify IPv4 routes advertised with BGP community attributes"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "route_map"
+        dut: "D1"
+        name: "SET_COMMUNITY"
+        action: "permit"
+        sequence: 10
+        set_community: "65001:100"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+        route_map_out: "SET_COMMUNITY"
+        send_community: "standard"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.10: Bidirectional IPv4 Route Advertisement
+  # ============================================================================
+  "3.2.1.10":
+    title: "Bidirectional IPv4 Route Advertisement"
+    description: "Verify bidirectional IPv4 route advertisement between R1 and R2"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D2"
+        loopback: "Loopback1"
+        ip_address: "192.168.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D2"
+        local_asn: 65002
+        prefix: "192.168.2.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D1"
+        check_route: "192.168.2.0/24"
+        next_hop: "10.0.0.2"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.11: IPv4 Advertisement with Next-Hop-Self
+  # ============================================================================
+  "3.2.1.11":
+    title: "IPv4 Advertisement with Next-Hop-Self"
+    description: "Verify IPv4 route advertisement with next-hop-self configuration"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65001
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65001
+        family: "ipv4"
+        next_hop_self: true
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.12: IPv4 Advertisement Filtering with Prefix-List
+  # ============================================================================
+  "3.2.1.12":
+    title: "IPv4 Advertisement Filtering with Prefix-List"
+    description: "Verify selective IPv4 route advertisement using outbound prefix-list filtering"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "192.168.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "prefix_list"
+        dut: "D1"
+        name: "ALLOW_ONLY_1"
+        family: "ipv4"
+        action: "permit"
+        sequence: 10
+        prefix: "192.168.1.0/24"
+      - type: "prefix_list"
+        dut: "D1"
+        name: "ALLOW_ONLY_1"
+        family: "ipv4"
+        action: "deny"
+        sequence: 20
+        prefix: "0.0.0.0/0"
+        le: 32
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+        prefix_list_out: "ALLOW_ONLY_1"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.2.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 1
+        prefix_count_max: 1
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.2.0/24"
+        family: "ipv4"
+        expected: "absent"
+
+  # ============================================================================
+  # Test ID 3.2.1.13: IPv4 Advertisement with Route-Map Filtering
+  # ============================================================================
+  "3.2.1.13":
+    title: "IPv4 Advertisement with Route-Map Filtering"
+    description: "Verify selective IPv4 route advertisement using route-map with match conditions"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "172.16.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "172.16.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "172.16.3.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "prefix_list"
+        dut: "D1"
+        name: "MATCH_172_16_1"
+        family: "ipv4"
+        action: "permit"
+        sequence: 10
+        prefix: "172.16.1.0/24"
+      - type: "route_map"
+        dut: "D1"
+        name: "FILTER_ROUTES"
+        action: "permit"
+        sequence: 10
+        match_prefix_list: "MATCH_172_16_1"
+      - type: "route_map"
+        dut: "D1"
+        name: "FILTER_ROUTES"
+        action: "deny"
+        sequence: 20
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+        route_map_out: "FILTER_ROUTES"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "172.16.1.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "172.16.2.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "172.16.3.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 1
+        prefix_count_max: 1
+      - dut: "D2"
+        check_route: "172.16.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "172.16.2.0/24"
+        family: "ipv4"
+        expected: "absent"
+      - dut: "D2"
+        check_route: "172.16.3.0/24"
+        family: "ipv4"
+        expected: "absent"
+
+  # ============================================================================
+  # Test ID 3.2.1.14: IPv4 Default Route Advertisement
+  # ============================================================================
+  "3.2.1.14":
+    title: "IPv4 Default Route Advertisement"
+    description: "Verify IPv4 default route (0.0.0.0/0) advertisement via BGP"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "static_route"
+        dut: "D1"
+        destination: "0.0.0.0/0"
+        next_hop: "Null0"
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "0.0.0.0/0"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "0.0.0.0/0"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.15: Negative - IPv4 Advertisement without Route in RIB
+  # ============================================================================
+  "3.2.1.15":
+    title: "Negative - IPv4 Advertisement without Route in RIB"
+    description: "Verify IPv4 network command fails to advertise when route not in RIB"
+    cli_type: "klish"
+    test_type: "negative"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "203.0.113.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 0
+        prefix_count_max: 0
+      - dut: "D2"
+        check_route: "203.0.113.0/24"
+        family: "ipv4"
+        expected: "absent"
+
+  # ============================================================================
+  # Test ID 3.2.1.16: IPv4 Advertisement with Aggregation (Summary)
+  # ============================================================================
+  "3.2.1.16":
+    title: "IPv4 Advertisement with Aggregation (Summary)"
+    description: "Verify IPv4 aggregate/summary route advertisement via BGP"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "192.168.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "192.168.3.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.2.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.3.0/24"
+        family: "ipv4"
+      - type: "bgp_aggregate"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.0.0/22"
+        family: "ipv4"
+        summary_only: true
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 1
+        prefix_count_max: 1
+      - dut: "D2"
+        check_route: "192.168.0.0/22"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        family: "ipv4"
+        expected: "absent"
+
+  # ============================================================================
+  # Test ID 3.2.1.17: IPv4 Advertisement Dynamic Route Withdrawal
+  # ============================================================================
+  "3.2.1.17":
+    title: "IPv4 Advertisement Dynamic Route Withdrawal"
+    description: "Verify dynamic route withdrawal when network command or route is removed"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+    teardown_actions:
+      - type: "bgp_network_remove"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify_after_teardown:
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        family: "ipv4"
+        expected: "absent"
+
+  # ============================================================================
+  # Test ID 3.2.1.18: IPv6 Unicast Route Advertisement (Basic)
+  # ============================================================================
+  "3.2.1.18":
+    title: "IPv6 Unicast Route Advertisement (Basic)"
+    description: "Verify basic IPv6 unicast route advertisement via BGP"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:10::1"
+        prefix_length: 64
+        family: "ipv6"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "2001:db8:10::2"
+        prefix_length: 64
+        family: "ipv6"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "2001:db8:1::1"
+        prefix_length: 64
+        family: "ipv6"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "2001:db8:10::2"
+        remote_asn: 65002
+        family: "ipv6"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "2001:db8:10::1"
+        remote_asn: 65001
+        family: "ipv6"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "2001:db8:1::/64"
+        family: "ipv6"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "2001:db8:10::2"
+        family: "ipv6"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "2001:db8:10::1"
+        family: "ipv6"
+        state: "Established"
+      - dut: "D2"
+        check_route: "2001:db8:1::/64"
+        next_hop: "2001:db8:10::1"
+        family: "ipv6"
+        expected: "present"
+
+  # ============================================================================
+  # Test ID 3.2.1.19: IPv4 Advertisement with Maximum Prefix Limit
+  # ============================================================================
+  "3.2.1.19":
+    title: "IPv4 Advertisement with Maximum Prefix Limit"
+    description: "Verify BGP behavior when maximum prefix limit is configured and reached"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback2"
+        ip_address: "192.168.2.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback3"
+        ip_address: "192.168.3.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+        max_prefix: 2
+        max_prefix_warning_only: true
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.2.0/24"
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.3.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+        prefix_count_min: 3
+
+  # ============================================================================
+  # Test ID 3.2.1.20: IPv4 Advertisement with Route Refresh
+  # ============================================================================
+  "3.2.1.20":
+    title: "IPv4 Advertisement with Route Refresh"
+    description: "Verify IPv4 route advertisement behavior with BGP route refresh capability"
+    cli_type: "klish"
+    setup:
+      - type: "interface"
+        dut: "D1"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.1"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "interface"
+        dut: "D2"
+        interface: "Ethernet4"
+        ip_address: "10.0.0.2"
+        prefix_length: 30
+        family: "ipv4"
+      - type: "loopback"
+        dut: "D1"
+        loopback: "Loopback1"
+        ip_address: "192.168.1.1"
+        prefix_length: 24
+        family: "ipv4"
+      - type: "bgp_router"
+        dut: "D1"
+        local_asn: 65001
+        router_id: "1.1.1.1"
+      - type: "bgp_router"
+        dut: "D2"
+        local_asn: 65002
+        router_id: "2.2.2.2"
+      - type: "bgp_neighbor"
+        dut: "D1"
+        local_asn: 65001
+        neighbor_ip: "10.0.0.2"
+        remote_asn: 65002
+        family: "ipv4"
+      - type: "bgp_neighbor"
+        dut: "D2"
+        local_asn: 65002
+        neighbor_ip: "10.0.0.1"
+        remote_asn: 65001
+        family: "ipv4"
+      - type: "bgp_network"
+        dut: "D1"
+        local_asn: 65001
+        prefix: "192.168.1.0/24"
+        family: "ipv4"
+    verify:
+      - dut: "D1"
+        neighbor_ip: "10.0.0.2"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"
+    actions:
+      - type: "bgp_route_refresh"
+        dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+    verify_after_action:
+      - dut: "D2"
+        neighbor_ip: "10.0.0.1"
+        family: "ipv4"
+        state: "Established"
+      - dut: "D2"
+        check_route: "192.168.1.0/24"
+        next_hop: "10.0.0.1"
+        family: "ipv4"
+        expected: "present"

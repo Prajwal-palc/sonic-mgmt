@@ -1,0 +1,260 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+  source_dut: "D1"
+  peer_dut: "D2"
+  supported_platforms:
+    - HW
+    - Virtual
+
+interfaces:
+  D1:
+    transit:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:1::1/64"
+      ipv6_link_local: "fe80::1"
+  D2:
+    transit:
+      name: "Ethernet4"
+      ipv6_address: "2001:db8:1::2/64"
+      ipv6_link_local: "fe80::2"
+    edge:
+      name: "Loopback0"
+      ipv6_address: "2001:db8:100::1/128"
+
+vrf:
+  name: "BLUE"
+  description: "Test VRF for IPv6 blackhole route validation"
+
+track_object:
+  id: 1
+  type: "interface"
+  interface: "Ethernet4"
+  state: "line-protocol"
+
+# Multiple static route types for comprehensive testing
+routes:
+  basic_nexthop:
+    dut: "D1"
+    destination: "2001:db8:200::/64"
+    next_hop: "2001:db8:1::2"
+    vrf: null
+    description: "Basic IPv6 static route with next-hop"
+    verify:
+      ip_address: "2001:db8:200::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+    test_target: "2001:db8:200::1"
+
+  interface_only:
+    dut: "D1"
+    destination: "2001:db8:201::/64"
+    interface: "Ethernet4"
+    vrf: null
+    description: "Static route with outgoing interface only"
+    verify:
+      ip_address: "2001:db8:201::/64"
+      type: "S"
+    test_target: "2001:db8:201::1"
+
+  interface_and_nexthop:
+    dut: "D1"
+    destination: "2001:db8:202::/64"
+    next_hop: "2001:db8:1::2"
+    interface: "Ethernet4"
+    vrf: null
+    description: "Static route with both interface and next-hop"
+    verify:
+      ip_address: "2001:db8:202::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+    test_target: "2001:db8:202::1"
+
+  blackhole:
+    dut: "D1"
+    destination: "2001:db8:203::/64"
+    next_hop: "blackhole"
+    vrf: null
+    description: "Blackhole route - traffic should be silently dropped"
+    verify:
+      ip_address: "2001:db8:203::/64"
+      type: "S"
+      blackhole: true
+    test_target: "2001:db8:203::1"
+    expected_ping_result: false
+
+  with_tag:
+    dut: "D1"
+    destination: "2001:db8:204::/64"
+    next_hop: "2001:db8:1::2"
+    tag: 100
+    vrf: null
+    description: "Static route with tag attribute"
+    verify:
+      ip_address: "2001:db8:204::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      tag: 100
+    test_target: "2001:db8:204::1"
+
+  with_preference:
+    dut: "D1"
+    destination: "2001:db8:205::/64"
+    next_hop: "2001:db8:1::2"
+    distance: 200
+    vrf: null
+    description: "Static route with administrative distance/preference"
+    verify:
+      ip_address: "2001:db8:205::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      distance: 200
+    test_target: "2001:db8:205::1"
+
+  with_track:
+    dut: "D1"
+    destination: "2001:db8:206::/64"
+    next_hop: "2001:db8:1::2"
+    track: 1
+    vrf: null
+    description: "Static route with track object (dynamic based on interface state)"
+    verify:
+      ip_address: "2001:db8:206::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      track: 1
+    test_target: "2001:db8:206::1"
+
+  vrf_route:
+    dut: "D1"
+    destination: "2001:db8:207::/64"
+    next_hop: "2001:db8:1::2"
+    vrf: "BLUE"
+    nexthop_vrf: null
+    description: "Static route in VRF BLUE"
+    verify:
+      ip_address: "2001:db8:207::/64"
+      type: "S"
+      nexthop: "2001:db8:1::2"
+      vrf: "BLUE"
+    test_target: "2001:db8:207::1"
+
+# Ping configuration for reachability tests
+pings:
+  basic:
+    dut: "D1"
+    target: "2001:db8:100::1"
+    count: 5
+    family: ipv6
+  blackhole_test:
+    dut: "D1"
+    target: "2001:db8:203::1"
+    count: 5
+    family: ipv6
+    expected_result: false
+
+# Show commands for validation
+show_commands:
+  route_validation:
+    - "show ipv6 route"
+    - "show ipv6 route static"
+    - "show ipv6 route 2001:db8:203::/64"
+    - "show running-config | include ipv6 route"
+  vrf_validation:
+    - "show ipv6 route vrf BLUE"
+    - "show vrf"
+  interface_validation:
+    - "show ipv6 interface brief"
+    - "show interfaces Ethernet4"
+  traffic_validation:
+    - "show ipv6 traffic"
+    - "show ipv6 neighbors"
+  track_validation:
+    - "show track"
+  privileged_validation:
+    - 'sudo vtysh -c "show ipv6 route"'
+    - 'sudo vtysh -c "show ipv6 route vrf BLUE"'
+    - 'sudo ip -6 route show'
+    - 'sudo traceroute6 2001:db8:203::1'
+    - 'sudo traceroute6 2001:db8:100::1'
+
+test_scenarios:
+  TC-IP-STATIC-IPV6-006:
+    name: "Configure and verify IPv6 Static Route – Blackhole CLI"
+    description: "Validate IPv6 static routes with blackhole, track, tag, preference, and VRF"
+    phases:
+      - name: "Interface and Base Configuration"
+        steps:
+          - "Configure IPv6 addressing on transit interfaces"
+          - "Configure loopback interface on DUT2"
+          - "Create VRF BLUE on both DUTs"
+          - "Configure track object"
+          - "Verify interface status and IPv6 neighbor discovery"
+
+      - name: "Multiple Route Type Configuration"
+        steps:
+          - "Configure basic next-hop route (2001:db8:200::/64)"
+          - "Configure interface-only route (2001:db8:201::/64)"
+          - "Configure interface + next-hop route (2001:db8:202::/64)"
+          - "Configure blackhole route (2001:db8:203::/64)"
+          - "Configure route with tag (2001:db8:204::/64)"
+          - "Configure route with preference (2001:db8:205::/64)"
+          - "Configure route with track object (2001:db8:206::/64)"
+          - "Configure VRF route (2001:db8:207::/64)"
+
+      - name: "Route Installation Verification"
+        steps:
+          - "Verify all routes installed in routing table"
+          - "Verify blackhole route has blackhole attribute"
+          - "Verify VRF route isolation"
+          - "Verify tag and preference attributes"
+
+      - name: "Blackhole Traffic Validation"
+        steps:
+          - "Test traffic to blackhole destination"
+          - "Verify 100% packet loss"
+          - "Verify no ICMP unreachable messages"
+          - "Verify traffic counters"
+
+      - name: "Track Object Dynamic Behavior"
+        steps:
+          - "Verify track object status (UP)"
+          - "Verify route with track is installed"
+          - "Shutdown tracked interface"
+          - "Verify track object status (DOWN)"
+          - "Verify route removal"
+          - "Re-enable interface"
+          - "Verify route reinstallation"
+
+      - name: "CLI Consistency Validation"
+        steps:
+          - "Verify routes via klish CLI"
+          - "Verify routes via vtysh"
+          - "Verify routes in kernel routing table"
+          - "Verify VRF isolation"
+
+      - name: "Route Disable/Enable Testing"
+        steps:
+          - "Remove blackhole route"
+          - "Verify route removal"
+          - "Re-add blackhole route"
+          - "Verify route restoration"
+
+      - name: "Interface-Level Control"
+        steps:
+          - "Shutdown transit interface"
+          - "Verify interface-based routes inactive"
+          - "Re-enable interface"
+          - "Verify route recovery"
+
+    expected_results:
+      - "All 8 route types install successfully"
+      - "Blackhole route drops traffic silently (no ICMP)"
+      - "Track object dynamically controls route"
+      - "VRF isolation maintained"
+      - "Tag and preference visible and functional"
+      - "CLI consistency across klish/vtysh/kernel"
+      - "Interface control affects routes correctly"

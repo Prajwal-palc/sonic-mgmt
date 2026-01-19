@@ -1,0 +1,109 @@
+# Testbed Configuration for IS-CLI Drop 1 Testing
+# Location: ./testbeds/testbed_iscli_custom.yaml
+# Hardware Devices:
+#   HW 8011: 192.168.100.202 (admin/sonic@123)
+#   HW 8010: 192.168.100.63 (admin/sonic@123)
+# Usage: ./bin/spytest --testbed ./testbeds/testbed_iscli_custom.yaml ...
+
+# Topology
+topology:
+  DUT1:
+    type: sonic
+    device_type: sonic
+
+# Devices Configuration
+devices:
+  DUT1:
+    # Device Type
+    device_type: sonic
+    alias: sonic_dut1
+
+    # Management IP and Connection (HW 8011 - HARDWARE DEVICE)
+    managementip: 192.168.100.202
+    username: admin
+    password: sonic@123
+
+    # SSH Connection Parameters
+    protocol: ssh
+    port: 22
+
+    # Device Properties (HARDWARE)
+    hwsku: Force10-S6000
+    platform: x86_64-kvm_x86_64-r0
+
+    # Interface naming
+    ifname_type: native
+
+    # Login credentials (alternative format)
+    credentials:
+      default:
+        username: admin
+        password: sonic@123
+      root:
+        username: root
+        password: sonic@123
+
+    # Ports/Interfaces (if needed for testing)
+    ports:
+      - Ethernet0
+      - Ethernet4
+      - Ethernet8
+      - Ethernet12
+
+  # Secondary DUT (HW 8010 - HARDWARE DEVICE)
+  DUT2:
+    device_type: sonic
+    alias: sonic_dut2
+    managementip: 192.168.100.63
+    username: admin
+    password: sonic@123
+    protocol: ssh
+    port: 22
+    hwsku: Force10-S6000
+    platform: x86_64-kvm_x86_64-r0
+    ifname_type: native
+    credentials:
+      default:
+        username: admin
+        password: sonic@123
+      root:
+        username: root
+        password: sonic@123
+    ports:
+      - Ethernet0
+      - Ethernet4
+      - Ethernet8
+      - Ethernet12
+
+# Parameters
+params:
+  # Test execution parameters
+  cli_type: click  # or klish for IS-CLI
+
+  # Feature-specific parameters
+  features:
+    platform:
+      test_virtual_switch: false  # Testing on HARDWARE (HW 8011 & HW 8010)
+    ztp:
+      enabled: true
+    ntp:
+      test_servers:
+        - 216.239.35.12
+      test_pools:
+        - 1.pool.ntp.org
+    clear_arp:
+      test_stability: true
+
+# Global test parameters
+test_params:
+  skip_init_config: true
+  skip_load_config: false
+  ifname_type: native
+
+# Links (if topology requires connections)
+# links:
+#   DUT1:
+#     - name: link1
+#       local_port: Ethernet0
+#       peer_device: DUT2
+#       peer_port: Ethernet0

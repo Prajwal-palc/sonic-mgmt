@@ -1,0 +1,400 @@
+# BGP VRF Route Isolation Test Variables
+# Topology: testbed_vs_2node.yaml (2 DUTs)
+#
+# Devices:
+#   D1: smic_sonic1 (192.168.100.151)
+#   D2: smic_sonic2 (192.168.100.240)
+#   Link: D1:Ethernet4 <-> D2:Ethernet4
+
+defaults:
+  cli_type_config: klish
+  cli_type_show: click
+  verify_timeout: 90
+  cleanup: true
+  min_topology:
+    - "D1D2:1"
+
+# Common test configuration
+common:
+  # Interface configuration
+  interfaces:
+    d1_d2_link:
+      dut: D1
+      interface: Ethernet4
+      ip_address: 10.0.0.1/30
+    d2_d1_link:
+      dut: D2
+      interface: Ethernet4
+      ip_address: 10.0.0.2/30
+
+  # VRF names
+  vrf_names:
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+
+  # BGP AS numbers
+  as_numbers:
+    d1_as: 65001
+    d2_as: 65002
+
+  # Test prefixes
+  prefixes:
+    ipv4:
+      vrf_a_prefix: 10.10.10.0/24
+      vrf_b_prefix: 10.20.20.0/24
+      overlap_prefix: 10.10.10.0/24
+      global_prefix: 172.16.0.0/16
+      rt_test_prefix: 10.100.100.0/24
+    ipv6:
+      vrf_a_prefix: 2001:db8:10::/64
+      vrf_b_prefix: 2001:db8:20::/64
+
+  # Route-target values (for MP-BGP tests)
+  route_targets:
+    rt_100: "65001:100"
+    rt_200: "65001:200"
+    rt_999: "65001:999"
+
+# Testcase-specific configurations
+testcases:
+  "5.1.1.1":
+    title: "Basic VRF isolation (separate RIBs) - IPv4"
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+    prefix_a: 10.10.10.0/24
+    prefix_b: 10.20.20.0/24
+
+    # BGP configuration for VRF_A on D1
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      router_id: 10.0.1.1
+      neighbors:
+        - ip: 10.1.1.2
+          remote_asn: 65002
+      networks:
+        - 10.10.10.0/24
+
+    # BGP configuration for VRF_B on D1
+    bgp_config_b:
+      dut: D1
+      vrf: VRF_B
+      local_asn: 65001
+      router_id: 10.0.1.2
+      neighbors:
+        - ip: 10.2.2.2
+          remote_asn: 65002
+      networks:
+        - 10.20.20.0/24
+
+    # Verification parameters
+    verify:
+      vrf_a:
+        should_contain:
+          - 10.10.10.0/24
+        should_not_contain:
+          - 10.20.20.0/24
+      vrf_b:
+        should_contain:
+          - 10.20.20.0/24
+        should_not_contain:
+          - 10.10.10.0/24
+
+  "5.1.1.2":
+    title: "VRF isolation - IPv6"
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+    prefix_a: 2001:db8:10::/64
+    prefix_b: 2001:db8:20::/64
+
+    # BGP IPv6 configuration for VRF_A on D1
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      router_id: 10.0.1.1
+      address_family: ipv6
+      neighbors:
+        - ip: 2001:db8:1::2
+          remote_asn: 65002
+      networks:
+        - 2001:db8:10::/64
+
+    # BGP IPv6 configuration for VRF_B on D1
+    bgp_config_b:
+      dut: D1
+      vrf: VRF_B
+      local_asn: 65001
+      router_id: 10.0.1.2
+      address_family: ipv6
+      neighbors:
+        - ip: 2001:db8:2::2
+          remote_asn: 65002
+      networks:
+        - 2001:db8:20::/64
+
+    verify:
+      vrf_a:
+        should_contain:
+          - 2001:db8:10::/64
+        should_not_contain:
+          - 2001:db8:20::/64
+      vrf_b:
+        should_contain:
+          - 2001:db8:20::/64
+        should_not_contain:
+          - 2001:db8:10::/64
+
+  "5.1.1.3":
+    title: "VRF import/export using route-target (RT)"
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+    test_prefix: 10.100.100.0/24
+    route_target_export: "65001:100"
+    route_target_import: "65001:100"
+
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      router_id: 10.0.1.1
+      route_target_export: "65001:100"
+      networks:
+        - 10.100.100.0/24
+
+    bgp_config_b:
+      dut: D1
+      vrf: VRF_B
+      local_asn: 65001
+      router_id: 10.0.1.2
+      route_target_import: "65001:100"
+
+    verify:
+      phase1:
+        description: "Before RT import configured"
+        vrf_b_should_not_contain:
+          - 10.100.100.0/24
+      phase2:
+        description: "After RT import configured"
+        vrf_b_should_contain:
+          - 10.100.100.0/24
+
+  "5.1.1.4":
+    title: "Global routing table isolation from VRFs"
+    vrf_a: VRF_A
+    global_prefix: 172.16.0.0/16
+    global_nexthop: 10.0.0.2
+
+    verify:
+      global_table:
+        should_contain:
+          - 172.16.0.0/16
+      vrf_a:
+        should_not_contain:
+          - 172.16.0.0/16
+
+  "5.1.1.5":
+    title: "Route-map induced leak attempt (negative)"
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+    route_map_name: RM_LEAK_TEST
+    test_prefix: 10.20.20.0/24
+
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      neighbors:
+        - ip: 10.1.1.2
+          remote_asn: 65002
+          route_map_in: RM_LEAK_TEST
+
+    verify:
+      vrf_a:
+        should_not_contain:
+          - 10.20.20.0/24  # VRF_B prefix should not leak
+
+  "5.1.1.6":
+    title: "Overlapping prefixes in different VRFs"
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+    overlap_prefix: 10.10.10.0/24
+    nexthop_a: 10.1.1.2
+    nexthop_b: 10.2.2.2
+
+    static_routes:
+      vrf_a_route:
+        dut: D1
+        vrf: VRF_A
+        destination: 10.10.10.0/24
+        next_hop: 10.1.1.2
+      vrf_b_route:
+        dut: D1
+        vrf: VRF_B
+        destination: 10.10.10.0/24
+        next_hop: 10.2.2.2
+
+    verify:
+      vrf_a:
+        prefix: 10.10.10.0/24
+        expected_nexthop: 10.1.1.2
+      vrf_b:
+        prefix: 10.10.10.0/24
+        expected_nexthop: 10.2.2.2
+
+  "5.1.1.7":
+    title: "VRF to global redistribution (negative)"
+    vrf_a: VRF_A
+    test_prefix: 10.10.10.0/24
+
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      networks:
+        - 10.10.10.0/24
+
+    verify:
+      phase1:
+        description: "Without redistribute - no leak"
+        global_table:
+          should_not_contain:
+            - 10.10.10.0/24
+      phase2:
+        description: "With explicit redistribute - controlled leak"
+        global_table:
+          should_contain:
+            - 10.10.10.0/24
+
+  "5.1.1.8":
+    title: "VRF persistence across config save & reload"
+    vrf_a: VRF_A
+    vrf_b: VRF_B
+    test_prefix_a: 10.10.10.0/24
+    test_prefix_b: 10.20.20.0/24
+    reboot_type: warm  # or cold
+
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      networks:
+        - 10.10.10.0/24
+
+    bgp_config_b:
+      dut: D1
+      vrf: VRF_B
+      local_asn: 65001
+      networks:
+        - 10.20.20.0/24
+
+    verify:
+      post_reboot:
+        vrfs_should_exist:
+          - VRF_A
+          - VRF_B
+        vrf_a:
+          should_contain:
+            - 10.10.10.0/24
+          should_not_contain:
+            - 10.20.20.0/24
+        vrf_b:
+          should_contain:
+            - 10.20.20.0/24
+          should_not_contain:
+            - 10.10.10.0/24
+
+  "5.1.1.9":
+    title: "Diagnostics: MP-BGP NLRI attributes capture"
+    vrf_a: VRF_A
+    test_prefix: 10.100.100.0/24
+    capture_interface: Ethernet4
+    capture_file: /tmp/vrf_bgp.pcap
+
+    bgp_config_a:
+      dut: D1
+      vrf: VRF_A
+      local_asn: 65001
+      route_target_export: "65001:100"
+      route_distinguisher: "65001:1"
+      networks:
+        - 10.100.100.0/24
+
+    verify:
+      capture:
+        check_nlri: true
+        check_rd: true
+        check_rt: true
+        expected_rd: "65001:1"
+        expected_rt: "65001:100"
+
+# Additional helper configurations
+helpers:
+  # Interface configurations for VRF binding
+  interface_configs:
+    vrf_a_interface:
+      dut: D1
+      interface: Ethernet8
+      vrf: VRF_A
+      ip_address: 10.1.1.1/30
+
+    vrf_b_interface:
+      dut: D1
+      interface: Ethernet12
+      vrf: VRF_B
+      ip_address: 10.2.2.1/30
+
+  # Loopback interfaces for testing
+  loopbacks:
+    vrf_a_loopback:
+      dut: D1
+      interface: Loopback10
+      vrf: VRF_A
+      ip_address: 10.100.1.1/32
+
+    vrf_b_loopback:
+      dut: D1
+      interface: Loopback20
+      vrf: VRF_B
+      ip_address: 10.100.2.1/32
+
+  # Static null routes for prefix advertisement
+  null_routes:
+    - dut: D1
+      vrf: VRF_A
+      destination: 10.10.10.0/24
+      next_hop: Null0
+
+    - dut: D1
+      vrf: VRF_B
+      destination: 10.20.20.0/24
+      next_hop: Null0
+
+# Validation timeouts (seconds)
+timeouts:
+  vrf_creation: 10
+  bgp_neighbor_up: 60
+  route_installation: 30
+  route_withdrawal: 30
+  config_save: 30
+  reboot_timeout: 600
+  post_reboot_stabilization: 120
+
+# Feature flags
+features:
+  ipv6_support: true
+  mp_bgp_support: false  # Mark true if MP-BGP is available
+  route_target_support: false  # Mark true if RT import/export is available
+  route_map_support: true
+  vrf_import_export_support: false  # Mark true if VRF import/export is available
+  config_persistence: true
+  packet_capture: true
+
+# Platform-specific notes
+platform_notes:
+  - "VRF names are case-sensitive"
+  - "Maximum VRF count may vary by platform"
+  - "Some features require specific SONiC versions"
+  - "MP-BGP features may require additional configuration"
+  - "Reboot tests should be run in controlled environment"

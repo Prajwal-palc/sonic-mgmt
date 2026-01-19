@@ -1,0 +1,356 @@
+# BGP High Prefix Scale Test Variables
+# Test ID: 6.1.1
+# Topology: testbed_vs_2node.yaml (2 DUTs, 1 link)
+
+defaults:
+  # CLI types: use klish for configuration, click for show commands
+  config_cli_type: klish
+  show_cli_type: click
+
+  # Timeout settings
+  verify_timeout: 120
+  convergence_timeout: 600
+
+  # Test behavior
+  cleanup: true
+
+  # Minimum topology requirements
+  min_topology:
+    - "D1D2:1"
+
+  # Resource thresholds
+  thresholds:
+    cpu_percent_warning: 70
+    cpu_percent_critical: 90
+    memory_percent_warning: 75
+    memory_percent_critical: 90
+    fib_programming_success_rate: 0.95
+
+  # Interface configuration
+  interfaces:
+    D1_interface: "Ethernet4"
+    D1_ip: "10.0.24.0/31"
+    D2_interface: "Ethernet4"
+    D2_ip: "10.0.24.1/31"
+
+  # BGP configuration
+  bgp:
+    D1_asn: 65001
+    D1_router_id: "1.1.1.1"
+    D2_asn: 65002
+    D2_router_id: "2.2.2.2"
+
+testcases:
+  # Test 6.1.1.1: Baseline Environment Verification
+  "6.1.1.1":
+    title: "Baseline: verify environment & resource baselines"
+    objective: "Collect CPU, memory and baseline route counts before scale test"
+    description: |
+      Establish baseline metrics for CPU, memory, and route counts before
+      beginning scale injection tests. These baselines will be used for
+      comparison during and after large-scale prefix injection.
+    preconditions:
+      - "Clean system with no prior scale tests"
+      - "BGP not configured yet"
+      - "Access to system metrics"
+    verification:
+      - "Baseline metrics captured successfully"
+      - "CPU usage < 30%"
+      - "Memory usage < 50%"
+      - "No BGP routes present"
+    expected_cpu_baseline: 20
+    expected_memory_baseline: 40
+    timeout_seconds: 300
+
+  # Test 6.1.1.2: Scale Injection - 10k IPv4 Prefixes
+  "6.1.1.2":
+    title: "Scale injection: advertise 10k IPv4 prefixes (control-plane only)"
+    objective: "Inject ≥10,000 IPv4 prefixes and verify BGP RIB growth and stability"
+    description: |
+      Configure DUT2 as a route generator to advertise 10,000 unique IPv4 /24
+      prefixes to DUT1. Monitor control-plane resources (CPU, memory) and verify
+      all routes are accepted into the BGP RIB without session flaps or crashes.
+    preconditions:
+      - "BGP peering established between D1 and D2"
+      - "Baseline metrics captured (6.1.1.1)"
+      - "Interfaces configured and up"
+    configuration:
+      prefix_count: 10000
+      base_prefix: "100.0.0.0"
+      prefix_length: 24
+      advertise_from: "D2"
+      receive_on: "D1"
+    verification:
+      - "BGP session remains Established"
+      - "~10k routes in RIB"
+      - "CPU < 70%"
+      - "Memory < 80%"
+      - "No session flaps"
+    expected_routes: 10000
+    route_tolerance: 100
+    convergence_timeout: 1800
+    timeout_seconds: 3600
+
+  # Test 6.1.1.3: FIB Programming Verification
+  "6.1.1.3":
+    title: "FIB programming: ensure large route set installed into FIB"
+    objective: "Verify routes programmed into FIB and forwarding entries exist"
+    description: |
+      After BGP RIB is populated with 10k routes, verify that a high percentage
+      (>95%) are successfully programmed into the FIB. Sample random prefixes
+      to verify next-hop resolution and data-plane forwarding capability.
+    preconditions:
+      - "Test 6.1.1.2 passed"
+      - "~10k routes in BGP RIB"
+      - "BGP session stable"
+    verification:
+      - "FIB contains >95% of RIB routes"
+      - "Sampled routes show correct next-hop"
+      - "FIB programming completed within acceptable time"
+    sample_size: 100
+    fib_programming_threshold: 0.95
+    max_programming_time_seconds: 600
+    timeout_seconds: 1800
+
+  # Test 6.1.1.4: Incremental Injection Ramp
+  "6.1.1.4":
+    title: "Incremental injection ramp (observe resource scaling)"
+    objective: "Measure resource growth curve and identify tipping points"
+    description: |
+      Inject prefixes in incremental steps (1k, 2k, 5k, 10k, 20k) to observe
+      how CPU, memory, and convergence time scale with increasing route count.
+      Identify any thresholds where performance degrades or instability begins.
+    preconditions:
+      - "BGP peering established"
+      - "Prefix generator supports staged injection"
+      - "Monitoring tools available"
+    configuration:
+      increments: [1000, 2000, 5000, 10000, 20000]
+      base_prefix: "100.0.0.0"
+      prefix_length: 24
+      stabilization_delay_seconds: 60
+      inter_increment_delay_seconds: 30
+    verification:
+      - "Resource utilization scales reasonably"
+      - "All thresholds maintained at each increment"
+      - "No crashes or session flaps"
+      - "Tipping point identified if any"
+    metrics_to_track:
+      - "cpu_usage"
+      - "memory_usage"
+      - "bgp_rib_count"
+      - "fib_count"
+      - "convergence_time"
+    timeout_seconds: 7200
+
+  # Test 6.1.1.5: Withdrawal and Recovery
+  "6.1.1.5":
+    title: "Withdrawal and recovery: mass withdraw of prefixes"
+    objective: "Validate clean RIB/FIB cleanup and resource recovery"
+    description: |
+      Withdraw all previously advertised prefixes and verify that DUT cleanly
+      removes all RIB and FIB entries. Monitor for resource leaks by comparing
+      post-withdrawal CPU and memory to baseline levels.
+    preconditions:
+      - "Routes from previous tests installed"
+      - "Baseline metrics available for comparison"
+    verification:
+      - "All test routes removed from RIB"
+      - "All test routes removed from FIB"
+      - "Resources return to baseline ± 5%"
+      - "No memory leaks detected"
+      - "No errors in logs"
+    withdrawal_timeout: 600
+    recovery_timeout: 300
+    memory_leak_threshold_percent: 5
+    timeout_seconds: 3600
+
+  # Test 6.1.1.6: Route Churn Stress
+  "6.1.1.6":
+    title: "Route churn stress (updates per second) impact"
+    objective: "Measure DUT behavior under high route churn"
+    description: |
+      Repeatedly add and withdraw a subset of prefixes to simulate route churn.
+      Measure maximum sustainable update rate before instability (session flaps,
+      CPU/memory spikes, or control-plane failures) occurs.
+    preconditions:
+      - "BGP peering established"
+      - "Route generator supports rapid updates"
+    configuration:
+      churn_prefix_count: 1000
+      base_prefix: "150.0.0.0"
+      churn_cycles: 5
+      cycle_delay_seconds: 30
+      update_rates_to_test: [100, 500, 1000]
+    verification:
+      - "BGP session remains stable"
+      - "No control-plane OOM"
+      - "Maximum sustainable rate documented"
+    metrics_to_track:
+      - "bgp_session_state"
+      - "update_queue_size"
+      - "cpu_usage"
+      - "memory_usage"
+    timeout_seconds: 7200
+
+  # Test 6.1.1.7: IPv6 Scale
+  "6.1.1.7":
+    title: "IPv6 scale: inject ≥10k IPv6 prefixes"
+    objective: "Validate IPv6 route scale similar to IPv4"
+    description: |
+      Repeat scale injection tests using IPv6 prefixes (≥10k /48 or /64 routes).
+      Verify that DUT handles IPv6 scale similarly to IPv4 within hardware and
+      software capabilities. Test both control-plane and data-plane.
+    preconditions:
+      - "IPv6 addressing configured on link"
+      - "IPv6 BGP peering established"
+      - "Route generator supports IPv6"
+    configuration:
+      ipv6_prefix_count: 10000
+      ipv6_base_prefix: "2001:db8::"
+      ipv6_prefix_length: 48
+      advertise_from: "D2"
+      receive_on: "D1"
+    verification:
+      - "IPv6 RIB grows to expected size"
+      - "Resources within bounds (CPU < 70%, Mem < 80%)"
+      - "Sampled IPv6 forwarding works"
+    expected_routes: 10000
+    route_tolerance: 100
+    timeout_seconds: 3600
+    note: "Requires IPv6 BGP configuration"
+
+  # Test 6.1.1.8: VRF Scale
+  "6.1.1.8":
+    title: "VRF-scale: many prefixes across multiple VRFs"
+    objective: "Test per-VRF RIB/FIB scaling"
+    description: |
+      Create multiple VRFs and distribute prefixes across them (e.g., 10 VRFs
+      with 1k prefixes each = 10k total). Verify per-VRF isolation and aggregate
+      resource scaling. Ensure routes in one VRF do not leak to others.
+    preconditions:
+      - "DUT supports multiple VRFs"
+      - "Test harness can create VRFs"
+    configuration:
+      vrf_count: 10
+      prefixes_per_vrf: 1000
+      base_prefix_per_vrf:
+        VRF1: "101.0.0.0"
+        VRF2: "102.0.0.0"
+        VRF3: "103.0.0.0"
+        VRF4: "104.0.0.0"
+        VRF5: "105.0.0.0"
+        VRF6: "106.0.0.0"
+        VRF7: "107.0.0.0"
+        VRF8: "108.0.0.0"
+        VRF9: "109.0.0.0"
+        VRF10: "110.0.0.0"
+    verification:
+      - "Per-VRF entries present and isolated"
+      - "No route leaks between VRFs"
+      - "Aggregate resources within limits"
+    timeout_seconds: 7200
+    note: "Requires VRF support"
+
+  # Test 6.1.1.9: Persistence and Reboot
+  "6.1.1.9":
+    title: "Persistence & reboot: routes survive control-plane restart"
+    objective: "Verify route persistence and reconvergence after restart"
+    description: |
+      With routes loaded, save configuration and perform control-plane restart
+      (BGP process restart) or full system reboot. Measure reconvergence time
+      and verify routes are restored to pre-restart levels.
+    preconditions:
+      - "Routes loaded from previous tests"
+      - "Configuration saved"
+    configuration:
+      restart_type: "control_plane"  # or "full_reboot"
+      expected_reconvergence_time_seconds: 300
+    verification:
+      - "BGP sessions re-establish"
+      - "Routes reconverge within acceptable time"
+      - "Route count matches pre-restart (± 5%)"
+      - "No crashes during/after restart"
+      - "Resources stable post-restart"
+    restart_types:
+      - control_plane
+      - full_reboot
+    max_reconvergence_time: 600
+    route_count_tolerance_percent: 5
+    timeout_seconds: 3600
+
+  # Test 6.1.1.10: Diagnostics and Logging
+  "6.1.1.10":
+    title: "Diagnostics, logging and failure analysis (pcap & logs)"
+    objective: "Collect diagnostic artifacts for analysis"
+    description: |
+      During or after scale tests, collect comprehensive diagnostic information
+      including BGP traffic captures (tcpdump), system logs, BGP process logs,
+      telemetry data, and core dumps (if crashes occur). Archive with timestamps
+      for correlation with test events.
+    preconditions:
+      - "Storage available for artifacts"
+      - "Logging/telemetry configured"
+    artifacts_to_collect:
+      - "show ip bgp summary"
+      - "show ip bgp count"
+      - "show ip route summary"
+      - "show processes cpu"
+      - "show system-memory"
+      - "show logging | grep -i bgp"
+      - "show tech-support"
+      - "tcpdump on BGP port (tcp/179)"
+      - "/var/log/syslog"
+      - "/var/log/frr/*.log"
+      - "core dumps if any"
+    capture_settings:
+      tcpdump_interface: "Ethernet4"
+      tcpdump_filter: "tcp port 179"
+      capture_duration_seconds: 300
+      log_retention_days: 7
+    verification:
+      - "All artifacts collected successfully"
+      - "Timestamps correlate with test events"
+      - "Sufficient data for root-cause analysis"
+    timeout_seconds: 600
+
+# Additional metadata
+metadata:
+  test_suite: "BGP High Prefix Scale"
+  test_id: "6.1.1"
+  topology: "./testbeds/testbed_vs_2node.yaml"
+  min_sonic_version: "202205"
+  required_features:
+    - BGP
+    - FRR
+
+  notes: |
+    - Adjust prefix counts based on testbed capabilities:
+      * Virtual testbed: 1k-5k prefixes (basic validation)
+      * Hardware testbed: 10k-100k prefixes (production scale)
+
+    - Use external route generators for large-scale testing beyond 2-node limits
+
+    - Always run cleanup to avoid persistent load on DUT
+
+    - Use JSON output where available for deterministic parsing
+
+    - Long-running tests (6.1.1.4, 6.1.1.6, 6.1.1.8) should be scheduled
+      in isolated lab environments with continuous monitoring
+
+    - Platform-specific scale limits may vary; document actual observed limits
+
+    - For production testing, enable full diagnostics collection (tcpdump,
+      telemetry, extended logging) which may impact performance
+
+  scale_limits:
+    virtual_recommended: 5000
+    virtual_maximum: 10000
+    hardware_recommended: 50000
+    hardware_maximum: 100000
+
+  performance_expectations:
+    convergence_time_per_1k_routes: 30
+    fib_programming_time_per_1k_routes: 15
+    max_cpu_during_convergence: 70
+    max_memory_during_convergence: 80
