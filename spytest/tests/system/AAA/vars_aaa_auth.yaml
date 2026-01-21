@@ -1,0 +1,165 @@
+# AAA Authentication & TACACS+ Test Variables
+# Configuration file for tests/system/test_aaa_auth.py
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "001":
+    title: "Enable AAA Authentication Failthrough"
+    description: "Configure AAA authentication failthrough enable and verify"
+    action: "enable_failthrough"
+    verify:
+      failthrough: "True"
+
+  "002":
+    title: "Enable AAA Authentication Fallback"
+    description: "Configure AAA authentication fallback enable and verify"
+    action: "enable_fallback"
+    verify:
+      fallback: "True"
+
+  "003":
+    title: "Set AAA Login Method to TACACS+"
+    description: "Configure AAA authentication login method to tacacs+"
+    action: "set_login_tacacs"
+    verify:
+      login: "tacacs+"
+
+  "101":
+    title: "Configure TACACS+ Global Auth Type"
+    description: "Set TACACS+ authentication type to CHAP"
+    authtype: "chap"
+    verify:
+      authtype: "chap"
+
+  "102":
+    title: "Configure TACACS+ Global Passkey"
+    description: "Set TACACS+ global passkey"
+    passkey: "testsecret123"
+    verify:
+      passkey: "testsecret123"
+
+  "103":
+    title: "Configure TACACS+ Global Timeout"
+    description: "Set TACACS+ timeout to 15 seconds"
+    timeout: "15"
+    verify:
+      timeout: "15"
+
+  "104":
+    title: "Add TACACS+ Server with Full Parameters"
+    description: "Add TACACS+ server 10.10.10.10 with all options"
+    server:
+      ip: "10.10.10.10"
+      authtype: "pap"
+      key: "serversecret"
+      timeout: "10"
+      port: "49"
+      priority: "5"
+    verify:
+      server_present: "10.10.10.10"
+
+  "105":
+    title: "Add TACACS+ Server with Management VRF"
+    description: "Add TACACS+ server 20.20.20.20 using management VRF"
+    server:
+      ip: "20.20.20.20"
+      use_mgmt_vrf: true
+    verify:
+      server_present: "20.20.20.20"
+      vrf: "mgmt"
+
+  "106":
+    title: "Add TACACS+ Server with Minimal Parameters"
+    description: "Add TACACS+ server 30.30.30.30 with minimal configuration"
+    server:
+      ip: "30.30.30.30"
+      authtype: "chap"
+      key: "minimalsecret"
+    verify:
+      server_present: "30.30.30.30"
+
+  "901":
+    title: "NEGATIVE: Invalid AAA Login Method"
+    description: "Verify that invalid AAA authentication login method is rejected"
+    invalid_method: "invalid_auth_method"
+    expect_failure: true
+
+# TACACS+ Authentication Test Configuration
+tacacs_server:
+  ipv4: "192.168.100.175"
+  ipv6: "2001:db8::10"
+  port: 49
+  secret: "spytest_secret123"
+  timeout: 10
+  authtype: "pap"
+
+tacacs_users:
+  admin:
+    username: "tacacsadmin"
+    password: "adminpass123"
+    privilege: 15
+  test:
+    username: "tacacstest"
+    password: "testpass123"
+    privilege: 15
+  readonly:
+    username: "tacacsreadonly"
+    password: "readonly123"
+    privilege: 1
+
+# Authentication test cases
+auth_testcases:
+  "201":
+    title: "Configure IPv4 TACACS+ Server for Authentication"
+    description: "Configure TACACS+ server with IPv4 address and enable authentication"
+    requires_tacacs_server: true
+
+  "202":
+    title: "Configure IPv6 TACACS+ Server for Authentication"
+    description: "Configure TACACS+ server with IPv6 address"
+    requires_tacacs_server: true
+
+  "203":
+    title: "Enable TACACS+ Authentication with Local Fallback"
+    description: "Configure AAA to use TACACS+ with local fallback"
+    requires_tacacs_server: true
+
+  "204":
+    title: "SSH Login with TACACS+ User (Admin Privilege)"
+    description: "Test SSH authentication with TACACS+ admin user"
+    requires_tacacs_server: true
+    user_type: "admin"
+    expect_success: true
+
+  "205":
+    title: "SSH Login with TACACS+ User (Test User)"
+    description: "Test SSH authentication with TACACS+ test user"
+    requires_tacacs_server: true
+    user_type: "test"
+    expect_success: true
+
+  "206":
+    title: "SSH Login with TACACS+ User (Read-only)"
+    description: "Test SSH authentication with TACACS+ read-only user"
+    requires_tacacs_server: true
+    user_type: "readonly"
+    expect_success: true
+
+  "207":
+    title: "NEGATIVE: Invalid TACACS+ Credentials"
+    description: "Verify authentication fails with wrong password"
+    requires_tacacs_server: true
+    user_type: "test"
+    wrong_password: "wrongpassword123"
+    expect_success: false
+
+  "208":
+    title: "Verify TACACS+ Authentication Logs"
+    description: "Check system logs for TACACS+ authentication events"
+    requires_tacacs_server: true
