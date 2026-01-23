@@ -1197,10 +1197,17 @@ class TestNTPSourceInterface:
             st.log("Step 1: Creating VLAN 10")
             vlan_api.create_vlan(dut, vlan_list=["10"])
 
-            # Verify VLAN creation
-            vlan_output = vlan_api.verify_vlan_config(dut, "10", cli_type=cli_type)
-            if not vlan_output:
-                st.report_fail("msg", "Failed to create VLAN 10")
+            # Wait for VLAN creation to complete
+            st.wait(2, "Waiting for VLAN creation to complete")
+
+            # Verify VLAN creation using show command
+            show_vlan_output = st.show(dut, "show Vlan", type=cli_type, skip_tmpl=True)
+            show_vlan_str = str(show_vlan_output)
+
+            if "Vlan10" not in show_vlan_str:
+                st.log(f"⚠ WARNING: Vlan10 not found in show Vlan output")
+                st.log(f"show Vlan output: {show_vlan_str}")
+                st.report_fail("msg", "Failed to create VLAN 10 - not visible in show Vlan")
 
             st.log("✓ VLAN 10 created successfully")
 
@@ -1277,18 +1284,25 @@ class TestNTPSourceInterface:
         finally:
             # Cleanup
             st.log("Cleanup: Removing test configuration")
+
+            # Remove NTP source-interface (if it was set)
             try:
-                # Remove NTP source-interface (if it was set)
                 ntp_api.config_ntp_source_interface(dut, interface="", config="no", cli_type=cli_type)
-
-                # Remove IP from SVI
-                ip_api.delete_ip_interface(dut, "Vlan10", "10.1.1.1", "24", cli_type=cli_type)
-
-                # Delete VLAN
-                vlan_api.delete_vlan(dut, vlan_list=["10"])
-
             except Exception as e:
-                st.log(f"Cleanup warning: {e}")
+                st.log(f"Cleanup warning (NTP source): {e}")
+
+            # Remove IP from SVI (must be done before VLAN deletion)
+            try:
+                ip_api.delete_ip_interface(dut, "Vlan10", "10.1.1.1", "24", cli_type=cli_type)
+                st.wait(1, "Waiting after IP deletion")
+            except Exception as e:
+                st.log(f"Cleanup warning (IP): {e}")
+
+            # Delete VLAN
+            try:
+                vlan_api.delete_vlan(dut, vlan_list=["10"])
+            except Exception as e:
+                st.log(f"Cleanup warning (VLAN): {e}")
 
         st.log("Test completed: SVI source-interface limitation documented")
         st.report_pass("test_case_passed")
