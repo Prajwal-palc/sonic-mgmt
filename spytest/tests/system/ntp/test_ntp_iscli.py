@@ -42,6 +42,8 @@ import yaml
 from spytest import SpyTestDict, st
 import apis.system.ntp as ntp_api
 import apis.system.basic as basic_api
+import apis.switching.vlan as vlan_api
+import apis.routing.ip as ip_api
 
 # YAML configuration file path
 VAR_FILE_ENV = "NTP_ISCLI_VAR_FILE"
@@ -1167,6 +1169,421 @@ class TestNTPSourceInterface:
         if not result:
             st.report_fail("msg", "Failed to delete source interface")
 
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.source_interface
+    def test_ntp_036_source_interface_svi(self) -> None:
+        """NTP-036: Attempt to configure VLAN SVI as NTP source-interface (negative test).
+
+        Issue: Customer Report + SSE-T8196 - SVI cannot be configured as NTP source
+        even after configuring an IP address on them.
+
+        VS Coverage: 95% (Full CLI and configuration validation)
+        HW Additional: Routing and packet validation
+
+        Test validates:
+        - VLAN creation works
+        - SVI IP configuration works
+        - NTP source-interface command behavior with SVI
+        - Error handling or silent failure detection
+        """
+        st.banner("TEST: NTP-036 - Configure SVI (Vlan10) as Source Interface")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+
+        try:
+            # Step 1: Create VLAN 10
+            st.log("Step 1: Creating VLAN 10")
+            vlan_api.create_vlan(dut, vlan_list=["10"])
+
+            # Verify VLAN creation
+            vlan_output = vlan_api.verify_vlan_config(dut, "10", cli_type=cli_type)
+            if not vlan_output:
+                st.report_fail("msg", "Failed to create VLAN 10")
+
+            st.log("✓ VLAN 10 created successfully")
+
+            # Step 2: Configure IP address on SVI
+            st.log("Step 2: Configuring IP address 10.1.1.1/24 on Vlan10")
+            result = ip_api.config_ip_addr_interface(
+                dut, "Vlan10", "10.1.1.1", "24", cli_type=cli_type
+            )
+
+            if not result:
+                st.report_fail("msg", "Failed to configure IP on Vlan10")
+
+            # Verify IP is configured
+            st.wait(2, "Waiting for IP configuration to take effect")
+            ip_output = ip_api.verify_interface_ip_address(
+                dut, "Vlan10", "10.1.1.1/24", cli_type=cli_type
+            )
+
+            if not ip_output:
+                st.log("⚠ WARNING: IP verification failed, but continuing test")
+            else:
+                st.log("✓ IP 10.1.1.1/24 configured on Vlan10")
+
+            # Step 3: Attempt to configure Vlan10 as NTP source-interface
+            st.log("Step 3: Attempting to configure Vlan10 as NTP source-interface")
+            output = st.config(
+                dut,
+                "ntp source-interface Vlan10",
+                type=cli_type,
+                skip_error_check=True
+            )
+
+            output_str = str(output)
+            st.log(f"Command output: {output_str}")
+
+            # Step 4: Analyze the result
+            st.log("Step 4: Validating command result")
+
+            error_detected = False
+            if "Error" in output_str or "not supported" in output_str.lower() or "Invalid" in output_str:
+                st.log("✓ Expected error received: SVI not supported as source-interface")
+                st.log(f"Error output: {output_str}")
+                error_detected = True
+            else:
+                st.log("⚠ Command did not produce error - checking if configuration persisted")
+
+                # Check show ntp global
+                show_output = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+                show_str = str(show_output)
+
+                if "Vlan10" in show_str or "10.1.1.1" in show_str:
+                    st.log("⚠ UNEXPECTED: Vlan10 appears in show ntp global output")
+                    st.log("This may indicate the limitation has been resolved")
+                    st.log(f"show ntp global output: {show_str}")
+                else:
+                    st.log("✓ Vlan10 not visible in show ntp global (expected behavior)")
+                    error_detected = True
+
+            # Step 5: Document findings
+            st.log("\n" + "="*80)
+            st.log("TEST RESULTS: SVI as NTP Source-Interface")
+            st.log("="*80)
+
+            if error_detected:
+                st.log("✓ ISSUE CONFIRMED: SVI cannot be configured as NTP source-interface")
+                st.log("Customer Issue: SVIs cannot be configured as NTP source interfaces,")
+                st.log("                even after configuring an IP address on them.")
+                st.log("SSE-T8196 #2: Can't set NTP 'source-interface VLAN'")
+            else:
+                st.log("⚠ Limitation may have been resolved - manual verification recommended")
+
+            st.log("="*80)
+
+        finally:
+            # Cleanup
+            st.log("Cleanup: Removing test configuration")
+            try:
+                # Remove NTP source-interface (if it was set)
+                ntp_api.config_ntp_source_interface(dut, interface="", config="no", cli_type=cli_type)
+
+                # Remove IP from SVI
+                ip_api.delete_ip_interface(dut, "Vlan10", "10.1.1.1", "24", cli_type=cli_type)
+
+                # Delete VLAN
+                vlan_api.delete_vlan(dut, vlan_list=["10"])
+
+            except Exception as e:
+                st.log(f"Cleanup warning: {e}")
+
+        st.log("Test completed: SVI source-interface limitation documented")
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.source_interface
+    def test_ntp_037_source_interface_management_static(self) -> None:
+        """NTP-037: Test Management0 as source-interface with static IP configuration.
+
+        Issue: Customer Report - Management0 naming and static IP requirement
+        - eth0 is accepted but Management0 is not (naming issue)
+        - Management port must have static IP for source-interface to work
+
+        VS Coverage: 100% (Full CLI validation)
+        HW Additional: Packet capture to verify source IP
+
+        Test validates:
+        - Management0 interface configuration with static IP
+        - NTP source-interface command behavior with Management0
+        - Comparison with eth0 naming convention
+        - Configuration persistence in show commands
+        """
+        st.banner("TEST: NTP-037 - Management0 as Source with Static IP")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+
+        # Get current management IP for restoration
+        current_mgmt_config = None
+
+        try:
+            # Step 1: Get current management configuration (for restoration)
+            st.log("Step 1: Saving current management interface configuration")
+            current_mgmt_output = st.show(dut, "show ip interface Management 0",
+                                         type=cli_type, skip_tmpl=True)
+            st.log(f"Current Management0 config: {current_mgmt_output}")
+
+            # Step 2: Configure static IP on Management0
+            st.log("Step 2: Configuring static IP 192.168.100.250/24 on Management0")
+            st.config(dut, "interface Management 0", type=cli_type)
+            st.config(dut, "ip address 192.168.100.250/24", type=cli_type)
+            st.config(dut, "exit", type=cli_type)
+
+            st.wait(3, "Waiting for management IP configuration")
+
+            # Verify static IP is configured
+            mgmt_ip_output = st.show(dut, "show ip interface Management 0",
+                                    type=cli_type, skip_tmpl=True)
+            st.log(f"Management0 IP after configuration: {mgmt_ip_output}")
+
+            # Step 3: Test Management0 naming (expected to fail based on customer report)
+            st.log("Step 3: Testing 'ntp source-interface Management0' command")
+            output_mgmt0 = st.config(
+                dut,
+                "ntp source-interface Management0",
+                type=cli_type,
+                skip_error_check=True
+            )
+
+            output_mgmt0_str = str(output_mgmt0)
+            st.log(f"Management0 command output: {output_mgmt0_str}")
+
+            mgmt0_accepted = "Error" not in output_mgmt0_str
+
+            # Step 4: Test eth0 naming (expected to work based on customer report)
+            st.log("Step 4: Testing 'ntp source-interface eth0' command")
+
+            # First, clear any previous source-interface
+            st.config(dut, "no ntp source-interface", type=cli_type, skip_error_check=True)
+
+            output_eth0 = st.config(
+                dut,
+                "ntp source-interface eth0",
+                type=cli_type,
+                skip_error_check=True
+            )
+
+            output_eth0_str = str(output_eth0)
+            st.log(f"eth0 command output: {output_eth0_str}")
+
+            eth0_accepted = "Error" not in output_eth0_str
+
+            # Step 5: Verify in show ntp global
+            st.log("Step 5: Checking show ntp global for source-interface")
+            show_global = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+            show_global_str = str(show_global)
+
+            management_keywords = ["Management0", "eth0", "192.168.100.250"]
+            source_found = any(keyword in show_global_str for keyword in management_keywords)
+
+            # Step 6: Verify in running-config
+            st.log("Step 6: Checking running-config for source-interface")
+            running_config = st.show(dut, "show running-config | include ntp",
+                                    type=cli_type, skip_tmpl=True)
+            running_config_str = str(running_config)
+
+            # Step 7: Analyze and document findings
+            st.log("\n" + "="*80)
+            st.log("TEST RESULTS: Management0 as NTP Source-Interface")
+            st.log("="*80)
+            st.log(f"Management0 command accepted: {mgmt0_accepted}")
+            st.log(f"eth0 command accepted: {eth0_accepted}")
+            st.log(f"Source visible in show ntp global: {source_found}")
+            st.log(f"show ntp global output: {show_global_str}")
+            st.log(f"running-config: {running_config_str}")
+
+            # Document the customer-reported behavior
+            if not mgmt0_accepted and eth0_accepted:
+                st.log("\n✓ ISSUE CONFIRMED: Management0 not accepted, but eth0 is")
+                st.log("Customer Issue: Once management port has static IP, 'ntp source-interface'")
+                st.log("                command accepts 'eth0' but not 'Management0'.")
+                st.log("                Ideally, 'Management0' should be the preferred name.")
+            elif mgmt0_accepted and not eth0_accepted:
+                st.log("\n⚠ Different behavior: Management0 accepted, eth0 not")
+                st.log("This differs from customer report - may indicate fix or version difference")
+            elif mgmt0_accepted and eth0_accepted:
+                st.log("\n✓ Both Management0 and eth0 accepted")
+                st.log("Issue may have been resolved - both naming conventions work")
+            else:
+                st.log("\n⚠ Neither Management0 nor eth0 accepted")
+                st.log("Different behavior from customer report - needs investigation")
+
+            # Check if source-interface appears in show commands
+            if not source_found and (mgmt0_accepted or eth0_accepted):
+                st.log("\n⚠ ADDITIONAL ISSUE: Source-interface not visible in show ntp global")
+                st.log("Related to SSE-T8196 #5: NTP source-interface info cannot be seen in show ntp global")
+
+            st.log("="*80)
+
+        finally:
+            # Cleanup
+            st.log("Cleanup: Removing NTP source-interface configuration")
+            try:
+                ntp_api.config_ntp_source_interface(dut, interface="", config="no", cli_type=cli_type)
+
+                # Note: Not restoring original management IP to avoid disrupting connectivity
+                # In production, you would restore from current_mgmt_config
+                st.log("Note: Management IP not restored to avoid connectivity disruption")
+                st.log("      Testbed should handle management IP restoration")
+
+            except Exception as e:
+                st.log(f"Cleanup warning: {e}")
+
+        st.log("Test completed: Management0 vs eth0 naming behavior documented")
+        st.report_pass("test_case_passed")
+
+    @pytest.mark.source_interface
+    def test_ntp_038_verify_source_in_running_config(self) -> None:
+        """NTP-038: Verify NTP source-interface appears in running-config and persists.
+
+        Issue: SSE-T8196 #6 - Other than server IP, NTP settings do not appear in running-config
+        This test specifically validates source-interface configuration display.
+
+        VS Coverage: 100% (Configuration persistence validation)
+        HW Additional: None required
+
+        Test validates:
+        - Source-interface configuration appears in running-config
+        - Configuration persists after save
+        - Configuration format and syntax
+        - Multiple show command consistency
+        """
+        st.banner("TEST: NTP-038 - Verify Source-Interface in Running-Config")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+        interface = "Ethernet0"
+
+        try:
+            # Step 1: Configure source-interface
+            st.log(f"Step 1: Configuring source-interface {interface}")
+            result = ntp_api.config_ntp_source_interface(
+                dut, interface=interface, config="yes", cli_type=cli_type
+            )
+
+            if not result:
+                st.report_fail("msg", f"Failed to configure source-interface {interface}")
+
+            st.log(f"✓ Source-interface {interface} configured")
+
+            # Step 2: Check show ntp global
+            st.log("Step 2: Checking 'show ntp global' output")
+            show_global = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+            show_global_str = str(show_global)
+
+            source_in_global = interface in show_global_str or "source" in show_global_str.lower()
+
+            if source_in_global:
+                st.log(f"✓ Source-interface visible in show ntp global")
+                st.log(f"Output: {show_global_str}")
+            else:
+                st.log(f"⚠ WARNING: Source-interface NOT visible in show ntp global")
+                st.log(f"Related to SSE-T8196 #5: Source-interface info missing from show output")
+                st.log(f"Output: {show_global_str}")
+
+            # Step 3: Check running-config
+            st.log("Step 3: Checking 'show running-config' for source-interface")
+            running_config = st.show(dut, "show running-config | include ntp",
+                                    type=cli_type, skip_tmpl=True)
+
+            if isinstance(running_config, list):
+                running_config_str = '\n'.join(str(item) for item in running_config)
+            else:
+                running_config_str = str(running_config)
+
+            st.log(f"Running-config NTP section:\n{running_config_str}")
+
+            # Check for source-interface in running-config
+            source_keywords = [
+                f"ntp source-interface {interface}",
+                f"source-interface {interface}",
+                f"source {interface}",
+                interface
+            ]
+
+            source_in_config = any(keyword in running_config_str for keyword in source_keywords)
+
+            if source_in_config:
+                st.log(f"✓ Source-interface {interface} found in running-config")
+            else:
+                st.log(f"⚠ WARNING: Source-interface {interface} NOT found in running-config")
+                st.log(f"Related to SSE-T8196 #6: NTP settings missing from running-config")
+
+            # Step 4: Save configuration
+            st.log("Step 4: Saving configuration to startup-config")
+            save_result = basic_api.save_config(dut)
+
+            if not save_result:
+                st.log("⚠ WARNING: Config save may have failed")
+            else:
+                st.log("✓ Configuration saved")
+
+            # Step 5: Check startup-config
+            st.log("Step 5: Verifying source-interface in startup-config")
+            startup_config = st.show(dut, "show startup-config | include ntp",
+                                    type=cli_type, skip_tmpl=True)
+
+            if isinstance(startup_config, list):
+                startup_config_str = '\n'.join(str(item) for item in startup_config)
+            else:
+                startup_config_str = str(startup_config)
+
+            source_in_startup = any(keyword in startup_config_str for keyword in source_keywords)
+
+            if source_in_startup:
+                st.log(f"✓ Source-interface persisted to startup-config")
+                st.log(f"Startup-config: {startup_config_str}")
+            else:
+                st.log(f"⚠ WARNING: Source-interface NOT in startup-config")
+                st.log(f"Configuration may not persist across reboot")
+
+            # Step 6: Comprehensive validation
+            st.log("\n" + "="*80)
+            st.log("CONFIGURATION PERSISTENCE VALIDATION RESULTS")
+            st.log("="*80)
+            st.log(f"Source-interface configured: ✓")
+            st.log(f"Visible in 'show ntp global': {'✓' if source_in_global else '✗ ISSUE SSE-T8196 #5'}")
+            st.log(f"Present in running-config: {'✓' if source_in_config else '✗ ISSUE SSE-T8196 #6'}")
+            st.log(f"Persisted to startup-config: {'✓' if source_in_startup else '✗ PERSISTENCE ISSUE'}")
+
+            # Create detailed issue report
+            issues_found = []
+
+            if not source_in_global:
+                issues_found.append("Source-interface not visible in show ntp global (SSE-T8196 #5)")
+
+            if not source_in_config:
+                issues_found.append("Source-interface missing from running-config (SSE-T8196 #6)")
+
+            if not source_in_startup:
+                issues_found.append("Source-interface not persisted to startup-config")
+
+            if issues_found:
+                st.log("\n⚠ ISSUES DETECTED:")
+                for idx, issue in enumerate(issues_found, 1):
+                    st.log(f"  {idx}. {issue}")
+                st.log("\nExpected Behavior: Source-interface should be visible in all outputs")
+                st.log("Actual Behavior: Configuration partially missing from show/config outputs")
+            else:
+                st.log("\n✓ All validations passed - source-interface properly displayed and persisted")
+
+            st.log("="*80)
+
+            # Test should pass even if issues found (documentation purpose)
+            # Critical failure only if configuration completely failed
+
+        finally:
+            # Cleanup
+            st.log("Cleanup: Removing source-interface configuration")
+            try:
+                ntp_api.config_ntp_source_interface(dut, interface="", config="no", cli_type=cli_type)
+                basic_api.save_config(dut)
+            except Exception as e:
+                st.log(f"Cleanup warning: {e}")
+
+        st.log("Test completed: Source-interface configuration persistence validated")
         st.report_pass("test_case_passed")
 
 

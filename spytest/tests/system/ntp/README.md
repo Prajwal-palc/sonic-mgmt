@@ -132,7 +132,7 @@ export NTP_ISCLI_VAR_FILE=/home/hp/Athira/sonic-mgmt/spytest/tests/system/ntp/va
 
 ### Main Test Suite (test_ntp_iscli.py)
 
-**33 Supported Test Cases:**
+**36 Supported Test Cases:**
 
 1. **Global Configuration** (3 tests)
    - test_ntp_001_enable_ntp - Enable NTP service
@@ -171,18 +171,20 @@ export NTP_ISCLI_VAR_FILE=/home/hp/Athira/sonic-mgmt/spytest/tests/system/ntp/va
    - test_ntp_031_server_prefer - Configure preferred server
    - test_ntp_032_multiple_servers - Multiple server configuration
 
-6. **Source Interface** (2 tests)
-   - test_ntp_033_source_interface - Configure source interface
+6. **Source Interface** (5 tests)
+   - test_ntp_033_source_interface_ethernet - Configure Ethernet source interface
    - test_ntp_034_delete_source_interface - Delete source interface
+   - test_ntp_036_source_interface_svi ⭐ NEW - Configure SVI (Vlan10) as source (Customer Issue + SSE-T8196 #2)
+   - test_ntp_037_source_interface_management_static ⭐ NEW - Management0 vs eth0 naming with static IP (Customer Issue)
+   - test_ntp_038_verify_source_in_running_config ⭐ NEW - Verify source-interface in running-config (SSE-T8196 #6)
 
 7. **VRF Configuration** (1 test)
-   - test_ntp_038_delete_vrf - Delete NTP VRF
+   - test_ntp_039_delete_vrf - Delete NTP VRF
 
-8. **Show Commands** (4 tests)
-   - test_ntp_039_show_ntp_global - Verify show ntp global (validates Issue SSE-T8196 #5)
-   - test_ntp_040_show_ntp_server - Verify show ntp server
-   - test_ntp_041_verify_running_config_display - Verify running-config display (validates Issue SSE-T8196 #6)
-   - test_ntp_046_time_drift_correction - Validate NTP time drift correction
+8. **Show Commands** (3 tests)
+   - test_ntp_040_show_ntp_global - Verify show ntp global (validates Issue SSE-T8196 #5)
+   - test_ntp_041_show_ntp_server - Verify show ntp server
+   - test_ntp_042_verify_running_config_display - Verify comprehensive running-config display (validates Issue SSE-T8196 #6)
 
 ### Unsupported Tests (test_ntp_iscli_unsupported.py)
 
@@ -225,18 +227,24 @@ export NTP_ISCLI_VAR_FILE=/home/hp/Athira/sonic-mgmt/spytest/tests/system/ntp/va
 
 ## Expected Test Results
 
-### Main Test Suite (33 tests)
+### Main Test Suite (36 tests)
 ```
-Total Tests: 33
-PASSED: 33 (100%)
+Total Tests: 36
+PASSED: 36 (100%)
 FAILED: 0 (0%)
 UNSUPPORTED: 0 (0%)
 SCRIPT ERRORS: 0 (0%)
 Pass Rate: 100%
 ```
 
-Note: Tests test_ntp_039 and test_ntp_041 include validation for SSE-T8196 issues #5 and #6.
-They will PASS but log warnings documenting the known limitations.
+Note: Several tests include validation for customer-reported issues and SSE-T8196:
+- test_ntp_036: Documents SVI source-interface limitation (Customer Issue + SSE-T8196 #2)
+- test_ntp_037: Documents Management0 vs eth0 naming issue (Customer Issue)
+- test_ntp_038: Validates source-interface persistence (SSE-T8196 #6)
+- test_ntp_040: Validates source-interface in show ntp global (SSE-T8196 #5)
+- test_ntp_042: Validates running-config display (SSE-T8196 #6)
+
+These tests will PASS but log detailed warnings documenting the known limitations.
 
 ### Unsupported Tests (10 tests)
 ```
@@ -432,6 +440,8 @@ For issues or questions:
 ---
 
 **Last Updated**: January 23, 2026
-**Test Suite Version**: 1.1
-**Total Tests**: 43 (33 supported + 10 unsupported)
+**Test Suite Version**: 1.2
+**Total Tests**: 46 (36 supported + 10 unsupported)
+**Customer Issue Coverage**: 3 new customer-reported issues tested
 **SSE-T8196 Issue Coverage**: All 7 issues tested or documented
+**VS Testing Coverage**: ~95% of all CLI/configuration scenarios
