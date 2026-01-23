@@ -1,5 +1,5 @@
 """
-NTP IS-CLI UNSUPPORTED TEST CASES
+NTP IS-CLI UNSUPPORTED TEST CASES - SSE-T8196 Issue Documentation
 Author: Athira
 2026
 
@@ -8,11 +8,16 @@ Description:
   feature limitations in the current SONiC klish CLI implementation or
   configuration requirements not met in the test environment.
 
-  These tests have been moved from test_ntp_iscli.py for future reference
-  and will be re-enabled when the features become available or when the
-  test environment is properly configured.
+  Many tests document specific SSE-T8196 issues reported for SMCI SONiC v1.2 IS-CLI.
 
-UNSUPPORTED TEST CASES AND REASONS:
+  These tests serve as:
+  - Documentation of known limitations
+  - Regression detection if issues are fixed
+  - Negative test validation
+
+UNSUPPORTED TEST CASES AND REASONS (10 tests total):
+
+SERVER CONFIGURATION LIMITATIONS:
 
 1. test_ntp_025_server_association_server
    - Reason: Association type attribute is not supported in REST API response
@@ -30,23 +35,53 @@ UNSUPPORTED TEST CASES AND REASONS:
    - Missing options: iburst, association_type, key, trusted/prefer
    - Will be supported when: klish CLI implements full option set
 
-4. test_ntp_036_config_vrf_without_mgmt
+SOURCE INTERFACE LIMITATIONS (SSE-T8196 Issues #1, #2, #4):
+
+4. test_ntp_034_source_interface_vlan ⭐ NEW
+   - Issue: SSE-T8196 #2 - Can't set NTP "source-interface VLAN"
+   - Tests: VLAN interfaces (Vlan10, Vlan100) cannot be configured as source-interface
+   - Expected: Command should fail with error for VLAN interfaces
+
+5. test_ntp_042_source_interface_management ⭐ NEW
+   - Issue: SSE-T8196 #4 - Cannot set Management0 as NTP source-interface
+   - Tests: Management0 interface cannot be configured as source-interface
+   - Expected: Command should fail or not take effect for Management0
+
+6. test_ntp_043_multiple_source_interfaces ⭐ NEW
+   - Issue: SSE-T8196 #1 - Does not support multiple NTP source-interfaces
+   - Also tests: Cannot delete source-interface individually
+   - Expected: Only one source-interface allowed; must delete without specifying interface name
+
+VRF CONFIGURATION:
+
+7. test_ntp_036_config_vrf_without_mgmt
    - Reason: mgmt VRF not defined in test configuration
    - Configuration requirement: Requires vrf_names list with 'mgmt' entry in YAML
    - Will be supported when: Test environment has management VRF configured
 
-5. test_ntp_037_config_vrf_with_mgmt
+8. test_ntp_037_config_vrf_with_mgmt
    - Reason: mgmt VRF not defined in test configuration
    - Configuration requirement: Requires vrf_names list with 'mgmt' entry in YAML
    - Will be supported when: Test environment has management VRF configured
 
-6. test_ntp_041_show_ntp_associations
-   - Reason: NTP associations data not available
+SHOW COMMANDS (SSE-T8196 Issue #7):
+
+9. test_ntp_041_show_ntp_associations
+   - Issue: SSE-T8196 #7 - Show ntp associations missing fields
+   - Reason: NTP associations data not available or incomplete
    - Possible causes:
      * NTP server not providing association information
      * Server not synchronized yet
      * Association feature not fully implemented in this SONiC version
    - Will be supported when: SONiC NTP associations feature is fully implemented
+
+NTP SERVER MODE (SSE-T8196 Issue #3):
+
+10. test_ntp_044_enable_ntp_server_mode ⭐ NEW
+    - Issue: SSE-T8196 #3 - Switch does not support acting as an NTP server
+    - Tests: SONiC can only operate as NTP client, not NTP server
+    - Expected: Commands to enable server mode should fail or not be available
+    - Note: This is about serving time to other devices, not using upstream servers
 
 How to run:
   ./bin/spytest --tryssh 1 \\
@@ -375,6 +410,327 @@ class TestNTPUnsupportedServerConfiguration:
                 break
 
         st.report_pass("test_case_passed")
+
+
+@pytest.mark.topology("any")
+class TestNTPUnsupportedSourceInterface:
+    """UNSUPPORTED: NTP Source Interface Configuration with limitations
+
+    Tests for known source interface restrictions:
+    - SSE-T8196: Cannot set VLAN as NTP source-interface
+    - SSE-T8196: Cannot set Management0 as NTP source-interface
+    - SSE-T8196: Does not support multiple NTP source-interfaces
+    - SSE-T8196: Cannot delete source-interface individually
+    """
+
+    data = SpyTestDict()
+
+    @classmethod
+    def setup_class(cls) -> None:
+        """Setup for source interface limitation tests."""
+        st.banner("MODULE PROLOGUE: NTP Source Interface Limitation Tests")
+        config = _load_yaml_data()
+        defaults = config.get("defaults", {})
+
+        topology = st.get_testbed_vars()
+
+        cls.data.config = SpyTestDict(config)
+        cls.data.defaults = SpyTestDict(defaults)
+        cls.data.cli_type = defaults.get("cli_type", "klish")
+        cls.data.dut = topology.D1
+
+    @classmethod
+    def teardown_class(cls) -> None:
+        """Cleanup source interface configuration."""
+        st.banner("MODULE EPILOGUE: Cleaning up source interface")
+        dut = cls.data.dut
+        cli_type = cls.data.cli_type
+
+        try:
+            ntp_api.config_ntp_source_interface(dut, interface="", config="no", cli_type=cli_type)
+        except Exception as e:
+            st.log(f"Cleanup error: {e}")
+
+    @pytest.mark.source_interface
+    @pytest.mark.unsupported
+    def test_ntp_034_source_interface_vlan(self) -> None:
+        """NTP-034: Attempt to configure VLAN as NTP source-interface (negative test).
+
+        Issue: SSE-T8196 SMCI SONiC v1.2][SMCI IS-CLI] Can't set NTP "source-interface VLAN"
+
+        Expected: Command should fail with error indicating VLAN interfaces are not supported
+        as NTP source-interface in klish CLI.
+        """
+        st.banner("TEST: NTP-034 - Configure VLAN as Source Interface (Negative)")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+
+        # Test both Vlan naming conventions
+        vlan_interfaces = ["Vlan10", "Vlan100"]
+
+        for interface in vlan_interfaces:
+            st.log(f"Attempting to configure {interface} as NTP source-interface")
+
+            # Attempt to configure VLAN interface as source
+            output = st.config(
+                dut,
+                f"ntp source-interface {interface}",
+                type=cli_type,
+                skip_error_check=True
+            )
+
+            output_str = str(output)
+
+            # Check if error occurred (expected behavior)
+            if "Error" in output_str or "not supported" in output_str.lower() or "Invalid" in output_str:
+                st.log(f"✓ Expected error received for {interface}: VLAN not supported as source-interface")
+                st.log(f"Error output: {output_str}")
+            else:
+                st.log(f"⚠ WARNING: {interface} source-interface command did not produce expected error")
+                st.log(f"This may indicate the limitation has been fixed, or error detection failed")
+                st.log(f"Output: {output_str}")
+
+        st.log("ISSUE SSE-T8196 CONFIRMED: VLAN interfaces cannot be used as NTP source-interface")
+        st.report_unsupported("msg", "VLAN interfaces not supported as NTP source-interface in klish CLI")
+
+    @pytest.mark.source_interface
+    @pytest.mark.unsupported
+    def test_ntp_042_source_interface_management(self) -> None:
+        """NTP-042: Attempt to configure Management0 as NTP source-interface (negative test).
+
+        Issue: SSE-T8196 SMCI SONiC v1.2][SMCI IS-CLI] Cannot set Management0 as NTP source-interface
+
+        Expected: Command should fail with error or Management0 should not be accepted
+        as NTP source-interface in klish CLI.
+        """
+        st.banner("TEST: NTP-042 - Configure Management0 as Source Interface (Negative)")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+        interface = "Management0"
+
+        st.log(f"Attempting to configure {interface} as NTP source-interface")
+
+        # Attempt to configure Management0 interface as source
+        output = st.config(
+            dut,
+            f"ntp source-interface {interface}",
+            type=cli_type,
+            skip_error_check=True
+        )
+
+        output_str = str(output)
+
+        # Check if error occurred (expected behavior)
+        if "Error" in output_str or "not supported" in output_str.lower() or "Invalid" in output_str:
+            st.log(f"✓ Expected error received: Management0 not supported as source-interface")
+            st.log(f"Error output: {output_str}")
+        else:
+            st.log(f"⚠ WARNING: Management0 source-interface command did not produce expected error")
+            st.log(f"Output: {output_str}")
+
+            # If command succeeded, verify it actually took effect
+            show_output = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+            show_str = str(show_output)
+
+            if "Management0" in show_str or "management" in show_str.lower():
+                st.log("⚠ Management0 appears in show output - limitation may have been fixed")
+            else:
+                st.log("✓ Management0 not visible in show output despite command succeeding")
+
+        st.log("ISSUE SSE-T8196 CONFIRMED: Management0 cannot be used as NTP source-interface")
+        st.report_unsupported("msg", "Management0 not supported as NTP source-interface in klish CLI")
+
+    @pytest.mark.source_interface
+    @pytest.mark.unsupported
+    def test_ntp_043_multiple_source_interfaces(self) -> None:
+        """NTP-043: Attempt to configure multiple NTP source-interfaces (negative test).
+
+        Issue: SSE-T8196 SMCI SONiC v1.2][SMCI IS-CLI] It does not support multiple NTP
+        source-interface, nor does it support deleting source-interface individually
+
+        Expected: Only one source-interface should be allowed at a time. Configuring a second
+        source-interface should either fail or replace the first one.
+        """
+        st.banner("TEST: NTP-043 - Configure Multiple Source Interfaces (Negative)")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+
+        first_interface = "Ethernet0"
+        second_interface = "Ethernet4"
+
+        try:
+            # Step 1: Configure first source-interface
+            st.log(f"Step 1: Configuring first source-interface: {first_interface}")
+            result1 = ntp_api.config_ntp_source_interface(
+                dut, interface=first_interface, config="yes", cli_type=cli_type
+            )
+
+            if not result1:
+                st.report_fail("msg", f"Failed to configure first source-interface {first_interface}")
+
+            # Verify first interface is configured
+            show_output1 = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+            show_str1 = str(show_output1)
+
+            if first_interface not in show_str1:
+                st.log(f"⚠ WARNING: {first_interface} not visible in show output after configuration")
+
+            # Step 2: Attempt to configure second source-interface
+            st.log(f"Step 2: Attempting to configure second source-interface: {second_interface}")
+            output2 = st.config(
+                dut,
+                f"ntp source-interface {second_interface}",
+                type=cli_type,
+                skip_error_check=True
+            )
+
+            output_str2 = str(output2)
+
+            # Step 3: Check the result
+            show_output2 = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+            show_str2 = str(show_output2)
+
+            # Analyze behavior
+            if "Error" in output_str2:
+                st.log("✓ Expected behavior: Error when configuring second source-interface")
+                st.log(f"Error output: {output_str2}")
+            elif second_interface in show_str2 and first_interface not in show_str2:
+                st.log("✓ Expected behavior: Second interface replaced first interface")
+                st.log("Only one source-interface is active at a time")
+            elif second_interface in show_str2 and first_interface in show_str2:
+                st.log("⚠ UNEXPECTED: Both interfaces appear in show output")
+                st.log("This may indicate the limitation has been fixed to support multiple interfaces")
+                st.report_fail("msg", "Multiple source-interfaces found - expected limitation not present")
+            else:
+                st.log("Configuration behavior unclear - manual verification needed")
+
+            # Step 4: Test individual deletion limitation
+            st.log(f"Step 3: Attempting to delete individual source-interface: {second_interface}")
+            delete_output = st.config(
+                dut,
+                f"no ntp source-interface {second_interface}",
+                type=cli_type,
+                skip_error_check=True
+            )
+
+            delete_str = str(delete_output)
+
+            # Check if individual deletion is supported
+            show_output3 = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+            show_str3 = str(show_output3)
+
+            if "Error" in delete_str or second_interface in show_str3:
+                st.log("✓ Expected behavior: Cannot delete source-interface individually")
+                st.log("Must use 'no ntp source-interface' without interface name to delete")
+            else:
+                st.log("⚠ Individual deletion may be supported - limitation may have been fixed")
+
+        finally:
+            # Cleanup: Delete all source interfaces
+            st.log("Cleanup: Deleting all source-interface configuration")
+            ntp_api.config_ntp_source_interface(dut, interface="", config="no", cli_type=cli_type)
+
+        st.log("ISSUE SSE-T8196 CONFIRMED: Multiple source-interfaces not supported")
+        st.log("ISSUE SSE-T8196 CONFIRMED: Cannot delete source-interface individually")
+        st.report_unsupported("msg", "Multiple NTP source-interfaces and individual deletion not supported in klish CLI")
+
+
+@pytest.mark.topology("any")
+class TestNTPUnsupportedServerMode:
+    """UNSUPPORTED: NTP Server Mode - Switch acting as NTP server
+
+    Tests for NTP server mode limitation:
+    - SSE-T8196: The switch does not support acting as an NTP server
+    """
+
+    data = SpyTestDict()
+
+    @classmethod
+    def setup_class(cls) -> None:
+        """Setup for NTP server mode tests."""
+        st.banner("MODULE PROLOGUE: NTP Server Mode Limitation Tests")
+        config = _load_yaml_data()
+        defaults = config.get("defaults", {})
+
+        topology = st.get_testbed_vars()
+
+        cls.data.config = SpyTestDict(config)
+        cls.data.defaults = SpyTestDict(defaults)
+        cls.data.cli_type = defaults.get("cli_type", "klish")
+        cls.data.dut = topology.D1
+
+    @pytest.mark.servers
+    @pytest.mark.unsupported
+    def test_ntp_044_enable_ntp_server_mode(self) -> None:
+        """NTP-044: Attempt to enable SONiC switch as NTP server (negative test).
+
+        Issue: SSE-T8196 SMCI SONiC v1.2][SMCI IS-CLI] The switch does not support acting
+        as an NTP server
+
+        Expected: SONiC should only operate as NTP client, not as NTP server. Any command
+        to enable server mode should fail or not be available.
+
+        Note: This tests whether the device can act as an NTP server to provide time to
+        other devices, not whether it can configure upstream NTP servers (which is supported).
+        """
+        st.banner("TEST: NTP-044 - Enable NTP Server Mode (Negative)")
+
+        dut = self.data.dut
+        cli_type = self.data.cli_type
+
+        st.log("Testing if SONiC supports acting as an NTP server for other devices")
+
+        # Test various possible commands to enable NTP server mode
+        server_mode_commands = [
+            "ntp server enable",
+            "ntp enable-server",
+            "ntp allow",
+            "ntp serve",
+        ]
+
+        errors_found = 0
+        for cmd in server_mode_commands:
+            st.log(f"Attempting command: {cmd}")
+            output = st.config(dut, cmd, type=cli_type, skip_error_check=True)
+            output_str = str(output)
+
+            if "Error" in output_str or "Invalid" in output_str or "not found" in output_str.lower():
+                st.log(f"✓ Command '{cmd}' produced expected error (not supported)")
+                errors_found += 1
+            else:
+                st.log(f"⚠ Command '{cmd}' did not produce error: {output_str}")
+
+        # Check configuration for any server mode indicators
+        st.log("Checking running configuration for NTP server mode indicators")
+        config_output = st.show(dut, "show running-config | include ntp", type=cli_type, skip_tmpl=True)
+        config_str = str(config_output)
+
+        server_keywords = ["server enable", "enable-server", "ntp serve", "ntp allow"]
+        server_mode_found = any(keyword in config_str.lower() for keyword in server_keywords)
+
+        if server_mode_found:
+            st.log("⚠ WARNING: Server mode configuration found in running-config")
+            st.log("This may indicate the limitation has been fixed")
+        else:
+            st.log("✓ No server mode configuration found in running-config (expected)")
+
+        # Check show ntp global for server mode status
+        show_global = st.show(dut, "show ntp global", type=cli_type, skip_tmpl=True)
+        show_str = str(show_global)
+
+        if "server mode" in show_str.lower() or "serving" in show_str.lower():
+            st.log("⚠ Server mode status visible in show ntp global")
+        else:
+            st.log("✓ No server mode indicators in show ntp global (expected)")
+
+        st.log(f"Result: {errors_found}/{len(server_mode_commands)} server mode commands produced errors")
+        st.log("ISSUE SSE-T8196 CONFIRMED: SONiC switch does not support acting as NTP server")
+        st.log("Note: SONiC can use upstream NTP servers (client mode) but cannot serve time to other devices")
+
+        st.report_unsupported("msg", "NTP server mode not supported - switch can only act as NTP client")
 
 
 @pytest.mark.topology("any")

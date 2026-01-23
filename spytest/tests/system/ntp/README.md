@@ -2,12 +2,12 @@
 
 ## Overview
 
-This directory contains the NTP (Network Time Protocol) test automation suite for SONiC IS-CLI (Klish). The test suite validates NTP configuration, authentication, server management, and show commands.
+This directory contains the NTP (Network Time Protocol) test automation suite for SONiC IS-CLI (Klish). The test suite validates NTP configuration, authentication, server management, and show commands. It includes comprehensive coverage for SSE-T8196 known issues and limitations.
 
 ## Test Files
 
-- **`test_ntp_iscli.py`** - Main test suite with 32 supported test cases
-- **`test_ntp_iscli_unsupported.py`** - 6 unsupported test cases (feature limitations or config requirements)
+- **`test_ntp_iscli.py`** - Main test suite with 33 supported test cases (includes Issue SSE-T8196 validations)
+- **`test_ntp_iscli_unsupported.py`** - 9 unsupported test cases documenting SSE-T8196 limitations
 - **`vars_ntp_iscli_local.yaml`** - Configuration for testing with local NTP server
 - **`setup_ntp_server.sh`** - Script to set up local NTP server
 - **`verify_ntp_server.sh`** - Script to verify NTP server is running correctly
@@ -132,11 +132,12 @@ export NTP_ISCLI_VAR_FILE=/home/hp/Athira/sonic-mgmt/spytest/tests/system/ntp/va
 
 ### Main Test Suite (test_ntp_iscli.py)
 
-**32 Supported Test Cases:**
+**33 Supported Test Cases:**
 
-1. **Global Configuration** (2 tests)
+1. **Global Configuration** (3 tests)
    - test_ntp_001_enable_ntp - Enable NTP service
    - test_ntp_002_disable_ntp - Disable NTP service
+   - test_ntp_003_reenable_ntp - Re-enable NTP service
 
 2. **Authentication** (5 tests)
    - test_ntp_003_enable_auth - Enable NTP authentication
@@ -177,14 +178,15 @@ export NTP_ISCLI_VAR_FILE=/home/hp/Athira/sonic-mgmt/spytest/tests/system/ntp/va
 7. **VRF Configuration** (1 test)
    - test_ntp_038_delete_vrf - Delete NTP VRF
 
-8. **Show Commands** (3 tests)
-   - test_ntp_039_show_ntp_global - Verify show ntp global
+8. **Show Commands** (4 tests)
+   - test_ntp_039_show_ntp_global - Verify show ntp global (validates Issue SSE-T8196 #5)
    - test_ntp_040_show_ntp_server - Verify show ntp server
-   - test_ntp_042_show_clock - Verify show clock
+   - test_ntp_041_verify_running_config_display - Verify running-config display (validates Issue SSE-T8196 #6)
+   - test_ntp_046_time_drift_correction - Validate NTP time drift correction
 
 ### Unsupported Tests (test_ntp_iscli_unsupported.py)
 
-**6 Unsupported Test Cases:**
+**9 Unsupported Test Cases (SSE-T8196 Issue Documentation):**
 
 1. **test_ntp_025_server_association_server**
    - Reason: Association type attribute not in REST API response
@@ -195,32 +197,54 @@ export NTP_ISCLI_VAR_FILE=/home/hp/Athira/sonic-mgmt/spytest/tests/system/ntp/va
 3. **test_ntp_028_server_all_options**
    - Reason: Some options (iburst, association_type, key, prefer) not fully supported
 
-4. **test_ntp_036_config_vrf_without_mgmt**
+4. **test_ntp_034_source_interface_vlan** ⭐ NEW
+   - Issue: SSE-T8196 #2 - Can't set NTP "source-interface VLAN"
+   - Tests: VLAN interfaces cannot be configured as source-interface
+
+5. **test_ntp_036_config_vrf_without_mgmt**
    - Reason: Management VRF not defined in test configuration
 
-5. **test_ntp_037_config_vrf_with_mgmt**
+6. **test_ntp_037_config_vrf_with_mgmt**
    - Reason: Management VRF not defined in test configuration
 
-6. **test_ntp_041_show_ntp_associations**
+7. **test_ntp_041_show_ntp_associations**
+   - Issue: SSE-T8196 #7 - Show ntp associations missing fields
    - Reason: NTP associations data not available - feature not fully implemented
+
+8. **test_ntp_042_source_interface_management** ⭐ NEW
+   - Issue: SSE-T8196 #4 - Cannot set Management0 as NTP source-interface
+   - Tests: Management0 interface cannot be configured as source-interface
+
+9. **test_ntp_043_multiple_source_interfaces** ⭐ NEW
+   - Issue: SSE-T8196 #1 - Does not support multiple NTP source-interfaces
+   - Tests: Only one source-interface allowed; individual deletion not supported
+
+10. **test_ntp_044_enable_ntp_server_mode** ⭐ NEW
+    - Issue: SSE-T8196 #3 - Switch does not support acting as an NTP server
+    - Tests: SONiC can only act as NTP client, not NTP server
 
 ## Expected Test Results
 
-### Main Test Suite (32 tests)
+### Main Test Suite (33 tests)
 ```
-Total Tests: 32
-PASSED: 32 (100%)
+Total Tests: 33
+PASSED: 33 (100%)
 FAILED: 0 (0%)
 UNSUPPORTED: 0 (0%)
 SCRIPT ERRORS: 0 (0%)
 Pass Rate: 100%
 ```
 
-### Unsupported Tests (6 tests)
+Note: Tests test_ntp_039 and test_ntp_041 include validation for SSE-T8196 issues #5 and #6.
+They will PASS but log warnings documenting the known limitations.
+
+### Unsupported Tests (10 tests)
 ```
-Total Tests: 6
-UNSUPPORTED: 6 (100%)
+Total Tests: 10
+UNSUPPORTED: 10 (100%)
 ```
+
+These tests document SSE-T8196 known limitations and will report as UNSUPPORTED.
 
 ## Configuration Files
 
@@ -407,6 +431,7 @@ For issues or questions:
 
 ---
 
-**Last Updated**: January 16, 2026
-**Test Suite Version**: 1.0
-**Total Tests**: 38 (32 supported + 6 unsupported)
+**Last Updated**: January 23, 2026
+**Test Suite Version**: 1.1
+**Total Tests**: 43 (33 supported + 10 unsupported)
+**SSE-T8196 Issue Coverage**: All 7 issues tested or documented
