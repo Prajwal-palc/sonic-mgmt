@@ -230,6 +230,28 @@ system/iscli_interface_events/test_interface_3_iscli_events_description.py \
 system/iscli_interface_events/test_interface_4_iscli_events_ip_address.py \
 system/iscli_interface_events/test_interface_5_iscli_events_ipv6_address.py
 
+# ==========================================================
+# BATCH-L : System AAA
+# ==========================================================
+
+run_batch "SYS_AAA" "./testbeds/testbed_vs_1node.yaml" \
+system/AAA/test_aaa_auth.py
+
+
+# ==========================================================
+# BATCH-M : System NTP
+# ==========================================================
+
+sudo ./tests/system/ntp/setup_ntp_server.sh
+
+#Verify Setup
+./tests/system/ntp/verify_ntp_server.sh
+./tests/system/ntp/fix_ntp_server.sh
+
+export NTP_ISCLI_VAR_FILE=./tests/system/ntp/vars_ntp_iscli_local.yaml
+run_batch "SYS_NTP" "./testbeds/testbed_vs_1node.yaml" \
+system/ntp/test_ntp_iscli.py
+
 
 echo "=============================================="
 echo " FULL REGRESSION COMPLETED"
