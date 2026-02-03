@@ -76,9 +76,68 @@ routing/bgp/test_portchannel_ipv6_bgp.py
 
 # ==========================================================
 # BATCH-B : BGP IPv4 iBGP/eBGP Feature Tests
+# Note: BGP docker restart is executed between tests to ensure clean state
 # ==========================================================
 
-run_batch "BGP_IPV4_FEATURES" "./testbeds/testbed_vs_2node.yaml" \
+run_bgp_batch () {
+    FEATURE=$1
+    TESTBED=$2
+    shift 2
+    TESTS=("$@")
+
+    LOG_PATH="${BASE_LOG}/${FEATURE}/${TIME_STAMP}"
+    mkdir -p "${LOG_PATH}"
+
+    echo "----------------------------------------------"
+    echo " Running BGP Batch: ${FEATURE}"
+    echo " Testbed     : ${TESTBED}"
+    echo " Tests       : ${#TESTS[@]} test files"
+    echo " Logs        : ${LOG_PATH}"
+    echo "----------------------------------------------"
+
+    OVERALL_RC=0
+
+    for TEST in "${TESTS[@]}"; do
+        echo ""
+        echo "==> Restarting BGP docker before test: ${TEST}"
+        python3 ./restart_bgp_docker.py
+        RESTART_RC=$?
+
+        if [ ${RESTART_RC} -ne 0 ]; then
+            echo " WARNING: BGP docker restart failed. Continuing with test anyway."
+        else
+            echo " ✓ BGP docker restart completed successfully"
+        fi
+
+        echo ""
+        echo "==> Running test: ${TEST}"
+        ./bin/spytest --tryssh 1 \
+          --testbed "${TESTBED}" \
+          "${TEST}" \
+          --logs-path "${LOG_PATH}" \
+          --log-level debug \
+          --skip-init-config \
+          --ifname-type native
+
+        RC=$?
+        echo " Test ${TEST} completed with RC=${RC}"
+
+        if [ ${RC} -ne 0 ]; then
+            echo " WARNING: Test ${TEST} failed."
+            OVERALL_RC=${RC}
+        fi
+    done
+
+    echo "----------------------------------------------"
+    echo " Batch ${FEATURE} completed with RC=${OVERALL_RC}"
+    echo "----------------------------------------------"
+
+    if [ ${OVERALL_RC} -ne 0 ]; then
+        echo " WARNING: Some tests in batch ${FEATURE} failed. Continuing to next batch."
+    fi
+}
+
+run_bgp_batch "BGP_IPV4_FEATURES" "./testbeds/testbed_vs_2node.yaml" \
 routing/BGP/test_bgp_ipv4_basic.py \
 routing/BGP/test_bgp_svi_ipv4.py \
 routing/BGP/test_bgp_portchannel_ipv4.py \
