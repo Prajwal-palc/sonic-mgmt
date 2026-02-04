@@ -1,0 +1,87 @@
+# VLAN Basic Configuration Test Variables
+# Author: Shiva
+# 2026
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"  # Single DUT topology
+
+  # Interface selection strategy
+  interface_selection: "auto"  # "auto" will discover available interface, "manual" uses manual_interface
+  manual_interface: "Ethernet272"
+
+  # Default VLAN configuration
+  vlan_id: 100
+  ipv4_address: "20.1.1.4"
+  ipv4_subnet: "24"
+  ipv6_address: "8000::1"
+  ipv6_subnet: "64"
+
+testcases:
+  # Test 1: VLAN Running Configuration Verification (test_vlan_creation_in_running_config)
+  "running_config_test":
+    title: "VLAN creation verification in running configuration"
+    description: "Create VLAN and verify it appears in running-configuration output"
+    vlan_id: 200
+    test_type: "running_config"
+    verify:
+      vlan_in_running_config: true
+      interface_in_running_config: true
+    skip_ip_config: true
+    skip_port_config: true
+
+  # Test 2: Complete VLAN Lifecycle (test_vlan_complete_lifecycle) - matches vlan.md scenario
+  "full_lifecycle_test":
+    title: "VLAN interface complete lifecycle test"
+    description: "Create VLAN, configure switchport access port, add IPv4/IPv6 addresses, verify interface status, and cleanup in reverse order"
+    vlan_id: 100
+    test_type: "full_lifecycle"
+    access_port: null  # Will be auto-discovered or use defaults.manual_interface (Ethernet272)
+    ipv4:
+      address: "20.1.1.4"
+      subnet: "24"
+    ipv6:
+      address: "8000::1"
+      subnet: "64"
+    verify:
+      vlan_exists: true
+      port_in_vlan: true
+      ipv4_configured: true
+      ipv6_configured: true
+      interface_status: true  # Verify using "show interface Vlan100"
+      port_status: true       # Verify using "show interface Ethernet272"
+    cleanup_order:  # Reverse order cleanup
+      - "ipv6"
+      - "ipv4"
+      - "port"
+      - "vlan"
+
+  # Additional test scenarios (for future expansion)
+  "vlan_ipv4_only":
+    title: "VLAN with IPv4 only"
+    description: "Create VLAN interface with IPv4 address only"
+    vlan_id: 150
+    test_type: "ipv4_only"
+    access_port: null
+    ipv4:
+      address: "192.168.1.1"
+      subnet: "24"
+    verify:
+      vlan_exists: true
+      ipv4_configured: true
+
+  "vlan_ipv6_only":
+    title: "VLAN with IPv6 only"
+    description: "Create VLAN interface with IPv6 address only"
+    vlan_id: 160
+    test_type: "ipv6_only"
+    access_port: null
+    ipv6:
+      address: "2001:db8::1"
+      subnet: "64"
+    verify:
+      vlan_exists: true
+      ipv6_configured: true
