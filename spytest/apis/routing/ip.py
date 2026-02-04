@@ -565,9 +565,9 @@ def get_interface_ip_address(dut, interface_name=None, family="ipv4", cli_type='
     if cli_type in ['rest-patch', 'rest-put']:
         cli_type = 'klish'  # OC-YANG URLs are not available for show ip/ipv6 interface. Reported JIRA: SONIC-23677 for this.
     if cli_type in ['click', 'klish']:
-        command = "show ip interface"
+        command = "show ip interfaces | no-more"
         if family == "ipv6":
-            command = "show ipv6 interface"
+            command = "show ipv6 interfaces"
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
         if cli_type == 'klish' and not result:
@@ -779,9 +779,9 @@ def verify_interface_ip_address(dut, interface_name, ip_address, family="ipv4", 
                     return False
         return True
     else:
-        command = "show ip interface"
+        command = "show ip interfaces | no-more"
         if family == "ipv6":
-            command = "show ipv6 interface"
+            command = "show ipv6 interfaces"
         output = st.show(dut, command, type=cli_type)
         result = output if family == "ipv4" else prepare_show_ipv6_interface_output(output)
         if cli_type == 'klish' and not result:
