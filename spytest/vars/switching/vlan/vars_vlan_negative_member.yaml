@@ -1,0 +1,104 @@
+# VLAN Negative Test - Member Port Configuration Variables
+# Author: Shiva
+# 2026
+#
+# Test ID: VLAN-NEG-ADD-MEMBER-001
+# Purpose: Verify CLI rejects VLAN member configuration on non-existent VLANs
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"  # Single DUT topology
+
+  # Test interface for negative tests
+  # Note: IP address will be removed from interface before VLAN configuration
+  test_interface: "Ethernet0"
+
+  # Non-existent VLAN ID for testing
+  nonexistent_vlan_id: 700
+
+  # Expected error messages
+  expected_errors:
+    vlan_not_exist: "VLAN does not exist"
+    create_vlan_first: "Create VLAN first using"
+
+testcases:
+  # Test Scenario 1: Access port on non-existent VLAN
+  "access_port_negative":
+    title: "Access port configuration on non-existent VLAN"
+    test_id: "VLAN-NEG-ADD-MEMBER-001-ACCESS"
+    description: |
+      Verify that configuring an interface as access port for a non-existent VLAN
+      is rejected with clear error message. Current behavior (bug) accepts the
+      configuration silently without creating the VLAN.
+
+    interface: "Ethernet0"
+    vlan_id: 700
+    mode: "access"
+
+    # Configuration steps
+    config_commands:
+      - "interface Ethernet248"
+      - "switchport access Vlan 700"
+
+    expected_error: "VLAN does not exist. Create VLAN first using \"vlan <id>\""
+
+    # Verification checks
+    verify:
+      vlan_not_created: true  # VLAN 700 should NOT be created
+      error_message_displayed: true  # Error should be shown
+      interface_config_rejected: true  # Config should be rejected
+
+    # Current buggy behavior (for documentation)
+    current_behavior:
+      accepts_silently: true
+      vlan_not_created: true
+      shows_in_running_config: true  # Bug: shows invalid config
+
+  # Test Scenario 2: Trunk port on non-existent VLAN
+  "trunk_port_negative":
+    title: "Trunk port configuration on non-existent VLAN"
+    test_id: "VLAN-NEG-ADD-MEMBER-001-TRUNK"
+    description: |
+      Verify that adding a non-existent VLAN to trunk allowed list is rejected
+      with clear error message. Current behavior (bug) accepts the configuration
+      silently without creating the VLAN.
+
+    interface: "Ethernet248"
+    vlan_id: 700
+    mode: "trunk"
+
+    # Configuration steps
+    # Note: Correct command is "switchport trunk allowed Vlan <id>" (capital V)
+    config_commands:
+      - "interface Ethernet0"
+      - "switchport trunk allowed Vlan 700"
+
+    expected_error: "VLAN does not exist. Create VLAN first using \"vlan <id>\""
+
+    # Verification checks
+    verify:
+      vlan_not_created: true  # VLAN 700 should NOT be created
+      error_message_displayed: true  # Error should be shown
+      interface_config_rejected: true  # Config should be rejected
+
+    # Current buggy behavior (for documentation)
+    current_behavior:
+      accepts_silently: true
+      vlan_not_created: true
+
+# Additional test scenarios (for future expansion)
+testcases_future:
+  "multiple_vlans_trunk_negative":
+    title: "Multiple non-existent VLANs in trunk allowed list"
+    vlan_ids: [700, 800, 900]
+    mode: "trunk"
+    skip: true  # Not implemented yet
+
+  "vlan_range_trunk_negative":
+    title: "VLAN range with non-existent VLANs"
+    vlan_range: "700-710"
+    mode: "trunk"
+    skip: true  # Not implemented yet
