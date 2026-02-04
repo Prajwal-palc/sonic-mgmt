@@ -1,9 +1,9 @@
 version: 2.0
 devices:
   smic_sonic1:
-    device_type: sonic
-    access: {protocol: ssh, ip: 192.168.100.74, port: 22}
-    credentials: {username: admin, password: Root@123, altpassword: broadcom}
+    device_type: vsonic
+    access: {protocol: ssh, ip: 192.168.100.248, port: 22}
+    credentials: {username: admin, password: root@123, altpassword: broadcom}
     properties: {services: default, build: default, config: default, errors: default}
 
 topology:

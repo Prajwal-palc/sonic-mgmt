@@ -1,0 +1,81 @@
+# SM_ISCLI_10: BGP Update-Source Interface Display Consistency
+# Author: Athira
+# Date: 2026-02-04
+
+# Minimum topology requirements
+min_topology:
+  - "D1D2:1"  # 1 link between D1 and D2
+
+# Test Configuration Parameters
+bgp:
+  # DUT1 (D1) Configuration
+  dut1:
+    as_number: 65002
+    router_id: "10.2.2.2"
+    loopback_ip: "10.2.2.2/32"
+    ethernet_ip: "20.1.1.2/31"
+    portchannel_ip: "30.1.1.2/31"
+    vlan_ip: "40.1.1.2/31"
+    neighbor_ip: "10.2.2.5"
+    neighbor_as: 65001
+    ebgp_multihop: 2
+
+  # DUT2 (D2) Configuration
+  dut2:
+    as_number: 65001
+    router_id: "10.2.2.5"
+    loopback_ip: "10.2.2.5/32"
+    ethernet_ip: "20.1.1.1/31"
+    portchannel_ip: "30.1.1.1/31"
+    vlan_ip: "40.1.1.1/31"
+    neighbor_ip: "10.2.2.2"
+    neighbor_as: 65002
+    ebgp_multihop: 2
+
+# Interface Configuration
+interfaces:
+  loopback: "Loopback0"
+  loopback_with_space: "Loopback 0"  # Test input with space
+  ethernet: "Ethernet4"
+  ethernet_with_space: "Ethernet 4"  # Test input with space
+  portchannel: "PortChannel100"
+  portchannel_with_space: "PortChannel 100"  # Test input with space
+  vlan: "Vlan100"
+  vlan_with_space: "Vlan 100"  # Test input with space
+  vlan_id: 100
+
+# Expected Interface Name Formats (for validation)
+# Acceptable formats after normalization
+expected_formats:
+  loopback:
+    - "Loopback0"
+    - "loopback0"
+  ethernet:
+    - "Ethernet4"
+    - "ethernet4"
+  portchannel:
+    - "PortChannel100"
+    - "portchannel100"
+  vlan:
+    - "Vlan100"
+    - "vlan100"
+
+# Test Case IDs
+testcases:
+  tc1: "SM_ISCLI_10_TC1"
+  tc2: "SM_ISCLI_10_TC2"
+  tc3: "SM_ISCLI_10_TC3"
+  tc4: "SM_ISCLI_10_TC4"
+  tc5: "SM_ISCLI_10_TC5"
+
+# Wait times (seconds)
+wait_times:
+  bgp_config: 2
+  interface_config: 2
+  bgp_convergence: 10
+  neighbor_establish: 15
+
+# BGP Address Families
+address_families:
+  - "ipv4"
+  - "l2vpn_evpn"
