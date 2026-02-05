@@ -8,6 +8,14 @@ import telnetlib
 
 import netmiko
 
+try:
+    from netmiko.exceptions import NetmikoTimeoutException, NetmikoAuthenticationException
+except ImportError:  # pragma: no cover - fallback for older netmiko releases
+    from netmiko.ssh_exception import (  # type: ignore[attr-defined]
+        NetMikoTimeoutException as NetmikoTimeoutException,
+        NetMikoAuthenticationException as NetmikoAuthenticationException,
+    )
+
 from utilities import ctrl_chars
 from utilities.common import stack_trace
 from utilities.exceptions import DeviceConnectionError
@@ -91,7 +99,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
             try:
                 super(NetmikoConnection, self).__init__(**kwargs)
                 break
-            except netmiko.ssh_exception.NetMikoTimeoutException:
+            except NetmikoTimeoutException:
                 msg = "Connection Timeout Error.."
                 self.log_warn(msg)
                 if try_index >= 4:
@@ -99,7 +107,7 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
                     continue
                 self.disconnect()
                 raise DeviceConnectionTimeout(msg)
-            except netmiko.ssh_exception.NetMikoAuthenticationException:
+            except NetmikoAuthenticationException:
                 msg = "Connection Authentication Error.."
                 self.log_warn(msg)
                 self.disconnect()
@@ -430,11 +438,11 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
             if self.auth_failmsg and self.auth_failmsg in output:
                 raise DeviceAuthenticationFailure("")
             _, output = self.extended_login(output)
-        except netmiko.ssh_exception.NetMikoTimeoutException as e:
+        except NetmikoTimeoutException as e:
             self.in_login = False
             self.log_warn("Telnet Timeout Error", dump=True)
             raise e
-        except netmiko.ssh_exception.NetMikoAuthenticationException as e:
+        except NetmikoAuthenticationException as e:
             self.in_login = False
             msg = "Telnet Authentication Error.."
             self.log_warn(msg, dump=True)
@@ -577,20 +585,29 @@ class NetmikoConnection(netmiko.cisco_base_connection.CiscoBaseConnection):
                 return output
         return None
 
-    def find_prompt_super(self, delay_factor=1):
-        return super(NetmikoConnection, self).find_prompt(delay_factor)
+    def find_prompt_super(self, delay_factor=1, pattern=None):
+        return self._find_prompt_super(delay_factor=delay_factor, pattern=pattern)
 
     def find_prompt_new(self, delay_factor=1, use_cache=False):
-        return self.find_prompt(delay_factor)
+        return self.find_prompt(delay_factor=delay_factor)
 
-    def find_prompt(self, delay_factor=1):
+    def _find_prompt_super(self, delay_factor=1, pattern=None):
+        try:
+            if pattern is None:
+                return super(NetmikoConnection, self).find_prompt(delay_factor)
+            return super(NetmikoConnection, self).find_prompt(delay_factor, pattern)
+        except TypeError:
+            # Older versions of netmiko do not accept the pattern argument.
+            return super(NetmikoConnection, self).find_prompt(delay_factor)
+
+    def find_prompt(self, delay_factor=1, pattern=None):
         trace("============================== find_prompt ============================")
         max_try = 3
         for index in range(1, max_try + 1):
             try:
                 self.clear_cached_read_data()
                 delay_factor = get_delay_factor(delay_factor)
-                rv = super(NetmikoConnection, self).find_prompt(delay_factor)
+                rv = self._find_prompt_super(delay_factor, pattern)
                 rv = re.escape(rv)
                 self.clear_cached_read_data()
                 return rv
