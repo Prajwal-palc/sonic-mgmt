@@ -1684,7 +1684,7 @@ def show_ifname_type(dut, **kwargs):
         st.error("Provided invalid CLI type-{}".format(cli_type))
         return False
     '''
-    return output or None
+    return None
 
 
 def verify_ifname_type(dut, mode='native', cli_type=''):

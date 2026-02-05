@@ -154,11 +154,99 @@ routing/bgp/test_sm_iscli_10_update_source_format.py
 
 
 # ==========================================================
-# BATCH-14 : SM_ISCLI_15 - BGP Network IP Conflict
+# BATCH-14 : SM_ISCLI_13 - BGP IBGP Multipath
 # ==========================================================
 
-run_batch "SM_ISCLI_15_BGP_NETWORK_CONFLICT" "./testbeds/testbed_2vs.yaml" \
+run_batch "SM_ISCLI_13_IBGP_MULTIPATH" "./testbeds/testbed_vs_2d.yaml" \
+routing/bgp/test_sm_iscli_13_ibgp_multipath.py
+
+
+# ==========================================================
+# BATCH-15 : SM_ISCLI_15 - BGP Network IP Conflict
+# ==========================================================
+
+run_batch "SM_ISCLI_15_BGP_NETWORK_CONFLICT" "./testbeds/testbed_vs_2d.yaml" \
 routing/bgp/test_sm_iscli_15_bgp_network_ip_conflict.py
+
+
+# ==========================================================
+# BATCH-16 : BGP Remote AS Internal External
+# ==========================================================
+
+run_batch "SM_ISCLI_41_BGP_REMOTE_AS_INTERNAL_EXTERNAL" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_bgp_remote_as_internal_external.py
+
+
+# ==========================================================
+# BATCH-17 : BGP VRF Validation
+# ==========================================================
+
+run_batch "SM_ISCLI_82_BGP_VRF_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_bgp_vrf_validation.py
+
+
+# ==========================================================
+# BATCH-18 : Hostname Validation
+# ==========================================================
+
+run_batch "SM_ISCLI_74_HOSTNAME_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_hostname_validation.py
+
+
+# ==========================================================
+# BATCH-19 : IP Route SVI
+# ==========================================================
+
+run_batch "SM_ISCLI_29_IP_ROUTE_SVI" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_ip_route_svi.py
+
+
+# ==========================================================
+# BATCH-20 : Port Breakout
+# ==========================================================
+
+run_batch "SM_ISCLI_46_PORT_BREAKOUT" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_port_breakout.py
+
+
+# ==========================================================
+# BATCH-21 : Remove VLAN Interface
+# ==========================================================
+
+run_batch "SM_ISCLI_60_REMOVE_VLAN_INTERFACE" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_remove_vlan_interface.py
+
+
+# ==========================================================
+# BATCH-22 : Show IP Interface
+# ==========================================================
+
+run_batch "SM_ISCLI_12_SHOW_IP_INTERFACE" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_show_ip_interface.py
+
+
+# ==========================================================
+# BATCH-23 : Show Run Interface
+# ==========================================================
+
+run_batch "SM_ISCLI_33_SHOW_RUN_INTERFACE" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_show_run_interface.py
+
+
+# ==========================================================
+# BATCH-24 : Show Running Config
+# ==========================================================
+
+run_batch "SM_ISCLI_54_SHOW_RUNNING_CONFIG" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_show_running_config.py
+
+
+# ==========================================================
+# BATCH-25 : VRF Interface Validation
+# ==========================================================
+
+run_batch "SM_ISCLI_73_VRF_INTERFACE_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
+Bug-fix/test_vrf_interface_validation.py
 
 
 echo "=============================================="

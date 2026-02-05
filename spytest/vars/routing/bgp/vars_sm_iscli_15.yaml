@@ -1,0 +1,90 @@
+# SM_ISCLI_15: BGP Network Statement IP Overlap Bug
+# Author: Athira
+# Date: 2026-02-04
+
+# Minimum topology requirements
+min_topology:
+  - "D1D2:1"  # Two device topology with at least 1 link
+
+# Test Configuration Parameters
+bgp:
+  as_number: 65100
+  router_id: "1.1.1.1"
+
+  # Network statements that should NOT block interface IPs
+  networks:
+    loopback_32: "10.10.10.1/32"
+    loopback_32_prefix: "10.10.10.0/32"
+    ethernet_24: "192.168.10.0/24"
+    ethernet_24_ip: "192.168.10.1/24"
+    multiple_net1: "172.16.1.0/24"
+    multiple_net2: "172.16.2.0/24"
+    multiple_net3: "172.16.3.0/32"
+
+# Interface Configuration
+interfaces:
+  # Loopback interface
+  loopback:
+    name: "Loopback1"
+    ip: "10.10.10.1/32"
+
+  # Ethernet interface (from testbed)
+  # This will be dynamically determined from testbed topology
+  ethernet:
+    name: "Ethernet0"  # Will be overridden by testbed value
+    ip: "192.168.10.1/24"
+
+  # Additional interfaces for TC4
+  # NOTE: Loopback interfaces in IS-CLI MUST use /32 prefix, not /24
+  loopback2:
+    name: "Loopback2"
+    ip: "172.16.1.1/32"
+  loopback3:
+    name: "Loopback3"
+    ip: "172.16.2.1/32"
+  loopback4:
+    name: "Loopback4"
+    ip: "172.16.3.1/32"
+
+# Test Case IDs
+testcases:
+  tc1: "SM_ISCLI_15_TC1"
+  tc2: "SM_ISCLI_15_TC2"
+  tc3: "SM_ISCLI_15_TC3"
+  tc4: "SM_ISCLI_15_TC4"
+  tc5: "SM_ISCLI_15_TC5"
+
+# Wait times (seconds)
+wait_times:
+  bgp_config: 2
+  interface_config: 2
+  bgp_convergence: 5
+  config_save: 3
+
+# Error detection patterns
+error_patterns:
+  ip_overlap: "overlaps with existing configuration"
+  bgp_network_conflict: "BGP_GLOBALS_AF_NETWORK"
+  invalid_input: "Invalid input"
+
+# Expected behavior
+expected:
+  # These configurations should succeed (bug makes them fail)
+  should_succeed:
+    - "Interface IP configuration after BGP network statement"
+    - "Interface IP same as BGP network prefix"
+    - "Multiple interface IPs with multiple BGP networks"
+
+  # These validations should pass
+  validations:
+    - "Interface IP is configured and active"
+    - "BGP network statement is present in running-config"
+    - "No error messages in configuration output"
+
+# CLI types
+cli_types:
+  buggy: "klish"  # IS-CLI has the bug
+  working: "click"  # Click CLI works correctly
+
+# Address family
+address_family: "ipv4_unicast"

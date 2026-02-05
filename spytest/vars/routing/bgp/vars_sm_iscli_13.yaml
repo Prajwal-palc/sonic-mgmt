@@ -1,0 +1,87 @@
+# SM_ISCLI_13: BGP IBGP Maximum-Paths Configuration Bug
+# Author: Athira
+# Date: 2026-02-05
+
+# Minimum topology requirements
+min_topology:
+  - "D1"  # Single device topology
+
+# BGP Configuration
+bgp:
+  as_number: 65001
+  router_id: "1.1.1.1"
+
+  # IBGP maximum-paths test values
+  ibgp_multipath_values:
+    minimum: 1
+    typical: [2, 4, 8, 10, 16, 32]
+    maximum: 64
+
+  # EBGP maximum-paths for comparison
+  ebgp_multipath: 8
+
+  # Network statements for testing
+  networks:
+    - "10.0.0.0/24"
+    - "192.168.1.0/24"
+
+# Address families to test
+address_families:
+  - "ipv4_unicast"
+  - "ipv6_unicast"
+
+# Test Case IDs
+testcases:
+  tc1: "SM_ISCLI_13_TC1"
+  tc2: "SM_ISCLI_13_TC2"
+  tc3: "SM_ISCLI_13_TC3"
+  tc4: "SM_ISCLI_13_TC4"
+  tc5: "SM_ISCLI_13_TC5"
+  tc6: "SM_ISCLI_13_TC6"
+  tc7: "SM_ISCLI_13_TC7"
+  tc8: "SM_ISCLI_13_TC8"
+  tc9: "SM_ISCLI_13_TC9"
+  tc10: "SM_ISCLI_13_TC10"
+
+# Wait times (seconds)
+wait_times:
+  bgp_config: 2
+  bgp_convergence: 5
+  config_save: 3
+  rapid_reconfig: 0.5
+
+# Error detection patterns
+error_patterns:
+  syntax_error: "Syntax error.*then.*unexpected"
+  klish_fifo_error: "/tmp/klish.fifo.*Syntax error"
+  invalid_value: "Invalid|out of range"
+
+# Expected strings in running-config
+expected_config:
+  ipv4_ibgp_multipath: "maximum-paths ibgp"
+  ipv6_ibgp_multipath: "maximum-paths ibgp"
+  address_family_ipv4: "address-family ipv4 unicast"
+  address_family_ipv6: "address-family ipv6 unicast"
+
+# CLI types
+cli_types:
+  buggy: "klish"    # IS-CLI has the bug
+  working: "click"  # Click/vtysh CLI works correctly
+
+# Negative test values
+negative_tests:
+  invalid_values:
+    - 0      # Below minimum
+    - 65     # Above maximum (if 64 is max)
+    - 1000   # Way above maximum
+    - -1     # Negative value
+  invalid_strings:
+    - "abc"
+    - "ten"
+    - ""
+
+# Stress test parameters
+stress_test:
+  iterations: 10
+  rapid_reconfig_delay: 0.5  # seconds between commands
+  values_to_cycle: [4, 8, 16, 32, 10, 2, 1, 64]
