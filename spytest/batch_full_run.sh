@@ -317,18 +317,32 @@ echo " FULL REGRESSION COMPLETED"
 echo " Logs Root : ${BASE_LOG}"
 echo "=============================================="
 
-# For Historical Dashboard
+# Generate Graphical Dashboard
 echo "=============================================="
-echo " Updating Historical Dashboard"
+echo " Generating Graphical Dashboard"
 echo "=============================================="
 
-python3 dashboard/scripts/collect_spytest_results.py \
-   --logs ./logs \
-   --db dashboard/db/results_db.json
+# Create dashboard directory in logs
+DASHBOARD_DIR="${BASE_LOG}/dashboard"
+mkdir -p "${DASHBOARD_DIR}"
 
-python3 dashboard/scripts/generate_dashboard.py \
-   --db dashboard/db/results_db.json \
-   --out dashboard/consolidated_dashboard.html
+DASHBOARD_FILE="${DASHBOARD_DIR}/full_regression_dashboard_${DATE_DIR}_${TIME_STAMP}.html"
 
+python3 dashboard/scripts/generate_graphical_dashboard.py \
+    --log-root ${BASE_LOG} \
+    --out ${DASHBOARD_FILE} \
+    --name "Full Regression - ${DATE_DIR}"
+
+echo "=============================================="
+echo " Dashboard Generation Complete"
+echo "=============================================="
 echo "Dashboard available at:"
-echo "file://$(pwd)/dashboard/consolidated_dashboard.html"
+echo "file://$(pwd)/${DASHBOARD_FILE}"
+
+# Copy dashboard to user directory
+USER_DASHBOARD_DIR="${HOME}/Dashboard/FULL_REGRESSION"
+mkdir -p "${USER_DASHBOARD_DIR}"
+cp "${DASHBOARD_FILE}" "${USER_DASHBOARD_DIR}/"
+
+echo "Dashboard copy saved to:"
+echo "file://${USER_DASHBOARD_DIR}/full_regression_dashboard_${DATE_DIR}_${TIME_STAMP}.html"
