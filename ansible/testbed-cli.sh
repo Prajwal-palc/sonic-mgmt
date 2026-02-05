@@ -851,7 +851,16 @@ function is_cache_exist
 
   if [ ! -d "$cache_files_path_value" ]; then
       echo "Path specified in cached_topologies_path file does not exist, creating..." >&2
-      mkdir -p "$cache_files_path_value"
+      if ! mkdir -p "$cache_files_path_value"; then
+          fallback_cache_files_path_value="$(pwd)/cached-topologies"
+          echo "Failed to create '$cache_files_path_value'. Falling back to '$fallback_cache_files_path_value'." >&2
+          cache_files_path_value="$fallback_cache_files_path_value"
+          if ! mkdir -p "$cache_files_path_value"; then
+              echo "Failed to create fallback cache directory '$cache_files_path_value'. Exiting..." >&2
+              echo ""
+              return
+          fi
+      fi
   fi
 
   echo $cache_files_path_value
