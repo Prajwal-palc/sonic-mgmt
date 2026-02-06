@@ -257,6 +257,14 @@ run_batch "SM_ISCLI_19_GREP_FILTER" "./testbeds/testbed_vs_1node.yaml" \
 system/cli/test_sm_iscli_19_grep_filter.py
 
 
+# ==========================================================
+# BATCH-27 : SM_ISCLI_20 - OSPF Loopback Without IP
+# ==========================================================
+
+run_batch "SM_ISCLI_20_OSPF_LOOPBACK_NO_IP" "./testbeds/testbed_vs_2d.yaml" \
+routing/ospf/test_sm_iscli_20_ospf_loopback_no_ip.py
+
+
 echo "=============================================="
 echo " SM_ISCLI REGRESSION COMPLETED"
 echo " Logs Root : ${BASE_LOG}"

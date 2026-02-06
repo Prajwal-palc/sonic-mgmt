@@ -1,0 +1,306 @@
+# SM_ISCLI_20: OSPF Configuration on Loopback Without IP Address Test Variables
+# Test data for validating OSPF behavior when configured on loopback interfaces without IP addresses
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1D2:1"  # Two-node topology with one link
+
+# OSPF configuration parameters
+ospf_config:
+  process_id: 100
+  router_id: "1.1.1.1"
+  default_area: "0.0.0.0"
+  areas:
+    - "0.0.0.0"
+    - "0.0.0.1"
+    - "0.0.0.10"
+
+# Loopback interface configuration
+loopback_interfaces:
+  loopback0:
+    name: "Loopback0"
+    ip_address: "30.1.1.1/32"
+    ospf_area: "0.0.0.0"
+    ospf_priority: 255
+    ospf_cost: 10
+
+  loopback1:
+    name: "Loopback1"
+    ip_address: "30.1.1.2/32"
+    ospf_area: "0.0.0.1"
+    ospf_priority: 100
+    ospf_cost: 20
+
+  loopback10:
+    name: "Loopback10"
+    ip_address: "30.1.1.10/32"
+    ospf_area: "0.0.0.10"
+    ospf_priority: 50
+    ospf_cost: 30
+
+  loopback99:
+    name: "Loopback99"
+    ip_address: "30.1.1.99/32"
+    ospf_area: "0.0.0.0"
+
+# Physical interface for OSPF neighbor testing
+physical_interface:
+  d1_interface: null  # Will be set from topology vars
+  d1_ip: "10.1.1.1/24"
+  d2_interface: null  # Will be set from topology vars
+  d2_ip: "10.1.1.2/24"
+  ospf_area: "0.0.0.0"
+
+# D2 OSPF configuration (neighbor device)
+d2_ospf:
+  process_id: 100
+  router_id: "2.2.2.2"
+  loopback_ip: "30.2.2.1/32"
+  loopback_area: "0.0.0.0"
+
+# Test case configurations
+testcases:
+  "20.1":
+    title: "OSPF on Loopback WITH IP Address (Baseline)"
+    description: "Verify OSPF works correctly when loopback has IP address"
+    test_type: "baseline"
+    loopback: "Loopback0"
+    ip_address: "30.1.1.1/32"
+    ospf_area: "0.0.0.0"
+    configure_ip_first: true
+    expected_in_ospf_interface: true
+    expected_in_database: true
+
+  "20.2":
+    title: "OSPF on Loopback WITHOUT IP Address (Bug Scenario)"
+    description: "Verify OSPF configuration rejected or fails when no IP address"
+    test_type: "negative"
+    loopback: "Loopback1"
+    ip_address: null  # No IP address
+    ospf_area: "0.0.0.0"
+    configure_ip_first: false
+    expected_in_ospf_interface: false
+    expected_command_acceptance: true  # Bug: command is accepted
+    expected_ospf_activation: false    # But OSPF should not activate
+
+  "20.3":
+    title: "Add IP After OSPF Configuration (Recovery)"
+    description: "Verify OSPF activates after adding IP to configured loopback"
+    test_type: "recovery"
+    loopback: "Loopback1"
+    ip_address: "30.1.1.2/32"
+    ospf_area: "0.0.0.1"
+    steps:
+      - action: "configure_ospf_without_ip"
+        verify_ospf_inactive: true
+      - action: "add_ip_address"
+        verify_ospf_active: true
+
+  "20.4":
+    title: "Remove IP from Active OSPF Loopback"
+    description: "Verify OSPF deactivates when IP removed from active interface"
+    test_type: "negative_transition"
+    loopback: "Loopback10"
+    ip_address: "30.1.1.10/32"
+    ospf_area: "0.0.0.10"
+    steps:
+      - action: "configure_ip_and_ospf"
+        verify_ospf_active: true
+      - action: "remove_ip"
+        verify_ospf_inactive: true
+
+  "20.5":
+    title: "Full Lifecycle with IP Changes"
+    description: "Verify OSPF behavior through complete interface lifecycle"
+    test_type: "lifecycle"
+    loopback: "Loopback99"
+    ospf_area: "0.0.0.0"
+    lifecycle_steps:
+      - phase: "initial_config_with_ip"
+        ip: "30.1.1.99/32"
+        ospf_expected: true
+      - phase: "remove_ip"
+        ip: null
+        ospf_expected: false
+      - phase: "re_add_ip_same"
+        ip: "30.1.1.99/32"
+        ospf_expected: true
+      - phase: "change_ip"
+        ip: "30.1.1.100/32"
+        ospf_expected: true
+      - phase: "remove_ip_final"
+        ip: null
+        ospf_expected: false
+
+  "20.6":
+    title: "Multiple Loopbacks with OSPF"
+    description: "Verify OSPF on multiple loopbacks with mixed IP states"
+    test_type: "multi_interface"
+    loopbacks:
+      - name: "Loopback0"
+        ip: "30.1.1.1/32"
+        ospf_area: "0.0.0.0"
+        has_ip: true
+        ospf_should_work: true
+      - name: "Loopback1"
+        ip: null
+        ospf_area: "0.0.0.1"
+        has_ip: false
+        ospf_should_work: false
+      - name: "Loopback2"
+        ip: "30.1.1.3/32"
+        ospf_area: "0.0.0.0"
+        has_ip: true
+        ospf_should_work: true
+
+  "20.7":
+    title: "Configuration Order Variations"
+    description: "Verify OSPF with different config order (IP first vs OSPF first)"
+    test_type: "order_variation"
+    test_scenarios:
+      - scenario: "ip_then_ospf"
+        loopback: "Loopback0"
+        ip: "30.1.1.1/32"
+        ospf_area: "0.0.0.0"
+        order: ["configure_ip", "configure_ospf"]
+        expected_result: "ospf_active"
+      - scenario: "ospf_then_ip"
+        loopback: "Loopback1"
+        ip: "30.1.1.2/32"
+        ospf_area: "0.0.0.1"
+        order: ["configure_ospf", "configure_ip"]
+        expected_result: "ospf_active_after_ip"
+      - scenario: "ospf_no_ip"
+        loopback: "Loopback2"
+        ip: null
+        ospf_area: "0.0.0.0"
+        order: ["configure_ospf"]
+        expected_result: "ospf_inactive"
+
+  "20.8":
+    title: "Invalid OSPF Area Handling on Loopback Without IP"
+    description: "Verify error handling for invalid OSPF area"
+    test_type: "error_handling"
+    loopback: "Loopback0"
+    ip_address: null
+    invalid_areas:
+      - "999.999.999.999"
+      - "invalid"
+      - "999999"
+    expected_behavior: "reject_or_fail"
+
+  "20.9":
+    title: "OSPF Priority and Cost on Loopback Without IP"
+    description: "Verify OSPF parameters don't activate without IP"
+    test_type: "parameter_validation"
+    loopback: "Loopback0"
+    ip_address: null
+    ospf_config:
+      area: "0.0.0.0"
+      priority: 100
+      cost: 50
+    expected_in_ospf_interface: false
+    expected_parameters_stored: true  # Config may be stored but not active
+
+  "20.10":
+    title: "Cleanup and Unconfiguration"
+    description: "Verify proper cleanup of OSPF configuration"
+    test_type: "cleanup"
+    loopback: "Loopback0"
+    ip_address: "30.1.1.1/32"
+    ospf_area: "0.0.0.0"
+    cleanup_steps:
+      - "remove_ospf_config"
+      - "verify_ospf_removed"
+      - "remove_ip"
+      - "verify_ip_removed"
+
+# Expected command patterns
+show_commands:
+  ospf_interface:
+    command: "show ip ospf interface"
+    description: "Display OSPF-enabled interfaces"
+    parse_fields:
+      - "interface"
+      - "state"
+      - "address"
+      - "area"
+      - "cost"
+      - "priority"
+
+  ospf_neighbor:
+    command: "show ip ospf neighbor"
+    description: "Display OSPF neighbors"
+    parse_fields:
+      - "neighbor_id"
+      - "priority"
+      - "state"
+      - "interface"
+
+  ospf_database:
+    command: "show ip ospf database"
+    description: "Display OSPF link-state database"
+
+  interface_loopback:
+    command: "show interface {loopback}"
+    description: "Display loopback interface details"
+
+  ip_interface:
+    command: "show ip interface"
+    description: "Display IP interface information"
+
+  running_config_interface:
+    command: "show running-configuration interface {loopback}"
+    description: "Display running config for specific interface"
+
+# Validation patterns
+validation:
+  ospf_active:
+    pattern: "Loopback\\d+ is up"
+    command: "show ip ospf interface"
+    description: "OSPF is active on loopback"
+
+  ospf_inactive:
+    pattern: "Loopback\\d+"
+    command: "show ip ospf interface"
+    should_not_match: true
+    description: "OSPF is NOT active on loopback"
+
+  ip_configured:
+    pattern: "inet \\d+\\.\\d+\\.\\d+\\.\\d+/\\d+"
+    command: "show interface {loopback}"
+    description: "IP address is configured"
+
+  ospf_config_present:
+    pattern: "ip ospf area"
+    command: "show running-configuration interface {loopback}"
+    description: "OSPF configuration is present in running config"
+
+  ospf_neighbor_established:
+    pattern: "Full"
+    command: "show ip ospf neighbor"
+    description: "OSPF neighbor in Full state"
+
+# Bug behavior documentation
+bug_description:
+  issue: "OSPF configuration accepted on loopback without IP address but not activated"
+  symptom: "Command 'ip ospf area X.X.X.X' accepted but interface doesn't appear in 'show ip ospf interface'"
+  expected_behavior: "Either reject the configuration OR activate OSPF when IP is later added"
+  current_behavior: "Configuration accepted silently, no error, no activation"
+  workaround: "Configure IP address before or after OSPF configuration"
+
+# Wait times and timeouts
+wait_times:
+  ospf_convergence: 30  # seconds to wait for OSPF to converge
+  config_apply: 5       # seconds to wait after configuration
+  interface_up: 10      # seconds to wait for interface to come up
+  neighbor_establish: 40 # seconds for neighbor relationship
+
+# Traffic validation (optional)
+traffic_config:
+  enabled: false  # Set to true if traffic validation needed
+  ping_count: 5
+  ping_timeout: 10
