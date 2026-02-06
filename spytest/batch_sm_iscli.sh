@@ -61,7 +61,7 @@ routing/static/test_sm_iscli_7.py
 # BATCH-2 : SM_ISCLI_4 - eBGP Multihop
 # ==========================================================
 
-run_batch "SM_ISCLI_4_EBGP_MULTIHOP" "./testbeds/testbed_2vs.yaml" \
+run_batch "SM_ISCLI_4_EBGP_MULTIHOP" "./testbeds/testbed_vs_2d.yaml" \
 system/SM_ISCLI/test_sm_iscli_4_ebgp_multihop.py
 
 
@@ -69,7 +69,7 @@ system/SM_ISCLI/test_sm_iscli_4_ebgp_multihop.py
 # BATCH-3 : SM_ISCLI_5 - BGP L2VPN EVPN Output
 # ==========================================================
 
-run_batch "SM_ISCLI_5_BGP_L2VPN_EVPN" "./testbeds/testbed_2vs.yaml" \
+run_batch "SM_ISCLI_5_BGP_L2VPN_EVPN" "./testbeds/testbed_vs_2d.yaml" \
 system/SM_ISCLI/test_sm_iscli_5_bgp_l2vpn_evpn_output.py
 
 
@@ -77,7 +77,7 @@ system/SM_ISCLI/test_sm_iscli_5_bgp_l2vpn_evpn_output.py
 # BATCH-4 : SM_ISCLI_6 - BGP Timers
 # ==========================================================
 
-run_batch "SM_ISCLI_6_BGP_TIMERS" "./testbeds/testbed_2vs.yaml" \
+run_batch "SM_ISCLI_6_BGP_TIMERS" "./testbeds/testbed_vs_2d.yaml" \
 system/SM_ISCLI/test_sm_iscli_6_bgp_timers.py
 
 
@@ -94,7 +94,7 @@ system/management/test_management_ip_route.py
 # ==========================================================
 
 run_batch "SM_ISCLI_43_SM_ISCLI_61_MGMT_INTERFACE_CONFIG" "./testbeds/ztp_standalone.yaml" \
-tests/system/management/test_management_interface_config.py
+system/management/test_management_interface_config.py
 
 
 # ==========================================================
@@ -102,7 +102,7 @@ tests/system/management/test_management_interface_config.py
 # ==========================================================
 
 run_batch "SM_ISCLI_42_SM_ISCLI_68_VLAN_BASIC_CONFIG" "./testbeds/ztp_standalone.yaml" \
-tests/system/management/test_vlan_basic_config.py
+system/management/test_vlan_basic_config.py
 
 
 # ==========================================================
@@ -110,7 +110,7 @@ tests/system/management/test_vlan_basic_config.py
 # ==========================================================
 
 run_batch "SM_ISCLI_16_IP_NOOP" "./testbeds/testbed_vs_1node.yaml" \
-tests/system/interface/test_sm_iscli_16_ip_noop.py
+system/interface/test_sm_iscli_16_ip_noop.py
 
 
 # ==========================================================
@@ -133,7 +133,7 @@ switching/test_switching_mode.py
 # BATCH-11 : SM_ISCLI_8 - Management Static IP
 # ==========================================================
 
-run_batch "SM_ISCLI_8_MGMT_STATIC_IP" "./testbeds/testbed_2vs.yaml" \
+run_batch "SM_ISCLI_8_MGMT_STATIC_IP" "./testbeds/testbed_vs_2d.yaml" \
 system/SM_ISCLI/test_sm_iscli_8_management_static_ip.py
 
 
@@ -141,7 +141,7 @@ system/SM_ISCLI/test_sm_iscli_8_management_static_ip.py
 # BATCH-12 : SM_ISCLI_9 - L2VPN EVPN Order
 # ==========================================================
 
-run_batch "SM_ISCLI_9_L2VPN_EVPN_ORDER" "./testbeds/testbed_2vs.yaml" \
+run_batch "SM_ISCLI_9_L2VPN_EVPN_ORDER" "./testbeds/testbed_vs_2d.yaml" \
 system/SM_ISCLI/test_sm_iscli_9_l2vpn_evpn_order.py
 
 
@@ -283,3 +283,32 @@ cp "${DASHBOARD_FILE}" "${USER_DASHBOARD_DIR}/"
 
 echo "Dashboard copy saved to:"
 echo "file://${USER_DASHBOARD_DIR}/sm_iscli_dashboard_${DATE_DIR}_${TIME_STAMP}.html"
+
+# Generate Failure Analysis CSV Report
+echo "=============================================="
+echo " Generating Failure Analysis CSV Report"
+echo "==============================================="
+
+FAILURE_CSV="${BASE_LOG}/SM_ISCLI_${DATE_DIR}_failure_analysis_${TIME_STAMP}.csv"
+
+python3 ./utils/generate_failure_analysis.py \
+    "${BASE_LOG}" \
+    "${FAILURE_CSV}"
+
+if [ -f "${FAILURE_CSV}" ]; then
+    echo "==============================================="
+    echo " Failure Analysis Report Generated"
+    echo "==============================================="
+    echo "Failure CSV available at:"
+    echo "$(pwd)/${FAILURE_CSV}"
+
+    # Copy failure analysis CSV to user directory
+    cp "${FAILURE_CSV}" "${USER_DASHBOARD_DIR}/"
+    echo ""
+    echo "Failure CSV copy saved to:"
+    echo "${USER_DASHBOARD_DIR}/SM_ISCLI_${DATE_DIR}_failure_analysis_${TIME_STAMP}.csv"
+else
+    echo "Note: No failures found or error generating failure analysis report"
+fi
+
+
