@@ -1,0 +1,190 @@
+# SM_ISCLI_19: Grep Filter Effectiveness Test Variables
+# Test data for validating grep filter functionality in IS-CLI command combinations
+
+defaults:
+  cli_type: klish
+  verify_timeout: 10
+  cleanup: true
+  min_topology: []  # Single-node test, no specific topology requirements
+
+# Test patterns for grep validation
+test_patterns:
+  # Non-existent patterns (should return no output)
+  non_existent:
+    - "asdf"
+    - "xyz123"
+    - "nonexistent"
+    - "invalidkeyword"
+    - "qwerty999"
+
+  # Valid patterns for positive matching
+  interface_names:
+    - "Ethernet0"
+    - "Loopback"
+    - "Vlan"
+
+  ip_patterns:
+    - "192.168"
+    - "10.0.0"
+    - "/24"
+    - "/32"
+
+  status_keywords:
+    - "up"
+    - "down"
+    - "primary"
+
+  # Case sensitivity test patterns
+  case_variations:
+    - pattern: "ethernet0"
+      expected_match: false  # Should not match "Ethernet0" if case-sensitive
+    - pattern: "Ethernet0"
+      expected_match: true
+    - pattern: "ETHERNET0"
+      expected_match: false  # Should not match "Ethernet0" if case-sensitive
+
+# Test commands to execute with grep
+test_commands:
+  show_ip_interfaces:
+    command: "show ip interfaces"
+    description: "Show IP interface information"
+
+  show_interfaces_status:
+    command: "show interfaces status"
+    description: "Show interface status"
+
+  show_running_config:
+    command: "show running-configuration"
+    description: "Show running configuration"
+
+  show_vlan_brief:
+    command: "show vlan brief"
+    description: "Show VLAN information"
+
+  show_arp:
+    command: "show arp"
+    description: "Show ARP table"
+
+# Test cases configuration
+testcases:
+  "19.1":
+    title: "Grep with non-existent pattern (negative match)"
+    description: "Verify grep returns no output for patterns that don't exist"
+    test_type: "negative"
+    patterns:
+      - "asdf"
+      - "xyz123"
+      - "nonexistent"
+    commands:
+      - "show ip interfaces"
+      - "show interfaces status"
+    expected_line_count: 0
+
+  "19.2":
+    title: "Grep with exact interface name (positive match)"
+    description: "Verify grep filters for exact interface names"
+    test_type: "positive"
+    pattern: "Ethernet0"
+    command: "show ip interfaces"
+    validate_contains: true
+
+  "19.3":
+    title: "Grep with IP address pattern (positive match)"
+    description: "Verify grep filters IP addresses correctly"
+    test_type: "positive"
+    patterns:
+      - "192.168"
+      - "/24"
+    command: "show ip interfaces"
+    validate_contains: true
+
+  "19.4":
+    title: "Grep with status/state keywords (positive match)"
+    description: "Verify grep filters interface states"
+    test_type: "positive"
+    patterns:
+      - "up"
+    command: "show interfaces status"
+    validate_contains: true
+
+  "19.5":
+    title: "Grep case sensitivity"
+    description: "Verify grep respects case sensitivity"
+    test_type: "case_test"
+    patterns:
+      - pattern: "ethernet0"
+        should_match: false
+      - pattern: "Ethernet0"
+        should_match: true
+    command: "show ip interfaces"
+
+  "19.6":
+    title: "Grep with special characters"
+    description: "Verify grep handles special characters"
+    test_type: "special_chars"
+    patterns:
+      - "192.168."
+      - '\\.1'
+    command: "show ip interfaces"
+
+  "19.7":
+    title: "Grep with multiple commands"
+    description: "Verify grep works across various show commands"
+    test_type: "multi_command"
+    test_matrix:
+      - command: "show interfaces status"
+        pattern: "Ethernet"
+      - command: "show ip interfaces"
+        pattern: "primary"
+      - command: "show running-config"
+        pattern: "interface"
+
+  "19.8":
+    title: "Grep with empty pattern"
+    description: "Verify grep behavior with empty patterns"
+    test_type: "empty_pattern"
+    patterns:
+      - ""
+      - " "
+    command: "show ip interfaces"
+
+  "19.9":
+    title: "Grep performance with large output"
+    description: "Verify grep efficiently filters large output"
+    test_type: "performance"
+    command: "show running-config"
+    pattern: "interface"
+    max_execution_time: 5
+
+  "19.10":
+    title: "Chained grep filters"
+    description: "Verify multiple grep filters can be chained"
+    test_type: "chained"
+    test_chains:
+      - base_command: "show interfaces status"
+        grep_chain:
+          - "up"
+          - "Ethernet"
+      - base_command: "show ip interfaces"
+        grep_chain:
+          - "192"
+          - "/24"
+
+# Expected output characteristics
+expected_behavior:
+  non_existent_pattern:
+    line_count: 0
+    description: "No output lines should be returned"
+
+  valid_pattern:
+    line_count: ">0"
+    description: "At least one line containing the pattern"
+    all_lines_must_contain_pattern: true
+
+  case_sensitive:
+    default: true
+    description: "Grep should be case-sensitive by default"
+
+  empty_pattern:
+    behavior: "all_or_error"
+    description: "Either return all output or proper error message"

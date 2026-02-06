@@ -249,6 +249,14 @@ run_batch "SM_ISCLI_73_VRF_INTERFACE_VALIDATION" "./testbeds/testbed_vs_2d.yaml"
 Bug-fix/test_vrf_interface_validation.py
 
 
+# ==========================================================
+# BATCH-26 : SM_ISCLI_19 - Grep Filter Effectiveness
+# ==========================================================
+
+run_batch "SM_ISCLI_19_GREP_FILTER" "./testbeds/testbed_vs_1node.yaml" \
+system/cli/test_sm_iscli_19_grep_filter.py
+
+
 echo "=============================================="
 echo " SM_ISCLI REGRESSION COMPLETED"
 echo " Logs Root : ${BASE_LOG}"
