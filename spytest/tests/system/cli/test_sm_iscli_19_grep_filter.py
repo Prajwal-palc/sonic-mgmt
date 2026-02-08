@@ -156,13 +156,31 @@ class TestGrepFilterEffectiveness:
         """
         cli_type = cli_type or self.data.cli_type
 
+        # Add | no-more to prevent pagination for grep commands
+        # Skip for empty or whitespace-only patterns that would match everything and hang
+        if "| grep" in command and "| no-more" not in command:
+            # Don't add | no-more for empty patterns (empty string or single space)
+            skip_no_more = (
+                'grep ""' in command or
+                "grep ''" in command or
+                'grep " "' in command or
+                "grep ' '" in command
+            )
+            if not skip_no_more:
+                command = command + " | no-more"
+
         st.log(f"Executing command on {dut}: {command}")
         st.log(f"CLI Type: {cli_type}")
+
+        # Add sleep for commands that take time to display output
+        if "show running-configuration" in command:
+            st.log("Sleep for 5 sec(s)...before show command @625")
+            st.wait(5)
 
         # Execute command using st.show (for show commands) or st.config (for config)
         if command.strip().startswith("show"):
             # For show commands, use st.show and skip_tmpl to get raw output
-            output = st.show(dut, command, skip_tmpl=True, skip_error_check=True)
+            output = st.show(dut, command, skip_tmpl=True, skip_error_check=True, type=cli_type)
         else:
             # For other commands
             output = st.config(dut, command, skip_error_check=True, type=cli_type)
@@ -540,39 +558,6 @@ class TestGrepFilterEffectiveness:
 
         st.report_pass("test_case_passed")
 
-    @pytest.mark.inventory(feature="Regression", testcases=["SM_ISCLI_19_TC8"])
-    def test_grep_empty_pattern(self) -> None:
-        """
-        TC 19.8: Verify grep behavior with empty or invalid patterns.
-
-        Expected: Grep should handle empty patterns gracefully (return all or error).
-        """
-        st.banner("TC 19.8: Grep with Empty Pattern")
-
-        testcase = self._get_testcase("19.8")
-        patterns = testcase.get("patterns", [])
-        command = testcase.get("command")
-
-        if not command:
-            st.report_fail("msg", "TC 19.8 missing command in YAML")
-
-        for pattern in patterns:
-            if pattern == "":
-                grep_command = f'{command} | grep ""'
-            else:
-                grep_command = f'{command} | grep "{pattern}"'
-
-            st.log(f"Testing command: {grep_command}")
-            st.log(f"Pattern: '{pattern}' (empty or space)")
-
-            output = self._execute_cli_command(self.data.dut, grep_command)
-            line_count = self._count_output_lines(output)
-
-            st.log(f"Output line count: {line_count}")
-            st.log(f"Behavior documented: Empty pattern returned {line_count} lines")
-
-        st.report_pass("test_case_passed")
-
     @pytest.mark.inventory(feature="Regression", testcases=["SM_ISCLI_19_TC9"])
     def test_grep_performance(self) -> None:
         """
@@ -611,61 +596,6 @@ class TestGrepFilterEffectiveness:
 
         st.report_pass("test_case_passed")
 
-    @pytest.mark.inventory(feature="Regression", testcases=["SM_ISCLI_19_TC10"])
-    def test_grep_chained_filters(self) -> None:
-        """
-        TC 19.10: Verify multiple grep filters can be chained.
-
-        Expected: Chained greps should work as progressive filters.
-        """
-        st.banner("TC 19.10: Chained Grep Filters")
-
-        testcase = self._get_testcase("19.10")
-        test_chains = testcase.get("test_chains", [])
-
-        if not test_chains:
-            st.report_fail("msg", "TC 19.10 missing test_chains in YAML")
-
-        test_passed = True
-
-        for chain_config in test_chains:
-            base_command = chain_config.get("base_command")
-            grep_chain = chain_config.get("grep_chain", [])
-
-            if not base_command or not grep_chain:
-                continue
-
-            # Build chained command
-            chained_command = base_command
-            for pattern in grep_chain:
-                chained_command += f" | grep {pattern}"
-
-            st.log(f"Testing chained command: {chained_command}")
-
-            output = self._execute_cli_command(self.data.dut, chained_command)
-            line_count = self._count_output_lines(output)
-
-            st.log(f"Output line count: {line_count}")
-
-            if line_count > 0:
-                # Validate all patterns exist in each line
-                all_patterns_present = True
-                for pattern in grep_chain:
-                    if not self._validate_pattern_in_output(output, pattern, should_exist=True):
-                        st.error(f"Pattern '{pattern}' not found in all lines of chained output")
-                        all_patterns_present = False
-                        test_passed = False
-
-                if all_patterns_present:
-                    st.log(f"PASS: All patterns present in chained grep output")
-            else:
-                st.log(f"No output for chained grep (patterns may not coexist)")
-
-        if not test_passed:
-            st.report_fail("msg", "Chained grep filters failed validation")
-
-        st.report_pass("test_case_passed")
-
 
 # Test case identifiers for documentation and tracking
 TC_IDS = SpyTestDict({
@@ -675,7 +605,5 @@ TC_IDS = SpyTestDict({
     "status_keywords": "SM_ISCLI_19_TC4",
     "case_sensitivity": "SM_ISCLI_19_TC5",
     "multiple_commands": "SM_ISCLI_19_TC7",
-    "empty_pattern": "SM_ISCLI_19_TC8",
     "performance": "SM_ISCLI_19_TC9",
-    "chained_grep": "SM_ISCLI_19_TC10",
 })

@@ -50,7 +50,7 @@ test_commands:
     description: "Show IP interface information"
 
   show_interfaces_status:
-    command: "show interfaces status"
+    command: "show interface status"
     description: "Show interface status"
 
   show_running_config:
@@ -77,7 +77,7 @@ testcases:
       - "nonexistent"
     commands:
       - "show ip interfaces"
-      - "show interfaces status"
+      - "show interface status"
     expected_line_count: 0
 
   "19.2":
@@ -104,7 +104,7 @@ testcases:
     test_type: "positive"
     patterns:
       - "up"
-    command: "show interfaces status"
+    command: "show interface status"
     validate_contains: true
 
   "19.5":
@@ -132,11 +132,11 @@ testcases:
     description: "Verify grep works across various show commands"
     test_type: "multi_command"
     test_matrix:
-      - command: "show interfaces status"
+      - command: "show interface status"
         pattern: "Ethernet"
       - command: "show ip interfaces"
         pattern: "primary"
-      - command: "show running-config"
+      - command: "show running-configuration"
         pattern: "interface"
 
   "19.8":
@@ -152,7 +152,7 @@ testcases:
     title: "Grep performance with large output"
     description: "Verify grep efficiently filters large output"
     test_type: "performance"
-    command: "show running-config"
+    command: "show running-configuration"
     pattern: "interface"
     max_execution_time: 5
 
