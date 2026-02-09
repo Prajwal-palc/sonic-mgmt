@@ -265,6 +265,54 @@ run_batch "SM_ISCLI_20_OSPF_LOOPBACK_NO_IP" "./testbeds/testbed_vs_2d.yaml" \
 routing/ospf/test_sm_iscli_20_ospf_loopback_no_ip.py
 
 
+# ==========================================================
+# BATCH-28 : Interface IP Config Validation
+# ==========================================================
+
+run_batch "INTERFACE_IP_CONFIG_VALIDATION" "./testbeds/ztp_standalone.yaml" \
+system/interface/test_interface_ip_config_validation.py
+
+
+# ==========================================================
+# BATCH-29 : SM_ISCLI_24 - sonic-cli -c Flag Test
+# ==========================================================
+
+run_batch "SM_ISCLI_24_SONIC_CLI_C_FLAG" "./testbeds/testbed_vs_1node.yaml" \
+system/cli/test_sm_iscli_24_sonic_cli_c_flag.py
+
+
+# ==========================================================
+# BATCH-30 : SM_ISCLI_23 - Route Map Show Running Config
+# ==========================================================
+
+run_batch "SM_ISCLI_23_ROUTE_MAP_SHOW_RUN" "./testbeds/testbed_vs_1node.yaml" \
+routing/test_sm_iscli_23_route_map_show_run.py
+
+
+# ==========================================================
+# BATCH-31 : SM_ISCLI_82 - BGP VRF Unconfigurations
+# ==========================================================
+
+run_batch "SM_ISCLI_82_BGP_VRF_UNCONFIG" "./testbeds/testbed_2vs.yaml" \
+system/SM_ISCLI/test_sm_iscli_82_bgp_vrf_unconfigurations.py
+
+
+# ==========================================================
+# BATCH-32 : IPv4 ACL CLI Validation
+# ==========================================================
+
+run_batch "IPV4_ACL_CLI_VALIDATION" "./testbeds/ztp_standalone.yaml" \
+qos/acl/test_ipv4_acl_cli_validation.py
+
+
+# ==========================================================
+# BATCH-33 : SM_ISCLI_22 - Management Interface Name Display
+# ==========================================================
+
+run_batch "SM_ISCLI_22_MGMT_INTERFACE_NAME" "./testbeds/testbed_vs_1node.yaml" \
+system/management/test_sm_iscli_22_mgmt_interface_name.py
+
+
 echo "=============================================="
 echo " SM_ISCLI REGRESSION COMPLETED"
 echo " Logs Root : ${BASE_LOG}"
