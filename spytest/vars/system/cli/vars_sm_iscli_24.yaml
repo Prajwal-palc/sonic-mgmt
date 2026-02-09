@@ -1,0 +1,56 @@
+# SM_ISCLI_24 Test Variables
+# Test configuration for sonic-cli -c flag functionality
+
+defaults:
+  cli_type: klish
+  command_timeout: 30  # seconds - maximum time to wait for command completion
+  verify_timeout: 10   # seconds - timeout for verification polling
+  cleanup: true
+
+testcases:
+  "24.1":
+    title: "sonic-cli -c with show running-config"
+    test_type: "basic"
+    command: "show running-config"
+    expected:
+      - contains: "configuration"
+        does_not_hang: true
+        exit_code: 0
+        has_output: true
+
+  "24.2":
+    title: "sonic-cli -c with show version"
+    test_type: "basic"
+    command: "show version"
+    expected:
+      - contains: "SONiC"
+        does_not_hang: true
+        exit_code: 0
+        has_output: true
+
+  "24.3":
+    title: "sonic-cli -c with show interface status"
+    test_type: "basic"
+    command: "show interface status"
+    expected:
+      - has_output: true
+        does_not_hang: true
+        exit_code: 0
+
+  "24.4":
+    title: "sonic-cli -c with invalid command"
+    test_type: "negative"
+    command: "show nonexistent-command"
+    expected:
+      - does_not_hang: true
+        exit_code: [1, 2]  # Non-zero exit code expected
+        has_output: true   # Error message expected
+
+  "24.5":
+    title: "sonic-cli -c with multiple commands (pipe)"
+    test_type: "advanced"
+    command: "show running-config | include interface"
+    expected:
+      - has_output: true
+        does_not_hang: true
+        exit_code: 0
