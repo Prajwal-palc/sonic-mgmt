@@ -1,0 +1,288 @@
+# Interface Speed Auto Configuration Test Variables
+# Test ID: INTF-SPEED-AUTO-001
+# Feature: Interface Speed Configuration (speed auto)
+# Purpose: Validate speed auto transitions, stability with BGP, traffic, and PortChannel
+
+defaults:
+  cli_type: klish  # IS-CLI mode for sonic-cli
+  verify_timeout: 60
+  cleanup: true
+  min_topology:
+    - "D1D2:1"  # Two devices with one link
+
+interface_config:
+  # Actual testbed interface mappings
+  dut1:
+    name: "D1"
+    test_interface: "Ethernet16"  # leaf01 test port
+
+  dut2:
+    name: "D2"
+    test_interface: "Ethernet32"  # spine02 test port
+
+  # Speed configuration parameters
+  baseline_speed: 20000      # Static baseline speed (20Gbps)
+  auto_speed: "auto"         # Speed auto keyword
+
+  # Additional speeds for testing (if needed)
+  alternate_speeds:
+    - 10000
+    - 40000
+    - 100000
+
+# BGP configuration for stability testing
+bgp_config:
+  dut1:
+    interface: "Ethernet16"
+    ip_address: "10.0.0.1"
+    subnet_mask: 24
+    full_ip: "10.0.0.1/24"
+    local_asn: 100
+    router_id: "1.1.1.1"      # Router ID for AS 100
+    neighbor_ip: "10.0.0.2"
+    neighbor_asn: 200
+    address_family: "ipv4"
+
+  dut2:
+    interface: "Ethernet32"
+    ip_address: "10.0.0.2"
+    subnet_mask: 24
+    full_ip: "10.0.0.2/24"
+    local_asn: 200
+    router_id: "2.2.2.2"      # Router ID for AS 200
+    neighbor_ip: "10.0.0.1"
+    neighbor_asn: 100
+    address_family: "ipv4"
+
+# PortChannel configuration for LAG stability testing
+portchannel_config:
+  portchannel_id: 1
+  portchannel_name: "PortChannel1"
+  mode: "active"  # LACP mode
+
+  # PortChannel IP configuration
+  dut1:
+    portchannel_ip: "180.0.0.1"
+    subnet_mask: 24
+    full_ip: "180.0.0.1/24"
+    member_interfaces:
+      - "Ethernet32"  # Primary member for speed auto test
+    # BGP configuration over PortChannel
+    bgp_asn: 100
+    router_id: "1.1.1.1"
+    neighbor_ip: "180.0.0.2"
+    neighbor_asn: 200
+    address_family: "ipv4"
+
+  dut2:
+    portchannel_ip: "180.0.0.2"
+    subnet_mask: 24
+    full_ip: "180.0.0.2/24"
+    member_interfaces:
+      - "Ethernet16"  # Corresponding peer member
+    # BGP configuration over PortChannel
+    bgp_asn: 200
+    router_id: "2.2.2.2"
+    neighbor_ip: "180.0.0.1"
+    neighbor_asn: 100
+    address_family: "ipv4"
+
+# Test case definitions
+testcases:
+  "cli_validation":
+    title: "CLI Speed Auto Acceptance and Reversion"
+    description: "Verify CLI accepts transition from speed 20000 to speed auto and back"
+    test_id: "INTF-SPEED-AUTO-001-TC01"
+
+    interface:
+      dut: "D1"
+      name: "Ethernet16"
+      baseline_speed: 20000
+      target_speed: "auto"
+      revert_speed: 20000
+
+    commands:
+      set_baseline: "interface Ethernet32\n speed 20000\n no shutdown\n exit\n exit"
+      set_auto: "interface Ethernet32\n speed auto\n exit\n exit"
+      revert_baseline: "interface Ethernet32\n speed 20000\n exit\n exit"
+      verify: "show running-configuration interface Ethernet32"
+
+    expected:
+      baseline_in_config: true
+      auto_accepted: true
+      revert_successful: true
+
+    note: "Transition: speed 20000 → speed auto → speed 20000"
+
+  "bgp_stability":
+    title: "Speed Auto with BGP Session Stability"
+    description: "Verify BGP session remains Established during speed transition, no packet loss"
+    test_id: "INTF-SPEED-AUTO-001-TC02"
+
+    dut1:
+      interface: "Ethernet16"
+      ip: "10.0.0.1/24"
+      bgp_asn: 100
+      router_id: "1.1.1.1"
+      neighbor: "10.0.0.2"
+      neighbor_asn: 200
+
+    dut2:
+      interface: "Ethernet32"
+      ip: "10.0.0.2/24"
+      bgp_asn: 200
+      router_id: "2.2.2.2"
+      neighbor: "10.0.0.1"
+      neighbor_asn: 100
+
+    test_sequence:
+      - "Set baseline speed 20000 on both DUTs"
+      - "Configure IP addresses on interfaces"
+      - "Configure BGP neighbors on both DUTs"
+      - "Verify BGP Established state"
+      - "Start continuous ping D1 → D2"
+      - "Apply speed auto on D1 Ethernet32"
+      - "Monitor BGP state (should remain Established)"
+      - "Verify zero ping packet loss"
+
+    commands:
+      verify_bgp: "show bgp summary"
+      verify_ping: "ping 10.0.0.2 count 100"
+
+    expected:
+      bgp_before: "Established"
+      bgp_after: "Established"
+      bgp_reset_count: 0
+      ping_loss_percent: 0
+      max_ping_loss_tolerance: 1  # Allow 1% loss max
+
+    note: "BGP session must NOT reset during speed transition"
+
+  "high_throughput":
+    title: "Speed Auto Under Traffic Load"
+    description: "Verify zero packet drops when changing speed under 70% load"
+    test_id: "INTF-SPEED-AUTO-001-TC03"
+
+    interface:
+      dut: "D1"
+      name: "Ethernet16"
+      baseline_speed: 20000
+      target_speed: "auto"
+
+    traffic:
+      baseline_rate_gbps: 20
+      traffic_load_percent: 70
+      traffic_rate_gbps: 14  # 70% of 20Gbps
+      duration_seconds: 60
+
+    test_sequence:
+      - "Set baseline speed 20000"
+      - "Clear interface counters"
+      - "Start traffic at 70% line rate (14Gbps)"
+      - "Apply speed auto"
+      - "Continue traffic for 60 seconds"
+      - "Stop traffic"
+      - "Check interface counters for drops"
+
+    commands:
+      clear_counters: "clear interface counters Ethernet32"
+      show_counters: "show interface counters Ethernet32"
+
+    expected:
+      rx_drops: 0
+      tx_drops: 0
+      drop_tolerance: 0  # Zero tolerance for drops
+
+    note: "Packet drops indicate buffer issues during speed transition"
+
+  "portchannel_stability":
+    title: "Speed Auto on PortChannel Member with BGP"
+    description: "Verify LAG and BGP remain stable when member port transitions to speed auto"
+    test_id: "INTF-SPEED-AUTO-001-TC04"
+
+    portchannel:
+      id: 1
+      name: "PortChannel1"
+      mode: "active"  # LACP
+      dut1_ip: "180.0.0.1/24"
+      dut2_ip: "180.0.0.2/24"
+
+    dut1:
+      member_interface: "Ethernet16"
+      baseline_speed: 20000
+      target_speed: "auto"
+      bgp_asn: 100
+      router_id: "1.1.1.1"
+      neighbor_ip: "180.0.0.2"
+
+    dut2:
+      member_interface: "Ethernet32"
+      speed: 20000  # Keep peer at static speed
+      bgp_asn: 200
+      router_id: "2.2.2.2"
+      neighbor_ip: "180.0.0.1"
+
+    test_sequence:
+      - "Set baseline speed 20000 on both member interfaces"
+      - "Create PortChannel1 on both DUTs"
+      - "Add Ethernet32 (D1) and Ethernet16 (D2) as members"
+      - "Configure IP addresses on PortChannel (180.0.0.1/24 and 180.0.0.2/24)"
+      - "Configure BGP on both DUTs (AS 100 and AS 200)"
+      - "Verify BGP session Established"
+      - "Verify PortChannel is UP with members active"
+      - "Apply speed auto on D1 Ethernet32"
+      - "Verify BGP session remains Established (no reset)"
+      - "Monitor PortChannel status (should remain UP)"
+      - "Verify member Ethernet32 remains in LAG"
+
+    commands:
+      create_portchannel: "interface PortChannel1\n no shutdown\n exit"
+      add_member: "interface Ethernet32\n channel-group 1 mode active\n exit\n exit"
+      config_ip: "interface PortChannel1\n ip address 180.0.0.1/24\n no shutdown\n exit\n exit"
+      config_bgp: "router bgp 100\n router-id 1.1.1.1\n neighbor 180.0.0.2 remote-as 200"
+      verify_bgp: "show bgp summary"
+      verify_portchannel: "show portchannel summary"
+      verify_member: "show interface PortChannel1"
+
+    expected:
+      portchannel_state_before: "UP"
+      portchannel_state_after: "UP"
+      member_state_before: "UP"
+      member_state_after: "UP"
+      bgp_state_before: "Established"
+      bgp_state_after: "Established"
+      bgp_reset_count: 0
+      traffic_loss: false
+
+    note: "PortChannel, member, and BGP session must remain stable during speed auto transition"
+
+# Cleanup configuration
+cleanup:
+  interfaces:
+    - "Ethernet32"  # D1
+    - "Ethernet16"  # D2
+
+  commands:
+    remove_interface_ips: "no ip address"
+    remove_portchannel_member: "no channel-group"
+    remove_portchannel: "no interface PortChannel1"
+    remove_bgp_neighbor: "no neighbor"
+    remove_bgp: "no router bgp"
+    reset_speed: "speed 20000"
+
+  sequence:
+    - "Remove BGP configuration from both DUTs"
+    - "Remove IP addresses from interfaces"
+    - "Remove PortChannel members"
+    - "Delete PortChannel interfaces"
+    - "Reset interface speed to baseline (20000)"
+    - "Verify clean state with 'show running-configuration'"
+
+# Verification timeouts
+timeouts:
+  bgp_establish: 120     # Time to wait for BGP Established state
+  interface_up: 60       # Time to wait for interface UP
+  portchannel_up: 90     # Time to wait for PortChannel UP
+  speed_negotiation: 30  # Time for speed auto negotiation
+  ping_interval: 1       # Ping interval in seconds
+  traffic_stabilize: 10  # Time for traffic to stabilize after config change

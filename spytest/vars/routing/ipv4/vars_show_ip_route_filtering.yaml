@@ -1,0 +1,66 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  min_topology:
+    - "D1"
+
+testcases:
+  general_display:
+    title: "General Routing Table Display"
+    description: "Verify routing table displays with protocol legend and route entries"
+    expected_routes:
+      - "0.0.0.0/0"  # Default route via Management0 (typically present)
+
+  context_help:
+    title: "Context Sensitive Help & Options"
+    description: "Verify available sub-commands for route filtering"
+    expected_options:
+      - "A.B.C.D"      # Match IP address
+      - "bgp"          # BGP routes
+      - "connected"    # Connected routes
+      - "ospf"         # OSPF routes
+      - "static"       # Static routes
+      - "summary"      # Route summary
+      - "vrf"          # VRF routes
+
+  filter_connected:
+    title: "Protocol Filtering (Connected)"
+    description: "Verify connected route filtering works correctly"
+    expected_connected_routes:
+      - "20.1.1.0/24"      # Vlan100 (if configured)
+      - "172.31.0.0/16"    # Management0 network
+
+  filter_empty_protocol:
+    title: "Protocol Filtering (Empty Protocols)"
+    description: "Verify behavior when filtering protocols with no routes"
+    empty_protocols:
+      - "bgp"
+      - "ospf"
+
+  prefix_lookup:
+    title: "Specific Prefix Lookup"
+    description: "Verify longest-match prefix lookup provides detailed information"
+    lookup_prefix: "172.31.0.1"  # Management network IP
+
+  route_summary:
+    title: "Route Summary Validation"
+    description: "Verify route summary aggregates counts correctly"
+    expected_output_format:
+      header: "Route Source         Routes               FIB  (vrf default)"
+      sources:
+        - "kernel"
+        - "connected"
+        - "static"
+        - "bgp"
+        - "ospf"
+      separator: "------"
+      totals: "Totals"
+
+  vrf_validation:
+    title: "VRF Command Syntax & Error Handling"
+    description: "Verify VRF command completion and error handling"
+    expected_incomplete_error: "% Error: The command is not completed."
+    test_commands:
+      negative: "show ip route vrf all"
+      positive: "show ip route vrf default"
+      additional: "show ip route vrf all summary"

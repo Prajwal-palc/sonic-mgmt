@@ -1,0 +1,80 @@
+# BGP Peer-Group Address-Family Activation Test Variables
+# Test ID: BGP-PG-AF-ACTIVATE-001
+# Feature: BGP Configuration (IS-CLI)
+# Purpose: Validate activate command functionality within BGP peer-group address-family context
+
+defaults:
+  cli_type: klish  # IS-CLI mode for sonic-cli
+  verify_timeout: 30
+  cleanup: true
+  topology_type: "standalone"  # Single standalone DUT (no inter-device links required)
+
+bgp_config:
+  local_asn: 64512
+  peer_group_name: "SPINE"
+  remote_asn: "external"  # external keyword for eBGP
+  keep_alive: 60
+  hold_timer: 180
+
+testcases:
+  "activate_ipv4":
+    title: "IPv4 Address-Family Activation on Peer-Group"
+    description: "Verify activate command can be executed within IPv4 unicast address-family for peer-group"
+    peer_group:
+      dut: "D1"
+      name: "SPINE"
+      remote_as: "external"
+      address_family: "ipv4"
+    verify:
+      expected_config:
+        - "peer-group SPINE"
+        - "remote-as external"
+        - "address-family ipv4 unicast"
+        - "activate"
+      verify_command: "show running-configuration bgp"
+
+  "activate_ipv6":
+    title: "IPv6 Address-Family Activation on Peer-Group"
+    description: "Verify activate command can be executed within IPv6 unicast address-family for peer-group"
+    peer_group:
+      dut: "D1"
+      name: "SPINE_V6"
+      remote_as: "external"
+      address_family: "ipv6"
+    verify:
+      expected_config:
+        - "peer-group SPINE_V6"
+        - "remote-as external"
+        - "address-family ipv6 unicast"
+        - "activate"
+      verify_command: "show running-configuration bgp"
+
+  "activate_dual_stack":
+    title: "Dual-Stack (IPv4+IPv6) Address-Family Activation on Peer-Group"
+    description: "Verify activate command works for both IPv4 and IPv6 address-families on same peer-group"
+    peer_group:
+      dut: "D1"
+      name: "SPINE_DUAL"
+      remote_as: "external"
+      address_families: ["ipv4", "ipv6"]
+    verify:
+      expected_config:
+        - "peer-group SPINE_DUAL"
+        - "remote-as external"
+        - "address-family ipv4 unicast"
+        - "address-family ipv6 unicast"
+      verify_command: "show running-configuration bgp"
+
+  "negative_type_error":
+    title: "Negative Test - Type Validation Error (Known Defect)"
+    description: "Document the observed type validation error when activate command is used"
+    test_type: "negative"
+    peer_group:
+      dut: "D1"
+      name: "SPINE_ERROR"
+      remote_as: "external"
+      address_family: "ipv4"
+    expected_error:
+      pattern: "got string type for field admin_status, expect bool"
+      message: "Response Error: %Error: got string type for field admin_status, expect bool"
+    note: "This test case validates the defect where Management Framework sends String instead of Boolean for admin_status"

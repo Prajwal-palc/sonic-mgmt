@@ -1,0 +1,24 @@
+defaults:
+  cli_type: klish
+  verify_cli_type: click
+  verify_timeout: 30
+  cleanup: true
+  interface: Ethernet32
+  min_topology:
+    - "D1"
+
+testcases:
+  scenario1:
+    title: "Link-Local Address Removal on Disable"
+    description: "Verify link-local (fe80::) is REMOVED after 'no ipv6 enable'"
+    interface: "Ethernet32"
+    expected_link_local_removed: true
+
+  scenario2:
+    title: "Global IPv6 Works Despite Disable"
+    description: "Verify global IPv6 can be configured and works after 'no ipv6 enable'"
+    interface: "Ethernet32"
+    global_ipv6: "2001:db8::1"
+    subnet: "64"
+    ping_count: 3
+    ping_expected: true
