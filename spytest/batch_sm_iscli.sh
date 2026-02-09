@@ -327,4 +327,31 @@ else
     echo "Note: No failures found or error generating failure analysis report"
 fi
 
+# Generate Test Details Report
+echo "=============================================="
+echo " Generating Test Details Report"
+echo "=============================================="
+
+TEST_DETAILS_CSV="${BASE_LOG}/SM_ISCLI_${DATE_DIR}_test_details_${TIME_STAMP}.csv"
+
+python3 dashboard/scripts/generate_test_details_report.py \
+    --log-root "${BASE_LOG}" \
+    --out "${TEST_DETAILS_CSV}"
+
+if [ -f "${TEST_DETAILS_CSV}" ]; then
+    echo "=============================================="
+    echo " Test Details Report Generated"
+    echo "=============================================="
+    echo "Test Details CSV available at:"
+    echo "$(pwd)/${TEST_DETAILS_CSV}"
+
+    # Copy test details CSV to user directory
+    cp "${TEST_DETAILS_CSV}" "${USER_DASHBOARD_DIR}/"
+    echo ""
+    echo "Test Details CSV copy saved to:"
+    echo "${USER_DASHBOARD_DIR}/SM_ISCLI_${DATE_DIR}_test_details_${TIME_STAMP}.csv"
+else
+    echo "Note: Error generating test details report"
+fi
+
 
