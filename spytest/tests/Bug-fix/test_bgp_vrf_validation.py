@@ -167,6 +167,7 @@ def configure_bgp_vrf(dut, asn, vrf_name, neighbor_ip, neighbor_asn, cli_type="k
         commands.append(f"router bgp {asn} vrf {vrf_name}")
         commands.append(f"neighbor {neighbor_ip} remote-as {neighbor_asn}")
         commands.append("exit")
+        commands.append("exit")
 
         st.config(dut, commands, type=cli_type)
         st.log(f"Successfully configured BGP in VRF {vrf_name}")
