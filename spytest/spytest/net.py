@@ -5980,13 +5980,21 @@ class Net(object):
                         if not opts.conf:
                             return "", op, "mgmt-user"
                     elif current_mode == "mgmt-config":
-                        if cmd in ["end", "exit"]:
-                            return "", op, "mgmt-user"
-                        if opts.conf:
-                            return "", op, "mgmt-any-config"
-                    else:
+                        # Check if we're actually in a sub-config mode by examining the prompt
+                        # mgmt-config pattern matches both (config)# and (config-*)# prompts
+                        current_prompt = self._find_prompt(access, use_cache=True)
+                        # Detect sub-config modes: prompt contains (config-<something>)#
+                        is_sub_config = re.search(r'\(config-[^)]+\)#', current_prompt.replace("\\", ""))
+
                         if cmd in ["end"]:
                             return "", op, "mgmt-user"
+                        if cmd in ["exit"]:
+                            if is_sub_config:
+                                # Exit from sub-config (e.g., config-ipv4-acl) returns to parent config
+                                return "", op, "mgmt-config"
+                            else:
+                                # Exit from global config returns to privileged exec
+                                return "", op, "mgmt-user"
                         if opts.conf:
                             return "", op, "mgmt-any-config"
         elif current_mode.startswith("vtysh"):
@@ -6004,13 +6012,21 @@ class Net(object):
                         if not opts.conf:
                             return "", op, "vtysh-user"
                     elif current_mode == "vtysh-config":
-                        if cmd in ["end", "exit"]:
-                            return "", op, "vtysh-user"
-                        if opts.conf:
-                            return "", op, "vtysh-any-config"
-                    else:
+                        # Check if we're actually in a sub-config mode by examining the prompt
+                        # vtysh-config pattern may match both config# and config-*# prompts
+                        current_prompt = self._find_prompt(access, use_cache=True)
+                        # Detect sub-config modes: prompt contains (config-<something>)#
+                        is_sub_config = re.search(r'\(config-[^)]+\)#', current_prompt.replace("\\", ""))
+
                         if cmd in ["end"]:
                             return "", op, "vtysh-user"
+                        if cmd in ["exit"]:
+                            if is_sub_config:
+                                # Exit from sub-config returns to parent config
+                                return "", op, "vtysh-config"
+                            else:
+                                # Exit from global config returns to privileged exec
+                                return "", op, "vtysh-user"
                         if opts.conf:
                             return "", op, "vtysh-any-config"
 

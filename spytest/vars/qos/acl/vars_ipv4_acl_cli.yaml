@@ -1,0 +1,210 @@
+# IPv4 ACL CLI Validation Test Variables
+# Test ID: ACL-CLI-VALIDATION-001
+# Feature: IPv4 Access Control Lists - IS-CLI Validation
+# Purpose: Validate CLI help strings and mode navigation for IPv4 ACLs
+
+defaults:
+  cli_type: klish  # IS-CLI mode required for this test
+  verify_timeout: 10
+  cleanup: true
+  # Note: This test requires only a single DUT (standalone)
+  # No specific topology requirement - uses first available DUT from testbed
+
+# CLI prompt patterns for verification
+cli_prompts:
+  privileged_exec: "sonic#"
+  global_config: "sonic(config)#"
+  acl_config: "sonic(config-ipv4-acl)#"
+
+# Test case definitions
+testcases:
+  "cli_help_validation":
+    title: "Verify 'ip access?' shows both access-list and access-group"
+    test_id: "ACL-CLI-VALIDATION-001-TC01"
+    description: "Validates that CLI help for 'ip access' command displays both access-list and access-group options"
+
+    # The help command to test
+    help_command: "ip access?"
+
+    # Expected strings in help output
+    expected_help_strings:
+      - "access-group"
+      - "access-list"
+
+    # Full expected help output (for reference)
+    expected_help_output: |
+      access-group   Specify access control for packets
+      access-list    Configure IPv4 access-list
+
+    # Bug documentation
+    bug_scenario:
+      current_behavior: "Help output only shows 'access-list'"
+      expected_behavior: "Help output should show both 'access-list' and 'access-group'"
+      bug_type: "CLI usability - incomplete help strings"
+      severity: "Medium"
+      impact: "Users cannot discover 'access-group' command through CLI help"
+
+  "mode_exit_navigation":
+    title: "Verify exit from ACL mode returns to config mode"
+    test_id: "ACL-CLI-VALIDATION-001-TC02"
+    description: "Validates that 'exit' command from ACL configuration mode returns to global config mode, not privileged exec mode"
+
+    # Test ACL name to use
+    test_acl_name: "test_cli_validation"
+
+    # Test sequence with expected prompts
+    test_steps:
+      - step: 1
+        description: "Enter configuration mode"
+        command: "configure terminal"
+        expected_prompt: "sonic(config)#"
+        expected_mode: "config"
+
+      - step: 2
+        description: "Enter IPv4 ACL configuration mode"
+        command: "ip access-list test_cli_validation"
+        expected_prompt: "sonic(config-ipv4-acl)#"
+        expected_mode: "acl"
+
+      - step: 3
+        description: "Exit from ACL configuration mode"
+        command: "exit"
+        expected_prompt: "sonic(config)#"
+        expected_mode: "config"
+
+      - step: 4
+        description: "Exit from global configuration mode"
+        command: "exit"
+        expected_prompt: "sonic#"
+        expected_mode: "privileged"
+
+    # Bug documentation
+    bug_scenario:
+      current_behavior: "Exit from ACL mode jumps directly to privileged exec mode (sonic#)"
+      expected_behavior: "Exit from ACL mode should return to global config mode (sonic(config)#)"
+      bug_type: "CLI navigation - incorrect mode exit"
+      severity: "High"
+      impact: "Breaks standard CLI hierarchy navigation patterns (Cisco/Arista compatibility)"
+
+    # Cleanup
+    cleanup:
+      - "Remove test ACL: no ip access-list test_cli_validation"
+
+  "protocol_options_validation":
+    title: "Verify ACL rule protocol options are displayed"
+    test_id: "ACL-CLI-VALIDATION-001-TC03"
+    description: "Validates that CLI help for 'seq <num> permit?' displays all protocol options"
+
+    # Test ACL name to use
+    test_acl_name: "test_cli_validation"
+
+    # ACL rule parameters
+    seq_number: 1
+    action: "permit"
+
+    # Expected protocol options in help output
+    expected_protocols:
+      - "<0..255>"   # Protocol number range
+      - "icmp"       # ICMP packets
+      - "ip"         # Any IPv4 packets
+      - "tcp"        # TCP packets
+      - "udp"        # UDP packets
+
+    # Full expected help output (for reference)
+    expected_help_output: |
+      <0..255>  Protocol number (0 to 255)
+      icmp      ICMP Packets
+      ip        Any IPv4 Packets
+      tcp       TCP packets
+      udp       UDP packets
+
+    # Test execution flow
+    test_steps:
+      - step: 1
+        description: "Enter configuration mode"
+        command: "configure terminal"
+        expected_prompt: "sonic(config)#"
+
+      - step: 2
+        description: "Enter IPv4 ACL configuration mode"
+        command: "ip access-list test_cli_validation"
+        expected_prompt: "sonic(config-ipv4-acl)#"
+
+      - step: 3
+        description: "Query protocol options"
+        command: "seq 1 permit?"
+        verify: "Output contains all expected protocol options"
+
+      - step: 4
+        description: "Exit ACL configuration mode"
+        command: "exit"
+        expected_prompt: "sonic(config)#"
+
+    # Validation criteria
+    validation:
+      all_protocols_present: true
+      minimum_protocols_required: 5  # All five must be present
+
+# Industry standard CLI mode hierarchy (for reference)
+cli_mode_hierarchy:
+  description: "Standard CLI mode navigation pattern"
+  hierarchy:
+    - level: 1
+      mode: "Privileged Exec"
+      prompt: "sonic#"
+      commands: ["enable", "configure terminal"]
+
+    - level: 2
+      mode: "Global Configuration"
+      prompt: "sonic(config)#"
+      parent: "Privileged Exec"
+      commands: ["ip access-list", "interface", "router bgp"]
+
+    - level: 3
+      mode: "ACL Configuration"
+      prompt: "sonic(config-ipv4-acl)#"
+      parent: "Global Configuration"
+      commands: ["permit", "deny", "remark"]
+
+  exit_behavior:
+    description: "Exit command should return to parent mode, not root mode"
+    correct_pattern: "ACL Config -> Config -> Privileged Exec"
+    bug_pattern: "ACL Config -> Privileged Exec (skips Config)"
+
+# Test execution parameters
+test_execution:
+  retry_count: 3
+  retry_delay: 2
+  prompt_detection_timeout: 5
+  command_execution_timeout: 10
+
+# Expected results
+expected_results:
+  tc01_help_validation:
+    status: "FAIL (Expected)"
+    reason: "Bug present - access-group not shown in help"
+    fix_verification: "After fix, test should PASS with both strings present"
+
+  tc02_mode_exit:
+    status: "FAIL (Expected)"
+    reason: "Bug present - exit jumps to wrong mode"
+    fix_verification: "After fix, test should PASS with correct mode navigation"
+
+  tc03_protocol_options:
+    status: "PASS (Expected)"
+    reason: "Protocol options are typically implemented correctly"
+    verification: "All protocol options (icmp, ip, tcp, udp, <0..255>) displayed"
+
+# Additional validation commands (for manual verification)
+manual_verification_commands:
+  - "show running-configuration | grep access"
+  - "show ip access-lists"
+  - "show access-list"
+  - "do show running-configuration"
+
+# Notes for test maintainers
+notes:
+  - "This test documents known CLI bugs and is expected to FAIL on current builds"
+  - "Tests should PASS after IS-CLI fixes are merged"
+  - "Use this test to verify bug fixes during regression testing"
+  - "Do not modify expected behavior without updating bug documentation"

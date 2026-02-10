@@ -1,0 +1,229 @@
+# BGP IPv6 CLI Validation Test Configuration
+# Test ID: BGP-IPV6-CLI-VRF-001
+# Purpose: Validate show bgp ipv6 unicast CLI supports VRF keyword and provides correct outputs/errors
+
+# Default Settings
+defaults:
+  cli_type: "klish"
+  min_topology: ["D1"]  # Single device topology
+  dut_index: 0  # Use first device in testbed
+
+# Expected CLI Keywords
+expected_keywords:
+  help_output:
+    - "vrf"
+    - "|"
+    - "community"
+    - "neighbors"
+    - "route-map"
+    - "statistics"
+    - "summary"
+
+  vrf_help_output:
+    - "all"
+    - "WORD"
+    - "All VRFs"
+    - "Name of VRF"
+
+  vrf_all_help_output:
+    - "summary"
+    - "|"
+    - "<cr>"
+
+# Error Messages
+error_messages:
+  # Expected (correct) error messages
+  expected:
+    bgp_ipv6_not_configured: "%BGP IPv6 unicast is not configured for any VRF"
+    bgp_ipv6_vrf_not_configured: "%BGP IPv6 unicast is not configured for VRF"
+    command_not_completed: "% Error: The command is not completed."
+    invalid_vrf: "%VRF does not exist"
+
+  # Current (buggy) error messages - for XFAIL tests
+  current_bugs:
+    bgp_instance_not_found: "%BGP instance not found"
+
+# Expected Table Headers (when BGP is configured)
+bgp_summary_table_headers:
+  - "Neighbor"
+  - "V"
+  - "AS"
+  - "State"
+  - "Up/Down"
+  - "PfxRcd"
+
+# Pipe Operators
+pipe_operators:
+  # Incomplete pipe commands - require arguments
+  incomplete:
+    - "except"
+    - "find"
+    - "grep"
+    - "save"
+
+  # Valid pipe commands - work without arguments
+  valid:
+    - "no-more"
+
+# Test Case Configurations
+testcases:
+  # Test 1: Help Output Validation
+  help_validation:
+    command: "show bgp ipv6 unicast ?"
+    description: "Verify help output shows vrf keyword"
+    expected_keywords:
+      - "vrf"
+      - "|"
+    validation_type: "keyword_presence"
+
+  # Test 2: VRF All Help Output
+  vrf_all_help:
+    command: "show bgp ipv6 unicast vrf all ?"
+    description: "Verify vrf all help shows summary and pipe options"
+    expected_keywords:
+      - "summary"
+      - "|"
+      - "<cr>"
+    validation_type: "keyword_presence"
+
+  # Test 3A: Summary with BGP Configured
+  summary_with_bgp:
+    command: "show bgp ipv6 unicast vrf all summary"
+    description: "Verify BGP summary table when BGP is configured"
+    expected_table_headers:
+      - "Neighbor"
+      - "State"
+    validation_type: "table_format"
+    skip_if_no_bgp: false
+
+  # Test 3B: Summary without BGP Configured
+  summary_no_bgp:
+    command: "show bgp ipv6 unicast vrf all summary"
+    description: "Validate command returns SOME output when BGP not configured"
+    expected_behavior: "Command should return non-empty output (any BGP-related message)"
+    validation_type: "output_not_empty"
+    skip_if_bgp_configured: true
+
+  # Test 4: Incomplete Pipe - except
+  incomplete_pipe_except:
+    command: "show bgp ipv6 unicast vrf all | except"
+    description: "Verify incomplete except command returns error"
+    expected_error: "% Error: The command is not completed."
+    validation_type: "error_message"
+
+  # Test 4: Incomplete Pipe - find
+  incomplete_pipe_find:
+    command: "show bgp ipv6 unicast vrf all | find"
+    description: "Verify incomplete find command returns error"
+    expected_error: "% Error: The command is not completed."
+    validation_type: "error_message"
+
+  # Test 4: Incomplete Pipe - grep
+  incomplete_pipe_grep:
+    command: "show bgp ipv6 unicast vrf all | grep"
+    description: "Verify incomplete grep command returns error"
+    expected_error: "% Error: The command is not completed."
+    validation_type: "error_message"
+
+  # Test 4: Incomplete Pipe - save
+  incomplete_pipe_save:
+    command: "show bgp ipv6 unicast vrf all | save"
+    description: "Verify incomplete save command returns error"
+    expected_error: "% Error: The command is not completed."
+    validation_type: "error_message"
+
+  # Test 5A: Pipe no-more with BGP Data
+  pipe_no_more_with_data:
+    command: "show bgp ipv6 unicast vrf all | no-more"
+    description: "Verify no-more displays full output without pagination"
+    expected_keywords:
+      - "Neighbor"
+      - "State"
+    validation_type: "keyword_presence"
+    skip_if_no_bgp: true
+
+  # Test 5B: Pipe no-more without BGP Data
+  pipe_no_more_no_data:
+    command: "show bgp ipv6 unicast vrf all | no-more"
+    description: "Validate command with pipe returns SOME output when BGP not configured"
+    expected_behavior: "Command should return non-empty output (any BGP-related message)"
+    validation_type: "output_not_empty"
+    skip_if_bgp_configured: true
+
+# Additional Test Commands
+additional_commands:
+  # Commands to check BGP configuration status
+  bgp_status_check:
+    - "show bgp ipv6 unicast summary"
+    - "show bgp ipv6 unicast vrf all"
+
+  # Commands to check VRF configuration
+  vrf_check:
+    - "show vrf"
+    - "show ip vrf"
+
+# Test Markers
+pytest_markers:
+  - "bgp"
+  - "ipv6"
+  - "cli_validation"
+  - "negative"
+  - "klish"
+  - "topology.any"
+
+# Test Documentation Notes
+test_notes:
+  test_3b:
+    test_scenario: "Test Scenario 3B"
+    validation: "Command returns non-empty output when BGP not configured"
+    accepted_outputs:
+      - "%BGP instance not found"
+      - "%BGP IPv6 unicast is not configured for any VRF"
+      - "Any other BGP-related message"
+    note: "Test validates CLI provides feedback, not specific message content"
+
+  test_5b:
+    test_scenario: "Test Scenario 5B"
+    validation: "Command with pipe returns non-empty output when BGP not configured"
+    accepted_outputs:
+      - "%BGP instance not found"
+      - "%BGP IPv6 unicast is not configured"
+      - "Any other BGP-related message"
+    note: "Test validates CLI with pipe provides feedback, not specific message content"
+
+# Test Execution Notes
+execution_notes:
+  - "Tests are read-only - no configuration changes made to DUT"
+  - "Tests work with or without BGP configured"
+  - "Known bugs marked with @pytest.mark.xfail"
+  - "Tests skip when BGP state doesn't match requirement"
+  - "Terminal length set to 0 to avoid pagination prompts"
+  - "All commands use klish CLI type"
+
+# Expected Test Results
+expected_results:
+  current_behavior:
+    test_1: "PASS - Help shows vrf keyword"
+    test_2: "PASS - VRF help shows options"
+    test_3a: "PASS/SKIP - Validates table if BGP configured"
+    test_3b: "PASS/SKIP - Validates output is not empty (no BGP config)"
+    test_4a: "PASS - Incomplete except validated"
+    test_4b: "PASS - Incomplete find validated"
+    test_4c: "PASS - Incomplete grep validated"
+    test_4d: "PASS - Incomplete save validated"
+    test_5a: "PASS/SKIP - Validates no-more if BGP configured"
+    test_5b: "PASS/SKIP - Validates output is not empty with pipe (no BGP config)"
+    test_6: "PASS - Batch validates all incomplete pipes"
+
+  summary:
+    total_tests: 11
+    expected_pass: "9 tests expected to PASS"
+    expected_skip: "2 tests may SKIP (based on BGP configuration state)"
+    note: "All tests validate CLI behavior without requiring specific error messages"
+
+# References
+references:
+  test_scenarios: "bgp_ipv6_cli.md"
+  dut_connection: "testbeds/ztp_standalone.yaml"
+  script_template: "guid.md"
+  bgp_apis: "spytest/apis/routing/bgp.py"

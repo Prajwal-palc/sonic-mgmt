@@ -1,0 +1,95 @@
+# IP Interface Configuration & Validation Test Variables
+# Test ID: IP-INTF-CONFIG-001
+# Feature: Interface Management (IP/Management/Loopback)
+# Purpose: Validate IP interface display, Loopback constraints, and address duplication logic
+
+defaults:
+  cli_type: klish  # IS-CLI mode for sonic-cli
+  verify_timeout: 30
+  cleanup: true
+  topology_type: standalone  # Single standalone DUT
+
+interface_config:
+  test_interface: "Ethernet0"      # Physical interface for IP configuration tests
+  loopback_name: "Loopback1"       # Loopback interface for subnet mask tests
+  management_interface: "Management0"  # Management interface name
+
+testcases:
+  "management_ip_visibility":
+    title: "Management IP Visibility in CLI"
+    description: "Verify that show ip interfaces in IS-CLI correctly displays Management interface IP"
+    test_id: "IP-INTF-CONFIG-001-TC01"
+    commands:
+      verify: "show ip interfaces"
+      specific: "show interface Management 0"
+    expected:
+      interface_present: true
+      interface_names: ["Management0", "Management 0", "eth0"]
+      ip_format_regex: "\\d+\\.\\d+\\.\\d+\\.\\d+/\\d+"
+    note: "Management interface IP should be visible and match kernel state"
+
+  "loopback_constraint":
+    title: "Loopback Interface Subnet Mask Constraint"
+    description: "Verify CLI rejects non-/32 subnet masks for Loopback interfaces"
+    test_id: "IP-INTF-CONFIG-001-TC02"
+    loopback:
+      name: "Loopback1"
+      test_ip: "10.0.0.1"
+      invalid_masks: [24, 30, 16, 8]
+      valid_mask: 32
+    expected_errors:
+      pattern: "Loopback interface only supports /32 mask"
+      alternate_patterns:
+        - "Error.*Loopback.*32"
+        - "only.*32.*mask"
+        - "invalid.*mask.*loopback"
+    commands:
+      create_loopback: "interface Loopback 1"
+      config_ip_invalid: "ip address 10.0.0.1/{mask}"
+      config_ip_valid: "ip address 10.0.0.1/32"
+      verify: "show running-configuration interface Loopback 1"
+      cleanup: "no interface Loopback 1"
+    note: "Only /32 mask should be accepted for Loopback interfaces"
+
+  "primary_secondary_overlap":
+    title: "Primary vs Secondary IP Overlap Validation"
+    description: "Verify system prevents assigning same IP as both Primary and Secondary"
+    test_id: "IP-INTF-CONFIG-001-TC03"
+    interface:
+      name: "Ethernet0"
+      primary_ip: "180.168.100.1"
+      primary_subnet: 24
+      primary_full: "180.168.100.1/24"
+      secondary_ip: "180.168.100.1"  # Same as primary
+      secondary_subnet: 24
+      secondary_full: "180.168.100.1/24"  # Same as primary - should be rejected
+      valid_secondary_ip: "170.168.100.2"  # Different IP for positive test
+      valid_secondary_full: "180.168.100.2/24"
+    commands:
+      config_primary: "ip address 180.168.100.1/24"
+      config_duplicate_secondary: "ip address 180.168.100.1/24 secondary"
+      config_valid_secondary: "ip address 180.168.100.2/24 secondary"
+      verify_interface: "show ip interfaces Ethernet0"
+      verify_running_config: "show running-configuration interface Ethernet0"
+      cleanup_all: "no ip address"
+      cleanup_specific: "no ip address 180.168.100.1/24"
+    expected_errors:
+      duplicate_pattern: "is already configured as primary"
+      full_message: "IPv4 address.*180.168.100.1/24.*is already configured as primary.*Ethernet0"
+      alternate_patterns:
+        - "Error.*already.*primary"
+        - "duplicate.*address"
+        - "address.*exists"
+    validation:
+      max_ip_count: 1  # Should only see one entry when duplicate is rejected
+      verify_no_duplicate: true
+    note: "Same IP cannot be configured as both primary and secondary on same interface"
+
+  "cleanup_verification":
+    title: "Pre and Post Test Cleanup"
+    interfaces_to_clean:
+      - "Ethernet0"
+      - "Loopback1"
+    commands:
+      remove_interface_ips: "no ip address"
+      remove_loopback: "no interface Loopback 1"

@@ -1,0 +1,142 @@
+# OSPF Network Removal Test Configuration
+# Purpose: Test data for validating OSPF network statement removal behavior
+# Test File: tests/routing/ospf/test_ospf_network_removal.py
+
+defaults:
+  cli_type: klish
+  verify_cli_type: vtysh
+  verify_timeout: 30
+  min_topology:
+    - "D1"
+  passive_interface_name: "Ethernet0"  # Configurable interface for passive-interface command
+
+testcases:
+  selective_removal:
+    title: "Selective Network Statement Removal"
+    description: "Verify that removing one network statement leaves others intact"
+    initial_networks:
+      - prefix: "10.0.0.0/24"
+        area: 0
+      - prefix: "20.0.0.0/24"
+        area: 0
+      - prefix: "30.0.0.0/24"
+        area: 1
+    remove_network:
+      prefix: "20.0.0.0/24"
+      area: 0
+    expected_remaining:
+      - prefix: "10.0.0.0/24"
+        area: 0
+      - prefix: "30.0.0.0/24"
+        area: 1
+
+  non_existent_removal:
+    title: "Non-Existent Network Removal"
+    description: "Verify CLI doesn't mutate config on invalid 'no' commands"
+    initial_networks:
+      - prefix: "10.0.0.0/24"
+        area: 0
+    remove_network:
+      prefix: "20.0.0.0/24"
+      area: 0
+    expected_remaining:
+      - prefix: "10.0.0.0/24"
+        area: 0
+    expected_behavior: "no_config_change"
+    notes: "CLI should either show error or silently no-op"
+
+  same_prefix_different_areas:
+    title: "Same Prefix in Multiple Areas"
+    description: "Verify (prefix, area) tuple is the unique key"
+    initial_networks:
+      - prefix: "10.0.0.0/24"
+        area: 0
+      - prefix: "10.0.0.0/24"
+        area: 1
+    remove_network:
+      prefix: "10.0.0.0/24"
+      area: 0
+    expected_remaining:
+      - prefix: "10.0.0.0/24"
+        area: 1
+    failure_symptom: "Both entries removed or wrong one removed"
+
+  attributes_preservation:
+    title: "Concurrent Attributes Preservation"
+    description: "Verify bulk deletion doesn't wipe unrelated OSPF fields"
+    passive_interface_name: "Ethernet0"  # Use specific interface instead of 'default'
+    initial_networks:
+      - prefix: "10.0.0.0/24"
+        area: 0
+      - prefix: "20.0.0.0/24"
+        area: 0
+    remove_network:
+      prefix: "10.0.0.0/24"
+      area: 0
+    expected_remaining:
+      - prefix: "20.0.0.0/24"
+        area: 0
+    expected_preserved:
+      passive_interface: "Ethernet0"
+    notes: "Passive-interface must remain after network removal (uses specific interface name, configurable via YAML)"
+
+# Terminal Configuration
+terminal:
+  length: 0
+  notes: "CRITICAL: Must set 'terminal length 0' before show running-configuration commands to prevent --More-- pagination prompts"
+
+# CLI Commands Reference
+commands:
+  config_ospf: "router ospf"
+  add_network: "network {prefix} area {area}"
+  remove_network: "no network {prefix} area {area}"
+  set_passive: "passive-interface {interface}"
+  show_running: "show running-configuration | find ospf"
+  exit_router: "exit"
+  remove_ospf: "no router ospf"
+  terminal_length: "terminal length {length}"
+
+# Expected Output Patterns
+patterns:
+  ospf_section_start: "^router ospf"
+  network_statement: "^\\s*network\\s+(\\S+)\\s+area\\s+([\\d\\.]+)"  # Handles both "area 0" and "area 0.0.0.0"
+  network_statement_note: "Area can be integer (0, 1) or dotted-decimal (0.0.0.0, 0.0.0.1)"
+  passive_interface: "^\\s*passive-interface\\s+(\\S+)"
+  empty_ospf: "^router ospf\\s*$"
+
+# Test Validation Rules
+validation:
+  network_count_match: true
+  exact_prefix_match: true
+  exact_area_match: true
+  attribute_persistence: true
+  no_unintended_deletion: true
+
+# Known Issues / Bug Symptoms
+known_bugs:
+  - symptom: "All network statements removed when removing one"
+    expected: "Only specified network statement removed"
+    severity: "critical"
+
+  - symptom: "Wrong network statement removed when same prefix in different areas"
+    expected: "Exact (prefix, area) tuple removed"
+    severity: "critical"
+
+  - symptom: "Passive-interface lost after network removal"
+    expected: "All non-network attributes preserved"
+    severity: "major"
+
+  - symptom: "Config changed when removing non-existent network"
+    expected: "No configuration change"
+    severity: "moderate"
+
+# Test Execution Notes
+notes:
+  - "Always set terminal length 0 before show running-configuration commands"
+  - "Use 'show running-configuration | find ospf' to isolate OSPF configuration"
+  - "Verify both before and after states with evidence-based comparison"
+  - "Clean up all OSPF configuration in teardown"
+  - "Test order matters: Run non-existent removal test independently"
+  - "Area format: Config uses integer (area 0), output shows dotted-decimal (area 0.0.0.0)"
+  - "Passive-interface: Use specific interface name (Ethernet0), configurable via passive_interface_name"
+  - "Area conversion: 0.0.0.0→0, 0.0.0.1→1, 0.0.0.10→10, 0.0.1.0→256"
