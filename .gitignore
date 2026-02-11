@@ -26,7 +26,7 @@ venv/
 ENV/
 env/
 .venv
-
+spytest_venv/
 # Pytest
 .pytest_cache/
 .cache/
