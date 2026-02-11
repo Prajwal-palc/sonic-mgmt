@@ -1,0 +1,119 @@
+# SM_ISCLI_28: BGP Configuration Mode - Show Configuration Verification
+# Test variables for validating 'show configuration' in BGP sub-modes
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "28.1":
+    title: "Show Configuration from Router BGP Mode"
+    description: "Verify show configuration displays complete BGP config from router-bgp mode"
+    bgp_config:
+      asn: 65001
+      address_families:
+        - ipv4_unicast:
+            redistribute: ["connected"]
+        - l2vpn_evpn: {}
+      neighbors:
+        - ip: "20.1.1.4"
+          remote_as: 65001
+          address_families:
+            - l2vpn_evpn:
+                activate: true
+    expected_in_output:
+      - "router bgp"
+      - "address-family ipv4 unicast"
+      - "redistribute connected"
+      - "address-family l2vpn evpn"
+      - "neighbor 20.1.1.4"
+      - "remote-as 65001"
+      - "activate"
+
+  "28.2":
+    title: "Show Configuration from Router BGP Address-Family Mode"
+    description: "Verify show configuration from address-family context"
+    bgp_config:
+      asn: 65002
+      address_family:
+        type: "ipv4 unicast"
+        redistribute: ["connected"]
+    mode: "config-router-bgp-af"
+    expected_in_output:
+      - "address-family ipv4 unicast"
+      - "redistribute connected"
+
+  "28.3":
+    title: "Show Configuration from Router BGP Neighbor Mode"
+    description: "Verify show configuration from neighbor context"
+    bgp_config:
+      asn: 65003
+      neighbor:
+        ip: "20.1.1.4"
+        remote_as: 65001
+        address_families:
+          - l2vpn_evpn:
+              activate: true
+    mode: "config-router-bgp-neighbor"
+    expected_in_output:
+      - "neighbor 20.1.1.4"
+      - "remote-as 65001"
+      - "address-family l2vpn evpn"
+      - "activate"
+
+  "28.4":
+    title: "Show Configuration from Router BGP Neighbor Address-Family Mode"
+    description: "Verify show configuration from neighbor address-family context"
+    bgp_config:
+      asn: 65004
+      neighbor:
+        ip: "20.1.1.4"
+        remote_as: 65001
+        address_family:
+          type: "l2vpn evpn"
+          activate: true
+    mode: "config-router-bgp-neighbor-af"
+    expected_in_output:
+      - "address-family l2vpn evpn"
+      - "activate"
+
+  "28.5":
+    title: "Pagination Handling for Large BGP Configuration"
+    description: "Verify show configuration handles pagination for large configs"
+    bgp_config:
+      asn: 65005
+      address_families:
+        - ipv4_unicast:
+            redistribute: ["connected", "static"]
+        - ipv6_unicast:
+            redistribute: ["connected"]
+        - l2vpn_evpn: {}
+      neighbors:
+        - ip: "20.1.1.4"
+          remote_as: 65001
+          address_families:
+            - l2vpn_evpn:
+                activate: true
+        - ip: "20.1.1.5"
+          remote_as: 65002
+          address_families:
+            - l2vpn_evpn:
+                activate: true
+        - ip: "20.1.1.6"
+          remote_as: 65003
+          address_families:
+            - l2vpn_evpn:
+                activate: true
+    pagination_test: true
+    expected_min_lines: 15
+    expected_in_output:
+      - "router bgp"
+      - "address-family ipv4 unicast"
+      - "address-family ipv6 unicast"
+      - "address-family l2vpn evpn"
+      - "neighbor 20.1.1.4"
+      - "neighbor 20.1.1.5"
+      - "neighbor 20.1.1.6"

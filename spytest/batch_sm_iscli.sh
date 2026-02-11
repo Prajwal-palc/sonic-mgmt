@@ -39,7 +39,8 @@ run_batch () {
       --logs-path "${LOG_PATH}" \
       --log-level debug \
       --skip-init-config \
-      --ifname-type native
+      --ifname-type native \
+      --port-init-wait 0
 
     RC=$?
     echo " Batch ${FEATURE} completed with RC=${RC}"
@@ -306,11 +307,115 @@ qos/acl/test_ipv4_acl_cli_validation.py
 
 
 # ==========================================================
-# BATCH-33 : SM_ISCLI_22 - Management Interface Name Display
+# BATCH-33 : VLAN Negative Member Tests
 # ==========================================================
 
-run_batch "SM_ISCLI_22_MGMT_INTERFACE_NAME" "./testbeds/testbed_vs_1node.yaml" \
-system/management/test_sm_iscli_22_mgmt_interface_name.py
+run_batch "VLAN_NEGATIVE_MEMBER" "./testbeds/testbed_vs_2d.yaml" \
+switching/vlan/test_vlan_negative_member.py
+
+
+# ==========================================================
+# BATCH-34 : Show IP Route Filtering
+# ==========================================================
+
+run_batch "SHOW_IP_ROUTE_FILTERING" "./testbeds/testbed_vs_2d.yaml" \
+routing/ipv4/test_show_ip_route_filtering.py
+
+
+# ==========================================================
+# BATCH-35 : OSPF Network Removal
+# ==========================================================
+
+run_batch "OSPF_NETWORK_REMOVAL" "./testbeds/testbed_vs_2d.yaml" \
+routing/ospf/test_ospf_network_removal.py
+
+
+# ==========================================================
+# BATCH-36 : BGP Peergroup Activate
+# ==========================================================
+
+run_batch "BGP_PEERGROUP_ACTIVATE" "./testbeds/testbed_vs_2d.yaml" \
+routing/bgp/test_bgp_peergroup_activate.py
+
+
+# ==========================================================
+# BATCH-37 : LLDP CLI Validation
+# ==========================================================
+
+run_batch "LLDP_CLI_VALIDATION" "./testbeds/testbed_vs_1node.yaml" \
+system/lldp/test_lldp_cli_validation.py
+
+
+# ==========================================================
+# BATCH-38 : Hostname Config Verification
+# ==========================================================
+
+run_batch "HOSTNAME_CONFIG_VERIFICATION" "./testbeds/testbed_vs_1node.yaml" \
+system/hostname/test_hostname_config_verification.py
+
+
+# ==========================================================
+# BATCH-39 : BGP IPv6 CLI Validation
+# ==========================================================
+
+run_batch "BGP_IPV6_CLI_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
+routing/bgp/test_bgp_ipv6_cli_validation.py
+
+
+# ==========================================================
+# BATCH-40 : IPv6 Interface Enable/Disable
+# ==========================================================
+
+run_batch "IPV6_INTERFACE_ENABLE_DISABLE" "./testbeds/testbed_vs_1node.yaml" \
+system/ipv6/test_ipv6_interface_enable_disable.py
+
+
+# ==========================================================
+# BATCH-41 : IP Route Show Commands
+# ==========================================================
+
+run_batch "IP_ROUTE_SHOW_COMMANDS" "./testbeds/ztp_standalone.yaml" \
+system/ip_route_cli/test_ip_route_show_commands.py
+
+
+# ==========================================================
+# BATCH-42 : VRF CLI Negative Tests
+# ==========================================================
+
+run_batch "VRF_CLI_NEGATIVE" "./testbeds/ztp_standalone.yaml" \
+system/vrf/test_vrf_cli_negative.py
+
+
+# ==========================================================
+# BATCH-43 : SM_ISCLI_25 - Interface Description Quotes
+# ==========================================================
+
+run_batch "SM_ISCLI_25_INTERFACE_DESC_QUOTES" "./testbeds/testbed_vs_1node.yaml" \
+system/cli/test_sm_iscli_25_interface_description_quotes.py
+
+
+# ==========================================================
+# BATCH-44 : Loopback Interface Configuration
+# ==========================================================
+
+run_batch "LOOPBACK_INTERFACE_CONFIG" "./testbeds/ztp_standalone.yaml" \
+system/interface/test_loopback_interface_config.py
+
+
+# ==========================================================
+# BATCH-45 : SM_ISCLI_26 - Platform and Interface CLI
+# ==========================================================
+
+run_batch "SM_ISCLI_26_PLATFORM_INTERFACE_CLI" "./testbeds/testbed_vs_1node.yaml" \
+system/cli/test_sm_iscli_26_platform_interface_cli.py
+
+
+# ==========================================================
+# BATCH-46 : SM_ISCLI_28 - BGP Show Configuration
+# ==========================================================
+
+run_batch "SM_ISCLI_28_BGP_SHOW_CONFIG" "./testbeds/testbed_vs_1node.yaml" \
+routing/bgp/test_sm_iscli_28_bgp_show_config.py
 
 
 echo "=============================================="
@@ -400,6 +505,36 @@ if [ -f "${TEST_DETAILS_CSV}" ]; then
     echo "${USER_DASHBOARD_DIR}/SM_ISCLI_${DATE_DIR}_test_details_${TIME_STAMP}.csv"
 else
     echo "Note: Error generating test details report"
+fi
+
+# Generate Historical Trend Dashboard
+echo "=============================================="
+echo " Generating Historical Trend Dashboard"
+echo "=============================================="
+
+HISTORICAL_DASHBOARD="${DASHBOARD_DIR}/sm_iscli_historical_${DATE_DIR}_${TIME_STAMP}.html"
+
+python3 dashboard/scripts/generate_historical_dashboard.py \
+    --log-root "${BASE_LOG}" \
+    --output "${HISTORICAL_DASHBOARD}" \
+    --title "SM_ISCLI Historical Trends"
+
+if [ -f "${HISTORICAL_DASHBOARD}" ]; then
+    echo "=============================================="
+    echo " Historical Dashboard Generated"
+    echo "=============================================="
+    echo "Historical Dashboard available at:"
+    echo "file://$(pwd)/${HISTORICAL_DASHBOARD}"
+
+    # Copy historical dashboard to user directory
+    ATHIRA_DASHBOARD_DIR="${HOME}/Athira/Dashboard"
+    mkdir -p "${ATHIRA_DASHBOARD_DIR}"
+    cp "${HISTORICAL_DASHBOARD}" "${ATHIRA_DASHBOARD_DIR}/"
+    echo ""
+    echo "Historical Dashboard copy saved to:"
+    echo "file://${ATHIRA_DASHBOARD_DIR}/sm_iscli_historical_${DATE_DIR}_${TIME_STAMP}.html"
+else
+    echo "Note: Error generating historical dashboard"
 fi
 
 

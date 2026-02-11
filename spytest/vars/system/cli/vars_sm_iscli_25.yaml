@@ -1,0 +1,54 @@
+---
+# Variable file for SM_ISCLI_25 - Interface Description Quote Handling Test
+# Bug: show running-configuration interface displays multi-word descriptions without quotes
+#
+# Author: Athira Arputharaj
+# Date: 2026-02-10
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  pagination_prompt: "--More--"
+
+# Test case configurations
+testcases:
+  "25.1":
+    title: "Single Interface Multi-Word Description Quote Verification"
+    description_values:
+      - "Test Interface for Data Center"
+      - "Uplink to Core Switch"
+      - "Connected to External Router"
+
+  "25.2":
+    title: "Configuration Reapplication Test"
+    configs:
+      - description: "Production Link to DC1"
+        mtu: 9100
+      - description: "Backup Path via External Gateway"
+        mtu: 1500
+
+  "25.3":
+    title: "Multiple Interfaces with Various Description Formats"
+    interfaces:
+      - description: "Uplink"
+        expect_quotes_required: false  # Single word - quotes optional
+      - description: "Core Switch Connection"
+        expect_quotes_required: true   # Multi-word - quotes required
+      - description: "Link-to-DC_01"
+        expect_quotes_required: false  # No spaces - quotes optional
+      - description: "Backup Path 100G"
+        expect_quotes_required: true   # Has spaces - quotes required
+
+  "25.4":
+    title: "Pagination Handling for Multiple Interfaces"
+    min_interfaces: 10
+    description_template: "Interface Link Number {index}"
+
+  "25.5":
+    title: "Negative Test - Unquoted Multi-Word Description"
+    unquoted_description: "This is a test description"
+    quoted_description: "This is a test description"
+    expected_behavior:
+      unquoted: "fail_or_truncate"  # Command should fail or only accept first word
+      quoted: "success"              # Command should succeed

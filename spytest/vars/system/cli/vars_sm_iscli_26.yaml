@@ -1,0 +1,77 @@
+# SM_ISCLI_26: Platform and Interface CLI Validation
+# Test variables for platform commands, ping, traceroute, and interface transceiver CLI
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "26.1":
+    title: "Platform SSD Health Disk Option"
+    description: "Verify show platform ssdhealth supports disk parameter in klish (parity with click)"
+    commands:
+      klish: "show platform ssdhealth"
+      click: "show platform ssdhealth"
+    expected_fields:
+      - "Disk Type"
+      - "Device Model"
+      - "Health"
+      - "Temperature"
+
+  "26.4":
+    title: "Ping Help Text Completeness"
+    description: "Verify ping displays actual options instead of generic 'normal options'"
+    command: "ping"
+    help_flags:
+      - "?"
+      - "--help"
+    unwanted_text:
+      - "normal options"
+    expected_options:
+      - "count"
+      - "interval"
+      - "timeout"
+      - "size"
+
+  "26.5":
+    title: "Traceroute Command Availability"
+    description: "Verify traceroute command is available and functional"
+    command: "traceroute"
+    test_destination: "8.8.8.8"
+    max_hops: 30
+    timeout: 60
+
+  "26.6":
+    title: "Interface Transceiver PM Subcommand"
+    description: "Verify show interface transceiver pm displays data or appropriate message"
+    command: "show interface transceiver pm"
+    negative_test: true
+    expected_behavior: "should_be_removed"  # Recommendation
+
+  "26.7":
+    title: "Interface Transceiver LPMode Subcommand"
+    description: "Verify show interface transceiver lpmode displays data or appropriate message"
+    command: "show interface transceiver lpmode"
+    negative_test: true
+    expected_behavior: "should_be_removed"  # Recommendation
+
+  "26.8":
+    title: "Interface Transceiver Error-Status Verbose"
+    description: "Verify show interface transceiver error-status verbose displays verbose data"
+    command: "show interface transceiver error-status verbose"
+    negative_test: true
+    expected_messages:
+      - "not implemented"
+      - "Not implemented"
+    expected_behavior: "should_be_removed"  # Recommendation
+
+# Working transceiver commands for reference
+working_transceiver_commands:
+  - "show interface transceiver eeprom"
+  - "show interface transceiver info"
+  - "show interface transceiver presence"
+  - "show interface transceiver status"
+  - "show interface transceiver error-status"
