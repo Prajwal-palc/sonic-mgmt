@@ -80,7 +80,7 @@ def vrf_validation_module_hooks(request):
     elif hasattr(vars, 'D1T1P2'):
         data.interface2 = vars.D1T1P2
     else:
-        data.interface2 = "Ethernet272"
+        data.interface2 = "Ethernet16"
 
     st.log(f"DUT1: {data.dut1}")
     st.log(f"Interface 1 (no IP): {data.interface1}")
@@ -124,7 +124,7 @@ def initial_cleanup():
         for interface in [data.interface1, data.interface2]:
             commands = []
             commands.append(f"interface {interface}")
-            commands.append("no ip vrf forwarding")
+            commands.append("no ip vrf forwarding {data.vrf_name}")
             commands.append("exit")
             st.config(data.dut1, commands, type=data.cli_type, skip_error_check=True)
 
