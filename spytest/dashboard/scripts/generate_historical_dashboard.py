@@ -51,6 +51,7 @@ class TestRun:
     def add_result(self, result):
         self.results.append(result)
         self.total_tests += 1
+        self.duration += result.duration  # Accumulate total duration
         if result.status == "Pass":
             self.passed += 1
         elif result.status == "Fail":
@@ -62,6 +63,18 @@ class TestRun:
         if self.total_tests > 0:
             return (self.passed / self.total_tests) * 100
         return 0.0
+
+    def format_duration(self):
+        """Format duration in seconds to HH:MM:SS"""
+        hours = int(self.duration // 3600)
+        minutes = int((self.duration % 3600) // 60)
+        seconds = int(self.duration % 60)
+        if hours > 0:
+            return f"{hours}h {minutes}m {seconds}s"
+        elif minutes > 0:
+            return f"{minutes}m {seconds}s"
+        else:
+            return f"{seconds}s"
 
 def parse_time_duration(time_str):
     """Parse time format H:MM:SS or MM:SS or float to seconds"""
@@ -92,11 +105,16 @@ def parse_result_csv(csv_file):
             reader = csv.DictReader(f)
             for row in reader:
                 # Handle different CSV formats
-                test_name = row.get('Function', row.get('TestCase', 'Unknown'))
+                # SpyTest format uses 'TestFunction', older formats may use 'Function' or 'TestCase'
+                test_name = row.get('TestFunction', row.get('Function', row.get('TestCase', 'Unknown')))
                 status = row.get('Result', row.get('Status', 'Unknown'))
                 duration_str = row.get('TimeTaken', row.get('Duration', '0'))
                 duration = parse_time_duration(duration_str)
                 module = row.get('Module', row.get('TestModule', ''))
+
+                # Skip empty rows or module prologue/epilogue entries
+                if not test_name or test_name == 'Unknown' or not status:
+                    continue
 
                 results.append(TestResult(test_name, status, duration, module))
     except Exception as e:
@@ -152,7 +170,7 @@ def find_test_runs(log_root):
 
         try:
             date = datetime.strptime(date_str, "%Y%m%d")
-        except:
+        except Exception:
             continue
 
         # Find all batch directories under this date
@@ -171,11 +189,18 @@ def find_test_runs(log_root):
                 csv_files = list(time_dir.glob("*_functions.csv"))
                 export_files = list(time_dir.glob("*_export.txt"))
 
+                # Try CSV first, but only if the file has content
+                results_added = False
                 if csv_files:
-                    results = parse_result_csv(csv_files[0])
-                    for result in results:
-                        test_run.add_result(result)
-                elif export_files:
+                    csv_path = csv_files[0]
+                    if csv_path.stat().st_size > 0:
+                        results = parse_result_csv(csv_path)
+                        for result in results:
+                            test_run.add_result(result)
+                            results_added = True
+
+                # Fall back to export.txt if CSV didn't provide results
+                if not results_added and export_files:
                     results = parse_export_txt(export_files[0])
                     for result in results:
                         test_run.add_result(result)
@@ -321,6 +346,26 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
             padding: 20px;
         }}
 
+        /* Custom Scrollbar Styling */
+        ::-webkit-scrollbar {{
+            width: 10px;
+            height: 10px;
+        }}
+
+        ::-webkit-scrollbar-track {{
+            background: #f1f1f1;
+            border-radius: 5px;
+        }}
+
+        ::-webkit-scrollbar-thumb {{
+            background: #888;
+            border-radius: 5px;
+        }}
+
+        ::-webkit-scrollbar-thumb:hover {{
+            background: #667eea;
+        }}
+
         .container {{
             max-width: 1400px;
             margin: 0 auto;
@@ -389,6 +434,7 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
         .card.fail .value {{ color: #dc3545; }}
         .card.total .value {{ color: #667eea; }}
         .card.rate .value {{ color: #17a2b8; }}
+        .card.duration .value {{ color: #fd7e14; }}
 
         .tabs {{
             display: flex;
@@ -468,6 +514,10 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
+            max-height: 800px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 10px;
         }}
 
         .batch-card {{
@@ -504,6 +554,10 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
 
         .history-list {{
             list-style: none;
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 10px;
         }}
 
         .history-item {{
@@ -553,6 +607,8 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
 
         .test-details-table-container {{
             overflow-x: auto;
+            overflow-y: auto;
+            max-height: 600px;
             border: 1px solid #dee2e6;
             border-radius: 10px;
         }}
@@ -712,6 +768,11 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
             pass_change = f'<span class="{"trend-up" if pass_diff > 0 else "trend-down"}">{"↑" if pass_diff > 0 else "↓"} {abs(pass_diff)}</span>'
             fail_change = f'<span class="{"trend-down" if fail_diff > 0 else "trend-up"}">{"↑" if fail_diff > 0 else "↓"} {abs(fail_diff)}</span>'
 
+        duration_change = ""
+        if prev:
+            duration_diff = latest.duration - prev.duration
+            duration_change = f'<span class="{"trend-down" if duration_diff < 0 else ("trend-up" if duration_diff > 0 else "")}">{"↓" if duration_diff < 0 else ("↑" if duration_diff > 0 else "=")} {abs(int(duration_diff))}s</span>'
+
         html_content += f'''
             <div class="card total">
                 <h3>Total Tests</h3>
@@ -732,6 +793,11 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
                 <h3>Pass Rate</h3>
                 <div class="value">{latest.calculate_pass_rate():.1f}%</div>
                 <div class="change">Current</div>
+            </div>
+            <div class="card duration">
+                <h3>Execution Time</h3>
+                <div class="value" style="font-size:1.8em">{latest.format_duration()}</div>
+                <div class="change">{duration_change}</div>
             </div>
 '''
 
@@ -796,7 +862,8 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
             ("Passed", "passed"),
             ("Failed", "failed"),
             ("Skipped", "skipped"),
-            ("Pass Rate", "pass_rate")
+            ("Pass Rate", "pass_rate"),
+            ("Execution Time", "execution_time")
         ]
 
         for metric_name, metric_attr in metrics:
@@ -804,6 +871,8 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
             for run in reversed(comparison_runs):
                 if metric_attr == "pass_rate":
                     value = f'{run.calculate_pass_rate():.1f}%'
+                elif metric_attr == "execution_time":
+                    value = run.format_duration()
                 else:
                     value = getattr(run, metric_attr)
                 html_content += f'<td>{value}</td>'
@@ -830,6 +899,7 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
                     <h4>{batch_name}</h4>
                     <p><strong>Latest Run:</strong> {latest_batch.date.strftime("%Y-%m-%d")}</p>
                     <p><strong>Total Tests:</strong> {latest_batch.total_tests}</p>
+                    <p><strong>Execution Time:</strong> {latest_batch.format_duration()}</p>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: {latest_batch.calculate_pass_rate()}%">
                             {latest_batch.passed}/{latest_batch.total_tests} ({latest_batch.calculate_pass_rate():.1f}%)
@@ -861,7 +931,8 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
                         Tests: {run.total_tests} |
                         Pass: {run.passed} ({run.calculate_pass_rate():.1f}%) |
                         Fail: {run.failed} |
-                        Skip: {run.skipped}
+                        Skip: {run.skipped} |
+                        Time: {run.format_duration()}
                     </div>
                 </li>
 '''

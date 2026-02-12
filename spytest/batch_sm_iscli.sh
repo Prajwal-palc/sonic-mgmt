@@ -9,7 +9,9 @@
 DATE_DIR=$(date +%Y%m%d)
 TIME_STAMP=$(date +%H%M%S)
 
-BASE_LOG="./logs/SM_ISCLI_${DATE_DIR}"
+# Create SM_ISCLI_Report directory to organize all SM_ISCLI logs
+SM_ISCLI_REPORT_ROOT="./logs/SM_ISCLI_Report"
+BASE_LOG="${SM_ISCLI_REPORT_ROOT}/SM_ISCLI_${DATE_DIR}"
 
 mkdir -p "${BASE_LOG}"
 
@@ -83,15 +85,15 @@ system/SM_ISCLI/test_sm_iscli_6_bgp_timers.py
 
 
 # ==========================================================
-# BATCH-5 : Management IP Route
+# BATCH-5 : SM_ISCLI_59 - Management IP Route
 # ==========================================================
 
-run_batch "SM_ISCLI_8_MGMT_IP_ROUTE" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_59_MGMT_IP_ROUTE" "./testbeds/ztp_standalone.yaml" \
 system/management/test_management_ip_route.py
 
 
 # ==========================================================
-# BATCH-6 : Management Interface Config
+# BATCH-6 : SM_ISCLI_43, SM_ISCLI_61 - Management Interface Config
 # ==========================================================
 
 run_batch "SM_ISCLI_43_SM_ISCLI_61_MGMT_INTERFACE_CONFIG" "./testbeds/ztp_standalone.yaml" \
@@ -99,7 +101,7 @@ system/management/test_management_interface_config.py
 
 
 # ==========================================================
-# BATCH-7 : VLAN Basic Config
+# BATCH-7 : SM_ISCLI_42, SM_ISCLI_68 - VLAN Basic Config
 # ==========================================================
 
 run_batch "SM_ISCLI_42_SM_ISCLI_68_VLAN_BASIC_CONFIG" "./testbeds/ztp_standalone.yaml" \
@@ -115,7 +117,7 @@ system/interface/test_sm_iscli_16_ip_noop.py
 
 
 # ==========================================================
-# BATCH-9 : VLAN Interface Lifecycle
+# BATCH-9 : SM_ISCLI_60 - VLAN Interface Lifecycle
 # ==========================================================
 
 run_batch "SM_ISCLI_60_VLAN_INTERFACE_LIFECYCLE" "./testbeds/ztp_standalone.yaml" \
@@ -123,10 +125,10 @@ switching/test_vlan_interface_lifecycle.py
 
 
 # ==========================================================
-# BATCH-10 : Switching Mode
+# BATCH-10 : SM_ISCLI_66 - Switching Mode
 # ==========================================================
 
-run_batch "SM_ISCLI_59_SWITCHING_MODE" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_66_SWITCHING_MODE" "./testbeds/ztp_standalone.yaml" \
 switching/test_switching_mode.py
 
 
@@ -147,7 +149,23 @@ system/SM_ISCLI/test_sm_iscli_9_l2vpn_evpn_order.py
 
 
 # ==========================================================
-# BATCH-13 : SM_ISCLI_10 - BGP Update-Source Format
+# BATCH-13 : SM_ISCLI_11 - BGP Graceful Restart
+# ==========================================================
+
+run_batch "SM_ISCLI_11_BGP_GRACEFUL_RESTART" "./testbeds/testbed_vs_2d.yaml" \
+system/SM_ISCLI/test_sm_iscli_11_bgp_graceful_restart.py
+
+
+# ==========================================================
+# BATCH-14 : SM_ISCLI_12 - Management Port Visible
+# ==========================================================
+
+run_batch "SM_ISCLI_12_MGMT_PORT_VISIBLE" "./testbeds/testbed_vs_2d.yaml" \
+system/SM_ISCLI/test_sm_iscli_12_management_port_visible.py
+
+
+# ==========================================================
+# BATCH-15 : SM_ISCLI_10 - BGP Update-Source Format
 # ==========================================================
 
 run_batch "SM_ISCLI_10_UPDATE_SOURCE" "./testbeds/testbed_vs_2d.yaml" \
@@ -155,7 +173,7 @@ routing/bgp/test_sm_iscli_10_update_source_format.py
 
 
 # ==========================================================
-# BATCH-14 : SM_ISCLI_13 - BGP IBGP Multipath
+# BATCH-16 : SM_ISCLI_13 - BGP IBGP Multipath
 # ==========================================================
 
 run_batch "SM_ISCLI_13_IBGP_MULTIPATH" "./testbeds/testbed_vs_2d.yaml" \
@@ -163,7 +181,7 @@ routing/bgp/test_sm_iscli_13_ibgp_multipath.py
 
 
 # ==========================================================
-# BATCH-15 : SM_ISCLI_15 - BGP Network IP Conflict
+# BATCH-17 : SM_ISCLI_15 - BGP Network IP Conflict
 # ==========================================================
 
 run_batch "SM_ISCLI_15_BGP_NETWORK_CONFLICT" "./testbeds/testbed_vs_2d.yaml" \
@@ -171,7 +189,7 @@ routing/bgp/test_sm_iscli_15_bgp_network_ip_conflict.py
 
 
 # ==========================================================
-# BATCH-16 : BGP Remote AS Internal External
+# BATCH-18 : SM_ISCLI_41 - BGP Remote AS Internal External
 # ==========================================================
 
 run_batch "SM_ISCLI_41_BGP_REMOTE_AS_INTERNAL_EXTERNAL" "./testbeds/testbed_vs_2d.yaml" \
@@ -179,7 +197,7 @@ Bug-fix/test_bgp_remote_as_internal_external.py
 
 
 # ==========================================================
-# BATCH-17 : BGP VRF Validation
+# BATCH-19 : SM_ISCLI_82 - BGP VRF Validation
 # ==========================================================
 
 run_batch "SM_ISCLI_82_BGP_VRF_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
@@ -187,7 +205,7 @@ Bug-fix/test_bgp_vrf_validation.py
 
 
 # ==========================================================
-# BATCH-18 : Hostname Validation
+# BATCH-20 : SM_ISCLI_74 - Hostname Validation
 # ==========================================================
 
 run_batch "SM_ISCLI_74_HOSTNAME_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
@@ -195,7 +213,7 @@ Bug-fix/test_hostname_validation.py
 
 
 # ==========================================================
-# BATCH-19 : IP Route SVI
+# BATCH-21 : SM_ISCLI_29 - IP Route SVI
 # ==========================================================
 
 run_batch "SM_ISCLI_29_IP_ROUTE_SVI" "./testbeds/testbed_vs_2d.yaml" \
@@ -203,7 +221,7 @@ Bug-fix/test_ip_route_svi.py
 
 
 # ==========================================================
-# BATCH-20 : Port Breakout
+# BATCH-22 : SM_ISCLI_46 - Port Breakout
 # ==========================================================
 
 run_batch "SM_ISCLI_46_PORT_BREAKOUT" "./testbeds/testbed_vs_2d.yaml" \
@@ -211,7 +229,7 @@ Bug-fix/test_port_breakout.py
 
 
 # ==========================================================
-# BATCH-21 : Remove VLAN Interface
+# BATCH-23 : SM_ISCLI_60 - Remove VLAN Interface
 # ==========================================================
 
 run_batch "SM_ISCLI_60_REMOVE_VLAN_INTERFACE" "./testbeds/testbed_vs_2d.yaml" \
@@ -219,7 +237,7 @@ Bug-fix/test_remove_vlan_interface.py
 
 
 # ==========================================================
-# BATCH-22 : Show IP Interface
+# BATCH-24 : SM_ISCLI_12 - Show IP Interface
 # ==========================================================
 
 run_batch "SM_ISCLI_12_SHOW_IP_INTERFACE" "./testbeds/testbed_vs_2d.yaml" \
@@ -227,7 +245,7 @@ Bug-fix/test_show_ip_interface.py
 
 
 # ==========================================================
-# BATCH-23 : Show Run Interface
+# BATCH-25 : SM_ISCLI_33 - Show Run Interface
 # ==========================================================
 
 run_batch "SM_ISCLI_33_SHOW_RUN_INTERFACE" "./testbeds/testbed_vs_2d.yaml" \
@@ -235,7 +253,7 @@ Bug-fix/test_show_run_interface.py
 
 
 # ==========================================================
-# BATCH-24 : Show Running Config
+# BATCH-26 : SM_ISCLI_54 - Show Running Config
 # ==========================================================
 
 run_batch "SM_ISCLI_54_SHOW_RUNNING_CONFIG" "./testbeds/testbed_vs_2d.yaml" \
@@ -243,7 +261,7 @@ Bug-fix/test_show_running_config.py
 
 
 # ==========================================================
-# BATCH-25 : VRF Interface Validation
+# BATCH-27 : SM_ISCLI_73 - VRF Interface Validation
 # ==========================================================
 
 run_batch "SM_ISCLI_73_VRF_INTERFACE_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
@@ -251,7 +269,7 @@ Bug-fix/test_vrf_interface_validation.py
 
 
 # ==========================================================
-# BATCH-26 : SM_ISCLI_19 - Grep Filter Effectiveness
+# BATCH-28 : SM_ISCLI_19 - Grep Filter Effectiveness
 # ==========================================================
 
 run_batch "SM_ISCLI_19_GREP_FILTER" "./testbeds/testbed_vs_1node.yaml" \
@@ -259,7 +277,7 @@ system/cli/test_sm_iscli_19_grep_filter.py
 
 
 # ==========================================================
-# BATCH-27 : SM_ISCLI_20 - OSPF Loopback Without IP
+# BATCH-29 : SM_ISCLI_20 - OSPF Loopback Without IP
 # ==========================================================
 
 run_batch "SM_ISCLI_20_OSPF_LOOPBACK_NO_IP" "./testbeds/testbed_vs_2d.yaml" \
@@ -267,15 +285,15 @@ routing/ospf/test_sm_iscli_20_ospf_loopback_no_ip.py
 
 
 # ==========================================================
-# BATCH-28 : Interface IP Config Validation
+# BATCH-30 : SM_ISCLI_34, SM_ISCLI_32, SM_ISCLI_31 - Interface IP Config Validation
 # ==========================================================
 
-run_batch "INTERFACE_IP_CONFIG_VALIDATION" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_34_SM_ISCLI_32_SM_ISCLI_31_INTERFACE_IP_CONFIG" "./testbeds/ztp_standalone.yaml" \
 system/interface/test_interface_ip_config_validation.py
 
 
 # ==========================================================
-# BATCH-29 : SM_ISCLI_24 - sonic-cli -c Flag Test
+# BATCH-31 : SM_ISCLI_24 - sonic-cli -c Flag Test
 # ==========================================================
 
 run_batch "SM_ISCLI_24_SONIC_CLI_C_FLAG" "./testbeds/testbed_vs_1node.yaml" \
@@ -283,7 +301,7 @@ system/cli/test_sm_iscli_24_sonic_cli_c_flag.py
 
 
 # ==========================================================
-# BATCH-30 : SM_ISCLI_23 - Route Map Show Running Config
+# BATCH-32 : SM_ISCLI_23 - Route Map Show Running Config
 # ==========================================================
 
 run_batch "SM_ISCLI_23_ROUTE_MAP_SHOW_RUN" "./testbeds/testbed_vs_1node.yaml" \
@@ -291,7 +309,7 @@ routing/test_sm_iscli_23_route_map_show_run.py
 
 
 # ==========================================================
-# BATCH-31 : SM_ISCLI_82 - BGP VRF Unconfigurations
+# BATCH-33 : SM_ISCLI_82 - BGP VRF Unconfigurations
 # ==========================================================
 
 run_batch "SM_ISCLI_82_BGP_VRF_UNCONFIG" "./testbeds/testbed_2vs.yaml" \
@@ -299,95 +317,95 @@ system/SM_ISCLI/test_sm_iscli_82_bgp_vrf_unconfigurations.py
 
 
 # ==========================================================
-# BATCH-32 : IPv4 ACL CLI Validation
+# BATCH-34 : SM_ISCLI_48, SM_ISCLI_49, SM_ISCLI_51 - IPv4 ACL CLI Validation
 # ==========================================================
 
-run_batch "IPV4_ACL_CLI_VALIDATION" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_48_SM_ISCLI_49_SM_ISCLI_51_IPV4_ACL_CLI" "./testbeds/ztp_standalone.yaml" \
 qos/acl/test_ipv4_acl_cli_validation.py
 
 
 # ==========================================================
-# BATCH-33 : VLAN Negative Member Tests
+# BATCH-35 : SM_ISCLI_69 - VLAN Negative Member Tests
 # ==========================================================
 
-run_batch "VLAN_NEGATIVE_MEMBER" "./testbeds/testbed_vs_2d.yaml" \
+run_batch "SM_ISCLI_69_VLAN_NEGATIVE_MEMBER" "./testbeds/testbed_vs_2d.yaml" \
 switching/vlan/test_vlan_negative_member.py
 
 
 # ==========================================================
-# BATCH-34 : Show IP Route Filtering
+# BATCH-36 : SM_ISCLI_76 - Show IP Route Filtering
 # ==========================================================
 
-run_batch "SHOW_IP_ROUTE_FILTERING" "./testbeds/testbed_vs_2d.yaml" \
+run_batch "SM_ISCLI_76_SHOW_IP_ROUTE_FILTERING" "./testbeds/testbed_vs_2d.yaml" \
 routing/ipv4/test_show_ip_route_filtering.py
 
 
 # ==========================================================
-# BATCH-35 : OSPF Network Removal
+# BATCH-37 : SM_ISCLI_21 - OSPF Network Removal
 # ==========================================================
 
-run_batch "OSPF_NETWORK_REMOVAL" "./testbeds/testbed_vs_2d.yaml" \
+run_batch "SM_ISCLI_21_OSPF_NETWORK_REMOVAL" "./testbeds/testbed_vs_2d.yaml" \
 routing/ospf/test_ospf_network_removal.py
 
 
 # ==========================================================
-# BATCH-36 : BGP Peergroup Activate
+# BATCH-38 : SM_ISCLI_27 - BGP Peergroup Activate
 # ==========================================================
 
-run_batch "BGP_PEERGROUP_ACTIVATE" "./testbeds/testbed_vs_2d.yaml" \
+run_batch "SM_ISCLI_27_BGP_PEERGROUP_ACTIVATE" "./testbeds/testbed_vs_2d.yaml" \
 routing/bgp/test_bgp_peergroup_activate.py
 
 
 # ==========================================================
-# BATCH-37 : LLDP CLI Validation
+# BATCH-39 : SM_ISCLI_52 - LLDP CLI Validation
 # ==========================================================
 
-run_batch "LLDP_CLI_VALIDATION" "./testbeds/testbed_vs_1node.yaml" \
+run_batch "SM_ISCLI_52_LLDP_CLI_VALIDATION" "./testbeds/testbed_vs_1node.yaml" \
 system/lldp/test_lldp_cli_validation.py
 
 
 # ==========================================================
-# BATCH-38 : Hostname Config Verification
+# BATCH-40 : SM_ISCLI_53 - Hostname Config Verification
 # ==========================================================
 
-run_batch "HOSTNAME_CONFIG_VERIFICATION" "./testbeds/testbed_vs_1node.yaml" \
+run_batch "SM_ISCLI_53_HOSTNAME_CONFIG_VERIFICATION" "./testbeds/testbed_vs_1node.yaml" \
 system/hostname/test_hostname_config_verification.py
 
 
 # ==========================================================
-# BATCH-39 : BGP IPv6 CLI Validation
+# BATCH-41 : SM_ISCLI_70 - BGP IPv6 CLI Validation
 # ==========================================================
 
-run_batch "BGP_IPV6_CLI_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
+run_batch "SM_ISCLI_70_BGP_IPV6_CLI_VALIDATION" "./testbeds/testbed_vs_2d.yaml" \
 routing/bgp/test_bgp_ipv6_cli_validation.py
 
 
 # ==========================================================
-# BATCH-40 : IPv6 Interface Enable/Disable
+# BATCH-42 : SM_ISCLI_72 - IPv6 Interface Enable/Disable
 # ==========================================================
 
-run_batch "IPV6_INTERFACE_ENABLE_DISABLE" "./testbeds/testbed_vs_1node.yaml" \
+run_batch "SM_ISCLI_72_IPV6_INTERFACE_ENABLE_DISABLE" "./testbeds/testbed_vs_1node.yaml" \
 system/ipv6/test_ipv6_interface_enable_disable.py
 
 
 # ==========================================================
-# BATCH-41 : IP Route Show Commands
+# BATCH-43 : SM_ISCLI_76 - IP Route Show Commands
 # ==========================================================
 
-run_batch "IP_ROUTE_SHOW_COMMANDS" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_76_IP_ROUTE_SHOW_COMMANDS" "./testbeds/ztp_standalone.yaml" \
 system/ip_route_cli/test_ip_route_show_commands.py
 
 
 # ==========================================================
-# BATCH-42 : VRF CLI Negative Tests
+# BATCH-44 : SM_ISCLI_77 - VRF CLI Negative Tests
 # ==========================================================
 
-run_batch "VRF_CLI_NEGATIVE" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_77_VRF_CLI_NEGATIVE" "./testbeds/ztp_standalone.yaml" \
 system/vrf/test_vrf_cli_negative.py
 
 
 # ==========================================================
-# BATCH-43 : SM_ISCLI_25 - Interface Description Quotes
+# BATCH-45 : SM_ISCLI_25 - Interface Description Quotes
 # ==========================================================
 
 run_batch "SM_ISCLI_25_INTERFACE_DESC_QUOTES" "./testbeds/testbed_vs_1node.yaml" \
@@ -395,15 +413,15 @@ system/cli/test_sm_iscli_25_interface_description_quotes.py
 
 
 # ==========================================================
-# BATCH-44 : Loopback Interface Configuration
+# BATCH-46 : SM_ISCLI_78 - Loopback Interface Configuration
 # ==========================================================
 
-run_batch "LOOPBACK_INTERFACE_CONFIG" "./testbeds/ztp_standalone.yaml" \
+run_batch "SM_ISCLI_78_LOOPBACK_INTERFACE_CONFIG" "./testbeds/ztp_standalone.yaml" \
 system/interface/test_loopback_interface_config.py
 
 
 # ==========================================================
-# BATCH-45 : SM_ISCLI_26 - Platform and Interface CLI
+# BATCH-47 : SM_ISCLI_26 - Platform and Interface CLI
 # ==========================================================
 
 run_batch "SM_ISCLI_26_PLATFORM_INTERFACE_CLI" "./testbeds/testbed_vs_1node.yaml" \
@@ -411,7 +429,7 @@ system/cli/test_sm_iscli_26_platform_interface_cli.py
 
 
 # ==========================================================
-# BATCH-46 : SM_ISCLI_28 - BGP Show Configuration
+# BATCH-48 : SM_ISCLI_28 - BGP Show Configuration
 # ==========================================================
 
 run_batch "SM_ISCLI_28_BGP_SHOW_CONFIG" "./testbeds/testbed_vs_1node.yaml" \
@@ -514,10 +532,11 @@ echo "=============================================="
 
 HISTORICAL_DASHBOARD="${DASHBOARD_DIR}/sm_iscli_historical_${DATE_DIR}_${TIME_STAMP}.html"
 
+# Use SM_ISCLI_Report root directory for historical data
 python3 dashboard/scripts/generate_historical_dashboard.py \
-    --log-root "${BASE_LOG}" \
-    --output "${HISTORICAL_DASHBOARD}" \
-    --title "SM_ISCLI Historical Trends"
+    --log-root "${SM_ISCLI_REPORT_ROOT}" \
+    --out "${HISTORICAL_DASHBOARD}" \
+    --name "SM_ISCLI Historical Trends"
 
 if [ -f "${HISTORICAL_DASHBOARD}" ]; then
     echo "=============================================="

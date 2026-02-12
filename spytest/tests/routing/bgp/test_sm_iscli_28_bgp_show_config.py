@@ -42,6 +42,7 @@ Pre-requisites:
 from __future__ import annotations
 
 import re
+import time
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -130,28 +131,133 @@ class TestSMISCLI28BGPShowConfiguration:
         # Track configured BGP instances for cleanup
         cls.data.bgp_instances = []
 
+        # IMPORTANT: Clean up any existing BGP configuration from previous runs
+        st.banner("SM_ISCLI_28: Cleaning up any existing BGP configuration before tests")
+        cls._cleanup_bgp()
+        st.log("Pre-test cleanup complete")
+
+    @pytest.fixture(scope="function", autouse=True)
+    def function_cleanup(self):
+        """
+        Function-level cleanup to ensure clean state before AND after each test.
+        This runs before and after each test function.
+        """
+        # Clean up any existing BGP configuration before test starts
+        st.log(f"Pre-test cleanup: Removing any existing BGP configuration")
+        self._cleanup_bgp()
+
+        yield
+
+        # IMPORTANT: Clean up BGP configuration after test completes
+        # This ensures next test starts with clean state
+        st.log(f"Post-test cleanup: Removing BGP configuration created during test")
+        self._cleanup_bgp()
+
     @classmethod
     def teardown_class(cls) -> None:
         """Cleanup after test suite."""
         st.banner("SM_ISCLI_28: Cleaning up BGP configuration")
 
-        # Remove all BGP instances configured during tests
-        for asn in cls.data.bgp_instances:
-            cls._cleanup_bgp(asn)
+        # Final cleanup - remove any BGP configuration
+        cls._cleanup_bgp()
 
         st.log("SM_ISCLI_28 test suite completed")
 
     @classmethod
-    def _cleanup_bgp(cls, asn: int) -> None:
-        """Remove BGP configuration."""
+    def _cleanup_bgp(cls, asn: int = None) -> None:
+        """
+        Remove BGP configuration completely - Aggressive cleanup approach.
+
+        Args:
+            asn: BGP AS number (optional, will detect and remove any BGP instance)
+        """
         dut = cls.data.dut
+
+        st.log(f"[BGP CLEANUP] Starting BGP cleanup on {dut}")
+
+        # CRITICAL: Use skip_tmpl=True to get raw output (template parsing may fail)
+        output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+
+        # Convert to string for reliable checking
+        output_str = str(output) if output else ""
+
+        # Check if BGP is configured by looking for "local AS number" in raw output
+        if not output_str or "BGP is not configured" in output_str or "local AS number" not in output_str:
+            st.log(f"[BGP CLEANUP] BGP is not configured on {dut}, no cleanup needed")
+            st.log(f"[BGP CLEANUP] Output check: '{output_str[:200] if output_str else 'empty'}'")
+            return
+
+        st.log(f"[BGP CLEANUP] BGP IS CONFIGURED - detected in output")
+
+        # Extract AS number from output if present
+        detected_asn = None
+        bgp_asn_match = re.search(r'local AS number (\d+)', output_str)
+        if bgp_asn_match:
+            detected_asn = bgp_asn_match.group(1)
+            st.log(f"[BGP CLEANUP] Detected BGP AS number: {detected_asn}")
+
+        # Try multiple removal approaches for reliability
+        # Approach 1: Generic "no router bgp" (should work in most cases)
+        st.log(f"[BGP CLEANUP] Attempting cleanup with 'no router bgp' command")
+        commands = ["no router bgp"]
+        result = st.config(dut, commands, type=cls.data.cli_type, skip_error_check=True)
+        time.sleep(3)
+
+        # Verify removal (use skip_tmpl=True to avoid template parsing issues)
+        verify_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+        verify_str = str(verify_output) if verify_output else ""
+
+        if "BGP is not configured" in verify_str or "local AS number" not in verify_str:
+            st.log(f"[BGP CLEANUP] ✓ BGP successfully removed from {dut}")
+            return
+
+        st.log(f"[BGP CLEANUP] First attempt didn't fully remove BGP, trying approach 2")
+
+        # Approach 2: If generic removal didn't work, try with explicit AS number
+        if detected_asn:
+            st.log(f"[BGP CLEANUP] Retrying with explicit AS number: no router bgp {detected_asn}")
+            commands = [f"no router bgp {detected_asn}"]
+            result = st.config(dut, commands, type=cls.data.cli_type, skip_error_check=True)
+            time.sleep(3)
+
+            # Verify again
+            verify_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+            verify_str = str(verify_output) if verify_output else ""
+
+            if "BGP is not configured" in verify_str or "local AS number" not in verify_str:
+                st.log(f"[BGP CLEANUP] ✓ BGP successfully removed from {dut}")
+                return
+
+        st.log(f"[BGP CLEANUP] Klish removal failed, trying click CLI")
+
+        # Approach 3: Try using click CLI as fallback
+        st.log(f"[BGP CLEANUP] Trying click CLI as fallback")
         try:
-            # Use direct config command to remove BGP instance
-            cmd = f"no router bgp {asn}"
-            st.config(dut, cmd, type=cls.data.cli_type, skip_error_check=True)
-            st.log(f"Removed BGP AS {asn}")
+            st.config(dut, "config bgp remove", type="click", skip_error_check=True)
+            time.sleep(3)
         except Exception as e:
-            st.warn(f"Failed to remove BGP AS {asn}: {e}")
+            st.log(f"[BGP CLEANUP] Click CLI cleanup failed: {e}")
+
+        # Final verification
+        final_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+        final_str = str(final_output) if final_output else ""
+
+        if "BGP is not configured" in final_str or "local AS number" not in final_str:
+            st.log(f"[BGP CLEANUP] ✓ BGP configuration successfully removed from {dut}")
+        else:
+            st.error(f"[BGP CLEANUP] ✗ FAILED to remove BGP configuration from {dut}")
+            st.error(f"[BGP CLEANUP] BGP still shows: {final_str[:300]}")
+            # Force removal one more time
+            st.log(f"[BGP CLEANUP] Forcing final cleanup attempt")
+            st.config(dut, "no router bgp", type=cls.data.cli_type, skip_error_check=True)
+            time.sleep(5)
+            # One last check
+            last_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+            last_str = str(last_output) if last_output else ""
+            if "BGP is not configured" in last_str or "local AS number" not in last_str:
+                st.log(f"[BGP CLEANUP] ✓ Final attempt succeeded - BGP removed")
+            else:
+                st.error(f"[BGP CLEANUP] ✗ All cleanup attempts failed")
 
     def _get_testcase(self, tcid: str) -> Dict[str, Any]:
         """Fetch testcase definition from YAML."""
@@ -302,6 +408,10 @@ class TestSMISCLI28BGPShowConfiguration:
         tc = self._get_testcase("28.1")
         st.banner(f"TC 28.1: {tc.get('title')}")
 
+        # EXPLICIT CLEANUP - Ensure BGP is removed before configuration
+        st.log("TC 28.1: Explicit cleanup - Removing any existing BGP configuration")
+        self._cleanup_bgp()
+
         bgp_config = tc.get("bgp_config")
         asn = bgp_config.get("asn")
 
@@ -339,6 +449,10 @@ class TestSMISCLI28BGPShowConfiguration:
         tc = self._get_testcase("28.2")
         st.banner(f"TC 28.2: {tc.get('title')}")
 
+        # EXPLICIT CLEANUP - Ensure BGP is removed before configuration
+        st.log("TC 28.2: Explicit cleanup - Removing any existing BGP configuration")
+        self._cleanup_bgp()
+
         bgp_config = tc.get("bgp_config")
         asn = bgp_config.get("asn")
 
@@ -369,6 +483,10 @@ class TestSMISCLI28BGPShowConfiguration:
         """TC 28.3 - Verify show configuration from neighbor mode."""
         tc = self._get_testcase("28.3")
         st.banner(f"TC 28.3: {tc.get('title')}")
+
+        # EXPLICIT CLEANUP - Ensure BGP is removed before configuration
+        st.log("TC 28.3: Explicit cleanup - Removing any existing BGP configuration")
+        self._cleanup_bgp()
 
         bgp_config = tc.get("bgp_config")
         asn = bgp_config.get("asn")
@@ -403,6 +521,10 @@ class TestSMISCLI28BGPShowConfiguration:
         tc = self._get_testcase("28.4")
         st.banner(f"TC 28.4: {tc.get('title')}")
 
+        # EXPLICIT CLEANUP - Ensure BGP is removed before configuration
+        st.log("TC 28.4: Explicit cleanup - Removing any existing BGP configuration")
+        self._cleanup_bgp()
+
         bgp_config = tc.get("bgp_config")
         asn = bgp_config.get("asn")
         neighbor_ip = bgp_config.get("neighbor", {}).get("ip")
@@ -436,6 +558,10 @@ class TestSMISCLI28BGPShowConfiguration:
         """TC 28.5 - Verify pagination handling for large BGP configuration."""
         tc = self._get_testcase("28.5")
         st.banner(f"TC 28.5: {tc.get('title')}")
+
+        # EXPLICIT CLEANUP - Ensure BGP is removed before configuration
+        st.log("TC 28.5: Explicit cleanup - Removing any existing BGP configuration")
+        self._cleanup_bgp()
 
         bgp_config = tc.get("bgp_config")
         asn = bgp_config.get("asn")
