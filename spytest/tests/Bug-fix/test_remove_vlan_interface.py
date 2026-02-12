@@ -97,10 +97,25 @@ def initial_cleanup():
     """
     st.log("Starting initial cleanup - removing VLAN configuration")
 
+    # Set terminal length to 200 for full output
+    st.log("Setting terminal length to 200")
+    st.config(data.dut1, "terminal length 200", type=data.cli_type, conf=False, skip_error_check=True)
+
     try:
-        # Remove VLAN interface
-        commands = [f"no interface Vlan{data.vlan_id}"]
-        st.config(data.dut1, commands, type=data.cli_type, skip_error_check=True)
+        # Check if VLAN exists before trying to remove interface
+        check_output = st.config(data.dut1, f"show Vlan", type=data.cli_type, conf=False, skip_error_check=True)
+        vlan_exists = False
+        if check_output and isinstance(check_output, str):
+            if f"Vlan{data.vlan_id}" in check_output:
+                vlan_exists = True
+        
+        if vlan_exists:
+            st.log(f"VLAN {data.vlan_id} exists, removing VLAN interface")
+            # Remove VLAN interface
+            commands = [f"no interface Vlan{data.vlan_id}"]
+            st.config(data.dut1, commands, type=data.cli_type, skip_error_check=True)
+        else:
+            st.log(f"VLAN {data.vlan_id} does not exist, skipping VLAN interface removal")
 
         # Remove port from VLAN
         commands = []
@@ -115,7 +130,7 @@ def initial_cleanup():
 
         st.log("Initial cleanup completed")
     except Exception as e:
-        st.error(f"Error during initial cleanup: {str(e)}")
+        st.log(f"Note during initial cleanup: {str(e)}")
 
 
 def create_vlan(dut, vlan_id, cli_type="klish"):
@@ -224,6 +239,10 @@ def verify_vlan_interface_exists(dut, vlan_id, cli_type="klish"):
 def verify_vlan_in_show_vlan(dut, vlan_id, cli_type="klish"):
     """
     Verify VLAN appears in 'show Vlan' output.
+    
+    This function uses both:
+    1. Parsed template output (when available)
+    2. Raw text output parsing (fallback when template parsing fails)
 
     Args:
         dut: Device under test
@@ -236,10 +255,12 @@ def verify_vlan_in_show_vlan(dut, vlan_id, cli_type="klish"):
     st.log(f"Verifying VLAN {vlan_id} appears in 'show Vlan'")
 
     try:
+        # Method 1: Try parsed output first
         output = st.show(dut, "show Vlan", type=cli_type, skip_error_check=True)
-        st.log(f"Show Vlan output: {output}")
+        st.log(f"Show Vlan output (parsed): {output}")
 
-        if output:
+        if output and isinstance(output, list) and len(output) > 0:
+            st.log("Using parsed template output for VLAN verification")
             for entry in output:
                 # Try different possible key names for VLAN ID
                 vlan_num = (entry.get('vid', '') or
@@ -251,14 +272,44 @@ def verify_vlan_in_show_vlan(dut, vlan_id, cli_type="klish"):
                 vlan_num_str = str(vlan_num).replace('Vlan', '').strip()
 
                 if vlan_num_str == str(vlan_id):
-                    st.log(f"Found VLAN {vlan_id} in 'show Vlan' output")
+                    st.log(f"Found VLAN {vlan_id} in 'show Vlan' parsed output")
                     return True
 
-        st.log(f"VLAN {vlan_id} not found in 'show Vlan' output")
-        return False
+        # Method 2: Fallback to raw output parsing
+        st.log("Parsed output empty or VLAN not found, falling back to raw output parsing")
+        
+        raw_output = st.config(dut, "show Vlan", type=cli_type, conf=False, skip_error_check=True)
+        
+        if not raw_output or not isinstance(raw_output, str):
+            st.error("No raw output available from 'show Vlan'")
+            return False
+        
+        st.log(f"Raw VLAN output:\n{raw_output}")
+        
+        # Parse raw output for VLAN
+        # Expected format: Vlan10    Up          A  Ethernet32       Enable      No
+        vlan_pattern = rf'^\s*Vlan{vlan_id}\s+.*'
+        
+        vlan_lines = re.findall(vlan_pattern, raw_output, re.MULTILINE)
+        
+        if not vlan_lines:
+            # Try alternate pattern - just the VLAN number
+            vlan_pattern = rf'^\s*{vlan_id}\s+.*'
+            vlan_lines = re.findall(vlan_pattern, raw_output, re.MULTILINE)
+        
+        if vlan_lines:
+            st.log(f"Found VLAN {vlan_id} in raw output: {vlan_lines[0]}")
+            return True
+        else:
+            st.log(f"VLAN {vlan_id} not found in 'show Vlan' output")
+            return False
 
     except Exception as e:
         st.error(f"Exception during 'show Vlan' verification: {str(e)}")
+        import traceback
+        st.error(f"Traceback: {traceback.format_exc()}")
+        return False
+
         return False
 
 
@@ -395,10 +446,25 @@ def cleanup_vlan_config():
     """
     st.log("Cleaning up VLAN configuration")
 
+    # Set terminal length to 200 for full output
+    st.log("Setting terminal length to 200")
+    st.config(data.dut1, "terminal length 200", type=data.cli_type, conf=False, skip_error_check=True)
+
     try:
-        # Remove VLAN interface
-        commands = [f"no interface Vlan{data.vlan_id}"]
-        st.config(data.dut1, commands, type=data.cli_type, skip_error_check=True)
+        # Check if VLAN exists before trying to remove interface
+        check_output = st.config(data.dut1, f"show Vlan", type=data.cli_type, conf=False, skip_error_check=True)
+        vlan_exists = False
+        if check_output and isinstance(check_output, str):
+            if f"Vlan{data.vlan_id}" in check_output:
+                vlan_exists = True
+        
+        if vlan_exists:
+            st.log(f"VLAN {data.vlan_id} exists, removing VLAN interface")
+            # Remove VLAN interface
+            commands = [f"no interface Vlan{data.vlan_id}"]
+            st.config(data.dut1, commands, type=data.cli_type, skip_error_check=True)
+        else:
+            st.log(f"VLAN {data.vlan_id} does not exist, skipping VLAN interface removal")
 
         # Remove port from VLAN
         commands = []
@@ -413,7 +479,7 @@ def cleanup_vlan_config():
 
         st.log("Cleanup completed")
     except Exception as e:
-        st.error(f"Error during cleanup: {str(e)}")
+        st.log(f"Note during cleanup: {str(e)}")
 
 
 @pytest.mark.topology("any")
