@@ -436,6 +436,38 @@ run_batch "SM_ISCLI_28_BGP_SHOW_CONFIG" "./testbeds/testbed_vs_1node.yaml" \
 routing/bgp/test_sm_iscli_28_bgp_show_config.py
 
 
+# ==========================================================
+# BATCH-49 : SM_ISCLI_VRF_BASIC - VRF Basic Config
+# ==========================================================
+
+run_batch "SM_ISCLI_VRF_BASIC" "./testbeds/ztp_standalone.yaml" \
+system/vrf/test_vrf_basic.py
+
+
+# ==========================================================
+# BATCH-50 : SM_ISCLI_P2_78 - LACP Fast Rate Bug
+# ==========================================================
+
+run_batch "SM_ISCLI_P2_78_LACP_FAST_RATE" "./testbeds/testbed_vs_1node.yaml" \
+switching/portchannel/test_sm_iscli_p2_78_lacp_fast_rate.py
+
+
+# ==========================================================
+# BATCH-51 : SM_ISCLI_VRF_INTERFACE_NEGATIVE - VRF Interface Negative Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_VRF_INTERFACE_NEGATIVE" "./testbeds/ztp_standalone.yaml" \
+system/vrf/test_vrf_interface_negative.py
+
+
+# ==========================================================
+# BATCH-52 : SM_ISCLI_VRF_LOOPBACK_PORTCHANNEL_NEGATIVE - VRF Loopback/PortChannel Negative
+# ==========================================================
+
+run_batch "SM_ISCLI_VRF_LOOPBACK_PORTCHANNEL_NEGATIVE" "./testbeds/ztp_standalone.yaml" \
+system/vrf/test_vrf_loopback_portchannel_negative.py
+
+
 echo "=============================================="
 echo " SM_ISCLI REGRESSION COMPLETED"
 echo " Logs Root : ${BASE_LOG}"

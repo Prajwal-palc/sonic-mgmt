@@ -447,7 +447,10 @@ def parse_csv_results(csv_file):
 def find_test_results(log_root):
     """
     Scan log root directory for test results.
-    Expected structure: log_root/<date>/<feature>/<time>/results_*_stats.csv
+    Expected structure: log_root/<date>/<feature>/<time>/results_*_functions.csv
+
+    IMPORTANT: Only uses results_*_functions.csv - actual test function results.
+               No fallback files used to ensure data accuracy.
     """
     results = defaultdict(list)
 
@@ -456,8 +459,8 @@ def find_test_results(log_root):
         print(f"Error: Log root directory does not exist: {log_root}", file=sys.stderr)
         return results
 
-    # Find all CSV result files
-    csv_pattern = str(log_path / "**" / "results_*_stats.csv")
+    # Find all CSV result files - ONLY functions.csv (actual test data)
+    csv_pattern = str(log_path / "**" / "results_*_functions.csv")
     csv_files = glob.glob(csv_pattern, recursive=True)
 
     print(f"Found {len(csv_files)} CSV result files in {log_root}")
@@ -747,7 +750,9 @@ Examples:
 
     if not results:
         print("\nNo test results found in the specified log directory.", file=sys.stderr)
-        print("Expected directory structure: <log-root>/<date>/<feature>/<time>/results_*_stats.csv", file=sys.stderr)
+        print("Expected directory structure: <log-root>/<date>/<feature>/<time>/results_*_functions.csv", file=sys.stderr)
+        print("\nNote: CSV files may be empty or missing. Ensure tests completed successfully.", file=sys.stderr)
+        print("      Dashboard requires actual test data from results_*_functions.csv files.", file=sys.stderr)
         sys.exit(1)
 
     # Generate dashboard
