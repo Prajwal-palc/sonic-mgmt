@@ -1,0 +1,106 @@
+---
+# Variable file for SM_ISCLI_P2_78 - LACP Fast Rate Bug Test
+# Bug: fallback fast_rate command doesn't configure fast rate properly
+#
+# Author: Athira Arputharaj
+# Date: 2026-02-13
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  pagination_prompt: "--More--"
+
+# PortChannel configuration
+portchannel:
+  default_id: 10
+  ipv4_address: "20.1.1.3/24"
+  ipv6_address: "2001::4/64"
+  min_links: 1
+
+# LACP fast rate parameters
+lacp:
+  fast_rate_interval: 1      # seconds (fast)
+  slow_rate_interval: 30     # seconds (slow/default)
+
+# Test case configurations
+testcases:
+  "78.1":
+    title: "Baseline PortChannel Creation and Status"
+    portchannel_id: 10
+    ipv4_address: "20.1.1.3/24"
+    ipv6_address: "2001::4/64"
+    expected_fallback: false
+    expected_fast_rate: false
+
+  "78.2":
+    title: "Configure LACP Fast Rate (Bug Test)"
+    portchannel_id: 10
+    ipv4_address: "20.1.1.3/24"
+    ipv6_address: "2001::4/64"
+    configure_fast_rate: true
+    expected_lacp_rate: "fast"
+    expected_pdu_interval: 1
+    # Bug check: if this is true, bug exists
+    bug_only_enables_fallback: true
+
+  "78.3":
+    title: "Separate Fallback and Fast Rate Configuration"
+    portchannel_id: 10
+    scenarios:
+      - name: "fallback_only"
+        fallback: true
+        fast_rate: false
+      - name: "fast_rate_only"
+        fallback: false
+        fast_rate: true
+      - name: "both_enabled"
+        fallback: true
+        fast_rate: true
+      - name: "fallback_only_again"
+        fallback: true
+        fast_rate: false
+
+  "78.4":
+    title: "Verify Show Commands Display Fast Rate Status"
+    portchannel_id: 10
+    show_commands:
+      - "show interface PortChannel | no-more"
+      - "show interface PortChannel 10 | no-more"
+      - "show running-configuration interface PortChannel 10 | no-more"
+    expected_fast_rate_indicators:
+      - "fast"
+      - "1 second"
+
+  "78.5":
+    title: "Toggle Fast Rate Multiple Times"
+    portchannel_id: 10
+    toggle_iterations: 3
+
+  "78.6":
+    title: "Multiple PortChannels with Different Fast Rate Config"
+    portchannels:
+      - id: 10
+        fast_rate: true
+        ipv4: "20.1.1.3/24"
+      - id: 20
+        fast_rate: false
+        ipv4: "20.1.2.3/24"
+
+  "78.7":
+    title: "Negative Test - Invalid Fast Rate Syntax"
+    portchannel_id: 10
+    invalid_commands:
+      - "fast_rate invalid"
+      - "fast_rate 123"
+      - "fast_rate on"
+    expected_behavior: "reject"
+
+  "78.8":
+    title: "Configuration Persistence After Save"
+    portchannel_id: 10
+    verify_commands:
+      - "show running-configuration interface PortChannel 10 | no-more"
+    expected_in_config:
+      - "interface PortChannel 10"
+      - "fast_rate"

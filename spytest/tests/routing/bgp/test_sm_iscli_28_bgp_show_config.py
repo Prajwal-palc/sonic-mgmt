@@ -175,62 +175,21 @@ class TestSMISCLI28BGPShowConfiguration:
 
         st.log(f"[BGP CLEANUP] Starting BGP cleanup on {dut}")
 
-        # CRITICAL: Use skip_tmpl=True to get raw output (template parsing may fail)
-        output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
-
-        # Convert to string for reliable checking
-        output_str = str(output) if output else ""
-
-        # Check if BGP is configured by looking for "local AS number" in raw output
-        if not output_str or "BGP is not configured" in output_str or "local AS number" not in output_str:
-            st.log(f"[BGP CLEANUP] BGP is not configured on {dut}, no cleanup needed")
-            st.log(f"[BGP CLEANUP] Output check: '{output_str[:200] if output_str else 'empty'}'")
-            return
-
-        st.log(f"[BGP CLEANUP] BGP IS CONFIGURED - detected in output")
-
-        # Extract AS number from output if present
-        detected_asn = None
-        bgp_asn_match = re.search(r'local AS number (\d+)', output_str)
-        if bgp_asn_match:
-            detected_asn = bgp_asn_match.group(1)
-            st.log(f"[BGP CLEANUP] Detected BGP AS number: {detected_asn}")
-
-        # Try multiple removal approaches for reliability
         # Approach 1: Generic "no router bgp" (should work in most cases)
         st.log(f"[BGP CLEANUP] Attempting cleanup with 'no router bgp' command")
         commands = ["no router bgp"]
         result = st.config(dut, commands, type=cls.data.cli_type, skip_error_check=True)
         time.sleep(3)
 
-        # Verify removal (use skip_tmpl=True to avoid template parsing issues)
-        verify_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+        # Verify removal using running-configuration (more reliable)
+        verify_output = st.show(dut, "show running-configuration bgp", type="klish", skip_error_check=True, skip_tmpl=True)
         verify_str = str(verify_output) if verify_output else ""
 
-        if "BGP is not configured" in verify_str or "local AS number" not in verify_str:
+        if not verify_str or "router bgp" not in verify_str:
             st.log(f"[BGP CLEANUP] ✓ BGP successfully removed from {dut}")
             return
 
-        st.log(f"[BGP CLEANUP] First attempt didn't fully remove BGP, trying approach 2")
-
-        # Approach 2: If generic removal didn't work, try with explicit AS number
-        if detected_asn:
-            st.log(f"[BGP CLEANUP] Retrying with explicit AS number: no router bgp {detected_asn}")
-            commands = [f"no router bgp {detected_asn}"]
-            result = st.config(dut, commands, type=cls.data.cli_type, skip_error_check=True)
-            time.sleep(3)
-
-            # Verify again
-            verify_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
-            verify_str = str(verify_output) if verify_output else ""
-
-            if "BGP is not configured" in verify_str or "local AS number" not in verify_str:
-                st.log(f"[BGP CLEANUP] ✓ BGP successfully removed from {dut}")
-                return
-
-        st.log(f"[BGP CLEANUP] Klish removal failed, trying click CLI")
-
-        # Approach 3: Try using click CLI as fallback
+        # Approach  2 Try using click CLI as fallback
         st.log(f"[BGP CLEANUP] Trying click CLI as fallback")
         try:
             st.config(dut, "config bgp remove", type="click", skip_error_check=True)
@@ -239,10 +198,10 @@ class TestSMISCLI28BGPShowConfiguration:
             st.log(f"[BGP CLEANUP] Click CLI cleanup failed: {e}")
 
         # Final verification
-        final_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+        final_output = st.show(dut, "show running-configuration bgp", type="klish", skip_error_check=True, skip_tmpl=True)
         final_str = str(final_output) if final_output else ""
 
-        if "BGP is not configured" in final_str or "local AS number" not in final_str:
+        if not final_str or "router bgp" not in final_str:
             st.log(f"[BGP CLEANUP] ✓ BGP configuration successfully removed from {dut}")
         else:
             st.error(f"[BGP CLEANUP] ✗ FAILED to remove BGP configuration from {dut}")
@@ -252,9 +211,9 @@ class TestSMISCLI28BGPShowConfiguration:
             st.config(dut, "no router bgp", type=cls.data.cli_type, skip_error_check=True)
             time.sleep(5)
             # One last check
-            last_output = st.show(dut, "show bgp ipv4 unicast summary", type="klish", skip_error_check=True, skip_tmpl=True)
+            last_output = st.show(dut, "show running-configuration bgp", type="klish", skip_error_check=True, skip_tmpl=True)
             last_str = str(last_output) if last_output else ""
-            if "BGP is not configured" in last_str or "local AS number" not in last_str:
+            if not last_str or "router bgp" not in last_str:
                 st.log(f"[BGP CLEANUP] ✓ Final attempt succeeded - BGP removed")
             else:
                 st.error(f"[BGP CLEANUP] ✗ All cleanup attempts failed")
