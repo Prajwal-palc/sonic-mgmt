@@ -1,0 +1,36 @@
+##
+## VRF Ping Test Variables
+## Author: Shiva
+## 2026
+##
+## Used by: tests/routing/vrf/test_vrf_ping.py
+##
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "TC_VRF_01":
+    title: "VRF Configuration Persistence"
+    vrf_name: "Vrftest"
+    interface: "Ethernet8"
+    verify:
+      vrf_in_show_ip_vrf: true
+      vrf_forwarding_in_running_config: true
+
+  "TC_VRF_02":
+    title: "VRF Connectivity via Ping"
+    vrf_name: "Vrfping"
+    interface: "Ethernet8"
+    ip_address: "10.0.2.1"
+    subnet: "24"
+    ping_target: "10.0.2.1"
+    ping_count: 5
+    verify:
+      ip_in_show_ip_interfaces: true
+      vrf_in_show_ip_interfaces: true
+      ping_packet_loss: 0

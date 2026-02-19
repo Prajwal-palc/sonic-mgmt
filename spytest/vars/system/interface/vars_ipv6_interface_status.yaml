@@ -1,0 +1,72 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+# Loopback interface ID used for TC 1
+loopback_id: 100
+
+# Physical interface used for TC 2 & TC 3
+# Must be physically cabled or have a loopback plug for TC 3 to proceed
+physical_interface: "Ethernet8"
+
+ip_pools:
+  loopback_ipv4:
+    primary: "10.0.2.1"
+    subnet: "32"
+    fallback:
+      - "10.0.2.2"
+      - "10.0.2.3"
+      - "10.0.2.4"
+      - "10.0.2.5"
+
+  loopback_ipv6:
+    primary: "2001:db8::1"
+    subnet: "128"
+    fallback:
+      - "2001:db8::2"
+      - "2001:db8::3"
+      - "2001:db8::4"
+      - "2001:db8::5"
+
+  physical_ipv6:
+    primary: "2001:db8::10"
+    subnet: "128"
+    fallback:
+      - "2001:db8:1::1"
+      - "2001:db8:2::1"
+      - "2001:db8:3::1"
+      - "2001:db8:4::1"
+
+testcases:
+  "1":
+    title: "Loopback Interface Status Consistency (IPv4 vs IPv6 show commands)"
+    description: >
+      Reproduce and document the known discrepancy where 'show ip interfaces'
+      reports Loopback as Up/Down while 'show interface Loopback 100' and
+      'show ipv6 interfaces' both correctly report Up/Up.
+      The test asserts the detailed interface view (step 4) and the IPv6
+      summary view (step 6) both show Up/Up, and flags a discrepancy if
+      the IPv4 summary view (step 3) differs.
+    loopback_id: 100
+    ipv4_pool: "loopback_ipv4"
+    ipv6_pool: "loopback_ipv6"
+
+  "2":
+    title: "Physical Interface Pre-check and Abort Logic"
+    description: >
+      Verify the physical interface (Ethernet8) is in Admin/Oper Up/Up state
+      before any IPv6 configuration is attempted. If the interface is not
+      Up/Up the test suite for TC 3 is aborted (pytest.skip) to prevent
+      false positives.
+    interface: "Ethernet8"
+
+  "3":
+    title: "IPv6 Assignment and Status Verification on Physical Interface"
+    description: >
+      Assign an IPv6 address to an operational physical interface (Ethernet8)
+      and verify that 'show ipv6 interfaces' reports the interface as Up/Up.
+    interface: "Ethernet8"
+    ipv6_pool: "physical_ipv6"
