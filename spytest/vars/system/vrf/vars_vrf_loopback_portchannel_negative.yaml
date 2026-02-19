@@ -1,0 +1,54 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+# Loopback interface ID for TC 2.1
+loopback_id: 100
+
+# PortChannel ID and member interface for TC 2.2
+portchannel_id: 100
+member_interface: "Ethernet8"
+
+ip_pools:
+  loopback:
+    primary: "10.0.2.1"
+    subnet: "32"
+    fallback:
+      - "10.0.2.2"
+      - "10.0.2.3"
+      - "10.0.2.4"
+      - "10.0.2.5"
+
+  portchannel:
+    primary: "10.0.2.10"
+    subnet: "24"
+    fallback:
+      - "10.0.3.10"
+      - "10.0.4.10"
+      - "10.0.5.10"
+      - "10.0.6.10"
+
+testcases:
+  "2.1":
+    title: "Negative: VRF forwarding restriction on Loopback interface with IP"
+    description: >
+      Verify that VRF forwarding cannot be applied to a Loopback interface
+      (Loopback100) that already has an IP address configured. The system
+      must reject the binding with a specific L3 configuration error.
+    loopback_id: 100
+    vrf_name: "mgmt"
+    expected_error: "L3 Configuration exists for Interface: Loopback100"
+
+  "2.2":
+    title: "Negative: VRF forwarding restriction on PortChannel interface with IP"
+    description: >
+      Verify that VRF forwarding cannot be applied to a PortChannel interface
+      (PortChannel100) that already has an IP address configured. The system
+      must reject the binding with a specific L3 configuration error.
+    portchannel_id: 100
+    vrf_name: "Vrf111"
+    member_interface: "Ethernet8"
+    expected_error: "L3 Configuration exists for Interface: PortChannel100"

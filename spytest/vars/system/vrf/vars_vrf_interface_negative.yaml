@@ -1,0 +1,46 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+# Test interface configuration
+test_interface: "Ethernet28"
+vlan_id: 100
+
+# IP address pools (primary + fallbacks for conflict resolution)
+ip_pools:
+  vlan_svi:
+    primary: "10.0.0.1"
+    subnet: "24"
+    fallback:
+      - "10.0.1.1"
+      - "10.0.2.1"
+      - "10.0.3.1"
+      - "10.0.4.1"
+
+  physical_interface:
+    primary: "160.0.0.1"
+    subnet: "24"
+    fallback:
+      - "160.0.1.1"
+      - "160.0.2.1"
+      - "160.0.3.1"
+      - "160.0.4.1"
+
+testcases:
+  "2.1":
+    title: "Negative: VRF binding on VLAN SVI with IP configuration"
+    description: "Verify that VRF forwarding cannot be applied to a VLAN interface (SVI) that has an IP address configured. The system should reject this with an error message indicating L3 configuration exists."
+    vlan_id: 100
+    vrf_name: "Vrf111"
+    interface: "Ethernet28"
+    expected_error: "L3 Configuration exists for Interface"
+
+  "2.2":
+    title: "Negative: VRF binding on physical interface with IP configuration"
+    description: "Verify that VRF forwarding cannot be applied to a physical Ethernet interface that has an IP address configured. The system should reject this with an error message indicating L3 configuration exists."
+    vrf_name: "Vrf112"
+    interface: "Ethernet28"
+    expected_error: "L3 Configuration exists for Interface"
