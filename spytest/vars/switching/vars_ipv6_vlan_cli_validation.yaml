@@ -1,0 +1,62 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+  test_interface: "Ethernet8"
+
+testcases:
+  tc1:
+    title: "IPv6 /128 Address Validation - Reject host == network"
+    description: >
+      Verify that the system correctly identifies and rejects an IPv6 address
+      configuration where the host address is the same as the network address
+      for a /128 prefix (typically reserved for loopbacks or specific host routes).
+    interface: "Ethernet8"
+    ipv6_address: "2001:db8:abcd:1000::1"
+    prefix_length: 128
+    expected_error: "%Error: Interface IP cannot be same as network address"
+
+  tc2:
+    title: "VLAN Trunking Range and Format Validation"
+    description: >
+      Validate that the switchport trunk allowed vlan command supports both
+      hyphenated ranges (10-13) and comma-separated lists (10,11,12,13), while
+      ensuring the system enforces the existence of VLANs before assignment.
+    interface: "Ethernet8"
+    partial_vlans:
+      - 10
+      - 12
+      - 13
+    all_vlans:
+      - 10
+      - 11
+      - 12
+      - 13
+    vlan_range: "10-13"
+    vlan_comma_list: "10,11,12,13"
+    missing_vlan: 11
+    expected_error_pattern: "Error: VLAN 11 does not exist. Create Vlan first using"
+
+  tc3:
+    title: "VLAN Range Dependency Check"
+    description: >
+      Verify that when attempting to assign a VLAN range where one or more
+      intermediate VLANs don't exist, the system rejects the configuration
+      and provides a clear error message indicating which VLAN is missing.
+    interface: "Ethernet8"
+    test_scenarios:
+      - name: "Missing single VLAN in range"
+        create_vlans: [10, 12, 13]
+        assign_range: "10-13"
+        missing_vlan: 11
+        expect_error: true
+      - name: "All VLANs present"
+        create_vlans: [10, 11, 12, 13]
+        assign_range: "10-13"
+        expect_error: false
+      - name: "Comma-separated format"
+        create_vlans: [10, 11, 12, 13]
+        assign_list: "10,11,12,13"
+        expect_error: false
