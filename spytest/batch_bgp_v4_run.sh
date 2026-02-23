@@ -39,7 +39,8 @@ run_batch () {
       --logs-path "${LOG_PATH}" \
       --log-level debug \
       --skip-init-config \
-      --ifname-type native
+      --ifname-type native \
+      --get-tech-support none
 
     RC=$?
     echo " Batch ${FEATURE} completed with RC=${RC}"
@@ -94,7 +95,8 @@ run_bgp_batch () {
           --logs-path "${LOG_PATH}" \
           --log-level debug \
           --skip-init-config \
-          --ifname-type native
+          --ifname-type native \
+          --get-tech-support none
 
         RC=$?
         echo " Test ${TEST} completed with RC=${RC}"
@@ -114,19 +116,19 @@ run_bgp_batch () {
     fi
 }
 
-run_bgp_batch "BGP_IPV4_FEATURES" "./testbeds/testbed_vs_2node.yaml" \
-routing/BGP/test_bgp_ipv4_basic.py \
-routing/BGP/test_bgp_svi_ipv4.py \
-routing/BGP/test_bgp_portchannel_ipv4.py \
-routing/BGP/test_bgp_loopback_ipv4.py \
-routing/BGP/test_bgp_ipv4_basic_ebgp.py \
-routing/BGP/test_bgp_svi_ipv4_ebgp.py \
-routing/BGP/test_bgp_portchannel_ipv4_ebgp.py \
-routing/BGP/test_bgp_loopback_ipv4_ebgp.py \
-routing/BGP/test_bgp_ebgp_connected_static_redistribution.py \
-routing/BGP/test_bgp_advanced_features.py \
-routing/BGP/test_ipv4_bgp_route_reflector.py \
-routing/BGP/test_bgp_med_weight.py
+run_bgp_batch "BGP_IPV4_FEATURES" "./testbeds/testbed_vs2_4node.yaml" \
+    routing/BGP/test_bgp_ipv4_basic.py \
+    routing/BGP/test_bgp_svi_ipv4.py \
+    routing/BGP/test_bgp_portchannel_ipv4.py \
+    routing/BGP/test_bgp_loopback_ipv4.py \
+    routing/BGP/test_bgp_med_weight.py \
+    routing/BGP/test_bgp_ipv4_basic_ebgp.py \
+    routing/BGP/test_bgp_svi_ipv4_ebgp.py \
+    routing/BGP/test_bgp_portchannel_ipv4_ebgp.py \
+    routing/BGP/test_bgp_loopback_ipv4_ebgp.py \
+    routing/BGP/test_bgp_ebgp_connected_static_redistribution.py \
+    routing/BGP/test_bgp_advanced_features.py \
+    routing/BGP/test_ipv4_bgp_route_reflector.py
 
 
 

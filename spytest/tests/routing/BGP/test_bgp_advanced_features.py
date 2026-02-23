@@ -158,8 +158,7 @@ class TestBGPAdvancedFeatures:
             commands = [
                 "configure terminal",
                 "no router bgp",
-                "exit",
-                "clear bgp all",
+                "end",
             ]
             st.config(dut, commands, type="klish", skip_error_check=True)
             st.wait(2)
@@ -451,34 +450,45 @@ class TestBGPAdvancedFeatures:
             d1_as, d2_as: AS numbers
             d1_router_id, d2_router_id: Router IDs
             d1_interface, d2_interface: Interface names
-            d1_neighbor_ll, d2_neighbor_ll: Link-local neighbor addresses
+            d1_neighbor_ll, d2_neighbor_ll: Link-local neighbor addresses (not used in klish, kept for compatibility)
+
+        Note:
+            SONiC klish uses interface-based peering for link-local neighbors.
+            Syntax: "neighbor interface <interface-name>" followed by "neighbor <interface-name> remote-as <asn>"
         """
         st.log(f"Configuring BGP link-local session between {dut1} and {dut2}")
 
-        # Configure DUT1 - Use link-local neighbor with interface specification
+        # Configure DUT1 - Use interface-based neighbor (klish syntax for link-local)
+        # CRITICAL: Correct klish mode sequence:
+        # 1. "neighbor interface <intf>" enters neighbor config mode
+        # 2. "remote-as <asn>" configures AS in neighbor mode
+        # 3. "exit" leaves neighbor mode back to BGP mode
+        # 4. "address-family ipv6 unicast" enters AF mode (at BGP level)
+        # 5. "activate" activates the interface neighbor in AF mode
         commands_d1 = [
             "configure terminal",
             f"router bgp {d1_as}",
             f"router-id {d1_router_id}",
-            f"neighbor {d1_neighbor_ll} interface {d1_interface}",
-            f"neighbor {d1_neighbor_ll} remote-as {d2_as}",
+            f"neighbor interface {d1_interface}",
+            f"remote-as {d2_as}",
             "address-family ipv6 unicast",
-            "activate",
+            "activate",  
             "exit",
             "exit",
             "end",
         ]
         st.config(dut1, commands_d1, type="klish")
 
-        # Configure DUT2 - Use link-local neighbor with interface specification
+        # Configure DUT2 - Use interface-based neighbor (klish syntax for link-local)
+        # Same mode sequence as DUT1
         commands_d2 = [
             "configure terminal",
             f"router bgp {d2_as}",
             f"router-id {d2_router_id}",
-            f"neighbor {d2_neighbor_ll} interface {d2_interface}",
-            f"neighbor {d2_neighbor_ll} remote-as {d1_as}",
+            f"neighbor interface {d2_interface}",
+            f"remote-as {d1_as}",
             "address-family ipv6 unicast",
-            "activate",
+            "activate", 
             "exit",
             "exit",
             "end",
@@ -786,14 +796,15 @@ class TestBGPAdvancedFeatures:
         st.wait(15)
 
         # Step 5: Verify BGP session is established
+        # NOTE: With interface-based peering, the neighbor identifier is the interface name, not the link-local address
         st.log("Verifying BGP IPv6 link-local session establishment")
-        if not self._verify_bgp_session_established(self.data.dut1, d2_linklocal):
-            st.report_fail("msg", f"BGP IPv6 link-local session not established on D1 with neighbor {d2_linklocal}")
+        if not self._verify_bgp_session_established(self.data.dut1, self.data.d1d2_ports[0]):
+            st.report_fail("msg", f"BGP IPv6 link-local session not established on D1 with neighbor interface {self.data.d1d2_ports[0]}")
 
-        if not self._verify_bgp_session_established(self.data.dut2, d1_linklocal):
-            st.report_fail("msg", f"BGP IPv6 link-local session not established on D2 with neighbor {d1_linklocal}")
+        if not self._verify_bgp_session_established(self.data.dut2, self.data.d2d1_ports[0]):
+            st.report_fail("msg", f"BGP IPv6 link-local session not established on D2 with neighbor interface {self.data.d2d1_ports[0]}")
 
-        st.log("Successfully established BGP sessions using IPv6 link-local addresses")
+        st.log("Successfully established BGP sessions using IPv6 link-local addresses (interface-based peering)")
         st.report_pass("test_case_passed")
 
 

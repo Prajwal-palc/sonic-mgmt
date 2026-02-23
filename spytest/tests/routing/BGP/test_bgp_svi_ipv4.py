@@ -12,8 +12,9 @@ How to run:
 
 Description:
   Comprehensive validation of IPv4 BGP neighbor session establishment over SVI
-  (VLAN interface). The test suite provisions VLAN 100, configures Ethernet4 as
-  access port, creates Vlan100 interface with IP addressing, establishes iBGP
+  (VLAN interface). The test suite provisions VLAN 100, configures the D1D2P1
+  (DUT1) and D2D1P1 (DUT2) access ports (resolved dynamically from testbed
+  topology), creates Vlan100 interface with IP addressing, establishes iBGP
   session between DUT1 and DUT2 (AS 65001), and validates session establishment.
   Supports sonic-cli (klish) mode for configuration and verification. Each testcase
   is topology-aware and consumes variables from YAML to remain reusable across
@@ -30,7 +31,7 @@ Pre-requisites:
         # |                         |                   |                         |
         # |   VLAN 100              |                   |   VLAN 100              |
         # |   Vlan100: 10.10.10.1   |===================|   Vlan100: 10.10.10.2   |
-        # |   (Ethernet4 - access)  |     Ethernet4     |   (Ethernet4 - access)  |
+        # |   (D1D2P1 - access)     |    D1D2P1/D2D1P1  |   (D2D1P1 - access)     |
         # +-------------------------+                   +-------------------------+
 
   - Feature flags / min SONiC version: VLAN, SVI, and BGP support required
@@ -178,14 +179,13 @@ class TestBgpSviIpv4:
         for router_cfg in cleanup_config.get("bgp_routers", []):
             dut = cls._resolve_dut(router_cfg.get("dut"))
             if dut:
-                st.log(f"Removing BGP router AS {router_cfg.get('local_asn')} on {router_cfg.get('dut')}")
+                st.log(f"Removing BGP router on {router_cfg.get('dut')}")
                 try:
-                    bgp_api.config_bgp_router(
-                        dut,
-                        local_asn=router_cfg.get("local_asn"),
-                        config="no",
-                        cli_type=cls.data.cli_type
-                    )
+                    st.config(dut, [
+                        "configure terminal",
+                        "no router bgp",
+                        "end"
+                    ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing BGP router: {e}")
 
@@ -301,6 +301,19 @@ class TestBgpSviIpv4:
 
             st.log(f"Adding {interface} to VLAN {vlan_id} on {member_cfg.get('dut')} (tagged={tagging_mode})")
 
+            # Remove any existing IP addresses from interface before adding to VLAN.
+            # SONiC refuses to add an interface in L3 mode (with IP configured) to a VLAN
+            # as a switchport. 'no ip address' without arguments removes all configured IPs.
+            st.log(f"Removing any existing IP address from {interface} (L3->L2 conversion)")
+            try:
+                st.config(dut, [
+                    f"interface {interface}",
+                    "no ip address",
+                    "exit"
+                ], type="klish", skip_error_check=True)
+            except Exception as e:
+                st.log(f"Warning: Failed to remove IP address from {interface}: {e}")
+
             # Disable IPv6 link-local on interface before adding to VLAN (required for untagged)
             if not tagging_mode:
                 st.log(f"Disabling IPv6 link-local on {interface}")
@@ -323,8 +336,50 @@ class TestBgpSviIpv4:
                 tagging_mode=tagging_mode,
                 cli_type=self.data.cli_type
             )
+
             if not result:
-                st.report_fail("msg", f"Failed to add {interface} to VLAN {vlan_id} on {member_cfg.get('dut')}")
+                # Fallback: Write directly to CONFIG_DB to bypass the SONiC
+                # config CLI link-local check.  The SONiC config vlan CLI
+                # (vlan.py at /usr/local/lib/python3.11/dist-packages/config/vlan.py)
+                # checks for IPv6 link-local state before allowing an untagged
+                # VLAN member add, even when no link-local address is present at
+                # the kernel level.  This check is NOT cleared by any of:
+                #   - sudo config interface ipv6 disable use-link-local-only <intf>
+                #   - sudo ip -6 addr flush dev <intf> scope link
+                #   - sudo sysctl net.ipv6.conf.<intf>.disable_ipv6=1
+                #   - klish 'no ipv6 enable' inside interface context
+                # Writing directly to CONFIG_DB bypasses the CLI check entirely
+                # and triggers orchagent to process the VLAN member entry as
+                # normal, confirmed working on D1.Ethernet32 -> Vlan100 during
+                # manual testing (bgp_svi.txt).
+                tagging_value = "tagged" if tagging_mode else "untagged"
+                st.log(
+                    f"vlan_api.add_vlan_member() failed for {interface} "
+                    f"(likely IPv6 link-local check in SONiC config CLI). "
+                    f"Falling back to CONFIG_DB direct write."
+                )
+                try:
+                    st.config(
+                        dut,
+                        f"sonic-db-cli CONFIG_DB hset "
+                        f"'VLAN_MEMBER|Vlan{vlan_id}|{interface}' "
+                        f"tagging_mode {tagging_value}",
+                        skip_error_check=True
+                    )
+                    st.wait(3)
+                    st.log(
+                        f"CONFIG_DB direct write applied for {interface} -> "
+                        f"Vlan{vlan_id} ({tagging_value}). "
+                        f"Orchagent will process the VLAN member entry."
+                    )
+                except Exception as db_err:
+                    st.log(f"CONFIG_DB direct write also failed: {db_err}")
+                    st.report_fail(
+                        "msg",
+                        f"Failed to add {interface} to VLAN {vlan_id} on "
+                        f"{member_cfg.get('dut')} "
+                        f"(both config CLI and CONFIG_DB write failed)"
+                    )
 
     def _configure_interfaces(self, testcase: SpyTestDict) -> None:
         """Configure physical interface admin state."""
@@ -569,51 +624,55 @@ class TestBgpSviIpv4:
         st.report_pass("test_case_passed")
 
     @pytest.mark.inventory(feature="Regression", testcases=["BGP-SVI-001.2"])
-    @pytest.mark.xfail(reason="ping command not supported in sonic-cli (klish)")
+    @pytest.mark.depends(on=["test_bgp_svi_session_establishment"])
     def test_bgp_svi_icmp_reachability(self) -> None:
         """
         Test BGP-SVI-001.2: ICMP Reachability over SVI
 
         Objective:
-            Verify Layer 3 connectivity over VLAN interface using ICMP ping
-
-        Note:
-            This test is marked as expected failure (xfail) because ping command
-            is not currently supported in sonic-cli (klish). Once SONiC adds ping
-            support to sonic-cli, this test will pass automatically.
+            Verify Layer 3 connectivity over VLAN interface using ICMP ping.
 
         Steps:
             1. Ping from DUT1 to DUT2 SVI IP address (10.10.10.2)
             2. Ping from DUT2 to DUT1 SVI IP address (10.10.10.1)
-            3. Verify 0% packet loss
+            3. Verify 0% packet loss on both directions
+
+        Note:
+            Uses ip_api.ping() with cli_type='click' which runs:
+              sudo -s ping -4 <destination_ip> -c <count>
+            This is the correct Linux-level ping on SONiC (not klish ping).
         """
         testcase = self._get_testcase("BGP-SVI-001.2")
 
-        st.log("Note: This test is expected to fail - ping not supported in sonic-cli")
-        st.log("Workaround: BGP session establishment already validates Layer 3 connectivity")
+        fail_flag = False
 
         for ping_test in testcase.get("ping_tests", []):
-            source_dut = self._resolve_dut(ping_test.get("source_dut"))
+            source_dut_alias = ping_test.get("source_dut")
+            source_dut = self._resolve_dut(source_dut_alias)
             destination_ip = ping_test.get("destination_ip")
             count = ping_test.get("count", 5)
 
             if not source_dut:
+                st.log(f"Skipping ping: could not resolve DUT alias '{source_dut_alias}'")
                 continue
 
-            st.log(f"Attempting ping from {ping_test.get('source_dut')} to {destination_ip}")
+            st.log(f"Pinging from {source_dut_alias} to {destination_ip} (count={count})")
 
-            # Note: This will likely fail as ping is not supported in klish
-            # Using Linux ping as workaround
-            output = st.show(source_dut, f"ping -c {count} {destination_ip}", skip_tmpl=True)
+            # Use ip_api.ping() with cli_type='click' to run:
+            #   sudo -s ping -4 <destination_ip> -c <count>
+            # ip_api.ping() returns True on 0% packet loss, False otherwise.
+            result = ip_api.ping(source_dut, destination_ip, family="ipv4",
+                                 count=count, cli_type="click")
 
-            # Check for successful ping
-            if "0% packet loss" in str(output) or "0 packets lost" in str(output):
-                st.log(f"Ping successful from {ping_test.get('source_dut')} to {destination_ip}")
+            if result:
+                st.log(f"Ping PASS: {source_dut_alias} -> {destination_ip} (0% packet loss)")
             else:
-                st.log(f"Ping failed from {ping_test.get('source_dut')} to {destination_ip}")
-                st.log("This is expected behavior - ping not supported in sonic-cli")
+                st.error(f"Ping FAIL: {source_dut_alias} -> {destination_ip} (packet loss detected)")
+                fail_flag = True
 
-        # Mark as passed since this is a known limitation
+        if fail_flag:
+            st.report_fail("msg", "ICMP reachability check failed: ping reported packet loss on one or more paths")
+
         st.report_pass("test_case_passed")
 
     @pytest.mark.inventory(feature="Regression", testcases=["BGP-SVI-002"])
