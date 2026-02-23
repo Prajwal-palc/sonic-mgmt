@@ -163,13 +163,11 @@ class TestBgpEbgpConnectedStaticRedistribution:
         st.log("Removing BGP configurations")
         for dut, config in zip([cls.data.r1, cls.data.r2], [r1_config, r2_config]):
             try:
-                bgp_api.config_bgp(
-                    dut=dut,
-                    local_as=config.get('bgp_asn'),
-                    config='no',
-                    removeBGP='yes',
-                    cli_type=cls.data.config_cli_type
-                )
+                st.config(dut, [
+                    "configure terminal",
+                    "no router bgp",
+                    "end"
+                ], type="klish", skip_error_check=True)
                 st.log(f"BGP removed on {dut}")
             except Exception as e:
                 st.log(f"BGP cleanup error on {dut}: {e}")

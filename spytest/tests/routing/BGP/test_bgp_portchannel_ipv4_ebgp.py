@@ -233,10 +233,12 @@ class TestBgpPortchannelIpv4Ebgp:
         for router_cfg in cleanup_config.get("bgp_routers", []):
             dut = cls._resolve_dut(router_cfg.get("dut"))
             if dut:
-                st.log(f"Removing BGP router AS {router_cfg.get('local_asn')} on {router_cfg.get('dut')}")
+                st.log(f"Removing BGP router on {router_cfg.get('dut')}")
                 try:
                     st.config(dut, [
-                        "no router bgp {}".format(router_cfg.get("local_asn"))
+                        "configure terminal",
+                        "no router bgp",
+                        "end"
                     ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing BGP router: {e}")

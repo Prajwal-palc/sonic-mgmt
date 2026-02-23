@@ -321,6 +321,7 @@ run_bgp_batch () {
 }
 
 if should_run_batch "B"; then
+    # First part: 2-node tests
     run_bgp_batch "BGP_IPV4_FEATURES" "./testbeds/testbed_vs_2node.yaml" \
     routing/BGP/test_bgp_ipv4_basic.py \
     routing/BGP/test_bgp_svi_ipv4.py \
@@ -330,7 +331,10 @@ if should_run_batch "B"; then
     routing/BGP/test_bgp_svi_ipv4_ebgp.py \
     routing/BGP/test_bgp_portchannel_ipv4_ebgp.py \
     routing/BGP/test_bgp_loopback_ipv4_ebgp.py \
-    routing/BGP/test_bgp_ebgp_connected_static_redistribution.py \
+    routing/BGP/test_bgp_ebgp_connected_static_redistribution.py
+
+    # Second part: 3-node RR tests (requires 3RR testbed)
+    run_bgp_batch "BGP_IPV4_FEATURES_3RR" "./testbeds/testbed_vs_3rr.yaml" \
     routing/BGP/test_bgp_advanced_features.py \
     routing/BGP/test_ipv4_bgp_route_reflector.py \
     routing/BGP/test_bgp_med_weight.py

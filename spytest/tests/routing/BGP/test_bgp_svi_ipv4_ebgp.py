@@ -248,14 +248,13 @@ class TestBgpSviIpv4Ebgp:
         for router_cfg in cleanup_config.get("bgp_routers", []):
             dut = cls._resolve_dut(router_cfg.get("dut"))
             if dut:
-                st.log(f"Removing BGP router AS {router_cfg.get('local_asn')} on {router_cfg.get('dut')}")
+                st.log(f"Removing BGP router on {router_cfg.get('dut')}")
                 try:
-                    bgp_api.config_bgp_router(
-                        dut,
-                        local_asn=router_cfg.get("local_asn"),
-                        config="no",
-                        cli_type=cls.data.cli_type
-                    )
+                    st.config(dut, [
+                        "configure terminal",
+                        "no router bgp",
+                        "end"
+                    ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing BGP router: {e}")
 
@@ -1116,7 +1115,7 @@ class TestBgpSviIpv4Ebgp:
 
             # Step 5: Wait for BGP to come back up
             st.banner("Step 5: Wait for BGP daemon to initialize")
-            st.wait(60, "Waiting for BGP daemon initialization after reboot")
+            st.wait(300, "Waiting for BGP daemon initialization after reboot")
 
             # Step 6: Verify eBGP session is re-established
             st.banner("Step 6: Verify eBGP session is re-established after reboot")

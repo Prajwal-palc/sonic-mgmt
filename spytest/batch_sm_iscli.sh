@@ -468,6 +468,86 @@ run_batch "SM_ISCLI_VRF_LOOPBACK_PORTCHANNEL_NEGATIVE" "./testbeds/ztp_standalon
 system/vrf/test_vrf_loopback_portchannel_negative.py
 
 
+# ==========================================================
+# BATCH-53 : VRF Ping Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_VRF_PING" "./testbeds/ztp_standalone.yaml" \
+routing/vrf/test_vrf_ping.py
+
+
+# ==========================================================
+# BATCH-54 : VRF IP Interface Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_VRF_IP_INTERFACE" "./testbeds/ztp_standalone.yaml" \
+routing/vrf/test_vrf_ip_interface.py
+
+
+# ==========================================================
+# BATCH-55 : IP Prefix List Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_IP_PREFIX_LIST" "./testbeds/ztp_standalone.yaml" \
+routing/prefix_list/test_ip_prefix_list.py
+
+
+# ==========================================================
+# BATCH-56 : ARP Table Verification
+# ==========================================================
+
+run_batch "SM_ISCLI_ARP_TABLE_VERIFICATION" "./testbeds/ztp_standalone.yaml" \
+routing/arp/test_arp_table_verification.py
+
+
+# ==========================================================
+# BATCH-57 : Interface CLI Verification
+# ==========================================================
+
+run_batch "SM_ISCLI_INTERFACE_CLI_VERIFICATION" "./testbeds/ztp_standalone.yaml" \
+system/interface/test_interface_cli_verification.py
+
+
+# ==========================================================
+# BATCH-58 : Route Map Dependency Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_ROUTE_MAP_DEPENDENCY" "./testbeds/ztp_standalone.yaml" \
+routing/route_map/test_route_map_dependency.py
+
+
+# ==========================================================
+# BATCH-59 : VLAN SVI Removal Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_P2_42_VLAN_SVI_REMOVAL" "./testbeds/testbed_2vs.yaml" \
+system/iscli_BGP/test_vlan_iscli_p2_42_svi_removal.py
+
+
+# ==========================================================
+# BATCH-60 : VLAN Switchport Trunk Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_P2_39_SWITCHPORT_TRUNK_VLAN" "./testbeds/testbed_2vs.yaml" \
+system/iscli_BGP/test_vlan_iscli_p2_39_switchport_trunk_vlan.py
+
+
+# ==========================================================
+# BATCH-61 : VRF Binding Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_13_VRF_BINDING" "./testbeds/testbed_2vs.yaml" \
+system/iscli_BGP/test_sm_iscli_13_vrf_binding.py
+
+
+# ==========================================================
+# BATCH-62 : BGP VRF Instance Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_P2_32_BGP_VRF_INSTANCE" "./testbeds/testbed_2vs.yaml" \
+system/iscli_BGP/test_bgp_p2_32_vrf_instance.py
+
+
 echo "=============================================="
 echo " SM_ISCLI REGRESSION COMPLETED"
 echo " Logs Root : ${BASE_LOG}"

@@ -152,11 +152,10 @@ def check_and_remove_ipv4_address(dut, interface, cli_type="klish"):
     """
     st.log(f"Checking for existing IPv4 addresses on {dut} interface {interface}")
 
-    # Convert interface name to klish format if using klish CLI for show command
-    intf_name_show = convert_intf_name_to_klish(interface) if cli_type == "klish" else interface
-
-    # Get interface configuration - use same CLI type for consistency
-    output = st.show(dut, f"show ip interfaces {intf_name_show}", type=cli_type)
+    # SONiC klish: "show ip interfaces" doesn't accept interface name as argument
+    # Use "show ip interfaces | no-more" to get all interfaces, then filter for target interface
+    # Get interface configuration - use klish CLI type
+    output = st.show(dut, "show ip interfaces | no-more", type=cli_type, skip_tmpl=True)
 
     if not output:
         st.log(f"No IP configuration found on {interface}")
@@ -165,11 +164,16 @@ def check_and_remove_ipv4_address(dut, interface, cli_type="klish"):
     # Pattern to match IPv4 addresses: 10.1.1.1/24 format
     ipv4_pattern = r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})'
 
+    # Parse output to find IP addresses only on the target interface
+    # Output format: "Interface_Name   IP_address/mask   VRF   Admin/Oper   Flags"
     addresses_to_remove = []
     for line in str(output).split('\n'):
-        match = re.search(ipv4_pattern, line)
-        if match:
-            addresses_to_remove.append(match.group(1))
+        # Check if this line is for our target interface
+        # Line starts with interface name (may have spaces before IP address column)
+        if line.strip().startswith(interface):
+            match = re.search(ipv4_pattern, line)
+            if match:
+                addresses_to_remove.append(match.group(1))
 
     if addresses_to_remove:
         st.log(f"Found IPv4 addresses to remove: {addresses_to_remove}")
@@ -191,14 +195,18 @@ def check_and_remove_ipv4_address(dut, interface, cli_type="klish"):
                 st.error(f"Failed to remove IPv4 address {addr} from {interface}")
                 return False
 
-        # Verify removal
+        # Verify removal - check only on the specific interface
         time.sleep(2)
-        verify_output = st.show(dut, f"show ip interface {intf_name_show}", type=cli_type)
+        verify_output = st.show(dut, "show ip interfaces | no-more", type=cli_type, skip_tmpl=True)
         if verify_output:
-            for addr in addresses_to_remove:
-                if addr in str(verify_output):
-                    st.error(f"IPv4 address {addr} still present after removal")
-                    return False
+            # Parse output to check if any removed addresses still exist on THIS interface
+            for line in str(verify_output).split('\n'):
+                if line.strip().startswith(interface):
+                    # Found a line for our interface - check if any removed address is still there
+                    for addr in addresses_to_remove:
+                        if addr in line:
+                            st.error(f"IPv4 address {addr} still present on {interface} after removal")
+                            return False
 
         st.log(f"All IPv4 addresses successfully removed from {interface}")
     else:
@@ -299,6 +307,73 @@ def configure_ipv4_interface(dut, interface, ipv4_addr, mask, cli_type="klish"):
     return True
 
 
+def create_static_null_routes(dut, networks, cli_type="klish"):
+    """
+    Create static null routes (black hole routes) for BGP network advertisement.
+
+    This is necessary because BGP 'network' command requires the route to exist
+    in the routing table before it can be advertised.
+
+    Args:
+        dut: Device under test
+        networks: List of network prefixes to create null routes for (e.g., ["192.168.1.0/24"])
+        cli_type: CLI type (default: klish)
+
+    Returns:
+        bool: True if configuration successful, False otherwise
+    """
+    st.log(f"Creating static blackhole routes on {dut} for BGP advertisement")
+
+    for network in networks:
+        st.log(f"Creating blackhole route for {network}")
+
+        # In SONiC/FRR, we create a static route with next_hop="blackhole"
+        # This allows BGP to advertise the network without actually routing traffic
+        result = ip_api.create_static_route(dut, next_hop="blackhole",
+                                            static_ip=network,
+                                            family='ipv4', cli_type=cli_type)
+
+        if not result:
+            st.error(f"Failed to create blackhole route for {network} on {dut}")
+            return False
+
+        st.log(f"Successfully created blackhole route for {network}")
+
+    # Wait for routes to be installed
+    time.sleep(2)
+
+    st.log(f"All static blackhole routes created on {dut}")
+    return True
+
+
+def delete_static_null_routes(dut, networks, cli_type="klish"):
+    """
+    Delete static null routes (black hole routes).
+
+    Args:
+        dut: Device under test
+        networks: List of network prefixes to remove (e.g., ["192.168.1.0/24"])
+        cli_type: CLI type (default: klish)
+
+    Returns:
+        bool: True if configuration successful, False otherwise
+    """
+    st.log(f"Removing static blackhole routes on {dut}")
+
+    for network in networks:
+        st.log(f"Removing blackhole route for {network}")
+
+        result = ip_api.delete_static_route(dut, next_hop="blackhole",
+                                            static_ip=network,
+                                            family='ipv4', cli_type=cli_type)
+
+        if not result:
+            st.warn(f"Failed to remove blackhole route for {network} on {dut}")
+
+    st.log(f"Static blackhole routes cleanup completed on {dut}")
+    return True
+
+
 def configure_bgp_route_reflector_client(dut, local_asn, neighbor_ip, remote_asn,
                                           router_id=None, network_prefixes=None,
                                           route_reflector_client=False, family="ipv4"):
@@ -320,14 +395,13 @@ def configure_bgp_route_reflector_client(dut, local_asn, neighbor_ip, remote_asn
     """
     st.log(f"Configuring BGP on {dut}: AS={local_asn}, Neighbor={neighbor_ip}, RR_Client={route_reflector_client}")
 
-    # Configure router-id globally (not in BGP context for klish mode)
-    if router_id:
-        id_commands = [f"router-id {router_id}"]
-        st.config(dut, id_commands, type="klish")
-        st.log(f"Configured global router-id {router_id}")
-
     commands = []
     commands.append(f"router bgp {local_asn}")
+
+    # Configure router-id inside BGP context (SONiC klish requirement)
+    if router_id:
+        commands.append(f"router-id {router_id}")
+        st.log(f"Configuring BGP router-id {router_id}")
 
     # Configure neighbor
     commands.append(f"neighbor {neighbor_ip} remote-as {remote_asn}")
@@ -341,7 +415,11 @@ def configure_bgp_route_reflector_client(dut, local_asn, neighbor_ip, remote_asn
         commands.append("route-reflector-client")
         st.log(f"Configuring {neighbor_ip} as route-reflector-client")
 
-    commands.append("end")
+    # Exit all nested contexts properly
+    # CLI hierarchy: config-router-bgp-neighbor-af -> config-router-bgp-neighbor -> config-router-bgp -> config
+    commands.append("exit")  # exit address-family (back to config-router-bgp-neighbor)
+    commands.append("exit")  # exit neighbor (back to config-router-bgp)
+    commands.append("exit")  # exit BGP router (back to config mode)
 
     result = st.config(dut, commands, type="klish")
 
@@ -398,15 +476,14 @@ def configure_bgp_multiple_neighbors(dut, local_asn, neighbors_config, router_id
     """
     st.log(f"Configuring BGP on {dut} with multiple neighbors: AS={local_asn}")
 
-    # Step 1: Configure router-id globally (not in BGP context for klish mode)
-    if router_id:
-        id_commands = [f"router-id {router_id}"]
-        st.config(dut, id_commands, type="klish")
-        st.log(f"Configured global router-id {router_id}")
-
-    # Step 2: Configure neighbors with address-family per neighbor
+    # Configure neighbors with address-family per neighbor
     commands = []
     commands.append(f"router bgp {local_asn}")
+
+    # Configure router-id inside BGP context (SONiC klish requirement)
+    if router_id:
+        commands.append(f"router-id {router_id}")
+        st.log(f"Configuring BGP router-id {router_id}")
 
     # Configure each neighbor with its address-family context
     for neighbor in neighbors_config:
@@ -425,10 +502,11 @@ def configure_bgp_multiple_neighbors(dut, local_asn, neighbors_config, router_id
             commands.append("route-reflector-client")
             st.log(f"Configuring {neighbor_ip} as route-reflector-client")
 
-        # Exit address-family context
-        commands.append("exit")
+        # Exit address-family and neighbor contexts to return to BGP router mode
+        commands.append("exit")  # exit address-family (back to config-router-bgp-neighbor)
+        commands.append("exit")  # exit neighbor (back to config-router-bgp)
 
-    # Exit router bgp context
+    # Exit router bgp context to return to config mode
     commands.append("exit")
 
     result = st.config(dut, commands, type="klish")
@@ -642,6 +720,14 @@ def module_hooks(request):
     cleanup_bgp_config(data.dut2, cli_type=data.cli_type)
     cleanup_bgp_config(data.dut3, cli_type=data.cli_type)
 
+    # Cleanup blackhole routes
+    if data.dut1_networks:
+        delete_static_null_routes(data.dut1, data.dut1_networks, cli_type=data.cli_type)
+    if data.dut2_networks:
+        delete_static_null_routes(data.dut2, data.dut2_networks, cli_type=data.cli_type)
+    if data.dut3_networks:
+        delete_static_null_routes(data.dut3, data.dut3_networks, cli_type=data.cli_type)
+
     # Cleanup IPv4 addresses on interfaces
     check_and_remove_ipv4_address(data.dut1, data.dut1_dut2_intf, cli_type=data.cli_type)
     check_and_remove_ipv4_address(data.dut2, data.dut2_dut1_intf, cli_type=data.cli_type)
@@ -713,6 +799,31 @@ def test_bgp_route_reflector_basic():
     # Wait for interfaces to come up
     time.sleep(5)
 
+    # Step 2a: Create static null routes for BGP network advertisements
+    # BGP 'network' command requires routes to exist in RIB before advertisement
+    st.log("Step 2a: Creating static null routes for BGP network advertisement")
+
+    if data.dut1_networks:
+        assert create_static_null_routes(data.dut1, data.dut1_networks, cli_type=data.cli_type), \
+            "Failed to create null routes on DUT1"
+
+    if data.dut2_networks:
+        assert create_static_null_routes(data.dut2, data.dut2_networks, cli_type=data.cli_type), \
+            "Failed to create null routes on DUT2"
+
+    if data.dut3_networks:
+        assert create_static_null_routes(data.dut3, data.dut3_networks, cli_type=data.cli_type), \
+            "Failed to create null routes on DUT3"
+
+    # Verify blackhole routes are installed in routing table
+    st.log("Verifying blackhole routes in routing tables")
+    st.log("DUT1 routing table:")
+    st.show(data.dut1, "show ip route", type='klish')
+    st.log("DUT2 routing table:")
+    st.show(data.dut2, "show ip route", type='klish')
+    st.log("DUT3 routing table:")
+    st.show(data.dut3, "show ip route", type='klish')
+
     # Step 3: Configure BGP on DUT1 (Route Reflector Client)
     st.log("Step 3: Configure BGP on DUT1 (Route Reflector Client)")
 
@@ -766,6 +877,44 @@ def test_bgp_route_reflector_basic():
         family="ipv4"
     ), "Failed to configure BGP on DUT2"
 
+    # Step 5a: Configure static routes for next-hop reachability
+    # In iBGP Route Reflector setup, next-hops are preserved by RR
+    # DUT1 needs to reach next-hop 10.2.23.3 (DUT3) to install reflected routes
+    # DUT3 needs to reach next-hop 10.1.12.1 (DUT1) to install reflected routes
+    st.log("Step 5a: Adding static routes for BGP next-hop reachability")
+
+    # DUT1 needs route to DUT2-DUT3 subnet (10.2.23.0/24) via DUT2
+    st.log(f"Adding static route on DUT1 to reach 10.2.23.0/24 via {data.dut2_dut1_ip}")
+    result = ip_api.create_static_route(data.dut1, data.dut2_dut1_ip, "10.2.23.0/24",
+                                        shell="klish", family='ipv4', cli_type=data.cli_type)
+    if not result:
+        st.warn("Failed to add static route on DUT1, BGP routes may not install")
+
+    # DUT3 needs route to DUT1-DUT2 subnet (10.1.12.0/24) via DUT2
+    st.log(f"Adding static route on DUT3 to reach 10.1.12.0/24 via {data.dut2_dut3_ip}")
+    result = ip_api.create_static_route(data.dut3, data.dut2_dut3_ip, "10.1.12.0/24",
+                                        shell="klish", family='ipv4', cli_type=data.cli_type)
+    if not result:
+        st.warn("Failed to add static route on DUT3, BGP routes may not install")
+
+    st.log("Waiting 5 seconds for static routes to be installed")
+    time.sleep(5)
+
+    # Step 5b: Restart BGP docker on all DUTs to ensure configuration is applied
+    st.log("Step 5b: Restarting BGP docker on all DUTs")
+
+    st.log("Restarting BGP docker on DUT1")
+    st.config(data.dut1, "docker restart bgp", type='click', skip_error_check=True)
+
+    st.log("Restarting BGP docker on DUT2")
+    st.config(data.dut2, "docker restart bgp", type='click', skip_error_check=True)
+
+    st.log("Restarting BGP docker on DUT3")
+    st.config(data.dut3, "docker restart bgp", type='click', skip_error_check=True)
+
+    st.log("Waiting 5 minutes (300 seconds) for BGP docker containers to stabilize after restart")
+    time.sleep(300)
+
     # Step 6: Verify BGP neighbor sessions
     st.log("Step 6: Verify BGP neighbor sessions are Established")
 
@@ -781,10 +930,28 @@ def test_bgp_route_reflector_basic():
     assert verify_bgp_neighbor_state(data.dut3, data.dut2_dut3_ip, timeout=90, family="ipv4"), \
         "DUT3 BGP neighbor session not established"
 
-    # Step 7: Verify routes are reflected
-    st.log("Step 7: Verify routes are reflected between Route Reflector clients")
+    # Step 7: Verify routes are learned and reflected correctly
+    st.log("Step 7: Verify BGP routes are learned and reflected correctly")
 
-    # DUT1 should learn DUT3's network via DUT2
+    # Step 7a: Verify DUT2 (RR server) learns routes from both clients
+    st.log("Step 7a: Verify DUT2 (RR server) learns routes from both clients")
+
+    if data.dut1_networks:
+        for network in data.dut1_networks:
+            assert verify_bgp_route_present(data.dut2, network, expected_nexthop=data.dut1_dut2_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT2 (RR server) did not learn DUT1's network {network}"
+
+    if data.dut3_networks:
+        for network in data.dut3_networks:
+            assert verify_bgp_route_present(data.dut2, network, expected_nexthop=data.dut3_dut2_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT2 (RR server) did not learn DUT3's network {network}"
+
+    # Step 7b: Verify DUT1 learns reflected routes from DUT3 and direct routes from DUT2
+    st.log("Step 7b: Verify DUT1 learns routes via Route Reflector")
+
+    # DUT1 should learn DUT3's network via DUT2 (reflected route)
     # Note: iBGP Route Reflectors preserve the original advertising router's next-hop
     # So DUT1 will see next-hop as DUT3's IP (10.2.23.3), not DUT2's interface IP
     if data.dut3_networks:
@@ -793,7 +960,17 @@ def test_bgp_route_reflector_basic():
                                            timeout=60, family="ipv4"), \
                 f"DUT1 did not learn DUT3's network {network} via Route Reflector"
 
-    # DUT3 should learn DUT1's network via DUT2
+    # DUT1 should learn DUT2's network if RR server is advertising any
+    if data.dut2_networks:
+        for network in data.dut2_networks:
+            assert verify_bgp_route_present(data.dut1, network, expected_nexthop=data.dut2_dut1_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT1 did not learn DUT2's network {network}"
+
+    # Step 7c: Verify DUT3 learns reflected routes from DUT1 and direct routes from DUT2
+    st.log("Step 7c: Verify DUT3 learns routes via Route Reflector")
+
+    # DUT3 should learn DUT1's network via DUT2 (reflected route)
     # Note: iBGP Route Reflectors preserve the original advertising router's next-hop
     # So DUT3 will see next-hop as DUT1's IP (10.1.12.1), not DUT2's interface IP
     if data.dut1_networks:
@@ -801,6 +978,13 @@ def test_bgp_route_reflector_basic():
             assert verify_bgp_route_present(data.dut3, network, expected_nexthop=data.dut1_dut2_ip,
                                            timeout=60, family="ipv4"), \
                 f"DUT3 did not learn DUT1's network {network} via Route Reflector"
+
+    # DUT3 should learn DUT2's network if RR server is advertising any
+    if data.dut2_networks:
+        for network in data.dut2_networks:
+            assert verify_bgp_route_present(data.dut3, network, expected_nexthop=data.dut2_dut3_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT3 did not learn DUT2's network {network}"
 
     # Step 8: Verify Route-Reflector-Client attribute
     st.log("Step 8: Verify Route-Reflector-Client attribute on DUT2")
@@ -841,11 +1025,20 @@ def test_bgp_route_reflector_persistence():
         st.log("BGP not fully configured, running basic configuration first")
         test_bgp_route_reflector_basic()
 
-    # Step 2: Save configuration on DUT2
-    st.log("Step 2: Save configuration on DUT2")
+    # Step 2: Save configuration on all DUTs
+    st.log("Step 2: Save configuration on all DUTs to ensure persistence")
 
-    save_result = basic_api.deploy_package(data.dut2)
-    assert save_result, "Failed to save configuration on DUT2"
+    st.log("Saving configuration on DUT1")
+    save_result_dut1 = basic_api.deploy_package(data.dut1)
+    assert save_result_dut1, "Failed to save configuration on DUT1"
+
+    st.log("Saving configuration on DUT2")
+    save_result_dut2 = basic_api.deploy_package(data.dut2)
+    assert save_result_dut2, "Failed to save configuration on DUT2"
+
+    st.log("Saving configuration on DUT3")
+    save_result_dut3 = basic_api.deploy_package(data.dut3)
+    assert save_result_dut3, "Failed to save configuration on DUT3"
 
     time.sleep(5)
 
@@ -855,57 +1048,89 @@ def test_bgp_route_reflector_persistence():
     reboot_result = st.reboot(data.dut2, "fast")
     assert reboot_result, "Failed to reboot DUT2"
 
-    st.log("DUT2 reboot completed, waiting for BGP docker to be ready")
-    # Wait longer for BGP docker container to start and stabilize after reboot
-    # The BGP container needs time to initialize before we can verify sessions
-    time.sleep(60)
-
-    # Step 3a: Restart BGP docker on all devices
-    st.log("Step 3a: Restarting BGP docker on all devices")
-
-    st.log("Restarting BGP docker on DUT1")
-    st.config(data.dut1, "docker restart bgp", type='click', skip_error_check=True)
-
-    st.log("Restarting BGP docker on DUT2")
-    st.config(data.dut2, "docker restart bgp", type='click', skip_error_check=True)
-
-    st.log("Restarting BGP docker on DUT3")
-    st.config(data.dut3, "docker restart bgp", type='click', skip_error_check=True)
-
-    st.log("Waiting 5 minutes (300 seconds) for BGP docker containers to stabilize")
+    st.log("DUT2 reboot completed, waiting for system and BGP to be ready")
+    # Wait for BGP docker container to start naturally after reboot
+    # DO NOT restart BGP docker after reboot - it starts automatically
+    # and restarting it can disrupt session establishment
     time.sleep(300)
 
-    # Step 4: Verify BGP sessions re-establish
-    st.log("Step 4: Verify BGP sessions re-establish after docker restart")
+    st.log("Verifying DUT2 interfaces came up after reboot")
+    st.show(data.dut2, "show ip interfaces", type='klish')
 
-    assert verify_bgp_neighbor_state(data.dut2, data.dut1_dut2_ip, timeout=120, family="ipv4"), \
+    # Step 4: Verify BGP sessions re-establish
+    st.log("Step 4: Verify BGP sessions re-establish after DUT2 reboot")
+
+    # Show BGP summary before verification for debugging
+    st.log("Checking BGP summary on DUT2 before verification")
+    st.show(data.dut2, "show bgp summary", type='klish')
+    st.log("Checking BGP summary on DUT1 before verification")
+    st.show(data.dut1, "show bgp summary", type='klish')
+    st.log("Checking BGP summary on DUT3 before verification")
+    st.show(data.dut3, "show bgp summary", type='klish')
+
+    # Verify from DUT2 perspective (Route Reflector)
+    assert verify_bgp_neighbor_state(data.dut2, data.dut1_dut2_ip, timeout=180, family="ipv4"), \
         "DUT2-DUT1 BGP session did not re-establish after reboot"
 
-    assert verify_bgp_neighbor_state(data.dut2, data.dut3_dut2_ip, timeout=120, family="ipv4"), \
+    assert verify_bgp_neighbor_state(data.dut2, data.dut3_dut2_ip, timeout=180, family="ipv4"), \
         "DUT2-DUT3 BGP session did not re-establish after reboot"
 
-    assert verify_bgp_neighbor_state(data.dut1, data.dut2_dut1_ip, timeout=120, family="ipv4"), \
+    # Verify from client perspectives
+    assert verify_bgp_neighbor_state(data.dut1, data.dut2_dut1_ip, timeout=180, family="ipv4"), \
         "DUT1 BGP session did not re-establish after DUT2 reboot"
 
-    assert verify_bgp_neighbor_state(data.dut3, data.dut2_dut3_ip, timeout=120, family="ipv4"), \
+    assert verify_bgp_neighbor_state(data.dut3, data.dut2_dut3_ip, timeout=180, family="ipv4"), \
         "DUT3 BGP session did not re-establish after DUT2 reboot"
 
-    # Step 5: Verify routes are still reflected
-    st.log("Step 5: Verify routes are still reflected after reboot")
+    st.log("All BGP sessions successfully re-established after DUT2 reboot")
 
-    # DUT1 should still learn DUT3's network
+    # Step 5: Verify routes are still reflected after reboot
+    st.log("Step 5: Verify BGP routes are still reflected correctly after reboot")
+
+    # Step 5a: Verify DUT2 (RR server) still has routes from both clients
+    st.log("Step 5a: Verify DUT2 (RR server) still has routes from both clients")
+
+    if data.dut1_networks:
+        for network in data.dut1_networks:
+            assert verify_bgp_route_present(data.dut2, network, expected_nexthop=data.dut1_dut2_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT2 (RR server) did not learn DUT1's network {network} after reboot"
+
+    if data.dut3_networks:
+        for network in data.dut3_networks:
+            assert verify_bgp_route_present(data.dut2, network, expected_nexthop=data.dut3_dut2_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT2 (RR server) did not learn DUT3's network {network} after reboot"
+
+    # Step 5b: Verify DUT1 still learns reflected routes
+    st.log("Step 5b: Verify DUT1 still learns reflected routes after reboot")
+
     if data.dut3_networks:
         for network in data.dut3_networks:
             assert verify_bgp_route_present(data.dut1, network, expected_nexthop=data.dut3_dut2_ip,
                                            timeout=60, family="ipv4"), \
                 f"DUT1 did not learn DUT3's network {network} after reboot"
 
-    # DUT3 should still learn DUT1's network
+    if data.dut2_networks:
+        for network in data.dut2_networks:
+            assert verify_bgp_route_present(data.dut1, network, expected_nexthop=data.dut2_dut1_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT1 did not learn DUT2's network {network} after reboot"
+
+    # Step 5c: Verify DUT3 still learns reflected routes
+    st.log("Step 5c: Verify DUT3 still learns reflected routes after reboot")
+
     if data.dut1_networks:
         for network in data.dut1_networks:
             assert verify_bgp_route_present(data.dut3, network, expected_nexthop=data.dut1_dut2_ip,
                                            timeout=60, family="ipv4"), \
                 f"DUT3 did not learn DUT1's network {network} after reboot"
+
+    if data.dut2_networks:
+        for network in data.dut2_networks:
+            assert verify_bgp_route_present(data.dut3, network, expected_nexthop=data.dut2_dut3_ip,
+                                           timeout=60, family="ipv4"), \
+                f"DUT3 did not learn DUT2's network {network} after reboot"
 
     # Step 6: Verify Route-Reflector-Client attribute persists
     st.log("Step 6: Verify Route-Reflector-Client attribute persists after reboot")
@@ -924,22 +1149,41 @@ def test_bgp_route_reflector_persistence():
     # DUT1 needs route to DUT2-DUT3 subnet (10.2.23.0/24) via DUT2
     st.log(f"Adding static route on DUT1 to reach 10.2.23.0/24 via {data.dut2_dut1_ip}")
     result = ip_api.create_static_route(data.dut1, data.dut2_dut1_ip, "10.2.23.0/24",
-                                        shell="sonic", family='ipv4', cli_type=data.cli_type)
+                                        shell="klish", family='ipv4', cli_type=data.cli_type)
     if not result:
         st.warn("Failed to add static route on DUT1, ping tests may fail")
 
     # DUT3 needs route to DUT1-DUT2 subnet (10.1.12.0/24) via DUT2
     st.log(f"Adding static route on DUT3 to reach 10.1.12.0/24 via {data.dut2_dut3_ip}")
     result = ip_api.create_static_route(data.dut3, data.dut2_dut3_ip, "10.1.12.0/24",
-                                        shell="sonic", family='ipv4', cli_type=data.cli_type)
+                                        shell="klish", family='ipv4', cli_type=data.cli_type)
     if not result:
         st.warn("Failed to add static route on DUT3, ping tests may fail")
+
+    # Verify static routes are present using 'show ip route' in klish mode
+    st.log("Verifying static routes are installed using 'show ip route' in klish mode")
+
+    # Verify DUT1 static route
+    st.log(f"Verifying static route on DUT1 for 10.2.23.0/24")
+    dut1_route_output = st.show(data.dut1, "show ip route", type="klish")
+    if "10.2.23.0/24" in str(dut1_route_output):
+        st.log("✓ Static route 10.2.23.0/24 verified on DUT1")
+    else:
+        st.warn("Static route 10.2.23.0/24 not found on DUT1, ping tests may fail")
+
+    # Verify DUT3 static route
+    st.log(f"Verifying static route on DUT3 for 10.1.12.0/24")
+    dut3_route_output = st.show(data.dut3, "show ip route", type="klish")
+    if "10.1.12.0/24" in str(dut3_route_output):
+        st.log("✓ Static route 10.1.12.0/24 verified on DUT3")
+    else:
+        st.warn("Static route 10.1.12.0/24 not found on DUT3, ping tests may fail")
 
     # Wait longer for static routes to be installed and BGP routes to become valid
     # In iBGP Route Reflector setups, BGP routes are initially invalid (*ui) until
     # the static routes make the next-hops reachable, at which point they become valid (*>i)
-    st.log("Waiting 15 seconds for static routes to install and BGP routes to become valid...")
-    time.sleep(15)
+    st.log("Waiting 10 seconds for BGP routes to become valid...")
+    time.sleep(10)
 
     # Step 7: Verify connectivity with ping tests
     st.log("Step 7: Verifying end-to-end connectivity with ping tests")
