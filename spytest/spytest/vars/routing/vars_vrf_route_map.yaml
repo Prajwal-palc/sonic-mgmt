@@ -1,0 +1,44 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "TC_ROUTE_MAP_001":
+    title: "Create route-map with AS-path prepend and local-preference, verify in BGP"
+    description: "Verify that a new route-map can be created with set statements (AS-path prepend, local-preference) and attributes are stored correctly"
+    route_map:
+      name: "asdf"
+      sequence: "10"
+      action: "permit"
+      set_as_path_prepend: "1,2,3,4"
+      set_local_preference: "568"
+    verify:
+      command: "show route-map"
+      expected_output:
+        all:
+          - "route-map: asdf"
+          - "permit, sequence 10"
+          - "as-path prepend 1 2 3 4"
+          - "local-preference 568"
+      process: "BGP"
+
+  "TC_VRF_OSPF_DEPENDENCY_001":
+    title: "Verify OSPF rejects configuration for non-existent VRF"
+    description: "Verify that system prevents assigning OSPF to a VRF that has not been globally defined"
+    vrf:
+      name: "Vrftesting"
+      should_exist: false
+    ospf:
+      vrf: "Vrftesting"
+      expected_error:
+        all:
+          - "VRF Vrftesting does not exist"
+        any:
+          - "%Error:"
+          - "Error:"
+    verify:
+      check_vrf_list: true
+      vrf_should_be_absent: "Vrftesting"
