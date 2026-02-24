@@ -42,7 +42,7 @@ run_batch () {
       --log-level debug \
       --skip-init-config \
       --ifname-type native \
-      --port-init-wait 0
+      --get-tech-support none
 
     RC=$?
     echo " Batch ${FEATURE} completed with RC=${RC}"
@@ -546,6 +546,31 @@ system/iscli_BGP/test_sm_iscli_13_vrf_binding.py
 
 run_batch "SM_ISCLI_P2_32_BGP_VRF_INSTANCE" "./testbeds/testbed_2vs.yaml" \
 system/iscli_BGP/test_bgp_p2_32_vrf_instance.py
+
+
+# ==========================================================
+# BATCH-63 : SM_ISCLI_44 - Copy Command Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_44_COPY_COMMAND" "./testbeds/testbed_vs_3rr.yaml" \
+system/management/test_sm_iscli44_copy_command.py \
+-k "not test_iscli_copy_startup_to_running"
+
+
+# ==========================================================
+# BATCH-64 : SM_ISCLI_40 - BGP eBGP Requires Policy
+# ==========================================================
+
+run_batch "SM_ISCLI_40_BGP_EBGP_REQUIRES_POLICY" "./testbeds/testbed_vs_3rr.yaml" \
+routing/BGP/test_sm_iscli40_bgp_ebgp_requires_policy.py
+
+
+# ==========================================================
+# BATCH-65 : SM_ISCLI_45 - Write Erase Command Tests
+# ==========================================================
+
+run_batch "SM_ISCLI_45_WRITE_ERASE_COMMAND" "./testbeds/testbed_vs_1node.yaml" \
+system/management/test_sm_iscli45_write_erase.py
 
 
 echo "=============================================="
