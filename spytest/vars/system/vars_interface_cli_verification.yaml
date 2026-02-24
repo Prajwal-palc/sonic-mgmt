@@ -8,7 +8,6 @@ defaults:
 testcases:
   "1.1":
     title: "Verify Interface Speed Options"
-    interface: "Ethernet8"
     expected_speed_options:
       - "10"
       - "100"
@@ -33,14 +32,12 @@ testcases:
 
   "2.1":
     title: "Verify IPv6 Disable State in Running Configuration"
-    interface: "Ethernet8"
     ipv6_state: "disable"
     verify:
       ipv6_enable_present: false
 
   "2.2":
     title: "Verify IPv6 Enable State in Running Configuration"
-    interface: "Ethernet8"
     ipv6_state: "enable"
     expected_config:
       - "interface Ethernet8"

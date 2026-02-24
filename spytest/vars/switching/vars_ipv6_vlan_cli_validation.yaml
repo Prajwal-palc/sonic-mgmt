@@ -4,7 +4,6 @@ defaults:
   cleanup: true
   min_topology:
     - "D1"
-  test_interface: "Ethernet8"
 
 testcases:
   tc1:
@@ -13,7 +12,6 @@ testcases:
       Verify that the system correctly identifies and rejects an IPv6 address
       configuration where the host address is the same as the network address
       for a /128 prefix (typically reserved for loopbacks or specific host routes).
-    interface: "Ethernet8"
     ipv6_address: "2001:db8:abcd:1000::1"
     prefix_length: 128
     expected_error: "%Error: Interface IP cannot be same as network address"
@@ -24,7 +22,6 @@ testcases:
       Validate that the switchport trunk allowed vlan command supports both
       hyphenated ranges (10-13) and comma-separated lists (10,11,12,13), while
       ensuring the system enforces the existence of VLANs before assignment.
-    interface: "Ethernet8"
     partial_vlans:
       - 10
       - 12
@@ -45,7 +42,6 @@ testcases:
       Verify that when attempting to assign a VLAN range where one or more
       intermediate VLANs don't exist, the system rejects the configuration
       and provides a clear error message indicating which VLAN is missing.
-    interface: "Ethernet8"
     test_scenarios:
       - name: "Missing single VLAN in range"
         create_vlans: [10, 12, 13]

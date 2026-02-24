@@ -100,7 +100,12 @@ class TestIpv6VlanCliValidation:
         cls.data.verify_timeout = int(defaults.get("verify_timeout", 30))
         cls.data.cleanup_enabled = bool(defaults.get("cleanup", True))
         cls.data.dut = topology.D1
-        cls.data.test_interface = defaults.get("test_interface", "Ethernet8")
+
+        # Read test_interface from testbed params (centralized configuration)
+        cls.data.test_interface = st.get_param("test_interface", None)
+        if not cls.data.test_interface:
+            raise ValueError("test_interface not defined in testbed params section")
+
         cls.data.vlans_created = []
 
         st.log("Test setup completed. DUT: {}, Interface: {}".format(
@@ -372,7 +377,7 @@ class TestIpv6VlanCliValidation:
         st.banner("TC-1: IPv6 /128 Address Validation")
         testcase = self._get_testcase("tc1")
 
-        interface = testcase.get("interface", self.data.test_interface)
+        interface = self.data.test_interface
         ipv6_addr = testcase.get("ipv6_address")
         prefix_len = testcase.get("prefix_length", 128)
 
@@ -406,7 +411,7 @@ class TestIpv6VlanCliValidation:
         st.banner("TC-2a: VLAN Range with Missing VLAN")
         testcase = self._get_testcase("tc2")
 
-        interface = testcase.get("interface", self.data.test_interface)
+        interface = self.data.test_interface
         partial_vlans = testcase.get("partial_vlans", [10, 12, 13])
         vlan_range = testcase.get("vlan_range", "10-13")
 
@@ -439,7 +444,7 @@ class TestIpv6VlanCliValidation:
         st.banner("TC-2b: VLAN Trunk Range Format Success")
         testcase = self._get_testcase("tc2")
 
-        interface = testcase.get("interface", self.data.test_interface)
+        interface = self.data.test_interface
         all_vlans = testcase.get("all_vlans", [10, 11, 12, 13])
         vlan_range = testcase.get("vlan_range", "10-13")
 
@@ -473,7 +478,7 @@ class TestIpv6VlanCliValidation:
         st.banner("TC-2c: VLAN Trunk Comma-Separated Format Success")
         testcase = self._get_testcase("tc2")
 
-        interface = testcase.get("interface", self.data.test_interface)
+        interface = self.data.test_interface
         all_vlans = testcase.get("all_vlans", [10, 11, 12, 13])
         vlan_comma_list = testcase.get("vlan_comma_list", "10,11,12,13")
 

@@ -98,7 +98,15 @@ class TestInterfaceCliVerification:
         cls.data.dut = topology.D1
         cls.data.dut_names = st.get_dut_names()
 
-        st.banner(f"Setup complete - DUT: {cls.data.dut}, CLI type: {cls.data.cli_type}")
+        # Get test interface from testbed global params
+        cls.data.test_interface = st.get_param("test_interface", None)
+        if not cls.data.test_interface:
+            st.report_fail("msg", "Missing 'test_interface' in testbed global params")
+
+        st.banner(
+            f"Setup complete - DUT: {cls.data.dut}, CLI type: {cls.data.cli_type}, "
+            f"Interface: {cls.data.test_interface}"
+        )
 
     @classmethod
     def teardown_class(cls) -> None:
@@ -149,12 +157,9 @@ class TestInterfaceCliVerification:
             Fail: Any expected speed values are missing or unexpected values appear
         """
         testcase = self._get_testcase("1.1")
-        interface = testcase.get("interface")
+        interface = self.data.test_interface
         expected_options = testcase.get("expected_speed_options", [])
         expected_output_contains = testcase.get("expected_output_contains", [])
-
-        if not interface:
-            st.report_fail("msg", "Testcase 1.1 missing 'interface' definition in YAML")
 
         st.banner(f"TC 1.1: Verifying speed options for {interface}")
 
@@ -222,12 +227,9 @@ class TestInterfaceCliVerification:
             Fail: The phrase "ipv6 enable" is still present after disable
         """
         testcase = self._get_testcase("2.1")
-        interface = testcase.get("interface")
+        interface = self.data.test_interface
         verify_params = testcase.get("verify", {})
         ipv6_enable_should_exist = verify_params.get("ipv6_enable_present", False)
-
-        if not interface:
-            st.report_fail("msg", "Testcase 2.1 missing 'interface' definition in YAML")
 
         st.banner(f"TC 2.1: Verifying IPv6 disable state for {interface}")
 
@@ -285,13 +287,10 @@ class TestInterfaceCliVerification:
             Fail: The configuration does not show "ipv6 enable"
         """
         testcase = self._get_testcase("2.2")
-        interface = testcase.get("interface")
+        interface = self.data.test_interface
         verify_params = testcase.get("verify", {})
         ipv6_enable_should_exist = verify_params.get("ipv6_enable_present", True)
         expected_config = testcase.get("expected_config", [])
-
-        if not interface:
-            st.report_fail("msg", "Testcase 2.2 missing 'interface' definition in YAML")
 
         st.banner(f"TC 2.2: Verifying IPv6 enable state for {interface}")
 
