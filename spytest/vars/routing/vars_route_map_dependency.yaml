@@ -1,0 +1,43 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "route_map_dependency":
+    title: "Route-Map Deletion Constraints - Dependency Validation"
+    description: |
+      Verifies that a route-map cannot be deleted while it is actively applied
+      to a routing protocol (like BGP), and confirms it can be deleted only
+      after those dependencies are removed.
+
+    route_map:
+      name: "asdf"
+      sequence: "10"
+      action: "permit"
+      set_statements:
+        - type: "as_path_prepend"
+          value: "1,2,3,4"
+        - type: "community"
+          value: "11:22"
+        - type: "local_preference"
+          value: "567"
+
+    bgp:
+      local_asn: 65001
+      neighbor_ip: "10.1.2.5"
+      remote_asn: 65001
+      vrf: "default"
+      address_family: "ipv4"
+
+    expected_error_when_deleting:
+      - "%Error"
+      - "Cannot delete"
+      - "asdf"
+      - "in use"
+
+    cleanup_commands:
+      - "no router bgp"
+      - "no route-map asdf"

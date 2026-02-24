@@ -2,8 +2,8 @@ version: 2.0
 devices:
   smic_sonic1:
     device_type: sonic
-    access: {protocol: ssh, ip: 192.168.100.67, port: 22}
-    credentials: {username: admin, password: root@123 altpassword: supermicro}
+    access: {protocol: ssh, ip: 192.168.100.222, port: 22}
+    credentials: {username: admin, password: root@123, altpassword: supermicro}
     properties: {services: default, build: default, config: default, errors: default}
 
 topology:
@@ -15,3 +15,6 @@ builds:   {default: {}}
 configs:  {default: {}}
 errors:   {default: {}}
 params:   {}
+global:
+  params:
+    test_interface: "Ethernet8"
