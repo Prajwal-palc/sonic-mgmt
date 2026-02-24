@@ -1,0 +1,75 @@
+# Variables for SM_ISCLI_44: IS-CLI Copy Command Availability Test
+# Test cases: TC_ISCLI_COPY_001, TC_ISCLI_COPY_002, TC_ISCLI_COPY_003, TC_ISCLI_COPY_004
+
+# Minimum topology requirement
+min_topology:
+  - "D1"
+
+# Configuration defaults
+defaults:
+  cli_type: "klish"
+  verify_timeout: 30
+  cleanup: true
+  config_apply_wait: 5
+
+# Test case configurations
+testcases:
+  TC_ISCLI_COPY_001:
+    title: "Verify copy command availability"
+    description: "Verify copy command is available in IS-CLI privileged exec mode"
+    commands:
+      help: "?"
+      copy_help: "copy ?"
+      copy_running_help: "copy running-config ?"
+      copy_startup_help: "copy startup-config ?"
+    expected:
+      copy_in_help: true
+      copy_description: "Copy from one source to another"
+      running_config_option: true
+      startup_config_option: true
+      running_to_startup: true
+      startup_to_running: true
+
+  TC_ISCLI_COPY_002:
+    title: "Verify copy command execution"
+    description: "Verify copy running-config to startup-config works correctly"
+    test_interface:
+      name: "Loopback100"
+      description: "Test Copy Command"
+    commands:
+      copy_cmd: "copy running-config startup-config"
+      show_running: "show running-configuration interface Loopback 100 | no-more"
+      show_startup: "show startup-configuration interface Loopback 100 | no-more"
+
+  TC_ISCLI_COPY_003:
+    title: "Verify copy startup-config to running-config"
+    description: "Verify copy startup to running reverts unsaved changes"
+    temp_interface:
+      name: "Loopback200"
+      description: "Temporary Config"
+    commands:
+      copy_cmd: "copy startup-config running-config"
+      show_running: "show running-configuration interface Loopback 200 | no-more"
+
+  TC_ISCLI_COPY_004:
+    title: "Verify copy command negative scenarios"
+    description: "Verify copy command rejects invalid options"
+    invalid_tests:
+      - command: "copy invalid-config startup-config"
+        expected_error: true
+        description: "Invalid source should be rejected"
+      - command: "copy running-config invalid-dest"
+        expected_error: true
+        description: "Invalid destination should be rejected"
+      - command: "copy running-config"
+        expected_error: true
+        description: "Incomplete command should prompt for destination"
+
+# Expected patterns in output
+patterns:
+  copy_command_in_help: "copy\\s+Copy from one source to another"
+  running_config: "running-config"
+  startup_config: "startup-config"
+  copy_success: "(Configuration saved|Saved configuration)"
+  error_pattern: "(Invalid|Error|not found|incomplete)"
+  loopback_interface: "interface Loopback"

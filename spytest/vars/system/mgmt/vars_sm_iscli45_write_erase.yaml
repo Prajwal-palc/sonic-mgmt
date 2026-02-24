@@ -1,0 +1,129 @@
+# SM_ISCLI_45: IS-CLI Write Erase Command Availability Test
+# Configuration variables for write erase command testing
+
+min_topology:
+  - "D1"
+
+defaults:
+  cli_type: "klish"
+  verify_timeout: 30
+  cleanup: true
+  backup_config_file: "/tmp/spytest_config_backup.json"
+  pagination_disable: "| no-more"
+
+# Test configuration
+test_config:
+  # Loopback interface for non-destructive testing
+  non_destructive_loopback: 99
+  non_destructive_description: "Write Erase Test Interface"
+
+  # Command verification settings
+  wait_after_config: 2
+  wait_after_save: 5
+  connectivity_check_retries: 3
+
+# Test case configurations
+testcases:
+  TC_ISCLI_WRITE_ERASE_001:
+    title: "Verify write erase command availability"
+    description: "Verify write erase command is available in IS-CLI privileged exec mode"
+    commands:
+      write_help: "write ?"
+      write_erase_help: "write erase ?"
+      write_erase_startup_help: "write erase startup-config ?"
+    expected_keywords:
+      write_help:
+        - "erase"
+        - "memory"
+      write_erase_help:
+        - "startup-config"
+        - "boot"
+        - "no-prompt"
+      write_erase_startup_help:
+        - "no-prompt"
+    required: true
+
+  TC_ISCLI_WRITE_ERASE_002:
+    title: "Verify write erase command verification"
+    description: "Verify write erase command availability comparison with baseline"
+    commands:
+      write_help_full: "write ? | no-more"
+      write_erase_help_full: "write erase ? | no-more"
+      show_version: "show version | no-more"
+    verify_build_date: "2026-01-22"
+    required: true
+
+  TC_ISCLI_WRITE_ERASE_003:
+    title: "Non-destructive syntax verification"
+    description: "Verify write erase command syntax without actual execution"
+    test_interface: "Loopback 99"
+    test_description: "Write Erase Test Interface"
+    commands:
+      create_loopback: "interface Loopback 99"
+      set_description: 'description "Write Erase Test Interface"'
+      exit_interface: "end"
+      show_running_loopback: "show running-configuration interface Loopback 99 | no-more"
+      show_startup_loopback: "show startup-configuration interface Loopback 99 | no-more"
+      remove_loopback: "no interface Loopback 99"
+      syntax_check: "write erase startup-config ?"
+    destructive: false
+    required: true
+
+  TC_ISCLI_WRITE_ERASE_004:
+    title: "Negative test cases"
+    description: "Verify write erase command handles invalid options correctly"
+    invalid_commands:
+      - command: "write erase invalid-option"
+        expected_error: true
+        description: "Invalid write erase option"
+      - command: "write invalid-subcommand"
+        expected_error: true
+        description: "Invalid write sub-command"
+    commands:
+      incomplete_erase: "write erase"
+    expected_behavior:
+      - "error"
+      - "invalid"
+      - "help"
+    destructive: false
+    required: true
+
+# Safety configurations
+safety:
+  # Backup configuration
+  backup_required: true
+  backup_methods:
+    - "copy running-config startup-config"
+
+  # Connectivity verification
+  verify_connectivity: true
+  connectivity_timeout: 30
+
+# Expected output patterns
+output_patterns:
+  write_help:
+    erase: "erase\\s+Erase configuration"
+    memory: "memory\\s+Save config"
+
+  write_erase_help:
+    startup_config: "startup-config\\s+Erase startup configuration"
+    boot: "boot\\s+Erase all configs and reboot"
+    no_prompt: "no-prompt\\s+Erase.*without confirmation"
+
+  error_patterns:
+    invalid_syntax: "Invalid|Error|Unknown command"
+    incomplete_command: "Incomplete|Usage"
+
+# Build verification
+build_requirements:
+  min_build_date: "2026-01-22"
+  expected_commands:
+    - "write erase startup-config"
+    - "write erase boot"
+    - "write erase no-prompt"
+
+# Test execution settings
+execution:
+  cleanup_on_failure: true
+  continue_on_error: false
+  verbose_logging: true

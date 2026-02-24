@@ -1,0 +1,43 @@
+# Variables for SM_ISCLI_40: eBGP Requires Policy Configuration Test
+# Test cases: TC_BGP_EBGP_POLICY_001, TC_BGP_EBGP_POLICY_002, TC_BGP_EBGP_POLICY_003
+
+# Minimum topology requirement
+min_topology:
+  - "D1D2:1"
+
+# Test configuration
+config:
+  # Interface configuration
+  interface:
+    name: "Ethernet256"
+    dut1_ip: "10.1.2.5"
+    dut2_ip: "10.1.2.6"
+    subnet_mask: "24"
+    network: "10.1.2.0/24"
+
+  # BGP configuration
+  bgp:
+    dut1_asn: 65001
+    dut2_asn: 65002
+    address_family: "ipv4"
+    af_type: "unicast"
+
+  # Timing configuration
+  timing:
+    bgp_session_wait: 60
+    config_apply_wait: 5
+    session_clear_wait: 30
+
+  # Expected patterns for verification
+  verification:
+    # vtysh config should contain this line
+    vtysh_default_policy: "no bgp ebgp-requires-policy"
+    # vtysh config after enabling policy
+    vtysh_enabled_policy: "bgp ebgp-requires-policy"
+    # IS-CLI should NOT contain this pattern
+    iscli_policy_pattern: "ebgp-requires-policy"
+
+  # CLI types
+  cli:
+    iscli: "klish"
+    vtysh: "vtysh"
