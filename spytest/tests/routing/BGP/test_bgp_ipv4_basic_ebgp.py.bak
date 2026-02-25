@@ -1151,7 +1151,7 @@ class TestBgpIpv4BasicEbgp:
             st.report_fail("msg", "Reboot failed on one or more DUTs")
 
         st.log("All DUTs rebooted successfully. Waiting for BGP convergence")
-        st.wait(300, "Waiting for BGP neighborship establishment after reboot")
+        st.wait(60, "Waiting for BGP neighborship establishment after reboot")
 
         # Step 5: Verify eBGP sessions after reboot
         st.banner("Step 5: Post-reboot verification - checking eBGP sessions")

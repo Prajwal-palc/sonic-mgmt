@@ -114,12 +114,13 @@ testcases:
     test_network: "10.2.0.0/24"
 
     # Loopback configurations on D1 and D3
-    # Using /24 so the network appears in routing table for BGP advertisement
+    # Using /32 as required by SONiC loopback interface restriction
+    # BGP network statement used to advertise aggregate /24 network
     d1_loopback: "Loopback20"
-    d1_loopback_ip: "10.2.0.1/24"
+    d1_loopback_ip: "10.2.0.1/32"
 
     d3_loopback: "Loopback20"
-    d3_loopback_ip: "10.2.0.100/24"
+    d3_loopback_ip: "10.2.0.100/32"
 
     # Weight values to configure on D2 for neighbors
     d1_weight: 100

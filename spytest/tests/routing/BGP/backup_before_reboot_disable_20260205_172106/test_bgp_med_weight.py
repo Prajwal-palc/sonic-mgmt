@@ -1200,9 +1200,9 @@ class TestBGPMedWeight:
         # Extract test parameters
         test_network = testcase.get("test_network", "10.2.0.0/24")
         d1_loopback = testcase.get("d1_loopback", "Loopback20")
-        d1_loopback_ip = testcase.get("d1_loopback_ip", "10.2.0.1/32")  # Changed from /24 to /32
+        d1_loopback_ip = testcase.get("d1_loopback_ip", "10.2.0.1/24")
         d3_loopback = testcase.get("d3_loopback", "Loopback20")
-        d3_loopback_ip = testcase.get("d3_loopback_ip", "10.2.0.100/32")  # Changed from /24 to /32
+        d3_loopback_ip = testcase.get("d3_loopback_ip", "10.2.0.100/24")
         d1_weight = testcase.get("d1_weight", 100)
         d3_weight = testcase.get("d3_weight", 200)
 
@@ -1220,21 +1220,13 @@ class TestBGPMedWeight:
         self._remove_static_route(self.data.dut3, test_network, "Null0")
         st.log(f"Old static routes cleaned up")
 
-        # Step 2: Configure loopback interfaces with /32 addresses
-        # CRITICAL: SONiC loopback interfaces ONLY accept /32 IPv4 addresses.
-        # We use /32 loopback IPs and then advertise the aggregate /24 network via BGP network statement.
-        st.log(f"Configuring loopback interfaces with /32 addresses on D1 and D3")
+        # Step 2: Configure loopback interfaces with /24 addresses for connected routes
+        # CRITICAL: On SONiC (FRR 10.x), static/blackhole routes are NOT exported to eBGP
+        # due to internal policy enforcement. Use connected loopback routes instead.
+        st.log(f"Configuring loopback interfaces with {test_network} as connected routes on D1 and D3")
         self._configure_loopback(self.data.dut1, d1_loopback, d1_loopback_ip)
         self._configure_loopback(self.data.dut3, d3_loopback, d3_loopback_ip)
-        st.log(f"Loopback interfaces configured with /32 addresses")
-
-        # Step 2.5: Add static blackhole route for the /24 network
-        # CRITICAL: BGP "network" command requires a matching route in the routing table!
-        # Since loopbacks are /32, we need to create a /24 route for BGP to advertise.
-        st.log(f"Adding static blackhole route for {test_network} on D1 and D3")
-        self._configure_static_route(self.data.dut1, test_network, "Null0")
-        self._configure_static_route(self.data.dut3, test_network, "Null0")
-        st.log(f"Static blackhole routes configured")
+        st.log(f"Connected loopback routes configured - {test_network} is now available as connected route")
 
         # Step 3: Configure BGP routers (create BGP instance with AS and router-id)
         st.log("Configuring BGP routers on all DUTs")
@@ -1260,15 +1252,23 @@ class TestBGPMedWeight:
             self.data.d2_d3_neighbor_ipv4, d3_as, d3_weight
         )
 
-        # Step 6: Advertise the /24 network in BGP using network statement
-        # Since loopbacks are configured with /32, we need explicit network statements
-        # to advertise the aggregate /24 network that the test expects.
-        st.log(f"Advertising {test_network} in BGP via network statement on D1 and D3")
-        self._configure_bgp_network(self.data.dut1, d1_as, test_network)
-        self._configure_bgp_network(self.data.dut3, d3_as, test_network)
+        # Step 6: Advertise connected loopback routes via BGP redistribute connected
+        # NOTE: Using iBGP topology, so routes will advertise within the same AS
+        # D1: redistribute connected (no route-map)
+        # D3: redistribute connected (no route-map)
+        st.log(f"Advertising connected routes in BGP (redistribute connected)")
+        self._configure_bgp_redistribute_connected(self.data.dut1, d1_as)
+        self._configure_bgp_redistribute_connected(self.data.dut3, d3_as)
 
-        # Step 7: Wait for BGP convergence
-        st.wait(10, "Waiting for BGP to converge and advertise routes")
+        # Step 6.5: CRITICAL FIX - Re-apply redistribution on BOTH D1 and D3 to ensure route advertisement
+        # This is required because redistribution must be re-applied AFTER neighbor
+        # address-family activation to properly advertise routes to the neighbor.
+        # This is a known FRRouting behavior where routes configured before neighbor activation
+        # don't get advertised until the redistribution is re-triggered.
+        st.log("CRITICAL FIX: Re-applying redistribution on D1 to ensure routes are advertised to D2")
+        self._reapply_bgp_redistribute_connected(self.data.dut1, d1_as)
+        st.log("CRITICAL FIX: Re-applying redistribution on D3 to ensure routes are advertised to D2")
+        self._reapply_bgp_redistribute_connected(self.data.dut3, d3_as)
 
         # Step 7.5: DEBUG - Verify configuration and routes
         st.log("=" * 80)

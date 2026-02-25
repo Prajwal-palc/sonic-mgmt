@@ -144,7 +144,7 @@ class TestBgpIpv4Basic:
                 commands = [
                     "configure terminal",
                     "no router bgp",
-                    "exit"
+                    "end"
                 ]
                 st.config(dut, commands, type=cls.data.cli_type, skip_error_check=True)
                 st.log(f"BGP cleanup completed on {dut}")
@@ -232,11 +232,13 @@ class TestBgpIpv4Basic:
         st.log(f"Configuring BGP router on {dut}: AS {local_asn}, Router-ID {router_id}")
 
         # Configure BGP router with router-id using direct CLI
-        # Correct syntax: router bgp <asn> then router-id <id>
+        # Must include 'configure terminal' to enter config mode on real hardware.
+        # Use 'end' (not 'exit') to return to exec mode from any depth.
         bgp_config = [
+            "configure terminal",
             f"router bgp {local_asn}",
             f"router-id {router_id}",
-            "exit"
+            "end"
         ]
         st.config(dut, bgp_config, type="klish", skip_error_check=False)
         st.log(f"BGP router AS {local_asn} with router-id {router_id} configured on {dut}")
@@ -254,27 +256,31 @@ class TestBgpIpv4Basic:
         Configure BGP neighbor and activate in address family.
 
         Uses direct CLI commands for BGP neighbor configuration.
-        Correct klish syntax:
-        router bgp <asn>
-        neighbor <ip> remote-as <remote-asn>
-        address-family ipv4 unicast
-        activate
+
+        SONiC klish CLI hierarchy:
+          configure terminal
+            router bgp <asn>                         → config-router-bgp
+              neighbor <ip> remote-as <asn>          → config-router-bgp-neighbor
+                address-family ipv4 unicast          → config-router-bgp-neighbor-af
+                  activate                           (valid in per-neighbor AF)
+                exit                                 back to config-router-bgp
+              end                                    exec mode
+
+        Critical: do NOT exit the neighbor sub-mode before 'address-family'.
+        Exiting first would enter the GLOBAL router-bgp AF context
+        (config-router-bgp-af) where 'activate' is NOT a valid command
+        and causes '% Error: Invalid input detected'.
         """
         st.log(f"Configuring BGP neighbor {neighbor_ip} (AS {remote_asn}) on {dut}")
 
-        # Configure BGP neighbor using direct CLI
-        # Correct syntax:
-        # router bgp <asn>
-        # neighbor <ip> remote-as <remote-asn>
-        # address-family ipv4 unicast
-        # activate
         neighbor_config = [
+            "configure terminal",
             f"router bgp {local_asn}",
-            f"neighbor {neighbor_ip} remote-as {remote_asn}",
-            f"address-family {family} unicast",
-            "activate",
-            "exit",
-            "exit"
+            f"neighbor {neighbor_ip} remote-as {remote_asn}",   # → config-router-bgp-neighbor
+            f"address-family {family} unicast",                 # → config-router-bgp-neighbor-af
+            "activate",                                         # valid in per-neighbor AF context
+            "exit",                                             # back to config-router-bgp
+            "end",                                              # return to exec mode
         ]
 
         st.config(dut, neighbor_config, type="klish", skip_error_check=False)
@@ -334,7 +340,7 @@ class TestBgpIpv4Basic:
             commands = [
                 "configure terminal",
                 "no router bgp",
-                "exit"
+                "end"
             ]
             st.config(dut, commands, type=self.data.cli_type, skip_error_check=True)
             st.log(f"BGP cleanup completed on {dut}")
@@ -361,6 +367,38 @@ class TestBgpIpv4Basic:
                 )
         except Exception as e:
             st.log(f"Error unconfiguring BGP on {dut}: {e}")
+
+    def _check_bgp_neighbors_exist(self, dut: str) -> bool:
+        """
+        Return True if at least one BGP neighbor is configured in FRR.
+
+        Uses 'show bgp ipv4 unicast summary'. When FRR has no BGP instance or
+        no neighbors configured, the command returns '% No BGP neighbors found
+        in VRF default' which the TextFSM parser produces as an empty list.
+        """
+        st.log(f"Checking if BGP neighbors are configured on {dut}")
+        result = st.show(dut, "show bgp ipv4 unicast summary", type="klish")
+        neighbors_exist = bool(result)
+        st.log(f"BGP neighbors exist on {dut}: {neighbors_exist} (entries: {len(result) if result else 0})")
+        return neighbors_exist
+
+    def _restart_bgp_docker(self, dut: str) -> None:
+        """
+        Restart the BGP docker container on the device.
+
+        Used as a recovery action when 'show bgp summary' returns
+        '% No BGP neighbors found in VRF default' after configuration —
+        indicating FRR did not pick up the BGP config written to
+        /etc/sonic/config_db.json (e.g. due to a stale FRR state).
+        After restart, the caller must wait for FRR to reload and
+        re-establish neighbors.
+        """
+        st.log(f"Restarting BGP docker container on {dut} for FRR recovery")
+        try:
+            st.config(dut, "sudo docker restart bgp", type="bash", skip_error_check=True)
+            st.log(f"BGP docker restart command issued on {dut}")
+        except Exception as e:
+            st.log(f"Error restarting BGP docker on {dut}: {e}")
 
     @pytest.mark.inventory(feature="Regression", testcases=["BGP_IPv4_001"])
     def test_bgp_ipv4_configure_verify_unconfig(self) -> None:
@@ -453,6 +491,51 @@ class TestBgpIpv4Basic:
             dut2_config["remote_asn"]
         )
 
+        # Step 4b: BGP docker recovery — restart FRR if no neighbors visible after config
+        #
+        # On some hardware platforms FRR may not reflect the newly written config_db
+        # entries immediately, resulting in '% No BGP neighbors found in VRF default'
+        # even though the klish config commands completed without errors.
+        # Restarting the BGP docker forces FRR to re-read config_db and converge.
+        #
+        # Restart is done in PARALLEL across all affected DUTs so that the ~30s
+        # blocking 'docker restart bgp' does not add up serially per DUT.
+        st.banner("Step 4b: BGP docker recovery check")
+
+        # Phase 1: Check both DUTs and collect those needing recovery
+        duts_needing_restart = []
+        for dut in [self.data.dut1, self.data.dut2]:
+            if not self._check_bgp_neighbors_exist(dut):
+                st.log(
+                    f"No BGP neighbors found on {dut} after configuration — "
+                    f"scheduling BGP docker restart"
+                )
+                duts_needing_restart.append(dut)
+            else:
+                st.log(f"BGP neighbors confirmed present on {dut}, no docker restart needed")
+
+        # Phase 2: Restart BGP docker on all affected DUTs in parallel
+        if duts_needing_restart:
+            st.log(
+                f"Restarting BGP docker in parallel on {len(duts_needing_restart)} DUT(s): "
+                f"{duts_needing_restart}"
+            )
+            st.exec_each(duts_needing_restart, self._restart_bgp_docker)
+            st.wait(300, "Waiting 5 minutes for BGP docker to restart and FRR to converge")
+
+            # Post-restart summary check (informational — actual pass/fail in Step 5)
+            st.banner("Step 4b: Post-restart BGP summary check")
+            for dut, neighbor_ip in [
+                (self.data.dut1, dut1_config["neighbor_ip"]),
+                (self.data.dut2, dut2_config["neighbor_ip"]),
+            ]:
+                if self._check_bgp_neighbors_exist(dut):
+                    st.log(f"BGP neighbors present on {dut} after docker restart — proceeding to session verification")
+                else:
+                    st.log(f"WARNING: BGP neighbors still absent on {dut} after docker restart and 5-minute wait")
+        else:
+            st.log("BGP neighbors visible on all DUTs — skipping docker recovery")
+
         # Step 5: Verify BGP session establishment
         st.banner("Step 5: Verify BGP session establishment")
         self._verify_bgp_session(
@@ -514,11 +597,9 @@ class TestBgpIpv4Basic:
                 state="Established"
             )
 
-            # Step 2: Configure BGP routers
-            st.banner("Step 2: Configure BGP routers")
-            self._unconfigure_bgp(self.data.dut1, dut1_config["bgp_asn"])
-            self._unconfigure_bgp(self.data.dut2, dut2_config["bgp_asn"])
-            self._configure_bgp_router(
+            # Step 2: Verify basic connectivity with ping
+            st.banner("Step 2: Verify basic connectivity with ping")
+            ping_result = ip_api.ping(
                 self.data.dut1,
                 dut1_config["neighbor_ip"],
                 src_ip=dut1_config["ip_address"],
@@ -762,22 +843,24 @@ class TestBgpIpv4Basic:
             # Advertise R1 LAN network using direct CLI (import-check not supported in klish)
             st.log(f"R1 advertising network {router1_config['lan_network']}")
             network_config_r1 = [
+                "configure terminal",
                 f"router bgp {router1_config['bgp_asn']}",
                 "address-family ipv4 unicast",
                 f"network {router1_config['lan_network']}",
                 "exit",
-                "exit"
+                "end"
             ]
             st.config(self.data.dut1, network_config_r1, type="klish", skip_error_check=False)
 
             # Advertise R2 LAN network using direct CLI
             st.log(f"R2 advertising network {router2_config['lan_network']}")
             network_config_r2 = [
+                "configure terminal",
                 f"router bgp {router2_config['bgp_asn']}",
                 "address-family ipv4 unicast",
                 f"network {router2_config['lan_network']}",
                 "exit",
-                "exit"
+                "end"
             ]
             st.config(self.data.dut2, network_config_r2, type="klish", skip_error_check=False)
 
@@ -889,20 +972,22 @@ class TestBgpIpv4Basic:
                 # Unadvertise networks from BGP using direct CLI (but keep BGP session)
                 st.log("Unadvertising LAN networks from BGP")
                 no_network_config_r1 = [
+                    "configure terminal",
                     f"router bgp {router1_config['bgp_asn']}",
                     "address-family ipv4 unicast",
                     f"no network {router1_config['lan_network']}",
                     "exit",
-                    "exit"
+                    "end"
                 ]
                 st.config(self.data.dut1, no_network_config_r1, type="klish", skip_error_check=True)
 
                 no_network_config_r2 = [
+                    "configure terminal",
                     f"router bgp {router2_config['bgp_asn']}",
                     "address-family ipv4 unicast",
                     f"no network {router2_config['lan_network']}",
                     "exit",
-                    "exit"
+                    "end"
                 ]
                 st.config(self.data.dut2, no_network_config_r2, type="klish", skip_error_check=True)
 

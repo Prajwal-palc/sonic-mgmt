@@ -41,7 +41,7 @@ testcases:
         prefix_length: 24
         admin_status: "up"
       - dut: "D2"
-        interface: "{{D1D2P1}}"
+        interface: "{{D2D1P1}}"
         ip_address: "10.1.1.2"
         prefix_length: 24
         admin_status: "up"
@@ -96,7 +96,7 @@ testcases:
     title: "BGP over Loopback Interface Flap Scenario"
     description: "Validate BGP session resilience to underlay interface flap"
 
-    underlay_interface: "Ethernet4"
+    underlay_interface: "{{D1D2P1}}"
 
     # Verification checks (reuse session checks from BGP-LB-001)
     verification:
@@ -143,10 +143,10 @@ testcases:
           interface: "Loopback0"
           expected_status: "up"
         - dut: "D1"
-          interface: "Ethernet4"
+          interface: "{{D1D2P1}}"
           expected_status: "up"
         - dut: "D2"
-          interface: "Ethernet4"
+          interface: "{{D2D1P1}}"
           expected_status: "up"
 
       # BGP session checks
@@ -193,9 +193,9 @@ cleanup:
   # Underlay interface IPs to remove
   underlay_interfaces:
     - dut: "D1"
-      interface: "Ethernet4"
+      interface: "{{D1D2P1}}"
     - dut: "D2"
-      interface: "Ethernet4"
+      interface: "{{D2D1P1}}"
 
   # Static routes to remove
   static_routes:

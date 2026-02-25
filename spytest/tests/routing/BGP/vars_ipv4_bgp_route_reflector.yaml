@@ -44,7 +44,7 @@ bgp:
       ip: "10.1.12.2"              # DUT2 address
       remote_asn: "65001"
     networks:
-      - "10.1.12.0/24"             # Connected link network advertised by DUT1
+      - "192.168.1.0/24"           # Unique network behind DUT1 (simulates customer network)
 
   # DUT2 BGP configuration (Route Reflector Server)
   dut2:
@@ -57,7 +57,8 @@ bgp:
       - ip: "10.2.23.3"            # DUT3 address
         remote_asn: "65001"
         route_reflector_client: true
-    networks: []                   # RR server doesn't need to advertise networks
+    networks:
+      - "192.168.2.0/24"           # Optional: network behind RR server
 
   # DUT3 BGP configuration (Route Reflector Client)
   dut3:
@@ -67,7 +68,7 @@ bgp:
       ip: "10.2.23.2"              # DUT2 address
       remote_asn: "65001"
     networks:
-      - "10.2.23.0/24"             # Connected link network advertised by DUT3
+      - "192.168.3.0/24"           # Unique network behind DUT3 (simulates customer network)
 
 # Test parameters
 test_params:
@@ -80,13 +81,24 @@ test_params:
 expected_results:
   # DUT1 should learn DUT3's advertised network via DUT2 (RR)
   dut1_learned_routes:
-    - network: "10.2.23.0/24"      # DUT2-DUT3 link network advertised by DUT3
-    - next_hop: "10.2.23.3"        # DUT3 address Via DUT2 (RR server)
+    - network: "192.168.3.0/24"    # DUT3's customer network
+      next_hop: "10.2.23.3"        # DUT3's interface IP (preserved by RR)
+    - network: "192.168.2.0/24"    # DUT2's network (RR server)
+      next_hop: "10.1.12.2"        # DUT2's interface IP toward DUT1
 
   # DUT3 should learn DUT1's advertised network via DUT2 (RR)
   dut3_learned_routes:
-    - network: "10.1.12.0/24"      # DUT1-DUT2 link network advertised by DUT1
-    - next_hop: "10.1.12.1"        # DUT1 address Via DUT2 (RR server)
+    - network: "192.168.1.0/24"    # DUT1's customer network
+      next_hop: "10.1.12.1"        # DUT1's interface IP (preserved by RR)
+    - network: "192.168.2.0/24"    # DUT2's network (RR server)
+      next_hop: "10.2.23.2"        # DUT2's interface IP toward DUT3
+
+  # DUT2 should learn both client networks
+  dut2_learned_routes:
+    - network: "192.168.1.0/24"    # From DUT1
+      next_hop: "10.1.12.1"        # DUT1's interface IP
+    - network: "192.168.3.0/24"    # From DUT3
+      next_hop: "10.2.23.3"        # DUT3's interface IP
 
   # DUT2 should have route-reflector-client configured for both neighbors
   dut2_rr_clients:

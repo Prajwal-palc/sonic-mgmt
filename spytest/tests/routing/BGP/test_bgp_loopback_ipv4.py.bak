@@ -13,7 +13,7 @@ How to run:
 Description:
   Comprehensive validation of IPv4 iBGP neighbor session establishment over
   Loopback interface. The test suite provisions Loopback interfaces, configures
-  IP addressing, establishes iBGP session between DUT1 and DUT2 (AS 65001) using
+  IP addressing, establishes iBGP session between DUT1 and DUT2 (AS 65100) using
   loopback IPs as BGP endpoints, and validates session establishment, interface
   flap resilience, traffic forwarding with Scapy, and configuration persistence
   across save/reboot.
@@ -24,15 +24,15 @@ Pre-requisites:
         # Topology - 2 nodes (BGP over Loopback)
         # +-------------------------+                   +-------------------------+
         # |   DUT1 (smic_sonic1)    |                   |   DUT2 (smic_sonic2)    |
-        # |   AS 65001              |                   |   AS 65001              |
+        # |   AS 65100              |                   |   AS 65100              |
         # |   Router-ID: 1.1.1.1    |                   |   Router-ID: 2.2.2.2    |
         # |                         |                   |                         |
         # |   Loopback0             |                   |   Loopback0             |
         # |   IP: 1.1.1.1/32        |                   |   IP: 2.2.2.2/32        |
         # |                         |                   |                         |
-        # |   D1D2P1                |                   |   D2D1P1                |
-        # |   IP: 10.1.1.1/24       |===================|   IP: 10.1.1.2/24       |
-        # |   (underlay)            |  D1D2P1/D2D1P1    |   (underlay)            |
+        # |   Ethernet4             |                   |   Ethernet4             |
+        # |   IP: 10.1.1.1/30       |===================|   IP: 10.1.1.2/30       |
+        # |   (underlay)            |     Ethernet4     |   (underlay)            |
         # +-------------------------+                   +-------------------------+
 
   - Feature flags / min SONiC version: Loopback interface and BGP support required
@@ -92,17 +92,9 @@ def _load_yaml_data() -> SpyTestDict:
 
 
 def _iter_candidate_duts(topology: SpyTestDict) -> Iterable[str]:
-    """Yield topology keys that are device aliases (D1, D2, ...).
-
-    Filters out port aliases like D1D2P1 and D2D1P1. Those keys start with 'D'
-    but contain 'P' (port marker) and hold interface name strings ("Ethernet16"),
-    not device handles. Including them in dut_map causes st.show/st.config to be
-    called with an interface name as the device argument, which raises a KeyError
-    inside spytest and leaves actual DUT connections in an unknown mode.
-    """
+    """Yield topology keys that resemble DUT aliases (D1, D2, ...)."""
     for key, value in topology.items():
-        # Accept only keys like D1, D2, D3 — reject port aliases (D1D2P1, D2D1P1)
-        if key.upper().startswith("D") and "P" not in key.upper() and value:
+        if key.upper().startswith("D") and value:
             yield key
 
 
@@ -172,26 +164,27 @@ class TestBgpLoopbackIpv4:
         for neighbor_cfg in cleanup_config.get("bgp_neighbors", []):
             dut = cls._resolve_dut(neighbor_cfg.get("dut"))
             if dut:
-                st.log(f"Removing BGP router on {neighbor_cfg.get('dut')} (clears all neighbors)")
+                st.log(f"Removing BGP neighbor {neighbor_cfg.get('neighbor_ip')} on {neighbor_cfg.get('dut')}")
                 try:
-                    st.config(dut, [
-                        "configure terminal",
-                        "no router bgp",
-                        "end"
-                    ], type="klish", skip_error_check=True)
+                    bgp_api.config_bgp_neighbor(
+                        dut,
+                        local_asn=neighbor_cfg.get("local_asn"),
+                        neighbor_ip=neighbor_cfg.get("neighbor_ip"),
+                        remote_asn=neighbor_cfg.get("local_asn"),  # iBGP uses same ASN
+                        config="no",
+                        cli_type=cls.data.cli_type
+                    )
                 except Exception as e:
-                    st.log(f"Error removing BGP router: {e}")
+                    st.log(f"Error removing BGP neighbor: {e}")
 
         # Cleanup BGP routers
         for router_cfg in cleanup_config.get("bgp_routers", []):
             dut = cls._resolve_dut(router_cfg.get("dut"))
             if dut:
-                st.log(f"Removing BGP router on {router_cfg.get('dut')}")
+                st.log(f"Removing BGP router AS {router_cfg.get('local_asn')} on {router_cfg.get('dut')}")
                 try:
                     st.config(dut, [
-                        "configure terminal",
-                        "no router bgp",
-                        "end"
+                        "no router bgp {}".format(router_cfg.get("local_asn"))
                     ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing BGP router: {e}")
@@ -204,11 +197,9 @@ class TestBgpLoopbackIpv4:
                 st.log(f"Removing IP addresses from {interface} on {loopback_cfg.get('dut')}")
                 try:
                     st.config(dut, [
-                        "configure terminal",
                         f"interface {interface}",
                         "no ip address",
-                        "exit",
-                        "end"
+                        "exit"
                     ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing Loopback IP: {e}")
@@ -221,9 +212,7 @@ class TestBgpLoopbackIpv4:
                 st.log(f"Removing {interface} on {loopback_cfg.get('dut')}")
                 try:
                     st.config(dut, [
-                        "configure terminal",
-                        f"no interface {interface}",
-                        "end"
+                        f"no interface {interface}"
                     ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing Loopback: {e}")
@@ -236,11 +225,9 @@ class TestBgpLoopbackIpv4:
                 st.log(f"Removing IP addresses from {interface} on {intf_cfg.get('dut')}")
                 try:
                     st.config(dut, [
-                        "configure terminal",
                         f"interface {interface}",
                         "no ip address",
-                        "exit",
-                        "end"
+                        "exit"
                     ], type="klish", skip_error_check=True)
                 except Exception as e:
                     st.log(f"Error removing underlay interface IP: {e}")
@@ -316,17 +303,7 @@ class TestBgpLoopbackIpv4:
 
             st.log(f"Configuring {interface} with IP {ip_address}/{prefix_length} on {loopback_cfg.get('dut')}")
 
-            # Remove any pre-existing IPs so a stale loopback IP from a previous
-            # (failed) run cannot mask the correct IP being set here.
-            st.config(dut, [
-                "configure terminal",
-                f"interface {interface}",
-                "no ip address",
-                "exit",
-                "end"
-            ], type="klish", skip_error_check=True)
-
-            # Configure the correct IP address on the Loopback interface
+            # Configure IP address on Loopback interface (no cli_type like working test)
             result = ip_api.config_ip_addr_interface(
                 dut,
                 interface_name=interface,
@@ -353,18 +330,7 @@ class TestBgpLoopbackIpv4:
 
             st.log(f"Configuring {interface} with IP {ip_address}/{prefix_length} on {intf_cfg.get('dut')}")
 
-            # Remove any pre-existing IP first so stale addresses from previous runs
-            # don't accumulate.  Stale IPs on the same interface as the next-hop address
-            # cause the kernel to resolve the next-hop locally, breaking routing.
-            st.config(dut, [
-                "configure terminal",
-                f"interface {interface}",
-                "no ip address",
-                "exit",
-                "end"
-            ], type="klish", skip_error_check=True)
-
-            # Configure the correct IP address for this test run
+            # Configure IP address (no cli_type like working test)
             result = ip_api.config_ip_addr_interface(
                 dut,
                 interface_name=interface,
@@ -380,9 +346,8 @@ class TestBgpLoopbackIpv4:
             if admin_status == "up":
                 intf_api.interface_operation(dut, interface, operation="startup")
 
-        # Wait for underlay interfaces to stabilize (increased from 10s to 20s to allow
-        # intfmgrd and frrcfgd adequate time to propagate config to kernel - bgp_loopback.txt)
-        st.wait(20, "Waiting for underlay interfaces to stabilize")
+        # Wait for underlay interfaces to stabilize
+        st.wait(10, "Waiting for underlay interfaces to stabilize")
 
     def _configure_static_routes(self, testcase: SpyTestDict) -> None:
         """Configure static routes for loopback reachability."""
@@ -405,132 +370,6 @@ class TestBgpLoopbackIpv4:
             )
             if not result:
                 st.report_fail("msg", f"Failed to create static route on {route_cfg.get('dut')}")
-
-    def _ensure_frrcfgd_running(self) -> None:
-        """Ensure the BGP container is up and frrcfgd is RUNNING on all DUTs.
-
-        Root cause (bgp_loopback.txt): Both D1 and D2 bgp containers had frrcfgd in
-        STOPPED state. frrcfgd reads CONFIG_DB static routes and programs them into FRR.
-        If it is stopped, static routes defined via klish are never installed in FRR/kernel.
-
-        Extended fix: Also handles the case where the BGP container itself is not running
-        (e.g. transient restart cycle causing "Container is not running" error from Docker).
-        """
-        st.banner("Ensuring BGP container and frrcfgd are RUNNING on all DUTs")
-        # Use dut_names (from st.get_dut_names()) instead of dut_map.items().
-        # dut_map is keyed by topology aliases which (before _iter_candidate_duts fix) could
-        # include port aliases (D1D2P1 → "Ethernet16"). Even after that fix, dut_names is the
-        # canonical source of truth for actual device handles. Using dut_map risked skipping
-        # real devices if _iter_candidate_duts missed any; dut_names never does.
-        for dut_alias in self.data.dut_names:
-            dut = dut_alias
-            try:
-                # Step 1: Verify the BGP Docker container itself is running
-                # Must use type="bash" — sudo docker commands are Linux shell commands.
-                ps_output = st.show(
-                    dut,
-                    "sudo docker ps --filter name=^bgp$ --filter status=running -q",
-                    type="bash",
-                    skip_error_check=True,
-                    skip_tmpl=True
-                )
-                ps_str = str(ps_output).strip() if ps_output else ""
-                if not ps_str or ps_str in ("None", "[]", ""):
-                    st.log(f"BGP container not running on {dut_alias}, starting it")
-                    st.config(
-                        dut,
-                        "sudo docker start bgp",
-                        type="bash",
-                        skip_error_check=True
-                    )
-                    st.wait(15, f"Waiting for BGP container to start on {dut_alias}")
-                else:
-                    st.log(f"BGP container is running on {dut_alias}")
-
-                # Step 2: Check frrcfgd process inside the container
-                output = st.show(
-                    dut,
-                    "sudo docker exec bgp supervisorctl status frrcfgd",
-                    type="bash",
-                    skip_error_check=True,
-                    skip_tmpl=True
-                )
-                output_str = str(output) if output else ""
-                if "RUNNING" not in output_str.upper():
-                    st.log(f"frrcfgd not RUNNING on {dut_alias} (output: {output_str[:80]}), restarting")
-                    st.config(
-                        dut,
-                        "sudo docker exec bgp supervisorctl start frrcfgd",
-                        type="bash",
-                        skip_error_check=True
-                    )
-                    st.wait(10, f"Waiting for frrcfgd to start on {dut_alias}")
-                    # Confirm it is now running
-                    output2 = st.show(
-                        dut,
-                        "sudo docker exec bgp supervisorctl status frrcfgd",
-                        type="bash",
-                        skip_error_check=True,
-                        skip_tmpl=True
-                    )
-                    st.log(f"frrcfgd status on {dut_alias} after restart: {str(output2)[:80]}")
-                else:
-                    st.log(f"frrcfgd is RUNNING on {dut_alias}")
-            except Exception as exc:
-                st.log(f"Error checking BGP container/frrcfgd on {dut_alias}: {exc}")
-
-    def _verify_kernel_static_routes(self, testcase: SpyTestDict) -> None:
-        """Verify that static routes are installed in kernel FIB (shown as S>* in FRR).
-
-        Root cause (bgp_loopback.txt): On vsonic devices the SONiC interface name
-        (e.g. Ethernet16) may not match the kernel interface name (e.g. eth5).
-        frrcfgd writes the static route referencing the SONiC name, but the kernel
-        cannot resolve it, so the route remains as 'S' (defined) not 'S>*' (installed).
-        Fallback: inject the route directly into the kernel with 'sudo ip route add'.
-        """
-        st.banner("Verifying static routes are installed in kernel FIB (S>*)")
-        st.wait(5, "Waiting for frrcfgd to program static routes into FIB")
-        for route_cfg in testcase.get("static_routes", []):
-            dut_alias = route_cfg.get("dut")
-            dut = self._resolve_dut(dut_alias)
-            if not dut:
-                continue
-            destination = route_cfg.get("destination", "")
-            next_hop = route_cfg.get("next_hop", "")
-            prefix = destination.split("/")[0] if "/" in destination else destination
-
-            try:
-                # Use type="bash" (ip route show) so the entire function stays in bash mode.
-                # Using type="klish" for the check then type="bash" for the injection causes
-                # "Unknown prompt/mode" because the klish command leaves the device in klish
-                # exec mode and spytest cannot switch back to bash for the next command.
-                output = st.show(
-                    dut,
-                    f"ip route show {destination}",
-                    type="bash",
-                    skip_error_check=True,
-                    skip_tmpl=True
-                )
-                output_str = str(output) if output else ""
-                if output_str.strip() and prefix in output_str:
-                    st.log(f"Route {destination} is already in kernel FIB on {dut_alias}")
-                else:
-                    st.log(
-                        f"Route {destination} not in kernel FIB on {dut_alias} "
-                        f"(ip route output: {output_str[:120]}) - injecting directly into kernel"
-                    )
-                    # Direct kernel injection as workaround for vsonic interface name mismatch
-                    # (bgp_loopback.txt finding #7: Ethernet16 != eth5 in kernel on vsonic)
-                    # Must use type="bash" — this is a Linux shell command, not a klish command.
-                    st.config(
-                        dut,
-                        f"sudo ip route add {destination} via {next_hop}",
-                        type="bash",
-                        skip_error_check=True
-                    )
-                    st.log(f"Direct kernel route injected: {destination} via {next_hop} on {dut_alias}")
-            except Exception as exc:
-                st.log(f"Error verifying/injecting route {destination} on {dut_alias}: {exc}")
 
     def _verify_loopback_ping(self, testcase: SpyTestDict) -> None:
         """Verify ping connectivity between loopback interfaces."""
@@ -592,19 +431,14 @@ class TestBgpLoopbackIpv4:
 
             # Configure BGP router with router-id using direct CLI
             # In klish mode, the command is "router-id" not "bgp router-id"
-            # Step 1: Cleanup any pre-existing BGP config (skip_error_check=True in case no BGP exists)
-            st.config(dut, [
+            bgp_config = [
                 "configure terminal",
                 "no router bgp",
-                "end"
-            ], type="klish", skip_error_check=True)
-            # Step 2: Configure BGP router (skip_error_check=False to catch real config errors)
-            st.config(dut, [
-                "configure terminal",
                 f"router bgp {local_asn}",
                 f"router-id {router_id}",
                 "end"
-            ], type="klish", skip_error_check=False)
+            ]
+            st.config(dut, bgp_config, type="klish", skip_error_check=False)
             st.log(f"BGP router configured on {router_cfg.get('dut')}")
 
     def _configure_bgp_neighbors(self, testcase: SpyTestDict) -> None:
@@ -634,17 +468,10 @@ class TestBgpLoopbackIpv4:
             ]
 
             # Add update-source if specified (in neighbor config mode, no "neighbor X.X.X.X" prefix)
-            # Note: ebgp-multihop is NOT added here. ebgp-multihop applies only to eBGP
-            # (different AS) peers. For iBGP over loopback (same AS = 65001), iBGP sessions
-            # are not TTL-limited regardless of hop count; ebgp-multihop is semantically
-            # incorrect and would produce a CLI error or be silently ignored. Confirmed by
-            # manual testing (bgp_ipv4_loopback.txt): BGP established without multihop.
             if update_source:
                 neighbor_config.append(f"update-source interface {update_source}")
-                # Do NOT exit here — stay in config-router-bgp-neighbor so that
-                # 'address-family' enters config-router-bgp-neighbor-af (per-neighbor AF)
-                # where 'activate' is valid. Exiting first would enter the global AF context
-                # (config-router-bgp-af) where 'activate' causes "Invalid input detected".
+                # Add ebgp-multihop for loopback peering (required for BGP over loopback)
+                neighbor_config.append(f"ebgp-multihop 2")
 
             # Activate in address-family context (in AF mode, no "neighbor X.X.X.X" prefix)
             if activate:
@@ -702,9 +529,9 @@ class TestBgpLoopbackIpv4:
         Steps:
             1. Create Loopback0 on both DUTs
             2. Configure IP addresses on Loopback0 interface
-            3. Configure underlay IP addresses on D1D2P1/D2D1P1 (resolved from topology)
+            3. Configure underlay IP addresses on Ethernet4
             4. Configure static routes for loopback reachability
-            5. Configure BGP router with AS 65001 on both DUTs
+            5. Configure BGP router with AS 65100 on both DUTs
             6. Configure iBGP neighbors using loopback IPs with update-source
             7. Activate IPv4 unicast address family
             8. Verify BGP session establishment
@@ -717,27 +544,11 @@ class TestBgpLoopbackIpv4:
         self._configure_underlay_interfaces(testcase)
         self._configure_static_routes(testcase)
 
-        # Ensure frrcfgd is running so static routes are programmed into FRR/kernel
-        # (bgp_loopback.txt: frrcfgd was STOPPED on both D1 and D2 causing routes to
-        # remain un-installed and loopback pings to fail)
-        self._ensure_frrcfgd_running()
-
-        # Verify static routes are installed in kernel FIB (S>*); fall back to direct
-        # kernel injection if only 'S' (vsonic Ethernet16 != eth5 naming issue)
-        self._verify_kernel_static_routes(testcase)
-
         # Verify loopback ping before BGP configuration
         self._verify_loopback_ping(testcase)
 
         self._configure_bgp_routers(testcase)
         self._configure_bgp_neighbors(testcase)
-
-        # Wait for BGP container to settle after configuration changes.
-        # SONiC may restart the bgp container when BGP_GLOBALS/BGP_NEIGHBOR entries
-        # are written to CONFIG_DB. Without this wait, the subsequent 'sudo vtysh'
-        # call inside verify_bgp_summary fails with "Container is not running".
-        st.wait(30, "Waiting for BGP container to settle after BGP configuration")
-        self._ensure_frrcfgd_running()
 
         # Verification phase
         self._verify_bgp_sessions(testcase)
@@ -755,9 +566,9 @@ class TestBgpLoopbackIpv4:
 
         Steps:
             1. Verify BGP session is established (from test 001)
-            2. Shutdown underlay interface (D1D2P1, resolved from topology) on DUT1
+            2. Shutdown underlay interface (Ethernet4) on DUT1
             3. Verify BGP session goes down
-            4. Bring up underlay interface (D1D2P1) on DUT1
+            4. Bring up underlay interface (Ethernet4) on DUT1
             5. Verify BGP session re-establishes
         """
         testcase = self._get_testcase("BGP-LB-002")
@@ -1088,12 +899,8 @@ class TestBgpLoopbackIpv4:
             st.log("Devices rebooted successfully")
 
             # Step 4: Wait for devices to come back online
-            # st.reboot() already waits for SSH to be reachable (OS boot phase).
-            # This additional wait covers SONiC container startup (syncd, bgpd, etc.)
-            # which can take 5-8 minutes after SSH is available, especially on
-            # virtual devices. 480s (8 min) covers the upper end of that range.
             st.banner("Step 4: Wait for devices to come back online")
-            st.wait(480, "Waiting for SONiC containers (bgpd/syncd) to stabilize after reboot")
+            st.wait(90, "Waiting for devices to stabilize after reboot")
 
             # Step 5-7: Verify interfaces and configuration after reboot
             st.banner("Step 5-7: Verify interfaces after reboot")
@@ -1113,7 +920,7 @@ class TestBgpLoopbackIpv4:
                     try:
                         # Restart BGP daemon
                         st.config(dut, "sudo systemctl restart bgp", type="klish", skip_error_check=True)
-                        st.wait(90, f"Waiting for BGP daemon to restart on {dut_name}")
+                        st.wait(15, f"Waiting for BGP daemon to restart on {dut_name}")
                     except Exception as e:
                         st.log(f"Error restarting BGP on {dut_name}: {e}")
                 else:
@@ -1141,16 +948,6 @@ class TestBgpLoopbackIpv4:
 
             # Wait longer for BGP to re-establish after reboot
             st.wait(60, "Additional wait for BGP to re-establish after reboot")
-
-            # Re-inject kernel static routes that were cleared by reboot.
-            # On vsonic (D2), CONFIG_DB static routes via "Ethernet16" cannot be
-            # programmed by intfmgrd into the kernel because the SONiC interface
-            # name (Ethernet16) does not match the kernel interface name (eth5).
-            # _verify_kernel_static_routes injects them with 'sudo ip route add'
-            # as a transient workaround — this is lost on reboot, so we must call
-            # it again here, after the reboot, before BGP session verification.
-            testcase_001_for_routes = self._get_testcase("BGP-LB-001")
-            self._verify_kernel_static_routes(testcase_001_for_routes)
 
             # Verify static routes are present after reboot
             st.log("Verifying static routes are present after reboot")
