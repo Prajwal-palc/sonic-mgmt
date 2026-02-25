@@ -749,54 +749,96 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
         <div class="header">
             <h1>{dashboard_name}</h1>
             <p>Generated on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
-            <p>Total Test Runs: {len(test_runs)} | Date Range: {dates[0] if dates else "N/A"} to {dates[-1] if dates else "N/A"}</p>
+            <p>Total Batches: {len(test_runs)} | Unique Dates: {len(set([r.date for r in test_runs]))} | Date Range: {dates[0] if dates else "N/A"} to {dates[-1] if dates else "N/A"}</p>
         </div>
 
         <div class="summary-cards">
 '''
 
-    # Calculate summary statistics from latest run
+    # Calculate summary statistics - aggregate all batches from latest date
     if test_runs:
-        latest = test_runs[-1]
-        prev = test_runs[-2] if len(test_runs) > 1 else None
+        # Get latest date
+        latest_date = test_runs[-1].date
+
+        # Aggregate all batches from the latest date
+        latest_date_runs = [run for run in test_runs if run.date == latest_date]
+
+        # Aggregate statistics
+        latest_total_tests = sum(run.total_tests for run in latest_date_runs)
+        latest_passed = sum(run.passed for run in latest_date_runs)
+        latest_failed = sum(run.failed for run in latest_date_runs)
+        latest_skipped = sum(run.skipped for run in latest_date_runs)
+        latest_duration = sum(run.duration for run in latest_date_runs)
+        latest_pass_rate = (latest_passed / latest_total_tests * 100) if latest_total_tests > 0 else 0
+
+        # Get previous date runs for comparison
+        unique_dates = sorted(list(set([run.date for run in test_runs])))
+        prev_date = unique_dates[-2] if len(unique_dates) > 1 else None
+
+        prev_total_tests = 0
+        prev_passed = 0
+        prev_failed = 0
+        prev_duration = 0
+
+        if prev_date:
+            prev_date_runs = [run for run in test_runs if run.date == prev_date]
+            prev_total_tests = sum(run.total_tests for run in prev_date_runs)
+            prev_passed = sum(run.passed for run in prev_date_runs)
+            prev_failed = sum(run.failed for run in prev_date_runs)
+            prev_duration = sum(run.duration for run in prev_date_runs)
+
+        # Calculate total unique tests across all runs
+        total_unique_tests = len(test_level_data) if test_level_data else latest_total_tests
 
         pass_change = ""
         fail_change = ""
-        if prev:
-            pass_diff = latest.passed - prev.passed
-            fail_diff = latest.failed - prev.failed
+        if prev_date:
+            pass_diff = latest_passed - prev_passed
+            fail_diff = latest_failed - prev_failed
             pass_change = f'<span class="{"trend-up" if pass_diff > 0 else "trend-down"}">{"↑" if pass_diff > 0 else "↓"} {abs(pass_diff)}</span>'
             fail_change = f'<span class="{"trend-down" if fail_diff > 0 else "trend-up"}">{"↑" if fail_diff > 0 else "↓"} {abs(fail_diff)}</span>'
 
         duration_change = ""
-        if prev:
-            duration_diff = latest.duration - prev.duration
+        if prev_date:
+            duration_diff = latest_duration - prev_duration
             duration_change = f'<span class="{"trend-down" if duration_diff < 0 else ("trend-up" if duration_diff > 0 else "")}">{"↓" if duration_diff < 0 else ("↑" if duration_diff > 0 else "=")} {abs(int(duration_diff))}s</span>'
+
+        # Format duration
+        latest_duration_str = ""
+        hours = int(latest_duration // 3600)
+        minutes = int((latest_duration % 3600) // 60)
+        seconds = int(latest_duration % 60)
+        if hours > 0:
+            latest_duration_str = f"{hours}h {minutes}m {seconds}s"
+        elif minutes > 0:
+            latest_duration_str = f"{minutes}m {seconds}s"
+        else:
+            latest_duration_str = f"{seconds}s"
 
         html_content += f'''
             <div class="card total">
                 <h3>Total Tests</h3>
-                <div class="value">{latest.total_tests}</div>
-                <div class="change">Latest Run</div>
+                <div class="value">{total_unique_tests}</div>
+                <div class="change">Unique Tests</div>
             </div>
             <div class="card pass">
                 <h3>Passed</h3>
-                <div class="value">{latest.passed}</div>
+                <div class="value">{latest_passed}</div>
                 <div class="change">{pass_change}</div>
             </div>
             <div class="card fail">
                 <h3>Failed</h3>
-                <div class="value">{latest.failed}</div>
+                <div class="value">{latest_failed}</div>
                 <div class="change">{fail_change}</div>
             </div>
             <div class="card rate">
                 <h3>Pass Rate</h3>
-                <div class="value">{latest.calculate_pass_rate():.1f}%</div>
-                <div class="change">Current</div>
+                <div class="value">{latest_pass_rate:.1f}%</div>
+                <div class="change">Latest Date ({latest_date.strftime("%Y-%m-%d")})</div>
             </div>
             <div class="card duration">
                 <h3>Execution Time</h3>
-                <div class="value" style="font-size:1.8em">{latest.format_duration()}</div>
+                <div class="value" style="font-size:1.8em">{latest_duration_str}</div>
                 <div class="change">{duration_change}</div>
             </div>
 '''
@@ -959,9 +1001,10 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
                             <th class="sortable" onclick="sortTable(1)">Module</th>
 '''
 
-    # Add date columns
+    # Add date columns (reversed - newest first for accessibility)
     col_idx = 2
-    for date in test_dates:
+    reversed_dates = list(reversed(test_dates))
+    for date in reversed_dates:
         html_content += f'                            <th class="sortable" onclick="sortTable({col_idx})">{date}</th>\n'
         col_idx += 1
 
@@ -995,8 +1038,8 @@ def generate_html_dashboard(test_runs, output_file, dashboard_name="Historical T
         html_content += f'                            <td class="test-name" title="{test_name}">{test_name}</td>\n'
         html_content += f'                            <td class="module-name" title="{module}">{module}</td>\n'
 
-        # Add status for each date
-        for date in test_dates:
+        # Add status for each date (reversed order - newest first)
+        for date in reversed_dates:
             status = '-'
             status_class = 'status-none'
 

@@ -8,12 +8,12 @@ devices:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.212
+      ip: 192.168.100.152
       port: 22
     credentials:
       username: admin
-      password: Root@123
-      altpassword: Root@123
+      password: root@123
+      altpassword: root@123
     properties:
       services: default
       build: default
@@ -24,12 +24,12 @@ devices:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.101
+      ip: 192.168.100.189
       port: 22
     credentials:
       username: admin
-      password: Root@123
-      altpassword: Root@123
+      password: root@123
+      altpassword: root@123
     properties:
       services: default
       build: default
@@ -40,12 +40,12 @@ devices:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.248
+      ip: 192.168.100.229
       port: 22
     credentials:
       username: admin
-      password: Root@123
-      altpassword: Root@123
+      password: root@123
+      altpassword: root@123
     properties:
       services: default
       build: default
