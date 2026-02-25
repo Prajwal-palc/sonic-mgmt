@@ -1,0 +1,36 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "TC-SONIC-IPV6-REDIS-01":
+    title: "IPv6 Interface Configuration State Validation"
+    description: "Verify that toggling IPv6 on/off correctly updates Redis CONFIG_DB without stale entries"
+    redis_db: "CONFIG_DB"
+    # Expected key patterns (interface name will be substituted at runtime)
+    expected_key_patterns:
+      - "INTERFACE|{interface}"
+      - "PORT|{interface}"
+
+  "TC-SONIC-IP-VALIDATION-02":
+    title: "Invalid Address Assignment Validation"
+    description: "Ensure system prevents assignment of invalid IPv4 addresses with proper error format"
+    invalid_ips:
+      - address: "224.1.1.1/24"
+        type: "multicast"
+        # Expected error format pattern (interface and IP substituted at runtime)
+        expected_error_pattern: "%Error: Interface {interface} invalid IPv4 address: {ip}"
+    # Valid error message format (used to detect malformed output)
+    valid_error_format:
+      prefix: "%Error:"
+      # Patterns that indicate malformed/unexpected output
+      reject_patterns:
+        - "\\|phy-if-name\\|"
+        - "\\|mode=\\|"
+        - "\\|min-links=\\|"
+        - "\\|fallback=\\|"
+        - "\\|fast_rate="
+        - ";\\|"
