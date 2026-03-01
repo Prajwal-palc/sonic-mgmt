@@ -1,0 +1,57 @@
+# Hardware Testbed Configuration - 2 Node Back-to-Back
+# Topology: D1 (172.31.56.41) <--> D2 (172.31.58.251)
+# Connection: Ethernet264 back-to-back
+
+version: 2.0
+
+devices:
+  D1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 172.31.56.41
+      port: 22
+    credentials:
+      username: admin
+      password: Super123!
+      altpassword: Super123!
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+
+  D2:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 172.31.58.251
+      port: 22
+    credentials:
+      username: admin
+      password: Super123!
+      altpassword: Super123!
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+
+topology:
+  D1:
+    interfaces:
+      Ethernet264:
+        EndDevice: D2
+        EndPort: Ethernet264
+
+  D2:
+    interfaces:
+      Ethernet264:
+        EndDevice: D1
+        EndPort: Ethernet264
+
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}

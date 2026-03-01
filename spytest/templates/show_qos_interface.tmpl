@@ -1,0 +1,33 @@
+Value INTERFACE (\S+)
+Value PFC_PRIORITY_PG_MAP (\S+)
+Value DSCP_TC_MAP (\S+)
+Value TC_QUEUE_MAP (\S+)
+Value PFC_WATCHDOG_STATUS (\S+)
+Value PFC_WATCHDOG_ACTION (\S+)
+Value PFC_WATCHDOG_DETECTION_TIME (\S+)
+Value PFC_WATCHDOG_RESTORATION_TIME (\S+)
+
+Start
+  ^Ethernet.*Interface\s+${INTERFACE} -> QoS_Data
+  ^\s*pfc-priority-pg-map:\s+${PFC_PRIORITY_PG_MAP} -> Record
+  ^\s*dscp-tc-map:\s+${DSCP_TC_MAP}
+  ^\s*tc-queue-map:\s+${TC_QUEUE_MAP}
+  ^\s*PFC\s+Watchdog -> PFC_Watchdog
+  ^$$ -> Start
+
+PFC_Watchdog
+  ^\s+Status\s+:\s+${PFC_WATCHDOG_STATUS}
+  ^\s+Action\s+:\s+${PFC_WATCHDOG_ACTION}
+  ^\s+Detection\s+Time\s+:\s+${PFC_WATCHDOG_DETECTION_TIME}
+  ^\s+Restoration\s+Time\s+:\s+${PFC_WATCHDOG_RESTORATION_TIME}
+  ^$$ -> Record Start
+
+QoS_Data
+  ^\s*pfc-priority-pg-map:\s+${PFC_PRIORITY_PG_MAP}
+  ^\s*dscp-tc-map:\s+${DSCP_TC_MAP}
+  ^\s*tc-queue-map:\s+${TC_QUEUE_MAP}
+  ^\s*PFC\s+Watchdog -> PFC_Watchdog
+  ^$$ -> Record Start
+  ^\s*$$ -> Record Start
+
+End

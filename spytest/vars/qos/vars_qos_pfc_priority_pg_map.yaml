@@ -1,0 +1,65 @@
+# QoS PFC Priority-to-PG Mapping Test Configuration
+# Test ID: 4.25.16
+# Feature: QoS - PFC Priority to Priority-Group Mapping
+
+# Minimum topology requirement
+# Format: ["D1D2:1"] means 1 link between D1 and D2
+min_topology:
+  - "D1D2:1"
+
+# PFC Map Configuration
+pfc_map_name: "PFC_PG_MAP"
+
+# PFC Priority to Priority-Group Mappings
+# Format: "priority_list": pg_number
+pfc_pg_mappings:
+  "0,1,2,5-7": 0  # Priorities 0,1,2,5,6,7 mapped to PG 0
+  "3": 3          # Priority 3 mapped to PG 3
+  "4": 4          # Priority 4 mapped to PG 4
+
+# VLAN Configuration
+vlan_id: 100
+
+# PFC Priorities to Enable on Interfaces
+pfc_priorities:
+  - 3
+  - 4
+
+# PFC Watchdog Configuration
+watchdog_detect_time: 100  # milliseconds
+
+# Interface Configuration
+# Note: Interfaces will be automatically discovered from topology
+# Leave empty or set to 'auto' to use all D1-D2 links from testbed
+# Or specify number of links to use: e.g., num_links: 1
+d1_interfaces: []  # Auto-discovered from topology
+d2_interfaces: []  # Auto-discovered from topology
+
+# Number of D1-D2 links to use (0 = use all available)
+num_links: 0  # 0 means use all D1-D2 links from testbed
+
+# Test-specific parameters
+test_params:
+  # Skip traffic generation tests if set to true
+  skip_traffic_tests: true
+
+  # CLI type to use (klish, click, rest-patch, rest-put, gnmi)
+  cli_type: "klish"
+
+  # Expected PFC Priority to PG mappings for verification
+  # Format: priority: pg
+  expected_pfc_pg_map:
+    0: 0
+    1: 0
+    2: 0
+    3: 3
+    4: 4
+    5: 0
+    6: 0
+    7: 0
+
+# Notes:
+# 1. Interfaces must be in L2 mode (no IP address) to be added to VLANs
+# 2. Update interface names according to your testbed configuration
+# 3. Ensure the interfaces exist on both DUTs and are connected
+# 4. The test will automatically remove IP addresses before VLAN configuration

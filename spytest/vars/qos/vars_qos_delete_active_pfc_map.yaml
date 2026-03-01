@@ -1,0 +1,32 @@
+# Test configuration for QoS Test Case 4.25.15 - Delete Active PFC Map
+# This YAML file contains test parameters for validating PFC map deletion behavior
+
+# Minimum topology requirements
+min_topology:
+  - "D1"  # Single DUT required
+
+# PFC Map Configuration
+pfc_map_name: "pfc_pg_map"
+
+# PFC Priority to Priority-Group Mappings
+pfc_mappings:
+  "0,1,2,5-7": 0  # Priorities 0,1,2,5,6,7 -> PG 0
+  "3": 3          # Priority 3 -> PG 3
+  "4": 4          # Priority 4 -> PG 4
+
+# Interface configuration
+test_interface: "Ethernet8"  # Interface to apply PFC map
+
+# PFC priorities to enable
+pfc_priorities:
+  - 3
+  - 4
+
+# Test behavior flags
+expect_deletion_blocked: false  # Set to true if deletion should be blocked
+test_traffic_impact: false      # Set to true to test PFC functionality during inconsistent state
+verify_running_config: true     # Verify running configuration after deletion
+test_reboot_persistence: false  # Set to true to test if inconsistent state persists after reboot
+
+# CLI type preference
+cli_type: "klish"

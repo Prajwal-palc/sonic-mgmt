@@ -1,0 +1,22 @@
+Value MAP_NAME (\S+)
+Value PFC_PRIORITY (\d+)
+Value PG (\d+)
+
+Start
+  ^PFC-Priority-Priority-Group-MAP:\s+${MAP_NAME} -> PFC_Table
+  ^PFC-Priority-Priority-Group-MAP -> PFC_Table
+
+PFC_Table
+  ^-+\s+-+ -> PFC_Header
+
+PFC_Header
+  ^\s+PFC\s+Priority\s+PG -> PFC_Data
+  ^-+\s+-+ -> PFC_Data
+
+PFC_Data
+  ^\s+${PFC_PRIORITY}\s+${PG}\s*$$ -> Record
+  ^-+ -> End
+  ^$$ -> Start
+  ^\s*$$ -> Start
+
+End
