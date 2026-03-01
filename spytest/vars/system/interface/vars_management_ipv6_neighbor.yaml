@@ -1,0 +1,25 @@
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  min_topology:
+    - "D1"
+
+testcases:
+  "TC-SONIC-MGMT-AUTOCONFIG-03":
+    title: "Management Interface IPv6 Autoconfig Persistence"
+    description: "Verify IPv6 autoconfig persists in running configuration"
+    # Management interface name determined by CLI type at runtime
+    # klish: Management 0, click: eth0
+
+  "TC-SONIC-NEIGHBOR-VISIBILITY-04":
+    title: "Neighbor Table Visibility for Management Interface"
+    description: "Ensure Management0 appears in ARP and IPv6 neighbor tables"
+    expected_interface_klish: "Management0"
+    expected_interface_click: "eth0"
+    min_entries: 0  # Minimum entries expected (may be 0 if no network traffic)
+
+  "TC-SONIC-MGMT-AUTOCONFIG-REMOVAL-04":
+    title: "Management Interface IPv6 Autoconfig Removal Validation"
+    description: "Verify IPv6 autoconfig is removed from running configuration after no command"
+    # Management interface name determined by CLI type at runtime
