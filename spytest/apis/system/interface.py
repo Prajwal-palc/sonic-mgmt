@@ -1644,6 +1644,9 @@ def config_ifname_type(dut, config='yes', cli_type="", ifname_type="alias", **kw
 
     reboot_needed = False
     output = show_ifname_type(dut, cli_type='klish')
+    if not output:
+        st.log("Interface naming info not available, skipping reboot check", dut=dut)
+        return True
     config_mode = output[0]['mode']
     oper_mode = output[0]['oper_mode']
     if config_mode == 'standard-extended':
@@ -1684,7 +1687,7 @@ def show_ifname_type(dut, **kwargs):
         st.error("Provided invalid CLI type-{}".format(cli_type))
         return False
     '''
-    return None
+    return []  # Return empty list to prevent subscript errors
 
 
 def verify_ifname_type(dut, mode='native', cli_type=''):

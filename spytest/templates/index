@@ -29,6 +29,9 @@ show_clock.tmpl, .*, sonic, show clock
 show_interfaces_counters_detailed.tmpl, .*, sonic, show (interfaces|interface) counters (detailed|Ethernet\d+|Eth\d+\/\d+\/\d+|Eth\d+\/\d+)
 show_qos_map_tc_pg.tmpl, .*, sonic, show qos map tc-pg
 show_qos_map_pfc_priority_queue.tmpl, .*, sonic, show qos map pfc-priority-queue
+show_qos_map_pfc-priority-pg.tmpl, .*, sonic, show qos map pfc-priority-pg
+show_qos_interface.tmpl, .*, sonic, show qos interface
+show_pfc_priority.tmpl, .*, sonic, show pfc priority
 sonic_snmp_yml.tmpl, .*, sonic, cat /etc/sonic/snmp.yml
 show_uptime.tmpl, .*, sonic, show uptime
 show_acl_table_qa.tmpl, .*, sonic, show acl table

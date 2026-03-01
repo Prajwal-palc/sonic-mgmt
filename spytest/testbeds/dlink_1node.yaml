@@ -1,0 +1,28 @@
+# D-Link 1 Node Testbed Configuration
+# Topology: Single DUT standalone configuration
+# Use for tests that don't require device-to-device connectivity
+
+version: 2.0
+
+devices:
+  D1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.220
+      port: 22
+    credentials:
+      username: admin
+      password: sonic@123
+      altpassword: YourPaSsWoRd
+    properties: {services: default, build: default, config: default, errors: default}
+
+topology:
+  D1:
+    interfaces: {}
+
+services: {default: {name: default}}
+builds:   {default: {name: default}}
+configs:  {default: {name: default}}
+errors:   {default: {}}
+params:   {}

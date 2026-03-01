@@ -1,0 +1,13 @@
+Value INTERFACE (\S+)
+Value PRIORITIES ([\d,]+)
+
+Start
+  ^Interface\s+Lossless\s+priorities -> PFC_Table
+
+PFC_Table
+  ^-+\s+-+ -> PFC_Data
+
+PFC_Data
+  ^${INTERFACE}\s+${PRIORITIES} -> Record
+  ^$$ -> Start
+  ^\s*$$ -> Start
