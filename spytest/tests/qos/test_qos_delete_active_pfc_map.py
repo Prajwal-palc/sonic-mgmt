@@ -597,7 +597,7 @@ def test_qos_delete_active_pfc_map():
             st.log("Checking running configuration:")
             # Use click mode for show runningconfiguration command
             output = st.show(vars.D1, f"show runningconfiguration interfaces {data.test_interface}",
-                           type="click", skip_error_check=True)
+                           type="click", skip_error_check=True, skip_tmpl=True)
             st.log(f"Running Config:\n{output}")
 
     except Exception as e:
