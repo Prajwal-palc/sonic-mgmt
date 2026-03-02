@@ -40,7 +40,7 @@ devices:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.143
+      ip: 192.168.100.88
       port: 22
     credentials:
       username: admin

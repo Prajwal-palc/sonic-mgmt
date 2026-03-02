@@ -733,4 +733,32 @@ else
     echo "Note: Error generating historical dashboard"
 fi
 
+# Generate Consolidated Dashboard (All Dates)
+echo "=============================================="
+echo " Generating Consolidated Dashboard"
+echo "=============================================="
+
+CONSOLIDATED_DASHBOARD="${USER_DASHBOARD_DIR}/sm_iscli_consolidated_${DATE_DIR}_${TIME_STAMP}.html"
+
+python3 dashboard/scripts/generate_consolidated_dashboard.py \
+    --log-root "${SM_ISCLI_REPORT_ROOT}" \
+    --out "${CONSOLIDATED_DASHBOARD}" \
+    --name "SM_ISCLI Consolidated Dashboard - All Dates"
+
+if [ -f "${CONSOLIDATED_DASHBOARD}" ]; then
+    echo "=============================================="
+    echo " Consolidated Dashboard Generated"
+    echo "=============================================="
+    echo "Consolidated Dashboard available at:"
+    echo "file://${CONSOLIDATED_DASHBOARD}"
+
+    # Also copy to Athira Dashboard directory
+    cp "${CONSOLIDATED_DASHBOARD}" "${ATHIRA_DASHBOARD_DIR}/"
+    echo ""
+    echo "Consolidated Dashboard copy saved to:"
+    echo "file://${ATHIRA_DASHBOARD_DIR}/sm_iscli_consolidated_${DATE_DIR}_${TIME_STAMP}.html"
+else
+    echo "Note: Error generating consolidated dashboard"
+fi
+
 
