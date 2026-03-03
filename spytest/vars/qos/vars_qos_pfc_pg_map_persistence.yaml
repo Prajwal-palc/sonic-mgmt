@@ -1,0 +1,110 @@
+# QoS PFC Priority-to-PG Map Configuration Persistence Testing
+# Test ID: 4.25.17
+# Feature: QoS - PFC Priority to Priority-Group Map Persistence After Reboot
+
+# Minimum topology requirement
+min_topology:
+  - "D1"
+
+# Default settings
+defaults:
+  cli_type: "klish"
+  verify_timeout: 30
+  cleanup: true
+  reboot_timeout: 300  # 5 minutes for device reboot
+
+# PFC Map Configuration for Persistence Testing
+test_map_name: "pfcmap"
+
+# Test interface for map application
+test_interface: "Ethernet4"
+
+# Test Cases Configuration
+testcases:
+  "4.25.17":
+    title: "Verify PFC-Priority-PG configuration persistence after reboot"
+    description: "Validate that PFC-Priority-PG map configurations and interface bindings persist across device reboot cycles"
+
+    # PFC-Priority-PG Map Configuration
+    pfc_map_config:
+      map_name: "pfcmap"
+      priority_mappings:
+        # Individual priority mapping
+        - priorities: "0"
+          pg: 0
+          format: "individual"
+          description: "Individual priority 0 to PG 0"
+
+        # Range-based priority mapping
+        - priorities: "1-2"
+          pg: 2
+          format: "range"
+          description: "Range priorities 1-2 to PG 2"
+
+        # Comma-separated priority mapping
+        - priorities: "3,4"
+          pg: 4
+          format: "comma-separated"
+          description: "Comma-separated priorities 3,4 to PG 4"
+
+        # Combined format priority mapping
+        - priorities: "5,6-7"
+          pg: 5
+          format: "combined"
+          description: "Combined format priorities 5,6-7 to PG 5"
+
+    # Expected PFC-Priority-PG mappings after configuration
+    expected_mappings:
+      0: 0  # Individual
+      1: 2  # Range
+      2: 2  # Range
+      3: 4  # Comma-separated
+      4: 4  # Comma-separated
+      5: 5  # Combined
+      6: 5  # Combined
+      7: 5  # Combined
+
+    # PFC priorities to enable on interface
+    pfc_priorities:
+      - 3
+      - 4
+
+    # Interface binding configuration
+    interface_config:
+      interface: "Ethernet4"
+      map_name: "pfcmap"
+      enabled_priorities: [3, 4]
+
+    # Reboot configuration
+    reboot_config:
+      reboot_type: "normal"  # normal, fast, warm
+      save_config: true
+      wait_for_system_ready: true
+      max_reboot_time: 300  # seconds
+
+    # Post-reboot validation
+    post_reboot_validation:
+      verify_map_exists: true
+      verify_mappings: true
+      verify_interface_binding: true
+      verify_pfc_priorities: true
+      verify_running_config: true
+      verify_pfc_counters: true
+
+# Known Issues
+known_issues:
+  - issue_id: "SoCCI-110"
+    description: "PFC-Priority-PG map configurations do not persist across device reboots"
+    status: "Open"
+    workaround: "None available - requires software fix"
+    expected_result: "FAIL"
+    symptoms:
+      - "Map missing after reboot"
+      - "Interface binding not restored"
+      - "PFC priorities not enabled after reboot"
+
+# Notes:
+# - This test requires device reboot capability
+# - Test execution time: 10-15 minutes (includes 3-5 min reboot time)
+# - Currently failing due to known issue SoCCI-110
+# - Configuration saves successfully but not loaded after reboot
