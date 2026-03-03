@@ -1,0 +1,80 @@
+# QoS PFC Priority-to-PG Map Configuration Test
+# Test ID: 4.25.13
+# Feature: QoS - PFC Priority to Priority-Group Map Creation via CLI
+
+# Minimum topology requirement
+# Single DUT is sufficient for CLI configuration validation
+min_topology:
+  - "D1"
+
+# Default settings
+defaults:
+  cli_type: "klish"
+  verify_timeout: 30
+  cleanup: true
+
+# PFC Map Configuration for Test Case 4.25.13
+pfc_map_name: "pfcmap"
+
+# Test interface for map application
+# Will be auto-discovered from topology if not specified
+test_interface: "Ethernet4"
+
+# Test Cases Configuration
+testcases:
+  "4.25.13":
+    title: "Verify PFC-Priority to Priority-Group map creation via CLI"
+    description: "Validate CLI allows creation of PFC-Priority-PG map with various priority specification formats"
+
+    # Step 1-6: Priority mappings with different syntax formats
+    priority_mappings:
+      # Step 2: Individual priority mapping
+      - priorities: "0"
+        pg: 0
+        format: "individual"
+        description: "Individual priority syntax"
+
+      # Step 4: Range-based priority mapping
+      - priorities: "1-2"
+        pg: 2
+        format: "range"
+        description: "Range syntax"
+
+      # Step 5: Comma-separated priority mapping
+      - priorities: "3,4"
+        pg: 4
+        format: "comma-separated"
+        description: "Comma-separated syntax"
+
+      # Step 6: Combined format priority mapping
+      - priorities: "5,6-7"
+        pg: 5
+        format: "combined"
+        description: "Combined range and list format"
+
+    # Step 7: Negative test - non-existent map
+    negative_test:
+      non_existent_map: "test"
+      expected_error: true
+
+    # Step 9: PFC priorities to enable
+    pfc_priorities:
+      - 3
+      - 4
+
+    # Expected PFC-Priority-PG mappings after configuration
+    expected_mappings:
+      0: 0  # Individual
+      1: 2  # Range
+      2: 2  # Range
+      3: 4  # Comma-separated
+      4: 4  # Comma-separated
+      5: 5  # Combined
+      6: 5  # Combined
+      7: 5  # Combined
+
+# Notes:
+# - Test validates different priority specification formats
+# - All 8 PFC priorities (0-7) should be mapped
+# - CLI should accept: individual (0), range (1-2), comma-separated (3,4), combined (5,6-7)
+# - Negative test verifies error handling for non-existent maps

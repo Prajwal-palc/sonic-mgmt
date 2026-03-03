@@ -1,0 +1,149 @@
+# QoS PFC Priority-to-PG Map Negative Testing Configuration
+# Test ID: 4.25.14
+# Feature: QoS - PFC Priority to Priority-Group Map CLI Validation
+
+# Minimum topology requirement
+min_topology:
+  - "D1"
+
+# Default settings
+defaults:
+  cli_type: "klish"
+  verify_timeout: 30
+  cleanup: true
+
+# PFC Map Configuration for Negative Testing
+test_map_name: "pfc_pg_map"
+
+# Test interface for map application
+test_interface: "Ethernet4"
+
+# Test Cases Configuration
+testcases:
+  "4.25.14":
+    title: "Verify CLI rejection for invalid PFC-Priority-PG configuration"
+    description: "Validate CLI properly rejects invalid configurations and enforces input validation"
+
+    # Invalid PFC Priority Values - Should be rejected
+    invalid_priority_values:
+      # Negative values
+      - value: "-1"
+        pg: 0
+        description: "Negative priority -1"
+        expected_error: true
+
+      - value: "-9"
+        pg: 0
+        description: "Negative priority -9"
+        expected_error: true
+
+      # Non-numeric values
+      - value: "a"
+        pg: 0
+        description: "Non-numeric priority (letter)"
+        expected_error: true
+
+      # Out of range (implicit - priority must be 0-7)
+      - value: "8"
+        pg: 0
+        description: "Out of range priority 8"
+        expected_error: true
+
+    # Invalid PG Values - Should be rejected
+    invalid_pg_values:
+      # Negative values
+      - priority: "1"
+        value: "-1"
+        description: "Negative PG -1"
+        expected_error: true
+
+      # Out of range (PG must be 0-7)
+      - priority: "1"
+        value: "9"
+        description: "Out of range PG 9"
+        expected_error: true
+
+      # Non-numeric values
+      - priority: "1"
+        value: "a"
+        description: "Non-numeric PG (letter)"
+        expected_error: true
+
+    # Valid configuration for comparison
+    valid_configuration:
+      priority: "1"
+      pg: 1
+      description: "Valid PFC priority and PG"
+      expected_error: false
+
+    # Map Name Length Validation
+    map_name_validation:
+      # Invalid - exceeds 32 characters
+      invalid_names:
+        - name: "123456789012345678901234567890123"  # 33 numeric chars
+          length: 33
+          description: "33-character numeric name"
+          expected_error: true
+
+        - name: "AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaA"  # 33 alphanumeric chars
+          length: 33
+          description: "33-character alphanumeric name"
+          expected_error: true
+
+        - name: "aaaaaaaaaaa_123456789012345678901"  # 33 chars with underscore
+          length: 33
+          description: "33-character name with underscore"
+          expected_error: true
+
+      # Valid - exactly 32 characters
+      valid_names:
+        - name: "12345678901234567890123456789012"  # 32 numeric chars
+          length: 32
+          priority: "5,6-7"
+          pg: 5
+          description: "32-character numeric name"
+          expected_error: false
+
+        - name: "AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaA"  # 32 alphanumeric chars
+          length: 32
+          priority: "3,4"
+          pg: 4
+          description: "32-character alphanumeric name"
+          expected_error: false
+
+        - name: "aaaaaaaaaaa_12345678901234567890"  # 32 chars with underscore
+          length: 32
+          priority: "1-2"
+          pg: 2
+          description: "32-character name with underscore"
+          expected_error: false
+
+    # Expected error patterns
+    error_patterns:
+      invalid_input: "Error: Invalid input"
+      incomplete_command: "Error: The command is not completed"
+      marker_pattern: "^"
+
+# Valid value ranges (for reference)
+valid_ranges:
+  pfc_priority:
+    min: 0
+    max: 7
+    description: "Valid PFC priority range (8 priorities: 0-7)"
+
+  priority_group:
+    min: 0
+    max: 7
+    description: "Valid Priority Group range (8 PGs: 0-7)"
+
+  map_name:
+    min_length: 1
+    max_length: 32
+    allowed_chars: "Alphanumeric (a-z, A-Z, 0-9), underscore (_)"
+    case_sensitive: true
+
+# Notes:
+# - Test validates CLI input validation and error handling
+# - All invalid inputs should be rejected with appropriate error messages
+# - Valid boundary values (32-char names) should be accepted
+# - Tests ensure system enforces constraints properly
