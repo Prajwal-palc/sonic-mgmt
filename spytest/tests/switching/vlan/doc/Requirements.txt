@@ -1,0 +1,8 @@
+1. VLAN functionality will be tested using a leaf–spine topology.
+2. All VLAN-related functionalities will be validated.
+3. The setup consists of one DUT and another system running the SONiC-VS image.
+4. Five ports are connected to the DUT for testing.
+5. All functionalities will be validated by sending packets using Scapy.
+6. All configurations will first be verified using show running-config.
+7. After verifying the configuration, test packets will be transmitted to validate the behavior.
+8. Test case IDs will follow the format:TC_<MODULE_NAME>_<SUBMODULE_NAME>_<THREE_DIGIT_NUMBER>.
