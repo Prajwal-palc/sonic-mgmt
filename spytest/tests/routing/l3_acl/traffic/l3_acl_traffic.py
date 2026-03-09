@@ -1,11 +1,69 @@
 #!/usr/bin/env python3
 """
-l3_acl_traffic.py — L3 ACL traffic tests (L3-01 to L3-12).
+l3_acl_traffic.py — L3 ACL Traffic Generation & Validation
+
+This script generates Scapy-based traffic on external TX/RX hosts and validates
+ACL behavior on the DUT. It sends crafted IP packets and measures packet delivery
+through the DUT to verify ACL rules are correctly enforced.
+
+Architecture:
+  TX Host (eth0: 10.0.0.1/24) →[Scapy]→ DUT Port1 →[ACL]→ DUT Port2 → RX Host (eth1: 20.0.0.2/24)
+
+  All tests are UNIDIRECTIONAL: TX → DUT → RX (no return traffic)
+
+Test Coverage:
+  - L3-01 to L3-12: Functional test cases (IP, protocol, TCP flags, 5-tuple, DSCP)
+  - L3-N01 to L3-N09: Negative test cases (edge cases, malformed packets)
+  - L3-R01 to L3-R14: Robustness test cases (persistence, stress, consistency)
+
+Prerequisites:
+  1. TX Host:
+     - Interface eth0 configured with IP 10.0.0.1/24 (use setup_ports.py)
+     - Python3 + Scapy installed
+     - Raw socket permissions (sudo or CAP_NET_RAW capability)
+
+  2. RX Host:
+     - Interface eth1 configured with IP 20.0.0.2/24 (use setup_ports.py)
+     - Promiscuous mode enabled (done by setup_ports.py)
+     - tcpdump optional for independent verification
+
+  3. DUT (SONiC):
+     - Port1 configured with IP 10.0.0.254/24 (see acl-l3.md Prerequisites)
+     - Port2 configured with IP 20.0.0.254/24
+     - ACL rules configured per test case
+     - No local firewall blocking test traffic
 
 Usage:
-  sudo python3 l3_acl_traffic.py              # run all
-  sudo python3 l3_acl_traffic.py --tc L3-04  # single test
-  sudo python3 l3_acl_traffic.py --list
+  sudo python3 l3_acl_traffic.py              # run all functional test cases (L3-01 to L3-12)
+  sudo python3 l3_acl_traffic.py --tc L3-04  # run single test case
+  sudo python3 l3_acl_traffic.py --tc L3-01,L3-02,L3-04  # run multiple tests
+  sudo python3 l3_acl_traffic.py --list       # list all available tests
+  sudo python3 l3_acl_traffic.py --timeout 10 # increase RX sniff timeout to 10 seconds
+
+Output:
+  - Console output: Pass/Fail for each test case
+  - Summary table: sent, received, pass/fail, notes
+  - Exit code: 0 if all passed, 1 if any failed
+
+Parameters:
+  --tc TESTID        Run specific test case(s), comma-separated (e.g., L3-01,L3-05)
+  --list             List all available test cases and exit
+  --timeout SECS     Override RX sniff timeout (default: 4 seconds)
+  --packet-count N   Override number of packets per test (default: 10)
+  --inter-delay SEC  Override inter-packet delay (default: 0.05 sec)
+
+Important Notes:
+  - All traffic is UNIDIRECTIONAL (TX→DUT→RX); no return traffic is tested
+  - TCP ACK test (L3-09) uses CRAFTED packets (not real TCP handshake)
+  - DSCP test (L3-12) requires HW support; skipped on SONiC-VS
+  - Pass criteria: PERMIT = RX count ≥ 90% TX; DENY = RX count == 0
+  - Negative tests (L3-N*) validate edge cases and error handling
+
+Troubleshooting:
+  - "Permission denied" → Run with sudo
+  - "No such device eth0" → Check interface names (ip link show); edit PORTS
+  - RX sees 0 packets (even PERMIT cases) → Check DUT routing (show ip route)
+  - Inconsistent results → Increase --timeout or --packet-count
 """
 import argparse, threading, time, sys
 from dataclasses import dataclass
@@ -15,16 +73,24 @@ try:
 except ImportError:
     sys.exit("[ERROR] pip3 install scapy --break-system-packages")
 
-TX_IFACE = "eth0"
-RX_IFACE = "eth1"
-TX_MAC   = "00:aa:aa:aa:aa:01"
-RX_MAC   = "00:bb:bb:bb:bb:02"
-TX_IP    = "10.0.0.1"
-RX_IP    = "20.0.0.2"
-BAD_SRC  = "10.0.0.99"    # blocked source
-BAD_DST  = "20.0.0.99"    # blocked destination
-N        = 10
-TIMEOUT  = 4
+# ── Configuration ─────────────────────────────────────────────────────────────
+
+# Network interfaces and addresses (must match setup_ports.py configuration)
+TX_IFACE = "eth0"              # TX Host interface (connected to DUT Port1)
+RX_IFACE = "eth1"              # RX Host interface (connected to DUT Port2)
+TX_MAC   = "00:aa:aa:aa:aa:01" # TX Host MAC (static)
+RX_MAC   = "00:bb:bb:bb:bb:02" # RX Host MAC (static)
+TX_IP    = "10.0.0.1"           # TX Host IP (must match setup_ports.py)
+RX_IP    = "20.0.0.2"           # RX Host IP (must match setup_ports.py)
+
+# Test-specific blocked IPs (used in negative test cases)
+BAD_SRC  = "10.0.0.99"          # Blocked source IP (L3-01, L3-10, etc.)
+BAD_DST  = "20.0.0.99"          # Blocked destination IP (L3-03)
+
+# Test parameters (can be overridden via command-line)
+N        = 10                   # Default: 10 packets per test
+TIMEOUT  = 4                    # Default: 4 second RX sniff timeout
+INTER_DELAY = 0.05              # Default: 50ms inter-packet delay
 
 @dataclass
 class Result:
@@ -44,15 +110,26 @@ def L2(dst=None):
     return Ether(src=TX_MAC, dst=dst or RX_MAC)
 
 def _tx_rx(pkts, bpf="ip") -> tuple[int, int]:
+    """
+    Send packets on TX interface and sniff packets on RX interface.
+
+    Args:
+        pkts: List of Scapy packet objects to send
+        bpf: BPF filter for sniffing (e.g., "ip", "tcp", "udp")
+
+    Returns:
+        Tuple of (packets sent, packets received)
+    """
     captured = []
     def _sniff():
         sniff(iface=RX_IFACE, filter=bpf,
               prn=lambda p: captured.append(p),
               timeout=TIMEOUT, store=False)
     t = threading.Thread(target=_sniff, daemon=True)
-    t.start(); time.sleep(0.25)
+    t.start()
+    time.sleep(0.25)  # Wait for sniffer to start
     if TX_IFACE in get_if_list():
-        sendp(pkts, iface=TX_IFACE, verbose=False, inter=0.05)
+        sendp(pkts, iface=TX_IFACE, verbose=False, inter=INTER_DELAY)
     t.join(timeout=TIMEOUT + 1)
     return len(pkts), len(captured)
 
@@ -168,16 +245,39 @@ def report():
     print()
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--tc",   help="Single TC, e.g. L3-04")
-    ap.add_argument("--list", action="store_true")
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--tc", help="Test case(s): single (L3-04) or comma-separated (L3-01,L3-02,L3-04)")
+    ap.add_argument("--list", action="store_true", help="List all available test cases")
+    ap.add_argument("--timeout", type=float, default=TIMEOUT, help=f"RX sniff timeout in seconds (default: {TIMEOUT})")
+    ap.add_argument("--packet-count", type=int, default=N, help=f"Number of packets per test (default: {N})")
+    ap.add_argument("--inter-delay", type=float, default=INTER_DELAY, help=f"Inter-packet delay in seconds (default: {INTER_DELAY})")
     args = ap.parse_args()
+
+    # Override global parameters
+    TIMEOUT = args.timeout
+    N = args.packet_count
+    INTER_DELAY = args.inter_delay
+
     if args.list:
-        [print(f"  {k}  {v.__doc__}") for k, v in ALL.items()]
+        print("\nAvailable L3 ACL Test Cases:")
+        print("─" * 60)
+        for k, v in sorted(ALL.items()):
+            print(f"  {k:<8} {v.__doc__}")
+        print()
     elif args.tc:
-        if args.tc in ALL: ALL[args.tc](); report()
-        else: print(f"Unknown TC: {args.tc}")
+        # Parse comma-separated test IDs
+        tc_list = [t.strip().upper() for t in args.tc.split(",")]
+        invalid = [t for t in tc_list if t not in ALL]
+        if invalid:
+            print(f"Unknown test cases: {invalid}")
+            sys.exit(1)
+
+        print(f"\n[L3 ACL] Running {len(tc_list)} test case(s)...")
+        for tc_id in tc_list:
+            ALL[tc_id]()
+        report()
     else:
-        print("\n[L3 ACL] Running all 12 test cases...")
+        print("\n[L3 ACL] Running all 12 functional test cases (L3-01 to L3-12)...")
+        print("(Use --tc to run specific tests; --list to see all available)")
         for fn in ALL.values(): fn()
         report()

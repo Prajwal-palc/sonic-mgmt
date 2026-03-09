@@ -1,14 +1,55 @@
 #!/usr/bin/env python3
 """
-acl_test_runner.py — Run all 20 ACL test cases with consolidated report.
+acl_test_runner.py — Master Test Runner for L2 and L3 ACL Test Suites
 
-Usage:
-  sudo python3 acl_test_runner.py               # all tests
-  sudo python3 acl_test_runner.py --suite l2    # L2 only (8 cases)
-  sudo python3 acl_test_runner.py --suite l3    # L3 only (12 cases)
-  sudo python3 acl_test_runner.py --skip-hw     # skip HW-only cases
-  sudo python3 acl_test_runner.py --tc L3-04,L2-02
+This script orchestrates the execution of both L2 and L3 ACL test cases, providing
+consolidated reporting and filtering capabilities.
+
+Architecture:
+  - Executes test cases in l2_acl_traffic.py and l3_acl_traffic.py
+  - Runs on external TX/RX hosts (not on DUT)
+  - Generates summary report with pass/fail counts
+
+Test Suites:
+  - L2 ACL: 8 test cases (MAC address, EtherType, VLAN matching)
+  - L3 ACL: 12 test cases (IP address, protocol, TCP flags, 5-tuple, DSCP)
+
+Prerequisites:
+  1. External TX and RX hosts configured (see host_setup.md)
+  2. DUT Port1 and Port2 configured with L3 addressing (see dut_setup.md)
+  3. Scapy installed: sudo pip3 install scapy --break-system-packages
+  4. Raw socket permissions: run with sudo or grant CAP_NET_RAW
+
+Usage Examples:
+  # Run all tests (L2 + L3)
+  sudo python3 acl_test_runner.py
+
+  # Run L3 tests only
+  sudo python3 acl_test_runner.py --suite l3
+
+  # Skip hardware-only tests
+  sudo python3 acl_test_runner.py --skip-hw
+
+  # Run specific test cases
+  sudo python3 acl_test_runner.py --tc L3-01,L3-04,L2-02
+
+  # Preview tests without running
   sudo python3 acl_test_runner.py --dry-run
+
+Output:
+  - Console report with per-test status (PASS/FAIL/SKIP)
+  - Summary statistics: total, passed, failed, skipped
+  - List of failed tests for quick troubleshooting
+
+Test Metadata:
+  - Tags: VS (Virtual SONiC-VS), HW (Hardware ASIC), B (Both)
+  - HW-only tests (tagged HW) can be skipped with --skip-hw for VS testing
+
+Important Notes:
+  - All tests are UNIDIRECTIONAL: TX → DUT → RX
+  - Pass criteria: PERMIT tests require ≥90% packet delivery; DENY tests require 0% delivery
+  - Each test configures its own ACL rules; DUT ACL state restored between tests
+  - Negative (NEG) and Robustness (R) test variants available (run individual suites for full coverage)
 """
 import argparse, subprocess, sys, time
 from datetime import datetime
