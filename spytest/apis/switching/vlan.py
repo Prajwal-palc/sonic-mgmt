@@ -127,7 +127,7 @@ def delete_vlan(dut, vlan_list, cli_type='', remove_vlan_mapping=True, verify_de
             elif cli_type == "click":
                 commands.append("config vlan del {}".format(each_vlan))
             elif cli_type == "klish":
-                commands.append("no interface Vlan {}".format(each_vlan))
+                commands.append("no vlan {}".format(each_vlan))
             elif cli_type in ["rest-put", "rest-patch"]:
                 rest_url = st.get_datastore(dut, "rest_urls")["per_interface_details"].format("Vlan{}".format(each_vlan))
                 output = delete_rest(dut, rest_url=rest_url, get_response=True)
@@ -1941,3 +1941,74 @@ def are_multi_flows_supported(dut):
     # For all other versions including 4.x, return True
     else:
         return True
+
+
+def create_vlan_range_simple(dut, vlan_range, cli_type='', **kwargs):
+    """
+    Create VLAN range using simple 'vlan X-Y' syntax for klish CLI
+    Author: Custom implementation for TC_VLAN_CREATE_003
+
+    :param dut: Device Under Test
+    :param vlan_range: Space-separated range "2 4094" or hyphenated "2-4094"
+    :param cli_type: CLI type (forced to klish)
+    :param kwargs: Additional parameters (skip_error_check, skip_error_report, max_time)
+    :return: True if successful, False otherwise
+
+    Example:
+        create_vlan_range_simple(dut, "2 4094", cli_type="klish")
+        # Executes: vlan 2-4094
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+
+    # Convert "2 4094" to "2-4094" if needed
+    vlan_range_formatted = vlan_range.replace(' ', '-')
+    st.log(f"Creating VLAN range using simple syntax: vlan {vlan_range_formatted}", dut=dut)
+
+    if cli_type == 'klish':
+        commands = [
+            f'vlan {vlan_range_formatted}',
+            'exit'
+        ]
+        # Set large timeout for 4093 VLANs (can take 5-8 minutes)
+        if 'max_time' not in kwargs:
+            kwargs['max_time'] = 600
+
+        out = st.config(dut, commands, type=cli_type, **kwargs)
+        if out is not False:
+            return True
+    return False
+
+
+def delete_vlan_range_simple(dut, vlan_range, cli_type='', **kwargs):
+    """
+    Delete VLAN range using simple 'no vlan X-Y' syntax for klish CLI
+    Author: Custom implementation for TC_VLAN_CREATE_003
+
+    :param dut: Device Under Test
+    :param vlan_range: Space-separated range "2 4094" or hyphenated "2-4094"
+    :param cli_type: CLI type (forced to klish)
+    :param kwargs: Additional parameters (skip_error_check, skip_error_report, max_time)
+    :return: True if successful, False otherwise
+
+    Example:
+        delete_vlan_range_simple(dut, "2 4094", cli_type="klish", skip_error_check=True)
+        # Executes: no vlan 2-4094
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+
+    # Convert "2 4094" to "2-4094" if needed
+    vlan_range_formatted = vlan_range.replace(' ', '-')
+    st.log(f"Deleting VLAN range using simple syntax: no vlan {vlan_range_formatted}", dut=dut)
+
+    if cli_type == 'klish':
+        commands = [f'no vlan {vlan_range_formatted}']
+        # Set large timeout for 4093 VLANs (can take 5-8 minutes)
+        if 'max_time' not in kwargs:
+            kwargs['max_time'] = 600
+
+        out = st.config(dut, commands, type=cli_type, **kwargs)
+        if out is not False:
+            return True
+    return False
