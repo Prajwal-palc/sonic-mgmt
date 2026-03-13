@@ -48,6 +48,51 @@ testcases:
       inter_packet_delay: 1
       payload: "VLAN_ACCESS_TEST_PACKET"
 
+  "TC_VLAN_ACCESS_002":
+    title: "Verify traffic isolation between different access VLANs"
+    description: "Verify Layer 2 traffic isolation between VLAN 10 and VLAN 20 at Layer 2"
+
+    # VLAN configuration
+    vlans:
+      ingress_vlan:
+        id: 10
+        name: "TestVlan10"
+      isolated_vlan:
+        id: 20
+        name: "TestVlan20"
+
+    # DUT roles (resolved from testbed topology)
+    duts:
+      traffic_generator: "D1"  # DUT1 - Traffic sender
+      device_under_test: "D2"  # DUT2 - Device with both VLANs
+
+    # Interface roles (will be resolved from topology)
+    # DUT2 will have:
+    #   - ingress_port: port connected to DUT1, in VLAN 10 (receives traffic)
+    #   - isolated_port: another port in VLAN 20 (should NOT receive traffic)
+    interfaces:
+      ingress_port: "Ethernet8"      # DUT2's port in VLAN 10
+      isolated_port: "Ethernet12"    # DUT2's port in VLAN 20
+
+    # Verification parameters
+    verification:
+      check_vlan_status: true
+      check_running_config: true
+      check_interface_counters: true
+      # Isolation verification:
+      # - ingress_port should receive traffic (min 100 packets)
+      # - isolated_port should NOT receive test traffic (max 10 background packets)
+      # - tcpdump on isolated_port should capture 0 test packets
+      ingress_min_packets: 100      # Minimum packets expected on VLAN 10 port
+      isolated_max_packets: 10      # Maximum allowed on VLAN 20 port (only background)
+      pcap_isolation_expected: 0    # Expected test packets in pcap (must be 0)
+
+    # Traffic parameters
+    traffic:
+      packet_count: 100
+      inter_packet_delay: 0.01      # Faster traffic (10ms between packets)
+      payload: "VLAN_ISOLATION_TEST_PACKET"
+
   "TC_VLAN_ACCESS_004":
     title: "Change Access Port VLAN Membership"
     description: "Verify that access port VLAN assignment can be successfully changed"
