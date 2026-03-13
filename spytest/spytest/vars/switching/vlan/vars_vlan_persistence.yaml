@@ -1,0 +1,67 @@
+# VLAN Configuration Persistence Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Case: TC_VLAN_PERSIST_001
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  # Single DUT test - no topology requirement
+  use_single_dut: true
+  # Reboot related settings
+  reboot_wait_time: 300  # Time to wait for system to come back after reboot
+  post_reboot_wait: 60   # Additional wait after reboot before verification
+
+testcases:
+  "TC_VLAN_PERSIST_001":
+    title: "Configuration Save and Reload"
+    description: "Verify VLAN configuration persists after save and system reboot"
+
+    # VLANs to create for persistence testing
+    test_vlans:
+      - 10
+      - 20
+      - 30
+
+    # Test phases
+    phases:
+      pre_reboot:
+        description: "Configuration and verification before reboot"
+        steps:
+          - "Create VLANs 10, 20, 30"
+          - "Verify VLANs in running configuration"
+          - "Execute write memory command"
+
+      reboot:
+        description: "System reboot operation"
+        method: "config_reload"  # Options: config_reload, warm_reboot, cold_reboot, fast_reboot
+        save_config: true
+
+      post_reboot:
+        description: "Verification after reboot"
+        steps:
+          - "Verify system is accessible"
+          - "Verify all VLANs persist in running configuration"
+          - "Compare pre-reboot and post-reboot configuration"
+
+    # Expected results
+    expected:
+      pre_reboot_vlan_count: 3
+      post_reboot_vlan_count: 3
+      config_match: true  # Pre and post reboot configs should match
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  show_running_config_vlan: "show running-configuration interface Vlan"
+  save_config: "write memory"
+  reboot_system: "sudo reboot"
+  config_reload: "sudo config reload -y"
+
+# Verification commands
+verification:
+  - "show Vlan"
+  - "show running-configuration interface Vlan"
+  - "show interface status"

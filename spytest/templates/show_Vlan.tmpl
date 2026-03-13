@@ -1,5 +1,5 @@
 Value Filldown VID (\d+)
-Value Filldown Status (Active|Inactive)
+Value Filldown Status (Active|Inactive|Up|Down)
 Value Member ([\w./]+)
 Value Mode (T|A)
 Value Filldown Autostate (Enable|Disable)
@@ -8,8 +8,11 @@ Value Filldown Reserved_vlan (True|False)
 Value Note ([\S\s]+)
 
 Start
+  ^\s*Vlan${VID}\s+${Status}\s+${Mode}\s+${Member}\s+${Autostate}\s+${Dynamic}(\s+${Reserved_vlan})*\s*$$ -> Record
+  ^\s*Vlan${VID}\s+${Status}\s+${Autostate}\s+${Dynamic}(\s+${Reserved_vlan})*\s*$$ -> Record
+  ^\s*Vlan${VID}\s+${Status}\s+${Autostate}(\s+${Reserved_vlan})*\s*$$ -> Record
   ^\s*${VID}\s+${Status}\s+${Mode}\s+${Member}\s+${Autostate}\s+${Dynamic}(\s+${Reserved_vlan})*\s*$$ -> Record
-#  ^\s*${VID}\s+${Status}\s+${Autostate}\s+${Dynamic}\s*$$ -> Record
+  ^\s*${VID}\s+${Status}\s+${Autostate}\s+${Dynamic}(\s+${Reserved_vlan})*\s*$$ -> Record
   ^\s*${VID}\s+${Status}\s+${Autostate}(\s+${Reserved_vlan})*\s*$$ -> Record
 #Below Rule is Added for Migration Testing from 3.X.X to 4.0.0
   ^\s*${VID}\s+${Status}\s+${Mode}\s+${Member}\s+${Autostate}\s*$$ -> Record
