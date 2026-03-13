@@ -1,0 +1,86 @@
+# VLAN Access Port Change Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Case: TC_VLAN_ACCESS_004
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  min_topology:
+    - "D1D2:1"
+
+  # Traffic generation defaults
+  traffic:
+    packet_count: 10
+    inter_packet_delay: 1
+    payload: "VLAN_ACCESS_TEST_PACKET"
+
+testcases:
+  "TC_VLAN_ACCESS_001":
+    title: "Verify access port configuration and untagged packet handling"
+    description: "Configure access port in VLAN 10 and verify untagged packet reception"
+
+    # VLAN configuration
+    vlan:
+      id: 10
+      name: "TestVlan10"
+
+    # DUT roles (resolved from testbed topology)
+    duts:
+      traffic_generator: "D1"  # DUT1 - Traffic sender
+      device_under_test: "D2"  # DUT2 - Device receiving traffic
+
+    # Verification parameters
+    verification:
+      check_vlan_status: true
+      check_running_config: true
+      check_interface_counters: true
+      # Counter verification uses range-based check:
+      # min_expected = packet_count (at least this many)
+      # max_expected = packet_count * 2 (not more than double)
+      # This accounts for additional control plane traffic (ARP, LLDP, etc.)
+
+    # Traffic parameters
+    traffic:
+      packet_count: 10
+      inter_packet_delay: 1
+      payload: "VLAN_ACCESS_TEST_PACKET"
+
+  "TC_VLAN_ACCESS_004":
+    title: "Change Access Port VLAN Membership"
+    description: "Verify that access port VLAN assignment can be successfully changed"
+
+    # Test interface (will be read from testbed)
+    test_interface: "Ethernet12"
+
+    # VLAN configuration
+    source_vlan: 10
+    target_vlan: 20
+
+    # Expected status after adding port to VLAN
+    vlan_up_status: "Up"
+    vlan_down_status: "Down"
+
+    # Verification details for initial state (port in VLAN 10)
+    initial_state:
+      vlan_id: 10
+      expected_mode: "A"  # Access mode (untagged)
+      expected_status: "Up"
+
+    # Verification details after change (port moved to VLAN 20)
+    final_state:
+      new_vlan_id: 20
+      old_vlan_id: 10
+      expected_mode: "A"  # Still access mode
+      new_vlan_status: "Up"
+      old_vlan_status: "Down"  # Should be down as no ports remain
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  set_switchport_mode: "switchport mode access"
+  assign_access_vlan: "switchport access vlan <id>"
+  show_vlan: "show Vlan [<id>]"
+  show_running_config: "show running-configuration"
