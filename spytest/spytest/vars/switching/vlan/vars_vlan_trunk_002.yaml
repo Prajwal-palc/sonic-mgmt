@@ -1,0 +1,117 @@
+# VLAN Trunk Port Segregation Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Case: TC_VLAN_TRUNK_002
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  min_topology:
+    - "D1D2:3"  # Three connections: Ethernet12 (trunk), Ethernet8 (access), Ethernet4 (access)
+
+  # Traffic generation defaults
+  traffic:
+    packet_count: 20
+    inter_packet_delay: 0.05
+    payload: "VLAN_TRUNK_SEGREGATION_TEST"
+
+testcases:
+  "TC_VLAN_TRUNK_002":
+    title: "Verify trunk port VLAN 10 segregation with access ports"
+    description: "Configure trunk port with VLANs 10,20 and access ports. Send VLAN 10 tagged ICMP traffic. Verify VLAN 10 access port receives traffic, VLAN 20 access port does not."
+
+    # VLANs to configure
+    vlans:
+      - id: 10
+        name: "TestVlan10"
+      - id: 20
+        name: "TestVlan20"
+
+    # Port roles (resolved from testbed topology)
+    ports:
+      trunk_port: "Ethernet12"       # Trunk port on DUT (allows VLAN 10, 20)
+      access_port_vlan10: "Ethernet8"  # Access port in VLAN 10
+      access_port_vlan20: "Ethernet4"  # Access port in VLAN 20
+
+    # Traffic parameters - send VLAN 10 tagged ICMP traffic
+    traffic:
+      packet_count: 20
+      inter_packet_delay: 0.05
+      vlan_id: 10  # Send VLAN 10 tagged traffic
+      dst_mac: "ff:ff:ff:ff:ff:ff"  # Broadcast
+      src_ip: "192.168.10.1"
+      dst_ip: "192.168.10.2"
+
+    # Verification parameters
+    verification:
+      # Expect traffic on access port VLAN 10
+      vlan10_access_port:
+        check_counters: true
+        check_tcpdump: true
+        min_packets: 15  # Account for some control plane traffic
+        max_packets: 30
+
+      # Expect NO traffic on access port VLAN 20
+      vlan20_access_port:
+        check_counters: true
+        check_tcpdump: true
+        max_packets: 5  # Only control plane, no VLAN 10 traffic
+
+  "TC_VLAN_TRUNK_003":
+    title: "Verify trunk port VLAN 20 segregation with access ports"
+    description: "Configure trunk port with VLANs 10,20 and access ports. Send VLAN 20 tagged ICMP traffic. Verify VLAN 20 access port receives traffic, VLAN 10 access port does not."
+
+    # VLANs to configure
+    vlans:
+      - id: 10
+        name: "TestVlan10"
+      - id: 20
+        name: "TestVlan20"
+
+    # Port roles (resolved from testbed topology)
+    ports:
+      trunk_port: "Ethernet12"       # Trunk port on DUT (allows VLAN 10, 20)
+      access_port_vlan10: "Ethernet8"  # Access port in VLAN 10
+      access_port_vlan20: "Ethernet4"  # Access port in VLAN 20
+
+    # Traffic parameters - send VLAN 20 tagged ICMP traffic
+    traffic:
+      packet_count: 20
+      inter_packet_delay: 0.05
+      vlan_id: 20  # Send VLAN 20 tagged traffic
+      dst_mac: "ff:ff:ff:ff:ff:ff"  # Broadcast
+      src_ip: "192.168.20.1"
+      dst_ip: "192.168.20.2"
+
+    # Verification parameters
+    verification:
+      # Expect traffic on access port VLAN 20
+      vlan20_access_port:
+        check_counters: true
+        check_tcpdump: true
+        min_packets: 15  # Account for some control plane traffic
+        max_packets: 30
+
+      # Expect NO traffic on access port VLAN 10
+      vlan10_access_port:
+        check_counters: true
+        check_tcpdump: true
+        max_packets: 5  # Only control plane, no VLAN 20 traffic
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  trunk_mode: "switchport mode trunk"
+  trunk_add_vlan: "switchport trunk allowed Vlan <id>"
+  trunk_remove_vlan: "no switchport trunk allowed Vlan <id>"
+  access_mode: "switchport mode access"
+  access_vlan: "switchport access Vlan <id>"
+  show_vlan: "show Vlan [<id>]"
+  show_interface: "show interface <interface>"
+  show_interface_counters: "show interface counters Ethernet <num>"
+  clear_counters: "clear interface counters"
+  tcpdump_start: "sudo nohup tcpdump -i <interface> icmp -w <pcap_file> > /tmp/tcpdump.log 2>&1 &"
+  tcpdump_stop: "sudo pkill tcpdump"
+  tcpdump_read: "sudo tcpdump -r <pcap_file>"
