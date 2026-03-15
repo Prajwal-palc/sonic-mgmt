@@ -1,0 +1,75 @@
+# VLAN Trunk Port Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Case: TC_VLAN_TRUNK_001
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  min_topology:
+    - "D1D2:1"  # Two DUTs with at least 1 connection
+
+  # Traffic generation defaults
+  traffic:
+    packet_count: 10
+    inter_packet_delay: 0.1
+    payload: "VLAN_TRUNK_TEST_PACKET"
+
+testcases:
+  "TC_VLAN_TRUNK_001":
+    title: "Verify trunk port configuration and 802.1Q tagged packet forwarding"
+    description: "Configure trunk port allowing multiple VLANs and verify tagged packet reception"
+
+    # VLANs to configure on trunk
+    vlans:
+      - id: 10
+        name: "TestVlan10"
+      - id: 20
+        name: "TestVlan20"
+      - id: 30
+        name: "TestVlan30"
+
+    # Test VLAN for traffic
+    test_vlan: 10
+
+    # DUT roles (resolved from testbed topology)
+    duts:
+      traffic_generator: "D1"  # DUT1 - Traffic sender
+      device_under_test: "D2"  # DUT2 - Device receiving traffic (trunk port)
+
+    # Traffic parameters
+    traffic:
+      packet_count: 10
+      inter_packet_delay: 0.1
+      vlan_id: 10
+      dst_mac: "ff:ff:ff:ff:ff:ff"  # Broadcast MAC
+      dst_ip: "10.1.1.1"
+      payload: "VLAN_TRUNK_TEST_PACKET"
+
+    # Verification parameters
+    verification:
+      check_vlan_status: true
+      check_trunk_membership: true
+      check_interface_counters: true
+      check_pcap_capture: true
+      # Counter verification uses range-based check:
+      # min_expected = packet_count (at least this many)
+      # max_expected = packet_count * 2 (not more than double)
+      # This accounts for additional control plane traffic
+      min_packets: 10
+      max_packets: 20
+      # Pcap verification expects exact count for tagged traffic
+      pcap_expected_packets: 10
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  set_trunk_mode: "switchport mode trunk"
+  add_trunk_vlan: "switchport trunk allowed Vlan <id>"
+  remove_trunk_vlan: "no switchport trunk allowed Vlan <id>"
+  show_vlan: "show Vlan [<id>]"
+  show_interface: "show interface <interface>"
+  show_interface_counters: "show interface counters <interface>"
+  clear_counters: "clear interface counters"
