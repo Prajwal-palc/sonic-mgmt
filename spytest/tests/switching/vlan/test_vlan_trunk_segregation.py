@@ -12,12 +12,13 @@ How to run:
 
 Description:
   TC_VLAN_TRUNK_002: Validates VLAN 10 traffic segregation on trunk ports
-  TC_VLAN_TRUNK_003: Validates VLAN 20 traffic segregation on trunk ports
+  TC_VLAN_TRUNK_003: Validates trunk port ingress VLAN filtering (drop unauthorized VLAN)
 
-  Both tests configure a trunk port carrying VLANs 10 and 20, with two access ports
-  (one in VLAN 10, one in VLAN 20). Tests send VLAN-tagged ICMP traffic and verify:
-  - Correct VLAN access port receives traffic (counters + tcpdump)
-  - Other VLAN access port does NOT receive traffic (counters + tcpdump)
+  TC_002 tests allowed VLAN traffic segregation using VLANs 10 and 20.
+  TC_003 tests unauthorized VLAN filtering - sends VLAN 30 traffic to a trunk that
+  only allows VLANs 10 and 20, verifying the ASIC drops packets at ingress.
+
+  All interface mappings are resolved dynamically from testbed.yaml topology.
 
 Pre-requisites:
   - Topology: two-node with 3 connections | Supported: HW and Virtual
@@ -544,20 +545,30 @@ if __name__ == "__main__":
             st.report_fail("msg", f"Test failed: {e}")
 
     @pytest.mark.inventory(feature="Regression", testcases=["TC_VLAN_TRUNK_003"])
-    def test_vlan_trunk_003_vlan20_segregation(self) -> None:
+    def test_vlan_trunk_003_ingress_vlan_filtering(self) -> None:
         """
-        TC_VLAN_TRUNK_003: Verify VLAN 20 traffic reaches VLAN 20 access port only.
+        TC_VLAN_TRUNK_003: Verify trunk port ingress VLAN filtering (drop unauthorized VLAN).
 
-        Test Steps: Same as TC_002 but with VLAN 20 traffic
+        Test Steps:
+        1. Discover topology
+        2. Create VLANs 10, 20, 30 on DUT
+        3. Configure trunk port allowing ONLY VLANs 10, 20 (NOT 30)
+        4. Configure access port in VLAN 30
+        5. Clear counters
+        6. Start tcpdump on trunk port and VLAN 30 access port
+        7. Send VLAN 30 tagged ICMP traffic (unauthorized)
+        8. Stop tcpdump
+        9. Verify trunk port tcpdump captures packets (traffic arrived)
+        10. Verify VLAN 30 access port receives ZERO packets (dropped at ingress)
+        11. Cleanup
         """
-        st.banner("TC_VLAN_TRUNK_003: VLAN 20 Traffic Segregation Test")
+        st.banner("TC_VLAN_TRUNK_003: Trunk Port Ingress VLAN Filtering Test")
 
         testcase = self.data.testcases.get("TC_VLAN_TRUNK_003")
         if not testcase:
             st.report_fail("msg", "TC_VLAN_TRUNK_003 testcase not found in YAML")
 
         vlans = testcase.get("vlans", [])
-        ports = SpyTestDict(testcase.get("ports", {}))
         traffic = SpyTestDict(testcase.get("traffic", {}))
         verification = SpyTestDict(testcase.get("verification", {}))
 
@@ -567,23 +578,24 @@ if __name__ == "__main__":
         tgen = topology.D1
         dut = topology.D2
 
+        # For TC_003: trunk port and ONE access port (VLAN 30)
         trunk_port = getattr(topology, 'D2D1P1', None)
-        access_vlan10_port = getattr(topology, 'D2D1P2', None)
-        access_vlan20_port = getattr(topology, 'D2D1P3', None)
+        access_vlan30_port = getattr(topology, 'D2D1P2', None)
 
-        if not trunk_port or not access_vlan10_port or not access_vlan20_port:
-            st.report_fail("msg", "Failed to discover topology (need 3 links)")
+        if not trunk_port or not access_vlan30_port:
+            st.report_fail("msg", "Failed to discover topology (need trunk + access port)")
 
         tgen_trunk_port = getattr(topology, 'D1D2P1', None)
 
         st.log(f"✓ Topology: TGen={tgen}, DUT={dut}")
-        st.log(f"  Trunk: {trunk_port}, Access VLAN10: {access_vlan10_port}, Access VLAN20: {access_vlan20_port}")
+        st.log(f"  Trunk: {trunk_port}, Access VLAN 30: {access_vlan30_port}")
 
         try:
-            st.banner("Step 2: Creating VLANs on DUT")
+            st.banner("Step 2: Creating VLANs 10, 20, 30 on DUT")
 
+            # Cleanup existing configuration
             cleanup_commands = []
-            for port in [trunk_port, access_vlan10_port, access_vlan20_port]:
+            for port in [trunk_port, access_vlan30_port]:
                 if "Ethernet" in port:
                     intf_num = port.replace("Ethernet", "")
                     cleanup_commands.append(f"interface Ethernet {intf_num}")
@@ -595,6 +607,7 @@ if __name__ == "__main__":
 
             st.config(dut, cleanup_commands, type=self.data.cli_type, skip_error_check=True)
 
+            # Create VLANs
             for vlan in vlans:
                 vlan_id = vlan.get("id")
                 vlan_api.delete_vlan(dut, vlan_id, cli_type=self.data.cli_type, skip_error_check=True)
@@ -604,7 +617,7 @@ if __name__ == "__main__":
 
                 st.log(f"✓ VLAN {vlan_id} created")
 
-            st.banner(f"Step 3: Configuring trunk port {trunk_port}")
+            st.banner(f"Step 3: Configuring trunk port {trunk_port} (Allow ONLY VLANs 10, 20 - NOT 30)")
 
             trunk_commands = []
             if "Ethernet" in trunk_port:
@@ -614,69 +627,54 @@ if __name__ == "__main__":
             trunk_commands.append("no ip address")
             trunk_commands.append("no switchport access Vlan")
 
-            for vlan in vlans:
-                vlan_id = vlan.get("id")
-                trunk_commands.append(f"switchport trunk allowed Vlan {vlan_id}")
+            # CRITICAL: Allow ONLY VLANs 10, 20 (NOT 30)
+            trunk_commands.append("switchport trunk allowed Vlan 10")
+            trunk_commands.append("switchport trunk allowed Vlan 20")
 
             trunk_commands.append("end")
             st.config(dut, trunk_commands, type=self.data.cli_type, skip_error_check=True)
 
-            st.log(f"✓ Trunk port configured with VLANs: {[v['id'] for v in vlans]}")
+            st.log(f"✓ Trunk port configured with VLANs 10, 20 ONLY (VLAN 30 NOT allowed)")
 
-            st.banner(f"Step 4: Configuring access port {access_vlan10_port} (VLAN 10)")
+            st.banner(f"Step 4: Configuring access port {access_vlan30_port} (VLAN 30)")
 
-            access10_commands = []
-            if "Ethernet" in access_vlan10_port:
-                intf_num = access_vlan10_port.replace("Ethernet", "")
-                access10_commands.append(f"interface Ethernet {intf_num}")
+            access30_commands = []
+            if "Ethernet" in access_vlan30_port:
+                intf_num = access_vlan30_port.replace("Ethernet", "")
+                access30_commands.append(f"interface Ethernet {intf_num}")
 
-            access10_commands.append("no ip address")
-            access10_commands.append("no switchport trunk allowed Vlan 10")
-            access10_commands.append("switchport access Vlan 10")
-            access10_commands.append("end")
+            access30_commands.append("no ip address")
+            access30_commands.append("no switchport trunk allowed Vlan 30")
+            access30_commands.append("switchport access Vlan 30")
+            access30_commands.append("end")
 
-            st.config(dut, access10_commands, type=self.data.cli_type, skip_error_check=True)
-            st.log(f"✓ {access_vlan10_port} configured as VLAN 10 access port")
-
-            st.banner(f"Step 5: Configuring access port {access_vlan20_port} (VLAN 20)")
-
-            access20_commands = []
-            if "Ethernet" in access_vlan20_port:
-                intf_num = access_vlan20_port.replace("Ethernet", "")
-                access20_commands.append(f"interface Ethernet {intf_num}")
-
-            access20_commands.append("no ip address")
-            access20_commands.append("no switchport trunk allowed Vlan 20")
-            access20_commands.append("switchport access Vlan 20")
-            access20_commands.append("end")
-
-            st.config(dut, access20_commands, type=self.data.cli_type, skip_error_check=True)
-            st.log(f"✓ {access_vlan20_port} configured as VLAN 20 access port")
+            st.config(dut, access30_commands, type=self.data.cli_type, skip_error_check=True)
+            st.log(f"✓ {access_vlan30_port} configured as VLAN 30 access port")
 
             vlan_output = vlan_api.show_vlan_config(dut, cli_type=self.data.cli_type)
             st.log(f"VLAN configuration:\n{vlan_output}")
 
-            st.banner("Step 6: Clearing interface counters")
+            st.banner("Step 5: Clearing interface counters")
             self._clear_interface_counters(dut)
 
-            st.banner("Step 7: Starting tcpdump on access ports")
+            st.banner("Step 6: Starting tcpdump on trunk and VLAN 30 access port")
 
-            pcap_vlan10 = "/tmp/vlan_trunk_003_vlan10.pcap"
-            pcap_vlan20 = "/tmp/vlan_trunk_003_vlan20.pcap"
+            pcap_trunk = "/tmp/vlan_trunk_003_trunk.pcap"
+            pcap_vlan30 = "/tmp/vlan_trunk_003_vlan30.pcap"
 
-            self._start_tcpdump(dut, access_vlan10_port, 10, pcap_vlan10)
-            self._start_tcpdump(dut, access_vlan20_port, 20, pcap_vlan20)
+            self._start_tcpdump(dut, trunk_port, 30, pcap_trunk)
+            self._start_tcpdump(dut, access_vlan30_port, 30, pcap_vlan30)
 
-            st.banner("Step 8: Sending VLAN 20 tagged ICMP traffic")
+            st.banner("Step 7: Sending VLAN 30 tagged ICMP traffic (UNAUTHORIZED)")
 
             packet_count = traffic.get("packet_count", 20)
-            vlan_id = traffic.get("vlan_id", 20)
+            vlan_id = traffic.get("vlan_id", 30)
             dst_mac = traffic.get("dst_mac", "ff:ff:ff:ff:ff:ff")
-            src_ip = traffic.get("src_ip", "192.168.20.1")
-            dst_ip = traffic.get("dst_ip", "192.168.20.2")
+            src_ip = traffic.get("src_ip", "192.168.30.10")
+            dst_ip = traffic.get("dst_ip", "192.168.30.20")
             inter_packet_delay = traffic.get("inter_packet_delay", 0.05)
 
-            src_mac = "00:11:22:33:44:66"
+            src_mac = "22:44:64:9a:34:bb"
             script_path = "/tmp/scapy_vlan_003.py"
 
             traffic_sent = self._send_tagged_icmp_traffic(
@@ -686,66 +684,71 @@ if __name__ == "__main__":
             )
 
             if not traffic_sent:
-                st.report_fail("msg", "Failed to send ICMP traffic")
+                st.report_fail("msg", "Failed to send VLAN 30 ICMP traffic")
 
             time.sleep(2)
 
-            st.banner("Step 9: Stopping tcpdump")
+            st.banner("Step 8: Stopping tcpdump")
             self._stop_tcpdump(dut)
             time.sleep(2)
 
-            st.banner("Step 10: Verifying VLAN 20 access port receives traffic")
+            st.banner("Step 9: Verifying trunk port received VLAN 30 traffic (ingress)")
 
-            vlan20_counters = self._get_interface_counters(dut, access_vlan20_port)
-            vlan20_rx = vlan20_counters["rx_ok"]
+            trunk_pcap_count = self._verify_tcpdump_capture(dut, pcap_trunk)
 
-            vlan20_pcap_count = self._verify_tcpdump_capture(dut, pcap_vlan20)
+            trunk_verify = verification.get("trunk_port", {})
+            min_trunk_packets = trunk_verify.get("min_packets", 15)
 
-            vlan20_verify = verification.get("vlan20_access_port", {})
-            min_expected = vlan20_verify.get("min_packets", 15)
+            st.log(f"Trunk port tcpdump: {trunk_pcap_count} packets")
 
-            st.log(f"VLAN 20 access port: RX_OK={vlan20_rx}, tcpdump={vlan20_pcap_count}")
+            if trunk_pcap_count < min_trunk_packets:
+                st.report_fail("msg", f"Trunk port tcpdump={trunk_pcap_count} (< {min_trunk_packets}) - traffic did not arrive")
 
-            if vlan20_rx < min_expected and vlan20_pcap_count < min_expected:
-                st.report_fail("msg", f"VLAN 20 port: RX_OK={vlan20_rx}, tcpdump={vlan20_pcap_count} (both < {min_expected})")
+            st.log(f"✓ Trunk port received VLAN 30 traffic: tcpdump={trunk_pcap_count}")
 
-            st.log(f"✓ VLAN 20 port received traffic: RX_OK={vlan20_rx}, tcpdump={vlan20_pcap_count}")
+            st.banner("Step 10: Verifying VLAN 30 access port received ZERO packets (dropped)")
 
-            st.banner("Step 11: Verifying VLAN 10 access port does NOT receive traffic")
+            vlan30_counters = self._get_interface_counters(dut, access_vlan30_port)
+            vlan30_rx = vlan30_counters["rx_ok"]
 
-            vlan10_counters = self._get_interface_counters(dut, access_vlan10_port)
-            vlan10_rx = vlan10_counters["rx_ok"]
+            vlan30_pcap_count = self._verify_tcpdump_capture(dut, pcap_vlan30)
 
-            vlan10_pcap_count = self._verify_tcpdump_capture(dut, pcap_vlan10)
+            vlan30_verify = verification.get("vlan30_access_port", {})
+            max_allowed_tcpdump = vlan30_verify.get("max_packets", 0)
 
-            vlan10_verify = verification.get("vlan10_access_port", {})
-            max_allowed = vlan10_verify.get("max_packets", 5)
+            st.log(f"VLAN 30 access port: RX_OK={vlan30_rx}, tcpdump={vlan30_pcap_count}")
 
-            st.log(f"VLAN 10 access port: RX_OK={vlan10_rx}, tcpdump={vlan10_pcap_count}")
+            # CRITICAL: tcpdump must show 0 ICMP packets (our test traffic)
+            # RX_OK may show 1-4 packets due to control plane traffic (LLDP, etc.) - ignore these
+            if vlan30_pcap_count > max_allowed_tcpdump:
+                st.report_fail("msg", f"VLAN 30 access port tcpdump={vlan30_pcap_count} (> {max_allowed_tcpdump}) - traffic NOT dropped!")
 
-            if vlan10_rx > max_allowed or vlan10_pcap_count > max_allowed:
-                st.report_fail("msg", f"VLAN 10 port: RX_OK={vlan10_rx}, tcpdump={vlan10_pcap_count} (traffic leaked!)")
+            # Log RX_OK for informational purposes (may include control plane traffic)
+            if vlan30_rx > 4:
+                st.warn(f"VLAN 30 access port RX_OK={vlan30_rx} (> 4) - possible data plane traffic leak")
 
-            st.log(f"✓ VLAN 10 port correctly rejected traffic: RX_OK={vlan10_rx}, tcpdump={vlan10_pcap_count}")
+            st.log(f"✓ VLAN 30 access port correctly dropped unauthorized traffic: RX_OK={vlan30_rx} (control plane), tcpdump={vlan30_pcap_count} (ICMP)")
 
-            st.banner("Step 12: Cleanup")
+            st.banner("Step 11: Cleanup")
 
-            st.show(dut, f"sudo rm -f {pcap_vlan10} {pcap_vlan20}", skip_tmpl=True, skip_error_check=True)
+            st.show(dut, f"sudo rm -f {pcap_trunk} {pcap_vlan30}", skip_tmpl=True, skip_error_check=True)
 
-            for port in [access_vlan10_port, access_vlan20_port]:
-                if "Ethernet" in port:
-                    intf_num = port.replace("Ethernet", "")
-                    st.config(dut, [f"interface Ethernet {intf_num}", "no switchport access Vlan", "exit"],
-                             type=self.data.cli_type, skip_error_check=True)
+            # Remove access VLAN configuration
+            if "Ethernet" in access_vlan30_port:
+                intf_num = access_vlan30_port.replace("Ethernet", "")
+                st.config(dut, [f"interface Ethernet {intf_num}", "no switchport access Vlan", "exit"],
+                         type=self.data.cli_type, skip_error_check=True)
 
+            # Remove trunk VLAN configuration
             if "Ethernet" in trunk_port:
                 intf_num = trunk_port.replace("Ethernet", "")
                 trunk_cleanup = [f"interface Ethernet {intf_num}"]
-                for vlan in vlans:
-                    trunk_cleanup.append(f"no switchport trunk allowed Vlan {vlan.get('id')}")
+                trunk_cleanup.append("no switchport trunk allowed Vlan 10")
+                trunk_cleanup.append("no switchport trunk allowed Vlan 20")
                 trunk_cleanup.append("exit")
                 st.config(dut, trunk_cleanup, type=self.data.cli_type, skip_error_check=True)
 
+            # Delete VLANs
             for vlan in vlans:
                 vlan_api.delete_vlan(dut, vlan.get("id"), cli_type=self.data.cli_type, skip_error_check=True)
 
@@ -758,12 +761,13 @@ if __name__ == "__main__":
             if self.data.cleanup_enabled:
                 self._stop_tcpdump(dut)
 
-                for port in [access_vlan10_port, access_vlan20_port, trunk_port]:
+                # Cleanup on failure
+                for port in [access_vlan30_port, trunk_port]:
                     if "Ethernet" in port:
                         intf_num = port.replace("Ethernet", "")
                         cleanup_cmds = [f"interface Ethernet {intf_num}", "no switchport access Vlan"]
-                        for vlan in vlans:
-                            cleanup_cmds.append(f"no switchport trunk allowed Vlan {vlan.get('id')}")
+                        cleanup_cmds.append("no switchport trunk allowed Vlan 10")
+                        cleanup_cmds.append("no switchport trunk allowed Vlan 20")
                         cleanup_cmds.append("exit")
                         st.config(dut, cleanup_cmds, type=self.data.cli_type, skip_error_check=True)
 

@@ -29,11 +29,10 @@ testcases:
       - id: 20
         name: "TestVlan20"
 
-    # Port roles (resolved from testbed topology)
-    ports:
-      trunk_port: "Ethernet12"       # Trunk port on DUT (allows VLAN 10, 20)
-      access_port_vlan10: "Ethernet8"  # Access port in VLAN 10
-      access_port_vlan20: "Ethernet4"  # Access port in VLAN 20
+    # Port roles (resolved dynamically from testbed.yaml topology)
+    # D2D1P1 = Trunk port (DUT port 1 connected to TGen port 1)
+    # D2D1P2 = Access port VLAN 10 (DUT port 2 connected to TGen port 2)
+    # D2D1P3 = Access port VLAN 20 (DUT port 3 connected to TGen port 3)
 
     # Traffic parameters - send VLAN 10 tagged ICMP traffic
     traffic:
@@ -60,8 +59,8 @@ testcases:
         max_packets: 5  # Only control plane, no VLAN 10 traffic
 
   "TC_VLAN_TRUNK_003":
-    title: "Verify trunk port VLAN 20 segregation with access ports"
-    description: "Configure trunk port with VLANs 10,20 and access ports. Send VLAN 20 tagged ICMP traffic. Verify VLAN 20 access port receives traffic, VLAN 10 access port does not."
+    title: "Verify trunk port ingress VLAN filtering (drop unauthorized VLAN)"
+    description: "Configure trunk port allowing ONLY VLANs 10,20. Send VLAN 30 tagged traffic (NOT allowed). Verify traffic is dropped at ingress - VLAN 30 access port receives ZERO packets."
 
     # VLANs to configure
     vlans:
@@ -69,36 +68,34 @@ testcases:
         name: "TestVlan10"
       - id: 20
         name: "TestVlan20"
+      - id: 30
+        name: "TestVlan30"  # NOT allowed on trunk
 
-    # Port roles (resolved from testbed topology)
-    ports:
-      trunk_port: "Ethernet12"       # Trunk port on DUT (allows VLAN 10, 20)
-      access_port_vlan10: "Ethernet8"  # Access port in VLAN 10
-      access_port_vlan20: "Ethernet4"  # Access port in VLAN 20
+    # Port roles (resolved dynamically from testbed.yaml topology)
+    # D2D1P1 = Trunk port allowing VLAN 10, 20 ONLY (NOT 30)
+    # D2D1P2 = Access port VLAN 30 (should receive ZERO packets)
 
-    # Traffic parameters - send VLAN 20 tagged ICMP traffic
+    # Traffic parameters - send UNAUTHORIZED VLAN 30 tagged ICMP traffic
     traffic:
       packet_count: 20
       inter_packet_delay: 0.05
-      vlan_id: 20  # Send VLAN 20 tagged traffic
+      vlan_id: 30  # Send VLAN 30 (NOT allowed on trunk)
       dst_mac: "ff:ff:ff:ff:ff:ff"  # Broadcast
-      src_ip: "192.168.20.1"
-      dst_ip: "192.168.20.2"
+      src_ip: "192.168.30.10"
+      dst_ip: "192.168.30.20"
 
     # Verification parameters
     verification:
-      # Expect traffic on access port VLAN 20
-      vlan20_access_port:
-        check_counters: true
+      # Trunk port should see traffic arriving (before drop)
+      trunk_port:
         check_tcpdump: true
-        min_packets: 15  # Account for some control plane traffic
-        max_packets: 30
+        min_packets: 15  # Traffic arrives at trunk
 
-      # Expect NO traffic on access port VLAN 10
-      vlan10_access_port:
+      # VLAN 30 access port should see ZERO packets (dropped)
+      vlan30_access_port:
         check_counters: true
         check_tcpdump: true
-        max_packets: 5  # Only control plane, no VLAN 20 traffic
+        max_packets: 0  # MUST be zero (traffic dropped at ingress)
 
 # CLI commands reference (for documentation)
 cli_commands:
