@@ -1,0 +1,113 @@
+# VLAN Mixed/Hybrid Port Configuration and Traffic Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Cases: TC_VLAN_MIXED_001, TC_VLAN_MIXED_002
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+
+  # Traffic generation defaults
+  traffic:
+    packet_count: 20
+    inter_packet_delay: 0.05
+    payload_untagged: "MIXED_PORT_UNTAGGED_PAYLOAD"
+    payload_tagged: "MIXED_PORT_TAGGED_PAYLOAD"
+
+testcases:
+  "TC_VLAN_MIXED_001":
+    title: "Verify mixed/hybrid port configuration (Access + Trunk)"
+    description: "Configure single interface as Access VLAN 10 (untagged) and Trunk VLAN 20 (tagged). Verify show Vlan displays both memberships correctly."
+
+    # Single DUT topology
+    min_topology:
+      - "D2"
+
+    # VLANs to configure
+    vlans:
+      - id: 10
+        name: "TestVlan10"
+      - id: 20
+        name: "TestVlan20"
+
+    # Interface dynamically read from testbed topology
+    # D2 Ethernet8 configured as hybrid port
+    # Access: VLAN 10 (untagged/A)
+    # Trunk: VLAN 20 (tagged/T)
+
+    # Verification parameters
+    verification:
+      vlan10_membership:
+        expected_type: "A"  # Access (Untagged)
+        expected_status: "Up"
+
+      vlan20_membership:
+        expected_type: "T"  # Tagged (Trunk)
+        expected_status: "Up"
+
+  "TC_VLAN_MIXED_002":
+    title: "Verify mixed port L2 traffic handling (untagged and tagged)"
+    description: "Send untagged and VLAN 10 tagged L2 broadcast traffic to hybrid port. Verify untagged maps to Access VLAN 20, tagged forwards to Trunk VLAN 10. Confirm no cross-VLAN leakage."
+
+    # Two DUT topology with 3 links
+    min_topology:
+      - "D1D2:3"
+
+    # VLANs to configure
+    vlans:
+      - id: 10
+        name: "TestVlan10"
+      - id: 20
+        name: "TestVlan20"
+
+    # Port roles (resolved dynamically from testbed.yaml topology)
+    # D2D1P1 = Ethernet4 (ingress hybrid: Access VLAN 20, Trunk VLAN 10)
+    # D2D1P2 = Ethernet8 (egress monitor: Trunk VLAN 20)
+    # D2D1P3 = Ethernet12 (egress monitor: Trunk VLAN 10)
+
+    # Traffic parameters - L2 broadcast frames
+    traffic:
+      packet_count: 20
+      inter_packet_delay: 0.05
+      dst_mac: "ff:ff:ff:ff:ff:ff"  # Broadcast
+
+      # Test A: Untagged traffic
+      untagged:
+        payload: "MIXED_PORT_UNTAGGED_PAYLOAD"
+
+      # Test B: VLAN 10 tagged traffic
+      tagged_vlan10:
+        vlan_id: 10
+        payload: "MIXED_PORT_TAGGED_PAYLOAD"
+
+    # Verification parameters
+    verification:
+      # Test A: Untagged traffic should arrive on VLAN 20 monitor (Ethernet8)
+      untagged_test:
+        vlan20_monitor_port:
+          min_packets: 15  # Expect traffic
+        vlan10_monitor_port:
+          max_packets: 5   # No traffic (isolation check)
+
+      # Test B: VLAN 10 tagged traffic should arrive on VLAN 10 monitor (Ethernet12)
+      tagged_test:
+        vlan10_monitor_port:
+          min_packets: 15  # Expect traffic
+        vlan20_monitor_port:
+          max_packets: 5   # No traffic (isolation check)
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  delete_vlan: "no vlan <id>"
+  access_vlan: "switchport access Vlan <id>"
+  trunk_add_vlan: "switchport trunk allowed Vlan <id>"
+  trunk_remove_vlan: "no switchport trunk allowed Vlan <id>"
+  show_vlan: "show Vlan [<id>]"
+  show_interface_counters: "show interface counters Ethernet <num>"
+  clear_counters: "clear interface counters"
+  tcpdump_start: "sudo nohup tcpdump -i <interface> -e -w <pcap_file> > /tmp/tcpdump.log 2>&1 &"
+  tcpdump_stop: "sudo pkill tcpdump"
+  tcpdump_read: "sudo tcpdump -r <pcap_file>"
