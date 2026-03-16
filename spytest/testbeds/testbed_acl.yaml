@@ -1,0 +1,91 @@
+# ACL Test Testbed Configuration
+# Topology: Single DUT with Scapy-based traffic generation
+# Suitable for L2 and L3 ACL traffic validation tests
+#
+# Topology Diagram:
+#   +------------+   Port1(Eth0)      Port2(Eth4)   +------------+
+#   | Scapy TX   |---------------[DUT]---------------| Scapy RX   |
+#   | (TGen)     |   ACL ingress      ACL egress    | (TGen)     |
+#   +------------+                                   +------------+
+#
+# Usage:
+#   ./bin/spytest --testbed ./testbeds/testbed_acl.yaml \
+#       tests/switching/l2_acl/ --logs-path ./logs/acl_test
+
+version: 2.0
+
+devices:
+  DUT1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.163
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_dut
+
+  TG1:
+    device_type: TGEN
+    properties:
+      type: scapy
+      version: 2.5.0
+      params: def_tg
+
+topology:
+  DUT1:
+    interfaces:
+      Ethernet0: {EndDevice: TG1, EndPort: 1/1, params: def_tg_link}
+      Ethernet4: {EndDevice: TG1, EndPort: 1/2, params: def_tg_link}
+
+# Service definitions
+services:
+  default:
+    name: default
+
+# Build definitions
+builds:
+  default:
+    name: default
+
+# Configuration profiles
+configs:
+  default:
+    name: default
+    current: []
+    restore: []
+
+# Error patterns
+errors:
+  default: {}
+
+# Parameters for devices and links
+params:
+  def_dut:
+    description: "Default DUT parameters"
+    management_ip: "192.168.100.163"
+
+  def_tg:
+    description: "Default Traffic Generator parameters"
+    type: scapy
+
+  def_tg_link:
+    description: "Default TGen link parameters"
+    speed: "1000"
+    autoneg: "enable"
+
+# Notes:
+# - This testbed is designed for ACL traffic validation using Scapy
+# - DUT1 has 2 ports connected to TG1 (Scapy traffic generator)
+# - Port Ethernet0 (TG1 1/1): Traffic source (TX) - ACL applied ingress
+# - Port Ethernet4 (TG1 1/2): Traffic destination (RX) - Validate ACL behavior
+# - Scapy scripts should configure eth0 (maps to TG1 1/1) and eth1 (maps to TG1 1/2)
+# - ACL rules should be applied ingress on DUT1:Ethernet0
+# - Tests validate permit/deny rules by checking packet arrival on Ethernet4
