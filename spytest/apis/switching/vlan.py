@@ -127,7 +127,7 @@ def delete_vlan(dut, vlan_list, cli_type='', remove_vlan_mapping=True, verify_de
             elif cli_type == "click":
                 commands.append("config vlan del {}".format(each_vlan))
             elif cli_type == "klish":
-                commands.append("no interface Vlan {}".format(each_vlan))
+                commands.append("no vlan {}".format(each_vlan))
             elif cli_type in ["rest-put", "rest-patch"]:
                 rest_url = st.get_datastore(dut, "rest_urls")["per_interface_details"].format("Vlan{}".format(each_vlan))
                 output = delete_rest(dut, rest_url=rest_url, get_response=True)
@@ -1941,3 +1941,246 @@ def are_multi_flows_supported(dut):
     # For all other versions including 4.x, return True
     else:
         return True
+
+
+def create_vlan_range_simple(dut, vlan_range, cli_type='', **kwargs):
+    """
+    Create VLAN range using simple 'vlan X-Y' syntax for klish CLI
+    Author: Custom implementation for TC_VLAN_CREATE_003
+
+    :param dut: Device Under Test
+    :param vlan_range: Space-separated range "2 4094" or hyphenated "2-4094"
+    :param cli_type: CLI type (forced to klish)
+    :param kwargs: Additional parameters (skip_error_check, skip_error_report, max_time)
+    :return: True if successful, False otherwise
+
+    Example:
+        create_vlan_range_simple(dut, "2 4094", cli_type="klish")
+        # Executes: vlan 2-4094
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+
+    # Convert "2 4094" to "2-4094" if needed
+    vlan_range_formatted = vlan_range.replace(' ', '-')
+    st.log(f"Creating VLAN range using simple syntax: vlan {vlan_range_formatted}", dut=dut)
+
+    if cli_type == 'klish':
+        commands = [
+            f'vlan {vlan_range_formatted}',
+            'exit'
+        ]
+        # Set large timeout for 4093 VLANs (can take 5-8 minutes)
+        if 'max_time' not in kwargs:
+            kwargs['max_time'] = 600
+
+        out = st.config(dut, commands, type=cli_type, **kwargs)
+        if out is not False:
+            return True
+    return False
+
+
+def delete_vlan_range_simple(dut, vlan_range, cli_type='', **kwargs):
+    """
+    Delete VLAN range using simple 'no vlan X-Y' syntax for klish CLI
+    Author: Custom implementation for TC_VLAN_CREATE_003
+
+    :param dut: Device Under Test
+    :param vlan_range: Space-separated range "2 4094" or hyphenated "2-4094"
+    :param cli_type: CLI type (forced to klish)
+    :param kwargs: Additional parameters (skip_error_check, skip_error_report, max_time)
+    :return: True if successful, False otherwise
+
+    Example:
+        delete_vlan_range_simple(dut, "2 4094", cli_type="klish", skip_error_check=True)
+        # Executes: no vlan 2-4094
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+
+    # Convert "2 4094" to "2-4094" if needed
+    vlan_range_formatted = vlan_range.replace(' ', '-')
+    st.log(f"Deleting VLAN range using simple syntax: no vlan {vlan_range_formatted}", dut=dut)
+
+    if cli_type == 'klish':
+        commands = [f'no vlan {vlan_range_formatted}']
+        # Set large timeout for 4093 VLANs (can take 5-8 minutes)
+        if 'max_time' not in kwargs:
+            kwargs['max_time'] = 600
+
+        out = st.config(dut, commands, type=cli_type, **kwargs)
+        if out is not False:
+            return True
+    return False
+
+
+def create_vlan_range_with_wait(dut, vlan_range, wait_time=30, cli_type='', **kwargs):
+    """
+    Create VLAN range and wait for creation to complete.
+    Uses direct klish command: vlan <range>
+
+    Author: Shiva
+    :param dut: Device Under Test
+    :param vlan_range: VLAN range in format "start-end" (e.g., "1-4094")
+    :param wait_time: Time to wait after VLAN creation (seconds). Default: 30
+    :param cli_type: CLI type (klish recommended for range support)
+    :param kwargs: Additional parameters (skip_error_check, etc.)
+    :return: True if successful, False otherwise
+
+    Example:
+        create_vlan_range_with_wait(dut, "1-4094", wait_time=30, cli_type="klish")
+        # Creates VLANs 1-4094 and waits 30 seconds for completion
+    """
+    import time
+
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+    st.log(f"Creating VLAN range {vlan_range} with {wait_time}s wait time", dut=dut)
+
+    skip_error_check = kwargs.get('skip_error_check', False)
+
+    if cli_type == 'klish':
+        # Direct klish command: vlan 1-4094
+        # Creating 4094 VLANs can take 10-15 minutes
+        st.log(f"Creating VLAN range (may take 10-15 minutes for large ranges like 1-4094)", dut=dut)
+        commands = [f"vlan {vlan_range}", "exit"]
+        output = st.config(
+            dut,
+            commands,
+            type=cli_type,
+            skip_error_check=skip_error_check,
+            max_time=kwargs.get('max_time', 1200),  # Default 20 minutes timeout for 4094 VLANs
+            faster_cli=kwargs.get('faster_cli', False)  # Disable faster_cli for long commands
+        )
+
+        if output is not False and "Error" not in str(output):
+            st.log(f"VLAN range creation completed, waiting {wait_time} seconds for stabilization", dut=dut)
+            time.sleep(wait_time)
+            st.log("Wait time completed", dut=dut)
+            return True
+        return False
+    else:
+        st.error(f"CLI type {cli_type} not supported for this function", dut=dut)
+        return False
+
+
+def delete_vlan_range_with_wait(dut, vlan_range, wait_time=20, cli_type='', **kwargs):
+    """
+    Delete VLAN range and wait for deletion to complete.
+    Uses direct klish command: no vlan <range>
+
+    Author: Shiva
+    :param dut: Device Under Test
+    :param vlan_range: VLAN range in format "start-end" (e.g., "1-4094")
+    :param wait_time: Time to wait after VLAN deletion (seconds). Default: 20
+    :param cli_type: CLI type (klish recommended for range support)
+    :param kwargs: Additional parameters (skip_error_check, etc.)
+    :return: True if successful, False otherwise
+
+    Example:
+        delete_vlan_range_with_wait(dut, "1-4094", wait_time=20, cli_type="klish")
+        # Deletes VLANs 1-4094 and waits 20 seconds for completion
+    """
+    import time
+
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = force_cli_type_to_klish(cli_type=cli_type)
+    st.log(f"Deleting VLAN range {vlan_range} with {wait_time}s wait time", dut=dut)
+
+    skip_error_check = kwargs.get('skip_error_check', False)
+
+    if cli_type == 'klish':
+        # Direct klish command: no vlan 1-4094
+        # Deleting 4094 VLANs can take 10-15 minutes
+        st.log(f"Deleting VLAN range (may take 10-15 minutes for large ranges like 1-4094)", dut=dut)
+        commands = [f"no vlan {vlan_range}"]
+        output = st.config(
+            dut,
+            commands,
+            type=cli_type,
+            skip_error_check=skip_error_check,
+            max_time=kwargs.get('max_time', 1200),  # Default 20 minutes timeout for 4094 VLANs
+            faster_cli=kwargs.get('faster_cli', False)  # Disable faster_cli for long commands
+        )
+
+        if output is not False and "Error" not in str(output):
+            st.log(f"VLAN range deletion completed, waiting {wait_time} seconds for stabilization", dut=dut)
+            time.sleep(wait_time)
+            st.log("Wait time completed", dut=dut)
+            return True
+        return False
+    else:
+        st.error(f"CLI type {cli_type} not supported for this function", dut=dut)
+        return False
+
+
+def verify_vlan_range_exists(dut, vlan_start, vlan_end, cli_type=''):
+    """
+    Verify all VLANs in specified range exist.
+
+    Author: Shiva
+    :param dut: Device Under Test
+    :param vlan_start: Start of VLAN range (integer)
+    :param vlan_end: End of VLAN range (integer)
+    :param cli_type: CLI type
+    :return: True if all VLANs exist, False otherwise
+
+    Example:
+        verify_vlan_range_exists(dut, 1, 4094, cli_type="klish")
+        # Verifies VLANs 1-4094 all exist
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    st.log(f"Verifying VLANs {vlan_start}-{vlan_end} exist", dut=dut)
+
+    vlan_list = get_vlan_list(dut, cli_type=cli_type)
+
+    missing_vlans = []
+    for vlan_id in range(vlan_start, vlan_end + 1):
+        if str(vlan_id) not in vlan_list:
+            missing_vlans.append(vlan_id)
+            if len(missing_vlans) >= 10:
+                # Limit logging to first 10 missing VLANs
+                break
+
+    if missing_vlans:
+        st.error(f"Missing VLANs: {missing_vlans} (showing first 10)", dut=dut)
+        return False
+
+    st.log(f"All VLANs in range {vlan_start}-{vlan_end} are present", dut=dut)
+    return True
+
+
+def verify_vlan_range_absent(dut, vlan_start, vlan_end, cli_type=''):
+    """
+    Verify all VLANs in specified range are absent.
+
+    Author: Shiva
+    :param dut: Device Under Test
+    :param vlan_start: Start of VLAN range (integer)
+    :param vlan_end: End of VLAN range (integer)
+    :param cli_type: CLI type
+    :return: True if all VLANs are absent, False otherwise
+
+    Example:
+        verify_vlan_range_absent(dut, 1, 4094, cli_type="klish")
+        # Verifies VLANs 1-4094 are all deleted
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    st.log(f"Verifying VLANs {vlan_start}-{vlan_end} are absent", dut=dut)
+
+    vlan_list = get_vlan_list(dut, cli_type=cli_type)
+
+    present_vlans = []
+    for vlan_id in range(vlan_start, vlan_end + 1):
+        if str(vlan_id) in vlan_list:
+            present_vlans.append(vlan_id)
+            if len(present_vlans) >= 10:
+                # Limit logging to first 10 present VLANs
+                break
+
+    if present_vlans:
+        st.error(f"VLANs still present: {present_vlans} (showing first 10)", dut=dut)
+        return False
+
+    st.log(f"All VLANs in range {vlan_start}-{vlan_end} are absent", dut=dut)
+    return True

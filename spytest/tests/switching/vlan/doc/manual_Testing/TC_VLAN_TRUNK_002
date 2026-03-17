@@ -1,0 +1,156 @@
+DUT 
+
+sonic# configure
+sonic(config)# vlan 10
+sonic(config)# vlan 20
+sonic(config)# interface Ethernet 12
+sonic(config-if-Ethernet12)# no switchport access Vlan
+sonic(config-if-Ethernet12)# no switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet12)# no ip address
+sonic(config-if-Ethernet12)# switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet12)# switchport trunk allowed Vlan 20
+sonic(config-if-Ethernet12)# no shutdown
+sonic(config-if-Ethernet12)# exit
+sonic(config)# interface Ethernet 8
+sonic(config-if-Ethernet8)# no switchport access Vlan
+sonic(config-if-Ethernet8)# no ip address
+sonic(config-if-Ethernet8)# switchport access Vlan 10
+sonic(config-if-Ethernet8)# no shutdown
+sonic(config-if-Ethernet8)# exit
+sonic(config)# interface Ethernet 4
+sonic(config-if-Ethernet4)# no s
+scheduler-policy service-policy   sflow            shutdown
+speed            switchport
+sonic(config-if-Ethernet4)# no shutdown
+sonic(config-if-Ethernet4)# no ip address
+sonic(config-if-Ethernet4)# no switchport a
+access  allowed
+sonic(config-if-Ethernet4)# no switchport access Vlan
+sonic(config-if-Ethernet4)# switchport access Vlan 20
+sonic(config-if-Ethernet4)#
+sonic(config-if-Ethernet4)#
+sonic(config-if-Ethernet4)#
+sonic(config-if-Ethernet4)# end
+sonic# show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Up          T  Ethernet12       Enable      No
+                      A  Ethernet8                    No
+Vlan20    Up          A  Ethernet4        Enable      No
+                      T  Ethernet12                   No
+sonic# 
+admin@sonic:~$ sudo tcpdump -i Ethernet12 icmp
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet12, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:09:49.792614 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.795081 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.795743 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.797648 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.798313 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.798369 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.798402 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.805910 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.806726 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.806795 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.806831 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.806867 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.806901 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.806979 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.817531 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.822562 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.823922 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.823997 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824029 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824800 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824845 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824875 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824895 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824954 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.824981 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.825000 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.825020 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.825059 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.825092 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.825120 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827179 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827218 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827243 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827267 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827285 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827303 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827321 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827344 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827363 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:09:49.827381 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+^C
+40 packets captured
+40 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ sudo tcpdump -i Ethernet8 icmp
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:10:18.458139 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461287 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461552 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461576 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461593 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461613 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461630 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461645 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461672 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461699 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461714 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461728 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461743 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461758 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.461772 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.468568 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.469277 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.469534 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.469567 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+11:10:18.474766 IP sonic > sonic: ICMP echo request, id 0, seq 0, length 8
+^C
+20 packets captured
+20 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ sudo tcpdump -i Ethernet4 icmp
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet4, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+^C
+0 packets captured
+0 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$
+
+
+
+Taffic Genrater
+
+from scapy.all import *
+
+iface = "Ethernet12"
+
+pkt = Ether(src="22:44:64:9a:34:bb",
+                        dst="ff:ff:ff:ff:ff:ff") \
+                                      / Dot1Q(vlan=10) \
+                                      /IP()\
+                                      /ICMP()
+
+sendp(pkt, iface=iface, count=20)
+
+admin@sonic:~$ sudo python send.py
+/usr/local/lib/python3.11/dist-packages/scapy/layers/ipsec.py:471: CryptographyDeprecationWarning: Blowfish has been deprecated
+  cipher=algorithms.Blowfish,
+/usr/local/lib/python3.11/dist-packages/scapy/layers/ipsec.py:485: CryptographyDeprecationWarning: CAST5 has been deprecated
+  cipher=algorithms.CAST5,
+....................
+Sent 20 packets.
+admin@sonic:~$ sudo python send.py
+/usr/local/lib/python3.11/dist-packages/scapy/layers/ipsec.py:471: CryptographyDeprecationWarning: Blowfish has been deprecated
+  cipher=algorithms.Blowfish,
+/usr/local/lib/python3.11/dist-packages/scapy/layers/ipsec.py:485: CryptographyDeprecationWarning: CAST5 has been deprecated
+  cipher=algorithms.CAST5,
+....................
+Sent 20 packets.
+admin@sonic:~$

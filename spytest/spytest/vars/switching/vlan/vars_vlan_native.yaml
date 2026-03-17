@@ -1,0 +1,84 @@
+# VLAN Native VLAN Behavior Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Case: TC_VLAN_MIXED_003
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  min_topology:
+    - "D1D2:3"  # Two DUTs with 3 connections
+
+  # Traffic generation defaults
+  traffic:
+    packet_count: 10
+    inter_packet_delay: 0.1
+    payload: "TEST_PKT"
+    ethertype: 0x0806  # ARP
+
+testcases:
+  "TC_VLAN_MIXED_003":
+    title: "Verify native VLAN behavior on trunk port"
+    description: "Configure trunk port with native VLAN 20 and tagged VLAN 10. Send untagged traffic (should map to native VLAN 20) and tagged VLAN 10 traffic (should forward in VLAN 10). Verify strict isolation."
+
+    # VLANs to configure
+    vlans:
+      - id: 10
+        name: "TestVlan10"
+      - id: 20
+        name: "TestVlan20"
+
+    # Port roles (resolved dynamically from testbed.yaml topology)
+    # D2D1P3 = Ethernet12 (ingress hybrid: Access VLAN 20 [native], Trunk VLAN 10)
+    # D2D1P2 = Ethernet8 (egress monitor: Access VLAN 20 - native VLAN monitor)
+    # D2D1P1 = Ethernet4 (egress monitor: Trunk VLAN 10)
+
+    # Traffic parameters - ARP broadcast frames
+    traffic:
+      packet_count: 10
+      inter_packet_delay: 0.1
+      src_mac: "22:96:d0:c9:67:c8"
+      dst_mac: "ff:ff:ff:ff:ff:ff"  # Broadcast
+      ethertype: 0x0806  # ARP
+      payload: "TEST_PKT"
+
+      # Test A: Untagged ARP (native VLAN test)
+      untagged:
+        description: "Untagged ARP broadcast - should map to native VLAN 20"
+
+      # Test B: VLAN 10 tagged ARP
+      tagged_vlan10:
+        vlan_id: 10
+        description: "VLAN 10 tagged ARP broadcast - should forward in VLAN 10"
+
+    # Verification parameters
+    verification:
+      # Test A: Untagged traffic should arrive on VLAN 20 monitor (Ethernet8)
+      untagged_test:
+        vlan20_monitor_port:
+          min_packets: 8  # Expect traffic (allow some loss)
+        vlan10_monitor_port:
+          max_packets: 5  # No traffic (isolation check)
+
+      # Test B: VLAN 10 tagged traffic should arrive on VLAN 10 monitor (Ethernet4)
+      tagged_test:
+        vlan10_monitor_port:
+          min_packets: 8  # Expect traffic
+        vlan20_monitor_port:
+          max_packets: 5  # No traffic (isolation check)
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  delete_vlan: "no vlan <id>"
+  access_vlan: "switchport access Vlan <id>"
+  trunk_add_vlan: "switchport trunk allowed Vlan <id>"
+  trunk_remove_vlan: "no switchport trunk allowed Vlan <id>"
+  show_vlan: "show Vlan [<id>]"
+  show_interface_counters: "show interface counters Ethernet <num>"
+  clear_counters: "clear interface counters"
+  tcpdump_start: "sudo nohup tcpdump -i <interface> -e -nn -w <pcap_file> > /tmp/tcpdump.log 2>&1 &"
+  tcpdump_stop: "sudo pkill tcpdump"
+  tcpdump_read: "sudo tcpdump -r <pcap_file>"

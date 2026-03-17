@@ -1,0 +1,124 @@
+#### TC_VLAN_ACCESS_001: Configure Untagged Port
+DUT1 : Traffic sender
+admin@sonic:~$ sonic-cli
+sonic# show interface Ethernet 8
+
+Ethernet8 is up, line protocol is up, reason unknown
+Hardware is Eth, address is 22:35:f2:23:c4:4d
+IPV4 address is 10.0.0.4/31
+Mode of IPV4 address assignment: MANUAL
+Mode of IPV6 address assignment: not-set
+Interface IPv6 oper status: Disabled
+IP MTU 9100 bytes
+LineSpeed 40G, Auto-negotiation off
+Link-training: off
+Unreliable-LOS: off
+Events:
+Last clearing of "show interface" counters: never
+10 seconds input rate 0 packets/sec, 0 bits/sec, 0 Bytes/sec
+10 seconds output rate 0 packets/sec, 8 bits/sec, 1 Bytes/sec
+Input statistics:
+        1430 packets, 391320 octets
+        0 Multicasts, 0 Broadcasts, 1430 Unicasts
+        0 error, 2 discarded, 0 Oversize
+         Packets (128 to 255 Octects)
+Output statistics:
+        1441 packets, 390481 octets
+        0 Multicasts, 0 Broadcasts, 1441 Unicasts
+        0 error, 0 discarded,  Oversize
+sonic#
+
+from scapy.all import *
+
+# Interface connected to the switch
+iface = "Ethernet8"
+
+# MAC addresses
+src_mac = "22:35:f2:23:c4:4d"
+dst_mac = "22:f7:2a:2e:6c:8d"
+
+# Payload
+payload = "VLAN_ACCESS_TEST_PACKET"
+
+# Build Ethernet Frame
+packet = Ether(src=src_mac, dst=dst_mac) / Raw(load=payload)
+
+# Send packets
+sendp(packet, iface=iface, count=10, inter=1)
+
+print("Packets sent successfully")
+
+
+
+
+
+DUT2:-
+admin@sonic:~$ show mac
+No.    Vlan    MacAddress    Port    Type
+-----  ------  ------------  ------  ------
+Total number of entries 0
+admin@sonic:~$
+admin@sonic:~$
+admin@sonic:~$
+admin@sonic:~$ sonic-cli
+sonic#
+sonic#
+sonic# show Vlan
+No VLANs configured
+sonic# configure
+sonic(config)# no vlan 10
+Error: VLAN 10 does not exist. Create Vlan first using "vlan 10"
+sonic(config)# vlan 10
+sonic(config)# interface Ethernet 8
+sonic(config-if-Ethernet8)# no ip address
+sonic(config-if-Ethernet8)# no switchport access Vlan 10
+                                                 ^
+% Error: Invalid input detected at "^" marker.
+sonic(config-if-Ethernet8)# no switchport access Vlan
+sonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet8)# switchport access Vlan 10
+sonic(config-if-Ethernet8)# end
+sonic# show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Up          A  Ethernet8        Enable      No
+sonic# exit
+admin@sonic:~$ sonic-cli
+sonic#
+clear       configure   copy        exit        no          ping
+ping6       renew       show        terminal    traceroute  traceroute6
+write       ztp
+sonic# show interface Vlan 10
+Vlan10 is up, line protocol is up
+Hardware is Vlan, address is 22:f7:2a:2e:6c:8d
+Mode of IPV4 address assignment: not-set
+Mode of IPV6 address assignment: not-set
+Interface IPv6 oper status: Disabled
+IP MTU 9100 bytes
+sonic# exit
+admin@sonic:~$ sudo tcpdump -i Ethernet8 -e ether dst 22:35:f2:23:c4:4d
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+^C
+0 packets captured
+0 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ sudo tcpdump -i Ethernet8 -e ether dst 22:f7:2a:2e:6c:8d
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+05:59:00.265564 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:01.266605 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:02.267671 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:03.270074 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:04.271419 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:05.273208 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:06.274798 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:07.276558 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:08.277748 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+05:59:09.279507 22:35:f2:23:c4:4d (oui Unknown) > 22:f7:2a:2e:6c:8d (oui Unknown), ethertype Loopback (0x9000), length 37: Loopback, skipCount 19542 (bogus) (invalid)
+^C
+10 packets captured
+10 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ sonic-cli

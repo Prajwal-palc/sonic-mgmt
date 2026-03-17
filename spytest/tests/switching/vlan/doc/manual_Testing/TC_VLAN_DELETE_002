@@ -1,0 +1,48 @@
+#### TC_VLAN_DELETE_002: Delete VLAN with Active Members
+**Objective**: Verify behavior when deleting VLAN with port members
+**Steps**:
+1. Create VLAN 100
+2. Add Port1 as untagged member
+3. Attempt to delete VLAN 100
+4. Verify expected behavior (should fail or remove ports first)
+
+**Expected Result**: System handles deletion appropriately
+
+
+
+
+sonic# configure
+
+sonic(config)# no vlan 100
+
+Error: VLAN 100 does not exist. Create Vlan first using "vlan 100"
+
+sonic(config)# vlan 100
+
+sonic(config)# interface Ethernet 8
+
+sonic(config-if-Ethernet8)# no ip address
+
+sonic(config-if-Ethernet8)# no switchport access Vlan
+
+sonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 100
+
+sonic(config-if-Ethernet8)# switchport access Vlan 100
+
+sonic(config-if-Ethernet8)# no shutdown
+
+sonic(config-if-Ethernet8)# end
+
+sonic# show Vlan
+
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Down                            Enable      No
+Vlan20    Down                            Enable      No
+Vlan30    Down                            Enable      No
+Vlan100   Up          A  Ethernet8        Enable      No
+sonic# configure
+sonic(config)# no vlan 100
+Error: Cannot delete VLAN 100. VLAN has member ports configured. Remove all members configured.
+sonic(config)#

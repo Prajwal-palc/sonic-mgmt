@@ -1,0 +1,54 @@
+# VLAN Boundary and Deletion Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Cases: TC_VLAN_CREATE_004, TC_VLAN_DELETE_002
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  min_topology:
+    - "D1"  # Single DUT topology
+
+testcases:
+  "TC_VLAN_CREATE_004":
+    title: "Verify system rejects invalid VLAN IDs outside 802.1Q boundary"
+    description: "Test that system rejects VLAN 0 and VLAN 4095 with appropriate error messages"
+
+    # Invalid VLAN IDs to test
+    invalid_vlans:
+      - id: 0
+        description: "Lower boundary - below valid range"
+        expected_error_pattern: "Invalid start VLAN|VLAN IDs must be|Invalid|Error"
+
+      - id: 4095
+        description: "Upper boundary - above valid range"
+        expected_error_pattern: "VLAN IDs must be in 1-4094|Invalid|Error"
+
+    # Valid VLAN range for reference
+    valid_range:
+      min: 1
+      max: 4094
+
+  "TC_VLAN_DELETE_002":
+    title: "Verify system prevents deletion of VLAN with active member ports"
+    description: "Test that system blocks VLAN deletion when ports are assigned as members"
+
+    # Test VLAN configuration
+    test_vlan:
+      id: 100
+      name: "TestVlan100"
+
+    # Test interface will be read from testbed global params
+    # Expected: Ethernet8 from ztp_standalone.yaml
+
+    # Expected error when trying to delete VLAN with members
+    expected_error_pattern: "Cannot delete VLAN|has member ports|Remove all members|Error"
+
+    # Verification steps
+    verification:
+      check_vlan_status: true
+      check_member_assignment: true
+      verify_deletion_blocked: true
+      verify_deletion_success_after_cleanup: true

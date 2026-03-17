@@ -1,0 +1,49 @@
+# VLAN Trunk Port Configuration and Removal Test Variables
+# Author: Shiva
+# Date: 2026
+# Test Case: TC_VLAN_TRUNK_004
+
+defaults:
+  cli_type: klish
+  verify_timeout: 30
+  cleanup: true
+  syslog_check: none
+  min_topology:
+    - "D1"  # Single DUT standalone
+
+testcases:
+  "TC_VLAN_TRUNK_004":
+    title: "Verify trunk port VLAN configuration, persistence, and removal"
+    description: "Configure trunk port with VLAN 10, verify show commands and running-config, remove configuration, and verify cleanup"
+
+    # VLAN to configure
+    vlan:
+      id: 10
+      name: "TestVlan10"
+
+    # Interface dynamically read from testbed global params (test_interface)
+    # No hardcoded interface names
+
+    # Verification parameters
+    verification:
+      # After adding trunk VLAN
+      trunk_added:
+        show_vlan_status: "Up"      # VLAN status should be Up
+        show_vlan_tagged: true       # Interface should appear as Tagged (T)
+        running_config_present: true # Configuration should exist in running-config
+
+      # After removing trunk VLAN
+      trunk_removed:
+        show_vlan_status: "Down"     # VLAN status should be Down (no members)
+        show_vlan_tagged: false      # Interface should NOT appear in VLAN
+        running_config_present: false # Configuration should NOT exist in running-config
+
+# CLI commands reference (for documentation)
+cli_commands:
+  create_vlan: "vlan <id>"
+  delete_vlan: "no vlan <id>"
+  trunk_add_vlan: "switchport trunk allowed Vlan <id>"
+  trunk_remove_vlan: "no switchport trunk allowed Vlan <id>"
+  show_vlan: "show Vlan [<id>]"
+  show_running_config_interface: "show running-configuration interface <interface>"
+  clear_counters: "clear interface counters"

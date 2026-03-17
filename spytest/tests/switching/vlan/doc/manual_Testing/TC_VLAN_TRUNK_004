@@ -1,0 +1,88 @@
+sonic# configure
+
+sonic(config)# no vlan 10
+
+Error: VLAN 10 does not exist. Create Vlan first using "vlan 10"
+
+sonic(config)# no vlan 20
+
+Error: VLAN 20 does not exist. Create Vlan first using "vlan 20"
+
+sonic(config)# vlan 10
+
+sonic(config)# interface Ethernet 8
+
+sonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 10
+
+sonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 20
+
+sonic(config-if-Ethernet8)# no ip address
+
+sonic(config-if-Ethernet8)# no shutdown
+
+sonic(config-if-Ethernet8)# end
+
+sonic# show v
+
+version Vlan
+
+sonic# show Vlan
+
+Q: A - Access (Untagged), T - Tagged
+
+NUM       Status      Q Ports             Autostate   Dynamic
+
+------------------------------------------------------------------
+
+Vlan10    Down                            Enable      No
+
+sonic# configure
+
+sonic(config)# interface Ethernet 8
+
+sonic(config-if-Ethernet8)# switchport trunk allowed Vlan 10
+
+sonic(config-if-Ethernet8)# end
+
+sonic# show Vlan
+
+Q: A - Access (Untagged), T - Tagged
+
+NUM       Status      Q Ports             Autostate   Dynamic
+
+------------------------------------------------------------------
+
+Vlan10    Up          T  Ethernet8        Enable      No
+
+sonic# 
+
+sonic# show running-configuration interface Ethernet 8
+
+!
+
+interface Ethernet8
+
+ mtu 9100
+
+ speed auto
+
+ switchport trunk allowed Vlan 10
+
+sonic# configure
+
+sonic(config)# interface Ethernet 8
+
+sonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 10
+
+sonic(config-if-Ethernet8)# end
+sonic# show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Down                            Enable      No
+sonic# show running-configuration interface Ethernet 8
+!
+interface Ethernet8
+ mtu 9100
+ speed auto
+sonic#

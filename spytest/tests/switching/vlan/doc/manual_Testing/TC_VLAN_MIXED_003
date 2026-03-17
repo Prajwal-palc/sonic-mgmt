@@ -1,0 +1,118 @@
+#### TC_VLAN_MIXED_003: Native VLAN Behavior
+**Objective**: Verify native VLAN (untagged) behavior on trunk port
+**Steps**:
+1. Create VLANs 10, 20
+2. Configure Port4 as native VLAN 20 with tagged VLANs 10
+3. Send untagged packet from Port4
+4. Verify packet belongs to native VLAN 20
+5. Send VLAN 10 tagged packet from Port4
+6. Verify packet forwarded in VLAN 10
+
+**Expected Result**: Native VLAN handles untagged traffic correctly
+
+sonic#
+sonic# configure
+sonic(config)# no vlan 10
+Error: VLAN 10 does not exist. Create Vlan first using "vlan 10"
+sonic(config)# no vlan 20
+Error: VLAN 20 does not exist. Create Vlan first using "vlan 20"
+sonic(config)# vlan 10
+sonic(config)# vlan 20
+sonic(config)# interface Ethernet 12
+sonic(config-if-Ethernet12)# no ip address
+sonic(config-if-Ethernet12)# no switchport access Vlan
+sonic(config-if-Ethernet12)# no switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet12)# no switchport trunk allowed Vlan 20
+sonic(config-if-Ethernet12)# no shutdown
+sonic(config-if-Ethernet12)# switchport access Vlan 20
+sonic(config-if-Ethernet12)# switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet12)#
+sonic(config-if-Ethernet12)# exit
+sonic(config)# interface Ethernet 8
+sonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 20
+^[[Asonic(config-if-Ethernet8)# no switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet8)# no switchport access Vlan
+sonic(config-if-Ethernet8)# no ip address
+sonic(config-if-Ethernet8)# switchport access Vlan 20
+sonic(config-if-Ethernet8)# n
+network-policy no
+sonic(config-if-Ethernet8)# no shutdown
+sonic(config-if-Ethernet8)# exit
+sonic(config)# interface Ethernet 4
+sonic(config-if-Ethernet4)# no shutdown
+sonic(config-if-Ethernet4)# no switchport access Vlan
+sonic(config-if-Ethernet4)# no switchport
+access  allowed trunk
+sonic(config-if-Ethernet4)# no switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet4)# no switchport trunk allowed Vlan 20
+sonic(config-if-Ethernet4)# no ip address
+sonic(config-if-Ethernet4)# switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet4)# end
+sonic# show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Up          T  Ethernet4        Enable      No
+                      T  Ethernet12                   No
+Vlan20    Up          A  Ethernet8        Enable      No
+                      A  Ethernet12                   No
+sonic# exit
+admin@sonic:~$
+
+admin@sonic:~$ sudo tcpdump -i Ethernet8 -e -nn
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+03:46:42.826555 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.826679 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.826715 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.826744 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.827745 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.828868 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.830040 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.831133 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.831708 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:46:42.832722 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+^C
+10 packets captured
+10 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ sudo tcpdump -i Ethernet4 -e -nn
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet4, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+03:48:20.886864 22:8d:c4:e8:f2:4f > 01:80:c2:00:00:0e, ethertype LLDP (0x88cc), length 256: LLDP, length 242: sonic
+03:48:25.225532 22:96:d0:c9:67:c9 > 01:80:c2:00:00:0e, ethertype LLDP (0x88cc), length 256: LLDP, length 242: sonic
+^C
+2 packets captured
+2 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ sudo tcpdump -i Ethernet12 -e -nn
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on Ethernet12, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+03:49:05.893998 22:8d:c4:e8:f2:4f > 01:80:c2:00:00:0e, ethertype LLDP (0x88cc), length 258: LLDP, length 244: sonic
+03:49:08.886306 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.887087 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.887124 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.887147 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.889363 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.889548 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.890511 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.891434 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.892284 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+03:49:08.892613 22:96:d0:c9:67:c8 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 22:  [|arp]
+^C
+11 packets captured
+11 packets received by filter
+0 packets dropped by kernel
+admin@sonic:~$ ^C
+admin@sonic:~$
+
+
+Traffic gen:-
+
+from scapy.all import *
+
+sendp(
+        Ether(src="22:96:d0:c9:67:c8", dst="ff:ff:ff:ff:ff:ff",type=0x0806)/
+             Raw(load="TEST_PKT"),
+                    iface="Ethernet12", count=10
+                    )

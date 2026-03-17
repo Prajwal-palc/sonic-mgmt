@@ -166,7 +166,7 @@ def create_scapy_script(
     elif traffic_type.lower() == "tcp":
         packet_construction = (
             "payload = random_payload(payload_size)\n"
-            "            pkt = Ether(src=src_mac, dst=dst_mac)/"
+            "    pkt = Ether(src=src_mac, dst=dst_mac)/"
             "IP(src=src_ip, dst=dst_ip)/"
             "TCP(sport=12345, dport=54321)/"
             "Raw(load=payload)"
@@ -174,7 +174,7 @@ def create_scapy_script(
     else:  # Default to UDP
         packet_construction = (
             "payload = random_payload(payload_size)\n"
-            "            pkt = Ether(src=src_mac, dst=dst_mac)/"
+            "    pkt = Ether(src=src_mac, dst=dst_mac)/"
             "IP(src=src_ip, dst=dst_ip)/"
             "UDP(sport=12345, dport=54321)/"
             "Raw(load=payload)"
@@ -208,43 +208,57 @@ def random_payload(size):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=size))
 
 def send_traffic():
-    """Send traffic using Scapy."""
-    interval = 1.0 / pps
-    end_time = time.time() + duration
+    """Send traffic using Scapy with optimized performance."""
+    # Calculate total packets to send
+    total_packets = duration * pps
+    interval = 1.0 / pps if pps > 0 else 0.001
     sent = 0
 
     print(f"[+] Starting {{traffic_type.upper()}} traffic generation")
     print(f"    Interface:    {{iface}}")
     print(f"    Source:       {{src_ip}} ({{src_mac}})")
     print(f"    Destination:  {{dst_ip}} ({{dst_mac}})")
-    print(f"    Duration:     {{duration}} seconds")
-    print(f"    Rate:         {{pps}} pps")
+    print(f"    Target:       {{total_packets}} packets in {{duration}} seconds ({{pps}} pps)")
     print(f"    Payload:      {{payload_size}} bytes")
     print()
+
+    # Pre-build packet ONCE to reduce overhead
+    {packet_construction}
 
     start_time = time.time()
 
     try:
-        while time.time() < end_time:
-            # Build packet
-            {packet_construction}
+        # Use Scapy's built-in batch sending for better performance
+        # Send packets in chunks to allow progress reporting
+        chunk_size = 500  # Send 500 packets at a time
 
-            # Send packet
-            sendp(pkt, iface=iface, verbose=False)
-            sent += 1
+        while sent < total_packets:
+            # Calculate how many packets to send in this chunk
+            remaining = total_packets - sent
+            current_chunk = min(chunk_size, remaining)
+
+            # Safety check - don't run forever
+            if time.time() - start_time > (duration * 1.5):
+                print(f"\\n[!] Time limit exceeded, stopping at {{sent}} packets")
+                break
+
+            # Send chunk using Scapy's optimized sendp with count and inter
+            # This is much faster than Python loop with sleep
+            sendp(pkt, iface=iface, count=current_chunk, inter=interval, verbose=False)
+            sent += current_chunk
 
             # Progress indicator
-            if sent % 100 == 0:
-                elapsed = time.time() - start_time
-                print(f"[→] Sent {{sent}} packets ({{elapsed:.1f}}s elapsed)...", end='\\r')
-
-            time.sleep(interval)
+            elapsed = time.time() - start_time
+            actual_pps = sent / elapsed if elapsed > 0 else 0
+            print(f"[→] Sent {{sent}}/{{total_packets}} packets ({{elapsed:.1f}}s elapsed, {{actual_pps:.0f}} pps)...", end='\\r')
 
     except KeyboardInterrupt:
         print("\\n[!] Interrupted by user")
         return False
     except Exception as e:
         print(f"\\n[✗] Error: {{e}}")
+        import traceback
+        traceback.print_exc()
         return False
 
     elapsed = time.time() - start_time
@@ -342,22 +356,37 @@ def send_traffic(
 
         output_str = str(output)
 
-        # Parse packets sent
+        # Parse packets sent - CRITICAL: Get the FINAL count, not progress indicators
         packets_sent = 0
-        sent_match = re.search(r'Sent (\d+) packets', output_str)
-        if sent_match:
-            packets_sent = int(sent_match.group(1))
+
+        # First try to get from "Completed" line (most reliable)
+        completed_match = re.search(r'Completed.*?Sent (\d+) packets', output_str)
+        if completed_match:
+            packets_sent = int(completed_match.group(1))
+            st.log(f"Parsed final packet count from 'Completed' line: {packets_sent}")
+        else:
+            # Fallback: Find ALL "Sent X packets" and take the LAST one
+            all_matches = re.findall(r'Sent (\d+) packets', output_str)
+            if all_matches:
+                packets_sent = int(all_matches[-1])  # Take LAST match, not first
+                st.log(f"Parsed packet count from last 'Sent' line: {packets_sent} (found {len(all_matches)} matches)")
+            else:
+                st.warn(f"Could not parse packet count from output")
 
         # Check for success indicators
         success = False
-        if "Completed" in output_str or "packets" in output_str.lower():
+        if "Completed" in output_str:
             if "Error" not in output_str and "Failed" not in output_str:
                 success = True
-                st.log(f"Traffic sent successfully from {dut}: {packets_sent} packets")
+                st.log(f"✅ Traffic sent successfully from {dut}: {packets_sent} packets")
             else:
-                st.log(f"Traffic send completed with errors on {dut}")
+                st.error(f"❌ Traffic completed with errors on {dut}")
+        elif packets_sent > 0:
+            # If we have a packet count but no "Completed", still consider it success
+            success = True
+            st.log(f"✅ Traffic sent from {dut}: {packets_sent} packets (no 'Completed' marker)")
         else:
-            st.log(f"Traffic send status unclear on {dut}")
+            st.error(f"❌ Traffic send status unclear on {dut} - no packets detected")
 
         return {
             "success": success,
