@@ -43,7 +43,8 @@ How to run:
   --testbed ./testbeds/testbed_vs_2d.yaml  \
   interface/test_intf_sample.py \
   --logs-path ./logs/test_intf_sample_$(date +%F_%H%M%S) \
-  --log-level debug  --skip-init-config  --ifname-type native
+  --log-level debug --skip-init-config --ifname-type native --get-tech-support none --syslog-check none
+
 
 Description:
   <One‑paragraph summary of what this test does and key validations>
@@ -76,7 +77,6 @@ Pre‑requisites:
 7. **Topology‑agnostic**: avoid hardcoding; read from YAML/inventory. Gate behavior with capability checks.
 8. **YAML variables**: create and load via SpyTest utilities; do **not** embed test data in code.
 9. **APIs**: CRUD/verify functions in `spytest/apis/<feature>/...`. Reuse existing APIs first; avoid breaking changes.
-10. **Interface Names**: avoid hardcoding; read from testbed.yaml. Do not hardcode in script or var file.
 
 **Example skeleton**
 
@@ -84,7 +84,7 @@ Pre‑requisites:
 """
 STATIC IPV4 ROUTING
 Author: Athira
-2025
+2026
 
 How to run:
   ./bin/spytest  --tryssh 1  \

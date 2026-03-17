@@ -1,0 +1,213 @@
+# ACL Test Testbed Configuration - 3 SONiC DUTs
+# Created: 2026-03-14
+# Topology: Three SONiC DUTs with unidirectional L3 ACL traffic
+
+# Topology Diagram:
+#   ┌──────────────┐                    ┌──────────────┐                    ┌──────────────┐
+#   │    DUT2      │                    │    DUT1      │                    │    DUT3      │
+#   │  (TX Host)   │                    │ (ACL Device) │                    │  (RX Host)   │
+#   │192.168.100.219                    │192.168.100.122                    │192.168.100.172
+#   │  D4:40G      │                    │              │                    │              │
+#   │ Eth0    ◄────┼────────────────────┼─ Eth0        │                    │              │
+#   │         (40G)│   10.0.0.0/24      │              │                    │              │
+#   │              │    (TX subnet)     │ Eth4 ────────┼────────────────────┼──► Eth0      │
+#   │              │                     │              │   20.0.0.0/24      │    (40G)     │
+#   │              │                     │   ACL INGRESS   (RX subnet)       │              │
+#   │              │                     │    on Eth0   │                    │              │
+#   └──────────────┘                    └──────────────┘                    └──────────────┘
+#
+# Physical Connection Details:
+#   Link 1: D4:Ethernet0 ←→ D3:Ethernet0 (both 40G, UP)
+#   Link 2: D3:Ethernet4 ←→ D12:Ethernet0 (40G UP ↔ 40G UP)
+#
+# Traffic Flow: DUT2 (Scapy TX) → DUT1 (ACL Ingress) → Routing → DUT3 (tcpdump RX)
+# Verification: Tcpdump on DUT3:Ethernet0 captures packets via pcap file
+
+version: 2.0
+
+devices:
+  DUT1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.122
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_dut
+    description: "ACL Device Under Test (DUT1) - D3 - SONiC Switch"
+
+  DUT2:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.219
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_tg_tx
+    description: "TX Traffic Generator (DUT2) - D4 - sends Scapy traffic"
+
+  DUT3:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.172
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_tg_rx
+    description: "RX Traffic Sink (DUT3) - D12 - receives and verifies via tcpdump"
+
+topology:
+  DUT1:
+    interfaces:
+      Ethernet0: {EndDevice: DUT2, EndPort: Ethernet0, params: def_tg_link}
+      Ethernet4: {EndDevice: DUT3, EndPort: Ethernet0, params: def_tg_link}
+  DUT2:
+    interfaces:
+      Ethernet0: {EndDevice: DUT1, EndPort: Ethernet0, params: def_tg_link}
+  DUT3:
+    interfaces:
+      Ethernet0: {EndDevice: DUT1, EndPort: Ethernet4, params: def_tg_link}
+
+# Service definitions
+services:
+  default:
+    name: default
+
+# Build definitions
+builds:
+  default:
+    name: default
+
+# Configuration profiles
+configs:
+  default:
+    name: default
+    current: []
+    restore: []
+
+# Error patterns
+errors:
+  default: {}
+
+# Parameters for devices and links
+params:
+  def_dut:
+    description: "DUT (Device Under Test) - D3 (192.168.100.122)"
+    management_ip: "192.168.100.122"
+    hostname: "D3"
+
+  def_tg_tx:
+    description: "TX SONiC Host (DUT2) - D4 (192.168.100.219) - Sends Scapy traffic"
+    type: sonic
+    hostname: "D4"
+    mgmt_ip: "192.168.100.219"
+    role: "traffic_generator_tx"
+
+  def_tg_rx:
+    description: "RX SONiC Host (DUT3) - D12 (192.168.100.172) - Receives and verifies traffic via tcpdump"
+    type: sonic
+    hostname: "D12"
+    mgmt_ip: "192.168.100.172"
+    role: "traffic_generator_rx"
+
+  def_tg_link:
+    description: "TGen link parameters for L3 ACL testing (40G interfaces, UP state)"
+    speed: "40000"
+    autoneg: "enable"
+
+# ============================================================================
+# TESTBED NOTES
+# ============================================================================
+# Device Information:
+#   D3 (DUT1): 192.168.100.122
+#     - Hostname: sonic (SONiC OS)
+#     - Role: ACL Device (DUT)
+#     - Connected TX link: Ethernet0 (40G, UP) ↔ D4:Ethernet0
+#     - Connected RX link: Ethernet4 (40G, UP) ↔ D12:Ethernet0
+#     - Configuration: L3 routing enabled between Eth0 (TX gateway) and Eth4 (RX gateway)
+#
+#   D4 (DUT2): 192.168.100.219
+#     - Hostname: sonic (SONiC OS)
+#     - Role: Traffic Generator (TX Host)
+#     - Connected link: Ethernet0 (40G, UP) ↔ D3:Ethernet0
+#     - Configuration: IP address 10.0.0.1/24 on Ethernet0 (TX subnet)
+#
+#   D12 (DUT3): 192.168.100.172
+#     - Hostname: sonic (SONiC OS)
+#     - Role: Traffic Sink (RX Host)
+#     - Connected link: Ethernet0 (40G, UP) ↔ D3:Ethernet4
+#     - Configuration: IP address 20.0.0.2/24 on Ethernet0 (RX subnet)
+#
+# Physical Links (Verified UP):
+#   Link 1 (TX): D4:Ethernet0 (40G, UP) ←→ D3:Ethernet0 (40G, UP)
+#   Link 2 (RX): D3:Ethernet4 (40G, UP) ←→ D12:Ethernet0 (40G, UP)
+#
+# Subnets:
+#   TX Subnet: 10.0.0.0/24 (DUT2 host: 10.0.0.1, DUT1 gateway: 10.0.0.254)
+#   RX Subnet: 20.0.0.0/24 (DUT3 host: 20.0.0.2, DUT1 gateway: 20.0.0.254)
+#
+# ACL Placement:
+#   ACL Rules applied ingress on DUT1:Ethernet0 (TX gateway)
+#   Tests measure traffic impact on egress to DUT1:Ethernet4 (RX gateway)
+#
+# Test Execution Flow:
+#   1. [Setup] Configure DUT1 L3 addresses (Eth0: 10.0.0.254/24, Eth4: 20.0.0.254/24)
+#   2. [Setup] Configure DUT2 interface (Ethernet0: 10.0.0.1/24)
+#   3. [Setup] Configure DUT3 interface (Ethernet0: 20.0.0.2/24)
+#   4. [Setup] Create static routes for cross-subnet routing
+#   5. [Test] Start tcpdump listener on DUT3:Ethernet0
+#   6. [Test] Apply ACL rules on DUT1:Ethernet0 (ingress)
+#   7. [Test] DUT2 sends packets via Scapy on Ethernet0
+#   8. [Test] DUT1 processes packets through ACL, forwards to Ethernet4
+#   9. [Verify] DUT3 receives packets on Ethernet0, tcpdump captures to pcap
+#   10. [Verify] Parse pcap file using Scapy rdpcap() on DUT3
+#   11. [Result] Compare TX count vs RX count, validate ACL behavior
+#
+# How to Run Tests:
+#   ./bin/spytest --testbed testbeds/testbed_acl_new.yaml \
+#       tests/routing/l3_acl/ \
+#       --logs-path ./logs/l3_acl_new_$(date +%F_%H%M%S) \
+#       --log-level info --skip-init-config
+#
+# Topology Validation Commands:
+#   # Check connectivity
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.122 "hostname"
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.219 "hostname"
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.172 "hostname"
+#
+#   # Verify interfaces
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.122 "show interface status | grep -E 'Ethernet0|Ethernet4'"
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.219 "show interface status | grep Ethernet0"
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.172 "show interface status | grep Ethernet0"
+#
+# Requirements:
+#   - All three SONiC DUTs must be reachable via SSH (✅ Verified)
+#   - All DUTs must have Scapy and tcpdump installed
+#   - Direct physical links: D4:Eth0 ↔ D3:Eth0, D3:Eth4 ↔ D12:Eth0 (✅ Verified UP)
+#   - Management IPs must be reachable: 192.168.100.122, 192.168.100.219, 192.168.100.172 (✅ Verified)
+#
+# ============================================================================
