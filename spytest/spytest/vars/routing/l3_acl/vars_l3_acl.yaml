@@ -1,0 +1,1078 @@
+################################################################################
+# L3 ACL Test Variables Configuration
+#
+# File: spytest/vars/routing/l3_acl/vars_l3_acl.yaml
+# Purpose: Define test case parameters, ACL rules, and traffic configurations
+#          for L3 ACL functional tests (3-SONiC-DUT SpyTest-native pattern)
+#
+# Topology: D1D2D3 (3-SONiC-DUT)
+#   - D1 (DUT1): sp-Sonic-106 (192.168.100.125) - ACL device under test
+#   - D2 (DUT2): sp-Sonic-107 (192.168.100.248) - TX host (Scapy traffic generator)
+#   - D3 (DUT3): sp-Sonic-108 (192.168.100.134) - RX host (tcpdump verification)
+#
+# Override via environment:
+#   export L3_ACL_VAR_FILE=/path/to/custom_vars_l3_acl.yaml
+#
+################################################################################
+
+defaults:
+  # Topology requirement: 3-SONiC-DUT (D1D2D3)
+  # D1: DUT1 (sp-Sonic-106) - ACL device
+  # D2: DUT2 (sp-Sonic-107) - TX host (Scapy traffic sender)
+  # D3: DUT3 (sp-Sonic-108) - RX host (tcpdump receiver)
+  min_topology:
+    - "D1D2:1"
+    - "D1D3:1"
+
+  # CLI type (click, klish, rest-patch, rest-put, gnmi)
+  cli_type: "klish"
+
+  # Verification timeout (seconds) for ACL configuration checks
+  verify_timeout: 30
+
+  # Enable automatic cleanup of test artifacts after each test
+  cleanup: true
+
+  # Disable module config save to avoid slow spytest-helper.py calls
+  # This speeds up test execution significantly (saves ~15-20 minutes per test run)
+  skip_module_config_save: true
+
+  # Traffic generation parameters
+  traffic:
+    num_packets: 100
+    duration: 10        # seconds
+    pps: 10             # packets per second
+    udp_port: 54321     # UDP port for tcpdump filtering
+
+  # DUT L3 configuration
+  dut_l3_config:
+    dut1:
+      eth0_ip: "10.0.0.254"
+      eth0_prefix: 24
+      eth4_ip: "20.0.0.254"
+      eth4_prefix: 24
+    dut2:
+      eth0_ip: "10.0.0.1"
+      eth0_prefix: 24
+    dut3:
+      eth0_ip: "20.0.0.2"
+      eth0_prefix: 24
+
+################################################################################
+# Test Case Definitions
+################################################################################
+
+testcases:
+  # TC L3-BASELINE: Permit All (No ACL)
+  # Validates baseline connectivity without ACL rules
+  "L3-BASELINE":
+    title: "Baseline connectivity (no ACL)"
+    description: |
+      Test validates that without any ACL rules, all traffic is forwarded through
+      the DUT (baseline behavior). Packets should pass from TX host (DUT2, 10.0.0.1)
+      to RX host (DUT3, 20.0.0.2) with ≥90% delivery rate.
+      Expected result: All packets received on RX host (minimal loss).
+
+    acl: null  # No ACL configured for baseline test
+
+    traffic:
+      source_ip: "10.0.0.1"     # DUT2 TX host IP
+      dest_ip: "20.0.0.2"       # DUT3 RX host IP
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 90    # >=90% delivery for PERMIT baseline
+
+    expected_result: "PASS"
+    notes: |
+      - No ACL configured; all traffic permitted
+      - Baseline connectivity validation
+      - Establishes baseline for comparison with ACL tests
+      - Validates tcpdump capture and Scapy traffic generation
+
+  # TC L3-01: Deny Source IP (Host)
+  # Validates that traffic from a specific source IP is dropped
+  "L3-01":
+    title: "Deny source IP (host level)"
+    description: |
+      Test validates that an ACL rule denying traffic from a specific source IP
+      (10.0.0.99) correctly drops all matching packets at the DUT1 ingress port.
+      Traffic is generated from DUT2 with source IP 10.0.0.99, which matches
+      the DENY rule. Expected result: 0 packets received on DUT3 (100% loss).
+
+    acl:
+      tables:
+        L3_ACL_TABLE:
+          type: "L3"                    # L3 = IPv4, L3V6 = IPv6
+          stage: "INGRESS"              # INGRESS or EGRESS
+          ports: ["Ethernet0"]          # Ports where ACL is applied
+
+          rules:
+            # Rule 1: DENY traffic from source IP 10.0.0.99
+            - rule_name: "RULE_1_DENY_SOURCE"
+              action: "deny"
+              src_ip: "10.0.0.99/32"    # Host-level source match
+              dst_ip: "any"
+              protocol: "udp"
+
+            # Rule 2: PERMIT all other traffic (fallback)
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.99"     # Matches DENY rule
+      dest_ip: "20.0.0.2"        # RX host IP
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0      # 0% delivery expected (DENY)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 should match all 100 packets (hit counter = 100)
+      - All packets dropped at DUT1:Ethernet0 ingress
+      - No packets forwarded to DUT1:Ethernet4 egress
+      - RX host (DUT3) should receive 0 packets
+
+  # TC L3-02: Deny Source IP Subnet (/24)
+  "L3-02":
+    title: "Deny source IP subnet (/24)"
+    description: |
+      Test validates that an ACL rule denying traffic from a source subnet
+      (10.0.0.0/24) correctly drops all packets from any host within that subnet.
+      Test sends packets from source IP 10.0.0.50 (within denied subnet).
+      Expected result: 0 packets received on RX host (100% loss).
+
+    acl:
+      tables:
+        L3_ACL_TABLE:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY traffic from subnet 10.0.0.0/24
+            - rule_name: "RULE_1_DENY_SUBNET"
+              action: "deny"
+              src_ip: "10.0.0.0/24"     # Subnet match
+              dst_ip: "any"
+              protocol: "udp"
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.50"     # Within denied subnet 10.0.0.0/24
+      dest_ip: "20.0.0.2"        # RX host IP
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0      # 0% delivery (DENY subnet)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 matches subnet (10.0.0.50 is in 10.0.0.0/24)
+      - All packets dropped due to subnet DENY rule
+      - RX host should receive 0 packets
+
+  # TC L3-03: Deny Destination IP (Host)
+  "L3-03":
+    title: "Deny destination IP (host level)"
+    description: |
+      Test validates that an ACL rule denying traffic to a specific destination IP
+      correctly drops all matching packets. Traffic is sent to destination IP 20.0.0.99
+      (different from RX host IP 20.0.0.2), which matches the DENY rule.
+      Expected result: 0 packets received on RX host (100% loss).
+
+    acl:
+      tables:
+        L3_ACL_TABLE:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY traffic to destination IP 20.0.0.99
+            - rule_name: "RULE_1_DENY_DEST"
+              action: "deny"
+              src_ip: "any"
+              dst_ip: "20.0.0.99/32"    # Host-level destination match
+              protocol: "udp"
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"      # Regular source IP
+      dest_ip: "20.0.0.99"       # Matches DENY rule (not RX host)
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0      # 0% delivery (DENY)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 matches destination IP
+      - All packets dropped at DUT1:Ethernet0 ingress
+      - RX host should receive 0 packets
+
+  # TC L3-04: Deny Destination Subnet (/24)
+  # Validates that traffic to a destination subnet is dropped
+  "L3-04":
+    title: "Deny destination subnet (/24)"
+    description: |
+      Test validates that an ACL rule denying traffic to a destination subnet
+      correctly drops all packets destined to any IP within that subnet.
+      Traffic is sent to destination IP 20.0.0.50 (within denied subnet 20.0.0.0/24),
+      which matches the DENY rule. Expected result: 0 packets received on RX host (100% loss).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L304:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY traffic to destination subnet 20.0.0.0/24
+            - rule_name: "RULE_1_DENY_DEST_SUBNET"
+              action: "deny"
+              src_ip: "any"
+              dst_ip: "20.0.0.0/24"    # Subnet-level destination match
+              protocol: "udp"
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"      # Regular source IP
+      dest_ip: "20.0.0.50"       # Within denied subnet 20.0.0.0/24
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0      # 0% delivery (DENY)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 matches destination subnet
+      - All packets to 20.0.0.0/24 dropped at DUT1:Ethernet0 ingress
+      - Broader subnet-level blocking compared to L3-03 host-level
+
+  # TC L3-05: Permit Specific Source (Whitelist Model)
+  # Validates that traffic from a whitelisted source IP is permitted
+  "L3-05":
+    title: "Permit specific source (whitelist model)"
+    description: |
+      Test validates that ACL rules can implement a whitelist model,
+      where only traffic from a specific source IP is permitted.
+      Traffic from whitelisted source (10.0.0.88/32) should pass through.
+      All other sources should be implicitly denied by default-deny rule.
+      Expected result: All packets from whitelisted source received on RX host (100% delivery).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L305:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: PERMIT traffic from whitelisted source IP
+            - rule_name: "RULE_1_PERMIT_WHITELIST"
+              action: "permit"
+              src_ip: "10.0.0.88/32"    # Whitelisted source
+              dst_ip: "any"
+              protocol: "udp"
+
+            # Rule 2: DENY all other traffic (implicit default-deny)
+            - rule_name: "RULE_2_DENY_ALL"
+              action: "deny"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.88"     # Whitelisted source IP
+      dest_ip: "20.0.0.2"        # RX host IP
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 100    # 100% delivery (PERMIT)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 explicitly permits whitelisted source
+      - ACL rule 2 denies all other traffic
+      - Whitelist model (positive security model)
+      - Different from previous tests' blacklist (negative security model)
+
+  "L3-06":
+    title: "Deny TCP destination port 80"
+    description: |
+      Test validates that ACL can deny traffic destined to a specific TCP port (port 80 - HTTP).
+      Packets with TCP destination port 80 should be dropped by the ACL rule.
+      Expected result: All packets destined to TCP port 80 are dropped (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L306:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY traffic destined to TCP port 80
+            - rule_name: "RULE_1_DENY_TCP_PORT_80"
+              action: "deny"
+              protocol: "tcp"
+              dst_port: 80
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all other traffic (optional, for clarity)
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "tcp"
+
+    traffic:
+      source_ip: "10.0.0.1"       # TX host IP
+      dest_ip: "20.0.0.2"         # RX host IP
+      dst_port: 80                # TCP port 80 (HTTP) - should be denied
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0       # 0% delivery (all packets denied)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 denies TCP port 80 (HTTP traffic)
+      - ACL rule 2 permits all other TCP traffic (for completeness)
+      - Blacklist model (negative security model)
+      - Tests port-level access control
+
+  # TC L3-07: Deny UDP destination port 53 (DNS)
+  "L3-07":
+    title: "Deny UDP destination port 53 (DNS traffic)"
+    description: |
+      Test validates that ACL can deny traffic destined to a specific UDP port (port 53 - DNS).
+      Packets with UDP destination port 53 should be dropped by the ACL rule.
+      Expected result: All packets destined to UDP port 53 are dropped (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L307:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY traffic destined to UDP port 53 (DNS)
+            - rule_name: "RULE_1_DENY_UDP_PORT_53"
+              action: "deny"
+              protocol: "udp"
+              dst_port: 53
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"       # TX host IP
+      dest_ip: "20.0.0.2"         # RX host IP
+      dst_port: 53                # UDP port 53 (DNS) - should be denied
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0       # 0% delivery (all packets denied)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 denies UDP port 53 (DNS traffic)
+      - ACL rule 2 permits all other UDP traffic
+      - Tests port-level access control for UDP
+      - Similar to L3-06 but for UDP instead of TCP
+
+  # TC L3-08: Deny TCP SYN (new connections)
+  "L3-08":
+    title: "Deny TCP SYN flag (block new connections)"
+    description: |
+      Test validates that ACL can deny traffic with TCP SYN flag set, preventing
+      new connection establishment. Packets with SYN flag should be dropped.
+      Expected result: All SYN packets are dropped (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L308:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY TCP traffic with SYN flag
+            - rule_name: "RULE_1_DENY_TCP_SYN"
+              action: "deny"
+              protocol: "tcp"
+              tcp_flags: "SYN"        # Match SYN flag
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all other TCP traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "tcp"
+
+    traffic:
+      source_ip: "10.0.0.1"       # TX host IP
+      dest_ip: "20.0.0.2"         # RX host IP
+      tcp_flags: "S"              # TCP SYN flag (flags="S" in Scapy)
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0       # 0% delivery (all SYN packets denied)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 denies TCP SYN flag (connection initiation)
+      - ACL rule 2 permits all other TCP traffic
+      - Tests TCP flag-level access control
+      - Prevents new TCP connections while allowing established connections
+
+  # TC L3-09: Permit TCP ACK (established sessions)
+  "L3-09":
+    title: "Permit TCP ACK flag (established sessions)"
+    description: |
+      Test validates that ACL can permit traffic with TCP ACK flag set.
+      Important Note: Packets are CRAFTED (not from real TCP handshake).
+      Expected result: ACK packets are forwarded (RX≥90%).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L309:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: PERMIT TCP traffic with ACK flag (established)
+            - rule_name: "RULE_1_PERMIT_TCP_ACK"
+              action: "permit"
+              protocol: "tcp"
+              tcp_flags: "ACK"        # Match ACK flag
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: DENY all other traffic (default deny)
+            - rule_name: "RULE_2_DENY_ALL"
+              action: "deny"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "tcp"
+
+    traffic:
+      source_ip: "10.0.0.1"       # TX host IP
+      dest_ip: "20.0.0.2"         # RX host IP
+      tcp_flags: "A"              # TCP ACK flag (flags="A" in Scapy)
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 90      # ≥90% delivery (ACK packets permitted)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 permits TCP ACK flag (established connections)
+      - ACL rule 2 denies all other TCP traffic
+      - **Important**: Packets are CRAFTED, not from real TCP handshake
+      - TCP seq/ack numbers are predetermined (not validated by ACL)
+      - Tests TCP flag-level permit rules
+
+  # TC L3-10: Deny 5-tuple flow
+  "L3-10":
+    title: "Deny complete 5-tuple flow"
+    description: |
+      Test validates that ACL can match and deny a complete 5-tuple flow:
+      (source IP, destination IP, protocol, source port, destination port).
+      Only packets matching all 5 fields should be dropped.
+      Expected result: Matching 5-tuple packets are dropped (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L310:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY specific 5-tuple
+            - rule_name: "RULE_1_DENY_5TUPLE"
+              action: "deny"
+              src_ip: "10.0.0.99/32"     # Specific source
+              dst_ip: "20.0.0.2/32"      # Specific destination
+              protocol: "tcp"
+              src_port: "any"
+              dst_port: 80
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "tcp"
+
+    traffic:
+      source_ip: "10.0.0.99"      # Matches denied 5-tuple source
+      dest_ip: "20.0.0.2"         # Matches denied 5-tuple destination
+      dst_port: 80                # Matches denied 5-tuple destination port
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0       # 0% delivery (5-tuple match)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 denies complete 5-tuple match
+      - ACL rule 2 permits all other TCP traffic
+      - Tests comprehensive flow-level matching
+      - Similar to firewall stateless rules
+
+  # TC L3-11: Implicit deny-all (no matching rules)
+  "L3-11":
+    title: "Implicit deny-all (no matching permit rules)"
+    description: |
+      Test validates that ACL enforces implicit deny-all for traffic not matching
+      any permit rule. All unmatched traffic should be dropped.
+      Expected result: Non-matching packets are dropped (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L311:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: PERMIT only a specific subnet (not used in traffic)
+            - rule_name: "RULE_1_PERMIT_SPECIFIC"
+              action: "permit"
+              src_ip: "172.16.0.0/24"    # Specific subnet (not in traffic)
+              dst_ip: "any"
+              protocol: "icmp"
+
+            # Rule 2: Implicit DENY for all other traffic (default behavior)
+            # No explicit rule needed - ACL defaults to DENY
+
+    traffic:
+      source_ip: "10.0.0.1"       # NOT in permitted subnet (172.16.0.0/24)
+      dest_ip: "20.0.0.2"         # RX host IP
+      protocol_type: "icmp"        # Use ICMP for this test
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0       # 0% delivery (implicit deny-all)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 permits only ICMP from 172.16.0.0/24 (not used in traffic)
+      - Test traffic from 10.0.0.1 does NOT match any permit rule
+      - Implicit deny-all enforced (no explicit DENY rule needed)
+      - Validates default ACL behavior
+
+  # TC L3-12: Deny DSCP EF (QoS/ToS field)
+  "L3-12":
+    title: "Deny DSCP EF (Expedited Forwarding QoS marking)"
+    description: |
+      Test validates that ACL can match and deny packets with specific DSCP value (EF).
+      DSCP EF (Expedited Forwarding) is indicated by ToS byte = 0xB8.
+      Status: Hardware-only (SONiC-VS may not support DSCP classification in ACL).
+      Expected result: DSCP EF packets are dropped (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_L312:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY packets with DSCP EF (ToS = 0xB8)
+            - rule_name: "RULE_1_DENY_DSCP_EF"
+              action: "deny"
+              protocol: "udp"
+              dscp: 46                   # DSCP EF = 46 (0xB8 >> 2)
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"       # TX host IP
+      dest_ip: "20.0.0.2"         # RX host IP
+      tos: 184                     # ToS = 0xB8 = 184 (DSCP EF)
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0       # 0% delivery (DSCP EF denied)
+
+    expected_result: "PASS"
+    notes: |
+      - ACL rule 1 denies DSCP EF (ToS = 0xB8 = 184)
+      - ACL rule 2 permits all other UDP traffic
+      - **Hardware-only test** - may not work on SONiC-VS
+      - DSCP EF = 46 decimal = 101110 binary (6 MSBs of ToS byte)
+      - DSCP is extracted from ToS byte: DSCP = ToS >> 2
+      - Tests QoS field matching in ACL
+
+################################################################################
+# NEGATIVE TEST CASES (L3-N01 through L3-N09)
+# Edge cases and error handling validation
+################################################################################
+
+  # TC L3-N01: Overlapping IP Subnets (More Specific Rule Precedence)
+  "L3-N01":
+    title: "Overlapping subnets - more specific rule precedence"
+    description: |
+      Test validates that ACL respects subnet specificity when rules overlap.
+      Two rules: DENY 10.0.0.0/24 (less specific) and PERMIT 10.0.0.0/25 (more specific).
+      Traffic from 10.0.0.50 (within /25 but also within /24) should be PERMITTED
+      because the more specific /25 rule takes precedence.
+      Expected result: Packets from /25 range are forwarded despite /24 deny rule (RX≥90).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N01:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY less specific subnet (10.0.0.0/24)
+            - rule_name: "RULE_1_DENY_SUBNET_24"
+              action: "deny"
+              src_ip: "10.0.0.0/24"       # Less specific
+              dst_ip: "any"
+              protocol: "udp"
+
+            # Rule 2: PERMIT more specific subnet (10.0.0.0/25) - should take precedence
+            - rule_name: "RULE_2_PERMIT_SUBNET_25"
+              action: "permit"
+              src_ip: "10.0.0.0/25"       # More specific (10.0.0.0-10.0.0.127)
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.50"              # Within /25 (10.0.0.0-10.0.0.127)
+      dest_ip: "20.0.0.2"
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 90             # Should be PERMITTED (more specific rule)
+
+    expected_result: "PASS"
+    notes: |
+      - Tests rule precedence with overlapping subnets
+      - More specific rule (/25) should take precedence over less specific (/24)
+      - Validates ACL matching logic for subnet specificity
+
+  # TC L3-N02: IP Broadcast Address Handling
+  "L3-N02":
+    title: "Broadcast address handling"
+    description: |
+      Test validates ACL handling of broadcast packets (destination IP 255.255.255.255).
+      Broadcast traffic is typically handled specially by the system and may be
+      dropped automatically or by explicit ACL rule. Test sends packets to broadcast
+      address and verifies platform-specific behavior.
+      Expected result: Platform-dependent (usually RX=0, dropped automatically).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N02:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: PERMIT all traffic (no explicit broadcast rule)
+            - rule_name: "RULE_1_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "255.255.255.255"          # Broadcast address
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # Platform-dependent (usually dropped)
+
+    expected_result: "PASS (Implementation-Dependent)"
+    notes: |
+      - Tests ACL behavior with broadcast address
+      - May be dropped by system before ACL evaluation
+      - Results depend on platform/OS configuration
+
+  # TC L3-N03: Zero Protocol Number Edge Case
+  "L3-N03":
+    title: "Protocol number edge case (protocol 0)"
+    description: |
+      Test validates ACL handling of protocol 0 (IP protocol number 0 - reserved).
+      Send packets with protocol field = 0 and verify ACL handles edge case correctly.
+      Expected result: Packets typically dropped or implementation-dependent.
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N03:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY protocol 0
+            - rule_name: "RULE_1_DENY_PROTO_0"
+              action: "deny"
+              protocol: 0                 # IP protocol 0 (reserved)
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all other protocols
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # Protocol 0 packets denied
+
+    expected_result: "PASS"
+    notes: |
+      - Tests edge case: protocol number 0 (reserved)
+      - Validates ACL handling of invalid/reserved protocol numbers
+
+  # TC L3-N04: Maximum Protocol Number Edge Case
+  "L3-N04":
+    title: "Protocol number edge case (protocol 255)"
+    description: |
+      Test validates ACL handling of protocol 255 (IP protocol 255 - reserved).
+      Send packets with maximum protocol field value and verify ACL handles edge case.
+      Expected result: Packets handled based on ACL rule (typically denied if explicit rule).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N04:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY protocol 255
+            - rule_name: "RULE_1_DENY_PROTO_255"
+              action: "deny"
+              protocol: 255               # IP protocol 255 (reserved)
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all UDP
+            - rule_name: "RULE_2_PERMIT_UDP"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # Protocol 255 packets denied
+
+    expected_result: "PASS"
+    notes: |
+      - Tests edge case: protocol number 255 (maximum, reserved)
+      - Validates ACL handling of boundary protocol numbers
+
+  # TC L3-N05: Port Number Edge Cases (0 and 65535)
+  "L3-N05":
+    title: "Port number edge cases (port 0 and 65535)"
+    description: |
+      Test validates ACL handling of port number edge cases: 0 and 65535.
+      Port 0 is typically reserved/invalid for UDP. Port 65535 is maximum.
+      Send packets with these ports and verify ACL behavior.
+      Expected result: Edge case ports handled per ACL rules.
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N05:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY port 0 (reserved)
+            - rule_name: "RULE_1_DENY_PORT_0"
+              action: "deny"
+              protocol: "udp"
+              dst_port: 0
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: DENY port 65535 (maximum)
+            - rule_name: "RULE_2_DENY_PORT_65535"
+              action: "deny"
+              protocol: "udp"
+              dst_port: 65535
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 3: PERMIT all other UDP
+            - rule_name: "RULE_3_PERMIT_UDP"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      dst_port: 65535                     # Maximum port
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # Port 65535 denied
+
+    expected_result: "PASS"
+    notes: |
+      - Tests edge cases: port 0 (reserved) and port 65535 (maximum)
+      - Validates ACL handling of boundary port numbers
+
+  # TC L3-N06: Invalid TCP Flag Combinations (SYN+FIN)
+  "L3-N06":
+    title: "Invalid TCP flag combinations (SYN+FIN)"
+    description: |
+      Test validates ACL handling of malformed TCP packets with invalid flag combinations.
+      SYN and FIN flags both set is invalid in normal TCP (SYN for connection init, FIN for close).
+      Send crafted TCP packets with both flags set and verify ACL behavior.
+      Expected result: Dropped or flagged as invalid (implementation-dependent).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N06:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY TCP with invalid flag combinations (SYN+FIN)
+            - rule_name: "RULE_1_DENY_INVALID_FLAGS"
+              action: "deny"
+              protocol: "tcp"
+              tcp_flags: "SF"             # SYN + FIN (invalid combination)
+              src_ip: "any"
+              dst_ip: "any"
+
+            # Rule 2: PERMIT all other TCP
+            - rule_name: "RULE_2_PERMIT_TCP"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "tcp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      tcp_flags: "SF"                     # Invalid: SYN + FIN
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # Invalid flags dropped
+
+    expected_result: "PASS"
+    notes: |
+      - Tests malformed TCP packets with invalid flag combinations
+      - SYN and FIN both set is invalid for normal TCP flow
+      - Validates ACL handling of protocol violations
+
+  # TC L3-N07: TTL Field Edge Cases
+  "L3-N07":
+    title: "TTL field edge case (TTL=0)"
+    description: |
+      Test validates ACL handling of packets with TTL (Time To Live) = 0.
+      TTL=0 packets are typically dropped by routers. Verify ACL behavior with edge case.
+      Expected result: Packets typically dropped before reaching destination (RX=0).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N07:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: PERMIT all traffic (let platform handle TTL)
+            - rule_name: "RULE_1_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      ttl: 0                              # TTL = 0 (edge case)
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # TTL=0 dropped by platform
+
+    expected_result: "PASS"
+    notes: |
+      - Tests edge case: TTL field value of 0
+      - TTL=0 packets typically rejected by routers
+      - Platform-dependent behavior
+
+  # TC L3-N08: Fragmented IP Packets
+  "L3-N08":
+    title: "Fragmented IP packets handling"
+    description: |
+      Test validates ACL handling of fragmented IP packets.
+      Generate IP packets with fragment flags set and verify ACL behavior.
+      Fragmentation handling is often implementation-dependent and may require
+      special ACL rules or platform-specific configuration.
+      Expected result: Platform-dependent (may be reassembled or dropped).
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N08:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: DENY fragmented packets (MF or DF flags)
+            - rule_name: "RULE_1_DENY_FRAGMENTED"
+              action: "deny"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+              # Note: Not all ACL implementations support fragment matching
+
+            # Rule 2: PERMIT all other traffic
+            - rule_name: "RULE_2_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      fragmented: true                    # Send fragmented packets
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 0              # Fragmented packets platform-dependent
+
+    expected_result: "PASS (Implementation-Dependent)"
+    notes: |
+      - Tests IP packet fragmentation handling
+      - Fragmentation support in ACL varies by implementation
+      - May require special ACL rules or platform features
+      - Platform and hardware-dependent behavior
+
+  # TC L3-N09: Payload Size Edge Case (Minimum)
+  "L3-N09":
+    title: "Minimum payload size (64-byte packet)"
+    description: |
+      Test validates ACL handling of minimum-sized IP packets.
+      Send 64-byte packets (typical minimum Ethernet frame) and verify ACL behavior.
+      Very small packets may be handled specially or dropped by some systems.
+      Expected result: Small packets should pass through if ACL rules permit.
+
+    acl:
+      tables:
+        L3_ACL_TABLE_N09:
+          type: "L3"
+          stage: "INGRESS"
+          ports: ["Ethernet0"]
+
+          rules:
+            # Rule 1: PERMIT all traffic
+            - rule_name: "RULE_1_PERMIT_ALL"
+              action: "permit"
+              src_ip: "any"
+              dst_ip: "any"
+              protocol: "udp"
+
+    traffic:
+      source_ip: "10.0.0.1"
+      dest_ip: "20.0.0.2"
+      frame_size: 64                      # Minimum Ethernet frame size
+      num_packets: 100
+      duration: 10
+      expected_rx_min_pct: 90             # Should pass (permits all)
+
+    expected_result: "PASS"
+    notes: |
+      - Tests edge case: minimum packet size (64 bytes)
+      - Typical Ethernet minimum frame size
+      - Should pass through if ACL rules permit
+      - Validates ACL behavior with minimal packets
+
+################################################################################
+# SpyTest Framework Settings
+################################################################################
+
+framework:
+  # Silent pass prevention settings
+  silent_pass_guards:
+    - "tx_packets > 0"            # Guard 1: Stream must send packets
+    - "rx_packets_verified"       # Guard 2: RX count must be from pcap file
+    - "acl_evaluated"             # Guard 3: ACL rules must be evaluated
+
+  # Tcpdump settings for verification
+  tcpdump:
+    enabled: true
+    pcap_dir: "/tmp"              # Directory to store pcap files on DUT3
+    filter: "udp port 54321"      # tcpdump filter expression
+    timeout: 15                   # Seconds to wait after traffic stops
+
+  # Test markers
+  markers:
+    - topology: "D1D2D3"
+    - feature: "L3_ACL"
+    - smoke: true
+    - nightly: false
+
+  # Cleanup settings
+  cleanup:
+    enabled: true
+    remove_acl_after_test: true
+
+  # Module config save - DISABLED to prevent prompt timeout errors
+  # The spytest-helper.py --save-module-config command causes pattern match failures
+  # on devices that are transitioning between CLI modes. Disabling this prevents
+  # "Search pattern never detected" errors during post-test cleanup.
+  config:
+    save_config: false
+    save_module_config: false
+    restore_module_config: false
+    remove_pcap_after_test: false  # Keep pcap files for debugging
+    remove_acl_after_suite: true
+
+################################################################################
+# End of L3 ACL Test Variables
+################################################################################
