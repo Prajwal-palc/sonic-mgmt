@@ -1,25 +1,42 @@
 # ACL Test Testbed Configuration
-# Topology: Single DUT with Scapy-based traffic generation
-# Suitable for L2 and L3 ACL traffic validation tests
+# Topology: Three SONiC DUTs with Unidirectional L3 ACL Traffic
+# Suitable for L3 ACL traffic validation tests (following VLAN script pattern)
 #
 # Topology Diagram:
-#   +------------+   Port1(Eth0)      Port2(Eth4)   +------------+
-#   | Scapy TX   |---------------[DUT]---------------| Scapy RX   |
-#   | (TGen)     |   ACL ingress      ACL egress    | (TGen)     |
-#   +------------+                                   +------------+
+#   ┌──────────────┐                    ┌──────────────┐                    ┌──────────────┐
+#   │   DUT2       │                    │   DUT1       │                    │   DUT3       │
+#   │  (TX Host)   │                    │ (ACL Device) │                    │  (RX Host)   │
+#   │ 10.0.0.1/24  │                    │              │                    │ 20.0.0.2/24  │
+#   │ Ethernet0 ◄──┼────────────────────┼─ Ethernet0   │                    │              │
+#   │              │   10.0.0.0/24      │              │                    │              │
+#   │              │    (TX subnet)      │ Ethernet4 ──┼────────────────────┼──► Ethernet0 │
+#   │              │                     │              │   20.0.0.0/24      │              │
+#   │              │                     │   ACL INGRESS   (RX subnet)       │              │
+#   │              │                     │    on Eth0   │                    │              │
+#   └──────────────┘                    └──────────────┘                    └──────────────┘
+#
+# Traffic Flow: DUT2 (Scapy TX) → DUT1 (ACL Ingress) → Routing → DUT3 (Tcpdump RX)
+# Verification: Tcpdump on DUT3:Ethernet0 captures packets via pcap file
+# Platform: 3 SONiC DUTs (Virtual or Hardware)
+#
+# DUT Configuration:
+#   - Port1/Ethernet0: IP 10.0.0.254/24 (gateway for TX subnet)
+#   - Port2/Ethernet4: IP 20.0.0.254/24 (gateway for RX subnet)
+#   - L3 routing enabled between subnets
+#   - ACL applied ingress on Port1 (Ethernet0)
 #
 # Usage:
 #   ./bin/spytest --testbed ./testbeds/testbed_acl.yaml \
-#       tests/switching/l2_acl/ --logs-path ./logs/acl_test
+#       routing/l3_acl/ --logs-path ./logs/acl_test
 
 version: 2.0
 
 devices:
-  DUT1:
+  D1:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.163
+      ip: 192.168.100.190
       port: 22
     credentials:
       username: admin
@@ -31,19 +48,55 @@ devices:
       config: default
       errors: default
       params: def_dut
+    description: "ACL Device Under Test (D1) - sp-Sonic-106"
 
-  TG1:
-    device_type: TGEN
+  D2:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.67
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: YourPaSsWoRd
     properties:
-      type: scapy
-      version: 2.5.0
-      params: def_tg
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_tg_tx
+    description: "TX Traffic Generator (D2) - sp-Sonic-107 - sends Scapy traffic"
+
+  D3:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.134
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_tg_rx
+    description: "RX Traffic Sink (D3) - sp-Sonic-108 - receives and verifies via tcpdump"
 
 topology:
-  DUT1:
+  D1:
     interfaces:
-      Ethernet0: {EndDevice: TG1, EndPort: 1/1, params: def_tg_link}
-      Ethernet4: {EndDevice: TG1, EndPort: 1/2, params: def_tg_link}
+      Ethernet40: {EndDevice: D2, EndPort: Ethernet24, params: def_tg_link}
+      Ethernet24: {EndDevice: D3, EndPort: Ethernet24, params: def_tg_link}
+  D2:
+    interfaces:
+      Ethernet24: {EndDevice: D1, EndPort: Ethernet40, params: def_tg_link}
+  D3:
+    interfaces:
+      Ethernet24: {EndDevice: D1, EndPort: Ethernet24, params: def_tg_link}
 
 # Service definitions
 services:
@@ -69,23 +122,100 @@ errors:
 # Parameters for devices and links
 params:
   def_dut:
-    description: "Default DUT parameters"
-    management_ip: "192.168.100.163"
+    description: "DUT (Device Under Test) - sp-Sonic-106"
+    management_ip: "192.168.100.190"
+    hostname: "sp-Sonic-106"
 
-  def_tg:
-    description: "Default Traffic Generator parameters"
-    type: scapy
+  def_tg_tx:
+    description: "TX SONiC Host (DUT2) - Sends Scapy traffic via scapy_traffic.send_traffic()"
+    type: sonic
+    hostname: "sp-Sonic-107"
+    mgmt_ip: "192.168.100.67"
+    role: "traffic_generator_tx"
+
+  def_tg_rx:
+    description: "RX SONiC Host (DUT3) - Receives and verifies traffic via tcpdump"
+    type: sonic
+    hostname: "sp-Sonic-108"
+    mgmt_ip: "192.168.100.134"
+    role: "traffic_generator_rx"
 
   def_tg_link:
-    description: "Default TGen link parameters"
+    description: "TGen link parameters for L3 ACL testing"
     speed: "1000"
     autoneg: "enable"
 
 # Notes:
-# - This testbed is designed for ACL traffic validation using Scapy
-# - DUT1 has 2 ports connected to TG1 (Scapy traffic generator)
-# - Port Ethernet0 (TG1 1/1): Traffic source (TX) - ACL applied ingress
-# - Port Ethernet4 (TG1 1/2): Traffic destination (RX) - Validate ACL behavior
-# - Scapy scripts should configure eth0 (maps to TG1 1/1) and eth1 (maps to TG1 1/2)
-# - ACL rules should be applied ingress on DUT1:Ethernet0
-# - Tests validate permit/deny rules by checking packet arrival on Ethernet4
+# =============================================================================
+# ACL Test Topology (3-SONiC-DUT Configuration - SpyTest Native)
+# =============================================================================
+#
+# Device Assignments:
+#   - DUT1: sp-Sonic-106 (192.168.100.190) - Device Under Test (ACL device)
+#   - DUT2: sp-Sonic-107 (192.168.100.67) - TX SONiC Host (traffic sender)
+#   - DUT3: sp-Sonic-108 (192.168.100.134) - RX SONiC Host (traffic receiver)
+#
+# DUT Port Configuration (L3 Mode with ACL):
+#   - DUT1:Ethernet0 (ACL Ingress Port)
+#     - IP: 10.0.0.254/24 (gateway for TX subnet 10.0.0.0/24)
+#     - Connected to: DUT2:Ethernet0
+#     - ACL rules applied INGRESS on this port
+#
+#   - DUT1:Ethernet4 (Egress Port)
+#     - IP: 20.0.0.254/24 (gateway for RX subnet 20.0.0.0/24)
+#     - Connected to: DUT3:Ethernet0
+#     - No ACL rules on egress
+#
+# TX Host (DUT2 - sp-Sonic-107) Configuration:
+#   - Role: Generate L3 traffic using `scapy_traffic.send_traffic()` API
+#   - Interface: Ethernet0 - IP 10.0.0.1/24 (subnet connected to DUT1:Ethernet0)
+#   - Traffic: UDP packets crafted by Scapy script (deployed via SpyTest st.show())
+#   - Timing: Non-blocking execution (script runs on DUT via SSH)
+#
+# RX Host (DUT3 - sp-Sonic-108) Configuration:
+#   - Role: Verify traffic reception using tcpdump
+#   - Interface: Ethernet0 - IP 20.0.0.2/24 (subnet connected to DUT1:Ethernet4)
+#   - Verification: tcpdump captures packets to /tmp/*.pcap files
+#   - Analysis: Scapy rdpcap() parses pcap files for exact packet counts
+#
+# Test Execution Flow (SpyTest Native):
+#   1. [Setup] Configure DUT1 ports with L3 addresses (Eth0: 10.0.0.254/24, Eth4: 20.0.0.254/24)
+#   2. [Setup] Configure DUT2 interface (Ethernet0: 10.0.0.1/24)
+#   3. [Setup] Configure DUT3 interface (Ethernet0: 20.0.0.2/24)
+#   4. [Setup] Start tcpdump listener on DUT3:Ethernet0 → /tmp/*.pcap
+#   5. [Test] Apply ACL rules on DUT1:Ethernet0 (ingress)
+#   6. [Test] DUT2 sends packets via scapy_traffic.send_traffic(dut=DUT2, interface=Ethernet0, ...)
+#   7. [Test] Packets flow: DUT2 → DUT1 (ACL applied) → DUT3 (tcpdump captures)
+#   8. [Verify] Stop tcpdump listener on DUT3
+#   9. [Verify] Parse pcap file using Scapy rdpcap() on DUT3
+#   10. [Verify] Compare TX count (from DUT2) vs RX count (from pcap on DUT3)
+#   11. [Verify] Check DUT1 ACL hit counters
+#   12. [Result] PASS if: TX > 0, RX matches expected (≥90% for PERMIT, 0% for DENY)
+#
+# Key Features (SpyTest Native):
+#   - Full SpyTest framework integration (st.log, st.report_pass/fail)
+#   - Non-blocking traffic generation (uses DUT-deployed Scapy scripts)
+#   - Tcpdump forensic evidence (pcap files saved for analysis)
+#   - Silent pass prevention (mandatory checks: TX > 0, RX > 0)
+#   - Supports L2 ACL (MAC, EtherType, VLAN) and L3 ACL (IP, protocol, TCP flags, DSCP)
+#   - Automatic cleanup via try/finally blocks
+#   - Centralized logging and test reporting
+#
+# Requirements:
+#   - All three SONiC DUTs must be accessible via SSH
+#   - All DUTs must have Scapy and tcpdump installed
+#   - Direct physical or virtual links: DUT1:Ethernet0 ↔ DUT2:Ethernet0, DUT1:Ethernet4 ↔ DUT3:Ethernet0
+#   - Management IPs in testbed must be reachable
+#
+# Differences from External TGen Approach:
+#   - ✅ Traffic generation runs ON DUT2 (not separate external host)
+#   - ✅ Scapy script deployed via SpyTest st.show() (automated)
+#   - ✅ Tcpdump verification on DUT3 (not external host)
+#   - ✅ Pcap files parsed using Scapy rdpcap() (forensic analysis)
+#   - ✅ Single testbed file (no external host configuration needed)
+#
+# Related Documentation:
+#   - /tests/routing/l3_acl/docs/acl-l3.md (L3 ACL test plan - 3-DUT topology)
+#   - ~/Athira/test_vlan_svi_l3_traffic_tcpdump.py (Reference implementation - VLAN SVI with tcpdump)
+#   - /tests/switching/l2_acl/docs/acl-l2.md (L2 ACL test plan)
+#   - /spytest_traffic_apis_complete_guide.md (SpyTest Traffic API best practices)
