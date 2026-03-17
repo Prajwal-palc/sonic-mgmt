@@ -34,7 +34,7 @@ devices:
       port: 22
     credentials:
       username: admin
-      password: sonic@123
+      password: root@123
       altpassword: YourPaSsWoRd
     properties:
       services: default
@@ -61,8 +61,8 @@ devices:
       config: default
       errors: default
       params: def_tg_tx
-      cli_type: click
-    description: "TX Traffic Generator (D2) - 8023 - Sends Scapy traffic (click CLI)"
+      cli_type: klish
+    description: "TX Traffic Generator (D2) - 8023 - Sends Scapy traffic (klish CLI)"
 
   D3:
     device_type: sonic
