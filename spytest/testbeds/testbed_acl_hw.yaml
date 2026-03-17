@@ -42,7 +42,8 @@ devices:
       config: default
       errors: default
       params: def_dut
-    description: "ACL Device Under Test (D1) - 8011 - Hardware SONiC Switch"
+      cli_type: klish
+    description: "ACL Device Under Test (D1) - 8011 - Hardware SONiC Switch (klish CLI)"
 
   D2:
     device_type: sonic
@@ -60,7 +61,8 @@ devices:
       config: default
       errors: default
       params: def_tg_tx
-    description: "TX Traffic Generator (D2) - 8023 - Sends Scapy traffic"
+      cli_type: click
+    description: "TX Traffic Generator (D2) - 8023 - Sends Scapy traffic (click CLI)"
 
   D3:
     device_type: sonic
@@ -78,7 +80,8 @@ devices:
       config: default
       errors: default
       params: def_tg_rx
-    description: "RX Traffic Sink (D3) - 8010 - Receives and verifies via tcpdump"
+      cli_type: klish
+    description: "RX Traffic Sink (D3) - 8010 - Receives and verifies via tcpdump (klish CLI)"
 
 topology:
   D1:
