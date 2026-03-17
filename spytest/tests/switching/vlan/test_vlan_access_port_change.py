@@ -75,7 +75,7 @@ def _load_yaml_data() -> Dict[str, Any]:
     return content
 
 
-@pytest.mark.topology("D1")
+@pytest.mark.topology("any")
 class TestVlanAccessPortChange:
     """Test cases for VLAN access port membership changes."""
 
@@ -90,14 +90,13 @@ class TestVlanAccessPortChange:
         config = _load_yaml_data()
         defaults = config.get("defaults", {})
 
-        # Ensure minimum topology (single DUT)
-        min_topology = defaults.get("min_topology") or ["D1"]
-        topology = st.ensure_min_topology(*min_topology)
+        # Get testbed vars - use first DUT only (single DUT test)
+        vars = st.get_testbed_vars()
 
         # Store configuration data
         cls.data.config = SpyTestDict(config)
         cls.data.defaults = SpyTestDict(defaults)
-        cls.data.topology = topology
+        cls.data.vars = vars
         cls.data.testcases = SpyTestDict(config.get("testcases", {}))
 
         # CLI type configuration
@@ -110,14 +109,21 @@ class TestVlanAccessPortChange:
         # Cleanup configuration
         cls.data.cleanup_enabled = bool(defaults.get("cleanup", True))
 
-        # DUT and interface mapping
-        cls.data.dut = topology.D1
-        cls.data.dut_name = st.get_dut_names()[0] if st.get_dut_names() else "D1"
+        # DUT and interface mapping - use first DUT only
+        dut_list = st.get_dut_names()
+        if not dut_list:
+            st.error("No DUTs found in testbed")
+            pytest.skip("No DUTs available")
+
+        cls.data.dut = vars.D1 if hasattr(vars, 'D1') else dut_list[0]
+        cls.data.dut_name = dut_list[0]
 
         # Track created VLANs for cleanup
         cls.data.created_vlans = []
         cls.data.configured_interfaces = []
 
+        st.banner(f"SINGLE DUT TEST - Using only first DUT: {cls.data.dut_name}")
+        st.log(f"Available DUTs in testbed: {dut_list}")
         st.log(f"Test DUT: {cls.data.dut_name}")
         st.log(f"CLI Type: {cls.data.cli_type}")
         st.log(f"Cleanup Enabled: {cls.data.cleanup_enabled}")

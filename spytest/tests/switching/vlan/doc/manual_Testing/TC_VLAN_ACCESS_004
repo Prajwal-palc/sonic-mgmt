@@ -1,0 +1,37 @@
+##TC_VLAN_ACCESS_004
+admin@sonic:~$ sonic-cli
+sonic# configure
+sonic(config)# vlan 20
+sonic(config)# vlan 10
+sonic(config)# interface Ethernet 10
+sonic(config-if-Ethernet10)# exit
+sonic(config)# interface Ethernet 12
+sonic(config-if-Ethernet12)# switchport
+access trunk
+sonic(config-if-Ethernet12)# no ip address
+sonic(config-if-Ethernet12)# no switchport a
+access  allowed
+sonic(config-if-Ethernet12)# no switchport trunk allowed Vlan 10
+sonic(config-if-Ethernet12)# switchport access Vlan 10
+sonic(config-if-Ethernet12)# exit
+sonic(config)# exit
+sonic# show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Up          A  Ethernet12       Enable      No
+Vlan20    Down                            Enable      No
+sonic# configure
+sonic(config)# interface
+breakout    Ethernet    Loopback    Management  PortChannel Vlan
+sonic(config)# interface Ethernet 12
+sonic(config-if-Ethernet12)# switchport access Vlan 20
+sonic(config-if-Ethernet12)# exit
+sonic(config)# exit
+sonic# show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Down                            Enable      No
+Vlan20    Up          A  Ethernet12       Enable      No
+sonic#

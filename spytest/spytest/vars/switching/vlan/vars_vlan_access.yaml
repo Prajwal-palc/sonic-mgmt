@@ -93,6 +93,34 @@ testcases:
       inter_packet_delay: 0.01      # Faster traffic (10ms between packets)
       payload: "VLAN_ISOLATION_TEST_PACKET"
 
+  "TC_VLAN_ACCESS_003":
+    title: "Verify intra-VLAN L2 unicast forwarding between access ports"
+    description: "Verify Layer 2 unicast communication between multiple access ports in the same VLAN"
+
+    # VLAN configuration (NO interface names - read from topology!)
+    vlan:
+      id: 10
+      name: "TestVlan10"
+
+    # Traffic parameters
+    traffic:
+      packet_count: 10
+      inter_packet_delay: 1
+      payload: "VLAN_INTRA_FORWARDING_TEST"
+
+    # Verification parameters
+    verification:
+      # Minimum packets expected on ingress port (DUT receives from TGen)
+      ingress_min_packets: 10
+      # Maximum allowed on ingress (accounting for background traffic)
+      ingress_max_packets: 20
+      # Minimum packets expected on egress port (DUT forwards within VLAN)
+      egress_min_packets: 10
+      # Maximum allowed on egress (accounting for background traffic)
+      egress_max_packets: 20
+      # Expected packets in pcap (exact match for unicast)
+      pcap_expected_packets: 10
+
   "TC_VLAN_ACCESS_004":
     title: "Change Access Port VLAN Membership"
     description: "Verify that access port VLAN assignment can be successfully changed"

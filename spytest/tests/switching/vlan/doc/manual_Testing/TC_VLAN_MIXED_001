@@ -1,0 +1,35 @@
+### 8.4 Mixed Port Configuration (Tagged + Untagged)
+
+#### TC_VLAN_MIXED_001: Configure Port with Tagged and Untagged VLANs
+**Objective**: Verify port with both tagged and untagged VLAN configuration
+**Steps**:
+1. Create VLANs 10, 20
+2. Configure Port4 as untagged member of VLAN 20
+3. Configure Port4 as tagged member of VLAN 10
+4. Execute `show running-config` to verify configuration
+
+**Expected Result**: Port4 configured with both tagged and untagged VLANs
+
+
+sonic# show Vlan
+No VLANs configured
+sonic# configure
+sonic(config)# vlan 10
+sonic(config)# vlan 20
+sonic(config)# interface Ethernet 8
+sonic(config-if-Ethernet8)# no ip address
+sonic(config-if-Ethernet8)# switchport access Vlan 10
+sonic(config-if-Ethernet8)# do show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Up          A  Ethernet8        Enable      No
+Vlan20    Down                            Enable      No
+sonic(config-if-Ethernet8)# switchport trunk allowed Vlan 20
+sonic(config-if-Ethernet8)# do show Vlan
+Q: A - Access (Untagged), T - Tagged
+NUM       Status      Q Ports             Autostate   Dynamic
+------------------------------------------------------------------
+Vlan10    Up          A  Ethernet8        Enable      No
+Vlan20    Up          T  Ethernet8        Enable      No
+sonic(config-if-Ethernet8)#
