@@ -1,0 +1,226 @@
+# ACL Test Testbed Configuration - 3 Hardware SONiC DUTs
+# Created: 2026-03-17
+# Updated for exact hardware topology mapping
+# Topology: Three Hardware SONiC DUTs with unidirectional L3 ACL traffic
+
+# Topology Diagram:
+#   ┌──────────────┐                    ┌──────────────┐                    ┌──────────────┐
+#   │   DUT2       │                    │   DUT1       │                    │   DUT3       │
+#   │  (TX Host)   │                    │ (ACL Device) │                    │  (RX Host)   │
+#   │  8023        │                    │    8011      │                    │    8010      │
+#   │192.168.100.140                    │192.168.100.119                    │192.168.100.173
+#   │              │                    │              │                    │              │
+#   │ Ethernet64 ◄─┼────────────────────┼─ Ethernet272 │                    │              │
+#   │ 10.1.1.1/24  │                    │ 10.1.1.2/24  │                    │              │
+#   │              │   (TX subnet)      │              │                    │              │
+#   │              │  10.1.1.0/24       │ Ethernet513──┼────────────────────┼──► Ethernet513
+#   │              │                     │ 10.1.2.1/24  │  10.1.2.0/24       │ 10.1.2.2/24  │
+#   │              │                     │ ACL INGRESS  │ (RX subnet)        │              │
+#   │              │                     │ on Eth272    │                    │              │
+#   └──────────────┘                    └──────────────┘                    └──────────────┘
+#
+# Physical Connection Details:
+#   Link 1 (TX): 8023:Ethernet64 (10.1.1.1) ←→ 8011:Ethernet272 (10.1.1.2)
+#   Link 2 (RX): 8011:Ethernet513 (10.1.2.1) ←→ 8010:Ethernet513 (10.1.2.2)
+#
+# Traffic Flow: DUT2 (Scapy TX) → DUT1 (ACL Ingress) → Routing → DUT3 (tcpdump RX)
+# Verification: Tcpdump on DUT3:Ethernet513 captures packets via pcap file
+
+version: 2.0
+
+devices:
+  D1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.119
+      port: 22
+    credentials:
+      username: admin
+      password: sonic@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_dut
+      cli_type: klish
+    description: "ACL Device Under Test (D1) - 8011 - Hardware SONiC Switch (klish CLI)"
+
+  D2:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.140
+      port: 22
+    credentials:
+      username: admin
+      password: broadcom
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_tg_tx
+      cli_type: klish
+    description: "TX Traffic Generator (D2) - 8023 - Sends Scapy traffic (klish CLI)"
+
+  D3:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.173
+      port: 22
+    credentials:
+      username: admin
+      password: sonic@123
+      altpassword: YourPaSsWoRd
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+      params: def_tg_rx
+      cli_type: klish
+    description: "RX Traffic Sink (D3) - 8010 - Receives and verifies via tcpdump (klish CLI)"
+
+topology:
+  D1:
+    interfaces:
+      Ethernet272: {EndDevice: D2, EndPort: Ethernet64, params: def_tg_link}
+      Ethernet513: {EndDevice: D3, EndPort: Ethernet513, params: def_tg_link}
+  D2:
+    interfaces:
+      Ethernet64: {EndDevice: D1, EndPort: Ethernet272, params: def_tg_link}
+  D3:
+    interfaces:
+      Ethernet513: {EndDevice: D1, EndPort: Ethernet513, params: def_tg_link}
+
+# Service definitions
+services:
+  default:
+    name: default
+
+# Build definitions
+builds:
+  default:
+    name: default
+
+# Configuration profiles
+configs:
+  default:
+    name: default
+    current: []
+    restore: []
+
+# Error patterns
+errors:
+  default: {}
+
+# Parameters for devices and links
+params:
+  def_dut:
+    description: "DUT (Device Under Test) - 8011 (192.168.100.119)"
+    management_ip: "192.168.100.119"
+    hostname: "8011"
+
+  def_tg_tx:
+    description: "TX SONiC Host (DUT2) - 8023 (192.168.100.140) - Sends Scapy traffic"
+    type: sonic
+    hostname: "8023"
+    mgmt_ip: "192.168.100.140"
+    role: "traffic_generator_tx"
+
+  def_tg_rx:
+    description: "RX SONiC Host (DUT3) - 8010 (192.168.100.173) - Receives and verifies traffic via tcpdump"
+    type: sonic
+    hostname: "8010"
+    mgmt_ip: "192.168.100.173"
+    role: "traffic_generator_rx"
+
+  def_tg_link:
+    description: "TGen link parameters for L3 ACL testing (Hardware interfaces)"
+    speed: "40000"
+    autoneg: "enable"
+
+# ============================================================================
+# TESTBED NOTES
+# ============================================================================
+# Device Information:
+#   8011 (DUT1): 192.168.100.119
+#     - Hostname: sonic (SONiC OS on Hardware)
+#     - Role: ACL Device (DUT)
+#     - Connected TX link: Ethernet272 ↔ 8023:Ethernet64 (10.1.1.2/24)
+#     - Connected RX link: Ethernet513 ↔ 8010:Ethernet513 (10.1.2.1/24)
+#     - Configuration: L3 routing enabled between Eth272 (TX gateway) and Eth513 (RX gateway)
+#     - Credentials: admin / root@123
+#     - CLI Type: klish (Hardware SONiC)
+#
+#   8023 (DUT2): 192.168.100.140
+#     - Hostname: sonic (SONiC OS on Hardware)
+#     - Role: Traffic Generator (TX Host)
+#     - Connected link: Ethernet64 ↔ 8011:Ethernet272 (10.1.1.1/24)
+#     - Configuration: IP address 10.1.1.1/24 on Ethernet64 (TX subnet)
+#     - Credentials: admin / broadcom
+#     - CLI Type: klish (Hardware SONiC)
+#
+#   8010 (DUT3): 192.168.100.173
+#     - Hostname: sonic (SONiC OS on Hardware)
+#     - Role: Traffic Sink (RX Host)
+#     - Connected link: Ethernet513 ↔ 8011:Ethernet513 (10.1.2.2/24)
+#     - Configuration: IP address 10.1.2.2/24 on Ethernet513 (RX subnet)
+#     - Credentials: admin / sonic@123
+#     - CLI Type: klish (Hardware SONiC)
+#
+# Physical Links (Verified UP):
+#   Link 1 (TX): 8023:Ethernet64 (10.1.1.1/24) ↔ 8011:Ethernet272 (10.1.1.2/24)
+#   Link 2 (RX): 8011:Ethernet513 (10.1.2.1/24) ↔ 8010:Ethernet513 (10.1.2.2/24)
+#
+# Subnets (Already Configured):
+#   TX Subnet: 10.1.1.0/24 (DUT2: 10.1.1.1, DUT1: 10.1.1.2)
+#   RX Subnet: 10.1.2.0/24 (DUT1: 10.1.2.1, DUT3: 10.1.2.2)
+#
+# ACL Placement:
+#   ACL Rules applied ingress on DUT1:Ethernet272 (TX gateway)
+#   Tests measure traffic impact on egress to DUT1:Ethernet513 (RX gateway)
+#
+# Test Execution Flow:
+#   1. [Ready] L3 IPs will be configured dynamically on all interfaces
+#   2. [Setup] Configure L3 addresses: DUT1:Eth272=10.1.1.2/24, DUT1:Eth513=10.1.2.1/24
+#   3. [Setup] Configure DUT2 and DUT3 with their respective IPs
+#   4. [Setup] Create static routes for cross-subnet routing
+#   5. [Test] Start tcpdump listener on DUT3:Ethernet513
+#   6. [Test] Apply ACL rules on DUT1:Ethernet272 (ingress)
+#   7. [Test] DUT2 sends packets via Scapy on Ethernet64
+#   8. [Test] DUT1 processes packets through ACL, forwards to Ethernet513
+#   9. [Verify] DUT3 receives packets on Ethernet513, tcpdump captures to pcap
+#   10. [Verify] Parse pcap file using Scapy rdpcap() on DUT3
+#   11. [Result] Compare TX count vs RX count, validate ACL behavior
+#
+# How to Run Tests:
+#   ./bin/spytest --testbed testbeds/testbed_acl_hw.yaml \
+#       routing/l3_acl/test_l3_acl.py \
+#       --logs-path ./logs/l3_acl_hw_$(date +%F_%H%M%S) \
+#       --log-level info --skip-init-config
+#
+# Topology Validation Commands:
+#   # Check connectivity
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.119 "hostname"  # DUT1 (8011)
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.140 "hostname"  # DUT2 (8023)
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.173 "hostname"  # DUT3 (8010)
+#
+#   # Verify interfaces
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.119 "show ip interfaces | grep -E 'Ethernet272|Ethernet513'"  # DUT1
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.140 "show ip interfaces | grep Ethernet64"  # DUT2
+#   ssh -o StrictHostKeyChecking=no admin@192.168.100.173 "show ip interfaces | grep Ethernet513"  # DUT3
+#
+# Requirements:
+#   - All three SONiC DUTs must be reachable via SSH (✅ Verified)
+#   - All DUTs must have Scapy and tcpdump installed
+#   - Direct physical links: 8023:Eth64 ↔ 8011:Eth272, 8011:Eth513 ↔ 8010:Eth513 (✅ Verified & Configured)
+#   - Management IPs must be reachable: 192.168.100.119 (DUT1), 192.168.100.140 (DUT2), 192.168.100.173 (DUT3) (✅ Verified)
+#   - Data plane IPs configured: 10.1.1.0/24 (TX), 10.1.2.0/24 (RX) (✅ Will be configured automatically)
+#
+# ============================================================================
