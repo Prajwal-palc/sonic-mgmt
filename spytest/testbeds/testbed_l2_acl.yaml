@@ -1,0 +1,72 @@
+# Testbed configuration for BGP Route Reflector testing
+# 3-node topology: DUT1 (Client) <-> DUT2 (RR Server) <-> DUT3 (Client)
+
+version: 2.0
+
+devices:
+  D2:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.172
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: root@123
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+
+  D1:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.122
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: root@123
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+
+  D3:
+    device_type: sonic
+    access:
+      protocol: ssh
+      ip: 192.168.100.178
+      port: 22
+    credentials:
+      username: admin
+      password: root@123
+      altpassword: root@123
+    properties:
+      services: default
+      build: default
+      config: default
+      errors: default
+
+topology:
+  D2:
+    interfaces:
+      Ethernet0:
+        EndDevice: D1
+        EndPort: Ethernet48
+
+  D1:
+    interfaces:
+      Ethernet32:
+        EndDevice: D3
+        EndPort: Ethernet32
+
+services: {default: {}}
+builds:   {default: {}}
+configs:  {default: {}}
+errors:   {default: {}}
+params:   {}
