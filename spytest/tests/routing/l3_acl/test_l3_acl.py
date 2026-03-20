@@ -333,7 +333,7 @@ class TestL3AclBasic:
 
     @classmethod
     def _configure_ip_with_cleanup(cls, dut: str, interface: str, ip_addr: str, prefix: int, cli_type: str) -> None:
-        """Configure IP address using framework API."""
+        """Configure IP address using framework API and ensure interface is UP."""
         st.log(f"Configuring IP on {dut}:{interface} = {ip_addr}/{prefix}")
 
         try:
@@ -342,6 +342,22 @@ class TestL3AclBasic:
 
             if result:
                 st.log(f"✅ Successfully configured {dut}:{interface} = {ip_addr}/{prefix}")
+
+                # CRITICAL FIX: Ensure interface is brought UP with no shutdown
+                # Issue: IP address configuration alone does not bring the interface UP
+                st.log(f"Bringing up interface {interface} on {dut} (no shutdown)")
+                try:
+                    # Use the raw command to ensure interface is enabled
+                    if cli_type == "klish":
+                        cmd = f"interface {interface}\nno shutdown\nexit"
+                    else:
+                        cmd = f"interface {interface}\nno shutdown\nexit"
+
+                    st.config(dut, cmd, type=cli_type)
+                    st.log(f"✅ Interface {interface} brought UP (no shutdown)")
+                except Exception as e:
+                    st.warn(f"Warning: Could not verify no-shutdown on {interface}: {e}")
+
                 st.wait(1, "Wait for IP configuration to take effect")
             else:
                 st.error(f"Failed to configure IP on {dut}:{interface}")
@@ -403,6 +419,11 @@ class TestL3AclBasic:
 
         # Configure static routes for cross-subnet traffic routing
         st.banner("Configuring static routes for L3 routing between subnets")
+
+        # CRITICAL FIX: DUT1 must have a route to the RX subnet (10.1.2.0/24) via the D1-D3 interface
+        # Without this route, DUT1 cannot forward traffic from D2 to D3
+        st.log(f"Adding static route on DUT1: 10.1.2.0/24 via gateway {eth4_ip} on interface {eth4_interface}")
+        ip_api.create_static_route(cls.data.dut1, eth4_ip, "10.1.2.0/24", cli_type=cli_type)
 
         # DUT2: Route to 10.1.2.0/24 (RX subnet) via gateway 10.1.1.2 (DUT1)
         st.log(f"Adding static route on DUT2: 10.1.2.0/24 via gateway {eth0_ip}")
@@ -609,30 +630,65 @@ class TestL3AclBasic:
         dst_ip: str,
         duration: int = 10,
         total_packets: int = 100,
-        udp_port: int = 54321
+        udp_port: int = 54321,
+        traffic_protocol: str = "udp"
     ) -> Tuple[bool, Dict[str, Any]]:
-        """Generate L3 traffic using apis.common.scapy_traffic."""
+        """Generate L3 traffic using apis.common.scapy_traffic.
+
+        Args:
+            src_ip: Source IP address
+            dst_ip: Destination IP address
+            duration: Duration of traffic in seconds
+            total_packets: Total number of packets to send
+            udp_port: UDP port for traffic (used when protocol is UDP)
+            traffic_protocol: Protocol to use (udp, tcp, icmp, etc.) - default: udp
+        """
         st.banner(f"Generating L3 traffic: {src_ip} → {dst_ip}")
 
         try:
-            # Use dynamically discovered interface names
-            dut2_tx_interface = self.data.dut2_eth0_interface or "Ethernet0"
-            dut1_eth0_interface = self.data.dut1_eth0_interface or "Ethernet0"
+            # Use the correct TX interface (port connected to D1)
+            # From testbed topology: D2:port_to_dut1 ←→ D1:port_to_dut2
+            dut2_tx_interface = self.data.dut2_port_to_dut1 or "Ethernet4"
+            dut1_rx_interface = self.data.dut1_port_to_dut2 or "Ethernet4"
+
+            st.log(f"Using D2 TX interface: {dut2_tx_interface}")
+            st.log(f"Using D1 RX interface (gateway): {dut1_rx_interface}")
 
             # Get MAC addresses for L2 framing
             # When DUT2 sends traffic to DUT3 via DUT1:
-            # - Source MAC must be DUT2's TX interface MAC
-            # - Destination MAC must be DUT1's Ethernet0 MAC (the gateway)
-            dut2_mac = scapy_traffic.get_interface_mac(self.data.dut2, dut2_tx_interface, cli_type=self.data.cli_type)
-            dut1_mac = scapy_traffic.get_interface_mac(self.data.dut1, dut1_eth0_interface, cli_type=self.data.cli_type)
+            # - Source MAC must be DUT2's TX interface MAC (on interface connecting to D1)
+            # - Destination MAC must be DUT1's RX interface MAC (gateway interface for returning packets)
+            # - Interface pair: D2 {dut2_tx_interface} ←→ D1 {dut1_rx_interface}
+            st.log(f"Discovering MAC address for D2 interface: {dut2_tx_interface}")
+            dut2_mac = scapy_traffic.get_interface_mac(
+                self.data.dut2,
+                dut2_tx_interface,
+                cli_type=self.data.cli_type
+            )
 
+            st.log(f"Discovering MAC address for D1 interface: {dut1_rx_interface}")
+            dut1_mac = scapy_traffic.get_interface_mac(
+                self.data.dut1,
+                dut1_rx_interface,
+                cli_type=self.data.cli_type
+            )
+
+            # CRITICAL: Validate discovered MACs - NEVER use hardcoded fallbacks for data path
             if not dut2_mac:
-                dut2_mac = "00:00:02:00:00:01"
-                st.warn(f"Using default MAC for DUT2: {dut2_mac}")
+                st.error(f"CRITICAL: Failed to discover MAC for D2 interface {dut2_tx_interface}")
+                st.error("MAC discovery is required for Scapy traffic generation")
+                st.error("Cannot proceed with hardcoded MAC addresses")
+                raise Exception(f"Failed to discover D2 MAC address on {dut2_tx_interface}")
 
             if not dut1_mac:
-                dut1_mac = "00:00:01:00:00:01"
-                st.warn(f"Using default MAC for DUT1: {dut1_mac}")
+                st.error(f"CRITICAL: Failed to discover MAC for D1 interface {dut1_rx_interface}")
+                st.error("MAC discovery is required for Scapy traffic generation")
+                st.error("Cannot proceed with hardcoded MAC addresses")
+                raise Exception(f"Failed to discover D1 MAC address on {dut1_rx_interface}")
+
+            # Log actual MACs being used for traffic generation
+            st.log(f"✅ D2 TX interface ({dut2_tx_interface}) discovered MAC: {dut2_mac}")
+            st.log(f"✅ D1 RX interface ({dut1_rx_interface}) discovered MAC: {dut1_mac}")
 
             st.log(f"  IP Source: {src_ip} (MAC: {dut2_mac})")
             st.log(f"  IP Destination: {dst_ip} (via gateway MAC: {dut1_mac})")
@@ -641,6 +697,7 @@ class TestL3AclBasic:
             st.log(f"  Rate: {pps} pps, Duration: {duration}s, Total: {total_packets} packets")
 
             # Send traffic from DUT2 to DUT1 (gateway to reach DUT3)
+            st.log(f"  Protocol: {traffic_protocol.upper()}")
             result = scapy_traffic.send_traffic(
                 dut=self.data.dut2,
                 interface=dut2_tx_interface,
@@ -651,7 +708,7 @@ class TestL3AclBasic:
                 duration=duration,
                 pps=pps,
                 payload_size=22,  # 64B total - 42B overhead
-                traffic_type="udp"
+                traffic_type=traffic_protocol  # Use protocol parameter instead of hardcoded "udp"
             )
 
             if result.get("success"):

@@ -348,6 +348,7 @@ testcases:
     traffic:
       source_ip: "10.0.0.1"       # TX host IP
       dest_ip: "20.0.0.2"         # RX host IP
+      protocol: "tcp"             # PROTOCOL SPECIFICATION: Send TCP traffic
       dst_port: 80                # TCP port 80 (HTTP) - should be denied
       num_packets: 100
       duration: 10
@@ -440,6 +441,7 @@ testcases:
     traffic:
       source_ip: "10.0.0.1"       # TX host IP
       dest_ip: "20.0.0.2"         # RX host IP
+      protocol: "tcp"             # PROTOCOL SPECIFICATION: Send TCP traffic
       tcp_flags: "S"              # TCP SYN flag (flags="S" in Scapy)
       num_packets: 100
       duration: 10
@@ -486,6 +488,7 @@ testcases:
     traffic:
       source_ip: "10.0.0.1"       # TX host IP
       dest_ip: "20.0.0.2"         # RX host IP
+      protocol: "tcp"             # PROTOCOL SPECIFICATION: Send TCP traffic
       tcp_flags: "A"              # TCP ACK flag (flags="A" in Scapy)
       num_packets: 100
       duration: 10
@@ -535,6 +538,7 @@ testcases:
     traffic:
       source_ip: "10.0.0.99"      # Matches denied 5-tuple source
       dest_ip: "20.0.0.2"         # Matches denied 5-tuple destination
+      protocol: "tcp"             # PROTOCOL SPECIFICATION: Send TCP traffic
       dst_port: 80                # Matches denied 5-tuple destination port
       num_packets: 100
       duration: 10

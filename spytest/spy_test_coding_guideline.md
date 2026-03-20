@@ -78,7 +78,7 @@ Pre‑requisites:
 8. **YAML variables**: create and load via SpyTest utilities; do **not** embed test data in code.
 9. **APIs**: CRUD/verify functions in `spytest/apis/<feature>/...`. Reuse existing APIs first; avoid breaking changes.
 
-**Example skeleton**
+**Example skeleton** **How to run** : tests/ prefix is not needed in script path for test execution.
 
 ```python
 """
@@ -91,7 +91,7 @@ How to run:
   --testbed ./testbeds/testbed_vs_2d.yaml  \
   routing/static/test_static_ipv4_routes.py \
   --logs-path ./logs/test_static_ipv4_routes_$(date +%F_%H%M%S) \
-  --log-level debug  --skip-init-config  --ifname-type native
+  --log-level debug  --skip-init-config  --ifname-type native  --get-tech-support none --syslog-check none 
 
 Description:
   End-to-end validation of IPv4 static routing CRUD operations using SpyTest APIs
