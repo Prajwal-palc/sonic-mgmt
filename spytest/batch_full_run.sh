@@ -110,6 +110,18 @@ declare -A BATCH_NAMES=(
     ["CD"]="SM_ISCLI_MGMT_INTERFACE_IPV6_NEIGHBOR"
     ["CE"]="SM_ISCLI_MAC_ACL_COMPREHENSIVE"
     ["CF"]="SM_ISCLI_P2_161_162_LLDP_CLI_FIX"
+
+    # Sprint 2 Batches (CG-DA)
+    ["CG"]="QOS_PFC_PRIORITY_PG_MAP"
+    ["CH"]="QOS_PFC_PG_MAP_NEGATIVE"
+    ["CI"]="QOS_PFC_PG_MAP_CONFIG"
+    ["CJ"]="QOS_PFC_PG_MAP_PERSISTENCE"
+    ["CK"]="L3_ACL_COMPREHENSIVE"
+    ["CL"]="L2_ACL_COMPREHENSIVE"
+    ["CM"]="VLAN_SVI_L3_TRAFFIC"
+    ["CN"]="VLAN_COMPREHENSIVE"
+    ["CO"]="ARP_COMPREHENSIVE"
+    ["CP"]="PORT_BREAKOUT_COMPREHENSIVE"
 )
 
 # ==========================================================
@@ -1491,6 +1503,164 @@ if should_run_batch "CF"; then
     system/SM_ISCLI/test_sm_iscli_p2_161_162_lldp_cli_fix.py
 else
     echo "Skipping Batch CF (SM_ISCLI_P2_161_162_LLDP_CLI_FIX) - not selected"
+fi
+
+
+# ==========================================================
+# SPRINT 2 BATCHES (CG-CP)
+# ==========================================================
+
+# ==========================================================
+# BATCH-CG : QoS PFC Priority PG Map
+# ==========================================================
+
+if should_run_batch "CG"; then
+    run_batch "QOS_PFC_PRIORITY_PG_MAP" "./testbeds/testbed_vs_2d.yaml" \
+    qos/test_qos_pfc_priority_pg_map.py
+else
+    echo "Skipping Batch CG (QOS_PFC_PRIORITY_PG_MAP) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CH : QoS PFC PG Map Negative Tests
+# ==========================================================
+
+if should_run_batch "CH"; then
+    run_batch "QOS_PFC_PG_MAP_NEGATIVE" "./testbeds/testbed_vs_1node.yaml" \
+    qos/test_qos_pfc_pg_map_negative.py
+else
+    echo "Skipping Batch CH (QOS_PFC_PG_MAP_NEGATIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CI : QoS PFC PG Map Configuration
+# ==========================================================
+
+if should_run_batch "CI"; then
+    run_batch "QOS_PFC_PG_MAP_CONFIG" "./testbeds/testbed_vs_1node.yaml" \
+    qos/test_qos_pfc_pg_map_config.py
+else
+    echo "Skipping Batch CI (QOS_PFC_PG_MAP_CONFIG) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CJ : QoS PFC PG Map Persistence
+# ==========================================================
+
+if should_run_batch "CJ"; then
+    run_batch "QOS_PFC_PG_MAP_PERSISTENCE" "./testbeds/testbed_vs_1node.yaml" \
+    qos/test_qos_pfc_pg_map_persistence.py
+else
+    echo "Skipping Batch CJ (QOS_PFC_PG_MAP_PERSISTENCE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CK : L3 ACL Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CK"; then
+    run_batch "L3_ACL_COMPREHENSIVE" "./testbeds/testbed_acl.yaml" \
+    routing/l3_acl/test_l3_acl.py \
+    routing/l3_acl/test_l3_acl_negative.py \
+    routing/l3_acl/test_l3_acl_robustness.py
+else
+    echo "Skipping Batch CK (L3_ACL_COMPREHENSIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CL : L2 ACL Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CL"; then
+    run_batch "L2_ACL_COMPREHENSIVE" "./testbeds/testbed_acl.yaml" \
+    switching/l2_acl/test_l2_acl.py \
+    switching/l2_acl/test_l2_acl_negative.py \
+    switching/l2_acl/test_l2_acl_robustness.py
+else
+    echo "Skipping Batch CL (L2_ACL_COMPREHENSIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CM : VLAN SVI L3 Traffic
+# ==========================================================
+
+if should_run_batch "CM"; then
+    run_batch "VLAN_SVI_L3_TRAFFIC" "./testbeds/testbed_2vs.yaml" \
+    switching/vlan/test_vlan_svi_l3_traffic_2dut.py
+else
+    echo "Skipping Batch CM (VLAN_SVI_L3_TRAFFIC) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CN : VLAN Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CN"; then
+    run_batch "VLAN_COMPREHENSIVE" "./testbeds/testbed_vs_2d.yaml" \
+    switching/vlan/test_vlan_create_delete.py \
+    switching/vlan/test_vlan_access_port_change.py \
+    switching/vlan/test_vlan_access_port.py \
+    switching/vlan/test_vlan_isolation.py \
+    switching/vlan/test_vlan_trunk_port.py \
+    switching/vlan/test_vlan_trunk_segregation.py \
+    switching/vlan/test_vlan_mixed_port.py \
+    switching/vlan/test_vlan_native.py
+
+    # Run standalone testbed tests separately
+    run_batch "VLAN_COMPREHENSIVE_STANDALONE" "./testbeds/ztp_standalone.yaml" \
+    switching/vlan/test_vlan_persistence.py \
+    switching/vlan/test_vlan_boundary_deletion.py \
+    switching/vlan/test_vlan_trunk_config_removal.py
+else
+    echo "Skipping Batch CN (VLAN_COMPREHENSIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CO : ARP Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CO"; then
+    run_batch "ARP_COMPREHENSIVE" "./testbeds/testbed_2vs.yaml" \
+    system/iscli_ARP/test_arp_01_dynamic_learning.py \
+    system/iscli_ARP/test_arp_02_static_wrong_mac.py \
+    system/iscli_ARP/test_arp_scapy_01_request_reply.py \
+    system/iscli_ARP/test_arp_scapy_02_gratuitous.py \
+    system/iscli_ARP/test_arp_scapy_03_spoofing.py \
+    system/iscli_ARP/test_arp_scapy_04_opcode_validation.py \
+    system/iscli_ARP/test_arp_scapy_05_cache_timeout.py \
+    system/iscli_ARP/test_arp_scapy_06_probe_conflict.py \
+    system/iscli_ARP/test_arp_scapy_07_announcement.py
+else
+    echo "Skipping Batch CO (ARP_COMPREHENSIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CP : Port Breakout Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CP"; then
+    run_batch "PORT_BREAKOUT_COMPREHENSIVE" "./testbeds/testbed_sm18_hw.yaml" \
+    system/OC_Port_Breakout/test_sm_iscli_18_port_breakout_bgp_routemap.py \
+    system/OC_Port_Breakout/test_sm_iscli_47_port_breakout_show_commands.py \
+    system/OC_Port_Breakout/test_sm_iscli_p2_2_force_option_validation.py \
+    system/OC_Port_Breakout/test_sm_iscli_p2_4_show_breakout_resources.py \
+    system/OC_Port_Breakout/test_sm_iscli_p2_75_show_breakout_modes.py \
+    system/OC_Port_Breakout/test_oc_breakout_01_8x100g.py \
+    system/OC_Port_Breakout/test_sm_iscli_2_port_breakout_modes_validation.py \
+    system/OC_Port_Breakout/test_sm_iscli_p2_157_interface_status_display.py \
+    system/OC_Port_Breakout/test_sm_iscli_p2_158_running_config_display.py \
+    system/OC_Port_Breakout/test_oc_breakout_02_4x200g.py
+else
+    echo "Skipping Batch CP (PORT_BREAKOUT_COMPREHENSIVE) - not selected"
 fi
 
 
