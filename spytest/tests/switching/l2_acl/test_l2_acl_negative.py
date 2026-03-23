@@ -1,13 +1,13 @@
 """
 L2 ACL Negative/Edge Case Tests - SPyTest Framework Integration
 
-Author: Claude Code
-Date: 2026-03-14
+Author: Athira
+Date: 2026-03-20
 Version: 1.0 - SPyTest Native (3-SONiC-DUT Pattern with Tcpdump Verification)
 
 How to run:
   ./bin/spytest --testbed ./testbeds/testbed_acl.yaml \\
-      tests/switching/l2_acl/test_l2_acl_negative.py \\
+      switching/l2_acl/test_l2_acl_negative.py \\
       --logs-path ./logs/l2_acl_negative_$(date +%F_%H%M%S) \\
       --log-level debug --skip-init-config --ifname-type native
 
