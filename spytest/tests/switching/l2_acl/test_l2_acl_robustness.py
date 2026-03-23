@@ -349,7 +349,7 @@ class TestL2AclRobust:
             st.error(f"ACL table creation error: {e}")
             return False
 
-    def _create_l2_acl_rule_via_config_db(
+    def _create_l2_acl_rule(
         self,
         table_name: str,
         rule_name: str,
@@ -359,56 +359,71 @@ class TestL2AclRobust:
         priority: int = 10
     ) -> bool:
         """
-        Create L2 ACL rule using direct CONFIG_DB commands.
+        Create L2 ACL rule using proper klish CLI via SpyTest ACL API.
 
-        This approach is used because acl_api.create_acl_rule() doesn't properly
-        support L2 ACL rules. Manual tests used sonic-db-cli to write directly
-        to CONFIG_DB.
+        This method uses acl_api.create_acl_rule() with cli_type="klish" to configure
+        L2 ACL rules through the standard IS-CLI interface.
+
+        Args:
+            table_name: Name of the ACL table
+            rule_name: Rule name (sequence number auto-extracted, e.g., "rule10" -> seq 10)
+            action: "permit" or "deny"
+            src_mac: Source MAC address or "any" (default: "any")
+            dst_mac: Destination MAC address or "any" (default: "any")
+            priority: Rule priority/sequence number (default: 10)
+
+        Returns:
+            bool: True if rule created successfully, False otherwise
 
         Note: Due to bug SONIC-L2-ACL-001, rules may not propagate to APPL_DB/ASIC.
         """
-        st.log(f"Creating ACL rule via CONFIG_DB: {rule_name} ({action}, priority={priority})")
+        st.log(f"Creating ACL rule via klish CLI: {rule_name} ({action}, priority={priority})")
 
         try:
             dut = self.data.dut1
-            packet_action = "FORWARD" if action.lower() == "permit" else "DROP"
 
-            # Set priority
-            cmd = f'sudo sonic-db-cli CONFIG_DB HSET "ACL_RULE|{table_name}|{rule_name}" "PRIORITY" "{priority}"'
-            st.show(dut, cmd, skip_tmpl=True, skip_error_check=True)
+            # Use proper ACL API with klish CLI
+            result = acl_api.create_acl_rule(
+                dut,
+                acl_type="L2",
+                table_name=table_name,
+                rule_name=rule_name,
+                packet_action=action,
+                src_mac=src_mac,
+                dst_mac=dst_mac,
+                cli_type=self.data.cli_type
+            )
 
-            # Set packet action
-            cmd = f'sudo sonic-db-cli CONFIG_DB HSET "ACL_RULE|{table_name}|{rule_name}" "PACKET_ACTION" "{packet_action}"'
-            st.show(dut, cmd, skip_tmpl=True, skip_error_check=True)
-
-            # Set source MAC if specified
-            if src_mac and src_mac.lower() != "any":
-                mac_with_mask = f"{src_mac}/FF:FF:FF:FF:FF:FF"
-                cmd = f'sudo sonic-db-cli CONFIG_DB HSET "ACL_RULE|{table_name}|{rule_name}" "SRC_MAC" "{mac_with_mask}"'
-                st.show(dut, cmd, skip_tmpl=True, skip_error_check=True)
-
-            # Set destination MAC if specified
-            if dst_mac and dst_mac.lower() != "any":
-                mac_with_mask = f"{dst_mac}/FF:FF:FF:FF:FF:FF"
-                cmd = f'sudo sonic-db-cli CONFIG_DB HSET "ACL_RULE|{table_name}|{rule_name}" "DST_MAC" "{mac_with_mask}"'
-                st.show(dut, cmd, skip_tmpl=True, skip_error_check=True)
-
-            st.log(f"✅ ACL rule '{rule_name}' created in CONFIG_DB")
-            return True
+            if result:
+                st.log(f"✅ ACL rule '{rule_name}' created successfully")
+                return True
+            else:
+                st.error(f"❌ ACL rule '{rule_name}' creation failed")
+                return False
 
         except Exception as e:
             st.error(f"ACL rule creation error: {e}")
             return False
 
-    def _delete_l2_acl_rule_via_config_db(self, table_name: str, rule_name: str) -> bool:
-        """Delete L2 ACL rule from CONFIG_DB."""
-        st.log(f"Deleting ACL rule via CONFIG_DB: {rule_name}")
+    def _delete_l2_acl_rule(self, table_name: str, rule_name: str) -> bool:
+        """Delete L2 ACL rule using proper klish CLI via SpyTest ACL API."""
+        st.log(f"Deleting ACL rule via klish CLI: {rule_name}")
 
         try:
-            cmd = f'sudo sonic-db-cli CONFIG_DB DEL "ACL_RULE|{table_name}|{rule_name}"'
-            st.show(self.data.dut1, cmd, skip_tmpl=True, skip_error_check=True)
-            st.log(f"✅ ACL rule '{rule_name}' deleted from CONFIG_DB")
-            return True
+            result = acl_api.delete_acl_rule(
+                self.data.dut1,
+                acl_table_name=table_name,
+                acl_type="L2",
+                acl_rule_name=rule_name,
+                cli_type=self.data.cli_type
+            )
+
+            if result is not False:  # API returns None or output on success
+                st.log(f"✅ ACL rule '{rule_name}' deleted successfully")
+                return True
+            else:
+                st.error(f"❌ ACL rule '{rule_name}' deletion failed")
+                return False
         except Exception as e:
             st.error(f"ACL rule deletion error: {e}")
             return False
@@ -453,7 +468,7 @@ class TestL2AclRobust:
         if not self._create_l2_acl_table(table_name, acl_port):
             st.report_fail("msg", "ACL table creation failed")
 
-        if not self._create_l2_acl_rule_via_config_db(table_name, "RULE_PERMIT_MAC", "permit", src_mac=src_mac):
+        if not self._create_l2_acl_rule(table_name, "RULE_PERMIT_MAC", "permit", src_mac=src_mac):
             st.report_fail("msg", "ACL rule creation failed")
 
         # ===== PHASE 2: Baseline traffic test (before reload) =====
@@ -571,7 +586,7 @@ class TestL2AclRobust:
         if not self._create_l2_acl_table(table_name, acl_port):
             st.report_fail("msg", "ACL table creation failed")
 
-        if not self._create_l2_acl_rule_via_config_db(table_name, "RULE1", "permit", src_mac=src_mac):
+        if not self._create_l2_acl_rule(table_name, "RULE1", "permit", src_mac=src_mac):
             st.report_fail("msg", "Initial ACL rule creation failed")
 
         # ===== PHASE 2: Baseline traffic test =====
@@ -603,11 +618,11 @@ class TestL2AclRobust:
         # Modify ACL mid-traffic
         st.wait(2, "Mid-traffic ACL modification")
         st.log("Deleting ACL rule...")
-        self._delete_l2_acl_rule_via_config_db(table_name, "RULE1")
+        self._delete_l2_acl_rule(table_name, "RULE1")
 
         st.wait(1, "Rule deletion stabilization")
         st.log("Recreating ACL rule...")
-        self._create_l2_acl_rule_via_config_db(table_name, "RULE1_MODIFIED", "permit", src_mac=src_mac)
+        self._create_l2_acl_rule(table_name, "RULE1_MODIFIED", "permit", src_mac=src_mac)
 
         # Continue traffic after modification
         st.wait(2, "ACL modification stabilization")
@@ -675,13 +690,13 @@ class TestL2AclRobust:
 
             # Create rule
             rule_name = f"RULE_CYCLE_{cycle}"
-            if not self._create_l2_acl_rule_via_config_db(table_name, rule_name, "permit", src_mac=src_mac):
+            if not self._create_l2_acl_rule(table_name, rule_name, "permit", src_mac=src_mac):
                 st.warn(f"Failed to create rule in cycle {cycle}")
 
             st.wait(0.5)
 
             # Delete rule
-            if not self._delete_l2_acl_rule_via_config_db(table_name, rule_name):
+            if not self._delete_l2_acl_rule(table_name, rule_name):
                 st.warn(f"Failed to delete rule in cycle {cycle}")
 
             st.wait(0.5)
@@ -691,7 +706,7 @@ class TestL2AclRobust:
         # ===== PHASE 3: Create final rule and test traffic =====
         st.banner("PHASE 3: Creating final rule and testing traffic")
 
-        if not self._create_l2_acl_rule_via_config_db(table_name, "RULE_FINAL", "permit", src_mac=src_mac):
+        if not self._create_l2_acl_rule(table_name, "RULE_FINAL", "permit", src_mac=src_mac):
             st.report_fail("msg", "Final rule creation failed after stress test")
 
         if not self._start_tcpdump(self.data.dut3, rx_interface, pcap_path):
@@ -757,13 +772,13 @@ class TestL2AclRobust:
             st.report_fail("msg", "ACL table creation failed")
 
         # Create permit rule (priority 10)
-        if not self._create_l2_acl_rule_via_config_db(
+        if not self._create_l2_acl_rule(
             table_name, "RULE_PERMIT", "permit", src_mac=permit_mac, priority=10
         ):
             st.report_fail("msg", "Permit rule creation failed")
 
         # Create deny rule (priority 20)
-        if not self._create_l2_acl_rule_via_config_db(
+        if not self._create_l2_acl_rule(
             table_name, "RULE_DENY", "deny", src_mac=deny_mac, priority=20
         ):
             st.report_fail("msg", "Deny rule creation failed")
@@ -851,7 +866,7 @@ class TestL2AclRobust:
         if not self._create_l2_acl_table(table_name, acl_port):
             st.report_fail("msg", "ACL table creation failed")
 
-        if not self._create_l2_acl_rule_via_config_db(table_name, "RULE_COUNT", "permit", src_mac=src_mac):
+        if not self._create_l2_acl_rule(table_name, "RULE_COUNT", "permit", src_mac=src_mac):
             st.report_fail("msg", "ACL rule creation failed")
 
         # ===== PHASE 2: Send high-volume traffic =====
@@ -933,7 +948,7 @@ class TestL2AclRobust:
         if not self._create_l2_acl_table(table_name, acl_port):
             st.report_fail("msg", "ACL table creation failed")
 
-        if not self._create_l2_acl_rule_via_config_db(table_name, "RULE_VLAN", "permit", src_mac=src_mac):
+        if not self._create_l2_acl_rule(table_name, "RULE_VLAN", "permit", src_mac=src_mac):
             st.report_fail("msg", "ACL rule creation failed")
 
         # ===== PHASE 2: Baseline traffic test =====
@@ -1029,7 +1044,7 @@ class TestL2AclRobust:
         if not self._create_l2_acl_table(table_name, acl_port):
             st.report_fail("msg", "ACL table creation failed")
 
-        if not self._create_l2_acl_rule_via_config_db(table_name, "RULE_AGING", "permit", src_mac=src_mac):
+        if not self._create_l2_acl_rule(table_name, "RULE_AGING", "permit", src_mac=src_mac):
             st.report_fail("msg", "ACL rule creation failed")
 
         # ===== PHASE 2: Initial traffic to populate MAC table =====
@@ -1121,13 +1136,13 @@ class TestL2AclRobust:
             st.report_fail("msg", "ACL table creation failed")
 
         # Priority 5: Permit specific MAC (should match first)
-        if not self._create_l2_acl_rule_via_config_db(
+        if not self._create_l2_acl_rule(
             table_name, "RULE_PERMIT_SPECIFIC", "permit", src_mac=permit_mac, priority=5
         ):
             st.report_fail("msg", "Specific permit rule creation failed")
 
         # Priority 10: Deny all (should NOT match if priority 5 matches first)
-        if not self._create_l2_acl_rule_via_config_db(
+        if not self._create_l2_acl_rule(
             table_name, "RULE_DENY_ALL", "deny", src_mac="any", priority=10
         ):
             st.report_fail("msg", "Deny-all rule creation failed")
