@@ -75,13 +75,38 @@ This document defines the system-level test plan for OSPFv2 feature validation o
 ### 2.2 HW Topology — Minimum (2 DUTs + 1 TGen)
 
 ```
-  ┌─────────────────────────────────┐
-  │  TGen (Scapy / Broadcom/D-Link) │
-  │  P1 ──── (Area 0) ──── eth1 ──── D1 (ABR) ──── eth2 ──── eth1 ──── D2
-  │  P3 ──── (Area 1) ──── eth3 ────  SONiC            SONiC/D-Link
-  │  P2 ──── (traffic) ────────────────────────────── eth2 ────────────────
-  └─────────────────────────────────┘
-           Scapy emulates OSPF peer(s)
+ ┌──────────────────────────────────────────────────────────────────────────────┐
+ │                         OSPF Area 0 — Backbone (0.0.0.0)                    │
+ │                                                                              │
+ │   ┌──────────────────────────┐   eth2        eth1   ┌────────────────────┐  │
+ │   │    D1  (ABR)             ├───────────────────────┤    D2  (ASBR)      │  │
+ │   │    SONiC / D-Link        │   10.1.2.1/30         │    SONiC / D-Link  │  │
+ │   │    Router-ID: 1.1.1.1    │   Area 0              │    Router-ID:2.2.2.2│  │
+ │   │    Lo: 1.1.1.1/32        │                       │    Lo: 2.2.2.2/32  │  │
+ │   └──────┬──────────┬────────┘                       └─────────┬──────────┘  │
+ │          │eth1      │eth3                                      │eth2         │
+ └──────────┼──────────┼──────────────────────────────────────────┼─────────────┘
+            │          │                                           │
+     Area 0 │          │ Area 1                             Traffic│ (no OSPF)
+  10.1.1.0/30│        │10.1.3.0/30                        10.1.4.0/30
+     OSPF    │          │OSPF emulated                            │
+             │          │                                          │
+   ┌─────────┴──────────┴──────────────────────────────────────────┴────────────┐
+   │                     TGen  (Scapy / Broadcom / D-Link)                      │
+   │                                                                             │
+   │   P1 ── 10.1.1.1/30 ── (OSPF Area 0 neighbor emulation via Scapy)         │
+   │   P3 ── 10.1.3.1/30 ── (OSPF Area 1 neighbor emulation via Scapy)         │
+   │   P2 ── 10.1.4.1/30 ── (Pure traffic source / sink — no OSPF)             │
+   └─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Link summary:**
+
+```
+  TGen:P1 ──── 10.1.1.0/30 (Area 0) ────► D1:eth1      [OSPF emulated by Scapy]
+  TGen:P3 ──── 10.1.3.0/30 (Area 1) ────► D1:eth3      [OSPF emulated by Scapy]
+  D1:eth2 ──── 10.1.2.0/30 (Area 0) ────► D2:eth1      [physical DUT-to-DUT link]
+  TGen:P2 ──── 10.1.4.0/30 (no OSPF) ───► D2:eth2      [pure traffic port]
 ```
 
 | Node | Role | OS | Physical Ports |
@@ -252,6 +277,17 @@ ospf_obj.verify_ospf_neighbor(dut2, neighbor='10.1.2.1', state='Full')
 ospf_obj.verify_ospf_lsdb(dut1, lsa_type='router', adv_router='2.2.2.2')
 ```
 
+**Traffic Verification (Scapy):**
+```python
+# After adjacency reaches Full, verify data-plane forwarding between D1 and D2
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='10.1.2.2',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, f"Traffic loss {loss:.2f}% after basic adjacency"
+```
+**Traffic expected result:** ≥ 999/1000 packets forwarded; loss < 0.1%.
+
 ---
 
 ### TC-OSPF-002 — DR/BDR election on broadcast network
@@ -276,6 +312,17 @@ ospf_obj.verify_ospf_lsdb(dut1, lsa_type='router', adv_router='2.2.2.2')
 show ip ospf interface Ethernet0     # shows DR/BDR/DROTHER role
 show ip ospf database network        # verify Type-2 LSA
 ```
+
+**Traffic Verification (Scapy):**
+```python
+# After DR/BDR election, verify unicast traffic forwarded correctly via DR
+pkts = [Ether()/IP(src='10.1.1.1', dst='2.2.2.2')/UDP(dport=9999)/b'X'*64
+        for _ in range(1000)]
+tgen.send_burst(tgen_p1, pkts, rate_pps=200)
+rx = tgen.capture(tgen_p2, duration=6, bpf='udp and dst port 9999')
+assert len(rx) >= 990, "Traffic drop after DR/BDR election"
+```
+**Traffic expected result:** Unicast traffic forwarded via elected DR with < 0.1% loss.
 
 ---
 
@@ -302,6 +349,17 @@ interface Ethernet4
   ip ospf dead-interval 20
 ```
 
+**Traffic Verification (Scapy):**
+```python
+# Verify data-plane works with custom timers (5/20)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='2.2.2.2',
+    pkt_count=1000, rate_pps=100)
+assert loss < 0.1, f"Traffic loss {loss:.2f}% with custom timers"
+```
+**Traffic expected result:** Forwarding works normally with reduced hello/dead timers.
+
 ---
 
 ### TC-OSPF-004 — OSPF adjacency across VLAN subinterface
@@ -320,6 +378,17 @@ interface Ethernet4
 
 **Expected result:** Full adjacency over VLAN subinterface. Route to D2 loopback appears in `show ip route ospf`.
 
+**Traffic Verification (Scapy):**
+```python
+# Send traffic through the VLAN interface; verify forwarding
+pkts = [Ether()/IP(src='10.1.1.1', dst='10.1.2.2')/UDP(dport=9999)/b'Y'*64
+        for _ in range(1000)]
+tgen.send_burst(tgen_p1, pkts, rate_pps=200)
+rx = tgen.capture(tgen_p2, duration=6, bpf='udp and dst port 9999')
+assert len(rx) >= 990, "Traffic fail over VLAN-based OSPF adjacency"
+```
+**Traffic expected result:** Traffic forwarded across VLAN-based OSPF link with < 0.1% loss.
+
 ---
 
 ### TC-OSPF-005 — OSPF passive interface
@@ -337,6 +406,18 @@ interface Ethernet4
 4. Verify the network is still advertised (Type-1 LSA bit set for the prefix).
 
 **Expected result:** No OSPF adjacency formed on passive interface. The prefix is still advertised in LSDB.
+
+**Traffic Verification (Scapy):**
+```python
+# Verify the passive-interface prefix is REACHABLE for data traffic
+# (route installed even though no OSPF neighbor forms)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='10.1.1.2',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Passive-interface prefix should still be reachable"
+```
+**Traffic expected result:** Prefix on passive interface is reachable via OSPF route; no OSPF control packets sent from that interface.
 
 ---
 
@@ -363,6 +444,17 @@ show ip ospf database router             # view Type-1 LSAs
 show ip ospf database router adv-router 1.1.1.1
 ```
 
+**Traffic Verification (Scapy):**
+```python
+# After Type-1 LSA floods, verify forwarding to D1 loopback and cross-area
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Cross-area forwarding from Type-1/3 LSA routes"
+```
+**Traffic expected result:** All OSPF-learned routes from Type-1 LSAs forward traffic correctly.
+
 ---
 
 ### TC-OSPF-012 — Type-2 (Network) LSA on broadcast segment
@@ -379,6 +471,17 @@ show ip ospf database router adv-router 1.1.1.1
 3. Check Type-2 LSA attached routers match actual neighbors.
 
 **Expected result:** Type-2 LSA present. Attached routers field matches all OSPF neighbors on that segment.
+
+**Traffic Verification (Scapy):**
+```python
+# After Type-2 Network LSA election, verify segment traffic forwarded via DR
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='10.1.2.2',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic via broadcast segment (Type-2 LSA DR)"
+```
+**Traffic expected result:** Traffic forwarded correctly through DR-managed broadcast segment.
 
 ---
 
@@ -404,6 +507,17 @@ show ip ospf database summary          # Type-3 LSAs
 show ip route ospf                     # inter-area routes
 ```
 
+**Traffic Verification (Scapy):**
+```python
+# After Type-3 Summary LSA, send traffic from TGen (Area 0) to D3 loopback (Area 1)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=2000, rate_pps=500)
+assert loss < 0.1, "Inter-area traffic via Type-3 Summary LSA route"
+```
+**Traffic expected result:** TGen:P1 → D1(ABR) → D3 path active; < 0.1% loss on 2000 packets.
+
 ---
 
 ### TC-OSPF-014 — Type-4 (ASBR Summary) LSA
@@ -421,6 +535,17 @@ show ip route ospf                     # inter-area routes
 4. Verify D3 can resolve external route via D1→D2.
 
 **Expected result:** Type-4 LSA present in Area 1. D3 resolves AS-external routes through the ASBR.
+
+**Traffic Verification (Scapy):**
+```python
+# After Type-4 ASBR-Summary LSA, verify traffic to external prefixes routes via D2
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.0.1',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "External prefix reachable via ASBR path (Type-4 LSA)"
+```
+**Traffic expected result:** External route traffic routed through D2 (ASBR) correctly.
 
 ---
 
@@ -448,6 +573,17 @@ vtysh -c "conf t" -c "router ospf" \
 
 **Expected result:** `O E2 172.16.0.0/24 [110/20]` appears on all routers. Type-5 LSA flooding scope is AS-wide.
 
+**Traffic Verification (Scapy):**
+```python
+# After Type-5 External LSA redistribution, verify traffic reaches 172.16.0.x via D2
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.0.1',
+    pkt_count=2000, rate_pps=500)
+assert loss < 0.1, "O E2 external route traffic forwarding via Type-5 LSA"
+```
+**Traffic expected result:** Traffic to redistributed prefix egresses via D2 with < 0.1% loss.
+
 ---
 
 ### TC-OSPF-016 — Type-7 (NSSA External) LSA in NSSA area
@@ -466,6 +602,17 @@ vtysh -c "conf t" -c "router ospf" \
 5. Verify D2 sees `O E2 192.168.100.0/24`.
 
 **Expected result:** Type-7 LSA in Area 1. D1 performs Type-7→Type-5 translation. D2 has external route.
+
+**Traffic Verification (Scapy):**
+```python
+# After Type-7 NSSA LSA and Type-7->5 translation, send traffic to NSSA external
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='192.168.100.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "NSSA external prefix traffic via Type-7 translated route"
+```
+**Traffic expected result:** Traffic originating from NSSA external prefix reachable from backbone.
 
 ---
 
@@ -486,6 +633,19 @@ vtysh -c "conf t" -c "router ospf" \
 **Expected result:** LSA refresh before MaxAge. MaxAge LSA is acknowledged and removed from LSDB.
 
 **Scapy usage:** Send crafted OSPF LSU packet with `ls_age=3600` for a target LSA.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# During LSA refresh, verify continuous traffic is uninterrupted
+stream_handle = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+time.sleep(10)
+tgen.stop_stream(stream_handle)
+stats = tgen.get_stream_stats(stream_handle)
+loss = (stats['tx'] - stats['rx']) / stats['tx'] * 100
+assert loss < 0.5, f"Traffic disrupted during LSA refresh: {loss:.2f}% loss"
+```
+**Traffic expected result:** Zero traffic disruption during LSA refresh and MaxAge flush/re-origination.
 
 ---
 
@@ -515,6 +675,23 @@ router ospf
 
 **Expected result:** No Type-5 LSAs in stub area. Default route injected by ABR. Connectivity maintained via default.
 
+**Traffic Verification (Scapy):**
+```python
+# Stub area: traffic to internal destinations works via default route through ABR
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p2', rx_iface='tgen_p1',
+    src_ip='10.1.4.1', dst_ip='10.1.1.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Stub area traffic via default route to backbone"
+# External traffic also via default route through ABR
+sent2, rx2, loss2 = verify_forwarding(
+    tx_iface='tgen_p2', rx_iface='tgen_p2',
+    src_ip='10.1.4.1', dst_ip='172.16.0.1',
+    pkt_count=500, rate_pps=100)
+assert loss2 < 0.1, "Stub area external traffic via ABR default"
+```
+**Traffic expected result:** Traffic exits stub area only via ABR default route; all destinations reachable.
+
 ---
 
 ### TC-OSPF-022 — Totally stub area — block Type-3 and Type-5 LSAs
@@ -540,6 +717,17 @@ router ospf
 
 **Expected result:** D3 LSDB contains only Type-1, Type-2, and the default Type-3 LSA from ABR. Minimal LSDB.
 
+**Traffic Verification (Scapy):**
+```python
+# Totally stub: only default route; verify all traffic routes via ABR
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p2', rx_iface='tgen_p1',
+    src_ip='10.1.4.1', dst_ip='1.1.1.1',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Totally stub area: all traffic via default route only"
+```
+**Traffic expected result:** All traffic exits via default Type-3 LSA route from ABR. No other inter-area routes.
+
 ---
 
 ### TC-OSPF-023 — NSSA area — allow external redistribution without Type-5
@@ -555,6 +743,17 @@ router ospf
 2. Redistribute static/connected on D3 into OSPF.
 3. Verify Type-7 LSA in Area 1. Verify NO Type-5 LSAs from outside in Area 1.
 4. D1 translates Type-7 → Type-5 and floods outside Area 1.
+
+**Traffic Verification (Scapy):**
+```python
+# NSSA: verify traffic to redistributed NSSA prefixes from backbone
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='192.168.100.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "NSSA redistributed prefix reachable from backbone"
+```
+**Traffic expected result:** NSSA-originated external prefix reachable from Area 0 via D1 translation.
 
 ---
 
@@ -575,6 +774,17 @@ area 0.0.0.1 nssa no-summary
 1. Configure totally NSSA on ABR D1.
 2. Verify D3 has no Type-3 LSAs (except default).
 3. Verify D3 can still redistribute and generate Type-7 LSAs.
+
+**Traffic Verification (Scapy):**
+```python
+# Totally NSSA: D3 uses default for all inter-area traffic
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p2', rx_iface='tgen_p1',
+    src_ip='10.1.4.1', dst_ip='1.1.1.1',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Totally NSSA: traffic via default route to backbone"
+```
+**Traffic expected result:** Default-only routing in totally NSSA area; data plane works correctly.
 
 ---
 
@@ -602,6 +812,17 @@ router ospf
   area 0.0.0.2 virtual-link 1.1.1.1
 ```
 
+**Traffic Verification (Scapy):**
+```python
+# Virtual link: traffic across virtual link from remote area to backbone
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p2', rx_iface='tgen_p1',
+    src_ip='10.1.4.1', dst_ip='10.1.1.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic transiting virtual link reaches backbone"
+```
+**Traffic expected result:** Routes via virtual link are installed and traffic forwards correctly across transit area.
+
 ---
 
 ## 9. Test Cases — Route Types and SPF
@@ -620,6 +841,17 @@ router ospf
 
 **Expected result:** `O 1.1.1.1/32 [110/x]` on D2. Route type is intra-area.
 
+**Traffic Verification (Scapy):**
+```python
+# Intra-area route (O): send traffic to D1 loopback from TGen
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p1',
+    src_ip='10.1.1.1', dst_ip='1.1.1.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Intra-area O route forwards traffic correctly"
+```
+**Traffic expected result:** O-type route supports full forwarding; loss < 0.1%.
+
 ---
 
 ### TC-OSPF-032 — Inter-area route (O IA) via ABR
@@ -633,6 +865,21 @@ router ospf
 1. D3 loopback 3.3.3.3/32 in Area 1.
 2. D1 (ABR) generates Type-3 LSA.
 3. Verify D2 has `O IA 3.3.3.3/32 [110/x]`.
+
+**Traffic Verification (Scapy):**
+```python
+# Inter-area route (O IA): TGen:P1 -> D1(ABR) -> D3 -> TGen:P2
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=2000, rate_pps=500)
+assert loss < 0.1, "O IA route traffic forwarding across area boundary"
+# Verify TTL decrement: 2 hops -> arrival TTL = sent_ttl - 2
+pkt = Ether()/IP(src='10.1.1.1', dst='3.3.3.3', ttl=10)/ICMP()
+rx_pkt = tgen.send_and_receive(tgen_p1, pkt, timeout=5, bpf='icmp')
+assert rx_pkt[0][IP].ttl == 8, "TTL should be 8 after 2 hops"
+```
+**Traffic expected result:** Inter-area traffic forwarded; TTL decrements correctly at each hop.
 
 ---
 
@@ -654,6 +901,17 @@ redistribute static metric 10 metric-type 1
 2. Verify D1 and D3 have `O E1 172.16.0.0/24`.
 3. Verify cost accumulates (internal path cost + external metric).
 
+**Traffic Verification (Scapy):**
+```python
+# O E1 route: traffic to 172.16.0.0/24 via D2 (ASBR)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.0.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "O E1 external route traffic forwarding"
+```
+**Traffic expected result:** Traffic to E1 prefix reaches D2 and egresses correctly.
+
 ---
 
 ### TC-OSPF-034 — External Type-2 (O E2) route and cost comparison
@@ -667,6 +925,18 @@ redistribute static metric 10 metric-type 1
 1. D2 redistributes with metric-type 2.
 2. Verify E2 metric does NOT accumulate (fixed external metric).
 3. Verify E1 is preferred over E2 when both advertise the same prefix.
+
+**Traffic Verification (Scapy):**
+```python
+# O E2 route: verify traffic goes to correct next-hop via D2
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.0.1',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "O E2 external route traffic forwarding"
+# When both E1 and E2 exist for same prefix, E1 path should be used (lower total cost)
+```
+**Traffic expected result:** O E2 traffic forwarded correctly; when E1 also present, E1 path is preferred.
 
 ---
 
@@ -718,6 +988,24 @@ st.log(f"Convergence time: {convergence_time:.2f}s")
 assert convergence_time < 10, "Convergence too slow"
 ```
 
+**Traffic Verification (Scapy):**
+```python
+import time
+# Start continuous traffic BEFORE triggering failure
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+time.sleep(3)
+
+# Trigger link failure
+st.config(dut1, "sudo ip link set Ethernet4 down")
+time.sleep(15)
+tgen.stop_stream(stream)
+
+stats = tgen.get_stream_stats(stream)
+loss_pct = (stats['tx'] - stats['rx']) / stats['tx'] * 100
+assert loss_pct < 10, f"Traffic loss {loss_pct:.2f}% after link failure SPF"
+```
+**Traffic expected result:** Traffic interruption window < 5 s during SPF recompute. Overall loss < 10% of 15 s stream.
+
 ---
 
 ### TC-OSPF-037 — OSPF cost manipulation
@@ -732,6 +1020,19 @@ assert convergence_time < 10, "Convergence too slow"
 2. Increase cost on one path interface.
 3. Verify traffic shifts to lower-cost path.
 4. Restore original cost, verify ECMP restored.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# Verify traffic still forwards after cost manipulation (re-routes to lower-cost path)
+st.config(dut1, "vtysh -c 'conf t' -c 'interface Ethernet4' -c 'ip ospf cost 100'")
+time.sleep(5)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic re-routes to lower-cost path after cost increase"
+```
+**Traffic expected result:** Traffic shifts to alternate lower-cost path; no black hole during SPF recompute.
 
 ---
 
@@ -759,6 +1060,17 @@ interface Ethernet4
 4. Change key on D1 only → verify adjacency drops.
 5. Restore matching key → verify adjacency reforms.
 
+**Traffic Verification (Scapy):**
+```python
+# After plain-text auth adjacency, verify data-plane forwarding is unaffected
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Data-plane forwarding works with plain-text auth adjacency"
+```
+**Traffic expected result:** Traffic forwarded normally when auth matches; stops when key mismatched; resumes after fix.
+
 ---
 
 ### TC-OSPF-042 — MD5 cryptographic authentication
@@ -781,6 +1093,17 @@ interface Ethernet4
 3. Capture OSPF Hello with Scapy, verify auth-type=2 and MD5 digest present.
 4. Send malformed auth Hello from TGen (wrong key), verify D1 discards it (no adjacency).
 
+**Traffic Verification (Scapy):**
+```python
+# After MD5 adjacency, verify traffic forwarding is normal
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Data traffic forwarded normally over MD5-authenticated OSPF adjacency"
+```
+**Traffic expected result:** MD5-authenticated adjacency forwards data normally; malformed control packets do not disrupt forwarding.
+
 ---
 
 ### TC-OSPF-043 — MD5 key rollover (non-disruptive key change)
@@ -795,6 +1118,29 @@ interface Ethernet4
 2. Verify adjacency remains Full during key overlap period.
 3. Remove old key ID 1.
 4. Verify adjacency still Full with only key ID 2.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# MD5 key rollover: send continuous traffic DURING the key overlap and transition
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+
+# Add new key (overlap period)
+st.config(dut1, "vtysh -c 'conf t' -c 'interface Ethernet4' -c 'ip ospf message-digest-key 2 md5 newkey'")
+st.config(dut2, "vtysh -c 'conf t' -c 'interface Ethernet4' -c 'ip ospf message-digest-key 2 md5 newkey'")
+time.sleep(5)
+
+# Remove old key
+st.config(dut1, "vtysh -c 'conf t' -c 'interface Ethernet4' -c 'no ip ospf message-digest-key 1'")
+st.config(dut2, "vtysh -c 'conf t' -c 'interface Ethernet4' -c 'no ip ospf message-digest-key 1'")
+time.sleep(5)
+
+tgen.stop_stream(stream)
+stats = tgen.get_stream_stats(stream)
+loss = (stats['tx'] - stats['rx']) / stats['tx'] * 100
+assert loss < 1.0, f"MD5 key rollover caused {loss:.2f}% traffic loss (expected < 1%)"
+```
+**Traffic expected result:** Traffic continues during MD5 key rollover; loss < 1% during transition.
 
 ---
 
@@ -811,6 +1157,17 @@ interface Ethernet4
 3. Verify error logs/debug messages on D1 (auth type mismatch).
 
 **Expected result:** Adjacency stays in `Init` or `ExStart` and never reaches `Full`.
+
+**Traffic Verification (Scapy):**
+```python
+# Auth mismatch: no adjacency -> no OSPF routes -> traffic must be dropped
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=500, rate_pps=100)
+assert loss == 100.0, "Traffic must be dropped when OSPF auth mismatch prevents adjacency"
+```
+**Traffic expected result:** 100% traffic loss when auth mismatch prevents route installation.
 
 ---
 
@@ -842,6 +1199,25 @@ interface Ethernet4
 
 **Expected result:** Route withdrawal in < 1 s (BFD detection interval ~300 ms). Compare to ~40 s without BFD (dead interval).
 
+**Traffic Verification (Scapy):**
+```python
+import time
+# Start continuous traffic before triggering failure
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=1000)
+time.sleep(3)
+
+# Simulate physical failure
+st.config(dut2, "sudo ip link set Ethernet0 down")
+time.sleep(5)
+tgen.stop_stream(stream)
+
+stats = tgen.get_stream_stats(stream)
+# With BFD ~300ms detection, expect < 1000 lost packets (< 1 s disruption at 1000 pps)
+lost = stats['tx'] - stats['rx']
+assert lost < 1000, f"BFD: {lost} packets lost; expected < 1000 (< 1 s disruption)"
+```
+**Traffic expected result:** Traffic interruption < 1 s with BFD (vs ~40 s dead-interval without BFD).
+
 ---
 
 ### TC-OSPF-048 — BFD echo mode
@@ -856,6 +1232,21 @@ interface Ethernet4
 2. Verify BFD session state shows echo mode negotiated.
 3. Verify failure detection still < 1 s.
 
+**Traffic Verification (Scapy):**
+```python
+import time
+# BFD echo mode: verify same fast failure detection with live traffic
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=1000)
+time.sleep(3)
+st.config(dut2, "sudo ip link set Ethernet0 down")
+time.sleep(5)
+tgen.stop_stream(stream)
+stats = tgen.get_stream_stats(stream)
+lost = stats['tx'] - stats['rx']
+assert lost < 1000, f"BFD echo mode: {lost} packets lost; expected < 1000"
+```
+**Traffic expected result:** Echo-mode BFD achieves same sub-second failover with live traffic.
+
 ---
 
 ### TC-OSPF-049 — OSPF reconvergence after BFD session flap
@@ -869,6 +1260,21 @@ interface Ethernet4
 1. Force BFD session down/up 10 times rapidly.
 2. Verify OSPF adjacency remains stable (no unnecessary SPF runs).
 3. Verify OSPF error/flap counters are within acceptable range.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# BFD session flap: verify traffic is not excessively disrupted by spurious BFD flaps
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+for _ in range(10):
+    st.config(dut1, "vtysh -c 'clear bfd peer 10.1.2.2'")
+    time.sleep(1)
+tgen.stop_stream(stream)
+stats = tgen.get_stream_stats(stream)
+loss = (stats['tx'] - stats['rx']) / stats['tx'] * 100
+assert loss < 5.0, f"BFD flap caused {loss:.2f}% overall traffic loss"
+```
+**Traffic expected result:** BFD flaps cause only brief disruption; total loss < 5% over 10-flap test.
 
 ---
 
@@ -886,6 +1292,18 @@ interface Ethernet4
 2. Redistribute static into OSPF with metric-type 2 and metric 20.
 3. Verify all 5 Type-5 LSAs in LSDB.
 4. Verify all 5 routes appear on D1 and D3 as `O E2`.
+
+**Traffic Verification (Scapy):**
+```python
+# After static redistribution, verify traffic reaches each redistributed prefix
+for dst in ['172.16.0.1', '172.16.1.1', '172.16.2.1', '172.16.3.1', '172.16.4.1']:
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p2',
+        src_ip='10.1.1.1', dst_ip=dst,
+        pkt_count=200, rate_pps=100)
+    assert loss < 0.1, f"Static redistribute: traffic to {dst} lost {loss:.2f}%"
+```
+**Traffic expected result:** All 5 redistributed static prefixes reachable from TGen; < 0.1% loss each.
 
 ---
 
@@ -907,6 +1325,18 @@ router ospf
 2. Redistribute connected.
 3. Verify all 5 prefixes as O E2 on D1 and D3.
 
+**Traffic Verification (Scapy):**
+```python
+# After connected redistribution, verify reachability to all 5 connected prefixes
+for dst in ['192.168.1.1', '192.168.2.1', '192.168.3.1', '192.168.4.1', '192.168.5.1']:
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p2',
+        src_ip='10.1.1.1', dst_ip=dst,
+        pkt_count=200, rate_pps=100)
+    assert loss < 0.1, f"Connected redistribute: traffic to {dst}: {loss:.2f}%"
+```
+**Traffic expected result:** All 5 connected redistribution prefixes reachable from Area 0.
+
 ---
 
 ### TC-OSPF-053 — Redistribute with route-map filtering
@@ -920,6 +1350,23 @@ router ospf
 1. Configure a route-map that permits only 172.16.0.0/24 and denies 172.16.1.0/24.
 2. Apply route-map to redistribution on D2.
 3. Verify 172.16.0.0/24 appears in LSDB; 172.16.1.0/24 does NOT.
+
+**Traffic Verification (Scapy):**
+```python
+# Route-map filtering: verify permitted prefix is reachable, denied prefix is NOT
+sent_ok, rx_ok, loss_ok = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.0.1',
+    pkt_count=500, rate_pps=100)
+assert loss_ok < 0.1, "Permitted prefix should be reachable"
+
+sent_deny, rx_deny, loss_deny = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.1.1',
+    pkt_count=200, rate_pps=50)
+assert loss_deny == 100.0, "Denied prefix should NOT be reachable"
+```
+**Traffic expected result:** Route-map correctly permits/denies; denied prefix results in 100% loss.
 
 ---
 
@@ -943,6 +1390,18 @@ router ospf
 3. Verify D2 sees one summary Type-3 LSA (10.1.3.0/24) instead of 3 individual LSAs.
 4. Verify D2 route table shows `O IA 10.1.3.0/24`.
 
+**Traffic Verification (Scapy):**
+```python
+# ABR summarization: send traffic to individual prefixes within the summary
+for dst in ['10.1.3.1', '10.1.3.2', '10.1.3.3']:
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p2',
+        src_ip='10.1.1.1', dst_ip=dst,
+        pkt_count=500, rate_pps=100)
+    assert loss < 0.1, f"ABR summary: individual prefix {dst} reachable"
+```
+**Traffic expected result:** Traffic to each individual prefix within summary block reaches D3.
+
 ---
 
 ### TC-OSPF-055 — ASBR external route summarization
@@ -964,6 +1423,18 @@ router ospf
 2. Apply ASBR summary 172.16.0.0/22.
 3. Verify only one Type-5 LSA (172.16.0.0/22) is flooded.
 
+**Traffic Verification (Scapy):**
+```python
+# ASBR summarization: traffic to any address in 172.16.0.0/22 must route via D2
+for dst in ['172.16.0.1', '172.16.1.1', '172.16.2.1', '172.16.3.1']:
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p2',
+        src_ip='10.1.1.1', dst_ip=dst,
+        pkt_count=200, rate_pps=100)
+    assert loss < 0.1, f"ASBR summary: traffic to {dst}: {loss:.2f}%"
+```
+**Traffic expected result:** All prefixes within ASBR summary range reachable with correct egress via D2.
+
 ---
 
 ### TC-OSPF-056 — Redistribution loop prevention (tag-based)
@@ -977,6 +1448,18 @@ router ospf
 1. Configure mutual redistribution between OSPF and static with a tag.
 2. Apply route-map to block routes with the OSPF tag from being re-redistributed.
 3. Verify no routing loop or route explosion occurs.
+
+**Traffic Verification (Scapy):**
+```python
+# Loop prevention: verify traffic does not loop (TTL should not be exhausted en route)
+pkts = [Ether()/IP(src='10.1.1.1', dst='172.16.0.1', ttl=64)/UDP(dport=9999)/b'X'*64
+        for _ in range(100)]
+tgen.send_burst(tgen_p1, pkts, rate_pps=50)
+# Capture ICMP TTL-exceeded (would indicate a routing loop)
+icmp_ttl = tgen.capture(tgen_p1, duration=5, bpf='icmp and icmp[0]=11')
+assert len(icmp_ttl) == 0, "ICMP TTL-exceeded detected -- possible routing loop"
+```
+**Traffic expected result:** No routing loop; TTL not exhausted; no ICMP Time Exceeded from DUT.
 
 ---
 
@@ -1108,6 +1591,25 @@ assert any(ICMP in p and p[ICMP].type == 11 for p in rx)
 
 **Expected result:** Adjacency stays at `Init`. No `Full` state reached.
 
+**Traffic Verification (Scapy):**
+```python
+import time
+# Timer mismatch -> no adjacency -> all traffic dropped
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=200, rate_pps=50)
+assert loss == 100.0, "No traffic should forward with hello-timer mismatch (no adjacency)"
+# Restore matching timers, verify forwarding resumes
+st.config(dut2, "vtysh -c 'conf t' -c 'interface Ethernet4' -c 'ip ospf hello-interval 10' -c 'ip ospf dead-interval 40'")
+time.sleep(45)
+sent2, rx2, loss2 = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=500, rate_pps=100)
+assert loss2 < 0.1, "Traffic resumes after timer mismatch corrected"
+```
+**Traffic expected result:** 100% loss during mismatch; traffic recovers after fix.
+
 ---
 
 ### TC-OSPF-072 — Mismatched area IDs (no adjacency)
@@ -1120,6 +1622,17 @@ assert any(ICMP in p and p[ICMP].type == 11 for p in rx)
 **Steps:**
 1. D1 assigns Ethernet4 to Area 0. D2 assigns same interface to Area 1.
 2. Verify no adjacency. Verify log message indicating area mismatch.
+
+**Traffic Verification (Scapy):**
+```python
+# Area mismatch -> no adjacency -> traffic dropped
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=200, rate_pps=50)
+assert loss == 100.0, "No traffic should forward with area-ID mismatch"
+```
+**Traffic expected result:** 100% traffic loss; no OSPF routes installed due to area mismatch.
 
 ---
 
@@ -1135,6 +1648,23 @@ assert any(ICMP in p and p[ICMP].type == 11 for p in rx)
 2. Verify OSPF adjacency stuck in `ExStart` or `Exchange`.
 3. Set `ip ospf mtu-ignore` on D1 interface.
 4. Verify adjacency now reaches `Full`.
+
+**Traffic Verification (Scapy):**
+```python
+# After MTU mismatch is resolved with mtu-ignore, verify forwarding works
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Standard traffic after MTU mismatch fix (mtu-ignore)"
+# Also verify jumbo frames are forwarded correctly
+jumbo = [Ether()/IP(src='10.1.1.1', dst='3.3.3.3')/UDP(dport=9999)/b'X'*8900
+         for _ in range(100)]
+tgen.send_burst(tgen_p1, jumbo, rate_pps=50)
+rx_j = tgen.capture(tgen_p2, duration=5, bpf='udp and dst port 9999')
+assert len(rx_j) >= 90, "Jumbo frame forwarding after MTU mismatch resolved"
+```
+**Traffic expected result:** Traffic resumes after `mtu-ignore` applied; both standard and jumbo frames forwarded.
 
 ---
 
@@ -1152,6 +1682,19 @@ assert any(ICMP in p and p[ICMP].type == 11 for p in rx)
 4. Fix: set unique router IDs; verify recovery.
 
 **Expected result:** Duplicate router IDs cause LSA conflicts. Log shows duplicate warning. Correcting router IDs restores stable adjacency.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# After fixing duplicate router-ID, verify stable forwarding
+time.sleep(30)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic stable after duplicate router-ID corrected"
+```
+**Traffic expected result:** Traffic unstable during duplicate RID conflict; stable after fix.
 
 ---
 
@@ -1225,6 +1768,26 @@ sendp(Ether()/lsu, iface='eth1')
 3. Verify no stale routes remain.
 4. Verify memory usage on DUT has not grown significantly (no leak).
 
+**Traffic Verification (Scapy):**
+```python
+import time
+# Measure traffic during 50 link flaps
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+for i in range(50):
+    st.config(dut1, "sudo ip link set Ethernet4 down")
+    time.sleep(0.5)
+    st.config(dut1, "sudo ip link set Ethernet4 up")
+    time.sleep(0.5)
+time.sleep(10)
+tgen.stop_stream(stream)
+# Final state: traffic must be stable
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic must be stable after route flap storm completes"
+```
+**Traffic expected result:** Traffic disrupted during flap storm (expected); final state stable with < 0.1% loss.
+
 ---
 
 ### TC-OSPF-079 — OSPF process restart (daemon crash recovery)
@@ -1245,6 +1808,22 @@ sendp(Ether()/lsu, iface='eth1')
 sudo systemctl restart frr
 # or: sudo killall ospfd
 ```
+
+**Traffic Verification (Scapy):**
+```python
+import time
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+time.sleep(3)
+st.config(dut1, "sudo systemctl restart frr")
+time.sleep(60)
+tgen.stop_stream(stream)
+# Verify forwarding restored after OSPF process recovery
+sent, rx, final_loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert final_loss < 0.1, "Traffic must recover after OSPF process restart"
+```
+**Traffic expected result:** Traffic disrupted during restart; fully recovers after adjacency re-established.
 
 ---
 
@@ -1267,6 +1846,17 @@ router ospf
 3. Verify D1 logs warning at 90% threshold.
 4. Verify behavior at 100% (warning-only = log, not shutdown).
 
+**Traffic Verification (Scapy):**
+```python
+# Even at max-LSA warning threshold, existing routes must still forward traffic
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Traffic forwarding continues at max-LSA warning threshold"
+```
+**Traffic expected result:** Max-LSA warning (warning-only mode) does not disrupt existing forwarding.
+
 ---
 
 ## 15. Test Cases — Corner Cases
@@ -1283,6 +1873,22 @@ router ospf
 2. Verify loopback is advertised as a host route (/32) not /32-stub.
 3. FRR always treats loopback as /32 stub link in Type-1 LSA.
 
+**Traffic Verification (Scapy):**
+```python
+# Verify loopback /32 route is reachable via OSPF
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Remote loopback /32 reachable cross-area"
+sent2, rx2, loss2 = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p1',
+    src_ip='10.1.1.1', dst_ip='1.1.1.1',
+    pkt_count=500, rate_pps=100)
+assert loss2 < 0.1, "Local loopback /32 reachable via OSPF stub-host route"
+```
+**Traffic expected result:** Loopback /32 routes support forwarding; traffic reaches both local and remote loopbacks.
+
 ---
 
 ### TC-OSPF-087 — Link cost = 65535 (maximum)
@@ -1298,6 +1904,17 @@ router ospf
 3. If alternate path exists, verify traffic takes alternate path.
 4. If no alternate: verify route is still installed with max cost.
 
+**Traffic Verification (Scapy):**
+```python
+# Max cost 65535: traffic should use alternate path or still forward via high-cost path
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic forwards via lowest-cost available path (alt to cost-65535 link)"
+```
+**Traffic expected result:** Traffic routes around max-cost link if alternate exists; forwards correctly otherwise.
+
 ---
 
 ### TC-OSPF-088 — OSPF over unnumbered interface
@@ -1312,6 +1929,17 @@ router ospf
 2. Configure OSPF on unnumbered interface with `ip ospf network point-to-point`.
 3. Verify adjacency and route installation.
 
+**Traffic Verification (Scapy):**
+```python
+# Unnumbered interface OSPF: verify traffic forwarding works
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic forwarded via unnumbered OSPF interface route"
+```
+**Traffic expected result:** OSPF over unnumbered interface installs correct routes; forwarding works.
+
 ---
 
 ### TC-OSPF-089 — Simultaneous SPF triggers (multiple link events)
@@ -1325,6 +1953,26 @@ router ospf
 1. Simultaneously trigger 3 link failures on different interfaces.
 2. Verify SPF is not triggered redundantly (SPF throttle timer active).
 3. Verify all routes converge correctly after a single batched SPF run.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=200)
+# Trigger 3 simultaneous link events
+st.config(dut1, "sudo ip link set Ethernet4 down")
+st.config(dut2, "sudo ip link set Ethernet4 down")
+time.sleep(0.1)
+st.config(dut1, "sudo ip link set Ethernet4 up")
+st.config(dut2, "sudo ip link set Ethernet4 up")
+time.sleep(15)
+tgen.stop_stream(stream)
+# Verify final state: traffic stable after batched SPF
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Forwarding stable after simultaneous SPF triggers"
+```
+**Traffic expected result:** Batched SPF recovers all routes; final forwarding state is stable.
 
 ---
 
@@ -1354,6 +2002,29 @@ router ospf
 2. Verify OSPF adjacency can still form (due to retransmit).
 3. Verify convergence time increases but no permanent failure.
 
+**Traffic Verification (Scapy):**
+```python
+import subprocess, time
+# Apply 50% packet loss with netem (VS only)
+subprocess.run("tc qdisc add dev Ethernet4 root netem loss 50%", shell=True)
+time.sleep(5)
+# Data traffic also suffers ~50% loss on lossy link (expected)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=2000, rate_pps=200)
+st.log(f"Traffic loss on 50% lossy link: {loss:.2f}%")
+assert loss < 60, "Data loss should be ~50% on lossy link, not total outage"
+# Remove netem; verify traffic normalizes
+subprocess.run("tc qdisc del dev Ethernet4 root", shell=True)
+time.sleep(5)
+sent2, rx2, loss2 = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert loss2 < 0.1, "Traffic normalizes after removing lossy netem"
+```
+**Traffic expected result:** ~50% data loss on lossy link (expected); adjacency holds; normalizes after netem removed.
+
 ---
 
 ### TC-OSPF-092 — Area 0.0.0.0 backbone with no non-backbone areas
@@ -1366,6 +2037,17 @@ router ospf
 **Steps:**
 1. Single area domain (Area 0 only, no other areas).
 2. Verify basic operation: adjacency, LSDB, routing table.
+
+**Traffic Verification (Scapy):**
+```python
+# Single area (Area 0 only): verify basic forwarding between all nodes
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='10.1.2.2',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Single-area OSPF forwarding D1 to D2"
+```
+**Traffic expected result:** Intra-area forwarding works correctly in single-area deployment.
 
 ---
 
@@ -1381,6 +2063,20 @@ router ospf
 2. Verify OSPFv2 operation is not affected by IPv6 configuration.
 3. Verify no OSPFv2 packets are sent over IPv6.
 
+**Traffic Verification (Scapy):**
+```python
+# Dual-stack isolation: IPv4 traffic should not be affected by IPv6 config
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "IPv4 OSPF forwarding unaffected by IPv6 addresses"
+# Verify no OSPFv2 control packets sent over IPv6
+ospf_v6 = tgen.capture(tgen_p1, duration=5, bpf='ip6 and proto 89')
+assert len(ospf_v6) == 0, "No OSPFv2 packets should be sent over IPv6"
+```
+**Traffic expected result:** IPv4 data traffic unaffected by dual-stack configuration; no OSPFv2 over IPv6.
+
 ---
 
 ### TC-OSPF-094 — Zero OSPF metric (cost=0) advertisement
@@ -1394,6 +2090,17 @@ router ospf
 1. Set `ip ospf cost 0` on an interface.
 2. Verify OSPF treats cost 0 as cost 1 (RFC 2328 minimum cost is 1) or uses 0.
 3. Verify route installation is correct.
+
+**Traffic Verification (Scapy):**
+```python
+# Zero-cost interface: verify traffic routes via this (lowest-cost) path
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=500, rate_pps=100)
+assert loss < 0.1, "Traffic forwards correctly via cost-0 (treated as cost-1) interface"
+```
+**Traffic expected result:** Traffic routes via lowest-cost path; cost=0 interface preferred over higher-cost paths.
 
 ---
 
@@ -1410,6 +2117,21 @@ router ospf
 3. Configure OSPF in `test_vrf`.
 4. Verify OSPF in VRF is isolated from default VRF OSPF.
 5. Verify routes in `test_vrf` routing table only.
+
+**Traffic Verification (Scapy):**
+```python
+# VRF OSPF: verify traffic within VRF is forwarded and isolated from default VRF
+# Send traffic in VRF
+sent_vrf, rx_vrf, loss_vrf = verify_forwarding(
+    tx_iface='tgen_vrf_p1', rx_iface='tgen_vrf_p2',
+    src_ip='192.168.10.1', dst_ip='192.168.20.1',
+    pkt_count=500, rate_pps=100)
+assert loss_vrf < 0.1, "VRF OSPF traffic forwarded within VRF"
+# Verify isolation: VRF traffic does NOT appear on default VRF ports
+leaked = tgen.capture(tgen_p1, duration=3, bpf='src net 192.168.10.0/24')
+assert len(leaked) == 0, "VRF traffic must not leak to default VRF"
+```
+**Traffic expected result:** VRF OSPF routes forward traffic only within the VRF; no cross-VRF leakage.
 
 ---
 
@@ -1430,6 +2152,26 @@ router ospf
 5. Verify all routes match pre-reboot state.
 6. Verify no duplicate router-ID or stale LSA issues.
 
+**Traffic Verification (Scapy):**
+```python
+import time
+# Send continuous traffic THROUGH warm reboot to measure disruption window
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+time.sleep(5)
+st.config(dut1, "sudo warm-reboot -y")
+time.sleep(120)
+tgen.stop_stream(stream)
+stats = tgen.get_stream_stats(stream)
+loss = (stats['tx'] - stats['rx']) / stats['tx'] * 100
+st.log(f"Traffic loss during warm reboot: {loss:.2f}%")
+# Verify final forwarding is stable
+sent, rx, final_loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert final_loss < 0.1, "Traffic stable after warm reboot"
+```
+**Traffic expected result:** Warm reboot causes minimal traffic disruption (GR-assisted); final forwarding stable.
+
 ---
 
 ### TC-OSPF-097 — OSPF state after cold reboot
@@ -1444,6 +2186,21 @@ router ospf
 2. Power cycle D1 (cold reboot).
 3. Verify neighbors D2 and D3 detect D1 absence (dead interval expires).
 4. After D1 restarts: verify full OSPF re-convergence within 180 s.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# Cold reboot: traffic will drop during reboot; verify full recovery after
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=200)
+time.sleep(3)
+time.sleep(180)   # cold reboot + recovery window
+tgen.stop_stream(stream)
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic fully recovered after cold reboot"
+```
+**Traffic expected result:** Traffic drops during cold reboot (expected); fully recovers within 180 s.
 
 ---
 
@@ -1466,6 +2223,17 @@ sudo config save -y
 4. Verify all OSPF config is restored from `/etc/sonic/config_db.json`.
 5. Verify adjacencies form automatically after reboot.
 
+**Traffic Verification (Scapy):**
+```python
+# After config-save + reboot, verify OSPF routes and forwarding are restored
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3',
+    pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic forwarding restored after config save + reboot"
+```
+**Traffic expected result:** All OSPF config persists across reboot; traffic recovers fully.
+
 ---
 
 ### TC-OSPF-099 — OSPF persistence across FRR service restart
@@ -1480,6 +2248,21 @@ sudo config save -y
 2. Restart FRR: `sudo systemctl restart frr`.
 3. Verify OSPF re-establishes adjacency within 60 s.
 4. Verify LSDB matches pre-restart state.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+time.sleep(3)
+st.config(dut1, "sudo systemctl restart frr")
+time.sleep(60)
+tgen.stop_stream(stream)
+sent, rx, final_loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert final_loss < 0.1, "Traffic fully recovered after FRR restart"
+```
+**Traffic expected result:** Traffic disrupts during FRR restart; recovers within 60 s after restart.
 
 ---
 
@@ -1500,6 +2283,21 @@ sudo config reload -y
 2. Monitor OSPF adjacency on D2.
 3. Verify adjacency recovers within 120 s.
 4. Verify no duplicate LSAs or stale entries in LSDB.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=300)
+time.sleep(3)
+st.config(dut1, "sudo config reload -y")
+time.sleep(120)
+tgen.stop_stream(stream)
+sent, rx, final_loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert final_loss < 0.1, "Traffic fully recovered after config reload"
+```
+**Traffic expected result:** Config reload restores OSPF config; forwarding recovers within 120 s.
 
 ---
 
@@ -1537,6 +2335,22 @@ router ospf
 2. Restart SWSS: `sudo systemctl restart swss`.
 3. Verify OSPF routes are re-programmed in HW (AppDB → ASIC) after SWSS restarts.
 
+**Traffic Verification (Scapy):**
+```python
+import time
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=200)
+time.sleep(3)
+st.config(dut1, "sudo systemctl restart swss")
+time.sleep(60)
+tgen.stop_stream(stream)
+# Verify final forwarding after SWSS route reprogramming
+sent, rx, loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert loss < 0.1, "Traffic forwarding restored after SWSS restart and route reprogramming"
+```
+**Traffic expected result:** SWSS restart causes HW route flush and reprogramming; traffic recovers when routes are re-installed.
+
 ---
 
 ## 17. Test Cases — Scaling Cases
@@ -1573,6 +2387,18 @@ for t in threads:
     t.start()
 ```
 
+**Traffic Verification (Scapy):**
+```python
+# With 200 emulated neighbors, send traffic to DUT loopback via 10 different neighbors
+for i in range(10):
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p1',
+        src_ip=f'10.100.{i}.1', dst_ip='1.1.1.1',
+        pkt_count=200, rate_pps=50)
+    assert loss < 1.0, f"Traffic from neighbor {i} to DUT loopback: {loss:.2f}%"
+```
+**Traffic expected result:** Forwarding works from multiple emulated neighbors simultaneously; < 1% loss.
+
 ---
 
 ### TC-OSPF-107 — Large LSDB (1000+ LSAs)
@@ -1587,6 +2413,20 @@ for t in threads:
 2. Verify D1 accepts and stores all LSAs in LSDB.
 3. Verify SPF convergence time with 1000 LSAs (< 5 s expected).
 4. Verify memory usage is within acceptable bounds.
+
+**Traffic Verification (Scapy):**
+```python
+import random
+# With 1000+ LSAs in LSDB, spot-check 20 random destination routes
+prefixes = [f'10.{i//256}.{i%256}.1' for i in range(1, 101)]
+for dst in random.sample(prefixes, 20):
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p2',
+        src_ip='10.1.1.1', dst_ip=dst,
+        pkt_count=100, rate_pps=50)
+    assert loss < 1.0, f"Large LSDB: traffic to {dst}: {loss:.2f}% loss"
+```
+**Traffic expected result:** FIB lookups correct with 1000+ routes; spot-check 20 destinations with < 1% loss.
 
 ---
 
@@ -1624,6 +2464,24 @@ router ospf
 3. Verify SPF is triggered at increasing intervals (exponential backoff).
 4. Verify CPU usage remains bounded.
 
+**Traffic Verification (Scapy):**
+```python
+import time
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=200)
+for _ in range(20):
+    st.config(dut1, "sudo ip link set Ethernet4 down")
+    time.sleep(0.25)
+    st.config(dut1, "sudo ip link set Ethernet4 up")
+    time.sleep(0.25)
+time.sleep(10)
+tgen.stop_stream(stream)
+sent, rx, final_loss = verify_forwarding(
+    tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=1000, rate_pps=200)
+assert final_loss < 0.1, "Traffic stable after SPF throttle + 20 rapid topology changes"
+```
+**Traffic expected result:** SPF throttle prevents CPU storm; traffic recovers after flap storm ends.
+
 ---
 
 ### TC-OSPF-110 — Maximum number of OSPF areas
@@ -1638,6 +2496,18 @@ router ospf
 2. Each area has 1 router connected to D1.
 3. Verify OSPF forms adjacency in all 10 areas.
 4. Verify inter-area routes are installed for all areas.
+
+**Traffic Verification (Scapy):**
+```python
+# With 10 areas, verify inter-area traffic reaches at least one node per area
+for area_idx in range(1, 11):
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface=f'tgen_area{area_idx}_p1',
+        src_ip='10.1.1.1', dst_ip=f'10.{area_idx}.0.1',
+        pkt_count=200, rate_pps=50)
+    assert loss < 1.0, f"Traffic to area {area_idx}: {loss:.2f}%"
+```
+**Traffic expected result:** Inter-area traffic reaches nodes in all 10 areas; < 1% loss per area.
 
 ---
 
@@ -1654,6 +2524,20 @@ router ospf
 3. Verify D1 and D3 have all 10,000 external routes.
 4. Remove all static routes at once. Verify LSA flush and route withdrawal.
 
+**Traffic Verification (Scapy):**
+```python
+import random
+# With 10k redistributed prefixes, spot-check 50 random destinations
+all_dsts = [f'172.{i//256}.{i%256}.1' for i in range(10000)]
+for dst in random.sample(all_dsts, 50):
+    sent, rx, loss = verify_forwarding(
+        tx_iface='tgen_p1', rx_iface='tgen_p2',
+        src_ip='10.1.1.1', dst_ip=dst,
+        pkt_count=50, rate_pps=25)
+    assert loss < 2.0, f"10k-prefix scale: traffic to {dst}: {loss:.2f}%"
+```
+**Traffic expected result:** FIB holds all 10k routes; spot-check 50 destinations with < 2% loss each.
+
 ---
 
 ### TC-OSPF-112 — OSPF convergence time measurement (baseline)
@@ -1668,6 +2552,26 @@ router ospf
 2. Measure time-to-route from adjacency `Full` to route appearing in `show ip route`.
 3. Repeat 10 times and report min/max/avg.
 4. Baseline: adjacency < 5 s, route installation < 1 s after Full state.
+
+**Traffic Verification (Scapy):**
+```python
+import time
+# Baseline: measure time from OSPF config to first successfully forwarded packet
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=200)
+start_ts = time.time()
+st.config(dut1, "vtysh -c 'conf t' -c 'router ospf' -c 'network 10.1.1.0/30 area 0'")
+# Poll until traffic flows (first packet received)
+while True:
+    stats = tgen.get_stream_stats(stream)
+    if stats['rx'] > 0:
+        fwd_time = time.time() - start_ts
+        break
+    time.sleep(0.1)
+tgen.stop_stream(stream)
+st.log(f"First packet forwarded after {fwd_time:.2f}s from OSPF config")
+assert fwd_time < 10, f"Convergence too slow: {fwd_time:.2f}s"
+```
+**Traffic expected result:** First usable route installed and traffic flowing within 10 s of OSPF config applied.
 
 ---
 
@@ -1684,6 +2588,28 @@ router ospf
 3. Verify ACK behavior is correct.
 4. After flood stops: verify LSDB stabilizes.
 
+**Traffic Verification (Scapy):**
+```python
+import time, threading
+# Sustained LSA flood: verify data-plane is NOT impacted by control-plane stress
+stream = tgen.start_stream(tgen_p1, dst_ip='3.3.3.3', rate_pps=500)
+
+# LSA flood in background thread
+lsa_thread = threading.Thread(
+    target=flood_type5_lsas,
+    args=('eth1', '10.1.1.1', '10.1.1.1',
+          [f'172.{i//256}.{i%256}.0/24' for i in range(6000)]))
+lsa_thread.start()
+time.sleep(60)
+lsa_thread.join()
+
+tgen.stop_stream(stream)
+stats = tgen.get_stream_stats(stream)
+loss = (stats['tx'] - stats['rx']) / stats['tx'] * 100
+assert loss < 5.0, f"Data-plane impacted by LSA flood storm: {loss:.2f}% loss"
+```
+**Traffic expected result:** Data-plane forwarding unaffected (< 5% loss) during sustained high-rate LSA flood.
+
 ---
 
 ### TC-OSPF-114 — Concurrent OSPF + BGP + Static routes scaling
@@ -1697,6 +2623,23 @@ router ospf
 1. Configure 5000 OSPF routes, 5000 BGP routes, 2000 static routes on D1 simultaneously.
 2. Verify no route conflicts or memory corruption.
 3. Verify route priorities (admin distance) are correctly applied.
+
+**Traffic Verification (Scapy):**
+```python
+# With OSPF + BGP + Static routes concurrent, verify traffic to each route type
+s1, r1, l1 = verify_forwarding(tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='3.3.3.3', pkt_count=500, rate_pps=100)
+assert l1 < 0.1, f"OSPF route traffic: {l1:.2f}%"
+
+s2, r2, l2 = verify_forwarding(tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='10.200.0.1', pkt_count=500, rate_pps=100)
+assert l2 < 0.1, f"BGP route traffic: {l2:.2f}%"
+
+s3, r3, l3 = verify_forwarding(tx_iface='tgen_p1', rx_iface='tgen_p2',
+    src_ip='10.1.1.1', dst_ip='172.16.0.1', pkt_count=500, rate_pps=100)
+assert l3 < 0.1, f"Static route traffic: {l3:.2f}%"
+```
+**Traffic expected result:** Correct route selection for each protocol; all three route types forward traffic with < 0.1% loss.
 
 ---
 
@@ -2041,3 +2984,9 @@ def send_ospf_hello_md5(iface, src_ip, router_id, key_id, key,
 - VS-only: 3 cases
 - HW-only: 10 cases
 - VS/HW: 57 cases
+
+**Traffic Verification Coverage:**
+- 66 of 70 test cases now include Scapy traffic verification steps
+- Remaining 4 (TC-035, TC-090, TC-075, TC-076) already use Scapy for control-plane packet injection
+- Every category includes at minimum: packet send, receive capture, loss percentage assertion
+- Key traffic patterns: forwarding loss threshold (< 0.1%), blackout window measurement, route convergence via packet timing, ECMP distribution, negative cases (100% loss), and loop detection
