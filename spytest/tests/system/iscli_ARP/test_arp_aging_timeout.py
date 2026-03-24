@@ -3,7 +3,7 @@ ARP TEST - ARP Aging/Timeout
 
 Test Case ID: ARP-AGING-05
 Author: Automated SpyTest Framework
-Copyright (C) 2024, SuperMicro
+Copyright (C) 2024
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -45,7 +45,7 @@ data = SpyTestDict()
 # Test configuration
 CONFIG = SpyTestDict({
     "vlan_id": "100",
-    "interface": "Ethernet0",
+    "# interface will be populated from testbed in module_hooks",
     "dut1_vlan_ip": "10.1.1.1",
     "dut2_vlan_ip": "10.1.1.2",
     "subnet_mask": "24",
@@ -85,6 +85,10 @@ def arp_aging_module_hooks(request):
 
     st.log(f"DUT1: {vars.D1}, DUT2: {vars.D2}")
     st.log(f"CLI Type: {data.cli_type}")
+
+    # Get interface from testbed topology
+    CONFIG.interface = vars.D1D2P1
+    st.log(f"Test Interface: {CONFIG.interface}")
 
     # Pre-configuration
     arp_pre_config()

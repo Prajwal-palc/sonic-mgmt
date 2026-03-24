@@ -3,7 +3,7 @@ ARP TEST - ARP on Multiple VLANs
 
 Test Case ID: ARP-MULTI-VLAN-06
 Author: Automated SpyTest Framework
-Copyright (C) 2024, SuperMicro
+Copyright (C) 2024
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -38,6 +38,7 @@ from spytest import st, SpyTestDict
 import apis.routing.ip as ipapi
 import apis.routing.arp as arpapi
 import apis.switching.vlan as vlanapi
+import apis.common.scapy_traffic as scapy_utils
 
 # Global variables
 vars = SpyTestDict()
@@ -45,17 +46,16 @@ data = SpyTestDict()
 
 # Test configuration
 CONFIG = SpyTestDict({
-    # VLAN 100 configuration (Ethernet0)
+    # VLAN 100 configuration
     "vlan1_id": "100",
-    "vlan1_interface": "Ethernet0",
+    # vlan1_interface will be populated from testbed in module_hooks
     "vlan1_dut1_ip": "10.1.1.1",
     "vlan1_dut2_ip": "10.1.1.2",
-    "vlan1_dut1_mac": "22:af:18:c9:30:56",
-    "vlan1_dut2_mac": "22:58:e5:4d:e2:7d",
+    # MAC addresses will be retrieved dynamically from DUTs in module_hooks
 
-    # VLAN 200 configuration (Ethernet4)
+    # VLAN 200 configuration
     "vlan2_id": "200",
-    "vlan2_interface": "Ethernet4",
+    # vlan2_interface will be populated from testbed in module_hooks
     "vlan2_dut1_ip": "10.2.2.1",
     "vlan2_dut2_ip": "10.2.2.2",
 
@@ -95,8 +95,29 @@ def arp_multi_vlan_module_hooks(request):
     st.log(f"DUT1: {vars.D1}, DUT2: {vars.D2}")
     st.log(f"CLI Type: {data.cli_type}")
 
+    # Get interfaces from testbed topology (2 links required)
+    CONFIG.vlan1_interface = vars.D1D2P1
+    CONFIG.vlan2_interface = vars.D1D2P2
+    st.log(f"VLAN 100 Interface: {CONFIG.vlan1_interface}")
+    st.log(f"VLAN 200 Interface: {CONFIG.vlan2_interface}")
+
     # Pre-configuration
     arp_pre_config()
+
+    # Get MAC addresses dynamically after VLAN configuration
+    vlan1_intf_name = f"Vlan{CONFIG.vlan1_id}"
+    vlan2_intf_name = f"Vlan{CONFIG.vlan2_id}"
+    st.log(f"Retrieving MAC addresses for VLAN interfaces on both DUTs")
+
+    CONFIG.vlan1_dut1_mac = scapy_utils.get_interface_mac(vars.D1, vlan1_intf_name, data.cli_type)
+    CONFIG.vlan1_dut2_mac = scapy_utils.get_interface_mac(vars.D2, vlan1_intf_name, data.cli_type)
+
+    if not CONFIG.vlan1_dut1_mac or not CONFIG.vlan1_dut2_mac:
+        st.error(f"Failed to retrieve MAC addresses for {vlan1_intf_name}")
+        st.report_fail("msg", f"Failed to get {vlan1_intf_name} MAC addresses")
+
+    st.log(f"DUT1 {vlan1_intf_name} MAC: {CONFIG.vlan1_dut1_mac}")
+    st.log(f"DUT2 {vlan1_intf_name} MAC: {CONFIG.vlan1_dut2_mac}")
 
     yield
 

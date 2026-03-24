@@ -3,7 +3,7 @@ ARP TEST - Static ARP with Correct MAC
 
 Test Case ID: ARP-STATIC-03
 Author: Automated SpyTest Framework
-Copyright (C) 2024, SuperMicro
+Copyright (C) 2024
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -38,6 +38,7 @@ from spytest import st, SpyTestDict
 import apis.routing.ip as ipapi
 import apis.routing.arp as arpapi
 import apis.switching.vlan as vlanapi
+import apis.common.scapy_traffic as scapy_utils
 
 # Global variables
 vars = SpyTestDict()
@@ -46,12 +47,11 @@ data = SpyTestDict()
 # Test configuration
 CONFIG = SpyTestDict({
     "vlan_id": "100",
-    "interface": "Ethernet0",
+    # interface will be populated from testbed in module_hooks
     "dut1_vlan_ip": "10.1.1.1",
     "dut2_vlan_ip": "10.1.1.2",
     "subnet_mask": "24",
-    "dut1_static_mac": "22:af:18:c9:30:56",  # MAC for DUT1
-    "dut2_static_mac": "22:58:e5:4d:e2:7d",  # MAC for DUT2
+    # MAC addresses will be retrieved dynamically from DUTs in module_hooks
     "ping_count": 3,
     "wait_after_config": 3,
 })
@@ -83,8 +83,28 @@ def arp_static_module_hooks(request):
     st.log(f"DUT1: {vars.D1}, DUT2: {vars.D2}")
     st.log(f"CLI Type: {data.cli_type}")
 
+    # Get interface from testbed topology
+    CONFIG.interface = vars.D1D2P1
+    st.log(f"Test Interface: {CONFIG.interface}")
+
     # Pre-configuration
     arp_pre_config()
+
+    # Get MAC addresses dynamically after VLAN configuration
+    vlan_intf_name = f"Vlan{CONFIG.vlan_id}"
+    st.log(f"Retrieving MAC addresses for {vlan_intf_name} on both DUTs")
+
+    CONFIG.dut1_static_mac = scapy_utils.get_interface_mac(vars.D1, vlan_intf_name, data.cli_type)
+    CONFIG.dut2_static_mac = scapy_utils.get_interface_mac(vars.D2, vlan_intf_name, data.cli_type)
+
+    if not CONFIG.dut1_static_mac or not CONFIG.dut2_static_mac:
+        st.error(f"Failed to retrieve MAC addresses from VLAN interfaces")
+        st.log(f"DUT1 {vlan_intf_name} MAC: {CONFIG.dut1_static_mac}")
+        st.log(f"DUT2 {vlan_intf_name} MAC: {CONFIG.dut2_static_mac}")
+        st.report_fail("msg", "Failed to get VLAN interface MAC addresses")
+
+    st.log(f"DUT1 {vlan_intf_name} MAC: {CONFIG.dut1_static_mac}")
+    st.log(f"DUT2 {vlan_intf_name} MAC: {CONFIG.dut2_static_mac}")
 
     yield
 
@@ -485,9 +505,14 @@ def test_arp_static_correct_mac():
     ping_result_dut1 = ping_test(vars.D1, CONFIG.dut2_vlan_ip, CONFIG.ping_count)
 
     if not ping_result_dut1['success']:
-        st.log(f"Warning: Ping from {vars.D1} to {CONFIG.dut2_vlan_ip} failed")
-        st.log(f"This may indicate L2 connectivity issues")
-        # Note: We don't fail the test here as static ARP config is verified
+        st.log(f"✗ Ping from {vars.D1} to {CONFIG.dut2_vlan_ip} failed")
+        st.report_tc_fail(TC_IDS.static_arp_ping, "msg",
+                         f"Ping DUT1->DUT2 failed with static ARP")
+        st.generate_tech_support([vars.D1, vars.D2], "static_arp_ping_dut1_failed")
+        arp_pre_config_cleanup()
+        st.report_fail("msg", f"Bidirectional ping test failed: DUT1->DUT2 direction")
+
+    st.log(f"✓ Ping from {vars.D1} to {CONFIG.dut2_vlan_ip} successful")
 
     # ==================================================================
     # STEP 6: Ping from DUT2 to DUT1
@@ -496,11 +521,16 @@ def test_arp_static_correct_mac():
 
     ping_result_dut2 = ping_test(vars.D2, CONFIG.dut1_vlan_ip, CONFIG.ping_count)
 
-    if ping_result_dut2['success']:
-        st.log(f"✓ Ping from {vars.D2} to {CONFIG.dut1_vlan_ip} successful")
-        st.report_tc_pass(TC_IDS.static_arp_ping, "msg", "Ping test successful")
-    else:
-        st.log(f"Warning: Ping from {vars.D2} to {CONFIG.dut1_vlan_ip} failed")
+    if not ping_result_dut2['success']:
+        st.log(f"✗ Ping from {vars.D2} to {CONFIG.dut1_vlan_ip} failed")
+        st.report_tc_fail(TC_IDS.static_arp_ping, "msg",
+                         f"Ping DUT2->DUT1 failed with static ARP")
+        st.generate_tech_support([vars.D1, vars.D2], "static_arp_ping_dut2_failed")
+        arp_pre_config_cleanup()
+        st.report_fail("msg", f"Bidirectional ping test failed: DUT2->DUT1 direction")
+
+    st.log(f"✓ Ping from {vars.D2} to {CONFIG.dut1_vlan_ip} successful")
+    st.report_tc_pass(TC_IDS.static_arp_ping, "msg", "Bidirectional ping test successful")
 
     # ==================================================================
     # STEP 7: Verify Static ARP Entries Persist After Ping
