@@ -8,12 +8,12 @@ devices:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.101
+      ip: 192.168.100.245
       port: 22
     credentials:
       username: admin
-      password: Root@123
-      altpassword: Root@123
+      password: root@123
+      altpassword: YourPaSsWoRd
     properties:
       services: default
       build: default
