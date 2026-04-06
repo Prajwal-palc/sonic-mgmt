@@ -981,6 +981,10 @@ def config_ntp_parameters(dut, **kwargs):
         st.error("Unsupported CLI_TYPE: {}".format(cli_type))
         return False
     if commands:
+        # Workaround for BUG-NTP-001: 'end' command fails with "%Error: Internal error"
+        # Use 'exit' instead of 'end' to exit config mode for klish
+        if cli_type == "klish":
+            commands.append('exit')
         response = st.config(dut, commands, type=cli_type, skip_error_check=skip_error)
         if any(error in response.lower() for error in errors_list):
             st.error("The response is: {}".format(response))
