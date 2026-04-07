@@ -1,0 +1,344 @@
+# NTP IS-CLI BUG VALIDATION TEST VARIABLES
+# Used by: tests/system/ntp/test_ntp_iscli_bugs.py
+#
+# This file contains configuration parameters for validating NTP IS-CLI bugs
+# identified in manual test reports: SM_ISCLI_P2_26, SM_ISCLI_P2_24, SM_ISCLI_P2_135,
+# SM_ISCLI_P2_27, and SM_ISCLI_P2_28
+#
+# Author: Athira
+# Date: 2026
+
+---
+defaults:
+  # CLI type for all NTP commands (klish mode required for IS-CLI bugs)
+  cli_type: klish
+
+  # Timeout for verification operations (seconds)
+  verify_timeout: 30
+
+  # Enable cleanup after tests
+  cleanup: true
+
+  # Minimum topology requirement (single device for NTP tests)
+  min_topology:
+    - "D1:1"
+
+# Test case specific configurations
+testcases:
+  # ============================================================================
+  # BUG SM_ISCLI_55: show ntp associations displays empty table
+  # Status: CONFIRMED HIGH
+  # Issue: "show ntp associations" displays empty table when NTP servers configured
+  # ============================================================================
+  sm_iscli_55:
+    title: "NTP Associations Display Empty Table"
+    bug_id: "SM_ISCLI_55"
+    severity: "HIGH"
+    status: "CONFIRMED"
+
+    # Test servers for associations verification
+    test_servers:
+      - "192.168.100.175"
+      - "216.239.35.12"  # time4.google.com
+
+    # Expected behavior
+    expected:
+      associations_display_servers: true
+      servers_shown_with_tilde_marker: true
+      all_fields_present: true
+
+    # Actual buggy behavior
+    bug_behavior:
+      associations_table_empty: true
+      no_server_rows_displayed: true
+      root_cause: "Jinja2 template error prevents chronyd configuration"
+
+    # Root cause (same as P2_28)
+    root_cause: |
+      Config DB stores src_intf as list [""] but Jinja2 template
+      in /usr/share/sonic/templates/chrony.conf.j2 calls .startswith()
+      method which doesn't exist on list objects. This prevents NTP
+      servers from being written to chronyd.conf.
+
+  # ============================================================================
+  # BUG SM_ISCLI_P2_1: NTP source-interface naming and SVI limitation
+  # Status: PARTIALLY CONFIRMED
+  # Issue 1: Management interface naming syntax ("Management0" vs "Management 0")
+  # Issue 2: SVI interfaces cannot be configured as NTP source
+  # ============================================================================
+  p2_1:
+    title: "NTP Source-Interface Naming and SVI Limitation"
+    bug_id: "SM_ISCLI_P2_1"
+    severity: "MEDIUM"
+    status: "PARTIALLY_CONFIRMED"
+
+    # Management interface naming tests
+    management_tests:
+      syntax_no_space: "Management0"  # Should fail
+      syntax_with_space: "Management 0"  # Should work
+      eth0_syntax: "eth0"  # Should fail (bug report incorrect)
+
+    # SVI test configuration
+    svi_test:
+      vlan_id: 100
+      vlan_interface: "Vlan 100"
+      expected_rejection: true
+
+    # Expected behavior
+    expected:
+      management_space_syntax_works: true
+      management_no_space_fails: true
+      eth0_fails: true
+      svi_rejected: true
+
+    # Bug behavior
+    bug_behavior:
+      management0_rejected: true  # Issue 1
+      eth0_claim_incorrect: true  # Bug report states eth0 works (incorrect)
+      management_space_works: true  # Workaround
+      svi_not_supported: true  # Issue 2
+
+    # Root cause (Issue 1)
+    root_cause_issue1: |
+      Same as BUG-NTP-003 - klish CLI requires space between interface
+      type and number. Fix should be extended from Ethernet to Management.
+
+    # Root cause (Issue 2)
+    root_cause_issue2: |
+      NTP source-interface feature does not support VLAN (SVI) interfaces.
+      May be intentional limitation or architectural constraint.
+
+  # ============================================================================
+  # BUG SM_ISCLI_P2_26: Cannot delete NTP server configuration
+  # Status: CONFIRMED HIGH
+  # Issue: `no ntp server <ip/hostname>` command silently fails in klish mode
+  # ============================================================================
+  p2_26:
+    title: "NTP Server Deletion Failure in Klish Mode"
+    bug_id: "SM_ISCLI_P2_26"
+    severity: "HIGH"
+    status: "CONFIRMED"
+
+    # Test servers for deletion testing (mix of IP and hostname)
+    test_servers:
+      - "192.168.100.175"
+      - "10.10.10.99"
+      - "216.239.35.12"  # time4.google.com IP
+
+    # Expected behavior
+    expected:
+      deletion_should_work: true
+      servers_removed_after_deletion: true
+
+    # Actual buggy behavior
+    bug_behavior:
+      deletion_command_accepted: true
+      servers_remain_after_deletion: true  # BUG: Silent failure
+
+  # ============================================================================
+  # BUG SM_ISCLI_P2_24: NTP server mode not supported
+  # Status: CONFIRMED MEDIUM-HIGH
+  # Issue: SONiC switch cannot act as NTP server to provide time to other devices
+  # ============================================================================
+  p2_24:
+    title: "NTP Server Mode Not Supported"
+    bug_id: "SM_ISCLI_P2_24"
+    severity: "MEDIUM-HIGH"
+    status: "CONFIRMED"
+
+    # Commands to test for server mode support
+    test_commands:
+      - "ntp enable-server"
+      - "ntp allow"
+      - "ntp serve"
+      - "ntp broadcast"
+
+    # Expected behavior
+    expected:
+      commands_should_be_rejected: true
+      server_mode_not_available: true
+
+    # Note: "ntp server enable" is accepted due to CLI parser bug
+    # (interprets "enable" as hostname)
+    parser_bug_note: |
+      Command "ntp server enable" is incorrectly accepted because CLI parser
+      treats "enable" as a potential server hostname. This is a separate
+      CLI validation bug.
+
+  # ============================================================================
+  # BUG SM_ISCLI_P2_135: NTP client synchronization failure
+  # Status: INCONCLUSIVE
+  # Issue: NTP client doesn't send query packets with simplest configuration
+  # ============================================================================
+  p2_135:
+    title: "NTP Client Synchronization Validation"
+    bug_id: "SM_ISCLI_P2_135"
+    severity: "CRITICAL"
+    status: "INCONCLUSIVE"
+
+    # NTP server to use for synchronization test
+    # Use publicly accessible NTP servers or internal server
+    ntp_server: "216.239.35.12"  # time4.google.com
+
+    # Source interface for NTP packets
+    # Will use testbed interface if available, otherwise Ethernet0
+    source_interface: "Ethernet0"
+
+    # Timeout for synchronization (seconds)
+    # NTP sync can take 2-5 minutes normally
+    sync_timeout: 180
+
+    # Expected reach field progression
+    # reach starts at 0 and progresses: 0 → 1 → 3 → 7 → 17 → 37 → 77 → 177 → 377
+    expected_reach_progression:
+      - 0    # Initial (no polls)
+      - 1    # First poll successful
+      - 3    # Two polls successful
+      - 7    # Three polls successful
+      - 377  # All 8 polls successful (full sync)
+
+    # Bug behavior
+    bug_behavior:
+      configuration_accepted: true
+      no_packets_sent: true
+      reach_remains_zero: true
+
+  # ============================================================================
+  # BUG SM_ISCLI_P2_27: NTP source-interface missing from running-config
+  # Status: PARTIALLY CONFIRMED
+  # Issue: Source-interface configuration does not appear in running-config
+  # ============================================================================
+  p2_27:
+    title: "NTP Settings Missing from Running-Config"
+    bug_id: "SM_ISCLI_P2_27"
+    severity: "MEDIUM"
+    status: "PARTIALLY_CONFIRMED"
+
+    # Test server for configuration
+    test_server: "192.168.100.175"
+
+    # Source interface to configure
+    source_interface: "Ethernet0"
+
+    # Settings to verify in running-config
+    expected_in_running_config:
+      - "ntp server 192.168.100.175"
+      - "ntp source-interface Ethernet0"
+      - "ntp enable"
+
+    # Bug behavior
+    bug_behavior:
+      source_interface_missing: true
+      other_settings_present: true
+
+  # ============================================================================
+  # BUG SM_ISCLI_P2_28: chronyd configuration generation failure (Jinja2 bug)
+  # Status: CONFIRMED AND FIXED
+  # Issue: Jinja2 template bug causes chronyd.conf generation to fail
+  # ============================================================================
+  p2_28:
+    title: "chronyd Configuration Generation Failure"
+    bug_id: "SM_ISCLI_P2_28"
+    severity: "HIGH"
+    status: "FIXED"
+
+    # Test servers for chronyd verification
+    test_servers:
+      - "192.168.100.175"
+      - "216.239.35.12"  # time4.google.com
+      - "10.10.10.99"
+
+    # Source interface (triggers the Jinja2 bug in old code)
+    source_interface: "Ethernet0"
+
+    # Expected behavior (after fix)
+    expected:
+      chronyd_service_running: true
+      chronyd_sources_populated: true
+      show_ntp_associations_has_data: true
+
+    # Bug behavior (before fix)
+    bug_behavior:
+      jinja2_error: "list object has no attribute 'startswith'"
+      chronyd_no_sources: true
+      show_ntp_associations_empty: true
+
+    # Root cause
+    root_cause: |
+      Config DB stores src_intf as list [""] but Jinja2 template
+      in /usr/share/sonic/templates/chrony.conf.j2 calls .startswith()
+      method which doesn't exist on list objects.
+
+      Fix: Add type checking in template to handle both string and list.
+
+# ============================================================================
+# Additional Bug Notes
+# ============================================================================
+bug_notes:
+  p2_26:
+    - "High priority - prevents NTP server management"
+    - "Silent failure creates user confusion"
+    - "Workaround: Use click mode 'sudo config ntp del <server>'"
+
+  p2_24:
+    - "Feature limitation, not necessarily a bug"
+    - "Requires full NTP server mode implementation"
+    - "Medium priority for network design flexibility"
+
+  p2_135:
+    - "Inconclusive - conflicting evidence from different test dates"
+    - "May be environment-specific or version-specific"
+    - "Requires controlled reproduction test"
+
+  p2_27:
+    - "Only source-interface missing, other settings present"
+    - "Affects configuration backup/restore"
+    - "Medium impact - workaround available"
+
+  p2_28:
+    - "Root cause identified and fixed"
+    - "Template fix deployed to test device 192.168.100.147"
+    - "Test validates fix is working correctly"
+
+# ============================================================================
+# Test Execution Markers
+# ============================================================================
+markers:
+  bug_sm_iscli_55: "Tests for show ntp associations empty table bug"
+  bug_p2_1: "Tests for NTP source-interface naming and SVI limitation"
+  bug_p2_26: "Tests for NTP server deletion failure bug"
+  bug_p2_24: "Tests for NTP server mode not supported"
+  bug_p2_135: "Tests for NTP client synchronization issues"
+  bug_p2_27: "Tests for running-config completeness"
+  bug_p2_28: "Tests for chronyd backend configuration"
+  associations_display: "NTP associations display tests"
+  source_interface_naming: "Source interface naming tests"
+  svi_limitation: "SVI source interface limitation tests"
+  server_deletion: "Server deletion related tests"
+  server_mode: "Server mode capability tests"
+  client_sync: "Client synchronization tests"
+  running_config: "Running-config validation tests"
+  chronyd_backend: "chronyd backend validation tests"
+
+# ============================================================================
+# Test Execution Notes
+# ============================================================================
+execution_notes: |
+  1. All tests use klish mode exclusively (IS-CLI bugs)
+  2. Tests designed to FAIL when bugs are present
+  3. Tests should PASS when bugs are fixed
+  4. Some tests may require specific NTP server availability
+  5. Cleanup is automatic unless disabled in defaults
+
+  How to run specific bug tests:
+    # Run all bug tests
+    ./bin/spytest --testbed ./testbeds/testbed_vs_1node_ntp.yaml \
+      system/ntp/test_ntp_iscli_bugs.py
+
+    # Run specific bug test
+    ./bin/spytest --testbed ./testbeds/testbed_vs_1node_ntp.yaml \
+      system/ntp/test_ntp_iscli_bugs.py::TestNTPISCLIBugs::test_ntp_p2_26_server_deletion_failure
+
+    # Run tests by marker
+    ./bin/spytest --testbed ./testbeds/testbed_vs_1node_ntp.yaml \
+      system/ntp/test_ntp_iscli_bugs.py -m bug_p2_26
