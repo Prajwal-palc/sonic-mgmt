@@ -3,15 +3,15 @@ devices:
   # D1 - 192.168.100.203 (DUT1 - Primary device)
   smic_sonic1:
     device_type: sonic
-    access: {protocol: ssh, ip: 192.168.100.203, port: 22}
-    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    access: {protocol: ssh, ip: 192.168.100.218, port: 22}
+    credentials: {username: admin, password: root@123, altpassword: root@123}
     properties: {services: default, build: default, config: default, errors: default}
 
   # D2 - 192.168.100.196 (DUT2 - Secondary device)
   smic_sonic2:
     device_type: sonic
-    access: {protocol: ssh, ip: 192.168.100.196, port: 22}
-    credentials: {username: admin, password: YourPaSsWoRd, altpassword: YourPaSsWoRd}
+    access: {protocol: ssh, ip: 192.168.100.245, port: 22}
+    credentials: {username: admin, password: root@123, altpassword: root@123}
     properties: {services: default, build: default, config: default, errors: default}
 
 topology:

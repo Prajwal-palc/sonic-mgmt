@@ -1368,6 +1368,206 @@ DUT1(config)# ntp source-interface Loopback 0
 
 ---
 
+#### SM_ISCLI_P2_1 — NTP source interface limitations verification (Bug Verification) `[VS/HW]`
+
+**Test Case ID:** SM_ISCLI_P2_1 (Bug Verification)
+**Priority:** P2
+**Objective:** Verify NTP source interface configuration behavior for Management and SVI interfaces (interface naming syntax and SVI limitation).
+
+**Related Bug:** SM_ISCLI_P2_1 - "NTP source interface cannot be set under certain circumstances"
+**Covered in Automation:** Partially (test_ntp_036_source_interface_svi, test_ntp_037_source_interface_management_static)
+
+**Pre-condition:**
+- NTP is enabled
+- Management interface has IP address (static or dynamic)
+
+**Test Part A - Management Interface Syntax:**
+
+**Steps:**
+```
+DUT1# configure terminal
+DUT1(config)# ntp source-interface Management 0
+DUT1(config)# exit
+DUT1# show ntp global
+```
+
+**Expected Output (Part A):**
+```
+----------------------------------------------
+NTP Global Configuration
+----------------------------------------------
+NTP service:            enabled
+NTP source-interfaces:  Management0
+NTP vrf:                default
+NTP authentication:     disabled
+```
+
+**Verification (Part A):**
+- ✅ "ntp source-interface Management 0" command accepted (with space between type and number)
+- ✅ "show ntp global" displays "Management0" in source-interfaces
+- ✅ No error messages
+- ℹ️ Note: "Management0" (no space) syntax is **NOT** accepted (syntax error)
+
+**Test Part B - SVI Interface (Negative Test):**
+
+**Steps:**
+```
+DUT1# configure terminal
+DUT1(config)# interface Vlan 100
+DUT1(config-if-Vlan100)# exit
+DUT1(config)# ntp source-interface Vlan 100
+```
+
+**Expected Output (Part B):**
+```
+%Error: Invalid interface configuration
+```
+
+**Verification (Part B):**
+- ❌ "ntp source-interface Vlan 100" command rejected
+- ✅ Error message displayed: "%Error: Invalid interface configuration"
+- ✅ "show ntp global" does NOT show Vlan100 in source-interfaces
+- ℹ️ Note: This validates current device behavior - SVIs cannot be used as NTP source interface
+
+**Cleanup:**
+```
+DUT1(config)# no ntp source-interface
+DUT1(config)# no interface Vlan 100
+DUT1(config)# exit
+```
+
+**Notes:**
+- Part A validates the correct interface naming syntax (space required between type and number)
+- Part B validates known SVI limitation (negative test - expected to fail)
+- Dynamic IP scenario cannot be tested safely due to SSH disruption risk
+- Related to BUG-NTP-003 (same root cause for syntax requirement)
+- If SVI support is added in future, Part B expected behavior should change
+
+**Related Test Cases:**
+- TC_NTP_SRC_001 (Management interface - positive test)
+- TC_NTP_SRC_004 (VLAN interface - **conflicts with bug finding**)
+- test_ntp_036_source_interface_svi (automation - negative test)
+- test_ntp_037_source_interface_management_static (automation - informational)
+
+---
+
+#### SM_ISCLI_P2_22 — NTP source-interface multiple config and individual deletion (Bug Verification) `[VS/HW]`
+
+**Test Case ID:** SM_ISCLI_P2_22 (Bug Verification)
+**Priority:** P2
+**Objective:** Verify NTP source-interface limitations: only one source-interface supported and individual deletion by name is not supported.
+
+**Related Bug:** SM_ISCLI_P2_22 - "It does not support multiple NTP source-interface, nor does it support deleting source-interface individually"
+**Covered in Automation:** Partially (test_ntp_035_delete_source_interface - generic deletion only)
+
+**Pre-condition:**
+- NTP is enabled
+- No source-interface currently configured
+
+**Test Part A - Multiple Source-Interface (Negative Test):**
+
+**Steps:**
+```
+DUT1# configure terminal
+DUT1(config)# ntp source-interface Ethernet 0
+DUT1(config)# exit
+DUT1# show ntp global
+! Verify Ethernet0 is configured as source-interface
+
+DUT1# configure terminal
+DUT1(config)# ntp source-interface Management 0
+DUT1(config)# exit
+DUT1# show ntp global
+```
+
+**Expected Output (Part A):**
+- After first command: Source-interface shows Ethernet0
+- After second command: Source-interface should either:
+  - **Option 1 (Replace)**: Shows Management0 only (Ethernet0 replaced)
+  - **Option 2 (Error)**: Command rejected with error (multiple not supported)
+- **NOT expected**: Both Ethernet0 AND Management0 shown as source-interfaces
+
+**Verification (Part A):**
+- ✅ Only ONE source-interface can be active at a time
+- ✅ Second configuration either replaces first OR is rejected
+- ℹ️ Note: NTP typically only supports one source-interface globally
+
+**Test Part B - Individual Deletion by Interface Name (Negative Test):**
+
+**Steps:**
+```
+DUT1# configure terminal
+DUT1(config)# ntp source-interface Ethernet 0
+DUT1(config)# exit
+DUT1# show ntp global
+! Verify Ethernet0 is configured
+
+! Attempt individual deletion by specifying interface name
+DUT1# configure terminal
+DUT1(config)# no ntp source-interface Ethernet 0
+```
+
+**Expected Output (Part B):**
+```
+% Error: Invalid command OR
+% Error: Use 'no ntp source-interface' without interface name
+```
+
+**Verification (Part B):**
+- ❌ Individual deletion by name (`no ntp source-interface Ethernet 0`) is **NOT supported**
+- ✅ Command should be rejected with error message
+- ℹ️ Note: Correct deletion syntax is `no ntp source-interface` (without interface name)
+
+**Test Part C - Generic Deletion (Positive Test):**
+
+**Steps:**
+```
+! From previous state with Ethernet0 configured
+DUT1# configure terminal
+DUT1(config)# no ntp source-interface
+DUT1(config)# exit
+DUT1# show ntp global
+```
+
+**Expected Output (Part C):**
+```
+----------------------------------------------
+NTP Global Configuration
+----------------------------------------------
+NTP service:            enabled
+NTP source-interfaces:  -
+NTP vrf:                default
+NTP authentication:     disabled
+```
+
+**Verification (Part C):**
+- ✅ Generic deletion (`no ntp source-interface`) works correctly
+- ✅ Source-interface field shows empty or "-"
+- ℹ️ Note: This is the CORRECT and ONLY way to delete source-interface
+
+**Cleanup:**
+```
+DUT1(config)# no ntp source-interface
+DUT1(config)# exit
+```
+
+**Summary:**
+- **Part A**: Validates only one source-interface supported (replace or reject)
+- **Part B**: Validates individual deletion by name NOT supported (expected limitation)
+- **Part C**: Validates generic deletion works correctly
+
+**Notes:**
+- This test validates known NTP limitations (by design)
+- Part A and B are negative tests - failures are expected behavior
+- Part C validates the correct deletion method
+- These limitations are standard NTP behavior across most implementations
+
+**Related Test Cases:**
+- TC_NTP_SRC_001 through TC_NTP_SRC_006 (source-interface configuration)
+- test_ntp_035_delete_source_interface (automation - generic deletion)
+
+---
+
 ### 9.8 NTP VRF Binding
 
 ---
@@ -1595,6 +1795,72 @@ DUT1# show ntp associations
   192.168.100.11   2  u  ...  377  ...
 ```
 *(192.168.100.10 selected due to `prefer`)*
+
+---
+
+#### SM_ISCLI_55 — `show ntp associations` with configured servers before synchronization `[VS/HW]`
+
+**Test Case ID:** SM_ISCLI_55 (Bug Verification)
+**Priority:** P1
+**Objective:** Verify that `show ntp associations` displays configured NTP servers with all fields even before synchronization occurs (bug fix verification).
+
+**Bug Reference:** SM_ISCLI_55 - "IS-CLI, show ntp associations missing fields"
+
+**Pre-condition:**
+- NTP is disabled
+- No NTP servers configured
+
+**Steps:**
+```
+DUT1# configure terminal
+DUT1(config)# ntp server 192.168.100.10
+DUT1(config)# ntp server 192.168.100.11 prefer
+DUT1(config)# ntp enable
+DUT1(config)# exit
+DUT1# show ntp associations
+```
+
+**Expected Output** (immediately after enable, before synchronization):
+```
+remote                       refid            st   t  when   poll   reach  delay  offset       jitter
+======================================================================================================
+~192.168.100.10              .INIT.            0   -     -     64     0   0.000   0.000       0.000
+~192.168.100.11              .INIT.            0   -     -     64     0   0.000   0.000       0.000
+======================================================================================================
+* master (synced), # master (unsynced), + selected, - candidate, ~ configured
+```
+
+**Verification:**
+- Both configured servers appear in table with `~` prefix (configured but not synchronized)
+- refid shows `.INIT.` (initialization state, not synchronized yet)
+- All field columns are present: remote, refid, st, t, when, poll, reach, delay, offset, jitter
+- Table is NOT empty (regression check for bug SM_ISCLI_55)
+- reach = 0 (no successful polls yet)
+- Numeric fields show 0.000 or appropriate default values
+
+**Failure Criteria:**
+- Empty associations table (bug SM_ISCLI_55 regression)
+- Missing field columns (refid, when, reach, jitter, etc.)
+- Configured servers don't appear in table
+- Error message or CLI crash
+
+**Cleanup:**
+```
+DUT1(config)# no ntp enable
+DUT1(config)# no ntp server 192.168.100.10
+DUT1(config)# no ntp server 192.168.100.11
+```
+
+**Related Test Cases:**
+- TC_NTP_SHOW_003 (associations during active sync - tests synchronized state)
+- TC_NTP_SHOW_004 (associations when NTP disabled - tests disabled state)
+- TC_NTP_SHOW_005 (multiple synchronized servers - tests multi-server sync)
+
+**Notes:**
+- This test case specifically validates the bug fix for SM_ISCLI_55
+- Tests the edge case: NTP enabled + servers configured + NOT YET synchronized
+- Ensures associations table displays configured servers even before first poll completes
+- Verifies all table fields are present and properly initialized
 
 ---
 

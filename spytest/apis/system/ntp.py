@@ -808,8 +808,13 @@ def config_ntp_parameters(dut, **kwargs):
         if 'source_intf' in kwargs:
             config_string = '' if config else 'no '
             for src_intf in make_list(kwargs['source_intf']):
-                # Use interface name directly without splitting (e.g., Ethernet0, not Ethernet 0)
-                commands.append('{}ntp source-interface {}'.format(config_string, src_intf))
+                # FIX for BUG-NTP-003: klish CLI requires space between interface type and number
+                # e.g., "Ethernet0" must be sent as "Ethernet 0"
+                if src_intf.startswith('Ethernet') and len(src_intf) > 8 and src_intf[8:].isdigit():
+                    intf_formatted = 'Ethernet ' + src_intf[8:]
+                else:
+                    intf_formatted = src_intf
+                commands.append('{}ntp source-interface {}'.format(config_string, intf_formatted))
         if 'vrf' in kwargs:
             if not config:
                 commands.append('no ntp vrf')
