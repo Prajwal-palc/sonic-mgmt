@@ -292,20 +292,32 @@ def test_oc_sr27_route_deletion_modification():
 
     # Step 6: Cleanup all routes
     st.banner("STEP 6: Delete All Routes")
-    try:
-        # DUT1 cleanup
-        delete_static_route(vars.D1, CONFIG.dut1_route1_prefix, CONFIG.dut1_route1_nexthop_modified)
-        delete_static_route(vars.D1, CONFIG.dut1_route2_prefix, CONFIG.dut1_route2_nexthop)
+    cleanup_success = True
 
-        # DUT2 cleanup
-        delete_static_route(vars.D2, CONFIG.dut2_route1_prefix, CONFIG.dut2_route1_nexthop)
-        delete_static_route(vars.D2, CONFIG.dut2_route2_prefix, CONFIG.dut2_route2_nexthop)
+    # DUT1 cleanup
+    if not delete_static_route(vars.D1, CONFIG.dut1_route1_prefix, CONFIG.dut1_route1_nexthop_modified):
+        st.error(f"✗ Failed to delete DUT1 route1 {CONFIG.dut1_route1_prefix}")
+        cleanup_success = False
 
+    if not delete_static_route(vars.D1, CONFIG.dut1_route2_prefix, CONFIG.dut1_route2_nexthop):
+        st.error(f"✗ Failed to delete DUT1 route2 {CONFIG.dut1_route2_prefix}")
+        cleanup_success = False
+
+    # DUT2 cleanup
+    if not delete_static_route(vars.D2, CONFIG.dut2_route1_prefix, CONFIG.dut2_route1_nexthop):
+        st.error(f"✗ Failed to delete DUT2 route1 {CONFIG.dut2_route1_prefix}")
+        cleanup_success = False
+
+    if not delete_static_route(vars.D2, CONFIG.dut2_route2_prefix, CONFIG.dut2_route2_nexthop):
+        st.error(f"✗ Failed to delete DUT2 route2 {CONFIG.dut2_route2_prefix}")
+        cleanup_success = False
+
+    if cleanup_success:
         st.log("✓ All routes deleted")
         st.report_tc_pass(TC_IDS.oc_sr27_verify_cleanup, "verify_cleanup_passed")
         results.append(True)
-    except Exception as e:
-        st.error(f"✗ Route cleanup failed: {str(e)}")
+    else:
+        st.error("✗ Route cleanup failed - some routes could not be deleted")
         st.report_tc_fail(TC_IDS.oc_sr27_verify_cleanup, "verify_cleanup_failed")
         results.append(False)
 

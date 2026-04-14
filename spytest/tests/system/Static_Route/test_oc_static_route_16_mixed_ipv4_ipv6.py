@@ -250,9 +250,45 @@ def test_oc_sr26_mixed_ipv4_ipv6():
 
     # Step 4: Verify routes
     st.banner("STEP 4: Verify Mixed Routes")
-    st.log("✓ Verification complete (routes in both IPv4 and IPv6 tables)")
-    st.report_tc_pass(TC_IDS.oc_sr26_mixed_route_verify, "mixed_route_verify_passed")
-    results.append(True)
+    verify_success = True
+
+    # Verify IPv4 routes
+    try:
+        st.config(vars.D1, ["exit", "exit", "exit"], type='klish', skip_error_check=True)
+        ipv4_output = st.show(vars.D1, f"show ip route {CONFIG.dut1_ipv4_route_prefix}", type='klish', skip_tmpl=True, skip_error_check=True)
+        ipv4_output_str = str(ipv4_output)
+
+        if CONFIG.dut1_ipv4_route_nexthop not in ipv4_output_str:
+            st.error(f"✗ IPv4 route {CONFIG.dut1_ipv4_route_prefix} via {CONFIG.dut1_ipv4_route_nexthop} not found in routing table")
+            verify_success = False
+        else:
+            st.log(f"✓ IPv4 route {CONFIG.dut1_ipv4_route_prefix} via {CONFIG.dut1_ipv4_route_nexthop} verified")
+    except Exception as e:
+        st.error(f"✗ IPv4 route verification failed: {str(e)}")
+        verify_success = False
+
+    # Verify IPv6 routes
+    try:
+        st.config(vars.D1, ["exit", "exit", "exit"], type='klish', skip_error_check=True)
+        ipv6_output = st.show(vars.D1, f"show ipv6 route {CONFIG.dut1_ipv6_route_prefix}", type='klish', skip_tmpl=True, skip_error_check=True)
+        ipv6_output_str = str(ipv6_output)
+
+        if CONFIG.dut1_ipv6_route_nexthop not in ipv6_output_str:
+            st.error(f"✗ IPv6 route {CONFIG.dut1_ipv6_route_prefix} via {CONFIG.dut1_ipv6_route_nexthop} not found in routing table")
+            verify_success = False
+        else:
+            st.log(f"✓ IPv6 route {CONFIG.dut1_ipv6_route_prefix} via {CONFIG.dut1_ipv6_route_nexthop} verified")
+    except Exception as e:
+        st.error(f"✗ IPv6 route verification failed: {str(e)}")
+        verify_success = False
+
+    if verify_success:
+        st.log("✓ Verification complete (routes in both IPv4 and IPv6 tables)")
+        st.report_tc_pass(TC_IDS.oc_sr26_mixed_route_verify, "mixed_route_verify_passed")
+        results.append(True)
+    else:
+        st.report_tc_fail(TC_IDS.oc_sr26_mixed_route_verify, "mixed_route_verify_failed")
+        results.append(False)
 
     # Step 5: Delete routes
     st.banner("STEP 5: Delete Mixed Routes")
