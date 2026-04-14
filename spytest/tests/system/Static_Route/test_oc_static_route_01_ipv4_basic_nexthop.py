@@ -64,7 +64,7 @@ CONFIG = SpyTestDict({
     "dut1_route1_prefix": "30.30.30.0/24",
     "dut1_route1_nexthop": "10.1.1.2",
     "dut1_route2_prefix": "40.40.40.0/24",
-    "dut1_route2_nexthop": "10.2.1.1",
+    "dut1_route2_nexthop": "10.2.1.2",
 
     # DUT2 Configuration
     "dut2_eth0": "Ethernet 0",
@@ -72,21 +72,21 @@ CONFIG = SpyTestDict({
     "dut2_eth4": "Ethernet 4",
     "dut2_eth4_ip": "10.1.2.2/24",
     "dut2_eth8": "Ethernet 8",
-    "dut2_eth8_ip": "10.2.1.1/24",
+    "dut2_eth8_ip": "10.2.1.2/24",
     "dut2_eth12": "Ethernet 12",
     "dut2_eth12_ip": "10.2.2.1/24",
     "dut2_route1_prefix": "30.30.30.0/24",
-    "dut2_route1_nexthop": "10.2.1.2",
+    "dut2_route1_nexthop": "10.2.2.2",
     "dut2_route2_prefix": "40.40.40.0/24",
     "dut2_route2_nexthop": "10.1.1.1",
 
     # DUT3 Configuration
     "dut3_eth8": "Ethernet 8",
-    "dut3_eth8_ip": "10.2.1.2/24",  # Connected to DUT2 Eth8 (10.2.1.1/24)
+    "dut3_eth8_ip": "10.2.2.2/24",  # Connected to DUT2 Eth12 (10.2.2.1/24)
     "dut3_eth12": "Ethernet 12",
-    "dut3_eth12_ip": "10.2.2.2/24",  # Connected to DUT2 Eth12 (10.2.2.1/24)
+    "dut3_eth12_ip": "10.3.1.2/24",  # Additional interface for DUT3
     "dut3_route1_prefix": "40.40.40.0/24",
-    "dut3_route1_nexthop": "10.2.1.1",
+    "dut3_route1_nexthop": "10.2.2.1",
 })
 
 # Test case identifiers
