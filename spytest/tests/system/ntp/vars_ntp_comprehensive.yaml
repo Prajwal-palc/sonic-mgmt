@@ -1,0 +1,572 @@
+# NTP Comprehensive Test Suite Variables
+# This YAML file contains test data for all NTP test cases
+# Author: Athira
+# Date: 2026-04-10
+
+defaults:
+  cli_type: klish  # Always use KLISH for IS-CLI validation
+  verify_timeout: 60  # Timeout for verification polling (seconds)
+  sync_timeout: 120  # Timeout for NTP synchronization (seconds)
+  cleanup: true  # Enable cleanup after tests
+  min_topology:
+    - "D1:1"  # Single DUT minimum
+
+# Common test servers
+servers:
+  public_ntp_pool: "0.pool.ntp.org"
+  google_ntp_1: "time1.google.com"
+  google_ntp_2: "time2.google.com"
+  # Primary test server: Google Public NTP (always reachable)
+  test_server_1: "216.239.35.0"  # time.google.com - Google Public NTP
+  test_server_2: "216.239.35.4"  # time2.google.com - Google Public NTP
+  # Local test server (may not be reachable in all environments)
+  local_test_server: "192.168.100.175"  # Use only if local NTP server is set up
+  invalid_server: "192.0.2.1"  # TEST-NET-1 (non-routable)
+
+# =============================================================================
+# AUTHENTICATION TEST CASES
+# =============================================================================
+
+testcases:
+  # ---------------------------------------------------------------------------
+  # TC_NTP_AUTH_ENF_003: Authentication Enforcement with Missing Trusted Key
+  # ---------------------------------------------------------------------------
+  NTP_AUTH_ENF_003:
+    title: "Authentication enforcement prevents sync without trusted key"
+    priority: P1
+    category: authentication_enforcement
+    description: "Verify that enabling authentication without trusted key prevents synchronization"
+    steps:
+      - action: config_auth_key
+        key_id: 10
+        auth_type: md5
+        password: "TestPass123"
+      - action: enable_authenticate
+        expected: success
+      - action: config_server
+        server: "{{servers.test_server_1}}"
+        key_id: 10
+        iburst: true
+      - action: enable_ntp
+        expected: success
+      - action: verify_no_sync
+        server: "{{servers.test_server_1}}"
+        reason: "trusted key not configured"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_AUTHWF_001-005: Full Authentication Workflow Tests
+  # ---------------------------------------------------------------------------
+  NTP_AUTHWF_001:
+    title: "Complete authentication workflow - MD5"
+    priority: P1
+    category: authentication_workflow
+    description: "Verify complete auth workflow: key + trusted-key + authenticate + server sync"
+    auth_key:
+      key_id: 1
+      auth_type: md5
+      password: "MySecret123"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 1
+      prefer: true
+      iburst: true
+    expected_result:
+      sync_status: synced
+      auth_enabled: true
+
+  NTP_AUTHWF_002:
+    title: "Authentication workflow - SHA1"
+    priority: P1
+    category: authentication_workflow
+    auth_key:
+      key_id: 2
+      auth_type: sha1
+      password: "SHA1Secret456"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 2
+      iburst: true
+    expected_result:
+      sync_status: synced
+
+  NTP_AUTHWF_003:
+    title: "Wrong password prevents synchronization"
+    priority: P1
+    category: authentication_workflow
+    description: "Negative test: mismatched password should prevent sync"
+    auth_key:
+      key_id: 3
+      auth_type: md5
+      password: "WrongPassword789"  # Server has different password
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 3
+      iburst: true
+    expected_result:
+      sync_status: not_synced
+      reason: "password mismatch"
+
+  NTP_AUTHWF_004:
+    title: "Authentication workflow - SHA256"
+    priority: P2
+    category: authentication_workflow
+    auth_key:
+      key_id: 4
+      auth_type: sha256
+      password: "SHA256SecurePass"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 4
+    expected_result:
+      sync_status: configured
+
+  NTP_AUTHWF_005:
+    title: "Authentication workflow - SHA512"
+    priority: P2
+    category: authentication_workflow
+    auth_key:
+      key_id: 5
+      auth_type: sha512
+      password: "SHA512VerySecurePassword"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 5
+    expected_result:
+      sync_status: configured
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_AUTHKEY_007: Authentication Key Tests
+  # ---------------------------------------------------------------------------
+  NTP_AUTHKEY_007:
+    title: "Delete authentication key with active server"
+    priority: P1
+    category: authentication_key
+    description: "Verify behavior when deleting auth key used by active server"
+    test_type: negative
+    auth_key:
+      key_id: 7
+      auth_type: md5
+      password: "ActiveKeyPass"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 7
+      iburst: true
+    expected_behavior:
+      - "Key deletion should be rejected while in use"
+      - "OR server should be deconfigured first"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_SRC_004: Source Interface Tests
+  # ---------------------------------------------------------------------------
+  NTP_SRC_004:
+    title: "Set source interface to VLAN (negative test)"
+    priority: P2
+    category: source_interface
+    description: "VLAN source interface should be rejected (known limitation)"
+    test_type: negative
+    interface_type: Vlan
+    interface_id: 10
+    expected_result: command_rejected
+    error_pattern: "not supported|invalid"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_VRF_001-002: VRF Configuration Tests
+  # ---------------------------------------------------------------------------
+  NTP_VRF_001:
+    title: "Configure NTP VRF to mgmt"
+    priority: P1
+    category: vrf
+    description: "Verify NTP can be bound to mgmt VRF"
+    vrf_name: mgmt
+    server:
+      address: "{{servers.test_server_1}}"
+      iburst: true
+    expected_result:
+      vrf_binding: mgmt
+      sync_possible: true
+
+  NTP_VRF_002:
+    title: "Switch NTP VRF from mgmt to default"
+    priority: P1
+    category: vrf
+    description: "Verify VRF can be changed from mgmt to default"
+    initial_vrf: mgmt
+    target_vrf: default
+    server:
+      address: "{{servers.test_server_1}}"
+    expected_result:
+      vrf_binding: default
+      sync_restored: true
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_SHOW_003: Show Commands Validation
+  # ---------------------------------------------------------------------------
+  NTP_SHOW_003:
+    title: "Validate 'show ntp associations' output"
+    priority: P1
+    category: show_commands
+    description: "Verify show ntp associations displays correct sync status"
+    servers:
+      - address: "{{servers.test_server_1}}"
+        iburst: true
+        expected_status: "*"  # synced
+      - address: "{{servers.test_server_2}}"
+        expected_status: "+"  # candidate
+    expected_fields:
+      - remote
+      - refid
+      - st  # stratum
+      - when
+      - poll
+      - reach
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_PERSIST_001-003: Configuration Persistence Tests
+  # ---------------------------------------------------------------------------
+  NTP_PERSIST_001:
+    title: "NTP config persists across NTP daemon restart"
+    priority: P1
+    category: persistence
+    description: "Verify configuration survives ntp-config service restart"
+    configuration:
+      ntp_enable: true
+      servers:
+        - "{{servers.test_server_1}}"
+        - "{{servers.public_ntp_pool}}"
+      auth_key:
+        key_id: 10
+        auth_type: md5
+        password: "PersistTest123"
+    restart_service: ntp-config
+    expected_result: configuration_intact
+
+  NTP_PERSIST_002:
+    title: "NTP config persists across config save and reload"
+    priority: P1
+    category: persistence
+    description: "Verify configuration survives 'config save' and reload"
+    configuration:
+      ntp_enable: true
+      authenticate: true
+      servers:
+        - address: "{{servers.test_server_1}}"
+          key_id: 20
+      auth_keys:
+        - key_id: 20
+          auth_type: sha1
+          password: "ReloadTest456"
+      trusted_keys: [20]
+    operations:
+      - config_save
+      - config_reload
+    expected_result: configuration_intact
+
+  NTP_PERSIST_003:
+    title: "NTP config persists across system reboot"
+    priority: P1
+    category: persistence
+    description: "Verify configuration survives system reboot"
+    test_type: reboot_required
+    configuration:
+      ntp_enable: true
+      servers:
+        - "{{servers.test_server_1}}"
+    operations:
+      - reboot_device
+      - wait_boot_complete
+    expected_result: configuration_intact
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_TRAFFIC_001-007: Traffic Validation Tests
+  # ---------------------------------------------------------------------------
+  NTP_TRAFFIC_001:
+    title: "Verify NTP sends UDP packets to port 123"
+    priority: P1
+    category: traffic
+    description: "Capture and verify NTP packets use UDP port 123"
+    test_type: packet_capture
+    server:  "{{servers.test_server_1}}"
+    capture:
+      filter: "udp port 123"
+      duration: 30
+      expected_packets: ">= 1"
+    verification:
+      - protocol: UDP
+      - destination_port: 123
+      - source_port: 123
+
+  NTP_TRAFFIC_002:
+    title: "Verify NTP uses configured source interface"
+    priority: P1
+    category: traffic
+    description: "Verify packets originate from configured source interface IP"
+    test_type: packet_capture
+    source_interface: Ethernet0  # Will be fetched from topology
+    server: "{{servers.test_server_1}}"
+    capture:
+      filter: "udp port 123"
+      duration: 30
+    verification:
+      - source_ip_matches_interface: true
+
+  NTP_TRAFFIC_003:
+    title: "Verify NTP includes authentication extension"
+    priority: P1
+    category: traffic
+    description: "Capture NTP packet and verify authentication extension field"
+    test_type: packet_capture
+    auth_key:
+      key_id: 30
+      auth_type: md5
+      password: "TrafficAuthTest"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 30
+    capture:
+      filter: "udp port 123"
+      duration: 30
+      scapy_analysis: true
+    verification:
+      - ntp_authentication_present: true
+      - key_id_in_packet: 30
+
+  NTP_TRAFFIC_004:
+    title: "Verify multiple servers receive packets"
+    priority: P2
+    category: traffic
+    description: "Verify DUT sends packets to all configured servers"
+    test_type: packet_capture
+    servers:
+      - "{{servers.test_server_1}}"
+      - "{{servers.test_server_2}}"
+      - "{{servers.public_ntp_pool}}"
+    capture:
+      filter: "udp port 123"
+      duration: 60
+    verification:
+      - all_servers_contacted: true
+
+  NTP_TRAFFIC_005:
+    title: "Verify NTP server replies with mode=4 (server)"
+    priority: P2
+    category: traffic
+    description: "Capture NTP response and verify mode field = 4"
+    test_type: packet_capture
+    server: "{{servers.test_server_1}}"
+    capture:
+      filter: "udp and src port 123"
+      duration: 30
+      scapy_analysis: true
+    verification:
+      - ntp_mode_field: 4  # Server mode
+
+  NTP_TRAFFIC_006:
+    title: "Verify iburst sends multiple packets at startup"
+    priority: P2
+    category: traffic
+    description: "Verify iburst option causes rapid initial polling (>=6 packets)"
+    test_type: packet_capture
+    server:
+      address: "{{servers.test_server_1}}"
+      iburst: true
+    capture:
+      filter: "udp port 123 and dst port 123"
+      duration: 15
+      start_before_enable: true  # Capture from moment NTP is enabled
+    verification:
+      - packet_count: ">= 6"
+      - time_window: "< 10 seconds"
+
+  NTP_TRAFFIC_007:
+    title: "Verify NTP traffic stops after 'no ntp enable'"
+    priority: P1
+    category: traffic
+    description: "Verify disabling NTP stops all packet transmission"
+    test_type: packet_capture
+    server:
+      address: "{{servers.test_server_1}}"
+      iburst: true
+    operations:
+      - enable_ntp_and_wait: 20  # Let traffic establish
+      - start_capture: 30  # Capture for 30 seconds
+      - disable_ntp  # Disable while capturing
+    capture:
+      filter: "udp port 123 and dst port 123"
+      duration: 30
+    verification:
+      - packet_count: 0  # No packets after disable
+      - traffic_stopped: true
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_001-008: Negative Test Cases
+  # ---------------------------------------------------------------------------
+  NTP_NEG_001:
+    title: "Reject invalid authentication key ID (0)"
+    priority: P1
+    category: negative
+    description: "Verify key ID 0 is rejected"
+    test_type: negative
+    auth_key:
+      key_id: 0  # Invalid: must be 1-65535
+      auth_type: md5
+      password: "InvalidKey"
+    expected_result: command_rejected
+    error_pattern: "invalid|out of range"
+
+  NTP_NEG_002:
+    title: "Reject duplicate NTP server configuration"
+    priority: P2
+    category: negative
+    description: "Verify adding same server twice is handled gracefully"
+    test_type: negative
+    server: "{{servers.test_server_1}}"
+    operations:
+      - config_server: "{{servers.test_server_1}}"
+      - config_server_again: "{{servers.test_server_1}}"
+    expected_result:
+      - command_accepted  # OR rejected, depends on implementation
+      - single_entry_in_config: true
+
+  NTP_NEG_003:
+    title: "Reject authentication key without password"
+    priority: P2
+    category: negative
+    description: "Verify auth key requires password"
+    test_type: negative
+    auth_key:
+      key_id: 30
+      auth_type: md5
+      password: ""  # Empty password
+    expected_result: command_rejected
+    error_pattern: "password required|invalid"
+
+  NTP_NEG_004:
+    title: "Reject invalid NTP server address"
+    priority: P2
+    category: negative
+    description: "Verify malformed IP address is rejected"
+    test_type: negative
+    server: "999.999.999.999"  # Invalid IP
+    expected_result: command_rejected
+    error_pattern: "invalid|malformed"
+
+  NTP_NEG_005:
+    title: "Reject non-existent source interface"
+    priority: P2
+    category: negative
+    description: "Verify source interface must exist"
+    test_type: negative
+    source_interface: Ethernet9999  # Non-existent
+    expected_result: command_rejected
+    error_pattern: "not found|does not exist"
+
+  NTP_NEG_006:
+    title: "Cannot delete auth key in use by server"
+    priority: P1
+    category: negative
+    description: "Verify auth key cannot be deleted while server uses it"
+    test_type: negative
+    auth_key:
+      key_id: 60
+      auth_type: md5
+      password: "InUseKey"
+    server:
+      address: "{{servers.test_server_1}}"
+      key_id: 60
+    operations:
+      - config_auth_key
+      - config_server_with_key
+      - attempt_delete_key: 60
+    expected_result: command_rejected
+    error_pattern: "in use|cannot delete"
+
+  NTP_NEG_007:
+    title: "Reject authentication key ID > 65535"
+    priority: P2
+    category: negative
+    description: "Verify key ID upper bound validation"
+    test_type: negative
+    auth_key:
+      key_id: 70000  # Out of range (max 65535)
+      auth_type: md5
+      password: "OutOfRange"
+    expected_result: command_rejected
+    error_pattern: "out of range|invalid"
+
+  NTP_NEG_008:
+    title: "Reject unsupported authentication algorithm"
+    priority: P2
+    category: negative
+    description: "Verify only supported algorithms are accepted"
+    test_type: negative
+    auth_key:
+      key_id: 80
+      auth_type: aes256  # Unsupported (only MD5, SHA1, SHA256, SHA384, SHA512)
+      password: "UnsupportedAlgo"
+    expected_result: command_rejected
+    error_pattern: "unsupported|invalid algorithm"
+
+# =============================================================================
+# TEST EXECUTION SETTINGS
+# =============================================================================
+
+execution:
+  parallel_execution: false  # Run tests sequentially for stability
+  stop_on_failure: false  # Continue even if one test fails
+  collect_tech_support: on_failure  # Collect tech-support on failures
+  syslog_check: minimal  # Check for critical errors only
+  enable_ftrace: false  # Disable ftrace for performance
+
+# =============================================================================
+# TOPOLOGY-SPECIFIC SETTINGS
+# =============================================================================
+
+topology_requirements:
+  min_duts: 1
+  max_duts: 1  # Single DUT tests
+  required_interfaces:
+    - type: Ethernet
+      count: 1  # At least one Ethernet interface
+  optional_interfaces:
+    - type: Management
+      count: 1
+    - type: Loopback
+      count: 1
+
+# =============================================================================
+# PLATFORM-SPECIFIC SETTINGS
+# =============================================================================
+
+platform_settings:
+  virtual:
+    # For virtual/VS platforms
+    sync_timeout: 180  # VS may be slower
+    skip_traffic_tests: false  # Traffic tests work on VS
+    skip_reboot_tests: true  # Skip reboot tests on VS (time-consuming)
+
+  hardware:
+    # For hardware platforms
+    sync_timeout: 120
+    skip_traffic_tests: false
+    skip_reboot_tests: false
+
+# =============================================================================
+# KNOWN LIMITATIONS (From Manual Testing)
+# =============================================================================
+
+known_limitations:
+  - limitation: "VLAN source interface not supported"
+    test_cases: ["NTP_SRC_004"]
+    expected_behavior: "Command rejected"
+    bug_id: "SM_ISCLI_P2_1"
+
+  - limitation: "Packet capture buffer timing issue"
+    test_cases: ["NTP_TRAFFIC_001", "NTP_TRAFFIC_002", "NTP_TRAFFIC_003", "NTP_TRAFFIC_005", "NTP_TRAFFIC_006", "NTP_TRAFFIC_007"]
+    expected_behavior: "0 packets captured, X packets received by filter"
+    impact: "Test validation limited to tcpdump statistics"
+    workaround: "Use packet count from tcpdump statistics"
+
+  - limitation: "NTP synchronization depends on external server availability"
+    test_cases: ["NTP_AUTHWF_001", "NTP_AUTHWF_002", "NTP_AUTHWF_004", "NTP_AUTHWF_005"]
+    expected_behavior: "May timeout if server unreachable"
+    workaround: "Verify configuration correctness, not actual sync status"

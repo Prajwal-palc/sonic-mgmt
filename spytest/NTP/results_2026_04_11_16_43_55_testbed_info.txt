@@ -1,4 +1,4 @@
-# Testbed configuration for NTP IS-CLI testing
+########## /home/claudeuser/Athira/sonic-mgmt/spytest/./testbeds/testbed_vs_1node_ntp.yaml ########### Testbed configuration for NTP IS-CLI testing
 # 1-node topology: Single DUT for NTP feature validation
 
 version: 2.0
@@ -8,7 +8,7 @@ devices:
     device_type: sonic
     access:
       protocol: ssh
-      ip: 192.168.100.161
+      ip: 192.168.100.147
       port: 22
     credentials:
       username: admin
@@ -30,3 +30,4 @@ builds:   {default: {}}
 configs:  {default: {}}
 errors:   {default: {}}
 params:   {}
+###################################

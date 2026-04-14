@@ -194,12 +194,12 @@ def show_ntp_server(dut, cli_type=''):
         command = "show ntp"
         output = st.show(dut, command, type=cli_type)
     elif cli_type == "klish":
-        # For IS-CLI, use "show ntp server" which returns a simple list format
+        # For IS-CLI, use "show ntp server" which returns a table format
         command = "show ntp server"
         raw_output = st.show(dut, command, type=cli_type, skip_tmpl=True)
 
         # Parse the IS-CLI output manually
-        # Format is a simple list with servers as non-indented lines and attributes as indented lines
+        # Format is a table with columns: NTP Servers | minpoll | maxpoll | Prefer | Authentication key ID
         output = []
         if isinstance(raw_output, str):
             output_str = raw_output
@@ -208,16 +208,43 @@ def show_ntp_server(dut, cli_type=''):
         else:
             output_str = str(raw_output)
 
-        # Extract server IPs - lines that don't start with spaces and match IP/hostname pattern
-        # Skip header lines and separator lines
+        # Parse table format
+        # Example:
+        # NTP Servers                     minpoll maxpoll Prefer Authentication key ID
+        # ---------------------------------------------------------------------------------------------------------------------
+        # 216.239.35.0                                    False
+        # time.google.com                                 False
+
+        in_data_section = False
         for line in output_str.split('\n'):
             line = line.rstrip()
-            # Server IPs are lines without leading spaces (not indented)
-            # Skip empty lines, header lines, and separator lines
-            if line and not line.startswith(' ') and not line.startswith('-') and 'NTP Servers' not in line:
-                # Check if line looks like an IP address or hostname (not a header)
-                if re.match(r'^[\w\.\-]+$', line):
-                    output.append({'remote': line})
+
+            # Skip empty lines
+            if not line:
+                continue
+
+            # Skip separator lines
+            if line.startswith('---'):
+                in_data_section = True
+                continue
+
+            # Skip header line
+            if 'NTP Servers' in line or 'NTP servers' in line:
+                continue
+
+            # Parse data lines (after separator)
+            if in_data_section:
+                # Split by whitespace and extract server address (first column)
+                parts = line.split()
+                if parts and len(parts) >= 1:
+                    server_addr = parts[0]
+                    # Validate it looks like IP or hostname
+                    if re.match(r'^[\w\.\-:]+$', server_addr):
+                        entry = {'remote': server_addr}
+                        # Try to parse prefer field if present
+                        if len(parts) >= 2 and parts[-1] in ['True', 'False']:
+                            entry['prefer'] = parts[-1]
+                        output.append(entry)
 
         st.log("Parsed {} NTP servers from IS-CLI output".format(len(output)))
         return output
@@ -810,8 +837,17 @@ def config_ntp_parameters(dut, **kwargs):
             for src_intf in make_list(kwargs['source_intf']):
                 # FIX for BUG-NTP-003: klish CLI requires space between interface type and number
                 # e.g., "Ethernet0" must be sent as "Ethernet 0"
+                # e.g., "Management0" must be sent as "Management 0"
                 if src_intf.startswith('Ethernet') and len(src_intf) > 8 and src_intf[8:].isdigit():
                     intf_formatted = 'Ethernet ' + src_intf[8:]
+                elif src_intf.startswith('Management') and len(src_intf) > 10 and src_intf[10:].isdigit():
+                    intf_formatted = 'Management ' + src_intf[10:]
+                elif src_intf.startswith('PortChannel') and len(src_intf) > 11 and src_intf[11:].isdigit():
+                    intf_formatted = 'PortChannel ' + src_intf[11:]
+                elif src_intf.startswith('Vlan') and len(src_intf) > 4 and src_intf[4:].isdigit():
+                    intf_formatted = 'Vlan ' + src_intf[4:]
+                elif src_intf.startswith('Loopback') and len(src_intf) > 8 and src_intf[8:].isdigit():
+                    intf_formatted = 'Loopback ' + src_intf[8:]
                 else:
                     intf_formatted = src_intf
                 commands.append('{}ntp source-interface {}'.format(config_string, intf_formatted))
@@ -1093,6 +1129,78 @@ def show_running_ntp(dut, **kwargs):
         st.log("UNSUPPORTED CLI TYPE")
         return False
     return output
+
+
+def get_ntp_authentication_keys(dut, cli_type=''):
+    """
+    Get list of configured NTP authentication keys
+
+    Args:
+        dut: Device Under Test
+        cli_type: CLI type (klish/click)
+
+    Returns:
+        List of dicts with key_id, auth_type, and other key details
+        Returns empty list if no keys configured
+
+    Usage:
+        keys = get_ntp_authentication_keys(dut, cli_type='klish')
+        for key in keys:
+            st.log(f"Key ID: {key['key_id']}")
+    """
+    import re
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = 'klish' if cli_type in get_supported_ui_type_list() else cli_type
+
+    if cli_type == "klish":
+        # Get running config and extract authentication keys
+        cmd = 'show running-config | grep "ntp authentication-key"'
+        output = st.show(dut, cmd, skip_tmpl=True, type="klish")
+
+        keys = []
+        if isinstance(output, str):
+            output_str = output
+        elif isinstance(output, list):
+            output_str = '\n'.join(str(item) for item in output)
+        else:
+            output_str = str(output)
+
+        # Parse lines like: "ntp authentication-key 10 md5 encrypted abcdef123"
+        # or: "ntp authentication-key 20 sha1 TestPassword"
+        for line in output_str.split('\n'):
+            line = line.strip()
+            if 'ntp authentication-key' in line:
+                # Extract key ID from the line
+                match = re.search(r'ntp\s+authentication-key\s+(\d+)\s+(md5|sha1|sha2-256)', line, re.IGNORECASE)
+                if match:
+                    key_id = match.group(1)
+                    auth_type = match.group(2)
+                    keys.append({
+                        'key_id': key_id,
+                        'auth_type': auth_type
+                    })
+
+        st.log(f"Found {len(keys)} NTP authentication keys")
+        return keys
+
+    elif cli_type == "click":
+        # For click mode, use show ntp if available
+        st.log("get_ntp_authentication_keys: click mode - parsing from running config")
+        cmd = 'show runningconfiguration all | grep "ntp authentication-key"'
+        output = st.show(dut, cmd, skip_tmpl=True)
+
+        keys = []
+        if output:
+            for line in str(output).split('\n'):
+                match = re.search(r'ntp\s+authentication-key\s+(\d+)', line)
+                if match:
+                    keys.append({'key_id': match.group(1)})
+
+        return keys
+
+    else:
+        st.log(f"UNSUPPORTED CLI TYPE: {cli_type}")
+        return []
 
 
 def set_rtc_clock(dut, **kwargs):
@@ -1478,3 +1586,242 @@ def verify_ntp_config(dut, cli_type='', **kwargs):
 
     # If no specific check requested, assume configuration was successful
     return True
+
+
+def show_ntp_global(dut, cli_type=''):
+    """
+    Show NTP global configuration using 'show ntp global' command
+
+    :param dut: Device Under Test
+    :param cli_type: CLI type (click/klish/rest)
+    :return: Dictionary containing NTP global configuration or None
+
+    Usage:
+        config = show_ntp_global(dut, cli_type='klish')
+        if config:
+            st.log("NTP service: {}".format(config.get('ntp_service')))
+            st.log("Authentication: {}".format(config.get('authentication')))
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = 'klish' if cli_type in get_supported_ui_type_list() else cli_type
+
+    st.log("Executing 'show ntp global' command")
+
+    if cli_type == "klish":
+        # Ensure we're in exec mode before running show command
+        # New build doesn't support "do show" from config mode
+        try:
+            st.config(dut, "exit", type=cli_type, skip_error_check=True, conf=False)
+        except:
+            pass  # Already in exec mode
+
+        command = "show ntp global"
+        output = st.show(dut, command, type=cli_type, skip_tmpl=True)
+
+        # Parse the output manually
+        result = {}
+        if isinstance(output, str):
+            output_str = output
+        elif isinstance(output, list):
+            output_str = '\n'.join(str(item) for item in output)
+        else:
+            output_str = str(output)
+
+        for line in output_str.split('\n'):
+            line = line.strip()
+            if 'NTP service:' in line:
+                result['ntp_service'] = line.split(':')[1].strip()
+            elif 'NTP source-interfaces:' in line:
+                result['source_interfaces'] = line.split(':')[1].strip()
+            elif 'NTP vrf:' in line:
+                result['vrf'] = line.split(':')[1].strip()
+            elif 'NTP authentication:' in line:
+                result['authentication'] = line.split(':')[1].strip()
+
+        return result if result else None
+
+    elif cli_type == "click":
+        st.log("show ntp global not supported in click mode")
+        return None
+    else:
+        st.log("UNSUPPORTED CLI TYPE -- {}".format(cli_type))
+        return None
+
+
+def show_ntp_associations(dut, cli_type=''):
+    """
+    Show NTP associations using 'show ntp associations' command
+
+    :param dut: Device Under Test
+    :param cli_type: CLI type (click/klish/rest)
+    :return: List of dictionaries containing NTP association details or None
+
+    Usage:
+        assoc = show_ntp_associations(dut, cli_type='klish')
+        for server in assoc:
+            st.log("Server: {}, Status: {}".format(server['remote'], server.get('status')))
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+    cli_type = 'klish' if cli_type in get_supported_ui_type_list() else cli_type
+
+    st.log("Executing 'show ntp associations' command")
+
+    if cli_type == "klish":
+        command = "show ntp associations"
+        output = st.show(dut, command, type=cli_type, skip_tmpl=True)
+
+        # Parse the output manually
+        # Format: remote refid st t when poll reach delay offset jitter
+        # Status symbols: * = selected, # = unsynced, + = candidate, - = outlier, ~ = configured
+        result = []
+        if isinstance(output, str):
+            output_str = output
+        elif isinstance(output, list):
+            output_str = '\n'.join(str(item) for item in output)
+        else:
+            output_str = str(output)
+
+        lines = output_str.split('\n')
+        for line in lines:
+            line = line.strip()
+            # Skip header lines, empty lines, and separator lines
+            if not line or '====' in line or 'remote' in line or 'master' in line:
+                continue
+
+            # Check if line starts with a status symbol
+            status = ''
+            remote = ''
+            if line and line[0] in ['*', '#', '+', '-', '~', ' ']:
+                status = line[0] if line[0] != ' ' else ''
+                line_content = line[1:].strip().split()
+                if line_content:
+                    remote = line_content[0]
+                    result.append({
+                        'status': status,
+                        'remote': remote,
+                        'full_line': line
+                    })
+
+        return result if result else []
+
+    elif cli_type == "click":
+        # Fall back to show ntp server for click mode
+        return show_ntp_server(dut, cli_type='click')
+    else:
+        st.log("UNSUPPORTED CLI TYPE -- {}".format(cli_type))
+        return None
+
+
+def config_ntp_vrf(dut, vrf_name, config='yes', cli_type='', **kwargs):
+    """
+    Configure NTP VRF binding
+
+    :param dut: Device Under Test
+    :param vrf_name: VRF name (default/mgmt)
+    :param config: 'yes' to set, 'no' to unset
+    :param cli_type: CLI type (click/klish/rest)
+    :return: True if successful, False otherwise
+
+    Usage:
+        config_ntp_vrf(dut, 'mgmt', cli_type='klish')
+        config_ntp_vrf(dut, 'default', config='no', cli_type='klish')
+    """
+    cli_type = st.get_ui_type(dut, cli_type=cli_type)
+
+    st.log("Configuring NTP VRF: {} (config={})".format(vrf_name, config))
+
+    if cli_type == "klish":
+        if config == 'yes':
+            command = "ntp vrf {}".format(vrf_name)
+        else:
+            command = "no ntp vrf"
+
+        st.config(dut, command, type=cli_type)
+        return True
+
+    elif cli_type == "click":
+        st.log("NTP VRF configuration not supported in click mode")
+        return False
+    else:
+        st.log("UNSUPPORTED CLI TYPE -- {}".format(cli_type))
+        return False
+
+
+def verify_ntp_global(dut, expected_config, cli_type=''):
+    """
+    Verify NTP global configuration matches expected values
+
+    :param dut: Device Under Test
+    :param expected_config: Dictionary with expected values
+        - ntp_service: 'enabled' or 'disabled'
+        - authentication: 'enabled' or 'disabled'
+        - vrf: VRF name
+        - source_interfaces: Source interface(s)
+    :param cli_type: CLI type
+    :return: True if matches, False otherwise
+
+    Usage:
+        expected = {'ntp_service': 'enabled', 'authentication': 'disabled'}
+        verify_ntp_global(dut, expected, cli_type='klish')
+    """
+    actual = show_ntp_global(dut, cli_type=cli_type)
+
+    if not actual:
+        st.log("Failed to get NTP global configuration")
+        return False
+
+    st.log("Verifying NTP global configuration")
+    st.log("Expected: {}".format(expected_config))
+    st.log("Actual: {}".format(actual))
+
+    for key, expected_value in expected_config.items():
+        actual_value = actual.get(key, '')
+        if actual_value != expected_value:
+            st.log("Mismatch: {} - expected '{}', got '{}'".format(key, expected_value, actual_value))
+            return False
+
+    st.log("NTP global configuration verification passed")
+    return True
+
+
+def verify_ntp_association_status(dut, server, expected_status='synced', cli_type=''):
+    """
+    Verify NTP association status for a specific server
+
+    :param dut: Device Under Test
+    :param server: Server IP or hostname
+    :param expected_status: Expected status ('synced', 'configured', 'candidate', etc.)
+    :param cli_type: CLI type
+    :return: True if status matches, False otherwise
+
+    Usage:
+        verify_ntp_association_status(dut, '192.168.1.1', 'synced', cli_type='klish')
+    """
+    assoc = show_ntp_associations(dut, cli_type=cli_type)
+
+    if not assoc:
+        st.log("No NTP associations found")
+        return False
+
+    status_map = {
+        'synced': '*',
+        'unsynced': '#',
+        'candidate': '+',
+        'outlier': '-',
+        'configured': '~'
+    }
+
+    expected_symbol = status_map.get(expected_status, expected_status)
+
+    for entry in assoc:
+        if server in entry.get('remote', ''):
+            actual_status = entry.get('status', '')
+            if expected_status == 'synced' and actual_status == '*':
+                st.log("Server {} is synced".format(server))
+                return True
+            elif expected_symbol == actual_status:
+                st.log("Server {} has expected status: {}".format(server, expected_status))
+                return True
+
+    st.log("Server {} not found with expected status {}".format(server, expected_status))
+    return False

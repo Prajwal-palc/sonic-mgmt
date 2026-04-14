@@ -1,0 +1,697 @@
+ ____  ____       _____         _   
+/ ___||  _ \ _   |_   _|__  ___| |_ 
+\___ \| |_) | | | || |/ _ \/ __| __|
+ ___) |  __/| |_| || |  __/\__ \ |_ 
+|____/|_|    \__, ||_|\___||___/\__|
+             |___/                  
+
+SPYTEST_RANDOM_SEED used = 13916
+
+VERSION: UNKNOWN UNKNOWN UNKNOWN
+
+tcmap verify took 0:00:00
+Tests considered 19 and ignored 0
+tech_cfg_always global = False
+tech_cfg_always system-not-ready = True
+tech_cfg_always portlist-not-ready = True
+tech_cfg_always console_hang = True
+tech_cfg_always port-status = True
+tech_cfg_always port-status-module = True
+tech_cfg_always port-status-function = True
+tech_cfg_always pre-module-prolog = False
+tech_cfg_always post-module-prolog = False
+tech_cfg_always pre-module-epilog = False
+tech_cfg_always post-module-epilog = False
+tech_cfg_always pre-function-prolog = False
+tech_cfg_always post-function-prolog = False
+tech_cfg_always pre-function-epilog = False
+tech_cfg_always post-function-epilog = False
+tech_cfg_always session-epilog = False
+tech_cfg_fail pre-module-prolog = False
+tech_cfg_fail post-module-prolog = False
+tech_cfg_fail pre-module-epilog = False
+tech_cfg_fail post-module-epilog = False
+tech_cfg_fail pre-function-prolog = False
+tech_cfg_fail post-function-prolog = False
+tech_cfg_fail pre-function-epilog = False
+tech_cfg_fail post-function-epilog = False
+tech_cfg_fail function = False
+tech_cfg_fail testcase = False
+core_cfg_always global = True
+core_cfg_always system-not-ready = False
+core_cfg_always portlist-not-ready = False
+core_cfg_always console_hang = True
+core_cfg_always port-status = False
+core_cfg_always port-status-module = False
+core_cfg_always port-status-function = False
+core_cfg_always pre-module-prolog = False
+core_cfg_always post-module-prolog = False
+core_cfg_always pre-module-epilog = False
+core_cfg_always post-module-epilog = False
+core_cfg_always pre-function-prolog = False
+core_cfg_always post-function-prolog = False
+core_cfg_always pre-function-epilog = False
+core_cfg_always post-function-epilog = False
+core_cfg_always session-epilog = True
+core_cfg_fail pre-module-prolog = False
+core_cfg_fail post-module-prolog = False
+core_cfg_fail pre-module-epilog = False
+core_cfg_fail post-module-epilog = False
+core_cfg_fail pre-function-prolog = False
+core_cfg_fail post-function-prolog = False
+core_cfg_fail pre-function-epilog = False
+core_cfg_fail post-function-epilog = False
+core_cfg_fail function = False
+core_cfg_fail testcase = False
+sysinfo_cfg global = False
+sysinfo_cfg pre-module-prolog = False
+sysinfo_cfg post-module-prolog = False
+sysinfo_cfg pre-module-epilog = False
+sysinfo_cfg post-module-epilog = False
+sysinfo_cfg pre-function-prolog = False
+sysinfo_cfg post-function-prolog = False
+sysinfo_cfg pre-function-epilog = False
+sysinfo_cfg post-function-epilog = False
+sairedis_cfg global = False
+sairedis_cfg pre-module-prolog = False
+sairedis_cfg post-module-prolog = False
+sairedis_cfg pre-module-epilog = False
+sairedis_cfg post-module-epilog = False
+sairedis_cfg pre-function-prolog = False
+sairedis_cfg post-function-prolog = False
+sairedis_cfg pre-function-epilog = False
+sairedis_cfg post-function-epilog = False
+syslog_cfg global = False
+syslog_cfg pre-module-prolog = True
+syslog_cfg post-module-prolog = True
+syslog_cfg pre-module-epilog = True
+syslog_cfg post-module-epilog = True
+syslog_cfg pre-function-prolog = True
+syslog_cfg post-function-prolog = False
+syslog_cfg pre-function-epilog = False
+syslog_cfg post-function-epilog = True
+config_db_cfg global = False
+config_db_cfg pre-module-prolog = True
+config_db_cfg post-module-prolog = True
+config_db_cfg pre-module-epilog = True
+config_db_cfg post-module-epilog = True
+config_db_cfg pre-function-prolog = False
+config_db_cfg post-function-prolog = False
+config_db_cfg pre-function-epilog = False
+config_db_cfg post-function-epilog = False
+config_db_cfg post-session-prolog = True
+show_run_cfg global = False
+show_run_cfg pre-module-prolog = True
+show_run_cfg post-module-prolog = True
+show_run_cfg pre-module-epilog = True
+show_run_cfg post-module-epilog = True
+show_run_cfg pre-function-prolog = False
+show_run_cfg post-function-prolog = False
+show_run_cfg pre-function-epilog = False
+show_run_cfg post-function-epilog = False
+TEMPLATE USED: show_version.tmpl: show version
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status
+TEMPLATE USED: unix_ifcfg.tmpl: /sbin/ifconfig eth0
+[smic_sonic1] : SKIP saving config_db post-session-prolog session pass
+[smic_sonic1] : SKIP saving running config post-session-prolog session pass
+[smic_sonic1] : SKIP saving syslog post-session-prolog session pass
+[smic_sonic1] : SKIP generating tech-support post-session-prolog session pass
+[smic_sonic1] : SKIP collect core-files post-session-prolog session pass
+[smic_sonic1] : SKIP saving sai_redis post-session-prolog session pass
+[smic_sonic1] : SKIP generating sysinfo post-session-prolog session pass
+TEMPLATE USED: show_interfaces_status_qa.tmpl: show interfaces status Ethernet124
+[smic_sonic1] : SKIP saving config_db pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP saving running config pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP saving syslog pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP generating tech-support pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP collect core-files pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP saving sai_redis pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP generating sysinfo pre-module-prolog system/ntp/test_ntp_comprehensive.py 
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication Pass
+[smic_sonic1] : SKIP saving config_db post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP saving running config post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP saving syslog post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP generating tech-support post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP collect core-files post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP saving sai_redis post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP generating sysinfo post-module-prolog system/ntp/test_ntp_comprehensive.py Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key 
+TEMPLATE USED: show_ntp.tmpl: show ntp
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ignore
+[smic_sonic1] : SKIP saving config_db post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP saving running config post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP saving syslog post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP generating tech-support post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP collect core-files post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP saving sai_redis post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP generating sysinfo post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication pass
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+TEMPLATE USED: show_Vlan.tmpl: show vlan config
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ignore
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ignore
+[smic_sonic1] : SKIP saving config_db post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP saving running config post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP saving syslog post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP generating tech-support post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP collect core-files post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP saving sai_redis post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP generating sysinfo post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF pass
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPShowCommands.test_ntp_show_associations_validation Pass
+[smic_sonic1] : SKIP saving config_db post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP saving running config post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP saving syslog post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP generating tech-support post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP collect core-files post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP saving sai_redis post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP generating sysinfo post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands pass
+[smic_sonic1] : SKIP saving config_db post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP saving running config post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP saving syslog post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP generating tech-support post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP collect core-files post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP saving sai_redis post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP generating sysinfo post-class-prolog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_duplicate_server Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_empty_password Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_invalid_server_address Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP generating tech-support pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP collect core-files pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP generating tech-support post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP collect core-files post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface Pass
+[smic_sonic1] : SKIP saving config_db pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP saving running config pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP saving syslog pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP generating tech-support pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP collect core-files pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP saving sai_redis pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP generating sysinfo pre-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use 
+[smic_sonic1] : SKIP saving config_db post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP saving running config post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP saving syslog post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP generating tech-support post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP collect core-files post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP saving sai_redis post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP generating sysinfo post-function-prolog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Pass
+[smic_sonic1] : SKIP saving config_db pre-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Fail
+[smic_sonic1] : SKIP saving running config pre-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Fail
+[smic_sonic1] : SKIP saving syslog pre-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Fail
+[smic_sonic1] : SKIP saving sai_redis pre-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Fail
+[smic_sonic1] : SKIP generating sysinfo pre-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use Fail
+[smic_sonic1] : SKIP saving config_db post-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ignore
+[smic_sonic1] : SKIP saving running config post-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ignore
+[smic_sonic1] : SKIP saving syslog post-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ignore
+[smic_sonic1] : SKIP saving sai_redis post-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ignore
+[smic_sonic1] : SKIP generating sysinfo post-function-epilog TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ignore
+[smic_sonic1] : SKIP saving config_db post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP saving running config post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP saving syslog post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP generating tech-support post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP collect core-files post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP saving sai_redis post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP generating sysinfo post-class-epilog system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests pass
+[smic_sonic1] : SKIP saving config_db post-module-epilog system/ntp/test_ntp_comprehensive.py fail
+[smic_sonic1] : SKIP saving running config post-module-epilog system/ntp/test_ntp_comprehensive.py fail
+[smic_sonic1] : SKIP saving syslog post-module-epilog system/ntp/test_ntp_comprehensive.py fail
+[smic_sonic1] : SKIP saving sai_redis post-module-epilog system/ntp/test_ntp_comprehensive.py fail
+[smic_sonic1] : SKIP generating sysinfo post-module-epilog system/ntp/test_ntp_comprehensive.py fail
+[smic_sonic1] : SKIP saving config_db session-epilog session pass
+[smic_sonic1] : SKIP saving running config session-epilog session pass
+[smic_sonic1] : SKIP saving syslog session-epilog session pass
+[smic_sonic1] : SKIP generating tech-support session-epilog session pass
+[smic_sonic1] : SKIP saving sai_redis session-epilog session pass
+[smic_sonic1] : SKIP generating sysinfo session-epilog session pass

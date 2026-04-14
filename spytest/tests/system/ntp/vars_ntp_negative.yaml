@@ -1,0 +1,208 @@
+# NTP Negative Test Suite Variables
+# This YAML file contains test data for NTP negative test cases (NEG-001 through NEG-008)
+# Author: Athira
+# Date: 2026-04-10
+
+defaults:
+  cli_type: klish  # Always use KLISH for IS-CLI validation
+  verify_timeout: 60  # Timeout for verification polling (seconds)
+  cleanup: true  # Enable cleanup after tests
+
+# =============================================================================
+# NEGATIVE TEST CASES
+# =============================================================================
+
+testcases:
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_001: Enable NTP with No Server Configured
+  # ---------------------------------------------------------------------------
+  NTP_NEG_001:
+    title: "Enable NTP with no server configured"
+    priority: P1
+    category: negative_testing
+    description: "Verify system handles enabling NTP without servers gracefully"
+    expected_result:
+      - Empty associations table with headers displayed
+      - NTP service shows as enabled
+      - No system crashes or errors
+      - CLI remains responsive
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_002: Remove Non-Existent NTP Server
+  # ---------------------------------------------------------------------------
+  NTP_NEG_002:
+    title: "Remove non-existent NTP server"
+    priority: P2
+    category: negative_testing
+    description: "Verify error handling when deleting non-existent server"
+    test_server: "10.99.99.99"  # Non-existent server for testing
+    expected_result:
+      - Error message or graceful handling
+      - Server list unchanged
+      - System stability maintained
+    known_issues:
+      - issue: "Command completes silently without error message"
+        severity: "Medium"
+        status: "Documented in manual test report"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_003: Configure Authentication Key with Invalid Key ID
+  # ---------------------------------------------------------------------------
+  NTP_NEG_003:
+    title: "Configure authentication key with invalid key ID"
+    priority: P1
+    category: input_validation
+    description: "Verify rejection of invalid key IDs (0 and >65535)"
+    test_cases:
+      - key_id: 0
+        password: "BoundaryTest0"
+        expected: "Rejected (below minimum)"
+      - key_id: 70000
+        password: "BoundaryTest70000"
+        expected: "Rejected (above maximum)"
+    valid_range: "1-65535"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_004: Trust Key ID with No Authentication-Key Defined
+  # ---------------------------------------------------------------------------
+  NTP_NEG_004:
+    title: "Trust key ID with no authentication-key defined"
+    priority: P1
+    category: input_validation
+    description: "Verify error when marking undefined key as trusted"
+    test_key_id: 999
+    expected_error: "Authentication key does not exist"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_005: Assign Server Key Binding to Undefined Key ID
+  # ---------------------------------------------------------------------------
+  NTP_NEG_005:
+    title: "Assign server key binding to undefined key ID"
+    priority: P1
+    category: input_validation
+    description: "Verify error when binding server to undefined authentication key"
+    test_server: "192.168.100.10"
+    test_key_id: 777
+    expected_error: "Invalid authentication key configuration"
+    known_issues:
+      - issue: "Even DEFINED keys are rejected (bug)"
+        severity: "Critical"
+        bug_id: "BUG-NTP-006"
+        status: "Documented in manual test report"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_006: Delete Auth Key While Referenced by Trusted-Key
+  # ---------------------------------------------------------------------------
+  NTP_NEG_006:
+    title: "Delete auth key while referenced by trusted-key"
+    priority: P2
+    category: error_handling
+    description: "Verify graceful handling when deleting key in use"
+    test_key_id: 888
+    test_server: "216.239.35.0"  # Google Public NTP
+    expected_result:
+      - Graceful handling (error message OR cascade deletion)
+      - System remains stable
+      - No crashes
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_007: Configure Invalid VRF Name for NTP
+  # ---------------------------------------------------------------------------
+  NTP_NEG_007:
+    title: "Configure invalid VRF name for NTP"
+    priority: P2
+    category: input_validation
+    description: "Verify rejection of invalid VRF names"
+    invalid_vrf: "nonexistent-vrf-12345"
+    expected_error: "VRF does not exist"
+    valid_vrfs:
+      - "default"
+      - "mgmt"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_NEG_008: Configure Source Interface That Does Not Exist
+  # ---------------------------------------------------------------------------
+  NTP_NEG_008:
+    title: "Configure source interface that does not exist"
+    priority: P1
+    category: input_validation
+    description: "Verify rejection of non-existent source interface"
+    nonexistent_interface: "Ethernet999"
+    expected_error: "Interface not found"
+
+# =============================================================================
+# TEST EXECUTION SETTINGS
+# =============================================================================
+
+execution:
+  parallel_execution: false  # Run tests sequentially
+  stop_on_failure: false  # Continue even if one test fails
+  collect_tech_support: on_failure  # Collect tech-support on failures
+  syslog_check: minimal  # Check for critical errors only
+  enable_ftrace: false  # Disable ftrace for performance
+
+# =============================================================================
+# SUCCESS CRITERIA
+# =============================================================================
+
+success_criteria:
+  TC_NTP_NEG_001:
+    - "NTP service enables successfully without servers"
+    - "Show commands execute without errors"
+    - "Empty associations table displays with headers"
+    - "System remains stable"
+
+  TC_NTP_NEG_002:
+    - "Deletion of non-existent server handled gracefully"
+    - "Server list remains unchanged"
+    - "System remains stable"
+
+  TC_NTP_NEG_003:
+    - "Key ID 0 rejected with error or not configured"
+    - "Key ID >65535 rejected with error or not configured"
+    - "Valid key range (1-65535) enforced"
+
+  TC_NTP_NEG_004:
+    - "Undefined key cannot be marked as trusted"
+    - "Appropriate error message displayed"
+    - "System remains stable"
+
+  TC_NTP_NEG_005:
+    - "Server cannot be bound to undefined authentication key"
+    - "Appropriate error message displayed"
+    - "System remains stable"
+
+  TC_NTP_NEG_006:
+    - "Deletion of key in use handled gracefully"
+    - "Either error message OR cascade deletion"
+    - "System remains stable"
+
+  TC_NTP_NEG_007:
+    - "Invalid VRF name rejected"
+    - "Appropriate error message displayed"
+    - "VRF not configured"
+
+  TC_NTP_NEG_008:
+    - "Non-existent interface rejected"
+    - "Appropriate error message displayed"
+    - "Source interface not configured"
+
+# =============================================================================
+# TROUBLESHOOTING
+# =============================================================================
+
+troubleshooting:
+  no_error_messages:
+    symptoms: "Commands complete silently without error messages"
+    note: "Some negative tests may not show explicit errors (implementation-specific)"
+    validation: "Test verifies command was rejected by checking configuration unchanged"
+
+  test_precondition_failed:
+    symptoms: "Test key/server already exists before test"
+    solution: "Cleanup function should remove all config before each test"
+    check: "Review _cleanup_all_ntp_config() function"
+
+  system_instability:
+    symptoms: "System crashes or becomes unresponsive during negative tests"
+    action: "Collect tech-support and report as critical bug"
+    priority: "P0 - Immediate attention required"

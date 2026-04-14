@@ -1,0 +1,1022 @@
+framework,,,D1,normal-user,show interfaces status Ethernet124
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 203.123.48.1
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 84.33.16.6
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,ntp authentication-key 10 md5 "TestPass123"
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,ntp server 192.168.100.175 iburst key 10
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 159.223.60.208
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 45.77.249.167
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 159.223.60.208
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 45.77.249.167
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,ntp authentication-key 1 md5 "MySecret123"
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,ntp trusted-key 1
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,ntp server 216.239.35.0 prefer iburst key 1
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 162.159.200.1
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 45.77.249.167
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_md5,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 162.159.200.1
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 45.77.249.167
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,ntp authentication-key 2 sha1 "SHA1Secret456"
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,ntp trusted-key 2
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,ntp server 216.239.35.0 iburst key 2
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 162.159.200.1
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 84.33.16.6
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 162.159.200.1
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 84.33.16.6
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,ntp authentication-key 3 md5 "WrongPassword789"
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,ntp trusted-key 3
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,ntp server 216.239.35.0 iburst key 3
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 162.159.200.1
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 64.235.45.239
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 162.159.200.1
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 64.235.45.239
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,ntp authentication-key 4 sha256 "SHA256SecurePass"
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,ntp trusted-key 4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,ntp server 216.239.35.0 key 4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 162.159.200.1
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 64.235.45.239
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 5.223.49.159
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 64.235.45.239
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,ntp authentication-key 5 sha512 "SHA512VerySecurePassword"
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,ntp trusted-key 5
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,ntp server 216.239.35.0 key 5
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 5.223.49.159
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 159.223.60.208
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,show ntp
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 5.223.49.159
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 159.223.60.208
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,ntp authentication-key 7 md5 "ActiveKeyPass"
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,ntp server 216.239.35.0 iburst key 7
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,show ntp
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 5.223.49.159
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 159.223.60.208
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp enable
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,show ntp
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 5.223.49.159
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 159.223.60.208
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 10.10.10.99
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 192.168.100.175
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.12
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.4
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp server 216.239.35.8
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp source-interface Ethernet 0
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,ntp vrf default
+module-or-class-epilog,,TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,show ntp
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 5.223.49.159
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 159.223.60.208
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,sudo -s config vlan add 10
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,ntp source-interface Vlan10
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-user,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,show vlan config
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,sudo -s config vlan del 10
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,show vlan config
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,show ntp
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 5.223.49.159
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 159.223.60.208
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,normal-user,show ntp
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,normal-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 5.223.49.159
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 159.223.60.208
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,exit
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,exit
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,ntp vrf mgmt
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-user,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,normal-user,show ntp
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 5.223.49.159
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 159.223.60.208
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,show ntp
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 5.223.49.159
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 159.223.60.208
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,ntp vrf mgmt
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,ntp server 216.239.35.0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,ntp enable
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,show ntp
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 23.106.249.200
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 15.235.181.37
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp enable
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,show ntp
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 64.235.61.113
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 15.235.181.37
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 10.10.10.99
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 192.168.100.175
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.12
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.4
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp server 216.239.35.8
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp source-interface Ethernet 0
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,ntp vrf default
+module-or-class-epilog,,TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,show ntp
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,configure terminal
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 64.235.61.113
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 15.235.181.37
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,ntp server 216.239.35.0 iburst
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,ntp server 216.239.35.4
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,ntp enable
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,do show ntp associations
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,show ntp
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 64.235.61.113
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 128.199.169.185
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp enable
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,show ntp
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 64.235.61.113
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 128.199.169.185
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 10.10.10.99
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 192.168.100.175
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.12
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.4
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp server 216.239.35.8
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp source-interface Ethernet 0
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,ntp vrf default
+module-or-class-epilog,,TestNTPShowCommands.test_ntp_show_associations_validation,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 64.235.61.113
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 128.199.169.185
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,ntp authentication-key 0 md5 InvalidKey
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 64.235.61.113
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 128.199.169.185
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 64.235.61.113
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 128.199.169.185
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,ntp authentication-key 70000 md5 OutOfRange
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 64.235.61.113
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 128.199.169.185
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 64.235.61.113
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 128.199.169.185
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,ntp authentication-key 80 aes256 UnsupportedAlgo
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 142.91.103.26
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 128.199.169.185
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 142.91.103.26
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 128.199.169.185
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,show ntp server
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 142.91.103.26
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 128.199.169.185
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_duplicate_server,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 142.91.103.26
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 128.199.169.185
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,ntp authentication-key 30 md5
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 142.91.103.26
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 128.199.169.185
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_empty_password,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 142.91.103.26
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 128.199.169.185
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,ntp server 999.999.999.999
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,do show ntp server
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 64.235.61.113
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 23.106.249.200
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_invalid_server_address,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 64.235.61.113
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 23.106.249.200
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,ntp source-interface Ethernet9999
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-user,show ntp global
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-user,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 64.235.61.113
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 23.106.249.200
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface,D1,mgmt-config,no ntp enable
+framework,,,D1,mgmt-config,exit
+framework,,,D1,mgmt-config,exit
+framework,,,D1,normal-user,show interfaces status Ethernet124
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,show ntp
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 64.235.61.113
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 23.106.249.200
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 10.10.10.99
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 192.168.100.175
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.0
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.12
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.4
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.8
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp authenticate
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,ntp vrf default
+function-prolog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp enable
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,ntp authentication-key 60 md5 "InUseKey"
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,ntp server 216.239.35.0 key 60
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,show ntp
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 15.235.197.63
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 5.223.50.207
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 10.10.10.99
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 192.168.100.175
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.12
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.4
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.8
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp authenticate
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp source-interface Ethernet 0
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,ntp vrf default
+function-or-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp enable
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,show ntp
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,sonic-cli prompt=--sonic-mgmt-- -t 0
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,normal-user,configure terminal
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 15.235.197.63
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 5.223.50.207
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 10.10.10.99
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 192.168.100.175
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.0
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.12
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.4
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp server 216.239.35.8
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp authenticate
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp source-interface Ethernet 0
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,exit
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-user,configure terminal
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,ntp vrf default
+module-or-class-epilog,,TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use,D1,mgmt-config,no ntp enable
