@@ -1,0 +1,19 @@
+build: SONiC.oc-integration.0-30c3d7ed7
+uitype: click
+Execution Started: 2026-04-11 11:13:55.455189
+Execution Completed: 2026-04-11 11:35:42.910216
+Execution Time: 0:21:48
+DailyRun: 0
+Python: 3.12.3
+Combined Report: 0
+GCOV Run: 0
+Image Build Path: 
+EMail: None
+EMailSubject: Run Report
+Dry Run: 0
+GCOV_POST_RUN_KPI_UPDATE: 0
+GCOV_MERGE_HTML: 0
+Pass Rate: 47.37%
+Suite: 
+Platforms Not Covered: 
+Chips Not Covered: 

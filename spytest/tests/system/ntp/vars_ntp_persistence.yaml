@@ -1,0 +1,443 @@
+# NTP Persistence Test Suite Variables
+# This YAML file contains test data for NTP configuration persistence tests
+# Author: Athira
+# Date: 2026-04-10
+
+defaults:
+  cli_type: klish  # Always use KLISH for IS-CLI validation
+  verify_timeout: 60  # Timeout for verification polling (seconds)
+  sync_timeout: 120  # Timeout for NTP synchronization (seconds)
+  reload_timeout: 300  # Timeout for config reload (5 minutes)
+  reboot_timeout: 600  # Timeout for system reboot (10 minutes)
+  cleanup: true  # Enable cleanup after tests
+  min_topology:
+    - "D1:1"  # Single DUT minimum
+
+  # Test NTP server - Google Public NTP (always reachable)
+  test_server: "216.239.35.0"  # time.google.com - Google Public NTP
+
+  # Alternative public NTP servers (for fallback)
+  fallback_servers:
+    - "0.pool.ntp.org"
+    - "time.google.com"
+    - "216.239.35.4"  # time2.google.com
+
+  # Local test server (use only if you have local NTP server set up)
+  local_test_server: "192.168.100.175"  # Optional local NTP server
+
+# =============================================================================
+# PERSISTENCE TEST CASES
+# =============================================================================
+
+testcases:
+  # ---------------------------------------------------------------------------
+  # TC_NTP_PERSIST_001: Config Save and Daemon Restart Persistence
+  # ---------------------------------------------------------------------------
+  NTP_PERSIST_001:
+    title: "NTP configuration persists after config save and daemon restart"
+    priority: P1
+    category: persistence
+    description: |
+      Verify that comprehensive NTP configuration (service enable, authentication,
+      keys, servers, source interface, VRF) persists correctly after:
+      1. Configuration save operation (sudo config save -y)
+      2. NTP daemon restart (systemctl restart ntp-config)
+
+    test_type: persistence
+    duration: "~5 minutes"
+
+    # Configuration to apply
+    configuration:
+      ntp_enable: true
+      ntp_authenticate: true
+      auth_key:
+        key_id: 100
+        auth_type: md5
+        password: "TestPersist123"
+      trusted_key: 100
+      server:
+        address: "{{test_server}}"  # Will be replaced with defaults.test_server
+        iburst: true
+        prefer: true
+        # Note: Don't bind key to server initially (manual test finding)
+        # Server must be configured without auth, then deleted and re-added with auth
+      source_interface: "Ethernet0"  # Will be dynamically fetched from topology
+      vrf: "default"
+
+    # Expected results after save and restart
+    expected_result:
+      ntp_service: enabled
+      authentication: enabled
+      server_present: true
+      config_db_valid: true
+      persistence: success
+
+    # Operations to perform
+    operations:
+      - config_ntp_setup
+      - save_configuration
+      - verify_config_db
+      - restart_ntp_daemon
+      - verify_persistence
+
+    # Known issues from manual testing
+    known_issues:
+      - issue: "Cannot modify existing server to add auth key"
+        workaround: "Delete server first, then re-add with auth key"
+        bug_id: "N/A"
+
+      - issue: "'write memory' command not supported in KLISH"
+        workaround: "Use 'sudo config save -y' or rely on auto-save"
+        resolution: "Using 'sudo config save -y'"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_PERSIST_002: Config Reload Persistence
+  # ---------------------------------------------------------------------------
+  NTP_PERSIST_002:
+    title: "NTP configuration persists across config reload"
+    priority: P1
+    category: persistence
+    description: |
+      Verify that NTP configuration survives a full configuration reload
+      (sudo config reload -y), which simulates a system reboot by:
+      1. Stopping all SONiC services
+      2. Reloading configuration from config_db.json
+      3. Restarting all SONiC services
+
+      This is a comprehensive test that validates configuration persistence
+      in a near-reboot scenario (safer than full reboot for VS environments).
+
+    test_type: persistence_reload
+    duration: "~6 minutes"
+    WARNING: "This test takes 3-5 minutes due to config reload operation"
+
+    # Configuration to apply
+    configuration:
+      ntp_enable: true
+      ntp_authenticate: true
+      auth_key:
+        key_id: 50
+        auth_type: md5
+        password: "ReloadTest123"
+      trusted_key: 50
+      server:
+        address: "{{test_server}}"
+        iburst: true
+        # No auth key binding (will be configured after server)
+      source_interface: "Ethernet4"  # Different from PERSIST_001
+      vrf: "default"
+
+    # Expected results after reload
+    expected_result:
+      ntp_service: enabled
+      authentication: enabled
+      server_present: true
+      config_db_valid: true
+      persistence_across_reload: success
+      services_operational: true
+
+    # Operations to perform
+    operations:
+      - config_ntp_setup
+      - save_configuration
+      - verify_config_db_before
+      - execute_config_reload  # Main operation (takes ~3 minutes)
+      - wait_for_system_up
+      - verify_persistence_after_reload
+      - verify_config_db_after
+
+    # Platform-specific settings
+    platform_settings:
+      virtual:
+        # For VS, config reload is preferred over full reboot
+        use_config_reload: true
+        reload_timeout: 300  # 5 minutes
+        stabilization_wait: 30  # seconds after reload
+
+      hardware:
+        # For HW, can use config reload or full reboot
+        use_config_reload: true
+        reload_timeout: 300
+        stabilization_wait: 30
+
+    # Known issues
+    known_issues:
+      - issue: "Config reload may take 3-5 minutes to complete"
+        impact: "Test duration"
+        mitigation: "Increased timeout to 5 minutes"
+
+  # ---------------------------------------------------------------------------
+  # TC_NTP_PERSIST_003: Running-Config Accuracy Validation
+  # ---------------------------------------------------------------------------
+  NTP_PERSIST_003:
+    title: "Running-config accuracy validation"
+    priority: P1
+    category: persistence_running_config
+    description: |
+      Verify that 'show running-configuration' command accurately reflects
+      the current NTP configuration state, including:
+      - NTP enable/disable state
+      - NTP authentication settings
+      - Authentication keys with correct algorithms
+      - NTP servers with all options
+      - Source interface configuration
+      - VRF binding
+
+      This test also validates authentication key command syntax based on
+      bug investigation findings from manual testing.
+
+    test_type: running_config_validation
+    duration: "~3 minutes"
+
+    # Configuration to apply
+    configuration:
+      auth_key:
+        key_id: 10
+        auth_type: md5
+        password: "TestKey123"
+      trusted_key: 10
+      ntp_authenticate: true
+      server:
+        address: "{{test_server}}"
+        iburst: true
+      ntp_enable: true
+
+    # Elements to verify in running-config
+    expected_in_running_config:
+      - pattern: "ntp authentication-key 10"
+        description: "Authentication key 10 present"
+
+      - pattern: "ntp trusted-key 10"
+        description: "Trusted key 10 marked"
+        optional: true  # May be implicit
+
+      - pattern: "ntp authenticate"
+        description: "Authentication enabled"
+        optional: true  # May be implicit
+
+      - pattern: "{{test_server}}"
+        description: "NTP server configured"
+
+      - pattern: "iburst"
+        description: "iburst option present"
+        optional: true  # May not appear in all formats
+
+      - pattern: "ntp enable"
+        description: "NTP service enabled"
+        optional: true  # May be implicit
+
+    # Cross-verification with show commands
+    verify_via_show_commands:
+      - command: "show ntp global"
+        expected:
+          ntp_service: enabled
+          authentication: enabled
+
+      - command: "show ntp server"
+        expected:
+          server_present: "{{test_server}}"
+
+    # Syntax testing (from bug investigation)
+    syntax_tests:
+      - test: "Correct syntax: ntp authentication-key"
+        command: "ntp authentication-key 10 md5 TestKey123"
+        expected: success
+
+      # Typo from bug report
+      - test: "Incorrect syntax: ntp authenticate-key (missing 'ion')"
+        command: "ntp authenticate-key 10 md5 TestKey123"
+        expected: error
+        error_pattern: "Invalid input|Error"
+        note: "Common typo - missing 'ion' in 'authentication'"
+
+    # Known issues from manual testing
+    known_issues:
+      - issue: "KLISH does not support grep with single-quoted strings"
+        command_fails: "show running-configuration | grep 'authentication-key 10'"
+        workaround: "Use: show running-configuration | grep ntp"
+        resolution: "Using grep without quotes"
+
+      - issue: "Bug report: 'Not able to configure the key. getting CLI error'"
+        root_cause: "User typo - used 'authenticate-key' instead of 'authentication-key'"
+        resolution: "Correct syntax: 'ntp authentication-key'"
+        status: "Not a bug - user error"
+
+# =============================================================================
+# TEST EXECUTION SETTINGS
+# =============================================================================
+
+execution:
+  parallel_execution: false  # Run tests sequentially (reload/restart conflicts)
+  stop_on_failure: false  # Continue even if one test fails
+  collect_tech_support: on_failure  # Collect tech-support on failures
+  syslog_check: minimal  # Check for critical errors only
+  enable_ftrace: false  # Disable ftrace for performance
+
+# =============================================================================
+# PLATFORM-SPECIFIC SETTINGS
+# =============================================================================
+
+platform_settings:
+  virtual:
+    # For virtual/VS platforms
+    reload_timeout: 360  # VS may be slower (6 minutes)
+    reboot_timeout: 720  # 12 minutes for full reboot
+    skip_reboot_tests: true  # Skip actual reboot tests on VS (use reload instead)
+    stabilization_wait: 40  # Longer stabilization for VS
+
+  hardware:
+    # For hardware platforms
+    reload_timeout: 300  # 5 minutes
+    reboot_timeout: 600  # 10 minutes
+    skip_reboot_tests: false  # Can run reboot tests on HW
+    stabilization_wait: 30
+
+# =============================================================================
+# CONFIG_DB.JSON VERIFICATION SCHEMA
+# =============================================================================
+
+# Expected structure in config_db.json for NTP configuration
+config_db_schema:
+  NTP:
+    global:
+      admin_state: "enabled|disabled"
+      vrf: "default|mgmt"
+      auth_enabled: "yes|no"
+      src_intf: "Ethernet0|Ethernet4|..."
+
+  NTP_SERVER:
+    # Dictionary keyed by server IP/hostname
+    # Example:
+    # "192.168.100.175": {
+    #   "iburst": "on|off",
+    #   "association_type": "server",
+    #   "key": "100",  # Optional
+    #   "prefer": "on|off"  # Optional
+    # }
+
+  NTP_KEY:
+    # Dictionary keyed by key ID
+    # Example:
+    # "100": {
+    #   "type": "md5|sha1|sha256|sha384|sha512",
+    #   "value": "encrypted_password",
+    #   "trusted": "yes|no"
+    # }
+
+# =============================================================================
+# HELPER COMMANDS
+# =============================================================================
+
+helper_commands:
+  # Save configuration
+  save_config: "sudo config save -y"
+
+  # Reload configuration
+  reload_config: "sudo config reload -y"
+
+  # Reboot system (use with caution)
+  reboot_system: "sudo reboot"
+
+  # Check config_db.json
+  view_config_db: "sudo cat /etc/sonic/config_db.json"
+  view_config_db_ntp: "sudo cat /etc/sonic/config_db.json | grep -A 20 '\"NTP\"'"
+
+  # Check NTP service status
+  check_ntp_service: "systemctl list-units | grep ntp"
+  ntp_service_status: "systemctl status ntp-config"
+
+  # Restart NTP daemon
+  restart_ntp_daemon: "sudo systemctl restart ntp-config"
+  restart_chrony: "sudo systemctl restart chrony"
+
+  # View running-config
+  view_running_config_ntp: "show running-configuration | grep ntp"
+
+# =============================================================================
+# KNOWN LIMITATIONS (From Manual Testing)
+# =============================================================================
+
+known_limitations:
+  - limitation: "Cannot modify existing server to add auth key"
+    test_cases: ["NTP_PERSIST_001"]
+    workaround: "Delete server first: 'no ntp server <IP>', then re-add with auth key"
+    impact: "Test must delete and re-add server when binding auth key"
+
+  - limitation: "'write memory' command not supported in KLISH"
+    test_cases: ["NTP_PERSIST_001"]
+    cisco_command: "write memory"
+    sonic_command: "sudo config save -y"
+    impact: "Tests use SONiC-appropriate save method"
+
+  - limitation: "Config reload takes 3-5 minutes to complete"
+    test_cases: ["NTP_PERSIST_002"]
+    impact: "Test duration"
+    mitigation: "Increased timeout, progress monitoring"
+
+  - limitation: "KLISH grep with single quotes not supported"
+    test_cases: ["NTP_PERSIST_003"]
+    command_fails: "show running-configuration | grep 'pattern'"
+    workaround: "Use: show running-configuration | grep pattern"
+    impact: "Tests use grep without quotes"
+
+# =============================================================================
+# TEST SUCCESS CRITERIA
+# =============================================================================
+
+success_criteria:
+  TC_NTP_PERSIST_001:
+    - "All NTP configuration saved to config_db.json"
+    - "Configuration persists after ntp-config daemon restart"
+    - "show ntp global reflects configuration after restart"
+    - "NTP servers present after restart"
+
+  TC_NTP_PERSIST_002:
+    - "Configuration saved successfully"
+    - "Config reload completes within timeout"
+    - "Device comes back up and is accessible"
+    - "All NTP configuration restored from config_db.json"
+    - "NTP service operational after reload"
+
+  TC_NTP_PERSIST_003:
+    - "show running-configuration contains all NTP settings"
+    - "Authentication key syntax validated"
+    - "show ntp global matches running-config"
+    - "All configured elements visible in running-config"
+
+# =============================================================================
+# TROUBLESHOOTING TIPS
+# =============================================================================
+
+troubleshooting:
+  config_reload_hangs:
+    symptoms: "Config reload does not complete within 5 minutes"
+    possible_causes:
+      - "System overloaded"
+      - "Service startup dependency issues"
+      - "Network connectivity problems"
+    actions:
+      - "Increase reload_timeout in YAML"
+      - "Check system logs: journalctl -xe"
+      - "Verify device is still accessible: ping DUT"
+
+  configuration_not_persisting:
+    symptoms: "Configuration lost after reload/restart"
+    possible_causes:
+      - "Config not saved before reload"
+      - "config_db.json corrupted"
+      - "Service failed to apply configuration"
+    actions:
+      - "Verify config save succeeded"
+      - "Check config_db.json manually"
+      - "Review NTP service logs: systemctl status ntp-config"
+
+  running_config_mismatch:
+    symptoms: "show running-configuration doesn't match show ntp global"
+    possible_causes:
+      - "Configuration not committed"
+      - "Display format differences"
+      - "Implicit vs explicit settings"
+    actions:
+      - "Execute 'exit' to commit config changes"
+      - "Check both running-config and show commands"
+      - "Verify config_db.json as ground truth"

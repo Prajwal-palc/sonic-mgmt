@@ -4,10 +4,11 @@
 
 set -e
 
-NTP_SERVER="192.168.100.175"
-DUT_IP="192.168.100.133"
-DUT_USER="admin"
-DUT_PASS="root@123"
+NTP_SERVER="${NTP_SERVER:-216.239.35.0}"  # Default to Google Public NTP (time.google.com)
+NTP_SERVER_ALT="216.239.35.4"  # Alternative Google NTP (time2.google.com)
+DUT_IP="${DUT_IP:-192.168.100.147}"  # Default DUT IP
+DUT_USER="${DUT_USER:-admin}"
+DUT_PASS="${DUT_PASS:-root@123}"
 
 echo "========================================="
 echo "NTP Server Verification"

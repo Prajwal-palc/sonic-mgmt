@@ -19,7 +19,7 @@ fi
 # Get the primary IP address
 PRIMARY_IP=$(hostname -I | awk '{print $1}')
 echo "Primary IP: $PRIMARY_IP"
-echo "DUT IP: 192.168.100.133"
+echo "DUT IP: 192.168.100.147"
 echo ""
 
 # Install chrony (modern NTP implementation)

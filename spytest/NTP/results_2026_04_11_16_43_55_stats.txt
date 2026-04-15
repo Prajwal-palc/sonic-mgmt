@@ -1,0 +1,1441 @@
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:01.370
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:14:31,667 Thread-6 (_thread_func)CMD TIME: 1114 D1 = show interfaces status Ethernet124
+2026-04-11 11:14:33,205 Thread-6 (_thread_func)CMD TIME: 256 D1 = date -u +'%Y-%m-%d %H:%M:%S'
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_auth_enforcement_without_trusted_key ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 192.168.100.175
+TOTAL Test Time = 0:01:04
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:43.731
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:14:41,004 T0000: CMD TIME: 1370 D1 = show ntp
+2026-04-11 11:14:42,821 T0000: CMD TIME: 763 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:14:43,599 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:14:44,300 T0000: CMD TIME: 1267 D1 = no ntp server 203.123.48.1
+2026-04-11 11:14:45,582 T0000: CMD TIME: 1215 D1 = no ntp server 84.33.16.6
+2026-04-11 11:14:46,810 T0000: CMD TIME: 1214 D1 = no ntp server 10.10.10.99
+2026-04-11 11:14:48,037 T0000: CMD TIME: 1164 D1 = no ntp server 192.168.100.175
+2026-04-11 11:14:49,220 T0000: CMD TIME: 1070 D1 = no ntp server 216.239.35.0
+2026-04-11 11:14:50,305 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.12
+2026-04-11 11:14:51,535 T0000: CMD TIME: 1075 D1 = no ntp server 216.239.35.4
+2026-04-11 11:14:52,624 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.8
+2026-04-11 11:14:54,973 T0000: CMD TIME: 1218 D1 = no ntp authenticate
+2026-04-11 11:14:56,207 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:14:56,908 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:14:57,611 T0000: CMD TIME: 1264 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:14:58,891 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:14:59,581 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:15:00,273 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:15:02,328 T0000: CMD TIME: 1215 D1 = no ntp enable
+2026-04-11 11:15:04,385 T0000: CMD TIME: 1315 D1 = ntp authentication-key 10 md5 "TestPass123"
+2026-04-11 11:15:05,714 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:15:08,404 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:15:09,098 T0000: CMD TIME: 1116 D1 = ntp authenticate
+2026-04-11 11:15:10,228 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:15:10,919 T0000: CMD TIME: 310 D1 = exit
+2026-04-11 11:15:11,657 T0000: CMD TIME: 767 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:15:12,851 T0000: CMD TIME: 1366 D1 = show ntp global
+2026-04-11 11:15:14,649 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:15:15,344 T0000: CMD TIME: 1165 D1 = ntp server 192.168.100.175 iburst key 10
+2026-04-11 11:15:16,524 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:15:17,803 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:15:18,542 T0000: CMD TIME: 1218 D1 = show ntp
+2026-04-11 11:15:20,206 T0000: CMD TIME: 715 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:15:20,937 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:15:21,619 T0000: CMD TIME: 1211 D1 = no ntp server 159.223.60.208
+2026-04-11 11:15:22,842 T0000: CMD TIME: 1114 D1 = no ntp server 45.77.249.167
+2026-04-11 11:15:23,966 T0000: CMD TIME: 1364 D1 = no ntp server 10.10.10.99
+2026-04-11 11:15:25,343 T0000: CMD TIME: 1163 D1 = no ntp server 192.168.100.175
+2026-04-11 11:15:26,518 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.0
+2026-04-11 11:15:27,596 T0000: CMD TIME: 1269 D1 = no ntp server 216.239.35.12
+2026-04-11 11:15:28,874 T0000: CMD TIME: 1313 D1 = no ntp server 216.239.35.4
+2026-04-11 11:15:30,198 T0000: CMD TIME: 1213 D1 = no ntp server 216.239.35.8
+2026-04-11 11:15:32,669 T0000: CMD TIME: 1516 D1 = no ntp authenticate
+2026-04-11 11:15:34,194 T0000: CMD TIME: 256 D1 = exit
+2026-04-11 11:15:34,886 T0000: CMD TIME: 264 D1 = configure terminal
+2026-04-11 11:15:35,581 T0000: CMD TIME: 1416 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:15:37,012 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:15:37,707 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:15:38,394 T0000: CMD TIME: 1264 D1 = ntp vrf default
+2026-04-11 11:15:40,493 T0000: CMD TIME: 1314 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_md5 ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:01:08
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:47.122
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:15:46,102 T0000: CMD TIME: 1219 D1 = show ntp
+2026-04-11 11:15:47,768 T0000: CMD TIME: 814 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:15:48,597 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:15:49,291 T0000: CMD TIME: 1315 D1 = no ntp server 159.223.60.208
+2026-04-11 11:15:50,620 T0000: CMD TIME: 1114 D1 = no ntp server 45.77.249.167
+2026-04-11 11:15:51,748 T0000: CMD TIME: 1164 D1 = no ntp server 10.10.10.99
+2026-04-11 11:15:52,930 T0000: CMD TIME: 1316 D1 = no ntp server 192.168.100.175
+2026-04-11 11:15:54,263 T0000: CMD TIME: 1122 D1 = no ntp server 216.239.35.0
+2026-04-11 11:15:55,399 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.12
+2026-04-11 11:15:56,477 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.4
+2026-04-11 11:15:57,556 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.8
+2026-04-11 11:15:59,886 T0000: CMD TIME: 1217 D1 = no ntp authenticate
+2026-04-11 11:16:01,121 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:16:01,812 T0000: CMD TIME: 257 D1 = configure terminal
+2026-04-11 11:16:02,506 T0000: CMD TIME: 1166 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:16:03,690 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:16:04,382 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:16:05,075 T0000: CMD TIME: 1618 D1 = ntp vrf default
+2026-04-11 11:16:07,539 T0000: CMD TIME: 2272 D1 = no ntp enable
+2026-04-11 11:16:10,654 T0000: CMD TIME: 1315 D1 = ntp authentication-key 1 md5 "MySecret123"
+2026-04-11 11:16:11,983 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:16:12,675 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:16:13,367 T0000: CMD TIME: 1819 D1 = ntp trusted-key 1
+2026-04-11 11:16:15,199 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:16:15,892 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:16:16,584 T0000: CMD TIME: 1366 D1 = ntp authenticate
+2026-04-11 11:16:17,965 T0000: CMD TIME: 263 D1 = exit
+2026-04-11 11:16:18,653 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:16:19,383 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:16:20,724 T0000: CMD TIME: 1266 D1 = show ntp global
+2026-04-11 11:16:22,422 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:16:23,113 T0000: CMD TIME: 1266 D1 = ntp server 216.239.35.0 prefer iburst key 1
+2026-04-11 11:16:24,396 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:16:25,688 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:16:26,423 T0000: CMD TIME: 1321 D1 = show ntp
+2026-04-11 11:16:28,189 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:16:29,119 T0000: CMD TIME: 258 D1 = configure terminal
+2026-04-11 11:16:29,804 T0000: CMD TIME: 1365 D1 = no ntp server 162.159.200.1
+2026-04-11 11:16:31,181 T0000: CMD TIME: 1215 D1 = no ntp server 45.77.249.167
+2026-04-11 11:16:32,407 T0000: CMD TIME: 1214 D1 = no ntp server 10.10.10.99
+2026-04-11 11:16:33,633 T0000: CMD TIME: 1170 D1 = no ntp server 192.168.100.175
+2026-04-11 11:16:34,824 T0000: CMD TIME: 1167 D1 = no ntp server 216.239.35.0
+2026-04-11 11:16:36,002 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.12
+2026-04-11 11:16:37,126 T0000: CMD TIME: 1013 D1 = no ntp server 216.239.35.4
+2026-04-11 11:16:38,152 T0000: CMD TIME: 1012 D1 = no ntp server 216.239.35.8
+2026-04-11 11:16:40,425 T0000: CMD TIME: 1364 D1 = no ntp authenticate
+2026-04-11 11:16:41,805 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:16:42,493 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:16:43,191 T0000: CMD TIME: 1316 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:16:44,521 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:16:45,214 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:16:45,905 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:16:47,964 T0000: CMD TIME: 1214 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha1 ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:01:09
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:48.068
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:16:53,339 T0000: CMD TIME: 1170 D1 = show ntp
+2026-04-11 11:16:54,962 T0000: CMD TIME: 713 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:16:55,690 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:16:56,382 T0000: CMD TIME: 1166 D1 = no ntp server 162.159.200.1
+2026-04-11 11:16:57,563 T0000: CMD TIME: 1164 D1 = no ntp server 45.77.249.167
+2026-04-11 11:16:58,735 T0000: CMD TIME: 1011 D1 = no ntp server 10.10.10.99
+2026-04-11 11:16:59,755 T0000: CMD TIME: 1213 D1 = no ntp server 192.168.100.175
+2026-04-11 11:17:00,982 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.0
+2026-04-11 11:17:02,160 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.12
+2026-04-11 11:17:03,340 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.4
+2026-04-11 11:17:04,418 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.8
+2026-04-11 11:17:06,891 T0000: CMD TIME: 2280 D1 = no ntp authenticate
+2026-04-11 11:17:09,187 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:17:09,872 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:17:10,570 T0000: CMD TIME: 2172 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:17:12,758 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:17:13,463 T0000: CMD TIME: 256 D1 = configure terminal
+2026-04-11 11:17:14,152 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:17:16,207 T0000: CMD TIME: 1366 D1 = no ntp enable
+2026-04-11 11:17:18,419 T0000: CMD TIME: 1466 D1 = ntp authentication-key 2 sha1 "SHA1Secret456"
+2026-04-11 11:17:19,899 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:17:20,587 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:17:21,279 T0000: CMD TIME: 1567 D1 = ntp trusted-key 2
+2026-04-11 11:17:22,866 T0000: CMD TIME: 263 D1 = exit
+2026-04-11 11:17:23,565 T0000: CMD TIME: 268 D1 = configure terminal
+2026-04-11 11:17:24,267 T0000: CMD TIME: 1316 D1 = ntp authenticate
+2026-04-11 11:17:25,597 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:17:26,283 T0000: CMD TIME: 358 D1 = exit
+2026-04-11 11:17:27,064 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:17:28,417 T0000: CMD TIME: 1416 D1 = show ntp global
+2026-04-11 11:17:30,265 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:17:30,971 T0000: CMD TIME: 1272 D1 = ntp server 216.239.35.0 iburst key 2
+2026-04-11 11:17:32,271 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:17:33,475 T0000: CMD TIME: 306 D1 = exit
+2026-04-11 11:17:34,209 T0000: CMD TIME: 1315 D1 = show ntp
+2026-04-11 11:17:35,969 T0000: CMD TIME: 812 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:17:36,794 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:17:37,471 T0000: CMD TIME: 1261 D1 = no ntp server 162.159.200.1
+2026-04-11 11:17:38,740 T0000: CMD TIME: 1111 D1 = no ntp server 84.33.16.6
+2026-04-11 11:17:39,863 T0000: CMD TIME: 1063 D1 = no ntp server 10.10.10.99
+2026-04-11 11:17:40,937 T0000: CMD TIME: 1264 D1 = no ntp server 192.168.100.175
+2026-04-11 11:17:42,214 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.0
+2026-04-11 11:17:43,489 T0000: CMD TIME: 1163 D1 = no ntp server 216.239.35.12
+2026-04-11 11:17:44,663 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.4
+2026-04-11 11:17:45,737 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.8
+2026-04-11 11:17:48,108 T0000: CMD TIME: 1517 D1 = no ntp authenticate
+2026-04-11 11:17:49,641 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:17:50,332 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:17:51,029 T0000: CMD TIME: 1266 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:17:52,311 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:17:52,998 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:17:53,698 T0000: CMD TIME: 1367 D1 = ntp vrf default
+2026-04-11 11:17:55,910 T0000: CMD TIME: 1371 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha256 ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:01:09
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:48.148
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:18:01,520 T0000: CMD TIME: 1218 D1 = show ntp
+2026-04-11 11:18:03,170 T0000: CMD TIME: 814 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:18:03,998 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:18:04,701 T0000: CMD TIME: 1318 D1 = no ntp server 162.159.200.1
+2026-04-11 11:18:06,033 T0000: CMD TIME: 2272 D1 = no ntp server 84.33.16.6
+2026-04-11 11:18:08,320 T0000: CMD TIME: 2272 D1 = no ntp server 10.10.10.99
+2026-04-11 11:18:10,605 T0000: CMD TIME: 1265 D1 = no ntp server 192.168.100.175
+2026-04-11 11:18:11,885 T0000: CMD TIME: 1020 D1 = no ntp server 216.239.35.0
+2026-04-11 11:18:12,921 T0000: CMD TIME: 1216 D1 = no ntp server 216.239.35.12
+2026-04-11 11:18:14,151 T0000: CMD TIME: 1219 D1 = no ntp server 216.239.35.4
+2026-04-11 11:18:15,386 T0000: CMD TIME: 1266 D1 = no ntp server 216.239.35.8
+2026-04-11 11:18:17,915 T0000: CMD TIME: 1317 D1 = no ntp authenticate
+2026-04-11 11:18:19,248 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:18:19,937 T0000: CMD TIME: 256 D1 = configure terminal
+2026-04-11 11:18:20,628 T0000: CMD TIME: 1166 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:18:21,811 T0000: CMD TIME: 264 D1 = exit
+2026-04-11 11:18:22,506 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:18:23,199 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:18:25,255 T0000: CMD TIME: 1215 D1 = no ntp enable
+2026-04-11 11:18:27,313 T0000: CMD TIME: 1466 D1 = ntp authentication-key 3 md5 "WrongPassword789"
+2026-04-11 11:18:28,793 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:18:29,484 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:18:30,176 T0000: CMD TIME: 1368 D1 = ntp trusted-key 3
+2026-04-11 11:18:31,558 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:18:32,246 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:18:32,940 T0000: CMD TIME: 1315 D1 = ntp authenticate
+2026-04-11 11:18:34,269 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:18:34,961 T0000: CMD TIME: 264 D1 = exit
+2026-04-11 11:18:35,650 T0000: CMD TIME: 917 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:18:36,997 T0000: CMD TIME: 1216 D1 = show ntp global
+2026-04-11 11:18:38,650 T0000: CMD TIME: 266 D1 = configure terminal
+2026-04-11 11:18:39,360 T0000: CMD TIME: 1173 D1 = ntp server 216.239.35.0 iburst key 3
+2026-04-11 11:18:40,547 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:18:41,798 T0000: CMD TIME: 308 D1 = exit
+2026-04-11 11:18:42,535 T0000: CMD TIME: 1219 D1 = show ntp
+2026-04-11 11:18:44,204 T0000: CMD TIME: 813 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:18:45,031 T0000: CMD TIME: 258 D1 = configure terminal
+2026-04-11 11:18:45,716 T0000: CMD TIME: 1163 D1 = no ntp server 162.159.200.1
+2026-04-11 11:18:46,892 T0000: CMD TIME: 1114 D1 = no ntp server 64.235.45.239
+2026-04-11 11:18:48,017 T0000: CMD TIME: 1163 D1 = no ntp server 10.10.10.99
+2026-04-11 11:18:49,193 T0000: CMD TIME: 1263 D1 = no ntp server 192.168.100.175
+2026-04-11 11:18:50,468 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.0
+2026-04-11 11:18:51,543 T0000: CMD TIME: 1214 D1 = no ntp server 216.239.35.12
+2026-04-11 11:18:52,775 T0000: CMD TIME: 1269 D1 = no ntp server 216.239.35.4
+2026-04-11 11:18:54,056 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.8
+2026-04-11 11:18:56,582 T0000: CMD TIME: 1266 D1 = no ntp authenticate
+2026-04-11 11:18:57,862 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:18:58,549 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:18:59,243 T0000: CMD TIME: 1417 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:19:00,674 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:19:01,368 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:19:02,059 T0000: CMD TIME: 1465 D1 = ntp vrf default
+2026-04-11 11:19:04,364 T0000: CMD TIME: 1214 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha384 ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:01:07
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:46.018
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:19:10,540 T0000: CMD TIME: 1271 D1 = show ntp
+2026-04-11 11:19:12,259 T0000: CMD TIME: 864 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:19:13,138 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:19:13,830 T0000: CMD TIME: 1366 D1 = no ntp server 162.159.200.1
+2026-04-11 11:19:15,209 T0000: CMD TIME: 1215 D1 = no ntp server 64.235.45.239
+2026-04-11 11:19:16,437 T0000: CMD TIME: 1265 D1 = no ntp server 10.10.10.99
+2026-04-11 11:19:17,715 T0000: CMD TIME: 1115 D1 = no ntp server 192.168.100.175
+2026-04-11 11:19:18,843 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.0
+2026-04-11 11:19:19,971 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.12
+2026-04-11 11:19:21,143 T0000: CMD TIME: 1061 D1 = no ntp server 216.239.35.4
+2026-04-11 11:19:22,218 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.8
+2026-04-11 11:19:24,598 T0000: CMD TIME: 1370 D1 = no ntp authenticate
+2026-04-11 11:19:25,998 T0000: CMD TIME: 265 D1 = exit
+2026-04-11 11:19:26,703 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:19:27,400 T0000: CMD TIME: 1167 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:19:28,583 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:19:29,276 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:19:29,971 T0000: CMD TIME: 1217 D1 = ntp vrf default
+2026-04-11 11:19:32,029 T0000: CMD TIME: 1215 D1 = no ntp enable
+2026-04-11 11:19:34,088 T0000: CMD TIME: 1315 D1 = ntp authentication-key 4 sha256 "SHA256SecurePass"
+2026-04-11 11:19:35,420 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:19:36,110 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:19:36,803 T0000: CMD TIME: 1365 D1 = ntp trusted-key 4
+2026-04-11 11:19:38,182 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:19:38,870 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:19:39,561 T0000: CMD TIME: 1165 D1 = ntp authenticate
+2026-04-11 11:19:40,739 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:19:41,425 T0000: CMD TIME: 314 D1 = exit
+2026-04-11 11:19:42,170 T0000: CMD TIME: 762 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:19:43,358 T0000: CMD TIME: 1214 D1 = show ntp global
+2026-04-11 11:19:45,003 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:19:45,701 T0000: CMD TIME: 1115 D1 = ntp server 216.239.35.0 key 4
+2026-04-11 11:19:46,830 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:19:48,082 T0000: CMD TIME: 308 D1 = exit
+2026-04-11 11:19:48,817 T0000: CMD TIME: 1222 D1 = show ntp
+2026-04-11 11:19:50,484 T0000: CMD TIME: 711 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:19:51,212 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:19:51,903 T0000: CMD TIME: 1163 D1 = no ntp server 162.159.200.1
+2026-04-11 11:19:53,082 T0000: CMD TIME: 1169 D1 = no ntp server 64.235.45.239
+2026-04-11 11:19:54,273 T0000: CMD TIME: 1220 D1 = no ntp server 10.10.10.99
+2026-04-11 11:19:55,504 T0000: CMD TIME: 1264 D1 = no ntp server 192.168.100.175
+2026-04-11 11:19:56,780 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.0
+2026-04-11 11:19:57,958 T0000: CMD TIME: 1263 D1 = no ntp server 216.239.35.12
+2026-04-11 11:19:59,232 T0000: CMD TIME: 1163 D1 = no ntp server 216.239.35.4
+2026-04-11 11:20:00,408 T0000: CMD TIME: 1062 D1 = no ntp server 216.239.35.8
+2026-04-11 11:20:02,728 T0000: CMD TIME: 1421 D1 = no ntp authenticate
+2026-04-11 11:20:04,163 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:20:04,850 T0000: CMD TIME: 257 D1 = configure terminal
+2026-04-11 11:20:05,539 T0000: CMD TIME: 1417 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:20:06,972 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:20:07,661 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:20:08,342 T0000: CMD TIME: 2020 D1 = ntp vrf default
+2026-04-11 11:20:11,200 T0000: CMD TIME: 1264 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_complete_auth_workflow_sha512 ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:01:07
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:46.608
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:20:16,695 T0000: CMD TIME: 1275 D1 = show ntp
+2026-04-11 11:20:18,429 T0000: CMD TIME: 765 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:20:19,210 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:20:19,896 T0000: CMD TIME: 1515 D1 = no ntp server 5.223.49.159
+2026-04-11 11:20:21,425 T0000: CMD TIME: 1015 D1 = no ntp server 64.235.45.239
+2026-04-11 11:20:22,454 T0000: CMD TIME: 1065 D1 = no ntp server 10.10.10.99
+2026-04-11 11:20:23,534 T0000: CMD TIME: 1265 D1 = no ntp server 192.168.100.175
+2026-04-11 11:20:24,813 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.0
+2026-04-11 11:20:26,047 T0000: CMD TIME: 1021 D1 = no ntp server 216.239.35.12
+2026-04-11 11:20:27,085 T0000: CMD TIME: 1114 D1 = no ntp server 216.239.35.4
+2026-04-11 11:20:28,213 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.8
+2026-04-11 11:20:30,743 T0000: CMD TIME: 1216 D1 = no ntp authenticate
+2026-04-11 11:20:31,978 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:20:32,672 T0000: CMD TIME: 258 D1 = configure terminal
+2026-04-11 11:20:33,368 T0000: CMD TIME: 1217 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:20:34,604 T0000: CMD TIME: 269 D1 = exit
+2026-04-11 11:20:35,307 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:20:35,999 T0000: CMD TIME: 1165 D1 = ntp vrf default
+2026-04-11 11:20:38,005 T0000: CMD TIME: 1167 D1 = no ntp enable
+2026-04-11 11:20:40,018 T0000: CMD TIME: 1367 D1 = ntp authentication-key 5 sha512 "SHA512VerySecurePassword"
+2026-04-11 11:20:41,392 T0000: CMD TIME: 256 D1 = exit
+2026-04-11 11:20:42,083 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:20:42,786 T0000: CMD TIME: 1366 D1 = ntp trusted-key 5
+2026-04-11 11:20:44,166 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:20:44,855 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:20:45,548 T0000: CMD TIME: 1365 D1 = ntp authenticate
+2026-04-11 11:20:46,927 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:20:47,616 T0000: CMD TIME: 255 D1 = exit
+2026-04-11 11:20:48,309 T0000: CMD TIME: 714 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:20:49,458 T0000: CMD TIME: 1213 D1 = show ntp global
+2026-04-11 11:20:51,111 T0000: CMD TIME: 258 D1 = configure terminal
+2026-04-11 11:20:51,790 T0000: CMD TIME: 1164 D1 = ntp server 216.239.35.0 key 5
+2026-04-11 11:20:52,968 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:20:54,208 T0000: CMD TIME: 307 D1 = exit
+2026-04-11 11:20:54,944 T0000: CMD TIME: 1167 D1 = show ntp
+2026-04-11 11:20:56,545 T0000: CMD TIME: 712 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:20:57,270 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:20:57,956 T0000: CMD TIME: 1265 D1 = no ntp server 5.223.49.159
+2026-04-11 11:20:59,236 T0000: CMD TIME: 1264 D1 = no ntp server 159.223.60.208
+2026-04-11 11:21:00,511 T0000: CMD TIME: 1364 D1 = no ntp server 10.10.10.99
+2026-04-11 11:21:01,888 T0000: CMD TIME: 1466 D1 = no ntp server 192.168.100.175
+2026-04-11 11:21:03,366 T0000: CMD TIME: 1315 D1 = no ntp server 216.239.35.0
+2026-04-11 11:21:04,692 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.12
+2026-04-11 11:21:05,964 T0000: CMD TIME: 1362 D1 = no ntp server 216.239.35.4
+2026-04-11 11:21:07,334 T0000: CMD TIME: 2117 D1 = no ntp server 216.239.35.8
+2026-04-11 11:21:10,705 T0000: CMD TIME: 1266 D1 = no ntp authenticate
+2026-04-11 11:21:11,986 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:21:12,677 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:21:13,371 T0000: CMD TIME: 1216 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:21:14,596 T0000: CMD TIME: 255 D1 = exit
+2026-04-11 11:21:15,284 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:21:15,973 T0000: CMD TIME: 1166 D1 = ntp vrf default
+2026-04-11 11:21:17,976 T0000: CMD TIME: 1214 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPAuthentication.test_ntp_delete_auth_key_with_active_server ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:00:59
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:41.548
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:21:23,274 T0000: CMD TIME: 1169 D1 = show ntp
+2026-04-11 11:21:24,897 T0000: CMD TIME: 713 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:21:25,625 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:21:26,314 T0000: CMD TIME: 1313 D1 = no ntp server 5.223.49.159
+2026-04-11 11:21:27,638 T0000: CMD TIME: 1464 D1 = no ntp server 159.223.60.208
+2026-04-11 11:21:29,117 T0000: CMD TIME: 1265 D1 = no ntp server 10.10.10.99
+2026-04-11 11:21:30,390 T0000: CMD TIME: 1111 D1 = no ntp server 192.168.100.175
+2026-04-11 11:21:31,519 T0000: CMD TIME: 1118 D1 = no ntp server 216.239.35.0
+2026-04-11 11:21:32,652 T0000: CMD TIME: 1172 D1 = no ntp server 216.239.35.12
+2026-04-11 11:21:33,840 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.4
+2026-04-11 11:21:34,917 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.8
+2026-04-11 11:21:37,240 T0000: CMD TIME: 1320 D1 = no ntp authenticate
+2026-04-11 11:21:38,576 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:21:39,271 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:21:39,965 T0000: CMD TIME: 1472 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:21:41,453 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:21:42,146 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:21:42,836 T0000: CMD TIME: 1363 D1 = ntp vrf default
+2026-04-11 11:21:45,038 T0000: CMD TIME: 1367 D1 = no ntp enable
+2026-04-11 11:21:47,239 T0000: CMD TIME: 1413 D1 = ntp authentication-key 7 md5 "ActiveKeyPass"
+2026-04-11 11:21:48,661 T0000: CMD TIME: 255 D1 = exit
+2026-04-11 11:21:49,356 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:21:50,060 T0000: CMD TIME: 1217 D1 = ntp server 216.239.35.0 iburst key 7
+2026-04-11 11:21:51,304 T0000: CMD TIME: 263 D1 = exit
+2026-04-11 11:21:52,657 T0000: CMD TIME: 308 D1 = exit
+2026-04-11 11:21:53,394 T0000: CMD TIME: 1318 D1 = show ntp
+2026-04-11 11:21:55,155 T0000: CMD TIME: 813 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:21:55,975 T0000: CMD TIME: 256 D1 = configure terminal
+2026-04-11 11:21:56,656 T0000: CMD TIME: 1462 D1 = no ntp server 5.223.49.159
+2026-04-11 11:21:58,128 T0000: CMD TIME: 1262 D1 = no ntp server 159.223.60.208
+2026-04-11 11:21:59,404 T0000: CMD TIME: 1269 D1 = no ntp server 10.10.10.99
+2026-04-11 11:22:00,684 T0000: CMD TIME: 1013 D1 = no ntp server 192.168.100.175
+2026-04-11 11:22:01,709 T0000: CMD TIME: 1214 D1 = no ntp server 216.239.35.0
+2026-04-11 11:22:02,934 T0000: CMD TIME: 1163 D1 = no ntp server 216.239.35.12
+2026-04-11 11:22:04,105 T0000: CMD TIME: 1262 D1 = no ntp server 216.239.35.4
+2026-04-11 11:22:05,381 T0000: CMD TIME: 1163 D1 = no ntp server 216.239.35.8
+2026-04-11 11:22:07,809 T0000: CMD TIME: 2020 D1 = no ntp authenticate
+2026-04-11 11:22:09,844 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:22:10,533 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:22:11,227 T0000: CMD TIME: 1971 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:22:13,213 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:22:13,900 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:22:14,588 T0000: CMD TIME: 1164 D1 = ntp vrf default
+2026-04-11 11:22:16,591 T0000: CMD TIME: 1164 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:18.394
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:22:18,229 T0000: CMD TIME: 255 D1 = exit
+2026-04-11 11:22:18,497 T0000: CMD TIME: 310 D1 = exit
+2026-04-11 11:22:19,231 T0000: CMD TIME: 1067 D1 = show ntp
+2026-04-11 11:22:20,742 T0000: CMD TIME: 812 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:22:21,567 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:22:22,253 T0000: CMD TIME: 1163 D1 = no ntp server 5.223.49.159
+2026-04-11 11:22:23,427 T0000: CMD TIME: 1263 D1 = no ntp server 159.223.60.208
+2026-04-11 11:22:24,701 T0000: CMD TIME: 1213 D1 = no ntp server 10.10.10.99
+2026-04-11 11:22:25,930 T0000: CMD TIME: 1213 D1 = no ntp server 192.168.100.175
+2026-04-11 11:22:27,155 T0000: CMD TIME: 1214 D1 = no ntp server 216.239.35.0
+2026-04-11 11:22:28,376 T0000: CMD TIME: 1261 D1 = no ntp server 216.239.35.12
+2026-04-11 11:22:29,648 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.4
+2026-04-11 11:22:30,923 T0000: CMD TIME: 1112 D1 = no ntp server 216.239.35.8
+2026-04-11 11:22:33,283 T0000: CMD TIME: 1365 D1 = no ntp authenticate
+2026-04-11 11:22:34,662 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:22:35,346 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:22:36,036 T0000: CMD TIME: 1214 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:22:37,264 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:22:37,956 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:22:38,638 T0000: CMD TIME: 1163 D1 = ntp vrf default
+2026-04-11 11:22:40,634 T0000: CMD TIME: 1211 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF.test_ntp_source_interface_vlan_rejected ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:01:05
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:42.942
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:22:46,153 T0000: CMD TIME: 1421 D1 = show ntp
+2026-04-11 11:22:48,027 T0000: CMD TIME: 915 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:22:48,950 T0000: CMD TIME: 256 D1 = configure terminal
+2026-04-11 11:22:49,631 T0000: CMD TIME: 1315 D1 = no ntp server 5.223.49.159
+2026-04-11 11:22:50,959 T0000: CMD TIME: 1114 D1 = no ntp server 159.223.60.208
+2026-04-11 11:22:52,086 T0000: CMD TIME: 1064 D1 = no ntp server 10.10.10.99
+2026-04-11 11:22:53,170 T0000: CMD TIME: 1067 D1 = no ntp server 192.168.100.175
+2026-04-11 11:22:54,252 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.0
+2026-04-11 11:22:55,329 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.12
+2026-04-11 11:22:56,508 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.4
+2026-04-11 11:22:57,584 T0000: CMD TIME: 1266 D1 = no ntp server 216.239.35.8
+2026-04-11 11:23:00,107 T0000: CMD TIME: 1216 D1 = no ntp authenticate
+2026-04-11 11:23:01,339 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:23:02,033 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:23:02,732 T0000: CMD TIME: 1266 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:23:04,009 T0000: CMD TIME: 257 D1 = exit
+2026-04-11 11:23:04,693 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:23:05,389 T0000: CMD TIME: 1212 D1 = ntp vrf default
+2026-04-11 11:23:07,442 T0000: CMD TIME: 2323 D1 = no ntp enable
+2026-04-11 11:23:10,213 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:23:10,485 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:23:11,223 T0000: CMD TIME: 812 D1 = sudo -s config vlan add 10
+2026-04-11 11:23:14,459 T0000: CMD TIME: 761 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:23:15,245 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:23:15,929 T0000: CMD TIME: 256 D1 = ntp source-interface Vlan10
+2026-04-11 11:23:17,017 T0000: CMD TIME: 255 D1 = exit
+2026-04-11 11:23:17,695 T0000: CMD TIME: 1365 D1 = show ntp global
+2026-04-11 11:23:19,489 T0000: CMD TIME: 307 D1 = exit
+2026-04-11 11:23:20,224 T0000: CMD TIME: 711 D1 = show vlan config
+2026-04-11 11:23:21,392 T0000: CMD TIME: 1271 D1 = sudo -s config vlan del 10
+2026-04-11 11:23:23,098 T0000: CMD TIME: 720 D1 = show vlan config
+2026-04-11 11:23:24,271 T0000: CMD TIME: 1171 D1 = show ntp
+2026-04-11 11:23:25,890 T0000: CMD TIME: 761 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:23:26,666 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:23:27,352 T0000: CMD TIME: 1114 D1 = no ntp server 5.223.49.159
+2026-04-11 11:23:28,476 T0000: CMD TIME: 1062 D1 = no ntp server 159.223.60.208
+2026-04-11 11:23:29,550 T0000: CMD TIME: 1063 D1 = no ntp server 10.10.10.99
+2026-04-11 11:23:30,626 T0000: CMD TIME: 1062 D1 = no ntp server 192.168.100.175
+2026-04-11 11:23:31,697 T0000: CMD TIME: 1061 D1 = no ntp server 216.239.35.0
+2026-04-11 11:23:32,766 T0000: CMD TIME: 1010 D1 = no ntp server 216.239.35.12
+2026-04-11 11:23:33,789 T0000: CMD TIME: 1062 D1 = no ntp server 216.239.35.4
+2026-04-11 11:23:34,866 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.8
+2026-04-11 11:23:37,175 T0000: CMD TIME: 1165 D1 = no ntp authenticate
+2026-04-11 11:23:38,354 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:23:39,043 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:23:39,737 T0000: CMD TIME: 1318 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:23:41,068 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:23:41,756 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:23:42,444 T0000: CMD TIME: 1365 D1 = ntp vrf default
+2026-04-11 11:23:44,643 T0000: CMD TIME: 1314 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF.test_ntp_vrf_mgmt_configuration ===========================
+RESULT = Fail
+DESCRIPTION = NTP VRF not shown as mgmt in show ntp global
+TOTAL Test Time = 0:00:58
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:40.263
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:23:50,120 T0000: CMD TIME: 1317 D1 = show ntp
+2026-04-11 11:23:51,887 T0000: CMD TIME: 914 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:23:52,815 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:23:53,509 T0000: CMD TIME: 1265 D1 = no ntp server 5.223.49.159
+2026-04-11 11:23:54,788 T0000: CMD TIME: 1117 D1 = no ntp server 159.223.60.208
+2026-04-11 11:23:55,919 T0000: CMD TIME: 1416 D1 = no ntp server 10.10.10.99
+2026-04-11 11:23:57,344 T0000: CMD TIME: 1213 D1 = no ntp server 192.168.100.175
+2026-04-11 11:23:58,572 T0000: CMD TIME: 1217 D1 = no ntp server 216.239.35.0
+2026-04-11 11:23:59,804 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.12
+2026-04-11 11:24:00,933 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.4
+2026-04-11 11:24:02,061 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.8
+2026-04-11 11:24:04,397 T0000: CMD TIME: 1216 D1 = no ntp authenticate
+2026-04-11 11:24:05,630 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:24:06,322 T0000: CMD TIME: 256 D1 = configure terminal
+2026-04-11 11:24:07,013 T0000: CMD TIME: 2323 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:24:09,354 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:24:10,049 T0000: CMD TIME: 310 D1 = configure terminal
+2026-04-11 11:24:10,792 T0000: CMD TIME: 1065 D1 = ntp vrf default
+2026-04-11 11:24:12,701 T0000: CMD TIME: 1266 D1 = no ntp enable
+2026-04-11 11:24:14,804 T0000: CMD TIME: 1362 D1 = ntp vrf mgmt
+2026-04-11 11:24:17,000 T0000: CMD TIME: 257 D1 = exit
+2026-04-11 11:24:17,678 T0000: CMD TIME: 1265 D1 = show ntp global
+2026-04-11 11:24:19,957 T0000: CMD TIME: 308 D1 = exit
+2026-04-11 11:24:20,693 T0000: CMD TIME: 1272 D1 = show ntp
+2026-04-11 11:24:22,420 T0000: CMD TIME: 762 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:24:23,195 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:24:23,883 T0000: CMD TIME: 1365 D1 = no ntp server 5.223.49.159
+2026-04-11 11:24:25,264 T0000: CMD TIME: 1163 D1 = no ntp server 159.223.60.208
+2026-04-11 11:24:26,449 T0000: CMD TIME: 1320 D1 = no ntp server 10.10.10.99
+2026-04-11 11:24:27,787 T0000: CMD TIME: 1314 D1 = no ntp server 192.168.100.175
+2026-04-11 11:24:29,108 T0000: CMD TIME: 1110 D1 = no ntp server 216.239.35.0
+2026-04-11 11:24:30,231 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.12
+2026-04-11 11:24:31,301 T0000: CMD TIME: 1060 D1 = no ntp server 216.239.35.4
+2026-04-11 11:24:32,374 T0000: CMD TIME: 1114 D1 = no ntp server 216.239.35.8
+2026-04-11 11:24:34,737 T0000: CMD TIME: 1161 D1 = no ntp authenticate
+2026-04-11 11:24:35,913 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:24:36,603 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:24:37,294 T0000: CMD TIME: 1366 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:24:38,687 T0000: CMD TIME: 262 D1 = exit
+2026-04-11 11:24:39,369 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:24:40,055 T0000: CMD TIME: 1415 D1 = ntp vrf default
+2026-04-11 11:24:42,307 T0000: CMD TIME: 1314 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPSourceInterfaceAndVRF.test_ntp_vrf_switch_mgmt_to_default ===========================
+RESULT = Fail
+DESCRIPTION = Initial VRF not set to mgmt
+TOTAL Test Time = 0:01:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:43.628
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:24:47,760 T0000: CMD TIME: 1170 D1 = show ntp
+2026-04-11 11:24:49,378 T0000: CMD TIME: 865 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:24:50,254 T0000: CMD TIME: 256 D1 = configure terminal
+2026-04-11 11:24:50,941 T0000: CMD TIME: 1265 D1 = no ntp server 5.223.49.159
+2026-04-11 11:24:52,222 T0000: CMD TIME: 1064 D1 = no ntp server 159.223.60.208
+2026-04-11 11:24:53,301 T0000: CMD TIME: 1064 D1 = no ntp server 10.10.10.99
+2026-04-11 11:24:54,378 T0000: CMD TIME: 1064 D1 = no ntp server 192.168.100.175
+2026-04-11 11:24:55,455 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.0
+2026-04-11 11:24:56,689 T0000: CMD TIME: 1316 D1 = no ntp server 216.239.35.12
+2026-04-11 11:24:58,018 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.4
+2026-04-11 11:24:59,198 T0000: CMD TIME: 1266 D1 = no ntp server 216.239.35.8
+2026-04-11 11:25:01,728 T0000: CMD TIME: 1418 D1 = no ntp authenticate
+2026-04-11 11:25:03,163 T0000: CMD TIME: 262 D1 = exit
+2026-04-11 11:25:03,858 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:25:04,554 T0000: CMD TIME: 1317 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:25:05,890 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:25:06,582 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:25:07,273 T0000: CMD TIME: 2272 D1 = ntp vrf default
+2026-04-11 11:25:10,384 T0000: CMD TIME: 1567 D1 = no ntp enable
+2026-04-11 11:25:12,792 T0000: CMD TIME: 1214 D1 = ntp vrf mgmt
+2026-04-11 11:25:14,843 T0000: CMD TIME: 1366 D1 = ntp server 216.239.35.0
+2026-04-11 11:25:16,223 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:25:16,916 T0000: CMD TIME: 264 D1 = configure terminal
+2026-04-11 11:25:17,608 T0000: CMD TIME: 1214 D1 = ntp enable
+2026-04-11 11:25:19,658 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:25:20,331 T0000: CMD TIME: 1366 D1 = show ntp global
+2026-04-11 11:25:22,763 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:25:23,494 T0000: CMD TIME: 1166 D1 = show ntp
+2026-04-11 11:25:25,101 T0000: CMD TIME: 761 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:25:25,877 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:25:26,562 T0000: CMD TIME: 1414 D1 = no ntp server 23.106.249.200
+2026-04-11 11:25:27,988 T0000: CMD TIME: 1214 D1 = no ntp server 15.235.181.37
+2026-04-11 11:25:29,214 T0000: CMD TIME: 1265 D1 = no ntp server 10.10.10.99
+2026-04-11 11:25:30,490 T0000: CMD TIME: 1363 D1 = no ntp server 192.168.100.175
+2026-04-11 11:25:31,865 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.0
+2026-04-11 11:25:33,142 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.12
+2026-04-11 11:25:34,267 T0000: CMD TIME: 1114 D1 = no ntp server 216.239.35.4
+2026-04-11 11:25:35,393 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.8
+2026-04-11 11:25:37,717 T0000: CMD TIME: 1217 D1 = no ntp authenticate
+2026-04-11 11:25:38,948 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:25:39,642 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:25:40,338 T0000: CMD TIME: 1217 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:25:41,582 T0000: CMD TIME: 266 D1 = exit
+2026-04-11 11:25:42,290 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:25:42,977 T0000: CMD TIME: 1264 D1 = ntp vrf default
+2026-04-11 11:25:45,080 T0000: CMD TIME: 1314 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands.test_ntp_show_associations_validation ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:19.530
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:25:46,863 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:25:47,141 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:25:47,841 T0000: CMD TIME: 1118 D1 = show ntp
+2026-04-11 11:25:49,417 T0000: CMD TIME: 714 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:25:50,152 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:25:50,840 T0000: CMD TIME: 1365 D1 = no ntp server 64.235.61.113
+2026-04-11 11:25:52,217 T0000: CMD TIME: 1314 D1 = no ntp server 15.235.181.37
+2026-04-11 11:25:53,543 T0000: CMD TIME: 1264 D1 = no ntp server 10.10.10.99
+2026-04-11 11:25:54,819 T0000: CMD TIME: 1264 D1 = no ntp server 192.168.100.175
+2026-04-11 11:25:56,096 T0000: CMD TIME: 1465 D1 = no ntp server 216.239.35.0
+2026-04-11 11:25:57,576 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.12
+2026-04-11 11:25:58,850 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.4
+2026-04-11 11:26:00,026 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.8
+2026-04-11 11:26:02,403 T0000: CMD TIME: 1165 D1 = no ntp authenticate
+2026-04-11 11:26:03,583 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:26:04,273 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:26:04,969 T0000: CMD TIME: 1266 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:26:06,250 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:26:06,938 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:26:07,627 T0000: CMD TIME: 2220 D1 = ntp vrf default
+2026-04-11 11:26:10,683 T0000: CMD TIME: 1013 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPShowCommands.test_ntp_show_associations_validation ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:01:13
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:44.862
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:26:15,874 T0000: CMD TIME: 1119 D1 = show ntp
+2026-04-11 11:26:17,442 T0000: CMD TIME: 713 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:26:18,171 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:26:18,866 T0000: CMD TIME: 1417 D1 = no ntp server 64.235.61.113
+2026-04-11 11:26:20,296 T0000: CMD TIME: 1064 D1 = no ntp server 15.235.181.37
+2026-04-11 11:26:21,376 T0000: CMD TIME: 1066 D1 = no ntp server 10.10.10.99
+2026-04-11 11:26:22,465 T0000: CMD TIME: 1169 D1 = no ntp server 192.168.100.175
+2026-04-11 11:26:23,652 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.0
+2026-04-11 11:26:24,843 T0000: CMD TIME: 1219 D1 = no ntp server 216.239.35.12
+2026-04-11 11:26:26,076 T0000: CMD TIME: 1114 D1 = no ntp server 216.239.35.4
+2026-04-11 11:26:27,205 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.8
+2026-04-11 11:26:29,633 T0000: CMD TIME: 1467 D1 = no ntp authenticate
+2026-04-11 11:26:31,117 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:26:31,811 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:26:32,509 T0000: CMD TIME: 1215 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:26:33,741 T0000: CMD TIME: 256 D1 = exit
+2026-04-11 11:26:34,423 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:26:35,116 T0000: CMD TIME: 1316 D1 = ntp vrf default
+2026-04-11 11:26:37,272 T0000: CMD TIME: 1266 D1 = no ntp enable
+2026-04-11 11:26:39,383 T0000: CMD TIME: 1265 D1 = ntp server 216.239.35.0 iburst
+2026-04-11 11:26:40,663 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:26:41,355 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:26:42,048 T0000: CMD TIME: 1215 D1 = ntp server 216.239.35.4
+2026-04-11 11:26:43,285 T0000: CMD TIME: 263 D1 = exit
+2026-04-11 11:26:43,977 T0000: CMD TIME: 258 D1 = configure terminal
+2026-04-11 11:26:44,663 T0000: CMD TIME: 1465 D1 = ntp enable
+2026-04-11 11:26:56,555 T0000: CMD TIME: 258 D1 = do show ntp associations
+2026-04-11 11:26:57,245 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:26:57,523 T0000: CMD TIME: 312 D1 = exit
+2026-04-11 11:26:58,257 T0000: CMD TIME: 1370 D1 = show ntp
+2026-04-11 11:27:00,071 T0000: CMD TIME: 816 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:27:00,908 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:27:01,589 T0000: CMD TIME: 1465 D1 = no ntp server 64.235.61.113
+2026-04-11 11:27:03,068 T0000: CMD TIME: 1265 D1 = no ntp server 128.199.169.185
+2026-04-11 11:27:04,343 T0000: CMD TIME: 1114 D1 = no ntp server 10.10.10.99
+2026-04-11 11:27:05,467 T0000: CMD TIME: 1211 D1 = no ntp server 192.168.100.175
+2026-04-11 11:27:06,688 T0000: CMD TIME: 1513 D1 = no ntp server 216.239.35.0
+2026-04-11 11:27:08,212 T0000: CMD TIME: 2270 D1 = no ntp server 216.239.35.12
+2026-04-11 11:27:10,494 T0000: CMD TIME: 2020 D1 = no ntp server 216.239.35.4
+2026-04-11 11:27:12,528 T0000: CMD TIME: 2220 D1 = no ntp server 216.239.35.8
+2026-04-11 11:27:16,006 T0000: CMD TIME: 1065 D1 = no ntp authenticate
+2026-04-11 11:27:17,087 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:27:17,772 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:27:18,470 T0000: CMD TIME: 1218 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:27:19,702 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:27:20,395 T0000: CMD TIME: 257 D1 = configure terminal
+2026-04-11 11:27:21,080 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:27:23,132 T0000: CMD TIME: 1214 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:18.328
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:27:24,810 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:27:25,084 T0000: CMD TIME: 315 D1 = exit
+2026-04-11 11:27:25,828 T0000: CMD TIME: 1168 D1 = show ntp
+2026-04-11 11:27:27,439 T0000: CMD TIME: 712 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:27:28,166 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:27:28,853 T0000: CMD TIME: 1165 D1 = no ntp server 64.235.61.113
+2026-04-11 11:27:30,030 T0000: CMD TIME: 1219 D1 = no ntp server 128.199.169.185
+2026-04-11 11:27:31,262 T0000: CMD TIME: 1112 D1 = no ntp server 10.10.10.99
+2026-04-11 11:27:32,387 T0000: CMD TIME: 1264 D1 = no ntp server 192.168.100.175
+2026-04-11 11:27:33,665 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.0
+2026-04-11 11:27:34,891 T0000: CMD TIME: 1213 D1 = no ntp server 216.239.35.12
+2026-04-11 11:27:36,112 T0000: CMD TIME: 1059 D1 = no ntp server 216.239.35.4
+2026-04-11 11:27:37,183 T0000: CMD TIME: 1162 D1 = no ntp server 216.239.35.8
+2026-04-11 11:27:39,599 T0000: CMD TIME: 1166 D1 = no ntp authenticate
+2026-04-11 11:27:40,792 T0000: CMD TIME: 264 D1 = exit
+2026-04-11 11:27:41,491 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:27:42,186 T0000: CMD TIME: 1316 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:27:43,518 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:27:44,208 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:27:44,890 T0000: CMD TIME: 1212 D1 = ntp vrf default
+2026-04-11 11:27:46,938 T0000: CMD TIME: 1466 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_invalid_key_id_zero ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:52
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:36.401
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:27:52,680 T0000: CMD TIME: 1371 D1 = show ntp
+2026-04-11 11:27:54,497 T0000: CMD TIME: 764 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:27:55,276 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:27:55,968 T0000: CMD TIME: 1316 D1 = no ntp server 64.235.61.113
+2026-04-11 11:27:57,297 T0000: CMD TIME: 1012 D1 = no ntp server 128.199.169.185
+2026-04-11 11:27:58,323 T0000: CMD TIME: 1215 D1 = no ntp server 10.10.10.99
+2026-04-11 11:27:59,553 T0000: CMD TIME: 1166 D1 = no ntp server 192.168.100.175
+2026-04-11 11:28:00,733 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.0
+2026-04-11 11:28:01,911 T0000: CMD TIME: 1013 D1 = no ntp server 216.239.35.12
+2026-04-11 11:28:02,933 T0000: CMD TIME: 1213 D1 = no ntp server 216.239.35.4
+2026-04-11 11:28:04,160 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.8
+2026-04-11 11:28:06,486 T0000: CMD TIME: 1216 D1 = no ntp authenticate
+2026-04-11 11:28:07,717 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:28:08,411 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:28:09,119 T0000: CMD TIME: 2426 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:28:11,565 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:28:12,255 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:28:12,951 T0000: CMD TIME: 1264 D1 = ntp vrf default
+2026-04-11 11:28:15,054 T0000: CMD TIME: 1165 D1 = no ntp enable
+2026-04-11 11:28:17,057 T0000: CMD TIME: 259 D1 = ntp authentication-key 0 md5 InvalidKey
+2026-04-11 11:28:17,737 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:28:18,010 T0000: CMD TIME: 359 D1 = exit
+2026-04-11 11:28:18,796 T0000: CMD TIME: 1219 D1 = show ntp
+2026-04-11 11:28:20,465 T0000: CMD TIME: 813 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:28:21,291 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:28:21,978 T0000: CMD TIME: 1114 D1 = no ntp server 64.235.61.113
+2026-04-11 11:28:23,104 T0000: CMD TIME: 1013 D1 = no ntp server 128.199.169.185
+2026-04-11 11:28:24,126 T0000: CMD TIME: 1063 D1 = no ntp server 10.10.10.99
+2026-04-11 11:28:25,202 T0000: CMD TIME: 1215 D1 = no ntp server 192.168.100.175
+2026-04-11 11:28:26,429 T0000: CMD TIME: 1013 D1 = no ntp server 216.239.35.0
+2026-04-11 11:28:27,454 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.12
+2026-04-11 11:28:28,629 T0000: CMD TIME: 1013 D1 = no ntp server 216.239.35.4
+2026-04-11 11:28:29,654 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.8
+2026-04-11 11:28:32,027 T0000: CMD TIME: 1320 D1 = no ntp authenticate
+2026-04-11 11:28:33,362 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:28:34,051 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:28:34,757 T0000: CMD TIME: 1115 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:28:35,884 T0000: CMD TIME: 256 D1 = exit
+2026-04-11 11:28:36,568 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:28:37,254 T0000: CMD TIME: 1214 D1 = ntp vrf default
+2026-04-11 11:28:39,308 T0000: CMD TIME: 1167 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_key_id_out_of_range ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:52
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:36.023
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:28:44,566 T0000: CMD TIME: 1218 D1 = show ntp
+2026-04-11 11:28:46,232 T0000: CMD TIME: 763 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:28:47,010 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:28:47,702 T0000: CMD TIME: 1266 D1 = no ntp server 64.235.61.113
+2026-04-11 11:28:48,983 T0000: CMD TIME: 1165 D1 = no ntp server 128.199.169.185
+2026-04-11 11:28:50,163 T0000: CMD TIME: 1065 D1 = no ntp server 10.10.10.99
+2026-04-11 11:28:51,243 T0000: CMD TIME: 1064 D1 = no ntp server 192.168.100.175
+2026-04-11 11:28:52,321 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.0
+2026-04-11 11:28:53,402 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.12
+2026-04-11 11:28:54,632 T0000: CMD TIME: 1014 D1 = no ntp server 216.239.35.4
+2026-04-11 11:28:55,661 T0000: CMD TIME: 1013 D1 = no ntp server 216.239.35.8
+2026-04-11 11:28:57,933 T0000: CMD TIME: 1267 D1 = no ntp authenticate
+2026-04-11 11:28:59,228 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:28:59,923 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:29:00,622 T0000: CMD TIME: 1219 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:29:01,857 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:29:02,557 T0000: CMD TIME: 269 D1 = configure terminal
+2026-04-11 11:29:03,259 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:29:05,311 T0000: CMD TIME: 1316 D1 = no ntp enable
+2026-04-11 11:29:07,461 T0000: CMD TIME: 263 D1 = ntp authentication-key 70000 md5 OutOfRange
+2026-04-11 11:29:08,158 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:29:08,430 T0000: CMD TIME: 311 D1 = exit
+2026-04-11 11:29:09,170 T0000: CMD TIME: 2074 D1 = show ntp
+2026-04-11 11:29:11,693 T0000: CMD TIME: 666 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:29:12,375 T0000: CMD TIME: 266 D1 = configure terminal
+2026-04-11 11:29:13,071 T0000: CMD TIME: 1218 D1 = no ntp server 64.235.61.113
+2026-04-11 11:29:14,308 T0000: CMD TIME: 1113 D1 = no ntp server 128.199.169.185
+2026-04-11 11:29:15,434 T0000: CMD TIME: 1265 D1 = no ntp server 10.10.10.99
+2026-04-11 11:29:16,711 T0000: CMD TIME: 1064 D1 = no ntp server 192.168.100.175
+2026-04-11 11:29:17,788 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.0
+2026-04-11 11:29:18,863 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.12
+2026-04-11 11:29:19,937 T0000: CMD TIME: 1114 D1 = no ntp server 216.239.35.4
+2026-04-11 11:29:21,062 T0000: CMD TIME: 1214 D1 = no ntp server 216.239.35.8
+2026-04-11 11:29:23,535 T0000: CMD TIME: 1215 D1 = no ntp authenticate
+2026-04-11 11:29:24,764 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:29:25,451 T0000: CMD TIME: 257 D1 = configure terminal
+2026-04-11 11:29:26,140 T0000: CMD TIME: 1166 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:29:27,319 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:29:28,006 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:29:28,699 T0000: CMD TIME: 1315 D1 = ntp vrf default
+2026-04-11 11:29:30,848 T0000: CMD TIME: 1166 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_unsupported_auth_algorithm ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:54
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:37.603
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:29:36,265 T0000: CMD TIME: 1221 D1 = show ntp
+2026-04-11 11:29:37,937 T0000: CMD TIME: 763 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:29:38,725 T0000: CMD TIME: 265 D1 = configure terminal
+2026-04-11 11:29:39,436 T0000: CMD TIME: 1317 D1 = no ntp server 64.235.61.113
+2026-04-11 11:29:40,766 T0000: CMD TIME: 1114 D1 = no ntp server 128.199.169.185
+2026-04-11 11:29:41,892 T0000: CMD TIME: 1113 D1 = no ntp server 10.10.10.99
+2026-04-11 11:29:43,031 T0000: CMD TIME: 1065 D1 = no ntp server 192.168.100.175
+2026-04-11 11:29:44,111 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.0
+2026-04-11 11:29:45,188 T0000: CMD TIME: 1213 D1 = no ntp server 216.239.35.12
+2026-04-11 11:29:46,416 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.4
+2026-04-11 11:29:47,494 T0000: CMD TIME: 1116 D1 = no ntp server 216.239.35.8
+2026-04-11 11:29:49,874 T0000: CMD TIME: 1266 D1 = no ntp authenticate
+2026-04-11 11:29:51,155 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:29:51,850 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:29:52,545 T0000: CMD TIME: 1268 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:29:53,829 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:29:54,519 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:29:55,214 T0000: CMD TIME: 1518 D1 = ntp vrf default
+2026-04-11 11:29:57,573 T0000: CMD TIME: 1216 D1 = no ntp enable
+2026-04-11 11:29:59,628 T0000: CMD TIME: 258 D1 = ntp authentication-key 80 aes256 UnsupportedAlgo
+2026-04-11 11:30:00,322 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:30:00,595 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:30:01,339 T0000: CMD TIME: 1319 D1 = show ntp
+2026-04-11 11:30:03,102 T0000: CMD TIME: 913 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:30:04,030 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:30:04,717 T0000: CMD TIME: 1214 D1 = no ntp server 142.91.103.26
+2026-04-11 11:30:05,943 T0000: CMD TIME: 1063 D1 = no ntp server 128.199.169.185
+2026-04-11 11:30:07,017 T0000: CMD TIME: 1164 D1 = no ntp server 10.10.10.99
+2026-04-11 11:30:08,193 T0000: CMD TIME: 2219 D1 = no ntp server 192.168.100.175
+2026-04-11 11:30:10,422 T0000: CMD TIME: 1915 D1 = no ntp server 216.239.35.0
+2026-04-11 11:30:12,348 T0000: CMD TIME: 1012 D1 = no ntp server 216.239.35.12
+2026-04-11 11:30:13,366 T0000: CMD TIME: 1211 D1 = no ntp server 216.239.35.4
+2026-04-11 11:30:14,588 T0000: CMD TIME: 1163 D1 = no ntp server 216.239.35.8
+2026-04-11 11:30:17,010 T0000: CMD TIME: 1165 D1 = no ntp authenticate
+2026-04-11 11:30:18,191 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:30:18,891 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:30:19,599 T0000: CMD TIME: 1166 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:30:20,780 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:30:21,467 T0000: CMD TIME: 258 D1 = configure terminal
+2026-04-11 11:30:22,154 T0000: CMD TIME: 1165 D1 = ntp vrf default
+2026-04-11 11:30:24,156 T0000: CMD TIME: 1164 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_duplicate_server ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_duplicate_server ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:01:02
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:42.639
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:30:29,479 T0000: CMD TIME: 1220 D1 = show ntp
+2026-04-11 11:30:31,147 T0000: CMD TIME: 814 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:30:31,975 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:30:32,669 T0000: CMD TIME: 1216 D1 = no ntp server 142.91.103.26
+2026-04-11 11:30:33,908 T0000: CMD TIME: 1366 D1 = no ntp server 128.199.169.185
+2026-04-11 11:30:35,289 T0000: CMD TIME: 1115 D1 = no ntp server 10.10.10.99
+2026-04-11 11:30:36,417 T0000: CMD TIME: 1065 D1 = no ntp server 192.168.100.175
+2026-04-11 11:30:37,497 T0000: CMD TIME: 1467 D1 = no ntp server 216.239.35.0
+2026-04-11 11:30:38,983 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.12
+2026-04-11 11:30:40,211 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.4
+2026-04-11 11:30:41,340 T0000: CMD TIME: 1317 D1 = no ntp server 216.239.35.8
+2026-04-11 11:30:43,928 T0000: CMD TIME: 1266 D1 = no ntp authenticate
+2026-04-11 11:30:45,211 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:30:45,909 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:30:46,623 T0000: CMD TIME: 1168 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:30:47,816 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:30:48,506 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:30:49,198 T0000: CMD TIME: 1171 D1 = ntp vrf default
+2026-04-11 11:30:51,207 T0000: CMD TIME: 1266 D1 = no ntp enable
+2026-04-11 11:30:53,315 T0000: CMD TIME: 1315 D1 = ntp server 216.239.35.0
+2026-04-11 11:30:54,645 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:30:55,338 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:30:56,029 T0000: CMD TIME: 1165 D1 = ntp server 216.239.35.0
+2026-04-11 11:30:57,210 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:30:59,896 T0000: CMD TIME: 1317 D1 = show ntp server
+2026-04-11 11:31:01,649 T0000: CMD TIME: 309 D1 = exit
+2026-04-11 11:31:02,384 T0000: CMD TIME: 1269 D1 = show ntp
+2026-04-11 11:31:04,108 T0000: CMD TIME: 813 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:31:04,936 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:31:05,621 T0000: CMD TIME: 1268 D1 = no ntp server 142.91.103.26
+2026-04-11 11:31:06,902 T0000: CMD TIME: 1067 D1 = no ntp server 128.199.169.185
+2026-04-11 11:31:07,981 T0000: CMD TIME: 2019 D1 = no ntp server 10.10.10.99
+2026-04-11 11:31:10,012 T0000: CMD TIME: 2220 D1 = no ntp server 192.168.100.175
+2026-04-11 11:31:12,244 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.0
+2026-04-11 11:31:13,368 T0000: CMD TIME: 1062 D1 = no ntp server 216.239.35.12
+2026-04-11 11:31:14,443 T0000: CMD TIME: 1265 D1 = no ntp server 216.239.35.4
+2026-04-11 11:31:15,719 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.8
+2026-04-11 11:31:18,250 T0000: CMD TIME: 1215 D1 = no ntp authenticate
+2026-04-11 11:31:19,479 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:31:20,169 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:31:20,874 T0000: CMD TIME: 1322 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:31:22,211 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:31:22,902 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:31:23,588 T0000: CMD TIME: 1365 D1 = ntp vrf default
+2026-04-11 11:31:25,786 T0000: CMD TIME: 1113 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_empty_password ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_empty_password ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:53
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:37.147
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:31:31,146 T0000: CMD TIME: 1118 D1 = show ntp
+2026-04-11 11:31:32,715 T0000: CMD TIME: 764 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:31:33,494 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:31:34,186 T0000: CMD TIME: 1215 D1 = no ntp server 142.91.103.26
+2026-04-11 11:31:35,415 T0000: CMD TIME: 1115 D1 = no ntp server 128.199.169.185
+2026-04-11 11:31:36,544 T0000: CMD TIME: 1064 D1 = no ntp server 10.10.10.99
+2026-04-11 11:31:37,626 T0000: CMD TIME: 1014 D1 = no ntp server 192.168.100.175
+2026-04-11 11:31:38,654 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.0
+2026-04-11 11:31:39,732 T0000: CMD TIME: 1013 D1 = no ntp server 216.239.35.12
+2026-04-11 11:31:40,758 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.4
+2026-04-11 11:31:41,836 T0000: CMD TIME: 1215 D1 = no ntp server 216.239.35.8
+2026-04-11 11:31:44,321 T0000: CMD TIME: 1267 D1 = no ntp authenticate
+2026-04-11 11:31:45,605 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:31:46,298 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:31:47,002 T0000: CMD TIME: 1266 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:31:48,284 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:31:48,978 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:31:49,670 T0000: CMD TIME: 1316 D1 = ntp vrf default
+2026-04-11 11:31:51,833 T0000: CMD TIME: 1164 D1 = no ntp enable
+2026-04-11 11:31:53,832 T0000: CMD TIME: 258 D1 = ntp authentication-key 30 md5
+2026-04-11 11:31:54,521 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:31:54,793 T0000: CMD TIME: 310 D1 = exit
+2026-04-11 11:31:55,530 T0000: CMD TIME: 1172 D1 = show ntp
+2026-04-11 11:31:57,146 T0000: CMD TIME: 762 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:31:57,924 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:31:58,611 T0000: CMD TIME: 1163 D1 = no ntp server 142.91.103.26
+2026-04-11 11:31:59,787 T0000: CMD TIME: 1114 D1 = no ntp server 128.199.169.185
+2026-04-11 11:32:00,913 T0000: CMD TIME: 1012 D1 = no ntp server 10.10.10.99
+2026-04-11 11:32:01,936 T0000: CMD TIME: 1214 D1 = no ntp server 192.168.100.175
+2026-04-11 11:32:03,163 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.0
+2026-04-11 11:32:04,240 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.12
+2026-04-11 11:32:05,365 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.4
+2026-04-11 11:32:06,491 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.8
+2026-04-11 11:32:08,912 T0000: CMD TIME: 2423 D1 = no ntp authenticate
+2026-04-11 11:32:11,350 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:32:12,042 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:32:12,739 T0000: CMD TIME: 2171 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:32:14,925 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:32:15,613 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:32:16,301 T0000: CMD TIME: 1465 D1 = ntp vrf default
+2026-04-11 11:32:18,601 T0000: CMD TIME: 1114 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_invalid_server_address ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_invalid_server_address ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:57
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:38.133
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:32:23,982 T0000: CMD TIME: 1170 D1 = show ntp
+2026-04-11 11:32:25,604 T0000: CMD TIME: 713 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:32:26,332 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:32:27,028 T0000: CMD TIME: 1165 D1 = no ntp server 142.91.103.26
+2026-04-11 11:32:28,208 T0000: CMD TIME: 1166 D1 = no ntp server 128.199.169.185
+2026-04-11 11:32:29,392 T0000: CMD TIME: 1114 D1 = no ntp server 10.10.10.99
+2026-04-11 11:32:30,521 T0000: CMD TIME: 1015 D1 = no ntp server 192.168.100.175
+2026-04-11 11:32:31,550 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.0
+2026-04-11 11:32:32,641 T0000: CMD TIME: 1171 D1 = no ntp server 216.239.35.12
+2026-04-11 11:32:33,826 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.4
+2026-04-11 11:32:35,004 T0000: CMD TIME: 1265 D1 = no ntp server 216.239.35.8
+2026-04-11 11:32:37,533 T0000: CMD TIME: 1267 D1 = no ntp authenticate
+2026-04-11 11:32:38,816 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:32:39,512 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:32:40,209 T0000: CMD TIME: 1519 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:32:41,746 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:32:42,437 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:32:43,130 T0000: CMD TIME: 1165 D1 = ntp vrf default
+2026-04-11 11:32:45,142 T0000: CMD TIME: 1316 D1 = no ntp enable
+2026-04-11 11:32:47,302 T0000: CMD TIME: 1315 D1 = ntp server 999.999.999.999
+2026-04-11 11:32:51,043 T0000: CMD TIME: 258 D1 = do show ntp server
+2026-04-11 11:32:51,732 T0000: CMD TIME: 258 D1 = exit
+2026-04-11 11:32:52,004 T0000: CMD TIME: 310 D1 = exit
+2026-04-11 11:32:52,740 T0000: CMD TIME: 1218 D1 = show ntp
+2026-04-11 11:32:54,403 T0000: CMD TIME: 863 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:32:55,279 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:32:55,966 T0000: CMD TIME: 1266 D1 = no ntp server 64.235.61.113
+2026-04-11 11:32:57,243 T0000: CMD TIME: 1063 D1 = no ntp server 23.106.249.200
+2026-04-11 11:32:58,320 T0000: CMD TIME: 1265 D1 = no ntp server 10.10.10.99
+2026-04-11 11:32:59,601 T0000: CMD TIME: 1262 D1 = no ntp server 192.168.100.175
+2026-04-11 11:33:00,874 T0000: CMD TIME: 1115 D1 = no ntp server 216.239.35.0
+2026-04-11 11:33:02,001 T0000: CMD TIME: 1218 D1 = no ntp server 216.239.35.12
+2026-04-11 11:33:03,231 T0000: CMD TIME: 1062 D1 = no ntp server 216.239.35.4
+2026-04-11 11:33:04,305 T0000: CMD TIME: 1064 D1 = no ntp server 216.239.35.8
+2026-04-11 11:33:06,643 T0000: CMD TIME: 1313 D1 = no ntp authenticate
+2026-04-11 11:33:07,970 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:33:08,661 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:33:09,355 T0000: CMD TIME: 2021 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:33:11,392 T0000: CMD TIME: 264 D1 = exit
+2026-04-11 11:33:12,089 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:33:12,790 T0000: CMD TIME: 1217 D1 = ntp vrf default
+2026-04-11 11:33:14,844 T0000: CMD TIME: 1164 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_reject_nonexistent_source_interface ===========================
+RESULT = Pass
+DESCRIPTION = Test case passed
+TOTAL Test Time = 0:00:56
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:38.086
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:33:20,350 T0000: CMD TIME: 1169 D1 = show ntp
+2026-04-11 11:33:21,977 T0000: CMD TIME: 814 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:33:22,805 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:33:23,509 T0000: CMD TIME: 1268 D1 = no ntp server 64.235.61.113
+2026-04-11 11:33:24,795 T0000: CMD TIME: 1065 D1 = no ntp server 23.106.249.200
+2026-04-11 11:33:25,873 T0000: CMD TIME: 1014 D1 = no ntp server 10.10.10.99
+2026-04-11 11:33:26,901 T0000: CMD TIME: 1365 D1 = no ntp server 192.168.100.175
+2026-04-11 11:33:28,279 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.0
+2026-04-11 11:33:29,555 T0000: CMD TIME: 1264 D1 = no ntp server 216.239.35.12
+2026-04-11 11:33:30,832 T0000: CMD TIME: 1214 D1 = no ntp server 216.239.35.4
+2026-04-11 11:33:32,059 T0000: CMD TIME: 1065 D1 = no ntp server 216.239.35.8
+2026-04-11 11:33:34,392 T0000: CMD TIME: 1216 D1 = no ntp authenticate
+2026-04-11 11:33:35,625 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:33:36,320 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:33:37,017 T0000: CMD TIME: 1217 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:33:38,250 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:33:38,948 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:33:39,641 T0000: CMD TIME: 1165 D1 = ntp vrf default
+2026-04-11 11:33:41,646 T0000: CMD TIME: 1315 D1 = no ntp enable
+2026-04-11 11:33:43,796 T0000: CMD TIME: 258 D1 = ntp source-interface Ethernet9999
+2026-04-11 11:33:44,889 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:33:45,570 T0000: CMD TIME: 1316 D1 = show ntp global
+2026-04-11 11:33:47,324 T0000: CMD TIME: 312 D1 = exit
+2026-04-11 11:33:48,063 T0000: CMD TIME: 1223 D1 = show ntp
+2026-04-11 11:33:49,729 T0000: CMD TIME: 712 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:33:50,462 T0000: CMD TIME: 262 D1 = configure terminal
+2026-04-11 11:33:51,151 T0000: CMD TIME: 1163 D1 = no ntp server 64.235.61.113
+2026-04-11 11:33:52,325 T0000: CMD TIME: 1164 D1 = no ntp server 23.106.249.200
+2026-04-11 11:33:53,501 T0000: CMD TIME: 1063 D1 = no ntp server 10.10.10.99
+2026-04-11 11:33:54,578 T0000: CMD TIME: 1118 D1 = no ntp server 192.168.100.175
+2026-04-11 11:33:55,709 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.0
+2026-04-11 11:33:56,885 T0000: CMD TIME: 1165 D1 = no ntp server 216.239.35.12
+2026-04-11 11:33:58,061 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.4
+2026-04-11 11:33:59,145 T0000: CMD TIME: 1270 D1 = no ntp server 216.239.35.8
+2026-04-11 11:34:01,674 T0000: CMD TIME: 1267 D1 = no ntp authenticate
+2026-04-11 11:34:02,957 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:34:03,658 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:34:04,351 T0000: CMD TIME: 1167 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:34:05,530 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:34:06,217 T0000: CMD TIME: 259 D1 = configure terminal
+2026-04-11 11:34:06,904 T0000: CMD TIME: 1416 D1 = ntp vrf default
+2026-04-11 11:34:09,159 T0000: CMD TIME: 1968 D1 = no ntp enable
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ===========================
+RESULT = 
+DESCRIPTION = Module Configuration
+TOTAL Test Time = 0:00:03
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:00.000
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+=========================================================
+
+======================= STATS: system/ntp/test_ntp_comprehensive.py::TestNTPNegativeTests.test_ntp_cannot_delete_key_in_use ===========================
+RESULT = Fail
+DESCRIPTION = Failed to configure NTP server 216.239.35.0
+TOTAL Test Time = 0:00:57
+TOTAL Sleep Time = 0:00:00
+TOTAL TG Sleep = 0:00:00
+TOTAL CMD Time = 0:00:39.257
+TOTAL HELPER Time = 0:00:00.000
+TOTAL TG Time = 0:00:00.000
+TOTAL PROMPT NFOUND = 0
+TOTAL TECH SUPPORT = 0
+2026-04-11 11:34:15,370 T0000: CMD TIME: 1071 D1 = show ntp
+2026-04-11 11:34:16,889 T0000: CMD TIME: 864 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:34:17,775 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:34:18,471 T0000: CMD TIME: 1164 D1 = no ntp server 64.235.61.113
+2026-04-11 11:34:19,649 T0000: CMD TIME: 1165 D1 = no ntp server 23.106.249.200
+2026-04-11 11:34:20,830 T0000: CMD TIME: 1215 D1 = no ntp server 10.10.10.99
+2026-04-11 11:34:22,059 T0000: CMD TIME: 1114 D1 = no ntp server 192.168.100.175
+2026-04-11 11:34:23,185 T0000: CMD TIME: 1265 D1 = no ntp server 216.239.35.0
+2026-04-11 11:34:24,464 T0000: CMD TIME: 1266 D1 = no ntp server 216.239.35.12
+2026-04-11 11:34:25,744 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.4
+2026-04-11 11:34:26,924 T0000: CMD TIME: 1266 D1 = no ntp server 216.239.35.8
+2026-04-11 11:34:29,469 T0000: CMD TIME: 1317 D1 = no ntp authenticate
+2026-04-11 11:34:30,802 T0000: CMD TIME: 261 D1 = exit
+2026-04-11 11:34:31,486 T0000: CMD TIME: 263 D1 = configure terminal
+2026-04-11 11:34:32,180 T0000: CMD TIME: 1267 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:34:33,463 T0000: CMD TIME: 260 D1 = exit
+2026-04-11 11:34:34,154 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:34:34,845 T0000: CMD TIME: 1215 D1 = ntp vrf default
+2026-04-11 11:34:36,899 T0000: CMD TIME: 1165 D1 = no ntp enable
+2026-04-11 11:34:38,908 T0000: CMD TIME: 1316 D1 = ntp authentication-key 60 md5 "InUseKey"
+2026-04-11 11:34:40,239 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:34:40,928 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:34:41,622 T0000: CMD TIME: 1315 D1 = ntp server 216.239.35.0 key 60
+2026-04-11 11:34:42,964 T0000: CMD TIME: 266 D1 = exit
+2026-04-11 11:34:44,236 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:34:44,925 T0000: CMD TIME: 1571 D1 = show ntp
+2026-04-11 11:34:46,945 T0000: CMD TIME: 762 D1 = sonic-cli prompt=--sonic-mgmt-- -t 0
+2026-04-11 11:34:47,722 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:34:48,409 T0000: CMD TIME: 1164 D1 = no ntp server 15.235.197.63
+2026-04-11 11:34:49,580 T0000: CMD TIME: 1011 D1 = no ntp server 5.223.50.207
+2026-04-11 11:34:50,602 T0000: CMD TIME: 1163 D1 = no ntp server 10.10.10.99
+2026-04-11 11:34:51,778 T0000: CMD TIME: 1114 D1 = no ntp server 192.168.100.175
+2026-04-11 11:34:52,904 T0000: CMD TIME: 1113 D1 = no ntp server 216.239.35.0
+2026-04-11 11:34:54,030 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.12
+2026-04-11 11:34:55,205 T0000: CMD TIME: 1164 D1 = no ntp server 216.239.35.4
+2026-04-11 11:34:56,381 T0000: CMD TIME: 1063 D1 = no ntp server 216.239.35.8
+2026-04-11 11:34:58,707 T0000: CMD TIME: 1220 D1 = no ntp authenticate
+2026-04-11 11:34:59,942 T0000: CMD TIME: 259 D1 = exit
+2026-04-11 11:35:00,633 T0000: CMD TIME: 261 D1 = configure terminal
+2026-04-11 11:35:01,331 T0000: CMD TIME: 1318 D1 = no ntp source-interface Ethernet 0
+2026-04-11 11:35:02,674 T0000: CMD TIME: 262 D1 = exit
+2026-04-11 11:35:03,364 T0000: CMD TIME: 260 D1 = configure terminal
+2026-04-11 11:35:04,055 T0000: CMD TIME: 1315 D1 = ntp vrf default
+2026-04-11 11:35:06,205 T0000: CMD TIME: 1315 D1 = no ntp enable
+=========================================================

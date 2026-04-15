@@ -1,0 +1,551 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+Copyright (C) 2026 Supermicro.
+
+The term "Supermicro" refers to Super Micro Computer, Inc. and/or its subsidiaries.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+
+you may not use this file except in compliance with the License.
+
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+
+distributed under the License is distributed on an "AS IS" BASIS,
+
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+See the License for the specific language governing permissions and
+
+limitations under the License.
+
+-->
+
+<!DOCTYPE CLISH_MODULE [
+]>
+<CLISH_MODULE xmlns="http://www.dellemc.com/sonic/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://www.dellemc.com/sonic/XMLSchema http://www.dellemc.com/sonic/XMLSchema/clish.xsd">
+
+  <!-- ============================================ -->
+  <!-- Show Commands (enable-view)                  -->
+  <!-- ============================================ -->
+
+  <VIEW name="enable-view">
+
+    <!-- Parent command -->
+    <COMMAND name="show ntp" help="Display NTP information">
+    </COMMAND>
+
+    <!-- show ntp global -->
+    <COMMAND name="show ntp global" help="Display NTP global configuration" mode="subcommand" ptype="SUBCOMMAND">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py get_ntp_global show_ntp.j2 </ACTION>
+      <xi:include href="include/pipe.xml"/>
+      <DOCGEN>
+        <DESCRIPTION>
+            Displays the NTP global configuration, including administrative enable state,
+            authentication settings, source interface, and VRF.
+            It does not display runtime synchronization state; use "show ntp associations" for that.
+        </DESCRIPTION>
+        <USAGE>
+            Use this command to verify the current NTP global configuration parameters and confirm
+            high-level settings before troubleshooting runtime sync.
+            No arguments are required or accepted.
+        </USAGE>
+        <EXAMPLE>
+            sonic# show ntp global
+            NTP Configuration:
+              Enabled:             True
+              Authentication:      False
+              Vrf:                 default
+              Source Interface:    Management0
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- show ntp server -->
+    <COMMAND name="show ntp server" help="Display configured NTP servers" mode="subcommand" ptype="SUBCOMMAND">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py get_ntp_server show_ntp.j2 </ACTION>
+      <xi:include href="include/pipe.xml"/>
+      <DOCGEN>
+        <DESCRIPTION>
+            Displays all NTP server entries statically configured on the device, including each
+            server's address, NTP protocol version, association type (server or pool), iburst flag,
+            prefer flag, and authentication key ID if assigned.
+            This command shows configured state only; for runtime reachability and stratum
+            information use "show ntp associations".
+        </DESCRIPTION>
+        <USAGE>
+            Use this command to audit the list of configured NTP servers and verify per-server
+            parameters such as version, iburst, prefer, key, and association type.
+            No arguments are required or accepted.
+        </USAGE>
+        <EXAMPLE>
+            sonic# show ntp server
+            NTP Servers:
+              Address         Version  Association  Iburst   Prefer   Key
+              192.0.2.1       4        server       enabled  False    -
+              192.0.2.2       4        server       disabled False    -
+              2001:db8::1     4        pool         enabled  True     1
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- show ntp associations -->
+    <COMMAND name="show ntp associations" help="Display NTP associations" mode="subcommand" ptype="SUBCOMMAND">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py get_ntp_associations show_ntp.j2 </ACTION>
+      <xi:include href="include/pipe.xml"/>
+      <DOCGEN>
+        <DESCRIPTION>
+            Displays the runtime NTP peer association table showing synchronization state for
+            each configured server or pool entry. Output includes reference ID, stratum, poll
+            interval, reach register, delay, offset, and jitter for each peer.
+            The currently selected synchronization source is indicated with a '*' prefix.
+            This command reflects live operational state from the NTP daemon and may differ
+            from configured state shown by "show ntp server".
+        </DESCRIPTION>
+        <USAGE>
+            Use this command to verify NTP is actively synchronizing with a peer and to diagnose
+            synchronization issues. No arguments are required or accepted.
+            Confirm that global NTP is enabled and servers are configured before interpreting output.
+        </USAGE>
+        <EXAMPLE>
+            sonic# show ntp associations
+            NTP Associations:
+              refid           st t when poll reach  delay  offset  jitter
+              =================================================================
+             *192.0.2.1      2  u  128 1024  377  10.234 -0.233  1.243
+             192.0.2.2       2  u  456 1024  177  12.156  2.123  1.987
+             +2001:db8::1    3  u   64  512  377  18.432 -1.234  2.456
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+  </VIEW>
+
+  <!-- ============================================ -->
+  <!-- Configuration Commands (configure-view)      -->
+  <!-- ============================================ -->
+
+  <VIEW name="configure-view">
+
+    <!-- Parent commands -->
+    <COMMAND name="ntp" help="Configure NTP">
+    </COMMAND>
+
+    <COMMAND name="no ntp" help="Delete NTP configuration">
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP Enable/Disable                           -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp enable" help="Enable NTP service">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_enabled </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Administratively enables the NTP service on the device. When enabled, the NTP daemon
+            is activated and the device attempts to synchronize its system clock with the configured
+            NTP servers. NTP is disabled by default; this command must be issued before
+            synchronization can occur.
+        </DESCRIPTION>
+        <USAGE>
+            Use this command to turn on the NTP service after completing server and optional
+            authentication configuration. No arguments are required or accepted.
+            To disable NTP, use "no ntp enable".
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp enable
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp enable" help="Disable NTP service">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_disabled </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Administratively disables the NTP service on the device. The NTP daemon is stopped
+            and the device will no longer synchronize its system clock with NTP servers.
+            All NTP server and authentication configuration is preserved; the service can be
+            re-enabled with "ntp enable" without reconfiguring those parameters.
+        </DESCRIPTION>
+        <USAGE>
+            Use this command to stop NTP synchronization without removing server or authentication
+            configuration. No arguments are required or accepted.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp enable
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP Authentication                           -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp authenticate" help="Enable NTP authentication">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_authentication </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Enables mandatory NTP authentication. When active, the device only accepts time
+            synchronization from NTP servers that supply a valid, trusted authentication key.
+            Both authentication keys ("ntp authentication-key") and trusted-key designations
+            ("ntp trusted-key") must be configured for authentication to function correctly.
+        </DESCRIPTION>
+        <USAGE>
+            Use this command after defining authentication keys and trusted-key entries to enforce
+            authenticated NTP. No arguments are required or accepted.
+            To disable authentication enforcement, use "no ntp authenticate".
+            Note: disabling authentication does not remove configured keys or trusted-key entries.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp authenticate
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp authenticate" help="Disable NTP authentication">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_authentication_disabled </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Disables mandatory NTP authentication enforcement. The device will accept time
+            synchronization from servers regardless of whether they supply an authentication key.
+            Previously configured authentication keys and trusted-key entries are preserved and
+            can be re-enabled without reconfiguration by issuing "ntp authenticate".
+        </DESCRIPTION>
+        <USAGE>
+            Use this command to turn off authentication enforcement while retaining key definitions.
+            No arguments are required or accepted.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp authenticate
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP Authentication Key                       -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp authentication-key" help="Configure NTP authentication key">
+      <PARAM name="key-id" ptype="RANGE_1_65535" help="Key ID (1-65535)"/>
+      <PARAM name="auth-type" ptype="NTP_AUTHENTICATION_TYPE" help="Authentication type"/>
+      <PARAM name="password" ptype="STRING_PASSWORD" help="Authentication password"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_authentication_key ${key-id} ${auth-type} ${password} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Defines an NTP authentication key by associating a numeric key ID with an encryption
+            algorithm and a shared secret password. Keys defined here are referenced by
+            "ntp trusted-key" to mark them as acceptable for synchronization, and by
+            "ntp server ... key" to associate them with a specific server entry.
+            Supported encryption types: md5, sha1, sha256, sha384, sha512.
+        </DESCRIPTION>
+        <USAGE>
+            Required arguments (all three are mandatory):
+              &lt;key-id&gt;    - Integer key identifier in the range 1�65535.
+              &lt;auth-type&gt; - Encryption algorithm: md5, sha1, sha256, sha384, or sha512.
+              &lt;password&gt;  - Shared secret string. Pipe characters (|) are not permitted.
+
+            A key is not enforced for authentication until it is also designated trusted
+            with "ntp trusted-key &lt;key-id&gt;".
+            To remove a key, use "no ntp authentication-key &lt;key-id&gt;".
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp authentication-key 1 md5 MySecret123
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp authentication-key" help="Delete NTP authentication key">
+      <PARAM name="key-id" ptype="RANGE_1_65535" help="Key ID (1-65535)"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py delete_ntp_authentication_key ${key-id} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Removes the NTP authentication key associated with the specified key ID. If the key
+            is currently referenced by a trusted-key entry or by a server configuration, those
+            references should be removed first to avoid inconsistent state. Deleting a key does
+            not automatically remove associated trusted-key or server-key references.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;key-id&gt; - Integer key identifier in the range 1�65535; must match a previously
+                          configured authentication key.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp authentication-key 1
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP Trusted Key                              -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp trusted-key" help="Configure NTP trusted authentication key">
+      <PARAM name="key-id" ptype="RANGE_1_65535" help="Key ID (1-65535)"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_trusted_key ${key-id} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Designates an authentication key (previously defined with "ntp authentication-key")
+            as trusted. Only trusted keys are accepted for NTP authentication when
+            "ntp authenticate" is enabled. Multiple keys can be trusted simultaneously.
+            A key must exist via "ntp authentication-key" before it can be made trusted.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;key-id&gt; - Integer key identifier in the range 1�65535; must correspond to
+                          an existing authentication key entry.
+
+            To revoke trust from a key without removing its definition, use
+            "no ntp trusted-key &lt;key-id&gt;".
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp trusted-key 1
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp trusted-key" help="Delete NTP trusted key">
+      <PARAM name="key-id" ptype="RANGE_1_65535" help="Key ID (1-65535)"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py delete_ntp_trusted_key ${key-id} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Removes the trusted designation from the specified authentication key. The key
+            definition itself (type and password) is retained under "ntp authentication-key"
+            and can be re-trusted without reconfiguration. Once untrusted, the key will no longer
+            be accepted for NTP authentication even if still referenced by a server configuration.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;key-id&gt; - Integer key identifier in the range 1�65535; must correspond to
+                          an existing trusted-key entry.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp trusted-key 1
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP Server Configuration                     -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp server" help="Configure NTP server">
+      <PARAM name="server-addr" ptype="HOSTNAME_OR_IPADDR" help="NTP server IP address or hostname"/>
+      <PARAM name="version" ptype="SUBCOMMAND" mode="subcommand" help="NTP protocol version" optional="true">
+        <PARAM name="version-value" ptype="NTP_VERSION" help="Version number (3 or 4)"/>
+      </PARAM>
+      <PARAM name="association" ptype="SUBCOMMAND" mode="subcommand" help="Association type" optional="true">
+        <PARAM name="assoc-value" ptype="NTP_ASSOCIATION_TYPE" help="Association mode (server or pool)"/>
+      </PARAM>
+      <PARAM name="iburst" ptype="SUBCOMMAND" mode="subcommand" help="Enable burst synchronization" optional="true"/>
+      <PARAM name="key" ptype="SUBCOMMAND" mode="subcommand" help="Authentication key" optional="true">
+        <PARAM name="key-value" ptype="RANGE_1_65535" help="Key ID (1-65535)"/>
+      </PARAM>
+      <PARAM name="prefer" ptype="SUBCOMMAND" mode="subcommand" help="Prefer this server" optional="true"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_server ${server-addr} version:${version-value} association-type:${assoc-value} iburst:${iburst} key:${key-value} prefer:${prefer} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Adds an NTP time source to the device configuration. The time source can be specified
+            as an IPv4 address, IPv6 address, or a fully-qualified domain name (FQDN). Optional
+            parameters control the NTP protocol version, association type (unicast server or pool),
+            initial burst behavior, authentication key, and server preference.
+            Multiple servers can be configured simultaneously.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;server-addr&gt; - NTP server IPv4/IPv6 address or hostname/FQDN.
+
+            Optional arguments (all optional, combinable in any order):
+              version &lt;3|4&gt;             - NTP protocol version for this server (default: 4).
+              association &lt;server|pool&gt; - Association mode: unicast server or pool (default: server).
+              iburst                       - Send a burst of packets at startup for faster initial sync.
+              key &lt;key-id&gt;               - Authentication key ID (1�65535); the key must be
+                                             defined with "ntp authentication-key" and trusted
+                                             with "ntp trusted-key".
+              prefer                       - Mark this server as the preferred synchronization source.
+
+            To remove a server entry, use "no ntp server &lt;server-addr&gt;".
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp server 192.0.2.1 version 4 iburst prefer key 1
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp server" help="Delete NTP server">
+      <PARAM name="server-addr" ptype="HOSTNAME_OR_IPADDR" help="NTP server IP address or hostname"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py delete_ntp_server ${server-addr} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Removes a previously configured NTP server entry identified by its IP address or
+            hostname. All per-server parameters (version, association type, iburst, key, prefer)
+            associated with that entry are also removed. Other server entries and global NTP
+            configuration are not affected.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;server-addr&gt; - The IP address or hostname of the NTP server to remove.
+                               Must exactly match the value used when the server was added.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp server 192.0.2.1
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP Source Interface                         -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp source-interface" help="Configure NTP source interface to pick the source IP used for NTP packets" ptype="SUBCOMMAND" mode="subcommand">
+      <PARAM name="iftype" help="Interface type" mode="switch" ptype="SUBCOMMAND">
+        <PARAM name="Ethernet" help="Ethernet interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="eth-id" help="&lt;port[.subport]&gt;  Ethernet interface or sub-interface" ptype="NTP_PHY_INTERFACE_SUBIF"> </PARAM>
+        </PARAM>
+        <PARAM name="Loopback" help="Loopback interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="lo-id" help="&lt;0..16383&gt;  Loopback interface" ptype="NTP_LOOPBACK_INTERFACE"> </PARAM>
+        </PARAM>
+        <PARAM name="Management" help="Management interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="mgmt-id" help="&lt;0&gt;  Management Interface" ptype="NTP_MGMT_INTERFACE"> </PARAM>
+        </PARAM>
+        <PARAM name="PortChannel" help="PortChannel interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="po-id" help="&lt;1..256[.subport]&gt;  PortChannel interface or sub-interface" ptype="NTP_PO_INTERFACE_SUBIF"> </PARAM>
+        </PARAM>
+        <PARAM name="Vlan" help="VLAN interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="vlan-id" help="&lt;1..4094&gt; VLAN interface" ptype="VLAN_ID"> </PARAM>
+        </PARAM>
+      </PARAM>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_source ${iftype} ${eth-id} ${lo-id} ${mgmt-id} ${po-id} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Specifies the interface whose primary IP address is used as the source address for
+            outgoing NTP packets. This setting applies globally to all NTP server associations.
+            If no source interface is configured, the device selects the source address based on
+            the routing table (outgoing interface toward each server).
+            Common values are management interfaces (e.g., Management0) or loopback interfaces.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;interface-type&gt; &lt;interface-id&gt; - Interface type and identifier
+                Supported types: Ethernet, Loopback, Management, PortChannel
+                The interface must exist and have an IP address assigned.
+
+            To remove the source interface configuration, use "no ntp source-interface".
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp source-interface Management 0
+            sonic(config)# ntp source-interface Loopback 0
+            sonic(config)# ntp source-interface Ethernet 0
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp source-interface" help="Delete NTP source interface">
+      <PARAM name="iftype" help="Interface type" mode="switch" ptype="SUBCOMMAND" optional="true">
+        <PARAM name="Ethernet" help="Ethernet interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="eth-id" help="Ethernet" ptype="NTP_PHY_INTERFACE_SUBIF"> </PARAM>
+        </PARAM>
+        <PARAM name="Loopback" help="Loopback interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="lo-id" help="Loopback" ptype="NTP_LOOPBACK_INTERFACE"> </PARAM>
+        </PARAM>
+        <PARAM name="Management" help="Management interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="mgmt-id" help="Management" ptype="NTP_MGMT_INTERFACE"> </PARAM>
+        </PARAM>
+        <PARAM name="PortChannel" help="PortChannel interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="po-id" help="PortChannel" ptype="NTP_PO_INTERFACE_SUBIF"> </PARAM>
+        </PARAM>
+        <PARAM name="Vlan" help="VLAN interface" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="vlan-id" help="&lt;1..4094&gt; VLAN interface" ptype="VLAN_ID"> </PARAM>
+        </PARAM>
+      </PARAM>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py delete_ntp_source ${iftype} ${eth-id} ${lo-id} ${mgmt-id} ${po-id} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Removes the configured NTP source interface. After removal, the device reverts to
+            default source address selection, choosing the source IP based on the best route
+            toward each NTP server. NTP server entries and other global configuration are
+            not affected.
+        </DESCRIPTION>
+        <USAGE>
+            No arguments are required or accepted.
+            Use this command to revert NTP source selection to default routing-table-based behavior.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp source-interface
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <!-- ============================================ -->
+    <!-- NTP VRF                                      -->
+    <!-- ============================================ -->
+
+    <COMMAND name="ntp vrf" help="Enable NTP on VRF">
+      <PARAM name="vrf-name" ptype="ALL_VRF" help="VRF name"/>
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py set_ntp_vrf ${vrf-name} </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Binds NTP operation to the specified VRF, causing all NTP control traffic to be sent
+            and received within that VRF's routing domain. Supported values are "mgmt"
+            (management VRF) and "default" (the default routing instance). Binding NTP to the
+            management VRF is typical for out-of-band management environments.
+            Only one VRF can be active for NTP at a time.
+        </DESCRIPTION>
+        <USAGE>
+            Required argument:
+              &lt;vrf-name&gt; - Name of the VRF to use for NTP: "mgmt" or "default".
+                            The specified VRF must exist before applying this configuration.
+
+            To remove the VRF binding and revert to default VRF behavior, use "no ntp vrf".
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# ntp vrf mgmt
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+    <COMMAND name="no ntp vrf" help="Remove NTP VRF binding">
+      <ACTION> python3 $SONIC_CLI_ROOT/sonic-cli-ntp.py delete_ntp_vrf </ACTION>
+      <DOCGEN>
+        <DESCRIPTION>
+            Removes the NTP VRF binding, reverting NTP to operate within the default VRF routing
+            domain. NTP server entries, authentication configuration, and other global settings
+            are not affected. After removal, NTP traffic will be routed through the default
+            routing table.
+        </DESCRIPTION>
+        <USAGE>
+            No arguments are required or accepted.
+            Use this command to remove an existing VRF association and restore default VRF
+            behavior for NTP.
+        </USAGE>
+        <EXAMPLE>
+            sonic(config)# no ntp vrf
+        </EXAMPLE>
+        <FEATURE>NTP</FEATURE>
+      </DOCGEN>
+    </COMMAND>
+
+  </VIEW>
+
+</CLISH_MODULE>
+
+

@@ -1,0 +1,14 @@
+port.py::get_interface_status,click
+port.py::get_status,click
+ntp.py::delete_ntp_servers,klish
+ntp.py::show_ntp_server,click
+ntp.py::config_ntp_parameters,klish
+ntp.py::config_ntp_vrf,klish
+ntp.py::config_ntp_enable,klish
+ntp.py::show_ntp_global,klish
+vlan.py::create_vlan,click
+vlan.py::delete_vlan,click
+vlan.py::show_vlan_config,click
+vlan.py::get_vlan_list,click
+ntp.py::show_ntp_associations,klish
+ntp.py::show_ntp_server,klish
