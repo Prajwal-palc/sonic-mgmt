@@ -1054,7 +1054,7 @@ class TestNTPPersistence:
         # Get running configuration with NTP settings
         try:
             output = st.show(dut, "show running-configuration | grep ntp",
-                             type=cli_type, skip_tmpl=True, exec_mode=True)
+                             type='klish', skip_tmpl=True, exec_mode=True)
 
             if not output:
                 st.report_fail("msg", "No NTP configuration found in running-config")

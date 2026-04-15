@@ -1262,6 +1262,7 @@ def config_ntp_enable(dut, config='yes', cli_type='', **kwargs):
             commands.append('ntp enable')
         else:
             commands.append('no ntp enable')
+        commands.append('exit')    
     elif cli_type in ['rest-patch', 'rest-put']:
         rest_urls = st.get_datastore(dut, "rest_urls")
         url = rest_urls.get('ntp_config', '/restconf/data/openconfig-system:system/ntp/config')
@@ -1608,13 +1609,6 @@ def show_ntp_global(dut, cli_type=''):
     st.log("Executing 'show ntp global' command")
 
     if cli_type == "klish":
-        # Ensure we're in exec mode before running show command
-        # New build doesn't support "do show" from config mode
-        try:
-            st.config(dut, "exit", type=cli_type, skip_error_check=True, conf=False)
-        except:
-            pass  # Already in exec mode
-
         command = "show ntp global"
         output = st.show(dut, command, type=cli_type, skip_tmpl=True)
 
