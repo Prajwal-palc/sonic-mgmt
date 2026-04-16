@@ -10,6 +10,11 @@
 #   ./batch_full_run.sh --list             # List available batches
 #   ./batch_full_run.sh --features A,B,C   # Run specific batches
 #   ./batch_full_run.sh --features BGP_NEG_FLAP_RR,SYS_NTP
+#
+# Statistics:
+#   Total Batches: 104 (A-CZ and variants)
+#   Total Test Scripts: 349
+#   Last Updated: 2026-04-16
 # ==========================================================
 
 DATE_DIR=$(date +%Y%m%d)
