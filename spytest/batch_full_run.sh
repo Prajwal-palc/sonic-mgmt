@@ -123,12 +123,15 @@ declare -A BATCH_NAMES=(
     ["CO"]="ARP_COMPREHENSIVE"
     ["CP"]="PORT_BREAKOUT_COMPREHENSIVE"
 
-    # Sprint 3 Batches (CQ-CU)
+    # Sprint 3 Batches (CQ-CZ)
     ["CQ"]="PORT_BREAKOUT_ISCLI_EXTENDED"
     ["CR"]="ARP_EXTENDED_TESTS"
     ["CS"]="ND_NEIGHBOR_DISCOVERY"
     ["CT"]="LLDP_COMPREHENSIVE"
     ["CU"]="NTP_EXTENDED_TESTS"
+    ["CV"]="QOS_DELETE_ACTIVE_PFC"
+    ["CW"]="PORT_BREAKOUT_ISCLI_COMPREHENSIVE"
+    ["CX"]="OSPFV2_COMPREHENSIVE"
 )
 
 # ==========================================================
@@ -1796,6 +1799,69 @@ if should_run_batch "CU"; then
     system/ntp/test_ntp_comprehensive.py
 else
     echo "Skipping Batch CU (NTP_EXTENDED_TESTS) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CV : QoS Delete Active PFC Map
+# ==========================================================
+
+if should_run_batch "CV"; then
+    run_batch "QOS_DELETE_ACTIVE_PFC" "./testbeds/testbed_vs_1node.yaml" \
+    qos/test_qos_delete_active_pfc_map.py
+else
+    echo "Skipping Batch CV (QOS_DELETE_ACTIVE_PFC) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CW : Port Breakout ISCLI Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CW"; then
+    run_batch "PORT_BREAKOUT_ISCLI_COMPREHENSIVE" "./testbeds/testbed_sm18_hw.yaml" \
+    system/ISCLI_Port_Breakout/test_port_breakout_basic_modes.py \
+    system/ISCLI_Port_Breakout/test_port_breakout_config_operations.py \
+    system/ISCLI_Port_Breakout/test_port_breakout_multi_port.py \
+    system/ISCLI_Port_Breakout/test_pb_f_004_revert_to_default.py \
+    system/ISCLI_Port_Breakout/test_pb_f_005_ip_configuration.py \
+    system/ISCLI_Port_Breakout/test_pb_f_006_mtu_configuration.py \
+    system/ISCLI_Port_Breakout/test_pb_f_007_shutdown_operations.py \
+    system/ISCLI_Port_Breakout/test_pb_f_008_multiple_speed_grades.py \
+    system/ISCLI_Port_Breakout/test_pb_f_009_asymmetric_breakout.py \
+    system/ISCLI_Port_Breakout/test_pb_f_010_vlan_configuration.py \
+    system/ISCLI_Port_Breakout/test_pb_f_011_vlan_isolation.py \
+    system/ISCLI_Port_Breakout/test_pb_f_012_portchannel_lag.py \
+    system/ISCLI_Port_Breakout/test_pb_f_013_portchannel_member_flap.py
+else
+    echo "Skipping Batch CW (PORT_BREAKOUT_ISCLI_COMPREHENSIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CX : OSPFv2 Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CX"; then
+    # OSPFv2 Basic Adjacency (2-node hardware testbed)
+    run_batch "OSPFV2_BASIC_ADJACENCY" "./testbeds/testbed_ospfv2_hw_2dut.yaml" \
+    routing/ospf/test_ospfv2_basic_adjacency.py \
+    routing/ospf/test_ospfv2_type2_network_lsa.py
+
+    # OSPFv2 LSA/LSDB (4-node virtual testbed)
+    run_batch "OSPFV2_LSA_LSDB" "./testbeds/testbed_ospfv2_vs_4node.yaml" \
+    routing/ospf/test_ospfv2_lsa_lsdb.py \
+    routing/ospf/test_ospfv2_virtual_link.py
+
+    # OSPFv2 Area Types (3-node hardware testbed)
+    run_batch "OSPFV2_AREA_TYPES" "./testbeds/testbed_ospfv2_hw_3node.yaml" \
+    routing/ospf/test_ospfv2_area_types.py
+
+    # OSPFv2 Routes and SPF (virtual testbed)
+    run_batch "OSPFV2_ROUTES_SPF" "./testbeds/testbed_ospfv2_routes_spf_vs.yaml" \
+    routing/ospf/test_ospfv2_routes_spf.py
+else
+    echo "Skipping Batch CX (OSPFV2_COMPREHENSIVE) - not selected"
 fi
 
 
