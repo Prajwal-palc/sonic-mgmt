@@ -28,7 +28,7 @@ Key modules:
 Basic test execution:
 ```bash
 ./bin/spytest --testbed testbeds/testbed_2vs.yaml \
-    tests/routing/static/test_static_route_basic.py \
+    routing/static/test_static_route_basic.py \
     --logs-path ./logs/test_run
 ```
 
@@ -81,13 +81,12 @@ Each test file should include comprehensive docstring documentation:
 """
 FEATURE NAME - TEST SCENARIO
 
-Author: Name
-Copyright (C) 2024, Company
+Author: Name, {date}
 
 How to run:
   ./bin/spytest --tryssh 1 \\
   --testbed ./testbeds/testbed_vs_2d.yaml \\
-  tests/feature/test_file.py \\
+  feature/test_file.py \\
   --logs-path ./logs/test_$(date +%F_%H%M%S) \\
   --log-level debug --skip-init-config --ifname-type native
 
@@ -345,3 +344,11 @@ Recent work centers on routing protocols:
 - ECMP (Equal-Cost Multi-Path) test coverage
 - BGP feature validation
 - Traffic generator dependency removal for certain tests
+- "Batch_Script_Count": Whener new scripts are getting added or any scripts are removed from the batch @batch_full_run.sh , update the statistics tracker present in the header of this script to reflect the accurate total script count present in this batch file. 
+
+# Statistics:
+  #   Total Batches: 104 (A-CZ and variants)
+  #   Total Test Scripts: 349
+  #   Last Updated: 2026-04-16
+
+Memorise this ask for this user.

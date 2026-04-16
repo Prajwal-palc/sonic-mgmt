@@ -10,6 +10,11 @@
 #   ./batch_full_run.sh --list             # List available batches
 #   ./batch_full_run.sh --features A,B,C   # Run specific batches
 #   ./batch_full_run.sh --features BGP_NEG_FLAP_RR,SYS_NTP
+#
+# Statistics:
+#   Total Batches: 104 (A-CZ and variants)
+#   Total Test Scripts: 349
+#   Last Updated: 2026-04-16
 # ==========================================================
 
 DATE_DIR=$(date +%Y%m%d)
@@ -132,6 +137,8 @@ declare -A BATCH_NAMES=(
     ["CV"]="QOS_DELETE_ACTIVE_PFC"
     ["CW"]="PORT_BREAKOUT_ISCLI_COMPREHENSIVE"
     ["CX"]="OSPFV2_COMPREHENSIVE"
+    ["CY"]="VLAN_DELETE_TESTS"
+    ["CZ"]="STATIC_ROUTE_OC_COMPREHENSIVE"
 )
 
 # ==========================================================
@@ -1862,6 +1869,51 @@ if should_run_batch "CX"; then
     routing/ospf/test_ospfv2_routes_spf.py
 else
     echo "Skipping Batch CX (OSPFV2_COMPREHENSIVE) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CY : VLAN Delete Tests
+# ==========================================================
+
+if should_run_batch "CY"; then
+    run_batch "VLAN_DELETE_TESTS" "./testbeds/testbed_1d_spine02.yaml" \
+    switching/vlan/test_vlan_delete_with_members.py \
+    switching/vlan/test_vlan_delete_verification.py
+else
+    echo "Skipping Batch CY (VLAN_DELETE_TESTS) - not selected"
+fi
+
+
+# ==========================================================
+# BATCH-CZ : Static Route OC Comprehensive Tests
+# ==========================================================
+
+if should_run_batch "CZ"; then
+    run_batch "STATIC_ROUTE_OC_COMPREHENSIVE" "./testbeds/testbed_oc_static_3vs.yaml" \
+    system/Static_Route/test_oc_static_route_01_ipv4_basic_nexthop.py \
+    system/Static_Route/test_oc_static_route_02_ipv4_blackhole.py \
+    system/Static_Route/test_oc_static_route_03_ipv4_interface.py \
+    system/Static_Route/test_oc_static_route_04_ipv4_tags.py \
+    system/Static_Route/test_oc_static_route_05_ipv4_tag_distance.py \
+    system/Static_Route/test_oc_static_route_06_ipv4_host_prefix.py \
+    system/Static_Route/test_oc_static_route_07_ipv4_ecmp.py \
+    system/Static_Route/test_oc_static_route_08_ipv6_basic.py \
+    system/Static_Route/test_oc_static_route_09_ipv6_blackhole.py \
+    system/Static_Route/test_oc_static_route_10_ipv6_interface.py \
+    system/Static_Route/test_oc_static_route_11_ipv6_tag.py \
+    system/Static_Route/test_oc_static_route_12_ipv6_distance.py \
+    system/Static_Route/test_oc_static_route_13_ipv6_default.py \
+    system/Static_Route/test_oc_static_route_14_ipv6_prefix_lengths.py \
+    system/Static_Route/test_oc_static_route_15_ipv6_ecmp.py \
+    system/Static_Route/test_oc_static_route_16_mixed_ipv4_ipv6.py \
+    system/Static_Route/test_oc_static_route_17_route_deletion_modification.py \
+    system/Static_Route/test_oc_static_route_18_interface_distance.py \
+    system/Static_Route/test_oc_static_route_19_recursive_routes.py \
+    system/Static_Route/test_oc_static_route_20_portchannel.py \
+    system/Static_Route/test_oc_static_route_21_vlan_interface.py
+else
+    echo "Skipping Batch CZ (STATIC_ROUTE_OC_COMPREHENSIVE) - not selected"
 fi
 
 
