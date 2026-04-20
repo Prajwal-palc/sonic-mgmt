@@ -447,25 +447,32 @@ def test_bgp55_ibgp_ebgp_selection():
             st.error(error_msg)
             validation_failures.append(error_msg)
 
-    # Step 2: Configure route-maps
-    st.log("STEP 2: Configure route-maps with same local-preference")
-    if not configure_routemap(vars.D1, CONFIG.rm_ibgp, CONFIG.local_pref):
-        st.report_fail("routemap_config_failed", vars.D1)
+        # Step 2: Configure route-maps
+        st.log("STEP 2: Configure route-maps with same local-preference")
+        if not configure_routemap(vars.D1, CONFIG.rm_ibgp, CONFIG.local_pref):
+            st.report_fail("routemap_config_failed", vars.D1)
 
-    if not configure_routemap(vars.D1, CONFIG.rm_ebgp, CONFIG.local_pref):
-        st.report_fail("routemap_config_failed", vars.D1)
+        if not configure_routemap(vars.D1, CONFIG.rm_ebgp, CONFIG.local_pref):
+            st.report_fail("routemap_config_failed", vars.D1)
 
-    # Step 3: Phase 1 - IBGP Configuration
-    st.log("=" * 80)
-    st.log("PHASE 1: IBGP Configuration (both AS 65001)")
-    st.log("=" * 80)
+        # Step 3: Phase 1 - IBGP Configuration
+        st.log("=" * 80)
+        st.log("PHASE 1: IBGP Configuration (both AS 65001)")
+        st.log("=" * 80)
 
-    st.log("STEP 3: Configure BGP basic settings (IBGP)")
-    if not configure_bgp_basic(vars.D1, CONFIG.dut1_asn, CONFIG.dut1_router_id):
-        st.report_fail("bgp_config_failed", vars.D1)
+        st.log("STEP 3: Configure BGP basic settings (IBGP)")
+        if not configure_bgp_basic(vars.D1, CONFIG.dut1_asn, CONFIG.dut1_router_id):
+            st.report_fail("bgp_config_failed", vars.D1)
 
-    if not configure_bgp_basic(vars.D2, CONFIG.dut2_asn_ibgp, CONFIG.dut2_router_id):
-        st.report_fail("bgp_config_failed", vars.D2)
+        if not configure_bgp_basic(vars.D2, CONFIG.dut2_asn_ibgp, CONFIG.dut2_router_id):
+            st.report_fail("bgp_config_failed", vars.D2)
+
+    except Exception as e:
+        st.error(f"Test execution error: {e}")
+        validation_failures.append(f"Exception: {e}")
+    finally:
+        # Continue with remaining steps
+        pass
 
     # Step 4: Attach IBGP neighbors
     st.log("STEP 4: Attach IBGP neighbors with route-maps")

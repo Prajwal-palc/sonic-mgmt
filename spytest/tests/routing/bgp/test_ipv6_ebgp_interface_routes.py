@@ -1,7 +1,7 @@
 """
 IPv6 PHYSICAL INTERFACE WITH BGP ROUTE ADVERTISEMENT
 Author: Prajwal
-© 2025, copyrights@SuperMicro
+Â© 2025, copyrights@SuperMicro
 
 How to run:
   ./bin/spytest  --tryssh 1  \

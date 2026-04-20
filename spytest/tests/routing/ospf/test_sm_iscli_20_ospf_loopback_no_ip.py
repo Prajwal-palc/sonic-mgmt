@@ -1143,5 +1143,5 @@ def test_sm_iscli_20_tc10_cleanup_verification():
     st.log("✓ TC 20.10 PASSED: Cleanup and unconfiguration validated")
 
 
-# Test report pass (required by framework)
-st.log("SM_ISCLI_20 test module loaded successfully")
+# Test module loaded successfully
+# Note: st.log() cannot be called at module level - only within test functions

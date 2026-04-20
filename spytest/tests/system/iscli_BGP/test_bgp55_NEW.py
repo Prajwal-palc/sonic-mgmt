@@ -417,25 +417,6 @@ def test_bgp55_ibgp_ebgp_selection():
     tech_support_generated = False
 
     try:
-    - "show ip bgp" shows EBGP route as best path
-
-    Validation Pattern:
-    - Validation errors tracked in validation_failures list
-    - Test continues execution even on validation errors
-    - Cleanup always executes in finally block
-    - Tech-support generated on failures
-    """
-    st.banner("TEST: BGP-55 - IBGP vs EBGP Path Selection")
-
-    st.log("ℹ️  Testing BGP Best-Path Selection: EBGP preferred over IBGP")
-    st.log("ℹ️  Phase 1: IBGP (both AS 65001)")
-    st.log("ℹ️  Phase 2: EBGP (DUT2 changes to AS 65002)")
-
-    # Track validation failures - test will continue but report fail at end
-    validation_failures = []
-    tech_support_generated = False
-
-    try:
         # Step 1: Configure interfaces
         st.log("STEP 1: Configure IP interfaces and loopbacks")
         if not configure_ip_interface(vars.D1, CONFIG.dut1_ip):
@@ -457,6 +438,13 @@ def test_bgp55_ibgp_ebgp_selection():
             error_msg = f"Loopback configuration failed on {vars.D2}"
             st.error(error_msg)
             validation_failures.append(error_msg)
+
+    except Exception as e:
+        st.error(f"Test execution error: {e}")
+        validation_failures.append(f"Exception: {e}")
+    finally:
+        # Continue with remaining steps
+        pass
 
     # Step 2: Configure route-maps
     st.log("STEP 2: Configure route-maps with same local-preference")
@@ -550,8 +538,9 @@ def test_bgp55_ibgp_ebgp_selection():
     st.log("STEP 10: Update DUT1 neighbor to EBGP (AS 65002)")
     if not attach_neighbor_with_routemap(vars.D1, CONFIG.dut2_ip,
                                          CONFIG.dut2_asn_ebgp, CONFIG.rm_ebgp):
-        error_msg = f"Neighbor configuration failed on {vars.D1 if "D1" in line else vars.D2}"
+        error_msg = f"Neighbor configuration failed on {vars.D1}"
         st.error(error_msg)
         validation_failures.append(error_msg)
 
     if not advertise_loopback(vars.D1, CONFIG.dut1_asn, CONFIG.dut1_loopback):
+        st.log("Warning: Failed to advertise loopback on DUT1")
