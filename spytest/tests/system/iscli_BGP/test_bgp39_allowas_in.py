@@ -158,6 +158,21 @@ def cleanup_bgp() -> bool:
     return True
 
 def test_bgp39_allowas_in():
+    """Test function following: UNCONFIG -> CONFIG -> VALIDATE -> CLEANUP pattern"""
+    
+    try:
+        # STEP 1: UNCONFIGURATION (Cleanup any existing config)
+        st.banner("STEP 1: UNCONFIGURATION - Cleanup existing configuration")
+    cleanup_bgp()
+        
+        # STEP 2: CONFIGURATION (Setup test environment)
+        st.banner("STEP 2: CONFIGURATION - Setup test environment")
+    if not configure_base_bgp():
+        st.report_fail("module_config_failed")
+        
+        # STEP 3: VALIDATION (Execute test checks)
+        st.banner("STEP 3: VALIDATION - Execute test checks")
+
     st.banner("TEST: BGP-39 allowas-in Behavior")
     st.log("Step 1: Verify allowas-in configuration")
     if not verify_allowas_in_config(data.dut1):
@@ -183,3 +198,13 @@ def test_bgp39_allowas_in():
     st.log(f"DUT2 BGP Config:\n{output2}")
     st.log("✅ BGP-39: allowas-in test completed successfully")
     st.report_pass("test_case_passed")
+
+    
+    finally:
+        # STEP 4: CLEANUP (Teardown - always executes)
+        st.banner("STEP 4: CLEANUP - Teardown configuration")
+        try:
+    cleanup_bgp()
+            st.log("Cleanup completed successfully")
+        except Exception as e:
+            st.error(f"Cleanup error: {str(e)}")

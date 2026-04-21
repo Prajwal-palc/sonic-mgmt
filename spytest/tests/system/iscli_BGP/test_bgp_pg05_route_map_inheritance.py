@@ -129,7 +129,7 @@ def configure_ip_bgp_basic(dut: str, ip_address: str, router_id: str) -> bool:
     st.log(f"Configuring IP and BGP on {dut}")
 
     # Configure IP
-    if not ipapi.config_ip_addr_interface(dut, CONFIG.interface,
+    if not ipapi.config_ip_addr_interface(dut, data.d1_phy_port,
                                           ip_address,
                                           subnet=CONFIG.subnet_mask,
                                           family="ipv4", cli_type=data.cli_type):

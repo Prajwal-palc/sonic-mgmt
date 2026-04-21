@@ -2,7 +2,7 @@
 BGP Capability Test BGP-78: Extended Next-Hop Capability
 
 Author: Auto-generated
-Copyright (C) 2024
+Copyright (C) 2026 - Spytest Automation Framework
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -391,6 +391,8 @@ def test_bgp78_extended_nexthop():
         validation_failures.append(error_msg)
 
     finally:
+        # STEP 4: CLEANUP (Teardown - always executes)
+        st.banner("STEP 4: CLEANUP - Teardown configuration")
         st.banner("CLEANUP: Unconfiguring BGP and Interfaces (ALWAYS EXECUTES)")
 
         try:

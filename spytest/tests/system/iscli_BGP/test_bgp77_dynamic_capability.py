@@ -2,7 +2,7 @@
 BGP Capability Test BGP-77: Dynamic Capability Advertisement
 
 Author: Auto-generated
-Copyright (C) 2024
+Copyright (C) 2026 - Spytest Automation Framework
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -286,6 +286,21 @@ def cleanup_bgp() -> bool:
 
 
 def test_bgp77_dynamic_capability():
+    """Test function following: UNCONFIG -> CONFIG -> VALIDATE -> CLEANUP pattern"""
+    
+    try:
+        # STEP 1: UNCONFIGURATION (Cleanup any existing config)
+        st.banner("STEP 1: UNCONFIGURATION - Cleanup existing configuration")
+    cleanup_bgp()
+        
+        # STEP 2: CONFIGURATION (Setup test environment)
+        st.banner("STEP 2: CONFIGURATION - Setup test environment")
+    if not configure_base_bgp():
+        st.report_fail("module_config_failed")
+        
+        # STEP 3: VALIDATION (Execute test checks)
+        st.banner("STEP 3: VALIDATION - Execute test checks")
+
     """
     Test BGP-77: Dynamic Capability Advertisement
 
@@ -355,3 +370,13 @@ def test_bgp77_dynamic_capability():
 
     st.log("✅ BGP-77: Dynamic capability test completed successfully")
     st.report_pass("test_case_passed")
+
+    
+    finally:
+        # STEP 4: CLEANUP (Teardown - always executes)
+        st.banner("STEP 4: CLEANUP - Teardown configuration")
+        try:
+    cleanup_bgp()
+            st.log("Cleanup completed successfully")
+        except Exception as e:
+            st.error(f"Cleanup error: {str(e)}")

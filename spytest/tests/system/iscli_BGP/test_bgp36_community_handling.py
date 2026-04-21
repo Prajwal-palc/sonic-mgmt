@@ -2,7 +2,7 @@
 BGP Community Attribute - Send/Receive Behavior (BGP-36)
 
 Author: Network Automation Team
-Copyright (C) 2024
+Copyright (C) 2026 - Spytest Automation Framework
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -49,9 +49,7 @@ vars = SpyTestDict()
 data = SpyTestDict()
 
 # Test configuration
-CONFIG = SpyTestDict({
-    "interface": "Ethernet4",
-    "subnet_mask": "24",
+CONFIG = SpyTestDict({    "subnet_mask": "24",
 
     # DUT1 configuration (AS 65001 - sends communities)
     "dut1_asn": "65001",
@@ -83,6 +81,10 @@ def module_hooks(request):
     vars = st.ensure_min_topology("D1D2:1")
     data.cli_type = "klish"
 
+    # Dynamic port assignment
+    data.d1_phy_port = vars.D1D2P1
+    data.d2_phy_port = vars.D2D1P1
+
     yield
 
     st.banner("BGP-36: MODULE EPILOGUE - Cleanup")
@@ -90,19 +92,19 @@ def module_hooks(request):
     cleanup_routemaps(vars.D2)
     cleanup_bgp_config(vars.D1)
     cleanup_bgp_config(vars.D2)
-    cleanup_ip_interface(vars.D1, CONFIG.dut1_ip)
-    cleanup_ip_interface(vars.D2, CONFIG.dut2_ip)
+    cleanup_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port)
+    cleanup_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port)
     cleanup_loopback(vars.D1)
     cleanup_loopback(vars.D2)
 
 
-def configure_ip_interface(dut: str, ip_address: str) -> bool:
+def configure_ip_interface(dut: str, ip_address: str, interface: str) -> bool:
     """Configure physical interface with IP address."""
     try:
-        st.log(f"Configuring {CONFIG.interface} on {dut} with IP {ip_address}")
+        st.log(f"Configuring {interface} on {dut} with IP {ip_address}")
 
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {interface}",
             f"ip address {ip_address}/{CONFIG.subnet_mask}",
             "no shutdown"
         ]
@@ -115,11 +117,11 @@ def configure_ip_interface(dut: str, ip_address: str) -> bool:
         return False
 
 
-def cleanup_ip_interface(dut: str, ip_addr: str) -> None:
+def cleanup_ip_interface(dut: str, ip_addr: str, interface: str) -> None:
     """Remove IP address from physical interface."""
     try:
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {interface}",
             f"no ip address {ip_addr}/{CONFIG.subnet_mask}"
         ]
         st.config(dut, commands, type=data.cli_type, skip_error_check=True)
@@ -339,6 +341,27 @@ def cleanup_bgp_config(dut: str) -> None:
 
 
 def test_bgp36_community_handling():
+    """Test function following: UNCONFIG -> CONFIG -> VALIDATE -> CLEANUP pattern"""
+    
+    try:
+        # STEP 1: UNCONFIGURATION (Cleanup any existing config)
+        st.banner("STEP 1: UNCONFIGURATION - Cleanup existing configuration")
+    cleanup_routemaps(vars.D1)
+    cleanup_routemaps(vars.D2)
+    cleanup_bgp_config(vars.D1)
+    cleanup_bgp_config(vars.D2)
+    cleanup_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port)
+    cleanup_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port)
+    cleanup_loopback(vars.D1)
+    cleanup_loopback(vars.D2)
+        
+        # STEP 2: CONFIGURATION (Setup test environment)
+        st.banner("STEP 2: CONFIGURATION - Setup test environment")
+
+        
+        # STEP 3: VALIDATION (Execute test checks)
+        st.banner("STEP 3: VALIDATION - Execute test checks")
+
     """
     BGP-36: Verify BGP standard community attribute handling.
 
@@ -374,10 +397,10 @@ def test_bgp36_community_handling():
 
     # Step 1: Configure interfaces
     st.log("STEP 1: Configure IP interfaces and loopbacks")
-    if not configure_ip_interface(vars.D1, CONFIG.dut1_ip):
+    if not configure_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port):
         st.report_fail("interface_config_failed", vars.D1)
 
-    if not configure_ip_interface(vars.D2, CONFIG.dut2_ip):
+    if not configure_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port):
         st.report_fail("interface_config_failed", vars.D2)
 
     if not configure_loopback(vars.D1, CONFIG.dut1_loopback):
@@ -455,3 +478,20 @@ def test_bgp36_community_handling():
     st.log("      - ip community-list: requires vtysh")
     st.log("=" * 80)
     st.report_pass("test_case_passed")
+
+    
+    finally:
+        # STEP 4: CLEANUP (Teardown - always executes)
+        st.banner("STEP 4: CLEANUP - Teardown configuration")
+        try:
+    cleanup_routemaps(vars.D1)
+    cleanup_routemaps(vars.D2)
+    cleanup_bgp_config(vars.D1)
+    cleanup_bgp_config(vars.D2)
+    cleanup_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port)
+    cleanup_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port)
+    cleanup_loopback(vars.D1)
+    cleanup_loopback(vars.D2)
+            st.log("Cleanup completed successfully")
+        except Exception as e:
+            st.error(f"Cleanup error: {str(e)}")

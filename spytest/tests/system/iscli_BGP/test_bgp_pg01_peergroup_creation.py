@@ -3,7 +3,7 @@ BGP PEER-GROUP TEST - PG-01: Create Peer-Group and Apply to Neighbors
 
 Test Case ID: PG-01
 Author: Automated from Manual Validation
-Copyright (C) 2024, SuperMicro
+Copyright (C) 2025 - Spytest Automation Framework, SuperMicro
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -44,9 +44,7 @@ vars = SpyTestDict()
 data = SpyTestDict()
 
 # Test configuration matching manual testcase
-CONFIG = SpyTestDict({
-    "interface": "Ethernet4",
-    "dut1_ip": "10.1.1.1",
+CONFIG = SpyTestDict({    "dut1_ip": "10.1.1.1",
     "dut2_ip": "10.1.1.2",
     "subnet_mask": "24",
     "asn": "65001",
@@ -79,6 +77,10 @@ def bgp_pg01_module_hooks(request):
     data.cli_type = st.get_ui_type()
     if data.cli_type == 'click':
         data.cli_type = 'klish'
+
+    # Dynamic port assignment
+    data.d1_phy_port = vars.D1D2P1
+    data.d2_phy_port = vars.D2D1P1
 
     st.log(f"DUT1: {vars.D1}, DUT2: {vars.D2}")
     st.log(f"CLI Type: {data.cli_type}")
@@ -448,11 +450,11 @@ def test_bgp_pg01_peergroup_creation():
     # ==================================================================
     st.banner("STEP 1: Configure IP Addresses on Ethernet4")
 
-    if not configure_ip_on_interface(vars.D1, CONFIG.interface, CONFIG.dut1_ip):
+    if not configure_ip_on_interface(vars.D1, data.d1_phy_port, CONFIG.dut1_ip):
         st.report_tc_fail(TC_IDS.pg01_basic_bgp, "msg", f"Failed to configure IP on {vars.D1}")
         st.report_fail("msg", f"Failed to configure IP on {vars.D1}")
 
-    if not configure_ip_on_interface(vars.D2, CONFIG.interface, CONFIG.dut2_ip):
+    if not configure_ip_on_interface(vars.D2, data.d2_phy_port, CONFIG.dut2_ip):
         st.report_tc_fail(TC_IDS.pg01_basic_bgp, "msg", f"Failed to configure IP on {vars.D2}")
         st.report_fail("msg", f"Failed to configure IP on {vars.D2}")
 
