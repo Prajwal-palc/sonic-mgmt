@@ -2,7 +2,7 @@
 BGP Best-Path Selection - Router-ID Tie-Break (BGP-57)
 
 Author: Network Automation Team
-Copyright (C) 2024
+Copyright (C) 2026
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -102,10 +102,10 @@ def module_hooks(request):
 def configure_ip_interface(dut: str, ip_address: str) -> bool:
     """Configure physical interface with IP address."""
     try:
-        st.log(f"Configuring {CONFIG.interface} on {dut} with IP {ip_address}")
+        st.log(f"Configuring {data.d1_phy_port} on {dut} with IP {ip_address}")
 
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {data.d1_phy_port}",
             f"ip address {ip_address}/{CONFIG.subnet_mask}",
             "no shutdown"
         ]
@@ -122,7 +122,7 @@ def cleanup_ip_interface(dut: str, ip_addr: str) -> None:
     """Remove IP address from physical interface."""
     try:
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {data.d1_phy_port}",
             f"no ip address {ip_addr}/{CONFIG.subnet_mask}"
         ]
         st.config(dut, commands, type=data.cli_type, skip_error_check=True)
@@ -314,14 +314,14 @@ def test_bgp57_router_id_tiebreak():
             st.error(error_msg)
             validation_failures.append(error_msg)
         else:
-            st.log(f"✓ Interface {CONFIG.interface} configured on {vars.D1}")
+            st.log(f"✓ Interface {data.d1_phy_port} configured on {vars.D1}")
 
         if not configure_ip_interface(vars.D2, CONFIG.dut2_ip):
             error_msg = f"Interface configuration failed on {vars.D2} - IP: {CONFIG.dut2_ip}"
             st.error(error_msg)
             validation_failures.append(error_msg)
         else:
-            st.log(f"✓ Interface {CONFIG.interface} configured on {vars.D2}")
+            st.log(f"✓ Interface {data.d2_phy_port} configured on {vars.D2}")
 
         if not configure_loopback(vars.D1, CONFIG.dut1_loopback):
             error_msg = f"Loopback configuration failed on {vars.D1} - IP: {CONFIG.dut1_loopback}"

@@ -2,7 +2,7 @@
 BGP Best-Path Selection - IBGP vs EBGP Path Preference (BGP-55)
 
 Author: Network Automation Team
-Copyright (C) 2024
+Copyright (C) 2026 - Spytest Automation Framework
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -53,9 +53,7 @@ vars = SpyTestDict()
 data = SpyTestDict()
 
 # Test configuration
-CONFIG = SpyTestDict({
-    "interface": "Ethernet4",
-    "subnet_mask": "24",
+CONFIG = SpyTestDict({    "subnet_mask": "24",
 
     # DUT1 configuration (AS 65001 - stays constant)
     "dut1_asn": "65001",
@@ -90,6 +88,10 @@ def module_hooks(request):
     vars = st.ensure_min_topology("D1D2:1")
     data.cli_type = "klish"
 
+    # Dynamic port assignment
+    data.d1_phy_port = vars.D1D2P1
+    data.d2_phy_port = vars.D2D1P1
+
     yield
 
     st.banner("BGP-55: MODULE EPILOGUE - Cleanup")
@@ -98,19 +100,19 @@ def module_hooks(request):
     cleanup_bgp_config(vars.D1, CONFIG.dut1_asn)
     cleanup_bgp_config(vars.D2, CONFIG.dut2_asn_ibgp)
     cleanup_bgp_config(vars.D2, CONFIG.dut2_asn_ebgp)
-    cleanup_ip_interface(vars.D1, CONFIG.dut1_ip)
-    cleanup_ip_interface(vars.D2, CONFIG.dut2_ip)
+    cleanup_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port)
+    cleanup_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port)
     cleanup_loopback(vars.D1)
     cleanup_loopback(vars.D2)
 
 
-def configure_ip_interface(dut: str, ip_address: str) -> bool:
+def configure_ip_interface(dut: str, ip_address: str, interface: str) -> bool:
     """Configure physical interface with IP address."""
     try:
-        st.log(f"Configuring {CONFIG.interface} on {dut} with IP {ip_address}")
+        st.log(f"Configuring {interface} on {dut} with IP {ip_address}")
 
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {interface}",
             f"ip address {ip_address}/{CONFIG.subnet_mask}",
             "no shutdown"
         ]
@@ -123,11 +125,11 @@ def configure_ip_interface(dut: str, ip_address: str) -> bool:
         return False
 
 
-def cleanup_ip_interface(dut: str, ip_addr: str) -> None:
+def cleanup_ip_interface(dut: str, ip_addr: str, interface: str) -> None:
     """Remove IP address from physical interface."""
     try:
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {interface}",
             f"no ip address {ip_addr}/{CONFIG.subnet_mask}"
         ]
         st.config(dut, commands, type=data.cli_type, skip_error_check=True)
@@ -428,12 +430,12 @@ def test_bgp55_ibgp_ebgp_selection():
     try:
         # Step 1: Configure interfaces
         st.log("STEP 1: Configure IP interfaces and loopbacks")
-        if not configure_ip_interface(vars.D1, CONFIG.dut1_ip):
+        if not configure_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port):
             error_msg = f"Interface configuration failed on {vars.D1}"
             st.error(error_msg)
             validation_failures.append(error_msg)
 
-        if not configure_ip_interface(vars.D2, CONFIG.dut2_ip):
+        if not configure_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port):
             error_msg = f"Interface configuration failed on {vars.D2}"
             st.error(error_msg)
             validation_failures.append(error_msg)
@@ -591,8 +593,8 @@ def test_bgp55_ibgp_ebgp_selection():
 
             # Clear IP configuration
             st.log("Clearing IP configuration on both DUTs")
-            cleanup_ip_interface(vars.D1, CONFIG.dut1_ip)
-            cleanup_ip_interface(vars.D2, CONFIG.dut2_ip)
+            cleanup_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port)
+            cleanup_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port)
 
             # Clear loopback configuration
             st.log("Clearing loopback configuration on both DUTs")

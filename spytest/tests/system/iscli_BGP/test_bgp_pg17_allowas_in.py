@@ -2,7 +2,7 @@
 BGP Peer-Group allowas-in Configuration (PG-17)
 
 Author: Network Automation Team
-Copyright (C) 2024
+Copyright (C) 2026
 
 How to run:
   cd /home/hp/draksha/sonic-mgmt/spytest
@@ -95,11 +95,11 @@ def module_hooks(request):
 def configure_ip_interface(dut: str, ip_address: str) -> bool:
     """Configure physical interface with IP address."""
     try:
-        st.log(f"Configuring {CONFIG.interface} on {dut} with IP {ip_address}")
+        st.log(f"Configuring {data.d1_phy_port} on {dut} with IP {ip_address}")
 
         # Configure IP address (separate IP and subnet to avoid double-slash bug)
         ipapi.config_ip_addr_interface(
-            dut, CONFIG.interface,
+            dut, data.d1_phy_port,
             ip_address,
             subnet=CONFIG.subnet_mask,
             family="ipv4",
@@ -108,7 +108,7 @@ def configure_ip_interface(dut: str, ip_address: str) -> bool:
 
         # Enable interface
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {data.d1_phy_port}",
             "no shutdown",
             "exit"
         ]
@@ -124,7 +124,7 @@ def configure_ip_interface(dut: str, ip_address: str) -> bool:
 def cleanup_ip_interface(dut: str) -> None:
     """Remove IP address from physical interface."""
     try:
-        ipapi.delete_ip_interface(dut, CONFIG.interface,
+        ipapi.delete_ip_interface(dut, data.d1_phy_port,
                                   f"{CONFIG.dut1_ip if dut == vars.D1 else CONFIG.dut2_ip}/{CONFIG.subnet_mask}",
                                   family="ipv4", cli_type=data.cli_type, skip_error=True)
     except Exception as e:

@@ -2,7 +2,7 @@
 BGP Capability Test BGP-76: Capability Negotiation Disable/Override
 
 Author: Auto-generated
-Copyright (C) 2024
+Copyright (C) 2026 - Spytest Automation Framework
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -282,6 +282,16 @@ def test_bgp76_capability_negotiation():
     tech_support_generated = False
 
     try:
+        # STEP 1: UNCONFIGURATION (Cleanup existing configuration)
+        st.banner("STEP 1: UNCONFIGURATION - Cleanup existing configuration")
+        # (Cleanup if needed)
+        
+        # STEP 2: CONFIGURATION (Setup test environment)
+        st.banner("STEP 2: CONFIGURATION - Setup test environment")
+        # Configuration starts below...
+        
+        # STEP 3: VALIDATION (Execute test checks)
+        st.banner("STEP 3: VALIDATION - Execute test checks")
         # Module setup - Configure base BGP
         st.banner("Configuring Interfaces and BGP")
 
@@ -375,6 +385,8 @@ def test_bgp76_capability_negotiation():
         st.log(f"Exception details: {e}")
 
     finally:
+        # STEP 4: CLEANUP (Teardown - always executes)
+        st.banner("STEP 4: CLEANUP - Teardown configuration")
         # CLEANUP: Always executes regardless of test outcome
         st.banner("CLEANUP: Unconfiguring BGP and Interfaces (ALWAYS EXECUTES)")
 

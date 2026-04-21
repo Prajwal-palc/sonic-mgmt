@@ -3,7 +3,7 @@ BGP PEER-GROUP TEST - PG-02: Peer-Group Attribute Inheritance
 
 Test Case ID: PG-02
 Author: Automated from Manual Validation
-Copyright (C) 2024, SuperMicro
+Copyright (C) 2025 - Spytest Automation Framework, SuperMicro
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -40,9 +40,7 @@ vars = SpyTestDict()
 data = SpyTestDict()
 
 # Test configuration
-CONFIG = SpyTestDict({
-    "interface": "Ethernet4",
-    "dut1_ip": "10.1.1.1",
+CONFIG = SpyTestDict({    "dut1_ip": "10.1.1.1",
     "dut2_ip": "10.1.1.2",
     "subnet_mask": "24",
     "asn": "65001",
@@ -74,6 +72,10 @@ def bgp_pg02_module_hooks(request):
     data.cli_type = st.get_ui_type()
     if data.cli_type == 'click':
         data.cli_type = 'klish'
+
+    # Dynamic port assignment
+    data.d1_phy_port = vars.D1D2P1
+    data.d2_phy_port = vars.D2D1P1
 
     st.log(f"DUT1: {vars.D1}, DUT2: {vars.D2}")
     st.log(f"CLI Type: {data.cli_type}")
@@ -127,7 +129,7 @@ def configure_ip_bgp_basic(dut: str, ip_address: str, router_id: str) -> bool:
     st.log(f"Configuring IP and BGP on {dut}")
 
     # Configure IP - pass IP and subnet separately
-    if not ipapi.config_ip_addr_interface(dut, CONFIG.interface,
+    if not ipapi.config_ip_addr_interface(dut, data.d1_phy_port,
                                           ip_address,  # Pass IP without subnet
                                           subnet=CONFIG.subnet_mask,  # Pass subnet separately
                                           family="ipv4", cli_type=data.cli_type):

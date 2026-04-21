@@ -3,7 +3,7 @@ BGP PEER-GROUP TEST - PG-06: Peer-Group Password/MD5 Inheritance and Failover
 
 Test Case ID: PG-06
 Author: Automated from Manual Validation
-Copyright (C) 2024, SuperMicro
+Copyright (C) 2025 - Spytest Automation Framework, SuperMicro
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -46,9 +46,7 @@ vars = SpyTestDict()
 data = SpyTestDict()
 
 # Test configuration
-CONFIG = SpyTestDict({
-    "interface": "Ethernet4",
-    "dut1_ip": "10.1.1.1",
+CONFIG = SpyTestDict({    "dut1_ip": "10.1.1.1",
     "dut2_ip": "10.1.1.2",
     "subnet_mask": "24",
     "asn": "65001",
@@ -74,6 +72,10 @@ def bgp_pg06_module_hooks(request):
     # Get testbed topology
     vars = st.ensure_min_topology("D1D2:1")
 
+
+    # Dynamic port assignment
+    data.d1_phy_port = vars.D1D2P1
+    data.d2_phy_port = vars.D2D1P1
     # Initialize test data
     data.cli_type = st.get_ui_type(vars.D1, cli_type="klish")
 
@@ -107,7 +109,7 @@ def configure_ip_bgp_basic(dut: str, ip_address: str, router_id: str) -> bool:
     st.log(f"Configuring IP and BGP on {dut}")
 
     # Configure IP
-    if not ipapi.config_ip_addr_interface(dut, CONFIG.interface,
+    if not ipapi.config_ip_addr_interface(dut, data.d1_phy_port,
                                           ip_address,
                                           subnet=CONFIG.subnet_mask,
                                           family="ipv4", cli_type=data.cli_type):

@@ -2,7 +2,7 @@
 BGP Best-Path Selection - Local-Preference (BGP-50)
 
 Author: Network Automation Team
-Copyright (C) 2024
+Copyright (C) 2026 - Spytest Automation Framework
 
 How to run:
   cd /home/adminuser/draksha/sonic-mgmt/spytest
@@ -50,9 +50,7 @@ data = SpyTestDict()
 
 # Test configuration
 CONFIG = SpyTestDict({
-    "asn": "65001",
-    "interface": "Ethernet4",
-    "subnet_mask": "24",
+    "asn": "65001",    "subnet_mask": "24",
 
     # DUT1 configuration
     "dut1_ip": "10.1.1.1",
@@ -78,6 +76,10 @@ def module_hooks(request):
     vars = st.ensure_min_topology("D1D2:1")
     data.cli_type = "klish"
 
+    # Dynamic port assignment
+    data.d1_phy_port = vars.D1D2P1
+    data.d2_phy_port = vars.D2D1P1
+
     yield
 
     st.banner("BGP-50: MODULE EPILOGUE - Cleanup")
@@ -89,14 +91,14 @@ def module_hooks(request):
     cleanup_ip_interface(vars.D2)
 
 
-def configure_ip_interface(dut: str, ip_address: str) -> bool:
+def configure_ip_interface(dut: str, ip_address: str, interface: str) -> bool:
     """Configure physical interface with IP address."""
     try:
-        st.log(f"Configuring {CONFIG.interface} on {dut} with IP {ip_address}")
+        st.log(f"Configuring {interface} on {dut} with IP {ip_address}")
 
         # Configure IP address and enable interface in one go
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {interface}",
             f"ip address {ip_address}/{CONFIG.subnet_mask}",
             "no shutdown"
         ]
@@ -114,7 +116,7 @@ def cleanup_ip_interface(dut: str) -> None:
     try:
         ip_addr = CONFIG.dut1_ip if dut == vars.D1 else CONFIG.dut2_ip
         commands = [
-            f"interface {CONFIG.interface}",
+            f"interface {interface}",
             f"no ip address {ip_addr}/{CONFIG.subnet_mask}"
         ]
         st.config(dut, commands, type=data.cli_type, skip_error_check=True)
@@ -297,14 +299,18 @@ def test_bgp50_localpref_selection():
     tech_support_generated = False
 
     try:
+        # (Cleanup code if needed - or skip to configuration)
+        
+        # Configuration starts below...
+        
         # Step 1: Configure interfaces
         st.log("STEP 1: Configure IP interfaces")
-        if not configure_ip_interface(vars.D1, CONFIG.dut1_ip):
+        if not configure_ip_interface(vars.D1, CONFIG.dut1_ip, data.d1_phy_port):
             error_msg = f"Interface configuration failed on {vars.D1}"
             st.error(error_msg)
             validation_failures.append(error_msg)
 
-        if not configure_ip_interface(vars.D2, CONFIG.dut2_ip):
+        if not configure_ip_interface(vars.D2, CONFIG.dut2_ip, data.d2_phy_port):
             error_msg = f"Interface configuration failed on {vars.D2}"
             st.error(error_msg)
             validation_failures.append(error_msg)

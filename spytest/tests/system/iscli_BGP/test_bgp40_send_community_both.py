@@ -129,6 +129,21 @@ def cleanup_bgp() -> bool:
     return True
 
 def test_bgp40_send_community_both():
+    """Test function following: UNCONFIG -> CONFIG -> VALIDATE -> CLEANUP pattern"""
+    
+    try:
+        # STEP 1: UNCONFIGURATION (Cleanup any existing config)
+        st.banner("STEP 1: UNCONFIGURATION - Cleanup existing configuration")
+    cleanup_bgp()
+        
+        # STEP 2: CONFIGURATION (Setup test environment)
+        st.banner("STEP 2: CONFIGURATION - Setup test environment")
+    if not configure_base_bgp():
+        st.report_fail("module_config_failed")
+        
+        # STEP 3: VALIDATION (Execute test checks)
+        st.banner("STEP 3: VALIDATION - Execute test checks")
+
     st.banner("TEST: BGP-40 Send-Community Both")
     st.log("Verifying BGP session and route exchange")
     st.wait(15)
@@ -138,3 +153,13 @@ def test_bgp40_send_community_both():
     st.log(f"DUT2 BGP Summary:\n{output}")
     st.log("✅ BGP-40: send-community both test completed")
     st.report_pass("test_case_passed")
+
+    
+    finally:
+        # STEP 4: CLEANUP (Teardown - always executes)
+        st.banner("STEP 4: CLEANUP - Teardown configuration")
+        try:
+    cleanup_bgp()
+            st.log("Cleanup completed successfully")
+        except Exception as e:
+            st.error(f"Cleanup error: {str(e)}")
