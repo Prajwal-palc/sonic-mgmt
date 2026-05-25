@@ -16,6 +16,7 @@ Device: SONiC (OC-Build)
 """
 
 from __future__ import annotations
+import re
 import pytest
 from spytest import st, SpyTestDict
 
@@ -117,7 +118,7 @@ def configure_tacacs_server_ipv4(dut: str, server_ip: str) -> bool:
         commands = [
             f"tacacs-server host {server_ip}",
         ]
-        result = st.config(dut, commands, type=data.cli_type, skip_error_check=False)
+        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
         st.wait(2, "Waiting for IPv4 server configuration to apply")
         st.log(f"TACACS+ IPv4 server {server_ip} configured on {dut}")
         return True
@@ -130,71 +131,132 @@ def verify_tacacs_server_ipv4(dut: str, server_ip: str) -> bool:
     """
     Verify TACACS+ IPv4 server configuration and default parameters.
 
-    Expected values from manual testing:
-    - HOST: 192.168.100.87
-    - AUTH-TYPE: pap
-    - KEY: No
-    - PORT: 49
-    - PRIORITY: 1
-    - TIMEOUT: 5
-    - VRF: DEFAULT
+    Klish show tacacs-server output format:
+    -----------------------------------------------------------------------
+    TACACS+ Global Configuration
+    -----------------------------------------------------------------------
+    ...
+    -----------------------------------------------------------------------
+    TACACS+ Servers
+    -----------------------------------------------------------------------
+    HOST                 AUTH-TYPE  KEY   PORT  PRIORITY  TIMEOUT  VRF
+    -----------------------------------------------------------------------
+    192.168.100.87       pap        No    49    1         5        DEFAULT
+
+    Expected defaults:
+    - AUTH-TYPE : pap
+    - PORT      : 49
+    - PRIORITY  : 1
+    - TIMEOUT   : 5
+    - VRF       : DEFAULT
 
     Args:
         dut: Device identifier
         server_ip: Expected TACACS+ server IPv4 address
 
     Returns:
-        bool: True if server is configured with correct parameters, False otherwise
+        bool: True if server is configured with all correct default parameters
     """
     try:
         st.log(f"Verifying TACACS+ IPv4 server {server_ip} on {dut}...")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        # Use skip_tmpl=True to get raw string — templates may return [] for klish
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
 
-        if output and isinstance(output, list):
-            st.log(f"TACACS-Server output:\n{output}")
-            output_str = str(output)
+        output_str = output if isinstance(output, str) else str(output) if output else ""
 
-            # Check if IPv4 server is present
-            if server_ip in output_str:
-                st.log(f"✓ TACACS+ IPv4 server {server_ip} found in configuration")
-
-                # Verify default parameters
-                checks_passed = True
-
-                if CONFIG.expected_auth_type in output_str.lower():
-                    st.log(f"✓ AUTH-TYPE: {CONFIG.expected_auth_type}")
-                else:
-                    st.log(f"⚠ AUTH-TYPE may differ from expected: {CONFIG.expected_auth_type}")
-
-                if CONFIG.expected_port in output_str:
-                    st.log(f"✓ PORT: {CONFIG.expected_port}")
-                else:
-                    st.log(f"⚠ PORT may differ from expected: {CONFIG.expected_port}")
-
-                if CONFIG.expected_priority in output_str:
-                    st.log(f"✓ PRIORITY: {CONFIG.expected_priority}")
-                else:
-                    st.log(f"⚠ PRIORITY may differ from expected: {CONFIG.expected_priority}")
-
-                if CONFIG.expected_timeout in output_str:
-                    st.log(f"✓ TIMEOUT: {CONFIG.expected_timeout}")
-                else:
-                    st.log(f"⚠ TIMEOUT may differ from expected: {CONFIG.expected_timeout}")
-
-                if CONFIG.expected_vrf.upper() in output_str.upper():
-                    st.log(f"✓ VRF: {CONFIG.expected_vrf}")
-                else:
-                    st.log(f"⚠ VRF may differ from expected: {CONFIG.expected_vrf}")
-
-                st.log(f"TACACS+ IPv4 server {server_ip} verification completed")
-                return True
-            else:
-                st.error(f"TACACS+ IPv4 server {server_ip} not found in output")
-                st.log(f"Output: {output_str}")
-                return False
-        else:
-            st.log(f"TACACS+ output is empty or unexpected format on {dut}")
+        if not output_str.strip():
+            st.error(f"✗ show tacacs-server returned empty output on {dut}")
             return False
+
+        st.log(f"TACACS+ show output:\n{output_str}")
+
+        # Check server IP is present
+        if server_ip not in output_str:
+            st.error(f"✗ TACACS+ IPv4 server {server_ip} not found in output")
+            return False
+
+        st.log(f"✓ TACACS+ IPv4 server {server_ip} found in configuration")
+
+        # Parse the server row — find line containing the server IP
+        server_line = ""
+        for line in output_str.splitlines():
+            if server_ip in line:
+                server_line = line
+                break
+
+        if not server_line:
+            st.error(f"✗ Could not locate server row for {server_ip} in output")
+            return False
+
+        st.log(f"Server row: {server_line}")
+
+        # Tokenize the row — columns: HOST AUTH-TYPE KEY PORT PRIORITY TIMEOUT VRF
+        tokens = server_line.split()
+        # tokens[0]=HOST, [1]=AUTH-TYPE, [2]=KEY, [3]=PORT, [4]=PRIORITY, [5]=TIMEOUT, [6]=VRF
+        checks_passed = True
+
+        if len(tokens) >= 2:
+            actual_auth = tokens[1].lower()
+            if actual_auth == CONFIG.expected_auth_type.lower():
+                st.log(f"✓ AUTH-TYPE: {actual_auth} (expected: {CONFIG.expected_auth_type})")
+            else:
+                st.error(f"✗ AUTH-TYPE mismatch: got '{actual_auth}', expected '{CONFIG.expected_auth_type}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ AUTH-TYPE column missing in server row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 4:
+            actual_port = tokens[3]
+            if actual_port == CONFIG.expected_port:
+                st.log(f"✓ PORT: {actual_port} (expected: {CONFIG.expected_port})")
+            else:
+                st.error(f"✗ PORT mismatch: got '{actual_port}', expected '{CONFIG.expected_port}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ PORT column missing in server row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 5:
+            actual_priority = tokens[4]
+            if actual_priority == CONFIG.expected_priority:
+                st.log(f"✓ PRIORITY: {actual_priority} (expected: {CONFIG.expected_priority})")
+            else:
+                st.error(f"✗ PRIORITY mismatch: got '{actual_priority}', expected '{CONFIG.expected_priority}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ PRIORITY column missing in server row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 6:
+            actual_timeout = tokens[5]
+            if actual_timeout == CONFIG.expected_timeout:
+                st.log(f"✓ TIMEOUT: {actual_timeout} (expected: {CONFIG.expected_timeout})")
+            else:
+                st.error(f"✗ TIMEOUT mismatch: got '{actual_timeout}', expected '{CONFIG.expected_timeout}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ TIMEOUT column missing in server row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 7:
+            actual_vrf = tokens[6].upper()
+            if actual_vrf == CONFIG.expected_vrf.upper():
+                st.log(f"✓ VRF: {actual_vrf} (expected: {CONFIG.expected_vrf})")
+            else:
+                st.error(f"✗ VRF mismatch: got '{actual_vrf}', expected '{CONFIG.expected_vrf}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ VRF column missing in server row: {server_line}")
+            checks_passed = False
+
+        if checks_passed:
+            st.log(f"✓ TACACS+ IPv4 server {server_ip} — all default parameters verified")
+        else:
+            st.error(f"✗ TACACS+ IPv4 server {server_ip} — one or more default parameters mismatch")
+
+        return checks_passed
 
     except Exception as e:
         st.error(f"Failed to verify TACACS+ IPv4 server on {dut}: {str(e)}")
@@ -214,20 +276,18 @@ def verify_tacacs_server_removed_ipv4(dut: str, server_ip: str) -> bool:
     """
     try:
         st.log(f"Verifying TACACS+ IPv4 server {server_ip} is removed from {dut}...")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
 
-        if output and isinstance(output, list):
-            output_str = str(output)
-            if server_ip not in output_str:
-                st.log(f"✓ TACACS+ IPv4 server {server_ip} successfully removed")
-                return True
-            else:
-                st.error(f"TACACS+ IPv4 server {server_ip} still present in configuration")
-                st.log(f"Output: {output_str}")
-                return False
-        else:
-            st.log(f"TACACS+ output is empty (server removed)")
+        output_str = output if isinstance(output, str) else str(output) if output else ""
+
+        if server_ip not in output_str:
+            st.log(f"✓ TACACS+ IPv4 server {server_ip} successfully removed")
             return True
+        else:
+            st.error(f"✗ TACACS+ IPv4 server {server_ip} still present in configuration")
+            st.log(f"Output:\n{output_str}")
+            return False
 
     except Exception as e:
         st.error(f"Failed to verify TACACS+ IPv4 server removal on {dut}: {str(e)}")
@@ -269,7 +329,7 @@ def test_tacacs_ipv4_01_add_server():
 
     Test Steps:
     1. Configure TACACS+ IPv4 server (192.168.100.87)
-    2. Verify server is added with default parameters:
+    2. Verify server is added with correct default parameters:
        - AUTH-TYPE: pap
        - KEY: No
        - PORT: 49
@@ -280,7 +340,7 @@ def test_tacacs_ipv4_01_add_server():
 
     Expected Outcome:
     - IPv4 server is successfully configured
-    - All default parameters match expected values
+    - All default parameters match expected values (FAIL on mismatch)
     """
     st.banner("-" * 80)
     st.banner("TEST-01: Add TACACS+ IPv4 Server")
@@ -299,16 +359,17 @@ def test_tacacs_ipv4_01_add_server():
             st.log("✓ STEP 1 PASSED: TACACS+ IPv4 server configured")
 
         # Step 2: Verify TACACS+ IPv4 server and default parameters
-        st.log(f"STEP 2: Verify TACACS+ IPv4 server {CONFIG.tacacs_server_ipv4}")
+        st.log(f"STEP 2: Verify TACACS+ IPv4 server {CONFIG.tacacs_server_ipv4} defaults")
         if not verify_tacacs_server_ipv4(dut, CONFIG.tacacs_server_ipv4):
-            st.error("Failed to verify TACACS+ IPv4 server")
+            st.error("Failed to verify TACACS+ IPv4 server — one or more defaults mismatch")
             result = False
         else:
-            st.log("✓ STEP 2 PASSED: TACACS+ IPv4 server verified with default parameters")
+            st.log("✓ STEP 2 PASSED: TACACS+ IPv4 server verified with all default parameters")
 
         # Step 3: Display complete TACACS+ configuration
         st.log("STEP 3: Display complete TACACS+ configuration")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
         st.log(f"Complete TACACS+ Configuration:\n{output}")
         st.log("✓ STEP 3 PASSED: Configuration displayed")
 
@@ -356,13 +417,16 @@ def test_tacacs_ipv4_02_remove_server():
         configure_tacacs_server_ipv4(dut, CONFIG.tacacs_server_ipv4)
         st.wait(2)
 
-        # Step 2: Verify server exists
+        # Step 2: Verify server exists before removal
         st.log(f"STEP 2: Verify TACACS+ IPv4 server {CONFIG.tacacs_server_ipv4} exists")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
-        if CONFIG.tacacs_server_ipv4 in str(output):
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
+        output_str = output if isinstance(output, str) else str(output)
+        if CONFIG.tacacs_server_ipv4 in output_str:
             st.log("✓ STEP 2 PASSED: TACACS+ IPv4 server exists before removal")
         else:
-            st.log("⚠ TACACS+ IPv4 server not found (may have been removed already)")
+            st.error("✗ STEP 2: TACACS+ IPv4 server not found before removal — precondition failed")
+            result = False
 
         # Step 3: Remove TACACS+ IPv4 server
         st.log(f"STEP 3: Remove TACACS+ IPv4 server {CONFIG.tacacs_server_ipv4}")
@@ -383,7 +447,8 @@ def test_tacacs_ipv4_02_remove_server():
 
         # Display final configuration
         st.log("Final TACACS+ configuration after removal:")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
         st.log(f"Configuration:\n{output}")
 
     except Exception as e:
@@ -406,15 +471,15 @@ def test_tacacs_ipv4_03_add_remove_cycle():
 
     Test Steps:
     1. Add TACACS+ IPv4 server
-    2. Verify server is configured
+    2. Verify server is configured with correct defaults
     3. Remove TACACS+ IPv4 server
     4. Verify server is removed
     5. Add server again
-    6. Verify server is configured again
+    6. Verify server is configured again with correct defaults
 
     Expected Outcome:
     - Server can be added, removed, and added again successfully
-    - Configuration persists correctly through multiple operations
+    - Default parameters are correct on each add (FAIL on mismatch)
     """
     st.banner("-" * 80)
     st.banner("TEST-03: Complete Add/Remove Cycle for TACACS+ IPv4 Server")
@@ -433,10 +498,10 @@ def test_tacacs_ipv4_03_add_remove_cycle():
             st.log("✓ Cycle 1 ADD: Server configured")
 
         if not verify_tacacs_server_ipv4(dut, CONFIG.tacacs_server_ipv4):
-            st.error("Cycle 1: Failed to verify TACACS+ IPv4 server")
+            st.error("Cycle 1: Default parameter verification failed")
             result = False
         else:
-            st.log("✓ Cycle 1 VERIFY: Server verified")
+            st.log("✓ Cycle 1 VERIFY: Server defaults verified")
 
         # Cycle 1: Remove
         st.log(f"CYCLE 1 - REMOVE: Remove TACACS+ IPv4 server {CONFIG.tacacs_server_ipv4}")
@@ -462,10 +527,10 @@ def test_tacacs_ipv4_03_add_remove_cycle():
             st.log("✓ Cycle 2 ADD: Server configured again")
 
         if not verify_tacacs_server_ipv4(dut, CONFIG.tacacs_server_ipv4):
-            st.error("Cycle 2: Failed to verify TACACS+ IPv4 server")
+            st.error("Cycle 2: Default parameter verification failed on re-add")
             result = False
         else:
-            st.log("✓ Cycle 2 VERIFY: Server verified again")
+            st.log("✓ Cycle 2 VERIFY: Server defaults verified again")
 
         st.log("Complete add/remove cycle test completed")
 
@@ -482,6 +547,5 @@ def test_tacacs_ipv4_03_add_remove_cycle():
 
 
 if __name__ == "__main__":
-    # This allows running the script directly for debugging
     st.log("Running TACACS+ IPv4 tests directly")
     pytest.main([__file__, "-v"])
