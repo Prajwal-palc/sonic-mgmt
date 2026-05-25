@@ -148,53 +148,101 @@ def verify_tacacs_server_ipv6(dut: str, server_ip: str) -> bool:
     """
     try:
         st.log(f"Verifying TACACS+ IPv6 server {server_ip} on {dut}...")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        # skip_tmpl=True prevents show_tacacs.tmpl from running (returns [] for klish format)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
 
-        if output and isinstance(output, list):
-            st.log(f"TACACS-Server output:\n{output}")
-            output_str = str(output)
+        output_str = output if isinstance(output, str) else str(output) if output else ""
 
-            # Check if IPv6 server is present
-            if server_ip in output_str:
-                st.log(f"✓ TACACS+ IPv6 server {server_ip} found in configuration")
-
-                # Verify default parameters
-                checks_passed = True
-
-                if CONFIG.expected_auth_type in output_str.lower():
-                    st.log(f"✓ AUTH-TYPE: {CONFIG.expected_auth_type}")
-                else:
-                    st.log(f"⚠ AUTH-TYPE may differ from expected: {CONFIG.expected_auth_type}")
-
-                if CONFIG.expected_port in output_str:
-                    st.log(f"✓ PORT: {CONFIG.expected_port}")
-                else:
-                    st.log(f"⚠ PORT may differ from expected: {CONFIG.expected_port}")
-
-                if CONFIG.expected_priority in output_str:
-                    st.log(f"✓ PRIORITY: {CONFIG.expected_priority}")
-                else:
-                    st.log(f"⚠ PRIORITY may differ from expected: {CONFIG.expected_priority}")
-
-                if CONFIG.expected_timeout in output_str:
-                    st.log(f"✓ TIMEOUT: {CONFIG.expected_timeout}")
-                else:
-                    st.log(f"⚠ TIMEOUT may differ from expected: {CONFIG.expected_timeout}")
-
-                if CONFIG.expected_vrf.upper() in output_str.upper():
-                    st.log(f"✓ VRF: {CONFIG.expected_vrf}")
-                else:
-                    st.log(f"⚠ VRF may differ from expected: {CONFIG.expected_vrf}")
-
-                st.log(f"TACACS+ IPv6 server {server_ip} verification completed")
-                return True
-            else:
-                st.error(f"TACACS+ IPv6 server {server_ip} not found in output")
-                st.log(f"Output: {output_str}")
-                return False
-        else:
-            st.log(f"TACACS+ output is empty or unexpected format on {dut}")
+        if not output_str.strip():
+            st.error(f"✗ show tacacs-server returned empty output on {dut}")
             return False
+
+        st.log(f"TACACS+ show output:\n{output_str}")
+
+        if server_ip not in output_str:
+            st.error(f"✗ TACACS+ IPv6 server {server_ip} not found in output")
+            return False
+
+        st.log(f"✓ TACACS+ IPv6 server {server_ip} found in configuration")
+
+        # Find server row by IPv6 address
+        server_line = ""
+        for line in output_str.splitlines():
+            if server_ip in line:
+                server_line = line
+                break
+
+        if not server_line:
+            st.error(f"✗ Could not locate server row for {server_ip}")
+            return False
+
+        st.log(f"Server row: {server_line}")
+        # Tokens: HOST AUTH-TYPE KEY PORT PRIORITY TIMEOUT VRF
+        tokens = server_line.split()
+        checks_passed = True
+
+        if len(tokens) >= 2:
+            actual_auth = tokens[1].lower()
+            if actual_auth == CONFIG.expected_auth_type.lower():
+                st.log(f"✓ AUTH-TYPE: {actual_auth}")
+            else:
+                st.error(f"✗ AUTH-TYPE mismatch: got '{actual_auth}', expected '{CONFIG.expected_auth_type}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ AUTH-TYPE column missing in row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 4:
+            actual_port = tokens[3]
+            if actual_port == CONFIG.expected_port:
+                st.log(f"✓ PORT: {actual_port}")
+            else:
+                st.error(f"✗ PORT mismatch: got '{actual_port}', expected '{CONFIG.expected_port}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ PORT column missing in row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 5:
+            actual_priority = tokens[4]
+            if actual_priority == CONFIG.expected_priority:
+                st.log(f"✓ PRIORITY: {actual_priority}")
+            else:
+                st.error(f"✗ PRIORITY mismatch: got '{actual_priority}', expected '{CONFIG.expected_priority}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ PRIORITY column missing in row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 6:
+            actual_timeout = tokens[5]
+            if actual_timeout == CONFIG.expected_timeout:
+                st.log(f"✓ TIMEOUT: {actual_timeout}")
+            else:
+                st.error(f"✗ TIMEOUT mismatch: got '{actual_timeout}', expected '{CONFIG.expected_timeout}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ TIMEOUT column missing in row: {server_line}")
+            checks_passed = False
+
+        if len(tokens) >= 7:
+            actual_vrf = tokens[6].upper()
+            if actual_vrf == CONFIG.expected_vrf.upper():
+                st.log(f"✓ VRF: {actual_vrf}")
+            else:
+                st.error(f"✗ VRF mismatch: got '{actual_vrf}', expected '{CONFIG.expected_vrf}'")
+                checks_passed = False
+        else:
+            st.error(f"✗ VRF column missing in row: {server_line}")
+            checks_passed = False
+
+        if checks_passed:
+            st.log(f"✓ All default parameters verified for IPv6 server {server_ip}")
+        else:
+            st.error(f"✗ One or more default parameters mismatch for {server_ip}")
+
+        return checks_passed
 
     except Exception as e:
         st.error(f"Failed to verify TACACS+ IPv6 server on {dut}: {str(e)}")
@@ -214,20 +262,18 @@ def verify_tacacs_server_removed_ipv6(dut: str, server_ip: str) -> bool:
     """
     try:
         st.log(f"Verifying TACACS+ IPv6 server {server_ip} is removed from {dut}...")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                         skip_tmpl=True, skip_error_check=True)
 
-        if output and isinstance(output, list):
-            output_str = str(output)
-            if server_ip not in output_str:
-                st.log(f"✓ TACACS+ IPv6 server {server_ip} successfully removed")
-                return True
-            else:
-                st.error(f"TACACS+ IPv6 server {server_ip} still present in configuration")
-                st.log(f"Output: {output_str}")
-                return False
-        else:
-            st.log(f"TACACS+ output is empty (server removed)")
+        output_str = output if isinstance(output, str) else str(output) if output else ""
+
+        if server_ip not in output_str:
+            st.log(f"✓ TACACS+ IPv6 server {server_ip} successfully removed")
             return True
+        else:
+            st.error(f"✗ TACACS+ IPv6 server {server_ip} still present in configuration")
+            st.log(f"Output:\n{output_str}")
+            return False
 
     except Exception as e:
         st.error(f"Failed to verify TACACS+ IPv6 server removal on {dut}: {str(e)}")
@@ -308,7 +354,7 @@ def test_tacacs_ipv6_01_add_server():
 
         # Step 3: Display complete TACACS+ configuration
         st.log("STEP 3: Display complete TACACS+ configuration")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
         st.log(f"Complete TACACS+ Configuration:\n{output}")
         st.log("✓ STEP 3 PASSED: Configuration displayed")
 
@@ -358,7 +404,7 @@ def test_tacacs_ipv6_02_remove_server():
 
         # Step 2: Verify server exists
         st.log(f"STEP 2: Verify TACACS+ IPv6 server {CONFIG.tacacs_server_ipv6} exists")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
         if CONFIG.tacacs_server_ipv6 in str(output):
             st.log("✓ STEP 2 PASSED: TACACS+ IPv6 server exists before removal")
         else:
@@ -383,7 +429,7 @@ def test_tacacs_ipv6_02_remove_server():
 
         # Display final configuration
         st.log("Final TACACS+ configuration after removal:")
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_error_check=True)
+        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
         st.log(f"Configuration:\n{output}")
 
     except Exception as e:
