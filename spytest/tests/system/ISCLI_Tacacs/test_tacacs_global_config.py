@@ -4,26 +4,44 @@ TACACS+ Global Configuration Test Script
 
 Based on manual testing logs for OC-Build
 
+Device behaviour (confirmed from test runs):
+- tacacs-server host <IP>                       : add server (global)
+- tacacs-server host <IP> auth-type <val>       : per-server auth-type (pap/chap/login)
+- tacacs-server host <IP> key <val>             : per-server passkey
+- tacacs-server host <IP> port <val>            : per-server port
+- tacacs-server host <IP> timeout <val>         : per-server timeout
+- tacacs-server timeout <val>                   : global timeout (ONLY global param accepted)
+- no tacacs-server timeout                      : reset global timeout
+- no tacacs-server host <IP>                    : remove server
+
+NOT supported as global commands on this device:
+- tacacs-server auth-type / no tacacs-server auth-type   -> Error
+- tacacs-server key       / no tacacs-server key         -> Error
+
+Show output format:
+  TACACS+ Global Configuration
+  Authentication Type  : N/A   (always N/A — no global auth-type)
+  Global Timeout       : N/A / 50
+  Key Configured       : Yes/No
+  -------
+  TACACS+ Servers
+  HOST           AUTH-TYPE  KEY  PORT  PRIORITY  TIMEOUT  VRF
+  192.168.100.87 pap        Yes  49    1         5        DEFAULT
+
 Test Coverage:
-- TACACS+ server host configuration (192.168.100.87)
-- TACACS+ global passkey configuration
-- TACACS+ global timeout configuration
-- TACACS+ authtype configuration (pap, chap, mschap, login)
-- TACACS+ default commands (default authtype, default passkey, default timeout)
-- Validation of global settings after each configuration
+- TACACS+ server host add/remove
+- Per-server auth-type (pap, chap, login)
+- Per-server passkey
+- Global timeout configuration and reset
+- Validation of show tacacs-server after each operation
 
 Module: test_tacacs_global_config
 Framework: spytest
 Device: SONiC (OC-Build)
-
-Test Structure:
-- Module 1: Unconfiguration (module_hooks prologue)
-- Module 2: Configuration (test functions)
-- Module 3: Validation (within test functions)
-- Module 4: Cleanup (module_hooks epilogue)
 """
 
 from __future__ import annotations
+import re
 import pytest
 from spytest import st, SpyTestDict
 
@@ -36,10 +54,10 @@ CONFIG = SpyTestDict({
     "tacacs_server_ip": "192.168.100.87",
     "tacacs_passkey_1": "Test12243",
     "tacacs_passkey_2": "Test123",
-    "tacacs_timeout_default": "5",
     "tacacs_timeout_custom": "50",
     "tacacs_port_default": "49",
     "tacacs_priority_default": "1",
+    "tacacs_timeout_per_server": "5",   # per-server default timeout shown in HOST table
     "cli_type": "klish"
 })
 
@@ -48,15 +66,8 @@ CONFIG = SpyTestDict({
 def module_hooks(request):
     """
     Module-level setup and teardown fixture.
-
-    MODULE 1: UNCONFIGURATION
-    - Initialize variables
-    - Ensure minimum topology
-    - Unconfigure all TACACS+ settings
-
-    MODULE 4: CLEANUP
-    - Remove all TACACS+ configurations
-    - Restore device to clean state
+    MODULE 1: Unconfigure any existing TACACS+ config before tests.
+    MODULE 4: Cleanup after all tests.
     """
     global vars, data
 
@@ -64,920 +75,624 @@ def module_hooks(request):
     st.banner("TACACS-GLOBAL: MODULE 1 - UNCONFIGURATION (PROLOGUE)")
     st.banner("=" * 80)
 
-    # Ensure minimum topology (single DUT)
     vars = st.ensure_min_topology("D1")
     data.cli_type = CONFIG.cli_type
 
-    st.log(f"Module Setup: Using CLI type '{data.cli_type}'")
-    st.log(f"TACACS+ Server IP: {CONFIG.tacacs_server_ip}")
-
-    # MODULE 1: Unconfigure all TACACS+ settings before starting tests
-    st.log("MODULE 1: Performing complete unconfiguration of TACACS+ settings...")
+    st.log(f"Module Setup: CLI type='{data.cli_type}'  Server={CONFIG.tacacs_server_ip}")
     unconfigure_all_tacacs(vars.D1)
     st.wait(2, "Waiting for unconfiguration to complete")
     st.log("MODULE 1: Unconfiguration completed")
 
-    yield  # Tests run here (MODULE 2 & 3)
+    yield
 
     st.banner("=" * 80)
     st.banner("TACACS-GLOBAL: MODULE 4 - CLEANUP (EPILOGUE)")
     st.banner("=" * 80)
-
-    st.log("MODULE 4: Cleaning up all TACACS+ configuration...")
     cleanup_all_tacacs(vars.D1)
     st.wait(2, "Waiting for cleanup to complete")
-    st.log("MODULE 4: Cleanup completed successfully")
+    st.log("MODULE 4: Cleanup completed")
 
+
+# ---------------------------------------------------------------------------
+# Helper: unconfigure / cleanup
+# ---------------------------------------------------------------------------
 
 def unconfigure_all_tacacs(dut: str) -> bool:
-    """
-    MODULE 1: Unconfigure all TACACS+ settings on the device.
-
-    Args:
-        dut: Device identifier
-
-    Returns:
-        bool: True if successful
-    """
+    """Remove server + reset global timeout. auth-type/key are per-server only."""
     try:
-        st.log(f"Unconfiguring all TACACS+ settings on {dut}...")
-        # Klish syntax: tacacs-server host / no tacacs-server key / etc.
+        st.log(f"Unconfiguring all TACACS+ on {dut}...")
         commands = [
             f"no tacacs-server host {CONFIG.tacacs_server_ip}",
-            "no tacacs-server key",
-            "no tacacs-server timeout",
-            "no tacacs-server auth-type",
+            "no tacacs-server timeout",   # only global param that can be reset
         ]
         st.config(dut, commands, type=data.cli_type, skip_error_check=True)
-        st.log(f"Unconfiguration completed on {dut}")
+        st.log("Unconfiguration done")
         return True
     except Exception as e:
-        st.log(f"Unconfiguration completed (may not have been configured): {str(e)}")
+        st.log(f"Unconfiguration note: {e}")
         return True
-
-
-def configure_tacacs_server(dut: str, server_ip: str) -> bool:
-    """
-    MODULE 2: Configure TACACS+ server host.
-
-    Args:
-        dut: Device identifier
-        server_ip: TACACS+ server IP address
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Configuring TACACS+ server host {server_ip} on {dut}...")
-        commands = [
-            f"tacacs-server host {server_ip}",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(2, "Waiting for server configuration to apply")
-        st.log(f"TACACS+ server host {server_ip} configured on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to configure TACACS+ server on {dut}: {str(e)}")
-        return False
-
-
-def configure_tacacs_passkey(dut: str, passkey: str) -> bool:
-    """
-    MODULE 2: Configure TACACS+ global passkey.
-
-    Args:
-        dut: Device identifier
-        passkey: TACACS+ passkey
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Configuring TACACS+ passkey on {dut}...")
-        commands = [
-            f"tacacs-server key {passkey}",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(1, "Waiting for passkey configuration to apply")
-        st.log(f"TACACS+ passkey configured on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to configure TACACS+ passkey on {dut}: {str(e)}")
-        return False
-
-
-def configure_tacacs_timeout(dut: str, timeout: str) -> bool:
-    """
-    MODULE 2: Configure TACACS+ global timeout.
-
-    Args:
-        dut: Device identifier
-        timeout: TACACS+ timeout value
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Configuring TACACS+ timeout {timeout} on {dut}...")
-        commands = [
-            f"tacacs-server timeout {timeout}",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(1, "Waiting for timeout configuration to apply")
-        st.log(f"TACACS+ timeout {timeout} configured on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to configure TACACS+ timeout on {dut}: {str(e)}")
-        return False
-
-
-def configure_tacacs_authtype(dut: str, authtype: str) -> bool:
-    """
-    MODULE 2: Configure TACACS+ global authtype.
-
-    Args:
-        dut: Device identifier
-        authtype: TACACS+ authtype (pap, chap, mschap, login)
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Configuring TACACS+ authtype {authtype} on {dut}...")
-        commands = [
-            f"tacacs-server auth-type {authtype}",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(1, "Waiting for authtype configuration to apply")
-        st.log(f"TACACS+ authtype {authtype} configured on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to configure TACACS+ authtype on {dut}: {str(e)}")
-        return False
-
-
-def set_tacacs_default_authtype(dut: str) -> bool:
-    """
-    MODULE 2: Set TACACS+ authtype to default.
-
-    Args:
-        dut: Device identifier
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Setting TACACS+ authtype to default on {dut}...")
-        commands = [
-            "no tacacs-server auth-type",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(1, "Waiting for default authtype to apply")
-        st.log(f"TACACS+ authtype set to default on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to set default authtype on {dut}: {str(e)}")
-        return False
-
-
-def set_tacacs_default_passkey(dut: str) -> bool:
-    """
-    MODULE 2: Set TACACS+ passkey to default.
-
-    Args:
-        dut: Device identifier
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Setting TACACS+ passkey to default on {dut}...")
-        commands = [
-            "no tacacs-server key",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(1, "Waiting for default passkey to apply")
-        st.log(f"TACACS+ passkey set to default on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to set default passkey on {dut}: {str(e)}")
-        return False
-
-
-def set_tacacs_default_timeout(dut: str) -> bool:
-    """
-    MODULE 2: Set TACACS+ timeout to default.
-
-    Args:
-        dut: Device identifier
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        st.log(f"MODULE 2: Setting TACACS+ timeout to default on {dut}...")
-        commands = [
-            "no tacacs-server timeout",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=False)
-        st.wait(1, "Waiting for default timeout to apply")
-        st.log(f"TACACS+ timeout set to default on {dut}")
-        return True
-    except Exception as e:
-        st.error(f"Failed to set default timeout on {dut}: {str(e)}")
-        return False
-
-
-def verify_tacacs_config(dut: str, expected_values: dict = None) -> bool:
-    """
-    MODULE 3: Verify TACACS+ configuration.
-
-    Expected output format from manual testing:
-    TACPLUS global auth_type pap (default)
-    TACPLUS global timeout 5 (default)
-    TACPLUS global passkey Test123
-
-    TACPLUS_SERVER address 192.168.100.87
-                   priority 1
-                   tcp_port 49
-
-    Args:
-        dut: Device identifier
-        expected_values: Dict with keys: authtype, timeout, passkey, server_ip
-
-    Returns:
-        bool: True if verification passes, False otherwise
-    """
-    try:
-        st.log(f"MODULE 3: Verifying TACACS+ configuration on {dut}...")
-        # Use skip_tmpl=True to get raw string output; the template show_tacacs.tmpl
-        # returns [] for klish format which prevents validation
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-
-        output_str = output if isinstance(output, str) else str(output) if output else ""
-
-        if not output_str.strip():
-            st.log(f"MODULE 3: TACACS+ output is empty on {dut}")
-            return False
-
-        st.log(f"TACACS+ raw output:\n{output_str}")
-
-        verification_passed = True
-
-        if expected_values:
-            # Verify authtype
-            if "authtype" in expected_values:
-                expected_auth = expected_values["authtype"]
-                if expected_auth == "N/A":
-                    # After "no tacacs-server auth-type", global shows "Authentication Type  : N/A"
-                    import re
-                    match = re.search(r'Authentication Type\s*:\s*(\S+)', output_str, re.IGNORECASE)
-                    actual_auth = match.group(1) if match else ""
-                    if actual_auth.upper() == "N/A":
-                        st.log(f"✓ MODULE 3: AUTH-TYPE verified: N/A (default/unset)")
-                    else:
-                        st.error(f"✗ MODULE 3: AUTH-TYPE mismatch. Expected N/A, got: {actual_auth}")
-                        st.log(f"  Output was:\n{output_str}")
-                        verification_passed = False
-                else:
-                    # Klish output: "Authentication Type  : LOGIN" (global section)
-                    # Check global section only to avoid matching per-host AUTH-TYPE column
-                    global_section = output_str.split("TACACS+ Servers")[0] if "TACACS+ Servers" in output_str else output_str
-                    import re
-                    match = re.search(r'Authentication Type\s*:\s*(\S+)', global_section, re.IGNORECASE)
-                    actual_auth = match.group(1) if match else ""
-                    if actual_auth.lower() == expected_auth.lower():
-                        st.log(f"✓ MODULE 3: AUTH-TYPE verified: {expected_auth}")
-                    else:
-                        st.error(f"✗ MODULE 3: AUTH-TYPE mismatch. Expected: {expected_auth}, got: {actual_auth}")
-                        st.log(f"  Output was:\n{output_str}")
-                        verification_passed = False
-
-            # Verify timeout
-            if "timeout" in expected_values:
-                expected_timeout = expected_values["timeout"]
-                if expected_timeout == "N/A":
-                    # After "no tacacs-server timeout", global shows "Global Timeout       : N/A"
-                    import re
-                    match = re.search(r'Global Timeout\s*:\s*(\S+)', output_str, re.IGNORECASE)
-                    actual_timeout = match.group(1) if match else ""
-                    if actual_timeout.upper() == "N/A":
-                        st.log(f"✓ MODULE 3: TIMEOUT verified: N/A (default/unset)")
-                    else:
-                        st.error(f"✗ MODULE 3: TIMEOUT mismatch. Expected N/A, got: {actual_timeout}")
-                        st.log(f"  Output was:\n{output_str}")
-                        verification_passed = False
-                else:
-                    # Check "Global Timeout       : 50" in global section
-                    import re
-                    match = re.search(r'Global Timeout\s*:\s*(\S+)', output_str, re.IGNORECASE)
-                    actual_timeout = match.group(1) if match else ""
-                    if actual_timeout == expected_timeout:
-                        st.log(f"✓ MODULE 3: TIMEOUT verified: {expected_timeout}")
-                    else:
-                        st.error(f"✗ MODULE 3: TIMEOUT mismatch. Expected: {expected_timeout}, got: {actual_timeout}")
-                        st.log(f"  Output was:\n{output_str}")
-                        verification_passed = False
-
-            # Verify passkey
-            if "passkey" in expected_values:
-                expected_passkey = expected_values["passkey"]
-                if expected_passkey == "<EMPTY_STRING>":
-                    # After "no tacacs-server key", klish shows "Key Configured       : No"
-                    if "Key Configured" in output_str and "No" in output_str:
-                        st.log(f"✓ MODULE 3: PASSKEY verified: not configured (default)")
-                    else:
-                        st.error(f"✗ MODULE 3: PASSKEY mismatch. Expected key not configured")
-                        st.log(f"  Output was:\n{output_str}")
-                        verification_passed = False
-                else:
-                    # After tacacs-server key <key>, klish shows "Key Configured       : Yes"
-                    if "Key Configured" in output_str and "Yes" in output_str:
-                        st.log(f"✓ MODULE 3: PASSKEY verified: configured (Key Configured: Yes)")
-                    else:
-                        st.error(f"✗ MODULE 3: PASSKEY mismatch. Expected key to be configured")
-                        st.log(f"  Output was:\n{output_str}")
-                        verification_passed = False
-
-            # Verify server IP
-            if "server_ip" in expected_values:
-                expected_ip = expected_values["server_ip"]
-                if expected_ip in output_str:
-                    st.log(f"✓ MODULE 3: SERVER IP verified: {expected_ip}")
-                else:
-                    st.error(f"✗ MODULE 3: SERVER IP mismatch. Expected: {expected_ip}")
-                    st.log(f"  Output was:\n{output_str}")
-                    verification_passed = False
-
-        st.log(f"MODULE 3: Verification completed")
-        return verification_passed
-
-    except Exception as e:
-        st.error(f"MODULE 3: Failed to verify TACACS+ configuration on {dut}: {str(e)}")
-        return False
 
 
 def cleanup_all_tacacs(dut: str) -> bool:
-    """
-    MODULE 4: Cleanup all TACACS+ configuration from device.
+    """Same as unconfigure — used in epilogue."""
+    return unconfigure_all_tacacs(dut)
 
-    Args:
-        dut: Device identifier
 
-    Returns:
-        bool: True if successful
-    """
+# ---------------------------------------------------------------------------
+# Helper: configure
+# ---------------------------------------------------------------------------
+
+def configure_tacacs_server(dut: str, server_ip: str) -> bool:
+    """Add TACACS+ server host."""
     try:
-        st.log(f"MODULE 4: Cleaning up all TACACS+ configuration on {dut}...")
-        commands = [
-            f"no tacacs-server host {CONFIG.tacacs_server_ip}",
-            "no tacacs-server key",
-            "no tacacs-server timeout",
-            "no tacacs-server auth-type",
-        ]
-        st.config(dut, commands, type=data.cli_type, skip_error_check=True)
-        st.wait(2, "Waiting for cleanup to complete")
-        st.log(f"MODULE 4: TACACS+ cleanup completed on {dut}")
+        st.log(f"Configuring tacacs-server host {server_ip} on {dut}...")
+        st.config(dut, [f"tacacs-server host {server_ip}"],
+                  type=data.cli_type, skip_error_check=False)
+        st.wait(2, "Waiting for server configuration to apply")
+        st.log(f"TACACS+ server {server_ip} configured")
         return True
     except Exception as e:
-        st.log(f"MODULE 4: Cleanup completed (may have already been removed): {str(e)}")
-        return True
+        st.error(f"Failed to configure server: {e}")
+        return False
 
+
+def configure_server_authtype(dut: str, server_ip: str, authtype: str) -> bool:
+    """Set per-server auth-type: tacacs-server host <IP> auth-type <val>"""
+    try:
+        cmd = f"tacacs-server host {server_ip} auth-type {authtype}"
+        st.log(f"Setting auth-type={authtype} on server {server_ip}...")
+        output = st.config(dut, [cmd], type=data.cli_type, skip_error_check=True)
+        output_str = output if isinstance(output, str) else str(output)
+        if "Error" in output_str or "^" in output_str:
+            st.error(f"✗ Command rejected: {cmd}\n  Output: {output_str}")
+            return False
+        st.wait(1, "Waiting for auth-type to apply")
+        st.log(f"✓ auth-type={authtype} set on {server_ip}")
+        return True
+    except Exception as e:
+        st.error(f"Failed to set auth-type: {e}")
+        return False
+
+
+def configure_server_passkey(dut: str, server_ip: str, passkey: str) -> bool:
+    """Set per-server passkey: tacacs-server host <IP> key <val>"""
+    try:
+        cmd = f"tacacs-server host {server_ip} key {passkey}"
+        st.log(f"Setting passkey on server {server_ip}...")
+        output = st.config(dut, [cmd], type=data.cli_type, skip_error_check=True)
+        output_str = output if isinstance(output, str) else str(output)
+        if "Error" in output_str or "^" in output_str:
+            st.error(f"✗ Command rejected: {cmd}\n  Output: {output_str}")
+            return False
+        st.wait(1, "Waiting for passkey to apply")
+        st.log(f"✓ passkey set on {server_ip}")
+        return True
+    except Exception as e:
+        st.error(f"Failed to set passkey: {e}")
+        return False
+
+
+def configure_global_timeout(dut: str, timeout: str) -> bool:
+    """Set global timeout: tacacs-server timeout <val>"""
+    try:
+        cmd = f"tacacs-server timeout {timeout}"
+        st.log(f"Setting global timeout={timeout}...")
+        output = st.config(dut, [cmd], type=data.cli_type, skip_error_check=True)
+        output_str = output if isinstance(output, str) else str(output)
+        if "Error" in output_str or "^" in output_str:
+            st.error(f"✗ Command rejected: {cmd}\n  Output: {output_str}")
+            return False
+        st.wait(1, "Waiting for timeout to apply")
+        st.log(f"✓ global timeout={timeout} set")
+        return True
+    except Exception as e:
+        st.error(f"Failed to set global timeout: {e}")
+        return False
+
+
+def reset_global_timeout(dut: str) -> bool:
+    """Reset global timeout: no tacacs-server timeout"""
+    try:
+        st.log("Resetting global timeout to default (no tacacs-server timeout)...")
+        output = st.config(dut, ["no tacacs-server timeout"],
+                           type=data.cli_type, skip_error_check=True)
+        output_str = output if isinstance(output, str) else str(output)
+        if "Error" in output_str and "^" in output_str:
+            st.error(f"✗ 'no tacacs-server timeout' rejected\n  Output: {output_str}")
+            return False
+        st.wait(1, "Waiting for timeout reset to apply")
+        st.log("✓ global timeout reset to N/A")
+        return True
+    except Exception as e:
+        st.error(f"Failed to reset timeout: {e}")
+        return False
+
+
+# ---------------------------------------------------------------------------
+# Helper: verify
+# ---------------------------------------------------------------------------
+
+def show_tacacs(dut: str) -> str:
+    """Run show tacacs-server and return raw string output."""
+    output = st.show(dut, "show tacacs-server", type=data.cli_type,
+                     skip_tmpl=True, skip_error_check=True)
+    return output if isinstance(output, str) else str(output) if output else ""
+
+
+def verify_global_timeout(dut: str, expected_timeout: str) -> bool:
+    """
+    Verify Global Timeout in the global section.
+    expected_timeout: "50" for a configured value, "N/A" for default/reset.
+    """
+    output_str = show_tacacs(dut)
+    st.log(f"TACACS+ output:\n{output_str}")
+    match = re.search(r'Global Timeout\s*:\s*(\S+)', output_str, re.IGNORECASE)
+    actual = match.group(1) if match else ""
+    if actual.upper() == expected_timeout.upper():
+        st.log(f"✓ Global Timeout verified: {actual}")
+        return True
+    else:
+        st.error(f"✗ Global Timeout mismatch: expected '{expected_timeout}', got '{actual}'")
+        return False
+
+
+def verify_server_present(dut: str, server_ip: str) -> bool:
+    """Verify server IP appears in HOST table."""
+    output_str = show_tacacs(dut)
+    st.log(f"TACACS+ output:\n{output_str}")
+    if server_ip in output_str:
+        st.log(f"✓ Server {server_ip} present")
+        return True
+    st.error(f"✗ Server {server_ip} not found in output")
+    return False
+
+
+def verify_server_removed(dut: str, server_ip: str) -> bool:
+    """Verify server IP is gone from HOST table."""
+    output_str = show_tacacs(dut)
+    st.log(f"TACACS+ output:\n{output_str}")
+    if server_ip not in output_str:
+        st.log(f"✓ Server {server_ip} successfully removed")
+        return True
+    st.error(f"✗ Server {server_ip} still present after removal")
+    return False
+
+
+def verify_server_authtype(dut: str, server_ip: str, expected_authtype: str) -> bool:
+    """
+    Verify AUTH-TYPE column in the HOST table row for server_ip.
+    Parses the row: HOST  AUTH-TYPE  KEY  PORT  PRIORITY  TIMEOUT  VRF
+    """
+    output_str = show_tacacs(dut)
+    st.log(f"TACACS+ output:\n{output_str}")
+    for line in output_str.splitlines():
+        if server_ip in line:
+            tokens = line.split()
+            # tokens[0]=HOST [1]=AUTH-TYPE [2]=KEY [3]=PORT [4]=PRIORITY [5]=TIMEOUT [6]=VRF
+            if len(tokens) >= 2:
+                actual = tokens[1].lower()
+                if actual == expected_authtype.lower():
+                    st.log(f"✓ AUTH-TYPE verified: {actual}")
+                    return True
+                else:
+                    st.error(f"✗ AUTH-TYPE mismatch: expected '{expected_authtype}', got '{actual}'")
+                    return False
+    st.error(f"✗ Server row for {server_ip} not found in output")
+    return False
+
+
+def verify_server_key_configured(dut: str, server_ip: str, expected: str) -> bool:
+    """
+    Verify KEY column in HOST table row for server_ip.
+    expected: 'Yes' if key is configured, 'No' if not.
+    """
+    output_str = show_tacacs(dut)
+    st.log(f"TACACS+ output:\n{output_str}")
+    for line in output_str.splitlines():
+        if server_ip in line:
+            tokens = line.split()
+            # tokens[2] = KEY (Yes/No)
+            if len(tokens) >= 3:
+                actual = tokens[2]
+                if actual.lower() == expected.lower():
+                    st.log(f"✓ KEY column verified: {actual}")
+                    return True
+                else:
+                    st.error(f"✗ KEY mismatch: expected '{expected}', got '{actual}'")
+                    return False
+    st.error(f"✗ Server row for {server_ip} not found in output")
+    return False
+
+
+# ===========================================================================
+# TEST FUNCTIONS
+# ===========================================================================
 
 @pytest.mark.tacacs
 @pytest.mark.tacacs_global
 def test_tacacs_global_01_basic_server_passkey():
     """
-    Test 01: Basic TACACS+ Server and Passkey Configuration
+    Test 01: Add server + set per-server passkey
 
-    Based on manual testing:
-    sonic(config)# tacacs server host 192.168.100.87
-    sonic(config)# tacacs passkey Test12243
-    sonic# show tacacs
+    Commands:
+      tacacs-server host 192.168.100.87
+      tacacs-server host 192.168.100.87 key Test12243
 
-    MODULE 2: Configuration
-    - Configure TACACS+ server host (192.168.100.87)
-    - Configure TACACS+ passkey (Test12243)
-
-    MODULE 3: Validation
-    - Verify server address: 192.168.100.87
-    - Verify passkey: Test12243
-    - Verify default authtype: pap
-    - Verify default timeout: 5
-    - Verify default priority: 1
-    - Verify default tcp_port: 49
-
-    Expected Outcome:
-    - Server and passkey configured successfully
-    - All default values match expected
+    Validates:
+      - Server present in HOST table
+      - KEY column = Yes (passkey configured)
     """
     st.banner("-" * 80)
-    st.banner("TEST-01: Basic TACACS+ Server and Passkey Configuration")
+    st.banner("TEST-01: Basic TACACS+ Server and Per-Server Passkey")
     st.banner("-" * 80)
 
     dut = vars.D1
     result = True
 
     try:
-        # MODULE 2: Configuration
-        st.log("MODULE 2: Configuring TACACS+ server and passkey")
+        unconfigure_all_tacacs(dut)
+        st.wait(1)
+
+        # Configure server
+        if not configure_tacacs_server(dut, CONFIG.tacacs_server_ip):
+            st.error("Failed to configure TACACS+ server")
+            result = False
+
+        # Set per-server passkey
+        if not configure_server_passkey(dut, CONFIG.tacacs_server_ip, CONFIG.tacacs_passkey_1):
+            st.error("Failed to configure per-server passkey")
+            result = False
+
+        # Verify server present
+        if not verify_server_present(dut, CONFIG.tacacs_server_ip):
+            result = False
+
+        # Verify KEY = Yes
+        if not verify_server_key_configured(dut, CONFIG.tacacs_server_ip, "Yes"):
+            result = False
+
+    except Exception as e:
+        st.error(f"Exception in TEST-01: {e}")
+        result = False
+
+    if result:
+        st.log("✅ TEST-01 PASSED: Server + per-server passkey configured and verified")
+    else:
+        st.error("❌ TEST-01 FAILED")
+
+    assert result, "Test failed: TACACS+ server + passkey"
+
+
+@pytest.mark.tacacs
+@pytest.mark.tacacs_global
+def test_tacacs_global_02_global_timeout():
+    """
+    Test 02: Global timeout configuration and reset
+
+    Commands:
+      tacacs-server host 192.168.100.87
+      tacacs-server timeout 50          <- global
+      no tacacs-server timeout          <- reset global
+
+    Validates:
+      - Global Timeout = 50 after configure
+      - Global Timeout = N/A after reset
+    """
+    st.banner("-" * 80)
+    st.banner("TEST-02: TACACS+ Global Timeout Configuration")
+    st.banner("-" * 80)
+
+    dut = vars.D1
+    result = True
+
+    try:
+        unconfigure_all_tacacs(dut)
+        st.wait(1)
 
         if not configure_tacacs_server(dut, CONFIG.tacacs_server_ip):
             st.error("Failed to configure TACACS+ server")
             result = False
 
-        if not configure_tacacs_passkey(dut, CONFIG.tacacs_passkey_1):
-            st.error("Failed to configure TACACS+ passkey")
+        # Set global timeout
+        if not configure_global_timeout(dut, CONFIG.tacacs_timeout_custom):
+            st.error("Failed to set global timeout")
             result = False
 
-        # MODULE 3: Validation
-        # Only check server_ip and passkey (key configured: Yes).
-        # Global auth-type and timeout are N/A until explicitly set.
-        st.log("MODULE 3: Validating configuration")
-        expected = {
-            "server_ip": CONFIG.tacacs_server_ip,
-            "passkey": CONFIG.tacacs_passkey_1,
-        }
-
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Validation failed")
+        # Verify global timeout = 50
+        if not verify_global_timeout(dut, CONFIG.tacacs_timeout_custom):
             result = False
-        else:
-            st.log("✓ MODULE 3: Validation passed")
 
-        # Display complete configuration
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-        st.log(f"Complete TACACS+ Configuration:\n{output}")
+        # Reset global timeout
+        if not reset_global_timeout(dut):
+            st.error("Failed to reset global timeout")
+            result = False
+
+        # Verify global timeout = N/A
+        if not verify_global_timeout(dut, "N/A"):
+            result = False
 
     except Exception as e:
-        st.error(f"Exception in test_tacacs_global_01: {str(e)}")
+        st.error(f"Exception in TEST-02: {e}")
         result = False
 
     if result:
-        st.log("✅ TEST-01 PASSED: Basic server and passkey configuration")
+        st.log("✅ TEST-02 PASSED: Global timeout configured and reset verified")
     else:
-        st.error("❌ TEST-01 FAILED: Basic server and passkey configuration")
+        st.error("❌ TEST-02 FAILED")
 
-    assert result, "Test failed: Basic TACACS+ Server and Passkey"
+    assert result, "Test failed: TACACS+ global timeout"
 
 
 @pytest.mark.tacacs
 @pytest.mark.tacacs_global
-def test_tacacs_global_02_timeout_configuration():
+def test_tacacs_global_03_authtype_pap():
     """
-    Test 02: TACACS+ Timeout Configuration
+    Test 03: Per-server auth-type PAP
 
-    Based on manual testing:
-    sonic(config)# tacacs server host 192.168.100.87
-    sonic(config)# tacacs passkey Test123
-    sonic(config)# tacacs timeout 50
-    sonic# show tacacs
+    Command:
+      tacacs-server host 192.168.100.87 auth-type pap
 
-    MODULE 2: Configuration
-    - Configure TACACS+ server host
-    - Configure TACACS+ passkey (Test123)
-    - Configure TACACS+ timeout (50)
-
-    MODULE 3: Validation
-    - Verify timeout: 50
-    - Verify passkey: Test123
-
-    Expected Outcome:
-    - Timeout configured to 50 successfully
+    Validates:
+      - AUTH-TYPE column = pap in HOST table
     """
     st.banner("-" * 80)
-    st.banner("TEST-02: TACACS+ Timeout Configuration")
+    st.banner("TEST-03: Per-Server Auth-Type PAP")
     st.banner("-" * 80)
 
     dut = vars.D1
     result = True
 
     try:
-        # Reset state from previous test
-        unconfigure_all_tacacs(dut)
-        st.wait(1)
-
-        # MODULE 2: Configuration
-        st.log("MODULE 2: Configuring TACACS+ with custom timeout")
-
-        if not configure_tacacs_server(dut, CONFIG.tacacs_server_ip):
-            st.error("Failed to configure TACACS+ server")
-            result = False
-
-        if not configure_tacacs_passkey(dut, CONFIG.tacacs_passkey_2):
-            st.error("Failed to configure TACACS+ passkey")
-            result = False
-
-        if not configure_tacacs_timeout(dut, CONFIG.tacacs_timeout_custom):
-            st.error("Failed to configure TACACS+ timeout")
-            result = False
-
-        # MODULE 3: Validation — only check what was explicitly configured
-        st.log("MODULE 3: Validating timeout configuration")
-        expected = {
-            "server_ip": CONFIG.tacacs_server_ip,
-            "passkey": CONFIG.tacacs_passkey_2,
-            "timeout": CONFIG.tacacs_timeout_custom
-        }
-
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Timeout validation failed")
-            result = False
-        else:
-            st.log("✓ MODULE 3: Timeout validation passed")
-
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-        st.log(f"TACACS+ Configuration with custom timeout:\n{output}")
-
-    except Exception as e:
-        st.error(f"Exception in test_tacacs_global_02: {str(e)}")
-        result = False
-
-    if result:
-        st.log("✅ TEST-02 PASSED: Timeout configuration")
-    else:
-        st.error("❌ TEST-02 FAILED: Timeout configuration")
-
-    assert result, "Test failed: TACACS+ Timeout Configuration"
-
-
-@pytest.mark.tacacs
-@pytest.mark.tacacs_global
-def test_tacacs_global_03_authtype_pap_default():
-    """
-    Test 03: TACACS+ Authtype PAP and Default
-
-    Based on manual testing:
-    sonic(config)# tacacs authtype pap
-    sonic(config)# tacacs default authtype
-    sonic# show tacacs
-
-    MODULE 2: Configuration
-    - Configure authtype pap
-    - Set authtype to default
-
-    MODULE 3: Validation
-    - Verify authtype: pap after configuration
-    - Verify authtype: N/A after "no tacacs-server auth-type" (global unset)
-
-    Expected Outcome:
-    - Authtype pap configured successfully
-    - After "no tacacs-server auth-type", global Authentication Type shows N/A
-    """
-    st.banner("-" * 80)
-    st.banner("TEST-03: TACACS+ Authtype PAP and Default")
-    st.banner("-" * 80)
-
-    dut = vars.D1
-    result = True
-
-    try:
-        # Reset state from previous test
         unconfigure_all_tacacs(dut)
         st.wait(1)
         configure_tacacs_server(dut, CONFIG.tacacs_server_ip)
         st.wait(1)
 
-        # MODULE 2: Configuration - authtype pap
-        st.log("MODULE 2: Configuring authtype pap")
-        if not configure_tacacs_authtype(dut, "pap"):
-            st.error("Failed to configure authtype pap")
+        if not configure_server_authtype(dut, CONFIG.tacacs_server_ip, "pap"):
+            st.error("Failed to set auth-type pap")
             result = False
 
-        # MODULE 3: Validation - authtype pap
-        st.log("MODULE 3: Validating authtype pap")
-        expected = {"authtype": "pap"}
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Authtype pap validation failed")
+        if not verify_server_authtype(dut, CONFIG.tacacs_server_ip, "pap"):
             result = False
-
-        # MODULE 2: Configuration - default authtype
-        st.log("MODULE 2: Setting authtype to default")
-        if not set_tacacs_default_authtype(dut):
-            st.error("Failed to set default authtype")
-            result = False
-
-        # MODULE 3: Validation - default authtype
-        # After "no tacacs-server auth-type", global shows "Authentication Type  : N/A"
-        st.log("MODULE 3: Validating default authtype (expect N/A in global section)")
-        expected = {"authtype": "N/A"}
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Default authtype validation failed")
-            result = False
-        else:
-            st.log("✓ MODULE 3: Default authtype verified as N/A (unset/default)")
-
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-        st.log(f"TACACS+ Configuration after default authtype:\n{output}")
 
     except Exception as e:
-        st.error(f"Exception in test_tacacs_global_03: {str(e)}")
+        st.error(f"Exception in TEST-03: {e}")
         result = False
 
     if result:
-        st.log("✅ TEST-03 PASSED: Authtype PAP and Default")
+        st.log("✅ TEST-03 PASSED: Per-server auth-type pap verified")
     else:
-        st.error("❌ TEST-03 FAILED: Authtype PAP and Default")
+        st.error("❌ TEST-03 FAILED")
 
-    assert result, "Test failed: TACACS+ Authtype PAP and Default"
+    assert result, "Test failed: per-server auth-type pap"
 
 
 @pytest.mark.tacacs
 @pytest.mark.tacacs_global
-def test_tacacs_global_04_authtype_chap_default_passkey():
+def test_tacacs_global_04_authtype_chap_and_passkey():
     """
-    Test 04: TACACS+ Authtype CHAP and Default Passkey
+    Test 04: Per-server auth-type CHAP + passkey
 
-    Based on manual testing:
-    sonic(config)# tacacs authtype chap
-    sonic(config)# tacacs default passkey
-    sonic# show tacacs
+    Commands:
+      tacacs-server host 192.168.100.87 auth-type chap
+      tacacs-server host 192.168.100.87 key Test123
 
-    MODULE 2: Configuration
-    - Configure authtype chap
-    - Set passkey to default
-
-    MODULE 3: Validation
-    - Verify authtype: chap
-    - Verify passkey: <EMPTY_STRING> (default)
-
-    Expected Outcome:
-    - Authtype changes to chap
-    - Passkey becomes <EMPTY_STRING> (default)
+    Validates:
+      - AUTH-TYPE column = chap
+      - KEY column = Yes
     """
     st.banner("-" * 80)
-    st.banner("TEST-04: TACACS+ Authtype CHAP and Default Passkey")
+    st.banner("TEST-04: Per-Server Auth-Type CHAP + Passkey")
     st.banner("-" * 80)
 
     dut = vars.D1
     result = True
 
     try:
-        # Reset state from previous test
         unconfigure_all_tacacs(dut)
         st.wait(1)
         configure_tacacs_server(dut, CONFIG.tacacs_server_ip)
-        configure_tacacs_passkey(dut, CONFIG.tacacs_passkey_2)
         st.wait(1)
 
-        # MODULE 2: Configuration - authtype chap
-        st.log("MODULE 2: Configuring authtype chap")
-        if not configure_tacacs_authtype(dut, "chap"):
-            st.error("Failed to configure authtype chap")
+        if not configure_server_authtype(dut, CONFIG.tacacs_server_ip, "chap"):
+            st.error("Failed to set auth-type chap")
             result = False
 
-        # MODULE 3: Validation - authtype chap
-        st.log("MODULE 3: Validating authtype chap")
-        expected = {"authtype": "chap"}
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Authtype chap validation failed")
+        if not configure_server_passkey(dut, CONFIG.tacacs_server_ip, CONFIG.tacacs_passkey_2):
+            st.error("Failed to set per-server passkey")
             result = False
 
-        # MODULE 2: Configuration - default passkey
-        st.log("MODULE 2: Setting passkey to default")
-        if not set_tacacs_default_passkey(dut):
-            st.error("Failed to set default passkey")
+        if not verify_server_authtype(dut, CONFIG.tacacs_server_ip, "chap"):
             result = False
 
-        # MODULE 3: Validation - default passkey
-        st.log("MODULE 3: Validating default passkey")
-        expected = {
-            "authtype": "chap",
-            "passkey": "<EMPTY_STRING>"
-        }
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Default passkey validation failed")
+        if not verify_server_key_configured(dut, CONFIG.tacacs_server_ip, "Yes"):
             result = False
-        else:
-            st.log("✓ MODULE 3: Default passkey verified as <EMPTY_STRING>")
-
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-        st.log(f"TACACS+ Configuration after default passkey:\n{output}")
 
     except Exception as e:
-        st.error(f"Exception in test_tacacs_global_04: {str(e)}")
+        st.error(f"Exception in TEST-04: {e}")
         result = False
 
     if result:
-        st.log("✅ TEST-04 PASSED: Authtype CHAP and Default Passkey")
+        st.log("✅ TEST-04 PASSED: Per-server auth-type chap + passkey verified")
     else:
-        st.error("❌ TEST-04 FAILED: Authtype CHAP and Default Passkey")
+        st.error("❌ TEST-04 FAILED")
 
-    assert result, "Test failed: TACACS+ Authtype CHAP and Default Passkey"
+    assert result, "Test failed: per-server auth-type chap + passkey"
 
 
 @pytest.mark.tacacs
 @pytest.mark.tacacs_global
-def test_tacacs_global_05_authtype_chap_default_timeout():
+def test_tacacs_global_05_authtype_login_and_global_timeout():
     """
-    Test 05: TACACS+ Authtype CHAP and Default Timeout
+    Test 05: Per-server auth-type LOGIN + global timeout
 
-    Based on manual testing:
-    sonic(config)# tacacs-server auth-type chap
-    sonic(config)# no tacacs-server timeout
-    sonic# show tacacs-server
+    Commands:
+      tacacs-server host 192.168.100.87 auth-type login
+      tacacs-server timeout 50
 
-    Note: mschap is NOT supported on this platform. Valid auth-types: pap, chap, login.
-    After "no tacacs-server timeout", global shows "Global Timeout : N/A" (unset/default).
-
-    MODULE 2: Configuration
-    - Configure authtype chap
-    - Set timeout to default (no tacacs-server timeout)
-
-    MODULE 3: Validation
-    - Verify authtype: chap
-    - Verify timeout: N/A (global default unset)
-
-    Expected Outcome:
-    - Authtype changes to chap
-    - Timeout global resets to N/A (default/unset)
+    Validates:
+      - AUTH-TYPE column = login
+      - Global Timeout = 50
     """
     st.banner("-" * 80)
-    st.banner("TEST-05: TACACS+ Authtype CHAP and Default Timeout")
+    st.banner("TEST-05: Per-Server Auth-Type LOGIN + Global Timeout")
     st.banner("-" * 80)
 
     dut = vars.D1
     result = True
 
     try:
-        # Reset state from previous test
         unconfigure_all_tacacs(dut)
         st.wait(1)
         configure_tacacs_server(dut, CONFIG.tacacs_server_ip)
-        configure_tacacs_timeout(dut, CONFIG.tacacs_timeout_custom)
         st.wait(1)
 
-        # MODULE 2: Configuration - authtype chap
-        st.log("MODULE 2: Configuring authtype chap")
-        if not configure_tacacs_authtype(dut, "chap"):
-            st.error("Failed to configure authtype chap")
+        if not configure_server_authtype(dut, CONFIG.tacacs_server_ip, "login"):
+            st.error("Failed to set auth-type login")
             result = False
 
-        # MODULE 3: Validation - authtype chap and custom timeout still set
-        st.log("MODULE 3: Validating authtype chap with custom timeout")
-        expected = {"authtype": "chap", "timeout": CONFIG.tacacs_timeout_custom}
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Authtype chap / timeout validation failed")
-            result = False
-        else:
-            st.log("✓ MODULE 3: Authtype chap verified")
-
-        # MODULE 2: Configuration - default timeout
-        st.log("MODULE 2: Setting timeout to default (no tacacs-server timeout)")
-        if not set_tacacs_default_timeout(dut):
-            st.error("Failed to set default timeout")
+        if not configure_global_timeout(dut, CONFIG.tacacs_timeout_custom):
+            st.error("Failed to set global timeout")
             result = False
 
-        # MODULE 3: Validation - after "no tacacs-server timeout", global shows N/A
-        st.log("MODULE 3: Validating default timeout (expect Global Timeout: N/A)")
-        expected = {
-            "authtype": "chap",
-            "timeout": "N/A"
-        }
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Default timeout validation failed")
+        if not verify_server_authtype(dut, CONFIG.tacacs_server_ip, "login"):
             result = False
-        else:
-            st.log("✓ MODULE 3: Default timeout verified as N/A (unset/default)")
 
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-        st.log(f"TACACS+ Configuration after default timeout:\n{output}")
+        if not verify_global_timeout(dut, CONFIG.tacacs_timeout_custom):
+            result = False
 
     except Exception as e:
-        st.error(f"Exception in test_tacacs_global_05: {str(e)}")
+        st.error(f"Exception in TEST-05: {e}")
         result = False
 
     if result:
-        st.log("✅ TEST-05 PASSED: Authtype CHAP and Default Timeout")
+        st.log("✅ TEST-05 PASSED: Per-server auth-type login + global timeout verified")
     else:
-        st.error("❌ TEST-05 FAILED: Authtype CHAP and Default Timeout")
+        st.error("❌ TEST-05 FAILED")
 
-    assert result, "Test failed: TACACS+ Authtype CHAP and Default Timeout"
+    assert result, "Test failed: per-server auth-type login + global timeout"
 
 
 @pytest.mark.tacacs
 @pytest.mark.tacacs_global
-def test_tacacs_global_06_authtype_login():
+def test_tacacs_global_06_remove_server():
     """
-    Test 06: TACACS+ Authtype LOGIN
+    Test 06: Remove TACACS+ server
 
-    Based on manual testing:
-    sonic(config)# tacacs authtype login
-    sonic# show tacacs
+    Command:
+      no tacacs-server host 192.168.100.87
 
-    MODULE 2: Configuration
-    - Configure authtype login
-
-    MODULE 3: Validation
-    - Verify authtype: login
-
-    Expected Outcome:
-    - Authtype changes to login successfully
+    Validates:
+      - Server IP no longer in show tacacs-server output
     """
     st.banner("-" * 80)
-    st.banner("TEST-06: TACACS+ Authtype LOGIN")
+    st.banner("TEST-06: Remove TACACS+ Server")
     st.banner("-" * 80)
 
     dut = vars.D1
     result = True
 
     try:
-        # Reset state from previous test
         unconfigure_all_tacacs(dut)
         st.wait(1)
         configure_tacacs_server(dut, CONFIG.tacacs_server_ip)
         st.wait(1)
 
-        # MODULE 2: Configuration - authtype login
-        st.log("MODULE 2: Configuring authtype login")
-        if not configure_tacacs_authtype(dut, "login"):
-            st.error("Failed to configure authtype login")
+        # Confirm present before removal
+        if not verify_server_present(dut, CONFIG.tacacs_server_ip):
+            st.error("Precondition failed: server not present before removal")
             result = False
 
-        # MODULE 3: Validation - authtype login
-        st.log("MODULE 3: Validating authtype login")
-        expected = {"authtype": "login"}
-        if not verify_tacacs_config(dut, expected):
-            st.error("MODULE 3: Authtype login validation failed")
-            result = False
-        else:
-            st.log("✓ MODULE 3: Authtype login verified")
+        # Remove
+        st.log(f"Removing tacacs-server host {CONFIG.tacacs_server_ip}...")
+        st.config(dut, [f"no tacacs-server host {CONFIG.tacacs_server_ip}"],
+                  type=data.cli_type, skip_error_check=True)
+        st.wait(2)
 
-        output = st.show(dut, "show tacacs-server", type=data.cli_type, skip_tmpl=True, skip_error_check=True)
-        st.log(f"TACACS+ Configuration with authtype login:\n{output}")
+        # Confirm removed
+        if not verify_server_removed(dut, CONFIG.tacacs_server_ip):
+            result = False
 
     except Exception as e:
-        st.error(f"Exception in test_tacacs_global_06: {str(e)}")
+        st.error(f"Exception in TEST-06: {e}")
         result = False
 
     if result:
-        st.log("✅ TEST-06 PASSED: Authtype LOGIN")
+        st.log("✅ TEST-06 PASSED: TACACS+ server removed and verified")
     else:
-        st.error("❌ TEST-06 FAILED: Authtype LOGIN")
+        st.error("❌ TEST-06 FAILED")
 
-    assert result, "Test failed: TACACS+ Authtype LOGIN"
+    assert result, "Test failed: TACACS+ server removal"
 
 
 @pytest.mark.tacacs
 @pytest.mark.tacacs_global
 def test_tacacs_global_07_all_authtypes():
     """
-    Test 07: Comprehensive Authtype Cycle
+    Test 07: Comprehensive per-server auth-type cycle (pap → chap → login)
 
-    MODULE 2 & 3: Test all supported authtype values
-    - Test authtype: pap, chap, login (mschap not supported on this platform)
-    - Verify each authtype configuration
+    Note: auth-type is per-server on this platform. Valid values: pap, chap, login.
+    Reconfiguring the server with a new auth-type overrides the previous one.
 
-    Expected Outcome:
-    - All valid authtype values can be configured and verified
+    Commands (per iteration):
+      no tacacs-server host <IP>                      <- remove to reset auth-type
+      tacacs-server host <IP>                         <- re-add
+      tacacs-server host <IP> auth-type <val>         <- set new auth-type
+
+    Validates:
+      - AUTH-TYPE column in HOST table matches configured value
     """
     st.banner("-" * 80)
-    st.banner("TEST-07: Comprehensive Authtype Cycle")
+    st.banner("TEST-07: Comprehensive Per-Server Auth-Type Cycle (pap/chap/login)")
     st.banner("-" * 80)
 
     dut = vars.D1
     result = True
-    # Note: mschap is NOT supported on this platform. Valid auth-types: pap, chap, login
+    # Only pap, chap, login are supported on this device
     authtypes = ["pap", "chap", "login"]
 
     try:
-        # Reset state from previous test
         unconfigure_all_tacacs(dut)
-        st.wait(1)
-        configure_tacacs_server(dut, CONFIG.tacacs_server_ip)
         st.wait(1)
 
         for authtype in authtypes:
-            st.log(f"MODULE 2: Testing authtype: {authtype}")
+            st.log(f"\n--- Testing auth-type: {authtype} ---")
 
-            if not configure_tacacs_authtype(dut, authtype):
-                st.error(f"Failed to configure authtype {authtype}")
+            # Re-add server fresh each iteration to reset auth-type
+            st.config(dut, [f"no tacacs-server host {CONFIG.tacacs_server_ip}"],
+                      type=data.cli_type, skip_error_check=True)
+            st.wait(1)
+
+            if not configure_tacacs_server(dut, CONFIG.tacacs_server_ip):
+                st.error(f"Failed to add server for auth-type={authtype}")
                 result = False
                 continue
 
-            st.log(f"MODULE 3: Validating authtype: {authtype}")
-            expected = {"authtype": authtype}
-            if not verify_tacacs_config(dut, expected):
-                st.error(f"MODULE 3: Authtype {authtype} validation failed")
+            if not configure_server_authtype(dut, CONFIG.tacacs_server_ip, authtype):
+                st.error(f"Failed to set auth-type={authtype}")
+                result = False
+                continue
+
+            if not verify_server_authtype(dut, CONFIG.tacacs_server_ip, authtype):
+                st.error(f"AUTH-TYPE verification failed for: {authtype}")
                 result = False
             else:
-                st.log(f"✓ Authtype {authtype} verified successfully")
+                st.log(f"✓ auth-type={authtype} verified successfully")
 
             st.wait(1)
 
     except Exception as e:
-        st.error(f"Exception in test_tacacs_global_07: {str(e)}")
+        st.error(f"Exception in TEST-07: {e}")
         result = False
 
     if result:
-        st.log("✅ TEST-07 PASSED: Comprehensive Authtype Cycle")
+        st.log("✅ TEST-07 PASSED: Comprehensive auth-type cycle (pap/chap/login)")
     else:
-        st.error("❌ TEST-07 FAILED: Comprehensive Authtype Cycle")
+        st.error("❌ TEST-07 FAILED")
 
-    assert result, "Test failed: Comprehensive Authtype Cycle"
+    assert result, "Test failed: Comprehensive auth-type cycle"
 
 
 if __name__ == "__main__":
-    # This allows running the script directly for debugging
     st.log("Running TACACS+ Global Configuration tests directly")
     pytest.main([__file__, "-v"])
